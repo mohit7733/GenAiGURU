@@ -131,6 +131,16 @@
     .form_group{
         &:first-of-type{
             margin-right: auto;
+            @include breakpoint(small){
+                width: calc(100% - 60px);
+            }
+        }
+        &:last-of-type{
+            button{
+                @include breakpoint(small){
+                    margin-right: 0;
+                }
+            }
         }
     }
     input{
@@ -167,6 +177,9 @@
         border: none;
         margin-right: 18px;
         outline: none;
+        @include breakpoint(small){
+            margin-right: 12px;
+        }
     }
 }
 

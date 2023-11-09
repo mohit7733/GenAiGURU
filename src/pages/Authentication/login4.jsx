@@ -17,7 +17,7 @@ const Login4 = () => {
           <h1>
             Welcome <span>👋</span>
           </h1>
-          <h2>Prosing kingdom</h2>
+          <h2>GenAIGuru</h2>
           <figure>
             <img
               src="app/images/welcomeLogo.png"

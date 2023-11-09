@@ -28,7 +28,7 @@ const Login2 = () => {
             <form action="" class="accountCreate">
               <div class="form_group flex">
                 <label for="name">Your name</label>
-                <input type="text" name="name" placeholder="Prosing kingdom" />
+                <input type="text" name="name" placeholder="GenAIGuru" />
               </div>
               <div class="form_group flex">
                 <label for="email">Email address</label>

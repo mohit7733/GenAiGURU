@@ -1,5 +1,11 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
+import Index2 from "./pages/Phase2Pages/index2";
+import Index3 from "./pages/Phase2Pages/index3";
+// import Index4 from "./pages/Phase2Pages/index4";
+import Index5 from "./pages/Phase2Pages/Index5";
+import Index6 from "./pages/Phase2Pages/Index6";
+import Index7 from "./pages/Phase2Pages/index7";
 
 export const BASE_PATH = "/";
 
@@ -62,6 +68,36 @@ export function RouterElement() {
       path: "login7",
       name: "login7",
       element: <Login7 />,
+      exact: true,
+    },
+    {
+      path: "index2",
+      name: "index2",
+      element: <Index2/>,
+      exact: true,
+    },
+    {
+      path: "index3",
+      name: "index3",
+      element: <Index3/>,
+      exact: true,
+    },
+    {
+      path: "index7",
+      name: "index7",
+      element: <Index7/>,
+      exact: true,
+    },
+    {
+      path: "index5",
+      name: "index5",
+      element: <Index5/>,
+      exact: true,
+    },
+    {
+      path: "index6",
+      name: "index6",
+      element: <Index6/>,
       exact: true,
     },
   ];
