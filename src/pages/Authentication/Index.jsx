@@ -11,7 +11,7 @@ import Categories from "../../components/Categories/Categories";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import Footer from "../../components/Layout/Footer";
-import { useRef } from 'react';
+import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -33,18 +33,18 @@ const Index = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
+          initialSlide: 1,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1.03,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
-      }
-    ]
+          initialSlide: 1,
+        },
+      },
+    ],
   };
   return (
     <>
@@ -64,7 +64,12 @@ const Index = () => {
                 </h3>
               </div>
               <div className="featuredSlider">
-                <Slider ref={sliderRef} {...settings2} id="Slider-4" className='slider_test'>
+                <Slider
+                  ref={sliderRef}
+                  {...settings2}
+                  id="Slider-4"
+                  className="slider_test"
+                >
                   <div>
                     <div className="wrap">
                       <a href="#">
@@ -85,8 +90,8 @@ const Index = () => {
                             17
                           </div>
                           <h5>
-                            It’s a catch-22 for young startups: How do you attract
-                            investors?{" "}
+                            It’s a catch-22 for young startups: How do you
+                            attract investors?{" "}
                           </h5>
                           <div className="author-tag flex">
                             <div className="col_left">
@@ -129,8 +134,8 @@ const Index = () => {
                             17
                           </div>
                           <h5>
-                            It’s a catch-22 for young startups: How do you attract
-                            investors?{" "}
+                            It’s a catch-22 for young startups: How do you
+                            attract investors?{" "}
                           </h5>
                           <div className="author-tag flex">
                             <div className="col_left">
@@ -172,8 +177,8 @@ const Index = () => {
                             17
                           </div>
                           <h5>
-                            It’s a catch-22 for young startups: How do you attract
-                            investors?{" "}
+                            It’s a catch-22 for young startups: How do you
+                            attract investors?{" "}
                           </h5>
                           <div className="author-tag flex">
                             <div className="col_left">

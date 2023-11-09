@@ -84,6 +84,11 @@ const Header = () => {
                 title="Genaiguru user image"
               />
             </Link>
+            <ul class="userNav">
+              <li>
+                <a href="#">SignUp/Login</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </header>
