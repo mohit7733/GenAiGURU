@@ -19,8 +19,8 @@ const Index3 = () => {
           <div class="leftSidebar">
             <ul class="menu">
               <li class="active">
-                <Link to={"/"}>
-                  <figure>
+              <Link to={"/"}>
+                                  <figure>
                     <img
                       src="app/images/homeIcon.png"
                       alt="Genaiguru homeIcon"
@@ -28,7 +28,7 @@ const Index3 = () => {
                     />
                   </figure>
                   Home
-                </Link>
+                  </Link>
               </li>
               <li>
                 <a href="#">

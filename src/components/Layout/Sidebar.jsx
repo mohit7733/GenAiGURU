@@ -106,7 +106,7 @@ const Sidebar = () => {
         </div>
         <ul className="bottom-menu">
           <li>
-            <a href="#">Terms & conditions</a>
+            <a href="#">Terms & Services</a>
           </li>
           <li>
             <a href="#">Privacy policy</a>

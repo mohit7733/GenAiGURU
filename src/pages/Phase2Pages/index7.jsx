@@ -443,7 +443,12 @@ const Index7 = () => {
                       </button>
                     </div>
                     <div class="form_group">
-                      <button type="submit">
+                      <button
+                        type="submit"
+                        onClick={() => {
+                          navigate("/index5");
+                        }}
+                      >
                         <img
                           src="app/images/sendButtonIcon.png"
                           alt="Genaiguru sendButtonIcon"
@@ -457,16 +462,16 @@ const Index7 = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="fixedBtn">
-          <figure>
-            <img
-              src="app/images/fixedButtonLogo.png"
-              alt="Genaiguru scroll button"
-              title="Genaiguru scroll button"
-            />
-          </figure>
-        </div>
+      <div class="fixedBtn">
+        <figure>
+          <img
+            src="app/images/fixedButtonLogo.png"
+            alt="Genaiguru scroll button"
+            title="Genaiguru scroll button"
+          />
+        </figure>
       </div>
     </div>
   );

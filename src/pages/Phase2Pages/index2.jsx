@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Index2 = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <>
       <section class="mainWrapper mobileMainWrap flex">
         <div class="sideBarWrap mobileSideBar">
           <figure class="headerLogo innersidebar">
@@ -19,7 +19,7 @@ const Index2 = () => {
           <div class="leftSidebar">
             <ul class="menu">
               <li class="active">
-                <Link to={"/"}>
+                <a href="#">
                   <figure>
                     <img
                       src="app/images/homeIcon.png"
@@ -28,7 +28,7 @@ const Index2 = () => {
                     />
                   </figure>
                   Home
-                </Link>
+                </a>
               </li>
               <li>
                 <a href="#">
@@ -118,7 +118,7 @@ const Index2 = () => {
             </div>
             <ul class="bottom-menu">
               <li>
-                <a href="#">Terms & service</a>
+                <a href="#">Terms & Services</a>
               </li>
               <li>
                 <a href="#">Privacy policy</a>
@@ -173,7 +173,7 @@ const Index2 = () => {
             </div>
             <div class="left_col">
               <div class="wrap">
-                <h1>Hi there! how can i help you</h1>
+                <h1>Hi there! how can I help you</h1>
                 <div class="wrapperSearchs">
                   <div class="innerSearchForm flex">
                     <figure class="logoIcon">
@@ -213,7 +213,7 @@ const Index2 = () => {
                   </div>
                 </div>
                 <p class="lightText">
-                  What can i help you with today? Please select the closest
+                  What can I help you with today? Please select the closest
                   reply <br /> that applies to your need.
                 </p>
                 <div class="textBox">
@@ -248,7 +248,6 @@ const Index2 = () => {
             />
           </figure>
         </div>
-
         <div class="help-section flex">
           <div class="genaiguruSelect flex">
             <figure>
@@ -266,7 +265,7 @@ const Index2 = () => {
           </div>
           <div class="left_col">
             <div class="wrap">
-              <h1>Hi there! how can i help you</h1>
+              <h1>Hi there! how can I help you</h1>
               <div class="lightText flex">
                 <figure>
                   <img
@@ -276,7 +275,7 @@ const Index2 = () => {
                   />
                 </figure>
                 <p>
-                  What can i help you with today? Please select the closest
+                  What can I help you with today? Please select the closest
                   reply that applies to your need.
                 </p>
               </div>
@@ -305,7 +304,7 @@ const Index2 = () => {
                       title="Genaiguru search icon logo"
                     />
                   </figure>
-                  <form action="" class="flex searchFormLong">
+                  <div class="flex searchFormLong">
                     <div class="form_group">
                       <input type="text" placeholder="Ask me anything..." />
                     </div>
@@ -333,7 +332,7 @@ const Index2 = () => {
                         />
                       </button>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -350,7 +349,7 @@ const Index2 = () => {
           />
         </figure>
       </div>
-    </div>
+    </>
   );
 };
 

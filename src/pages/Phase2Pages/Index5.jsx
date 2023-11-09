@@ -166,6 +166,7 @@ const Index5 = () => {
             </ul>
             <div class="left_col">
               <div class="wrap">
+                <h1>What would you like to write a blog article about</h1>
                 <div class="wrapperSearchs">
                   <div class="innerSearchForm flex">
                     <figure class="logoIcon">

@@ -35,7 +35,7 @@ const Login2 = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="prosing@gmail.com"
+                  placeholder="GenAIGuru@gmail.com"
                 />
               </div>
               <div class="form_group flex">
