@@ -7,7 +7,7 @@ const Sidebar = () => {
       <div className="leftSidebar">
         <ul className="menu">
           <li>
-            <Link to={"/"}>
+            <Link to={"/index2"}>
               <figure>
                 <img
                   src="app/images/homeIcon.png"

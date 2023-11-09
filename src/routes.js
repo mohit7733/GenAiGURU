@@ -19,6 +19,7 @@ const Login4 = React.lazy(() => import("./pages/Authentication/login4"));
 const Login5 = React.lazy(() => import("./pages/Authentication/login5"));
 const Login6 = React.lazy(() => import("./pages/Authentication/login6"));
 const Login7 = React.lazy(() => import("./pages/Authentication/login7"));
+const Login8 = React.lazy(() => import("./pages/Authentication/login8"));
 
 export function RouterElement() {
   const routes = [
@@ -71,33 +72,39 @@ export function RouterElement() {
       exact: true,
     },
     {
+      path: "Sign-in",
+      name: "Sign-in",
+      element: <Login8 />,
+      exact: true,
+    },
+    {
       path: "index2",
       name: "index2",
-      element: <Index2/>,
+      element: <Index2 />,
       exact: true,
     },
     {
       path: "index3",
       name: "index3",
-      element: <Index3/>,
+      element: <Index3 />,
       exact: true,
     },
     {
       path: "index7",
       name: "index7",
-      element: <Index7/>,
+      element: <Index7 />,
       exact: true,
     },
     {
       path: "index5",
       name: "index5",
-      element: <Index5/>,
+      element: <Index5 />,
       exact: true,
     },
     {
       path: "index6",
       name: "index6",
-      element: <Index6/>,
+      element: <Index6 />,
       exact: true,
     },
   ];
