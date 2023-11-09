@@ -11,7 +11,7 @@ const Popularvideos = () => {
     dots: false,
     infinite: true,
     slidesToShow: 3,
-    arrows: true,
+    arrows: false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
