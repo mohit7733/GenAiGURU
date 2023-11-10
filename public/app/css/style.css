@@ -888,7 +888,7 @@ header .hamburger {
 
 header .searchbar {
     margin-left: 64px;
-    width: 385px;
+    width: 300px;
     border-radius: 12px;
     border: 2px solid rgba(56, 77, 95, .58);
     padding: 5.5px 10px;
