@@ -77,7 +77,15 @@ const Header = () => {
             </Link>
           </li>
           <li className="userIcon">
-            <Link to={"/login"}>
+            {/* Login page link before user login */}
+            {/* <Link to={"/login"}>
+              <img
+                src={userimageIcon}
+                alt="Genaiguru user image"
+                title="Genaiguru user image"
+              />
+            </Link> */}
+            <Link to={"/phasepage1"}>
               <img
                 src={userimageIcon}
                 alt="Genaiguru user image"

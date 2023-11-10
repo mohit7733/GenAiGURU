@@ -6,6 +6,10 @@ import Index3 from "./pages/Phase2Pages/index3";
 import Index5 from "./pages/Phase2Pages/Index5";
 import Index6 from "./pages/Phase2Pages/Index6";
 import Index7 from "./pages/Phase2Pages/index7";
+import EditProfile from "./pages/Phase3pages/EditProfile";
+import SocialProfileEdit from "./pages/Phase3pages/SocialProfileEdit";
+import VideoPlay from "./pages/Phase3pages/VideoPlay";
+import Profile from "./pages/Phase3pages/Profile";
 
 export const BASE_PATH = "/";
 
@@ -73,31 +77,56 @@ export function RouterElement() {
     {
       path: "index2",
       name: "index2",
-      element: <Index2/>,
+      element: <Index2 />,
       exact: true,
     },
     {
       path: "index3",
       name: "index3",
-      element: <Index3/>,
+      element: <Index3 />,
       exact: true,
     },
     {
       path: "index7",
       name: "index7",
-      element: <Index7/>,
+      element: <Index7 />,
       exact: true,
     },
     {
       path: "index5",
       name: "index5",
-      element: <Index5/>,
+      element: <Index5 />,
       exact: true,
     },
     {
       path: "index6",
       name: "index6",
-      element: <Index6/>,
+      element: <Index6 />,
+      exact: true,
+    },
+    {
+      path: "phasepage1",
+      name: "phasepage1",
+      element: <Profile />,
+      exact: true,
+    },
+    {
+      path: "phasepage2",
+      name: "phasepage2",
+      element: <EditProfile />,
+      exact: true,
+    },
+
+    {
+      path: "phasepage3",
+      name: "phasepage3",
+      element: <SocialProfileEdit />,
+      exact: true,
+    },
+    {
+      path: "phasepage4",
+      name: "phasepage4",
+      element: <VideoPlay />,
       exact: true,
     },
   ];

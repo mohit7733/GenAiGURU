@@ -19,7 +19,7 @@ const Index2 = () => {
           <div class="leftSidebar">
             <ul class="menu">
               <li class="active">
-                <a href="#">
+                <Link to={"/"}>
                   <figure>
                     <img
                       src="app/images/homeIcon.png"
@@ -28,7 +28,7 @@ const Index2 = () => {
                     />
                   </figure>
                   Home
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#">

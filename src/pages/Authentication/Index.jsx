@@ -56,6 +56,7 @@ const Index = () => {
             <Latestblog />
             <Popularvideos />
             <Populararticles />
+            {/* Slider Code Inside this div */}
             <div className="featuredArticle">
               <div className="heading-link flex">
                 <h3>
