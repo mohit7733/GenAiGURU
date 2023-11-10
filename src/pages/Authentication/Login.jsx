@@ -39,7 +39,7 @@ const Login = () => {
                 Continue with Facebook
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#" class="flex">
                 <img
                   src="app/images/appleIcon.png"
@@ -48,7 +48,7 @@ const Login = () => {
                 />{" "}
                 Continue with Apple
               </a>
-            </li>
+            </li> */}
             <li>
               <NavLink to={"/login2"} class="flex">
                 Sign up with Email
