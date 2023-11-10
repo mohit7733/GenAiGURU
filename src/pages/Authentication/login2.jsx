@@ -57,9 +57,8 @@ const Login2 = () => {
               </div>
             </form>
             <p class="termsText">
-              By continuing, you agree to our{" "}
-              <a href="#">Terms and conditions</a> and{" "}
-              <a href="#">Privacy Policy.</a>
+              By continuing, you agree to our <a href="#">Terms and Services</a>{" "}
+              and <a href="#">Privacy Policy.</a>
             </p>
             <div class="starsImg">
               <img src="app/images/star.png" alt="Genaiguru stars" />

@@ -59,7 +59,7 @@ const Login = () => {
             Already have an account? <Link to="/Sign-in">Log in</Link>
           </p>
           <p class="termsText">
-            By continuing, you agree to our <a href="#">Terms and conditions</a>{" "}
+            By continuing, you agree to our <a href="#">Terms and Services</a>{" "}
             and <a href="#">Privacy Policy.</a>
           </p>
           <div class="starsImg">
