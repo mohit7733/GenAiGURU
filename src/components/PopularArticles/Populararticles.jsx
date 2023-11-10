@@ -11,7 +11,7 @@ const Populararticles = () => {
     dots: false,
     infinite: true,
     slidesToShow: 3,
-    arrows: false,
+    arrows: true,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,

@@ -7,7 +7,7 @@ const Sidebar = () => {
       <div className="leftSidebar">
         <ul className="menu">
           <li>
-            <Link to={"/"}>
+            <Link to={"/index2"}>
               <figure>
                 <img
                   src="app/images/homeIcon.png"
@@ -27,7 +27,7 @@ const Sidebar = () => {
                   title="Genaiguru guruGoldIcon"
                 />
               </figure>
-              Gurugold
+              Guru Gold
             </a>
           </li>
           <li>
@@ -39,7 +39,7 @@ const Sidebar = () => {
                   title="Genaiguru guruKeepsIcon"
                 />
               </figure>
-              Guru keeps
+              Guru Keeps
             </a>
           </li>
           <li>
@@ -51,7 +51,7 @@ const Sidebar = () => {
                   title="Genaiguru guruJournalIcon"
                 />
               </figure>
-              Guru journal
+              Guru Journal
             </a>
           </li>
           <li>
@@ -63,7 +63,7 @@ const Sidebar = () => {
                   title="Genaiguru teamGuruIcon"
                 />
               </figure>
-              Team guru
+              Team Guru
             </a>
           </li>
           <li>
@@ -75,7 +75,7 @@ const Sidebar = () => {
                   title="Genaiguru contactToGuruIcon"
                 />
               </figure>
-              Contact to guru genesis
+              Contact
             </a>
           </li>
           <li>

@@ -13,7 +13,7 @@ const Index5 = () => {
               <img
                 src="app/images/headerLogo.png"
                 alt="Genaiguru header logo"
-                title="Genaiguru header logo"
+                title="Genaiguru"
               />
             </a>
           </figure>
@@ -40,7 +40,7 @@ const Index5 = () => {
                       title="Genaiguru guruGoldIcon"
                     />
                   </figure>
-                  Gurugold
+                  Guru Gold
                 </a>
               </li>
               <li>
@@ -52,7 +52,7 @@ const Index5 = () => {
                       title="Genaiguru guruKeepsIcon"
                     />
                   </figure>
-                  Guru keeps
+                  Guru Keeps
                 </a>
               </li>
               <li>
@@ -64,7 +64,7 @@ const Index5 = () => {
                       title="Genaiguru guruJournalIcon"
                     />
                   </figure>
-                  Guru journal
+                  Guru Journal
                 </a>
               </li>
               <li>
@@ -76,7 +76,7 @@ const Index5 = () => {
                       title="Genaiguru teamGuruIcon"
                     />
                   </figure>
-                  Team guru
+                  Team Guru
                 </a>
               </li>
               <li>
@@ -88,7 +88,7 @@ const Index5 = () => {
                       title="Genaiguru contactToGuruIcon"
                     />
                   </figure>
-                  Contact to guru genesis
+                  Contact
                 </a>
               </li>
               <li>
@@ -178,12 +178,15 @@ const Index5 = () => {
                       </div>
                       <div class="form_group micBtns">
                         <button type="button">
-                          <img src="app/images/micIcon.png" />
+                          <img src="app/images/micIcon.png" alt="Genaiguru micIcon"
+                            title="Speak Now" />
                         </button>
                       </div>
                       <div class="form_group">
                         <button type="submit">
-                          <img src="app/images/sendButtonIcon.png" />
+                          <img src="app/images/sendButtonIcon.png"  
+                            title="Send"
+                          />
                         </button>
                       </div>
                     </div>

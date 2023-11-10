@@ -1,25 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Login8 = () => {
   return (
     <div>
       {/* <!-- loader start here --> */}
-      <div class="loader">
+      {/* <div class="loader">
         <img
           src="app/images/lodingLogo.png"
           alt="Genaiguru logo"
           title="Genaiguru Logo"
         />
-      </div>
+      </div> */}
       {/* <!-- loader end here -->
 
     <!-- account create section start here --> */}
       <section class="createAccount mainBg">
         <div class="wrapper400">
           <div class="backBtn">
-            <a href="#">
+            <Link to="/">
               <i class="fa fa-angle-left" aria-hidden="true"></i>
-            </a>
+            </Link>
             Back
           </div>
           <h1>
@@ -31,7 +32,7 @@ const Login8 = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="prosing@gmail.com"
+                placeholder="GenAIGuru@gmail.com"
               />
             </div>
             <div class="form_group flex">
