@@ -18,7 +18,7 @@ const Header = () => {
             <img
               src="app/images/headerLogo.png"
               alt="Genaiguru header logo"
-              title="Genaiguru logo"
+              title="Genaiguru"
             />
           </a>
         </figure>
@@ -57,13 +57,13 @@ const Header = () => {
             </a>
           </li>
           <li className="secondaryBtn">
-            <Link to={"/index2"}>
+            <Link to={"/index5"}>
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru padIcon"
                 title="Genaiguru padIcon"
               />{" "}
-              Write to AI
+              Write with AI
             </Link>
           </li>
           <li className="secondaryBtn mobile">

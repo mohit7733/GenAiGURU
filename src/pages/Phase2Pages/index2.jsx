@@ -12,7 +12,7 @@ const Index2 = () => {
               <img
                 src="app/images/headerLogo.png"
                 alt="Genaiguru header logo"
-                title="Genaiguru header logo"
+                title="Genaiguru"
               />
             </a>
           </figure>
@@ -39,7 +39,7 @@ const Index2 = () => {
                       title="Genaiguru guruGoldIcon"
                     />
                   </figure>
-                  Gurugold
+                  Guru Gold
                 </a>
               </li>
               <li>
@@ -51,7 +51,7 @@ const Index2 = () => {
                       title="Genaiguru guruKeepsIcon"
                     />
                   </figure>
-                  Guru keeps
+                  Guru Keeps
                 </a>
               </li>
               <li>
@@ -63,7 +63,7 @@ const Index2 = () => {
                       title="Genaiguru guruJournalIcon"
                     />
                   </figure>
-                  Guru journal
+                  Guru Journal
                 </a>
               </li>
               <li>
@@ -75,7 +75,7 @@ const Index2 = () => {
                       title="Genaiguru teamGuruIcon"
                     />
                   </figure>
-                  Team guru
+                  Team Guru
                 </a>
               </li>
               <li>
@@ -87,7 +87,7 @@ const Index2 = () => {
                       title="Genaiguru contactToGuruIcon"
                     />
                   </figure>
-                  Contact to guru genesis
+                  Contact
                 </a>
               </li>
               <li>
