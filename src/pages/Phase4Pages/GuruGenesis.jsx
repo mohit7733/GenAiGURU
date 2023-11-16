@@ -242,7 +242,7 @@ const GuruGenesis = () => {
         <div class="rightSection">
           <div class="keeps-container">
             <div class="gurukeeps-wrapper ">
-              <h1>Contact to guru genesis</h1>
+              <h1>Contact to Guru Genesis</h1>
               {/* <!-- tab-link start here --> */}
               <ul class="connect-link flex">
                 <li>

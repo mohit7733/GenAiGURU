@@ -236,7 +236,7 @@ const GuruKeeps = () => {
         <div class="rightSection">
           <div class="keeps-container">
             <div class="gurukeeps-wrapper flex align-center space-between">
-              <h1>Guru keeps</h1>
+              <h1>Guru Keeps</h1>
               <span>39 Saved</span>
             </div>
             <div class="interest-guru ">

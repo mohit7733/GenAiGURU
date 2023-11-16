@@ -1,8 +1,9 @@
 import React from "react";
-import { useRef } from 'react';
+import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const Latestblog = () => {
   const sliderRef = useRef();
@@ -22,28 +23,33 @@ const Latestblog = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
+          initialSlide: 1,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
-      }
-    ]
+          initialSlide: 1,
+        },
+      },
+    ],
   };
   return (
     <>
       <div className="blog-wrap">
         <h1>Latest blog</h1>
         <div className="blog-slider ">
-          <Slider ref={sliderRef} {...settings2} id="Slider-4" className='slider_test'>
+          <Slider
+            ref={sliderRef}
+            {...settings2}
+            id="Slider-4"
+            className="slider_test"
+          >
             <div>
               <div className="wrap">
-                <a href="#">
+                <Link to="/featuredcontent">
                   <figure>
                     <img
                       src="app/images/blogImgOne.png"
@@ -63,12 +69,12 @@ const Latestblog = () => {
                       />
                     </button>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div>
               <div className="wrap">
-                <a href="#">
+                <Link to="/featuredcontent">
                   <figure>
                     <img
                       src="app/images/blogImgTwo.png"
@@ -88,12 +94,12 @@ const Latestblog = () => {
                       />
                     </button>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div>
               <div className="wrap">
-                <a href="#">
+                <Link to="/featuredcontent">
                   <figure>
                     <img
                       src="app/images/blogImgOne.png"
@@ -113,7 +119,7 @@ const Latestblog = () => {
                       />
                     </button>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div>

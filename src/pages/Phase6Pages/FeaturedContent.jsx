@@ -1,297 +1,132 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const GuruJournal = () => {
+const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(1);
+
+  const sliderRef = useRef();
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
+
+  // Slider Code
+  var settings2 = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    arrows: false,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <div>
-      {/* <!-- header section start here --> */}
-      {/* <header class="flex">
-        <div class="hamburger">
-          <img
-            src="app/images/hamburgerIcon.png"
-            alt="Genaiguru hamburger"
-            title="Genaiguru hamburger "
-          />
-        </div>
-        <figure class="headerLogo">
-          <a href="#">
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-              title="Genaiguru logo"
-            />
-          </a>
-        </figure>
-        <div class="searchbar flex">
-          <figure class="icon">
-            <img
-              src="app/images/searchIconHeader.png"
-              alt="Genaiguru small logo"
-              title="Genaiguru small logo"
-            />
-          </figure>
-          <form action="">
-            <div class="form_group">
-              <input type="search" placeholder="Search genaiguru" />
-            </div>
-          </form>
-        </div>
-        <ul class="leftSide flex">
-          <li class="headerIcon">
-            <a href="#">
-              <img
-                src="app/images/notificationIcon.png"
-                alt="Genaiguru notificationIcon"
-                title="Genaiguru notificationIcon"
-              />
-            </a>
-          </li>
-          <li class="headerIcon">
-            <a href="#">
-              <img
-                src="app/images/elementsIcon.png"
-                alt="Genaiguru elementsIcon"
-                title="Genaiguru elementsIcon"
-              />{" "}
-              <span class="count">22</span>
-            </a>
-          </li>
-          <li class="secondaryBtn">
-            <a href="#">
-              <img
-                src="app/images/padIcon.png"
-                alt="Genaiguru padIcon"
-                title="Genaiguru padIcon"
-              />{" "}
-              Write to AI
-            </a>
-          </li>
-          <li class="secondaryBtn mobile">
-            <a href="#">
-              <img
-                src="app/images/padIcon.png"
-                alt="Genaiguru mobile padIcon"
-                title="Genaiguru mobile padIcon"
-              />
-              Write
-            </a>
-          </li>
-          <li class="userIcon">
-            <a href="#">
-              <img
-                src="app/images/userIcon.png"
-                alt="Genaiguru user image"
-                title="Genaiguru user image"
-              />
-            </a>
-            <ul class="userNav">
-              <li>
-                <a href="#">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </header> */}
-      {/* <!-- header section end here --> */}
-
-      {/* <!-- main section start here --> */}
       <section class="mainWrapper flex">
-        {/* <div class="leftSidebar">
-          <ul class="menu">
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/homeIcon.png"
-                    alt="Genaiguru home icon"
-                    title="Genaiguru home icon"
-                  />
-                </figure>
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/guruGoldIcon.png"
-                    alt="Genaiguru guruGoldIcon"
-                    title="Genaiguru guruGoldIcon"
-                  />
-                </figure>
-                Gurugold
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/guruKeepsIcon.png"
-                    alt="Genaiguru guruKeepsIcon"
-                    title="Genaiguru guruKeepsIcon"
-                  />
-                </figure>
-                Guru keeps
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/guruJournalIcon.png"
-                    alt="Genaiguru guruJournalIcon"
-                    title="Genaiguru guruJournalIcon"
-                  />
-                </figure>
-                Guru journal
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/teamGuruIcon.png"
-                    alt="Genaiguru teamGuruIcon"
-                    title="Genaiguru teamGuruIcon"
-                  />
-                </figure>
-                Team guru
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/contactToGuruIcon.png"
-                    alt="Genaiguru contactToGuruIcon"
-                    title="Genaiguru contactToGuruIcon"
-                  />
-                </figure>
-                Contact to guru genesis
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <figure>
-                  <img
-                    src="app/images/settingIcon.png"
-                    alt="Genaiguru settingIcon"
-                    title="Genaiguru settingIcon"
-                  />
-                </figure>
-                Settings
-              </a>
-            </li>
-          </ul>
-          <div class="newsletter">
-            <h5>Joining our newsletter</h5>
-            <form action="">
-              <div class="form_group">
-                <input type="email" placeholder="Email address" />
-              </div>
-              <div class="form_group">
-                <button type="button" class="loginBtn">
-                  Subscribe
-                </button>
-              </div>
-            </form>
-          </div>
-          <ul class="bottom-menu">
-            <li>
-              <a href="#">Terms & Services</a>
-            </li>
-            <li>
-              <a href="#">Privacy policy</a>
-            </li>
-          </ul>
-          <ul class="social-icons flex">
-            <li>
-              <a href="#" target="_blank">
-                <img
-                  src="app/images/facebookIconNew.png"
-                  alt="Genaiguru facebook icon"
-                  title="Genaiguru on facebook"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img
-                  src="app/images/youtubeIcon.png"
-                  alt="Genaiguru youtube icon"
-                  title="Genaiguru on youtube"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img
-                  src="app/images/twitter.png"
-                  alt="Genaiguru twitter icon"
-                  title="Genaiguru on twitter"
-                />
-              </a>
-            </li>
-          </ul>
-        </div> */}
         <div class="rightSection">
-          <div class="keeps-container">
+          <div class="keeps-container featuredConatiner">
             <div class="gurukeeps-wrapper">
-              <h1>Guru Journal</h1>
+              <div class="innerBreadcrumb">
+                <p>
+                  <a href="#">Home</a>{" "}
+                  <i class="fa fa-angle-right" aria-hidden="true"></i> Featured
+                  content
+                </p>
+              </div>
+              <h1>Featured content</h1>
               {/* <!-- tab-link start here --> */}
-              <ul class="connect-link flex">
-                <li>
-                  <Link
-                    onClick={() => handleTabClick(1)}
-                    className={activeTab === 1 ? "tab active" : ""}
-                    data-toggle-target=".tab-content-1"
-                  >
-                    All
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    onClick={() => handleTabClick(2)}
-                    className={activeTab === 2 ? "tab active" : ""}
-                    data-toggle-target=".tab-content-2"
-                  >
-                    Ai in healthcare
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    onClick={() => handleTabClick(3)}
-                    className={activeTab === 3 ? "tab active" : ""}
-                    data-toggle-target=".tab-content-3"
-                  >
-                    ML in finance
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    onClick={() => handleTabClick(4)}
-                    className={activeTab === 4 ? "tab active" : ""}
-                    data-toggle-target=".tab-content-4"
-                  >
-                    Crypto
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    onClick={() => handleTabClick(5)}
-                    className={activeTab === 5 ? "tab active" : ""}
-                    data-toggle-target=".tab-content-5"
-                  >
-                    Bitcoin
-                  </Link>
-                </li>
-              </ul>
+              <div class="row flex space-between align-center">
+                <ul class="connect-link flex">
+                  <li>
+                    <Link
+                      onClick={() => handleTabClick(1)}
+                      className={activeTab === 1 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-1"
+                    >
+                      All
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={() => handleTabClick(2)}
+                      className={activeTab === 2 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-2"
+                    >
+                      Ai in healthcare
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={() => handleTabClick(3)}
+                      className={activeTab === 3 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-3"
+                    >
+                      ML in finance
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={() => handleTabClick(4)}
+                      className={activeTab === 4 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-4"
+                    >
+                      Crypto
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={() => handleTabClick(5)}
+                      className={activeTab === 5 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-5"
+                    >
+                      Bitcoin
+                    </Link>
+                  </li>
+                </ul>
+                <div class="connect-box">
+                  <ul class="flex">
+                    <li>
+                      <Link to="/sortbydate">
+                        <figure>
+                          <img src="./app/images/sorting-icon.png" alt="" />
+                        </figure>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/featuredpopup">
+                        <figure>
+                          <img src="./app/images/filter-icon.png" alt="" />
+                        </figure>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               {/* <!-- tab-link start here --> */}
             </div>
             {/* <!-- tab-content here --> */}
@@ -1225,12 +1060,252 @@ const GuruJournal = () => {
                 </div>
               </div>
             )}
+            <div class="home-category">
+              <div class="heading-link flex">
+                <h3>Categories</h3>
+              </div>
+              <ul class="flex">
+                <li>
+                  <a href="#">
+                    <img
+                      src="app/images/paint-board.png"
+                      alt="Genaiguru paint-board"
+                      title="Genaiguru paint-board"
+                    />{" "}
+                    AI in Healthcare
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      src="app/images/paint-board.png"
+                      alt="Genaiguru paint-board"
+                      title="Genaiguru paint-board"
+                    />{" "}
+                    Data science
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      src="app/images/paint-board.png"
+                      alt="Genaiguru paint-board"
+                      title="Genaiguru paint-board"
+                    />{" "}
+                    Large Language models
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      src="app/images/paint-board.png"
+                      alt="Genaiguru paint-board"
+                      title="Genaiguru paint-board"
+                    />{" "}
+                    Data science
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      src="app/images/paint-board.png"
+                      alt="Genaiguru paint-board"
+                      title="Genaiguru paint-board"
+                    />{" "}
+                    Data science
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img
+                      src="app/images/paint-board.png"
+                      alt="Genaiguru paint-board"
+                      title="Genaiguru paint-board"
+                    />{" "}
+                    Large Language models
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="youtube-wraper">
+              <h3>Youtube channel</h3>
+              <div class="wrap-container channelSlider">
+                <Slider
+                  ref={sliderRef}
+                  {...settings2}
+                  id="Slider-4"
+                  className="slider_test"
+                >
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Coodkeno</h6>
+                      <p>27.7M subscribers</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Coodkeno</h6>
+                      <p>27.7M subscribers</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Coodkeno</h6>
+                      <p>27.7M subscribers</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Webcood</h6>
+                      <p>UX Content writer</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Bubbble</h6>
+                      <p>UX Content writer</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Jms Mittan</h6>
+                      <p>UX Content writer</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Jms Mittan</h6>
+                      <p>UX Content writer</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Jms Mittan</h6>
+                      <p>UX Content writer</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="channel-box">
+                      <a href="#">
+                        <figure>
+                          <img
+                            src="./app/images/channel-1.png"
+                            alt="Genaiguru channel-1"
+                            title="Genaiguru channel-1"
+                          />
+                        </figure>
+                      </a>
+                      <h6>Jms Mittan</h6>
+                      <p>UX Content writer</p>
+                      <div class="btnWrap">
+                        <button type="button">Subscribe</button>
+                      </div>
+                    </div>
+                  </div>
+                </Slider>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      {/* <!-- main section end here --> */}
     </div>
   );
 };
 
-export default GuruJournal;
+export default FeaturedContent;

@@ -19,7 +19,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/gurugenesis">
+            <Link to="/gurugold">
               <figure>
                 <img
                   src="app/images/guruGoldIcon.png"
@@ -79,7 +79,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/settings">
               <figure>
                 <img
                   src="app/images/settingIcon.png"
@@ -88,7 +88,7 @@ const Sidebar = () => {
                 />
               </figure>
               Settings
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="newsletter">

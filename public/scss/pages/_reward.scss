@@ -1,0 +1,99 @@
+.rightSection{
+    .guru-gold-silver{
+    .access-rewards{
+        border-radius: 16px;
+        box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+        background: rgba(198, 208, 225, 0.12);
+       backdrop-filter: blur(20px);
+       margin-top: 32px;
+       padding: 12px 21px 28px 24px;
+       margin-right: 10px;
+     .content-box{
+        position: relative;
+        margin-bottom: 18px;
+        &::after{
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 4px;
+            width: 2px;
+            height: 42px;
+            background: linear-gradient(87.97deg,#B03FCC 2.88%,#683FE4 25.56%,rgba(216,63,190,.94) 114.56%),linear-gradient(0deg,rgba(255,255,255,.21),rgba(255,255,255,.21));
+         }
+        h5{
+            font-weight: 600;
+            font-size: 20px;
+            font-family: $font-family-PlusSemiBold;
+            line-height: 1.25em;
+        }
+        p{
+         font-size: 14px;
+         font-weight: 500;
+         color: #A5A9AD;
+         font-family: $font-family-PlusMedium;
+        }
+     }
+     .reward-container{
+        padding: 11px 21px 14px 20px;
+        border-radius: 12px;
+        background: rgba(198, 208, 225, 0.10);
+       box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+       backdrop-filter: blur(20px);
+       margin-bottom: 12px;
+        h6{
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            font-family: $font-family-PlusSemiBold;
+        }
+        span{
+            color: #fff;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            figure{
+                margin-right: 3px;
+                img{
+                width: 24px;
+                }
+            }
+        }
+     }
+    }
+    .reach-days{
+        margin-top: 16px;
+        .access-rewards{
+            margin-top: 0;
+        }
+    }
+    // milestone
+    .coin-style{
+        margin-right: 32px;
+        position: relative;
+        &:nth-of-type(2n){
+            margin-right: 0;
+        }
+        .silver-coin-box{
+            position: relative;
+            &::before{
+                content: "Keep using to earn more points & unlock this reward label";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 8px;
+                backdrop-filter: blur(5px);
+                 z-index: 1;
+                 color: #fff;
+                &:nth-of-type(1)::before{
+                display: none;
+                 }
+            }
+        }
+     
+    }
+
+}
+}
