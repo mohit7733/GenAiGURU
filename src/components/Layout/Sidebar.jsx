@@ -7,7 +7,7 @@ const Sidebar = () => {
       <div className="leftSidebar">
         <ul className="menu">
           <li>
-            <Link to={"/index2"}>
+            <Link to={"/"}>
               <figure>
                 <img
                   src="app/images/homeIcon.png"
@@ -19,7 +19,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/gurugenesis">
               <figure>
                 <img
                   src="app/images/guruGoldIcon.png"
@@ -28,10 +28,10 @@ const Sidebar = () => {
                 />
               </figure>
               Guru Gold
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/gurukeeps">
               <figure>
                 <img
                   src="app/images/guruKeepsIcon.png"
@@ -40,10 +40,10 @@ const Sidebar = () => {
                 />
               </figure>
               Guru Keeps
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/gurujournal">
               <figure>
                 <img
                   src="app/images/guruJournalIcon.png"
@@ -52,10 +52,10 @@ const Sidebar = () => {
                 />
               </figure>
               Guru Journal
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/subscriptions">
               <figure>
                 <img
                   src="app/images/teamGuruIcon.png"
@@ -64,10 +64,10 @@ const Sidebar = () => {
                 />
               </figure>
               Team Guru
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/gurugenesis">
               <figure>
                 <img
                   src="app/images/contactToGuruIcon.png"
@@ -76,7 +76,7 @@ const Sidebar = () => {
                 />
               </figure>
               Contact
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#">
@@ -92,7 +92,7 @@ const Sidebar = () => {
           </li>
         </ul>
         <div className="newsletter">
-          <h5>Joining our newsletter</h5>
+          <h5>Join our newsletter</h5>
           <form action="">
             <div className="form_group">
               <input type="email" placeholder="Email address" />

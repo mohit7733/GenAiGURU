@@ -6,7 +6,7 @@ const Index2 = () => {
   return (
     <>
       <section class="mainWrapper mobileMainWrap flex">
-        <div class="sideBarWrap mobileSideBar">
+        {/* <div class="sideBarWrap mobileSideBar">
           <figure class="headerLogo innersidebar">
             <a href="#">
               <img
@@ -19,7 +19,7 @@ const Index2 = () => {
           <div class="leftSidebar">
             <ul class="menu">
               <li class="active">
-                <a href="#">
+                <Link to={"/"}>
                   <figure>
                     <img
                       src="app/images/homeIcon.png"
@@ -28,7 +28,7 @@ const Index2 = () => {
                     />
                   </figure>
                   Home
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#">
@@ -154,7 +154,7 @@ const Index2 = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
         <div class="rightSection innerRight desktopHelp">
           <div class="help-section flex">
             <div class="genaiguruSelect flex">
@@ -338,16 +338,6 @@ const Index2 = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="fixedBtn">
-        <figure>
-          <img
-            src="app/images/fixedButtonLogo.png"
-            alt="Genaiguru scroll button"
-            title="Genaiguru scroll button"
-          />
-        </figure>
       </div>
     </>
   );

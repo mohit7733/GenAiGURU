@@ -1,8 +1,10 @@
 import React from "react";
 import userimageIcon from "../../assets/images/person.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const isLogged = true;
+  const navigate = useNavigate();
   return (
     <>
       <header className="flex">
@@ -33,7 +35,13 @@ const Header = () => {
           <form action="">
           <Link to={"/index2"}>
             <div className="form_group">
-              <input type="search" placeholder="Search genaiguru" />
+              <input
+                type="search"
+                placeholder="Search genaiguru"
+                onClick={() => {
+                  navigate("/index2");
+                }}
+              />
             </div>
             </Link>
           </form>
@@ -79,13 +87,32 @@ const Header = () => {
             </Link>
           </li>
           <li className="userIcon">
-            <a >
+            {/* Login page link before user login */}
+            {/* <Link to={"/login"}>
               <img
                 src={userimageIcon}
                 alt="Genaiguru user image"
                 title="Genaiguru user image"
               />
-            </a>
+            </Link> */}
+            {isLogged ? (
+              <Link to={"/phasepage1"}>
+                <img
+                  src={userimageIcon}
+                  alt="Genaiguru user image"
+                  title="Genaiguru user image"
+                />
+              </Link>
+            ) : (
+              <Link to={"/login"}>
+                <img
+                  src={userimageIcon}
+                  alt="Genaiguru user image"
+                  title="Genaiguru user image"
+                />
+              </Link>
+            )}
+
             <ul class="userNav">
               <li>
                 <Link to={"/login"}>SignUp/Login</Link>

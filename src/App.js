@@ -1,18 +1,23 @@
 import React, { Suspense } from "react";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 
-import Footer from "./components/Layout/Footer";
-import Header from "./components/Layout/Header";
-import Sidebar from "./components/Layout/Sidebar";
-import { RouterElement } from "./routes";
+import MainLayout from "./components/Layout/MainLayout";
 import Loader from "./components/Loader/Loader";
+import Login from "./pages/Authentication/Login";
+import { PATH_LOGIN, PATH_SIGNIN, PATH_SIGNUP, RouterElement } from "./routes";
+import Login2 from "./pages/Authentication/login2";
+import Login8 from "./pages/Authentication/login8";
 
 function App() {
   return (
     <div>
       <Router>
+        {/* Without Layout Pages */}
+        {/* <Routes>
+          <Route path={PATH_LOGIN} element={<Login />}></Route>
+        </Routes> */}
         <Suspense
           fallback={
             <>
@@ -20,16 +25,19 @@ function App() {
             </>
           }
         >
-          {/* <Header />
-          <section className="mainWrapper flex">
-            <Sidebar />
-            <div className="rightSection">
-              <RouterElement />
-            </div>
-          </section>
-
-          <Footer /> */}
-          <RouterElement />
+          <Routes>
+            <Route path={PATH_LOGIN} element={<Login />}></Route>
+            <Route path={PATH_SIGNUP} element={<Login2 />}></Route>
+            <Route path={PATH_SIGNIN} element={<Login8/>}></Route>
+            <Route
+              path="/*"
+              element={
+                <MainLayout>
+                  <RouterElement />
+                </MainLayout>
+              }
+            ></Route>
+          </Routes>
         </Suspense>
       </Router>
     </div>

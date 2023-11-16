@@ -1,17 +1,15 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { useGoogleLogin } from "@react-oauth/google";
+import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
 const Login = () => {
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+  });
   return (
     <div>
-      {/* <div class="loader">
-        <img
-          src="app/images/lodingLogo.png"
-          alt="Genaiguru logo"
-          title="Genaiguru Logo"
-        />
-      </div> */}
-
       <section class="loginOption mainBg">
         <div class="wrapper400 stars">
           <h1>
@@ -20,14 +18,19 @@ const Login = () => {
           <p>Join with us by your social account or sign up with email</p>
           <ul>
             <li>
-              <a href="#" class="flex">
+              <Link
+                class="flex"
+                onClick={() => {
+                  login();
+                }}
+              >
                 <img
                   src="app/images/googleIcon.png"
                   alt="Genaiguru google icon"
                   title="Genaiguru on google"
                 />{" "}
                 Continue with Google
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" class="flex">
@@ -39,6 +42,7 @@ const Login = () => {
                 Continue with Facebook
               </a>
             </li>
+
             {/* <li>
               <a href="#" class="flex">
                 <img
@@ -50,16 +54,16 @@ const Login = () => {
               </a>
             </li> */}
             <li>
-              <NavLink to={"/login2"} class="flex">
+              <NavLink to={PATH_SIGNUP} class="flex">
                 Sign up with Email
               </NavLink>
             </li>
           </ul>
           <p class="alreadyAccount">
-            Already have an account? <Link to="/Sign-in">Log in</Link>
+            Already have an account? <Link to={PATH_SIGNIN}>Log in</Link>
           </p>
           <p class="termsText">
-            By continuing, you agree to our <a href="#">Terms and conditions</a>{" "}
+            By continuing, you agree to our <a href="#">Terms and Services</a>{" "}
             and <a href="#">Privacy Policy.</a>
           </p>
           <div class="starsImg">
