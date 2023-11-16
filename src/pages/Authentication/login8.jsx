@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PATH_LOGIN } from "../../routes";
 
 const Login8 = () => {
   return (
@@ -18,7 +19,7 @@ const Login8 = () => {
       <section class="createAccount mainBg">
         <div class="wrapper400">
           <div class="backBtn">
-            <Link to="/">
+            <Link to={PATH_LOGIN}>
               <i class="fa fa-angle-left" aria-hidden="true"></i>
             </Link>
             Back

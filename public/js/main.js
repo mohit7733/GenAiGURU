@@ -157,7 +157,9 @@ $(document).ready(function(){
   });
 
   // profile page tabing
-  $('.edit-profile .connect-link li:first').addClass('active')
+  $('.edit-profile .connect-link li:first').addClass('active');
+  $('.gurukeeps-wrapper .connect-link li:first').addClass('active');
+  $('.setting-container .connect-link li:first').addClass('active');
   $('.tab').on('click', function(evt) { 
     evt.preventDefault();
     var sel = this.getAttribute('data-toggle-target');
@@ -175,6 +177,24 @@ $(document).ready(function(){
   });
   $(".cross_btn").click(function(){
     $(".popup-container").removeClass("is-visible")
+  });
+
+  // faq accordian
+  $('.faq-box .accordion').click(function(){
+    $(this).siblings().slideToggle().parent().siblings()
+     .find('.panel').slideUp()
+    $(this).parent('.faq-box').toggleClass('active').siblings()
+      .removeClass('active')
+  });
+
+  // notification button
+  $('.onoffbtn').on('click', function(){
+    if($(this).children().is(':checked')){
+      $(this).addClass('active');
+    }
+    else{
+      $(this).removeClass('active')
+    }
   });
 
 });

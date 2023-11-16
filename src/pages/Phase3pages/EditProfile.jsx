@@ -3,7 +3,7 @@ import React from "react";
 const EditProfile = () => {
   return (
     <div>
-      <header class="flex">
+      {/* <header class="flex">
         <div class="hamburger">
           <img
             src="app/images/hamburgerIcon.png"
@@ -89,12 +89,12 @@ const EditProfile = () => {
             </ul>
           </li>
         </ul>
-      </header>
+      </header> */}
       {/* <!-- header section end here --> */}
 
       {/* <!-- main section start here --> */}
       <section class="mainWrapper flex">
-        <div class="leftSidebar">
+        {/* <div class="leftSidebar">
           <ul class="menu">
             <li>
               <a href="#">
@@ -231,7 +231,7 @@ const EditProfile = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div class="rightSection">
           {/* <!-- edit-profile start here --> */}
           <div class="profile-edit socialLinkEdit flex">

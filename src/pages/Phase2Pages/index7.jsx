@@ -6,7 +6,7 @@ const Index7 = () => {
   return (
     <div>
       <section class="mainWrapper mobileMainWrap flex">
-        <div class="sideBarWrap mobileSideBar">
+        {/* <div class="sideBarWrap mobileSideBar">
           <figure class="headerLogo innersidebar">
             <a href="#">
               <img
@@ -154,7 +154,7 @@ const Index7 = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
         <div class="rightSection innerRight desktopHelp">
           <div class="help-section flex">
             <div class="genaiguruSelect flex">
@@ -198,9 +198,7 @@ const Index7 = () => {
                       <div class="form_group">
                         <button
                           type="submit"
-                          onClick={() => {
-                            navigate("/index5");
-                          }}
+                       
                         >
                           <img
                             src="app/images/sendButtonIcon.png"
@@ -462,16 +460,6 @@ const Index7 = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="fixedBtn">
-        <figure>
-          <img
-            src="app/images/fixedButtonLogo.png"
-            alt="Genaiguru scroll button"
-            title="Genaiguru scroll button"
-          />
-        </figure>
       </div>
     </div>
   );

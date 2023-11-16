@@ -3,6 +3,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import FixedAIButtonLogo from "../FixedAIButton/FixedAIButtonLogo";
 import Footer from "./Footer";
+import { Outlet } from "react-router-dom";
 
 const MainLayout = ({ children }) => {
   return (
@@ -13,9 +14,12 @@ const MainLayout = ({ children }) => {
         <div className="rightSection">
           <div className="">{children}</div>
           <FixedAIButtonLogo />
+          <Outlet/>
         </div>
       </section>
       <Footer />
+      <Outlet />
+
     </div>
   );
 };

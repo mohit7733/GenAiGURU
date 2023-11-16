@@ -3,16 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
   const navigate = useNavigate();
+
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-  
+  console.log(displayInterestPopup);
+
   return (
     <>
       {/* <!-- header section start here --> */}
-      <header class="flex">
+      {/* <header class="flex">
         <div class="hamburger">
           <img
             src="app/images/hamburgerIcon.png"
@@ -98,12 +101,12 @@ const Profile = () => {
             </ul>
           </li>
         </ul>
-      </header>
+      </header> */}
       {/* <!-- header section end here -->
   
       <!-- main section start here --> */}
       <section class="mainWrapper flex">
-        <div class="leftSidebar">
+        {/* <div class="leftSidebar">
           <ul class="menu">
             <li>
               <a href="#">
@@ -240,7 +243,7 @@ const Profile = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div class="rightSection">
           {/* <!-- banner start here --> */}
           <div class="profile-banner"></div>
@@ -339,12 +342,14 @@ const Profile = () => {
                         <a href="#">Large language models</a>{" "}
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
+                        <Link
+                          onClick={() => {
+                            setDisplayInterestPopup(true);
+                          }}
                           class="addBtns addInterest"
                         >
                           +
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                     <div class="social-link">
@@ -1144,20 +1149,25 @@ const Profile = () => {
           </div>
         </div>
       </section>
-
-      <div class="popup-container">
+      {displayInterestPopup && (
+        // <div class="popup-container">
         <div class="popup-wrapper ">
           <div class="popup-header flex">
             <h2>
               Add or change your <br /> interested topic
             </h2>
-            <a href="#" class="cross_btn">
+            <Link
+              onClick={() => {
+                setDisplayInterestPopup(false);
+              }}
+              class="cross_btn"
+            >
               <img
                 src="app/images/cancelButtonIcon.png"
                 alt="Genaiguru cross-icon"
                 title="Genaiguru cross-icon"
               />
-            </a>
+            </Link>
           </div>
           <div class="popupp-btn-box">
             <form action="">
@@ -1289,7 +1299,8 @@ const Profile = () => {
             </form>
           </div>
         </div>
-      </div>
+        // </div>
+      )}
     </>
   );
 };

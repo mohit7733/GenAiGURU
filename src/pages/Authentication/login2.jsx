@@ -1,19 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Login2 = () => {
+  const [displayGoToMail, setDisplayGoToMail] = useState(false);
   return (
     <>
       {" "}
       <div>
-        {/* <div class="loader">
-          <img
-            src="app/images/lodingLogo.png"
-            alt="Genaiguru logo"
-            title="Genaiguru Logo"
-          />
-        </div> */}
-
         <section class="createAccount mainBg">
           <div class="wrapper400">
             <div class="backBtn">
@@ -50,8 +43,22 @@ const Login2 = () => {
                   placeholder="****"
                 />
               </div>
+              <div class="form_group flex">
+                <label for="profilePicture">Choose Profile Picture</label>
+                <input
+                  type="file"
+                  name="profilePicture"
+                  placeholder="Choose Profile Picture"
+                />
+              </div>
               <div class="form_group">
-                <Link to={"/login3"} class="loginBtn">
+                <Link
+                  class="loginBtn"
+                  onClick={() => {
+                    alert("Account Created")
+                    setDisplayGoToMail(true);
+                  }}
+                >
                   Create account
                 </Link>
               </div>
@@ -66,6 +73,31 @@ const Login2 = () => {
             </div>
           </div>
         </section>
+        {displayGoToMail && (
+          <section class="mailInbox mainBg">
+            <div class="wrapper400">
+              <div class="mailbox">
+                <img
+                  src="app/images/mailBox.png"
+                  alt="Genaiguru mail image"
+                  title="Genaiguru mail image"
+                />
+                <div class="topStarsImg">
+                  <img src="app/images/star.png" alt="Genaiguru star" />
+                  <img src="app/images/star2.png" alt="Genaiguru star" />
+                </div>
+                <h1>Check your email inbox</h1>
+                <p>
+                  Quick check your email box and confirm us that you would like
+                  to create an account.
+                </p>
+                <Link to={"/login4"} class="loginBtn">
+                  Go to the email inbox
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
       </div>
     </>
   );
