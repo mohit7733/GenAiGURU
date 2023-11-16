@@ -1,0 +1,173 @@
+.rightSection{
+    .profile-edit{
+        &.socialLinkEdit{
+            p{
+                width: 100%;
+                color: rgba(160, 170, 177, 1);
+                font-weight: 500;
+                font-family: $font-family-PlusMedium;
+                font-size: 16px;
+                line-height: 1.25em;
+                a{
+                    color: rgba(248, 252, 255, 1);
+                    font-size: 16px;
+                    line-height: 1.25em;
+                    font-weight: 500;
+                    font-family: $font-family-PlusMedium;
+                    transition: all 0.25s ease;
+                    &:hover{
+                        color: #be41c0;
+                    }
+                }
+                i{
+                    color: rgba(160, 170, 177, 1);
+                    font-size: 20px;
+                }
+            }
+            i{
+                margin: 0 12px;
+            }
+            h1{
+                color: rgba(248, 252, 255, 1);
+                font-weight: 600;
+                font-family: $font-family-PlusSemiBold;
+                font-size: 28px;
+                line-height: 1.2em;
+                margin-top: 12px;
+            }
+        }
+    }
+    .profile-img-box{
+        max-width: 510px;
+        margin: 0 auto;
+        padding-top: 32px;
+        @include breakpoint(xmedium){
+            width: 100%;
+            padding-right: 25px;
+        }
+       form{
+        .url-box{
+            p{
+                color: #F8FCFF;
+                font-size: $font-size-sm;
+                font-family: $font-family-PlusMedium;
+                font-weight: 500;
+                line-height: 20px;
+                margin-bottom: 6px;
+            }
+            .social-box{
+                display: flex;
+                width: 100%;
+                border: 1px solid #E5F1F95C;
+                margin-bottom: 20px;
+                padding: 10px 14px;
+                border-radius: 16px;
+                background: linear-gradient(0deg, rgba(198, 208, 225, 0.1), rgba(198, 208, 225, 0.1)),;
+                align-items: center;
+                transition: all 0.25s ease;
+                &:hover{
+                    border: solid 1px #be41c0;
+                }
+                input{
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    padding: 0 14px;
+                    display: block;
+                    font-size: 16px;
+                    font-family: $font-family-PlusMedium;
+                    font-weight: 500;
+                    color: #6BAFFF;;
+                    &::placeholder{
+                        color: #6BAFFF;
+                      
+                    }
+                }
+                a{
+                    background: rgba(198, 208, 225, 0.1);
+                    box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+                    width: 36px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    &:hover{
+                        background: #be41c0;
+                        img{
+                            filter: brightness(0.1);
+                        }
+                    }
+                    img{
+                        transition: all 0.25s ease;
+                    }
+                }
+
+            }
+     
+        }
+       }
+        button.social-profile{
+            background: linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+            width: 100%;
+            border: none;
+            outline: none;
+            color: #F4F8FF;
+            transition: all 0.25s ease;
+            padding: 18px;
+            width: 100%;
+            cursor: pointer;
+            display: block;
+            border-radius: 20px;
+            margin-top: 60px;
+            font-size: 16px;
+            line-height: 1.4em;
+            font-weight: 500;
+            font-family: $font-family-PlusMedium;
+            &:hover{
+                background: #be41c0;;
+            }
+
+        }
+    }
+}
+
+
+.profile-edit{
+    &.socialLinkEdit{
+        @include breakpoint(xmedium){
+            margin-bottom: 35px;
+        }
+    }
+}
+
+
+// mobile css
+.mob_profile{
+    .backBtns{
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(124,141,184,.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 17px;
+        i{
+            font-size: 26px;
+            color: $color-white;
+        }
+    }
+    .socialEditInner{
+        background: linear-gradient(90.25deg, #243343 35.17%, #243343 78.16%), linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+        padding: 25px 16px 32px;
+        margin-top: -2px;
+        &.rightSection{
+            .profile-img-box{
+                padding-right: 0;
+            }
+        }
+    }
+
+}

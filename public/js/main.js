@@ -197,5 +197,16 @@ $(document).ready(function(){
     }
   });
 
+  // channel slider
+  $('.channelSlider').slick({
+    arrows:false,
+    infinite: true,
+    autoplay:false,
+    centerMode: false,
+    speed: 1500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+  });
+
 });
 

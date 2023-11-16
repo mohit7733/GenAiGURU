@@ -1,11 +1,31 @@
-import React, { useState } from "react";
+import { type } from "@testing-library/user-event/dist/type";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
+
+/* POST Method for User Creation*/
+
+  // useEffect(() => {
+  //   fetch("https://genaiadmin.sdsstaging.co.uk/api/auth/register", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json, text/plain, */*",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: "Ajskah",
+  //       email: "akshay1@gmail.com",
+  //       password: "akshay12",
+  //       confirm_password: "akshay12",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => console.log(res));
+  // });
   return (
     <>
-      {" "}
       <div>
         <section class="createAccount mainBg">
           <div class="wrapper400">
@@ -55,7 +75,7 @@ const Login2 = () => {
                 <Link
                   class="loginBtn"
                   onClick={() => {
-                    alert("Account Created")
+                    alert("Account Created");
                     setDisplayGoToMail(true);
                   }}
                 >

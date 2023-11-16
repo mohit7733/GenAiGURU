@@ -1,8 +1,9 @@
 import React from "react";
-import { useRef } from 'react';
+import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const Populararticles = () => {
   const sliderRef = useRef();
@@ -22,18 +23,18 @@ const Populararticles = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
+          initialSlide: 1,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
-      }
-    ]
+          initialSlide: 1,
+        },
+      },
+    ],
   };
   return (
     <>
@@ -43,10 +44,15 @@ const Populararticles = () => {
           <a href="#">View all</a>
         </div>
         <div className="article-slider">
-          <Slider ref={sliderRef} {...settings2} id="Slider-4" className='slider_test'>
+          <Slider
+            ref={sliderRef}
+            {...settings2}
+            id="Slider-4"
+            className="slider_test"
+          >
             <div>
               <div className="wrap">
-                <a href="#">
+                <Link to="/blogdetails">
                   <figure>
                     <img
                       src="app/images/videoImg.png"
@@ -98,7 +104,7 @@ const Populararticles = () => {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div>
