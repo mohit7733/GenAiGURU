@@ -3,6 +3,57 @@ import { Link, NavLink } from "react-router-dom";
 
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
+  const [name, setname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const errors = validate();
+    setErrors(errors);
+  };
+  const onchangeCheck = (key,value) =>{
+    const errors = {};
+    if(!value){
+      errors[key] = key +"Required !"
+    }
+    setErrors(errors);
+   }
+  const validate = () => {
+    const error = {};
+    if (!name) {
+      error['name'] = "Name Required!";
+    } else if (name.length < 3) {
+      error['name'] = "Please Enter a Valid Name!";}
+    else {
+      error['name'] = "";
+    }
+
+    if (!email) {
+      error['email'] = "Email Required!";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      error['email'] = "Please Enter Valid Email!";
+    } else {
+      error['email'] = "";
+    }
+
+    if (!password) {
+      error['password'] = "Password Required!";
+    } else if (password.length < 8) {
+      error['password'] = "Please Enter a Valid Password!";
+    } else {
+      error['password'] = "";
+    }
+    if (!confirmPassword) {
+      error['confirmPassword'] = "Password Required!";
+    } else if (confirmPassword != password) {
+      error['confirmPassword'] = "Password not Matched!";
+    } else {
+      error['confirmPassword'] = "";
+    }
+    return error;
+  };
   return (
     <>
       {" "}
@@ -18,10 +69,14 @@ const Login2 = () => {
             <h1>
               <span>Create an account</span> with your name and email address!
             </h1>
-            <form action="" class="accountCreate">
+            <form action="" class="accountCreate" onSubmit={handleSubmit}>
               <div class="form_group flex">
                 <label for="name">Your name</label>
-                <input type="text" name="name" placeholder="GenAIGuru" />
+                <input type="text" name="name" placeholder="GenAIGuru" 
+                onKeyUp={onchangeCheck}
+                  onChange={(e) => setname(e.target.value)}
+                />
+                {errors.name && <div className="error">{errors.name}</div>}
               </div>
               <div class="form_group flex">
                 <label for="email">Email address</label>
@@ -29,11 +84,18 @@ const Login2 = () => {
                   type="email"
                   name="email"
                   placeholder="GenAIGuru@gmail.com"
+                  onKeyUp={onchangeCheck}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
+                {errors.email && <div className="error">{errors.email}</div>}
               </div>
               <div class="form_group flex">
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="****" />
+                <input type="password" name="password" placeholder="****" 
+                  onKeyUp={onchangeCheck}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {errors.password && <div className="error">{errors.password}</div>}
               </div>
               <div class="form_group flex">
                 <label for="confirmPassword">Confirm password</label>
@@ -41,7 +103,10 @@ const Login2 = () => {
                   type="password"
                   name="confirmPassword"
                   placeholder="****"
+                  onKeyUp={onchangeCheck}
+                  onChange={(e) => setconfirmPassword(e.target.value)}
                 />
+                 {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
               </div>
               <div class="form_group flex">
                 <label for="profilePicture">Choose Profile Picture</label>
@@ -49,10 +114,12 @@ const Login2 = () => {
                   type="file"
                   name="profilePicture"
                   placeholder="Choose Profile Picture"
+                  onKeyUp={onchangeCheck}
+                  onChange={(e) => setconfirmPassword(e.target.value)}
                 />
               </div>
               <div class="form_group">
-                <Link
+                {/* <Link
                   class="loginBtn"
                   onClick={() => {
                     alert("Account Created")
@@ -60,7 +127,8 @@ const Login2 = () => {
                   }}
                 >
                   Create account
-                </Link>
+                </Link> */}
+                <button class="loginBtn">Create account</button> 
               </div>
             </form>
             <p class="termsText">
