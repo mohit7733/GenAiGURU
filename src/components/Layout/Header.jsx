@@ -33,6 +33,7 @@ const Header = () => {
             />
           </figure>
           <form action="">
+          <Link to={"/index2"}>
             <div className="form_group">
               <input
                 type="search"
@@ -42,6 +43,7 @@ const Header = () => {
                 }}
               />
             </div>
+            </Link>
           </form>
         </div>
         <ul className="leftSide flex">
