@@ -10,10 +10,16 @@ import EditProfile from "./pages/Phase3pages/EditProfile";
 import SocialProfileEdit from "./pages/Phase3pages/SocialProfileEdit";
 import VideoPlay from "./pages/Phase3pages/VideoPlay";
 import Profile from "./pages/Phase3pages/Profile";
+import GuruGenesis from "./pages/Phase4Pages/GuruGenesis";
+import GuruJournal from "./pages/Phase4Pages/GuruJournal";
+import GuruKeeps from "./pages/Phase4Pages/GuruKeeps";
+import SubscriptionPlans from "./pages/Phase4Pages/SubscriptionPlans";
 
 export const BASE_PATH = "/";
 
 export const PATH_LOGIN = "/login";
+export const PATH_SIGNUP = "/signup";
+export const PATH_SIGNIN = "/signin";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 const Login = React.lazy(() => import("./pages/Authentication/Login"));
@@ -25,16 +31,10 @@ const Login6 = React.lazy(() => import("./pages/Authentication/login6"));
 const Login7 = React.lazy(() => import("./pages/Authentication/login7"));
 const Login8 = React.lazy(() => import("./pages/Authentication/login8"));
 
-export function RouterElement() {
-  const routes = [
+export function RouterElement({ isLogged }) {
+  const publicRoutes = [
     {
       path: "/",
-      name: "IndexPage",
-      element: <IndexPage />,
-      exact: true,
-    },
-    {
-      path: "login",
       name: "login",
       element: <Login />,
       exact: true,
@@ -81,6 +81,15 @@ export function RouterElement() {
       element: <Login8 />,
       exact: true,
     },
+  ];
+  const routes = [
+    {
+      path: "/",
+      name: "IndexPage",
+      element: <IndexPage />,
+      exact: true,
+    },
+
     {
       path: "index2",
       name: "index2",
@@ -135,7 +144,30 @@ export function RouterElement() {
       path: "phasepage4",
       name: "phasepage4",
       element: <VideoPlay />,
-
+      exact: true,
+    },
+    {
+      path: "gurugenesis",
+      name: "gurugenesis",
+      element: <GuruGenesis />,
+      exact: true,
+    },
+    {
+      path: "gurujournal",
+      name: "gurujournal",
+      element: <GuruJournal />,
+      exact: true,
+    },
+    {
+      path: "gurukeeps",
+      name: "gurukeeps",
+      element: <GuruKeeps />,
+      exact: true,
+    },
+    {
+      path: "subscriptions",
+      name: "subscriptions",
+      element: <SubscriptionPlans />,
       exact: true,
     },
   ];

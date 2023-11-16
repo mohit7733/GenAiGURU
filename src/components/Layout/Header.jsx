@@ -1,8 +1,10 @@
 import React from "react";
 import userimageIcon from "../../assets/images/person.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const isLogged = true;
+  const navigate = useNavigate();
   return (
     <>
       <header className="flex">
@@ -32,7 +34,13 @@ const Header = () => {
           </figure>
           <form action="">
             <div className="form_group">
-              <input type="search" placeholder="Search genaiguru" />
+              <input
+                type="search"
+                placeholder="Search genaiguru"
+                onClick={() => {
+                  navigate("/index2");
+                }}
+              />
             </div>
           </form>
         </div>
@@ -77,7 +85,6 @@ const Header = () => {
             </Link>
           </li>
           <li className="userIcon">
-
             {/* Login page link before user login */}
             {/* <Link to={"/login"}>
               <img
@@ -86,16 +93,24 @@ const Header = () => {
                 title="Genaiguru user image"
               />
             </Link> */}
-            <Link to={"/phasepage1"}>
+            {isLogged ? (
+              <Link to={"/phasepage1"}>
+                <img
+                  src={userimageIcon}
+                  alt="Genaiguru user image"
+                  title="Genaiguru user image"
+                />
+              </Link>
+            ) : (
+              <Link to={"/login"}>
+                <img
+                  src={userimageIcon}
+                  alt="Genaiguru user image"
+                  title="Genaiguru user image"
+                />
+              </Link>
+            )}
 
-          
-
-              <img
-                src={userimageIcon}
-                alt="Genaiguru user image"
-                title="Genaiguru user image"
-              />
-            </Link>
             <ul class="userNav">
               <li>
                 <Link to={"/login"}>SignUp/Login</Link>

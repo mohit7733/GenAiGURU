@@ -1,162 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Index5 = () => {
   const navigate = useNavigate();
-
+  const [displaySeePost, setDisplaySeePost] = useState(false);
   return (
     <div>
       <section class="mainWrapper mobileMainWrap flex desktopPostCreate">
-        <div class="sideBarWrap mobileSideBar">
-          <figure class="headerLogo innersidebar">
-            <a href="#">
-              <img
-                src="app/images/headerLogo.png"
-                alt="Genaiguru header logo"
-                title="Genaiguru"
-              />
-            </a>
-          </figure>
-          <div class="leftSidebar">
-            <ul class="menu">
-              <li class="active">
-                <Link to={"/"}>
-                  <figure>
-                    <img
-                      src="app/images/homeIcon.png"
-                      alt="Genaiguru homeIcon"
-                      title="Genaiguru homeIcon"
-                    />
-                  </figure>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/guruGoldIcon.png"
-                      alt="Genaiguru guruGoldIcon"
-                      title="Genaiguru guruGoldIcon"
-                    />
-                  </figure>
-                  Guru Gold
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/guruKeepsIcon.png"
-                      alt="Genaiguru guruKeepsIcon"
-                      title="Genaiguru guruKeepsIcon"
-                    />
-                  </figure>
-                  Guru Keeps
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/guruJournalIcon.png"
-                      alt="Genaiguru guruJournalIcon"
-                      title="Genaiguru guruJournalIcon"
-                    />
-                  </figure>
-                  Guru Journal
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/teamGuruIcon.png"
-                      alt="Genaiguru teamGuruIcon"
-                      title="Genaiguru teamGuruIcon"
-                    />
-                  </figure>
-                  Team Guru
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/contactToGuruIcon.png"
-                      alt="Genaiguru contactToGuruIcon"
-                      title="Genaiguru contactToGuruIcon"
-                    />
-                  </figure>
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/settingIcon.png"
-                      alt="Genaiguru settingIcon"
-                      title="Genaiguru settingIcon"
-                    />
-                  </figure>
-                  Settings
-                </a>
-              </li>
-            </ul>
-            <div class="newsletter">
-              <h5>Joining our newsletter</h5>
-              <form action="">
-                <div class="form_group">
-                  <input type="email" placeholder="Email address" />
-                </div>
-                <div class="form_group">
-                  <button type="button" class="loginBtn">
-                    Subscribe
-                  </button>
-                </div>
-              </form>
-            </div>
-            <ul class="bottom-menu">
-              <li>
-                <a href="#">Terms & service</a>
-              </li>
-              <li>
-                <a href="#">Privacy policy</a>
-              </li>
-            </ul>
-            <ul class="social-icons flex">
-              <li>
-                <a href="#" target="_blank">
-                  <img
-                    src="app/images/facebookIconNew.png"
-                    alt="Genaiguru facebookIconNew"
-                    title="Genaiguru on facebook"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank">
-                  <img
-                    src="app/images/youtubeIcon.png"
-                    alt="Genaiguru youtubeIcon"
-                    title="Genaiguru on youtube"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank">
-                  <img
-                    src="app/images/twitter.png"
-                    alt="Genaiguru twitter"
-                    title="Genaiguru on twitter"
-                  />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="rightSection innerRight desktopHelp">
+        <div class="desktopHelp">
           <div class="help-section writePost flex">
             <ul class="breadcrumb flex">
               <li>
@@ -178,13 +29,17 @@ const Index5 = () => {
                       </div>
                       <div class="form_group micBtns">
                         <button type="button">
-                          <img src="app/images/micIcon.png" alt="Genaiguru micIcon"
-                            title="Speak Now" />
+                          <img
+                            src="app/images/micIcon.png"
+                            alt="Genaiguru micIcon"
+                            title="Speak Now"
+                          />
                         </button>
                       </div>
                       <div class="form_group">
                         <button type="submit">
-                          <img src="app/images/sendButtonIcon.png"  
+                          <img
+                            src="app/images/sendButtonIcon.png"
                             title="Send"
                           />
                         </button>
@@ -192,7 +47,7 @@ const Index5 = () => {
                     </div>
                   </div>
                 </div>
-                <form action="" class="createPostForm">
+                <div class="createPostForm">
                   <div class="searchResults">
                     <div class="headings flex">
                       <h5>Bellow we suggest you best videos</h5>
@@ -226,19 +81,19 @@ const Index5 = () => {
                       type="submit"
                       class="loginBtn"
                       onClick={() => {
-                        navigate("/index6");
+                        setDisplaySeePost(true);
                       }}
                     >
                       Post
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      {/* Mobile Code Starts Here */}
       <div class="mobilePost">
         <div class="postHead flex">
           <div class="col_left flex">
@@ -320,16 +175,17 @@ const Index5 = () => {
           </div>
         </div>
       </div>
-
-      <div class="fixedBtn">
-        <figure>
-          <img
-            src="app/images/fixedButtonLogo.png"
-            alt="Genaiguru scroll button"
-            title="Genaiguru scroll button"
-          />
-        </figure>
-      </div>
+      {displaySeePost && (
+        <section class="loginPopup postPopup">
+          <div class="wrapper">
+            <figure>
+              <img src="app/images/tickIcon.png" alt="" />
+            </figure>
+            <h2>Post successful</h2>
+            <a href="#">See your post</a>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
