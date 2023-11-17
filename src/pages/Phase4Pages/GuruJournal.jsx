@@ -357,7 +357,7 @@ const GuruJournal = () => {
                       </p>
                     </div>
                   </div>
-                  <div class="wrap flex">
+                  {/* <div class="wrap flex">
                     <figure>
                       <img
                         src="app/images/guru-keeps-2.png"
@@ -411,7 +411,7 @@ const GuruJournal = () => {
                         months of qualifying....
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                   <div class="wrap flex">
                     <figure>
                       <img
