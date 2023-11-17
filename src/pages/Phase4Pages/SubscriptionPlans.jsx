@@ -4,8 +4,8 @@ const SubscriptionPlans = () => {
   return (
     <div>
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex">
-        <div class="rightSection">
+      <section class="">
+        <div class=" full-width">
           <div class="subscriptionPlan">
             {/* <!-- subscription plans start here --> */}
             <h1>Subscription Plans</h1>

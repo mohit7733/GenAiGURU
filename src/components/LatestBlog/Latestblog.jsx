@@ -49,7 +49,7 @@ const Latestblog = () => {
           >
             <div>
               <div className="wrap">
-                <Link to="/featuredcontent">
+                <Link to="/blogdetails">
                   <figure>
                     <img
                       src="app/images/blogImgOne.png"
@@ -74,7 +74,7 @@ const Latestblog = () => {
             </div>
             <div>
               <div className="wrap">
-                <Link to="/featuredcontent">
+                <Link to="/blogdetails">
                   <figure>
                     <img
                       src="app/images/blogImgTwo.png"
@@ -99,7 +99,7 @@ const Latestblog = () => {
             </div>
             <div>
               <div className="wrap">
-                <Link to="/featuredcontent">
+                <Link to="/blogdetails">
                   <figure>
                     <img
                       src="app/images/blogImgOne.png"

@@ -47,8 +47,8 @@ const FeaturedContent = () => {
 
   return (
     <div>
-      <section class="mainWrapper flex">
-        <div class="rightSection">
+      <section class="">
+        <div class="rightSection full-width">
           <div class="keeps-container featuredConatiner">
             <div class="gurukeeps-wrapper">
               <div class="innerBreadcrumb">
@@ -62,7 +62,7 @@ const FeaturedContent = () => {
               {/* <!-- tab-link start here --> */}
               <div class="row flex space-between align-center">
                 <ul class="connect-link flex">
-                  <li>
+                  <li className={activeTab === 1 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(1)}
                       className={activeTab === 1 ? "tab active" : ""}
@@ -71,7 +71,7 @@ const FeaturedContent = () => {
                       All
                     </Link>
                   </li>
-                  <li>
+                  <li className={activeTab === 2 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(2)}
                       className={activeTab === 2 ? "tab active" : ""}
@@ -80,7 +80,7 @@ const FeaturedContent = () => {
                       Ai in healthcare
                     </Link>
                   </li>
-                  <li>
+                  <li className={activeTab === 3 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(3)}
                       className={activeTab === 3 ? "tab active" : ""}
@@ -89,7 +89,7 @@ const FeaturedContent = () => {
                       ML in finance
                     </Link>
                   </li>
-                  <li>
+                  <li className={activeTab === 4 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(4)}
                       className={activeTab === 4 ? "tab active" : ""}
@@ -98,7 +98,7 @@ const FeaturedContent = () => {
                       Crypto
                     </Link>
                   </li>
-                  <li>
+                  <li className={activeTab === 5 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(5)}
                       className={activeTab === 5 ? "tab active" : ""}

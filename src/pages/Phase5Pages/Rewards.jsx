@@ -6,7 +6,7 @@ const Rewards = () => {
       {/* <!-- main section start here --> */}
       <section class="mainWrapper flex">
        
-        <div class="rightSection">
+        <div class="full-width">
           <div class="guru-gold-silver">
             <div class="innerBreadcrumb">
               <p>
