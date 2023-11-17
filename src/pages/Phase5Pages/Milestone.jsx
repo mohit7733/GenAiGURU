@@ -4,9 +4,8 @@ const Milestone = () => {
   return (
     <div>
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex">
-    
-        <div class="">
+      <section class="">
+        <div class="full-width">
           <div class="guru-gold-silver milestoneWrap">
             <div class="innerBreadcrumb">
               <p>

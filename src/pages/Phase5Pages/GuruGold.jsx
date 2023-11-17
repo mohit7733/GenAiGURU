@@ -5,8 +5,8 @@ const GuruGold = () => {
   return (
     <div>
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex">
-        <div class="">
+      <section class="">
+        <div class="full-width">
           <div class="guru-gold-silver">
             <h1>Gurugold</h1>
             <div class="silver-coin-box">

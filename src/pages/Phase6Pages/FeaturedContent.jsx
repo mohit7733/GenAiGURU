@@ -47,8 +47,8 @@ const FeaturedContent = () => {
 
   return (
     <div>
-      <section class="mainWrapper flex">
-        <div class="rightSection">
+      <section class="">
+        <div class="rightSection full-width">
           <div class="keeps-container featuredConatiner">
             <div class="gurukeeps-wrapper">
               <div class="innerBreadcrumb">

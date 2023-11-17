@@ -93,7 +93,7 @@ const VideoPlay = () => {
       {/* <!-- header section end here -->
 
   <!-- main section start here --> */}
-      <section class="mainWrapper flex">
+      <section class="">
         {/* <div class="leftSidebar">
           <ul class="menu">
             <li>
@@ -232,7 +232,7 @@ const VideoPlay = () => {
             </li>
           </ul>
         </div> */}
-        <div class="">
+        <div class="full-width">
           {/* <!-- edit-profile start here --> */}
           <div class="video-wrapper flex">
             <div class="video-box">

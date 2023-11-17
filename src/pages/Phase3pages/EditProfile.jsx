@@ -3,13 +3,8 @@ import React from "react";
 const EditProfile = () => {
   return (
     <div>
-    
-      {/* <!-- header section end here --> */}
-
-      {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex">
-      
-        <div class="rightSection">
+      <section class="">
+        <div class=" full-width">
           {/* <!-- edit-profile start here --> */}
           <div class="profile-edit socialLinkEdit flex">
             <p>

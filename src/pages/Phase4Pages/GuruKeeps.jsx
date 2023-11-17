@@ -94,7 +94,7 @@ const GuruKeeps = () => {
       {/* <!-- header section end here -->
 
   <!-- main section start here --> */}
-      <section class="mainWrapper flex">
+      <section class="">
         {/* <div class="leftSidebar">
           <ul class="menu">
             <li>
@@ -233,7 +233,7 @@ const GuruKeeps = () => {
             </li>
           </ul>
         </div> */}
-        <div class="">
+        <div class="full-width">
           <div class="keeps-container">
             <div class="gurukeeps-wrapper flex align-center space-between">
               <h1>Guru Keeps</h1>

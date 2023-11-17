@@ -14,13 +14,8 @@ const Profile = () => {
 
   return (
     <>
-      {/* <!-- header section start here --> */}
-
-      {/* <!-- header section end here -->
-  
-      <!-- main section start here --> */}
-      <section class="mainWrapper flex">
-        <div class="rightSection">
+      <section class="">
+        <div class=" full-width">
           {/* <!-- banner start here --> */}
           <div class="profile-banner"></div>
 

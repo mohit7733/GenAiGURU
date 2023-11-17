@@ -11,8 +11,8 @@ const Settings = () => {
 
   return (
     <div>
-      <section class="mainWrapper flex">
-        <div class="">
+      <section class="">
+        <div class="full-width">
           {/* <!-- setting start --> */}
           <div class="setting-wrapper flex">
             <h1>Setting</h1>

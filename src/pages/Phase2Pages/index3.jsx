@@ -5,9 +5,8 @@ const Index3 = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <section class="mainWrapper mobileMainWrap flex">
-      
-        <div class=" innerRight desktopHelp">
+      <section class=" mobileMainWrap">
+        <div class="full-width innerRight desktopHelp">
           <div class="help-section flex">
             <div class="genaiguruSelect flex">
               <figure>
