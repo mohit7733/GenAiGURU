@@ -232,7 +232,7 @@ const LeaderBoard = () => {
             </li>
           </ul>
         </div> */}
-        <div class="rightSection">
+        <div class="">
           <div class="guru-gold-silver">
             <div class="innerBreadcrumb">
               <p>

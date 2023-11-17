@@ -6,7 +6,7 @@ const GuruGold = () => {
     <div>
       {/* <!-- main section start here --> */}
       <section class="mainWrapper flex">
-        <div class="rightSection">
+        <div class="">
           <div class="guru-gold-silver">
             <h1>Gurugold</h1>
             <div class="silver-coin-box">

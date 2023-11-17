@@ -232,7 +232,7 @@ const VideoPlay = () => {
             </li>
           </ul>
         </div> */}
-        <div class="rightSection">
+        <div class="">
           {/* <!-- edit-profile start here --> */}
           <div class="video-wrapper flex">
             <div class="video-box">

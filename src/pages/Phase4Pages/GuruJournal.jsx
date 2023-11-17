@@ -240,7 +240,7 @@ const GuruJournal = () => {
             </li>
           </ul>
         </div> */}
-        <div class="rightSection">
+        <div class="">
           <div class="keeps-container">
             <div class="gurukeeps-wrapper">
               <h1>Guru Journal</h1>

@@ -4,7 +4,7 @@ const BlogDetails = () => {
   return (
     <div>
       <section class="mainWrapper flex">
-        <div class="rightSection">
+        <div class="">
           <div class="keeps-container blogDetails">
             <div class="gurukeeps-wrapper">
               <div class="row flex space-between">

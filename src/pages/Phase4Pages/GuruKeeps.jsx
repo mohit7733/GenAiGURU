@@ -233,7 +233,7 @@ const GuruKeeps = () => {
             </li>
           </ul>
         </div> */}
-        <div class="rightSection">
+        <div class="">
           <div class="keeps-container">
             <div class="gurukeeps-wrapper flex align-center space-between">
               <h1>Guru Keeps</h1>

@@ -346,11 +346,11 @@ const GuruGenesis = () => {
                     <form action="">
                       <div class="contact-box">
                         <label for="">Full Name</label>
-                        <input type="text" placeholder="Prosing" />
+                        <input type="text" placeholder="GenAIGuru" />
                       </div>
                       <div class="contact-box">
                         <label for="">Email</label>
-                        <input type="text" placeholder="prosing@gmail.com" />
+                        <input type="text" placeholder="genaiguru@gmail.com" />
                       </div>
                       <div class="contact-box">
                         <label for="">Comment</label>

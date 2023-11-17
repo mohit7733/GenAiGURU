@@ -6,7 +6,7 @@ const Milestone = () => {
       {/* <!-- main section start here --> */}
       <section class="mainWrapper flex">
     
-        <div class="rightSection">
+        <div class="">
           <div class="guru-gold-silver milestoneWrap">
             <div class="innerBreadcrumb">
               <p>

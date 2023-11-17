@@ -12,7 +12,7 @@ const Settings = () => {
   return (
     <div>
       <section class="mainWrapper flex">
-        <div class="rightSection">
+        <div class="">
           {/* <!-- setting start --> */}
           <div class="setting-wrapper flex">
             <h1>Setting</h1>
@@ -184,7 +184,7 @@ const Settings = () => {
                     <form action="">
                       <div class="profile-edit">
                         <label for="name">Your Name</label>
-                        <input type="text" placeholder="Prosing kingdom" />
+                        <input type="text" placeholder="GenAIGuru kingdom" />
                       </div>
                       <div class="profile-edit">
                         <label for="name">Bio</label>

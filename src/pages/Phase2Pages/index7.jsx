@@ -155,7 +155,7 @@ const Index7 = () => {
             </ul>
           </div>
         </div> */}
-        <div class="rightSection innerRight desktopHelp">
+        <div class=" innerRight desktopHelp">
           <div class="help-section flex">
             <div class="genaiguruSelect flex">
               <figure>
