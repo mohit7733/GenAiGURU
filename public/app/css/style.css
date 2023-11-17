@@ -1,3 +1,40 @@
+
+.kep-login-facebook.metro {
+    text-transform: inherit; 
+    background: rgba(198, 208, 225, .1019607843);
+    border-radius: 12px !important;
+    margin-bottom: 16px;
+    align-items: center;
+    padding: 16px 104px;
+    color: #F8FCFF;
+    font-size: 16px;
+    font-family: PlusJakartaSansMedium;
+    font-weight: 500;
+    line-height: 1.2em;
+    border: 1px solid transparent
+
+}
+@media (max-width:576px) {
+    .kep-login-facebook.metro{
+        padding: 15px 178px;
+    }
+}
+@media (max-width:2560px) {
+    .kep-login-facebook.metro{
+        padding: 15px 95px;
+    }
+}
+
+.kep-login-facebook.metro:hover {
+    border: 1px solid #be41c0
+}
+
+
+.error{
+    color: rgba(255, 0, 0, 0.396);
+}
+
+
 *,
 ul {
   margin: 0;
@@ -8061,3 +8098,4 @@ h3 {
   .wrapper {
   margin-bottom: 5px;
 }
+
