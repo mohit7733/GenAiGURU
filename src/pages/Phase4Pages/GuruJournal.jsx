@@ -246,7 +246,7 @@ const GuruJournal = () => {
               <h1>Guru Journal</h1>
               {/* <!-- tab-link start here --> */}
               <ul class="connect-link flex">
-                <li>
+                <li className={activeTab === 1 ? "active" : ""}>
                   <Link
                     onClick={() => handleTabClick(1)}
                     className={activeTab === 1 ? "tab active" : ""}
@@ -255,7 +255,7 @@ const GuruJournal = () => {
                     All
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 2 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(2)}
                     className={activeTab === 2 ? "tab active" : ""}
@@ -264,7 +264,7 @@ const GuruJournal = () => {
                     Ai in healthcare
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 3 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(3)}
                     className={activeTab === 3 ? "tab active" : ""}
@@ -273,7 +273,7 @@ const GuruJournal = () => {
                     ML in finance
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 4 ? "active" : ""}>
                   <Link
                     onClick={() => handleTabClick(4)}
                     className={activeTab === 4 ? "tab active" : ""}
@@ -282,7 +282,7 @@ const GuruJournal = () => {
                     Crypto
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 5 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(5)}
                     className={activeTab === 5 ? "tab active" : ""}

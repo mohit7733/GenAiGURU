@@ -239,13 +239,13 @@ const GuruGenesis = () => {
             </li>
           </ul>
         </div> */}
-        <div class="rightSection">
+        <div class="">
           <div class="keeps-container">
             <div class="gurukeeps-wrapper ">
               <h1>Contact to Guru Genesis</h1>
               {/* <!-- tab-link start here --> */}
               <ul class="connect-link flex">
-                <li>
+                <li className={activeTab === 1 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(1)}
                     className={activeTab === 1 ? "tab active" : ""}
@@ -254,7 +254,7 @@ const GuruGenesis = () => {
                     Contact us
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 2 ? "active" : ""}> 
                   <Link
                     onClick={() => handleTabClick(2)}
                     className={activeTab === 2 ? "tab active" : ""}

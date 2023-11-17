@@ -18,7 +18,7 @@ const Settings = () => {
             <h1>Setting</h1>
             <div class="setting-container">
               <ul class="connect-link">
-                <li>
+                <li className={activeTab === 1 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(1)}
                     className={activeTab === 1 ? "tab" : ""}
@@ -34,7 +34,7 @@ const Settings = () => {
                     <span>Profile</span>
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 2 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(2)}
                     className={activeTab === 2 ? "tab" : ""}
@@ -50,7 +50,7 @@ const Settings = () => {
                     <span>Edit password</span>
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 3 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(3)}
                     className={activeTab === 3 ? "tab" : ""}
@@ -66,7 +66,7 @@ const Settings = () => {
                     <span>Customize your interest</span>
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 4 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(4)}
                     className={activeTab === 4 ? "tab" : ""}
@@ -82,7 +82,7 @@ const Settings = () => {
                     <span>Notification settings</span>
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 5 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(5)}
                     className={activeTab === 5 ? "tab" : ""}
@@ -98,7 +98,7 @@ const Settings = () => {
                     <span>Privacy policy</span>
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 6 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(6)}
                     className={activeTab === 6 ? "tab" : ""}
@@ -114,7 +114,7 @@ const Settings = () => {
                     <span>Q&A</span>
                   </Link>
                 </li>
-                <li>
+                <li className={activeTab === 7 ? " active" : ""}>
                   <Link
                     onClick={() => handleTabClick(7)}
                     className={activeTab === 7 ? "tab" : ""}
@@ -208,7 +208,7 @@ const Settings = () => {
                 // <div class="tab-content tab-content-2 active">
                 <div
                   className={
-                    activeTab === 2 && "tab-content tab-content-2 active"
+                    activeTab === 2 && "tab-content tab-content-2 passChangeTab active"
                   }
                 >
                   {/* <div class="tab-content tab-content-2 passChangeTab"> */}
