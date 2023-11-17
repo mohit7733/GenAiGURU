@@ -1,0 +1,77 @@
+body {
+  font-family: $font-family-body;
+  font-weight: 400;
+  font-size: $font-size-body;
+  color: $color-black;
+}
+html {
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-body;
+  color: $color-white;
+  padding: 0px;
+  margin: 0px;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+h4 {
+  font-size: $font-size-h4;
+}
+
+h5 {
+  font-size: $font-size-h5;
+}
+
+h6 {
+  font-size: $font-size-h6;
+}
+
+p {
+  line-height: 1.55em;
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+li,
+.btn {
+  color: #000;
+}
+.btn {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.container {
+  
+}
+.container-sm {
+  
+}
+.container-lg {
+  
+}
+p {
+  margin-bottom: 0px;
+}
+.container-sl{
+  
+}

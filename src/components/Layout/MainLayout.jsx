@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => {
         <div className="rightSection">
           <div className="">{children}</div>
           <FixedAIButtonLogo />
-          <Outlet/>
+          <Outlet />
         </div>
       </section>
       <Footer />

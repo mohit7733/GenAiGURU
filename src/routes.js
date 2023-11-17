@@ -14,6 +14,17 @@ import GuruGenesis from "./pages/Phase4Pages/GuruGenesis";
 import GuruJournal from "./pages/Phase4Pages/GuruJournal";
 import GuruKeeps from "./pages/Phase4Pages/GuruKeeps";
 import SubscriptionPlans from "./pages/Phase4Pages/SubscriptionPlans";
+import Settings from "./pages/Phase4Pages/Settings";
+import GuruGold from "./pages/Phase5Pages/GuruGold";
+import LeaderBoard from "./pages/Phase5Pages/LeaderBoard";
+import Milestone from "./pages/Phase5Pages/Milestone";
+import Rewards from "./pages/Phase5Pages/Rewards";
+import SilverPopup from "./pages/Phase5Pages/SilverPopup";
+import Silver from "./pages/Phase5Pages/Silver";
+import FeaturedContent from "./pages/Phase6Pages/FeaturedContent";
+import BlogDetails from "./pages/Phase6Pages/BlogDetails";
+import FeaturedContentPopup from "./pages/Phase6Pages/FeaturedContentPopup";
+import Sortbydate from "./pages/Phase6Pages/Sortbydate";
 
 export const BASE_PATH = "/";
 
@@ -168,6 +179,73 @@ export function RouterElement({ isLogged }) {
       path: "subscriptions",
       name: "subscriptions",
       element: <SubscriptionPlans />,
+      exact: true,
+    },
+    {
+      path: "settings",
+      name: "settings",
+      element: <Settings />,
+      exact: true,
+    },
+    {
+      path: "gurugold",
+      name: "gurugold",
+      element: <GuruGold />,
+      exact: true,
+    },
+    {
+      path: "leaderboard",
+      name: "leaderboard",
+      element: <LeaderBoard />,
+      exact: true,
+    },
+    {
+      path: "milestone",
+      name: "milestone",
+      element: <Milestone />,
+      exact: true,
+    },
+    {
+      path: "reward",
+      name: "reward",
+      element: <Rewards />,
+      exact: true,
+    },
+    {
+      path: "silverpopup",
+      name: "silverpopup",
+      element: <SilverPopup />,
+      exact: true,
+    },
+    {
+      path: "silver",
+      name: "silver",
+      element: <Silver />,
+      exact: true,
+    },
+    // Phase 6 Routes
+    {
+      path: "featuredcontent",
+      name: "featuredcontent",
+      element: <FeaturedContent />,
+      exact: true,
+    },
+    {
+      path: "blogdetails",
+      name: "blogdetails",
+      element: <BlogDetails />,
+      exact: true,
+    },
+    {
+      path: "featuredpopup",
+      name: "featuredpopup",
+      element: <FeaturedContentPopup />,
+      exact: true,
+    },
+    {
+      path: "sortbydate",
+      name: "sortbydate",
+      element: <Sortbydate />,
       exact: true,
     },
   ];

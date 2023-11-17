@@ -1,0 +1,251 @@
+.rightSection{
+    .innerBreadcrumb{
+        margin-bottom: 14px;
+        p{
+            width: 100%;
+            color: rgba(160, 170, 177, 1);
+            font-weight: 500;
+            font-family: $font-family-PlusMedium;
+            font-size: 16px;
+            line-height: 1.25em;
+            a{
+                color: rgba(248, 252, 255, 1);
+                font-size: 16px;
+                line-height: 1.25em;
+                font-weight: 500;
+                font-family: $font-family-PlusMedium;
+                transition: all 0.25s ease;
+                &:hover{
+                    color: #be41c0;
+                }
+            }
+            i{
+                color: rgba(160, 170, 177, 1);
+                font-size: 20px;
+            }
+        }
+        i{
+            margin: 0 12px;
+        }
+    }
+    .guru-gold-silver{  
+        h1{
+            color: rgba(248, 252, 255, 1);
+            font-size: 28px;
+            line-height: 1.25em;
+            font-weight: 600;
+            font-family: $font-family-PlusSemiBold;
+            margin-bottom: 5px;
+        }
+        .center-box{
+            display: flex;
+            justify-content: center;
+            .topThreeBox{
+                width: 470px;
+                position: relative;
+                border-radius: 16px;
+                background: linear-gradient(0deg,#243343,#243343),linear-gradient(0deg,rgba(198,208,225,.02),rgba(198,208,225,.02));
+                z-index: 9;
+                &:before{
+                    content: "";
+                    position: absolute;
+                    width: calc(100% + 4px);
+                    height: calc(100% + 4px);
+                    top: -2px;
+                    left: -2px;
+                    background-image: linear-gradient(93.25deg, rgba(0, 153, 255, 0.7138) 3.95%, rgba(0, 255, 71, 0.4897) 31.35%, rgba(250, 23, 255, 0.83) 70.84%, rgba(255, 154, 154, 0.83) 98.18%);
+                    border-radius: 16px;
+                    z-index: -1; 
+                }
+            }
+            .topThreeBoxWrap{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                z-index: 9;
+                background: linear-gradient(0deg,#243343,#243343),linear-gradient(0deg,rgba(198,208,225,.02),rgba(198,208,225,.02));
+                padding: 20px;
+                border-radius: 16px;
+                h4{
+                    color: rgba(255, 255, 255, 1);
+                    font-size: 18px;
+                    line-height: 1.27em;
+                    font-weight: 600;
+                    font-family: $font-family-PlusSemiBold;
+                }
+                ul{
+                    margin-bottom: 10px;
+                    li{
+                        margin: 26px 17px 0;
+                        text-align: center;
+                        figure{
+                            box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+                            border: 3px solid rgba(255, 255, 255, 1);
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                            position: relative;
+                            margin: 0 auto;
+                            &:before{
+                                content: "";
+                                position: absolute;
+                                left: -13px;
+                                top: -13px;
+                                width: calc(100% + 26px);
+                                height: calc(100% + 26px);
+                                background: rgba(198, 208, 225, 0.1);
+                                border-radius: 50%;
+                            }
+                            .rankIcon{
+                                width: 30px;
+                                height: 30px;
+                                background-image: url('../../app/images/profileImgRank.png');
+                                background-repeat: no-repeat;
+                                position: absolute;
+                                right: -6px;
+                                bottom: -13px;
+                                color: $color-white;
+                                font-size: 12px;
+                                line-height: 1.2em;
+                                font-weight: 600;
+                                font-family: $font-family-PlusSemiBold;
+                                display: flex;
+                                align-items: center;
+                                padding: 0 4px;
+                            }
+                        }
+                        &:nth-of-type(2){
+                            margin-top: 0;
+                            figure{
+                                width: 90px;
+                                height: 90px;
+                            }
+                        }
+                        .content{
+                            margin-top: 23px;
+                            p{
+                                font-size: 14px;
+                                font-weight: 600;
+                                line-height: 1.25em;
+                                font-family: $font-family-PlusSemiBold;
+                                color: $color-white;
+                                span{
+                                    font-size: 12px;
+                                    font-weight: 400;
+                                    line-height: 1.25em;
+                                    font-family: $font-family-body;
+                                    color: $color-white;
+                                }
+                            }
+                            h6{
+                                font-size: 12px;
+                                font-weight: 500;
+                                line-height: 1.25em;
+                                font-family: $font-family-PlusMedium;
+                                color:rgba(193, 193, 193, 1);
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+       .connect-link{
+        padding: 8px 12px;
+        border-radius: 12px;
+        background: rgba(198, 208, 225, 0.10);
+       box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+       backdrop-filter: blur(20px);
+       width: 260px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 23px;
+        margin-top: 25px;
+        li{
+            margin-right: 5px;
+            &:nth-last-child(1){
+                margin-right: 0;
+            }
+            a{
+                color: #FFF;
+     font-size: 16px;
+     font-weight: 400;
+     display: block;
+   letter-spacing: -0.24px;
+   display: flex;
+   align-items: center;
+   border-radius: 24px;
+   box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+   background: rgba(198, 208, 225, 0.10);
+   padding: 8px 12px;
+   backdrop-filter: blur(20px);  
+   &.active{
+    background: var(--P-Gradient, linear-gradient(88deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%));
+}
+   figure{
+    margin-left: 8px;
+    width: 16px;
+    img{
+        vertical-align: middle;
+    }
+   }
+            }
+        }
+       }
+    //    list leader
+    .list-container{
+        margin-bottom: 10px;
+        border-radius: 16px;
+        box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+        background: rgba(198, 208, 225, 0.12);
+        backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        padding: 12px 20px ;
+        .profile{
+            ul{
+                li{
+                    display: flex;
+                    align-items: center;
+                    .img-box{
+                        span{
+                         padding-right: 9px;
+                         padding-top: 4px;
+                         color: #fff;
+                        }
+                    }
+                    .content{
+                        margin-left: 9px;
+                        h4{
+                            font-weight: 400;
+                        }
+                        p{
+                            font-size: 16px;
+                            color: #c1c1c1;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+         
+
+        }
+        .button{
+            a{
+                padding: 8px 16px;
+                border-radius: 22px;
+              background: rgba(208, 217, 229, 0.06);
+              color: #fff;
+              font-weight: 500;
+              letter-spacing: 0.24px;
+            }
+
+        }
+    }
+       .tab-content{
+        display: none;
+        &.active{
+            display: block;
+        }
+    }
+}
+}

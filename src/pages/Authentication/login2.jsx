@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { type } from "@testing-library/user-event/dist/type";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { PATH_LOGIN } from "../../routes";
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
+
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,9 +56,9 @@ const Login2 = () => {
     }
     return error;
   };
+
   return (
     <>
-      {" "}
       <div>
         <section class="createAccount mainBg">
           <div class="wrapper400">
@@ -122,7 +124,7 @@ const Login2 = () => {
                 {/* <Link
                   class="loginBtn"
                   onClick={() => {
-                    alert("Account Created")
+                    alert("Account Created");
                     setDisplayGoToMail(true);
                   }}
                 >

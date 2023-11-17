@@ -6,8 +6,8 @@ const Index5 = () => {
   const [displaySeePost, setDisplaySeePost] = useState(false);
   return (
     <div>
-      <section class="mainWrapper mobileMainWrap flex desktopPostCreate">
-        <div class="desktopHelp">
+      <section class="mobileMainWrap  desktopPostCreate">
+        <div class="full-width desktopHelp">
           <div class="help-section writePost flex">
             <ul class="breadcrumb flex">
               <li>

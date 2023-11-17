@@ -4,11 +4,11 @@ const SubscriptionPlans = () => {
   return (
     <div>
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex">
-        <div class="rightSection">
+      <section class="">
+        <div class=" full-width">
           <div class="subscriptionPlan">
             {/* <!-- subscription plans start here --> */}
-            <h1>Subscriptions plans</h1>
+            <h1>Subscription Plans</h1>
             <div class="current-plan">
               <p>My current plan</p>
               <div class="current-plan-container">

@@ -1,0 +1,326 @@
+// login bg
+.mainBg{
+    position: relative;
+    background-image: linear-gradient(to top, #191f2b, #1e2732, #232f3a, #293841, #304048, #314249, #33434b, #34454c, #304048, #2c3b43, #28373f, #24323b);
+    width: 100vw;
+    height: 100vh;
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 50%;
+        background-image: url('../../app/images/rectangleImg.png');
+        background-repeat: repeat;
+        z-index: 1;
+    }
+}
+.wrapper400{
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 9;
+    @include breakpoint(small){
+        max-width: 100%;
+    }
+    .starsImg{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: -100px;
+        top: 40%;
+        transform: translateY(-50%);
+        img{
+            &:last-of-type{
+                position: absolute;
+                right: -55px;
+                top: 60px;
+            }
+        }
+    }
+}
+
+// loader css start here
+.loader{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    position: fixed;
+    z-index: 9999;
+    background-image: linear-gradient(to top, #191f2b, #1e2732, #232f3a, #293841, #304048, #314249, #33434b, #34454c, #304048, #2c3b43, #28373f, #24323b);
+    width: 100vw;
+    height: 100vh;
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 50%;
+        background-image: url('../../app/images/rectangleImg.png');
+        background-repeat: repeat;
+        z-index: -1;
+    }
+}
+
+// left sidebar
+.sideBarWrap{
+    .headerLogo{
+        &.innersidebar{
+            width: 100%;
+            border-right: 2px solid rgba(56, 77, 95, 0.58);
+            background: linear-gradient(0deg, #243343, #243343), linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+            border-bottom: 2px solid rgba(56, 77, 95, 0.58);
+        }
+    }
+    &.mobileSideBar{
+        @include breakpoint(small){
+            width: 100%;
+        }
+    }
+}
+.leftSidebar{
+    width: 270px;
+    // height: 100%;
+    // background-color: rgba(36, 51, 67, 1);
+    border-right: 2px solid rgba(56, 77, 95, 0.58);
+    padding: 32px 10px;
+    background: linear-gradient(0deg, #243343, #243343), linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+    @media(min-width: 1650px){
+        height: 100vh;
+    }
+    @include breakpoint(small){
+        display: none;
+    }
+    @media (min-width:1022px) and (max-width:1025px) {
+        height: 100vh;
+    }
+    &.bigSidebar{
+        @media(min-width: 1650px){
+            height: auto;
+        }
+    }
+    
+    .menu{
+        li{
+            &.active{
+                a{
+                    background: #2f4154;
+                }
+            }
+        }
+    }
+    li{
+        a{
+            display: flex;
+            width: 100%;
+            color: rgba(160, 170, 177, 1);
+            font-size: 15.5px;
+            line-height: 1.4em;
+            font-weight: 500;
+            font-family: $font-family-PlusMedium;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: all 0.25s ease;
+            &:hover{
+                background: #2f4154;
+            }
+            figure{
+                padding: 7px;
+                border-radius: 8px;
+                margin-right: 10px;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: auto;
+                }
+            }
+        }
+    }
+    .newsletter{
+        margin: 145px 0 36px 0;
+        border-radius: 12px;
+        background: rgba(198, 208, 225, 0.1);
+        box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+        padding: 21px 14px;
+        h5{
+            margin-bottom: 18px;
+            color:rgba(247, 250, 255, 1);
+            font-family: $font-family-PlusSemiBold;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 1.4em;
+        }
+        .loginBtn{
+            padding: 12px 20px;
+        }
+    }
+    .bottom-menu{
+        li{
+            margin-bottom: 12px;
+        }
+        a{
+            color: rgba(179, 184, 186, 1);
+            font-size: 14px;
+            line-height: 1.5em;
+            font-weight: 500;
+            font-family: $font-family-PlusMedium;
+            padding: 0px 14px;
+            &:hover{
+                background-color: transparent;
+                color: #be41c0;
+            }
+        }
+    }
+    .social-icons{
+        margin-top: 20px;
+        li{
+            padding: 0 12px;
+            a{
+                padding: 1px;
+                border-radius: 50%;
+                border: solid 1px transparent;
+                transition: all 0.25s ease;
+                &:hover{
+                    border: solid 1px #be41c0;
+                    font-weight: 600;
+                }
+            }
+            
+        }
+    }
+}
+
+// heading and link
+.heading-link{
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 30px 0 0;
+    h3{
+        color: $color-white;
+        font-weight: 500;
+        font-family: $font-family-PlusMedium;
+        line-height: 1.4em;
+    }
+    a{
+        color: $color-white;
+        font-size: 16px;
+        line-height: 1.4em;
+        font-weight: 500;
+        transition: all 0.25s ease;
+        &:hover{
+            color: #be41c0;
+            font-weight: 600;
+        }
+    }
+}
+
+// fixed button
+.fixedBtn{
+    box-shadow: 12px 15px 38px 0px rgba(0, 0, 0, 1);
+    padding: 4px;
+    background: linear-gradient(146.11deg, #F9ED32 -41%, #F8E531 -22.42%, #F7CF30 6.26%, #F5AC2E 41.34%, #F27C2B 81.02%, #F15A29 106.58%);
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    &:hover{
+        background:  #be41c0;;
+    }
+    figure{
+        background: rgba(19, 31, 44, 1);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: auto;
+        }
+    }
+}
+
+// silver popup start here
+.loginPopup{
+    &.silverPopup{
+        .wrapper{
+            background: rgba(187, 191, 198, 0.12);
+            width: 435px;
+            border-radius: 32px;
+            padding: 40px 86px;
+        }
+        figure{
+            width: 112px;
+            height: 112px;
+            background: transparent;
+            position: relative;
+        }
+        .dotsImg{
+            text-align: center;
+            position: absolute;
+            right: -30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            span{
+                &:first-of-type{
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    background-color: rgba(254, 183, 255, 1);
+                }
+                &:nth-of-type(2){
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background-color:rgba(242, 242, 242, 1);
+                    margin-top: 25px;
+                }
+            }
+        }
+        .labelInner{
+            text-align: center;
+            margin-bottom: 7px;
+            h6{
+                font-size: 14px;
+                line-height: 1.26em;
+                font-weight: 600;
+                font-family: $font-family-PlusSemiBold;
+                margin-bottom: 4px;
+            }
+            p{
+                font-size: 12px;
+                line-height: 1.25em;
+                font-weight: 500;
+                font-family: $font-family-PlusMedium;
+                color: rgba(193, 193, 193, 1);
+            }
+        }
+    }
+}
+
+// mobile desktop hide show
+.hideMob{
+    @include breakpoint(small){
+        display: none;
+    }
+}
+.hideDes{
+    display: none;
+    @include breakpoint(small){
+        display: block;
+    }
+}
