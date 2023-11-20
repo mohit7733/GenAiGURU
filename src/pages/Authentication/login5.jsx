@@ -1,42 +1,53 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { getBaseURL, getHeaders } from "../../api/config";
 
 const Login5 = () => {
+  const [interestData, setInterestData] = useState([]);
+  const token = getHeaders();
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/interests`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response) => {
+        setInterestData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  console.log(token, "Token");
+  console.log(interestData);
   return (
     <div>
-      <section class="interestSection mainBg">
-        <div class="wrapper">
-          <div class="cancelBtn">
+      <section className="interestSection mainBg">
+        <div className="wrapper">
+          <div className="cancelBtn">
             <a href="#">
-              <i class="fa fa-times" aria-hidden="true"></i>
+              <i className="fa fa-times" aria-hidden="true"></i>
             </a>
             Cancel
           </div>
           <h1>Let’s choose your interest</h1>
           <p>This will help us create the best experience for you!</p>
           <ul>
-            <li>Data science</li>
-            <li>Bitcoin</li>
-            <li>Large language models</li>
-            <li>Cryptocurrency</li>
-            <li>Digital innovation</li>
-            <li>NLP</li>
-            <li>Mid-journey</li>
-            <li>Large language models</li>
-            <li>Cryptocurrency</li>
-            <li>Data science</li>
-            <li>Bitcoin</li>
-            <li>Machine learning</li>
-            <li>Digital innovation</li>
+            {interestData.map((data) => {
+              return <li>{data.interestName}</li>;
+            })}
           </ul>
-          <div class="buttonText">
+          <div className="buttonText">
             <p>
               Selected <span>(4)</span>
             </p>
-            <Link to={"/login6"} class="loginBtn">
+            <Link to={"/login6"} className="loginBtn">
               Continue
             </Link>
-            {/* <a href="#" class="loginBtn">
+            {/* <a href="#" className="loginBtn">
               Continue
             </a> */}
           </div>

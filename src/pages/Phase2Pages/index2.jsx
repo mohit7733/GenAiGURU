@@ -17,7 +17,7 @@ const Index2 = () => {
                 />
               </figure>
               <select name="genaiguruSelect">
-                <option value="genaiguru">genaiguru</option>
+                <option value="genaiguru">Gen AI Guru</option>
                 <option value="genaiguru2">genaiguru2</option>
                 <option value="genaiguru3">genaiguru3</option>
               </select>

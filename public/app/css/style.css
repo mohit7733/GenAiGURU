@@ -3408,6 +3408,7 @@ footer .footerMenu a {
   align-self: flex-start;
   transition: all 0.25s ease;
   border: 2px solid rgba(56, 77, 95, 0.58);
+  margin-top: 0;
 }
 
 .help-section .genaiguruSelect:hover {
@@ -3429,7 +3430,10 @@ footer .footerMenu a {
   background: 0 0;
   cursor: pointer;
   margin-top: -3px;
+  width: 130px;
 }
+
+
 
 .help-section .genaiguruSelect select option {
   color: #131f2c;

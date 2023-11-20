@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import { PATH_LOGIN } from "../../routes";
 import React, { useState } from "react";
+import { login } from "../../api/Auth";
+import { getBaseURL } from "../../api/config";
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
+    onLogin();
   };
 
   const onchangeCheck = (key, value) => {
@@ -37,32 +41,65 @@ const Login8 = () => {
     }
     return error;
   };
+
+  const onLogin = async () => {
+    let payload = {
+      email: email,
+      password: password,
+    };
+    return login(payload)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("tokenDetail", JSON.stringify(res.data.accessToken));
+        window.alert("Logged In Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert(
+          err?.response?.data?.error ?? "Incorrect Username and Password"
+        );
+      });
+  };
+  // const onLogin = async () => {
+  //   try {
+  //     const response = await fetch(`${getBaseURL()}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         email,
+  //         password,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+  //     // Handle the response, such as storing the token or redirecting to a new page
+  //     console.log(data);
+  //   } catch (error) {
+  //     // Handle errors, such as displaying an error message
+  //     console.error("Login failed:", error.message);
+  //   }
+  // };
   return (
     <div>
-      {/* <!-- loader start here --> */}
-      {/* <div class="loader">
-        <img
-          src="app/images/lodingLogo.png"
-          alt="Genaiguru logo"
-          title="Genaiguru Logo"
-        />
-      </div> */}
-      {/* <!-- loader end here -->
-
-    <!-- account create section start here --> */}
-      <section class="createAccount mainBg">
-        <div class="wrapper400">
-          <div class="backBtn">
+      <section className="createAccount mainBg">
+        <div className="wrapper400">
+          <div className="backBtn">
             <Link to={PATH_LOGIN}>
-              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
             </Link>
             Back
           </div>
           <h1>
             <span>Login </span> with your email address and password!
           </h1>
-          <form action="" class="accountCreate" onSubmit={handleSubmit}>
-            <div class="form_group flex">
+          <form action="" className="accountCreate">
+            <div className="form_group flex">
               <label for="email">Email address</label>
               <input
                 type="email"
@@ -73,7 +110,7 @@ const Login8 = () => {
               />
               {errors["email"] && <div className="error">{errors.email}</div>}
             </div>
-            <div class="form_group flex">
+            <div className="form_group flex">
               <label for="password">Password</label>
               <input
                 type="password"
@@ -86,18 +123,17 @@ const Login8 = () => {
                 <div className="error">{errors.password}</div>
               )}
             </div>
-            <div class="form_group">
-              {/* <button type="button" class="loginBtn">
+            <div className="form_group">
+              <button className="loginBtn" onClick={handleSubmit}>
                 Login
-              </button> */}
-              <button class="loginBtn"> Login </button>
+              </button>
             </div>
           </form>
-          <p class="termsText">
+          <p className="termsText">
             By continuing, you agree to our <a href="#">Terms and conditions</a>{" "}
             and <a href="#">Privacy Policy.</a>
           </p>
-          <div class="starsImg">
+          <div className="starsImg">
             <img src="app/images/star.png" alt="Genaiguru stars" />
             <img src="app/images/star2.png" alt="Genaiguru stars" />
           </div>
