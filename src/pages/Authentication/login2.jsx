@@ -2,7 +2,7 @@ import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { PATH_LOGIN } from "../../routes";
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
 
@@ -81,12 +81,14 @@ const Login2 = () => {
   return (
     <>
       <div>
-        <section className="createAccount mainBg">
-          <div className="wrapper400">
-            <div className="backBtn">
-              <a href="#">
-                <i className="fa fa-angle-left" aria-hidden="true"></i>
-              </a>
+
+        <section class="createAccount mainBg">
+          <div class="wrapper400">
+            <div class="backBtn">
+            <Link to={PATH_LOGIN}>
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </Link>
+
               Back
             </div>
             <h1>

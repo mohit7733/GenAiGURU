@@ -3,11 +3,15 @@ import { Link, NavLink } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useGoogleLogin } from "@react-oauth/google";
+import FacebookLogin from "react-facebook-login";
 import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
 const Login = () => {
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => console.log(tokenResponse),
   });
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
   return (
     <div>
       <section class="loginOption mainBg">
@@ -33,14 +37,24 @@ const Login = () => {
               </Link>
             </li>
             <li>
-              <a href="#" class="flex">
+              <div>
+                <FacebookLogin
+                  appId="1394023161194162"
+                  autoLoad={false}
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  icon="fa-facebook"
+                  textButton="Continue with Facebook"
+                />
+              </div>
+              {/* <Link class="flex">
                 <img
                   src="app/images/facebookIcon.png"
                   alt="Genaiguru facebook icon"
                   title="Genaiguru on facebook"
                 />{" "}
-                Continue with Facebook
-              </a>
+                Continue with Facebook  
+              </Link> */}
             </li>
 
             {/* <li>
