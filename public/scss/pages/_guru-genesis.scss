@@ -1,0 +1,145 @@
+.rightSection{
+    .contact-wrapper{
+        .faq-container{
+            width: 485px;
+            margin-right: 50px;
+            .faq-box{
+                margin-top: 12px;
+                &.active{
+                    .accordion{
+                        border-radius: 12px 12px 0 0;
+                    }
+                    .leftArrow{
+                        img{
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+                .accordion{
+                    background: rgba(248, 252, 255, 0.1);
+                    box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+                    width: 100%;
+                    padding: 10px 18px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    border: solid 2px transparent;
+                    transition: all 0.25s ease;
+                    &:hover{
+                        border: solid 2px #be41c0;
+                        .leftArrow{
+                            border: solid 2px #be41c0;
+                        }
+                    }
+                }
+                .leftArrow{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(124, 141, 184, 0.1);
+                    border: solid 2px transparent;
+                    transition: all 0.25s ease;
+                    img{
+                        transition: all 0.25s ease;
+                    }
+                }
+                h4{
+                    font-size: 20px;
+                    font-weight: 500;
+                    line-height: 1.25em;
+                    color: rgba(248, 252, 255, 1);
+                    font-family: $font-family-PlusMedium;
+                    padding-right: 90px;
+                    width: calc(100% - 40px);
+                }
+                p{
+                    color: $color-white;
+                    font-size: 16px;
+                    font-weight: 400;
+                    font-family: $font-family-body;
+                }
+                .panel{
+                    display: none;
+                    padding: 20px 18px;
+                    background: rgba(248, 252, 255, 0.1);
+                    box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+                    border-radius: 0 0 12px 12px;
+                }
+            }
+        }
+        .contact-container{
+            width: 385px;
+            background: #C6D0E11A;
+         padding: 18px;
+         border-radius: 10px;
+         align-self: flex-start;
+         form{
+            margin-top: 25px;
+            .contact-box{
+                margin-bottom: 16px;
+            label{
+                display: block;
+                color:  #CFD6DB;
+                font-size: $font-size-sm;
+                font-weight:500;
+                
+            }
+            textarea, input{
+                border: none;
+                outline: none;
+                padding: 16px;
+               background: rgba(198,208,225,.1);
+              border-radius: 12px;
+              width: 100%;
+              border: 2px solid rgba(229,241,249,.3607843137);
+              display: inline-block;
+              margin-top: 4px;
+              color: #CFD6DB;
+              transition: all 0.25s ease;
+              line-height: 1.25em;
+              &::placeholder{
+                color: #CFD6DB;
+              }
+              &:hover, &:focus{
+                border: solid 2px #be41c0;
+              }
+            }
+            textarea{
+                height: 107px;
+            }
+        }
+        .loginBtn{
+            margin-top: 25px;
+        }
+
+         }
+        }
+      
+    }
+    .tab-content{
+        .about-content{
+           margin-bottom: 32px;
+           h4{
+               font-size: 20px;
+                font-weight: 600;
+                font-family: $font-family-PlusSemiBold;
+                line-height: 1.25em;
+                color: rgba(248, 252, 255, 1);
+                margin-bottom: 12px;
+           }
+           p{
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 27px;
+                color: rgba(207, 214, 219, 1);
+                max-width: 855px;
+                font-family: $font-family-PlusMedium;
+           }
+
+        }
+       }
+}

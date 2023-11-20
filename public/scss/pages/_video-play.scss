@@ -1,0 +1,167 @@
+.video-wrapper{
+    padding-right: 40px;
+    @media (max-width:1080px) {
+        padding-right: 30px;   
+    }
+    .video-box{
+        width: calc(100% - 345px);
+        padding-right: 32px ;
+        @media (max-width:1080px) {
+            width: 100%;
+            padding-right: 0;
+        }
+        p{
+            color:  #F8FCFF;
+            margin-bottom: 16px;
+            margin-left: 35px;
+            font-size: 16px;
+            line-height: 1.25em;
+            color: rgba(248, 252, 255, 1);
+            font-weight: 500;
+            font-family: $font-family-PlusMedium;
+            @include breakpoint(xmedium){
+                margin-left: 0;
+            }
+            i{
+                margin-right: 10px;
+                font-size: 20px;
+            }
+        }
+
+        video{
+            width: 100%;
+        }
+        .link{
+            margin-top: 5px;
+            li{
+                a{
+                    color:  #5F82FF;
+                }
+              }
+              .download-btn{
+                a{
+                    background: #C6D0E11F;
+                  padding: 6px 12px;
+                  border-radius: 20px;
+                 color: #CFD6DB;
+                 font-size: 12px;
+                }
+                h2{
+                    line-height: 35px;
+                }
+            }
+            }
+            .view-details{
+                margin-top: 8px;
+                a{
+                    color:  #A4ABAF;
+                    font-size: $font-size-sm;
+                    font-family: $font-family-PlusMedium; 
+                }
+
+        }
+        .profile-video{
+                li{
+                    a{
+                        color:  #fff;                      
+                        font-size: 14px;
+                        img{
+                            width: 30px;
+                        }
+                        small{
+                            font-size: 12px;
+                            color:  #A4ABAF;
+                            ;
+                        }
+                       
+                    }
+                    &:nth-last-of-type(1){
+                        margin-left: 5px;
+                    }
+                }
+                
+            }
+            .review{
+                margin-top: 30px;
+                border-top: 2px solid #334552;
+                padding-top: 33px;
+                ul{
+                    li{
+                        margin-bottom: 32px;
+                        a{
+                            display: flex;
+                            // align-items: center;
+
+                            figure{
+                                width: 53px;
+                            }
+                            span{
+                                color: $color-white;
+                                font-size: $font-size-sm;
+                                font-weight: 700;
+                                display: inline-block;
+                                margin-left: 5px;
+                                img{
+                                    width: 30px;
+                                    display: inline-block;
+                                    padding: 5px;
+                                    
+                                }
+                            }
+                            small{
+                                color: #A4ABAF;
+                                font-size: 12px;
+                                font-weight: 400;
+
+                            }
+                        }
+                    }
+                }
+            }
+         
+        }
+    }
+    h3{
+        font-weight: 600;
+        font-family: $font-family-PlusSemiBold;
+        margin-top: 6px;
+    }
+    .video-list{
+        width: 345px;
+        margin-top: 33px;
+        @media (max-width:1080px) {
+            width: 100%;
+            margin-top: 20px;
+        }
+        h3{
+            margin-bottom: 12px;
+        }
+        .interest-box {
+            .wrap{
+                width: 100%;
+            }
+        }
+        h1{
+            margin-bottom: 12px;
+            font-size: 24px;
+            line-height: 1.25em;
+            color: $color-white;
+            font-weight: 500;
+            font-family: $font-family-PlusMedium;
+        }
+    }
+.profile-video{
+    margin-top: 15px;
+}
+
+// mobile video section
+.mob_profile{
+    .innerVideosection{
+        background: linear-gradient(90.25deg, #243343 35.17%, #243343 78.16%), linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+        padding: 10px 16px 32px;
+        margin-top: -2px;
+    }
+    .video-wrapper{
+        padding-right: 5px;
+    }
+}

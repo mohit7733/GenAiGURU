@@ -1,0 +1,19 @@
+// login button
+.loginBtn{
+    padding: 17.5px 30px;
+    border-radius: 16px;
+    background: linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+    box-shadow: 0px 10px 24px 0px #3A4A63A1;
+    border: 1px solid #FFFFFF36;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: $font-family-PlusMedium;
+    color: #F4F8FF;
+    width: 100%;
+    transition: all 0.25s ease;
+    &:hover{
+        background: #be41c0;
+    }
+}

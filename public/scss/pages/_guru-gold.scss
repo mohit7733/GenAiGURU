@@ -1,0 +1,289 @@
+.rightSection{
+    .guru-gold-silver{
+        padding: 10px;
+        h1{
+            font-family: $font-family-PlusSemiBold;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.25em;
+            margin-bottom: 32px;
+            img{
+                vertical-align: middle;
+            }
+            a{
+                color: #a0aab1;
+                font-weight: 500;
+                font-size: 16px;
+                letter-spacing: 0.24px;
+            }
+        }
+        .silver-coin-box{
+            width: 421px;
+            height: 181px;
+            position: relative;
+            // z-index: 9;
+            border-radius: 16px;
+            background: linear-gradient(0deg,#243343,#243343),linear-gradient(0deg,rgba(198,208,225,.02),rgba(198,208,225,.02));
+            z-index: 9;
+            margin-top: 32px;
+            &:before{
+                content: "";
+                position: absolute;
+                width: calc(100% + 4px);
+                height: calc(100% + 4px);
+                top: -2px;
+                left: -2px;
+                background-image: linear-gradient(93.25deg, rgba(0, 153, 255, 0.7138) 3.95%, rgba(0, 255, 71, 0.4897) 31.35%, rgba(250, 23, 255, 0.83) 70.84%, rgba(255, 154, 154, 0.83) 98.18%);
+                border-radius: 16px;
+                z-index: -1; 
+            }
+            .silverWrap{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                z-index: 9;
+                background: linear-gradient(0deg,#243343,#243343),linear-gradient(0deg,rgba(198,208,225,.02),rgba(198,208,225,.02));
+                padding: 28px 40px 25px 32px;
+                border-radius: 16px;
+            
+                .profileBottomText{
+                    margin-top: 5px;
+                    font-size: 14px;
+                    line-height: 1.2em;
+                    color: $color-white;
+                    font-weight: 500;
+                    font-family: $font-family-PlusMedium;
+                }
+            }
+            .userPro{
+                figure{
+                    background: linear-gradient(126.46deg, #2087FF -1.62%, rgba(129, 246, 239, 0.65) 48.02%, #FF45EC 99.78%), linear-gradient(0deg, #FFFFFF, #FFFFFF);
+                    border: 3px solid $color-white;
+                    width: 73px;
+                    height: 73px;
+                    border-radius: 50%;
+                    position: relative;
+                    .profileImageTag{
+                        position: absolute;
+                        right: -18px;
+                        bottom: -12px;
+                        width: auto;
+                    }
+                }
+                li{
+                    &:nth-last-of-type(1){
+                        margin-left: 20px;
+                    }
+                    h3{
+                        font-weight: 600;
+                        font-family: $font-family-PlusSemiBold;
+                        font-size: 24px;
+                        line-height: 1.27em;
+                        color: rgba(255, 255, 255, 1);
+                        margin-bottom: 8px;
+                        img{
+                            margin-top: 7px;
+                            margin-left: 5px;
+                        }
+                    }
+                    p{
+                        font-size: 18px;
+                        color: rgba(193, 193, 193, 1);
+                        line-height: 14px;
+                        font-weight: 500;
+                        font-family: $font-family-PlusMedium;
+                    }
+                }
+            }
+          .rangeWrap{
+            width: 100%;
+            margin-top: 12px;
+            border-radius: 20px;
+            .range{
+                width: 100%;
+                height: 14px;
+            }
+          }
+          p{
+            color: #fff;
+           font-size: 14px;
+            font-weight: 500;
+          }
+        
+        }
+        .silver-user{
+            margin-top: 40px;
+            width: 298px;
+            ul{
+                padding-bottom: 20px;
+                li{
+                    figure{
+                        width: 75px;
+                    }
+                }
+            }
+        }
+        .reward{
+            border-top: 2px solid #71717136;
+           padding-top:  35px;
+           .reward-container{
+            .reward-line{
+                .reward-box{
+                    width: 421px;
+                    position: relative;
+                    padding: 13px 0;
+                    a{
+                        align-items: center;
+                    }
+                    h6{
+                        margin-left: 14px;
+                        font-family: $font-family-PlusMedium;
+                        font-weight: 500;
+                        color: $color-white;
+                        font-size: 16px;
+                        line-height: 1.25em;
+                        transition: all 0.25s ease;
+                        &:hover{
+                            color: #be41c0;
+                        }
+                    }
+                    .rightArrow{
+                        margin-left: auto;
+                    }
+                }
+                p{
+                    display: none;
+                    color :#fff;
+                    margin-left: 20px;
+                    padding: 10px;
+                }
+
+            }
+           }
+        }
+        // points start here  achivement-page
+        .points-box{
+            width: 422px;
+            border-radius: 16px;
+            background: rgba(198, 208, 225, 0.12);
+            margin-top: 21px;
+            border: 2px solid transparent;
+            box-shadow: 0px 4px 14px 0px rgba(60, 71, 101, 0.13);
+            backdrop-filter: blur(20px);
+            transition: all 00.5s ease-in-out;
+            padding: 24px 34px;
+            &:hover{
+                border: 2px solid silver;
+            }
+            ul{
+                li{
+                    margin-bottom: 21px;
+                    display: flex;
+                    &:first-of-type{
+                        .img-box figure.active::after{
+                            display: none;
+                        }
+                    }
+                    &:last-of-type{
+                        margin-bottom: 0;
+                    }
+                  .img-box{
+                    figure{
+                        width: 30px;
+                        height: 30px;
+                        background: rgba(198, 208, 225, 0.12);
+                        border-radius: 50px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+
+                        &.active{
+                        width: 30px;
+                        height: 30px;
+                        background: #83BB7A;;
+                        border-radius: 50px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 2px solid white;
+                        &::after{
+                            content: "";
+                            position: absolute;
+                            bottom: 29px;
+                            left: 12px;
+                            width: 0.5px ;
+                            height: 25px;
+                            background: #83BB7A;
+                            &:nth-child(1):after{
+                               display: none;
+                            }
+
+                        }
+                        }
+                        img{
+                            width: 16px;
+                            height: 16px;
+                           
+                        }
+                        &::after{
+                            content: "";
+                            position: absolute;
+                            bottom: 30px;
+                            left: 14px;
+                            width: 1px ;
+                            height: 30px;
+                           border: 2px dotted rgba(198, 208, 225, 0.12);
+
+                        }
+                    }
+
+                  }
+                  .content{
+                    margin-left: 14px;
+                    h6{
+                        font-weight: 500;
+                        font-size: 16px;
+                        font-family: $font-family-PlusMedium;
+                        line-height: 1.5em;
+                    }
+
+                    p{
+                        font-size: 12px;
+                        font-family: $font-family-PlusMedium;
+                        color: rgba(193, 193, 193, 1);
+                        font-weight: 500;
+                    }
+                  }
+                }
+            }
+         
+
+        }
+        .claim-box{
+            margin-top: 40px;
+            a{
+                    border-radius: 16px;
+                    border: 1px solid rgba(255, 255, 255, 0.21);
+                    background: var(--P-Gradient, linear-gradient(88deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%));
+                    box-shadow: 0px 10px 24px 0px rgba(58, 74, 99, 0.63);
+                    display: flex;
+                    width: 343px;
+                    height: 58px;
+                    padding: 15px 30px;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    flex-shrink: 0;
+                
+            }
+        }
+
+    }
+}
+
+// silver page css
+.buttonWrap{
+    width: 343px;
+    margin-top: 23px;
+}
