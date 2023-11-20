@@ -8,7 +8,7 @@ const GuruGold = () => {
       <section class="">
         <div class="full-width">
           <div class="guru-gold-silver">
-            <h1>Gurugold</h1>
+            <h1>Guru Gold</h1>
             <div class="silver-coin-box">
               <div class="silverWrap">
                 <ul class="flex userPro">

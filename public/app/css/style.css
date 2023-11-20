@@ -2279,8 +2279,8 @@ footer .footerMenu a {
   width: 100%;
 }
 .mainWrapper .rightSection.full-width {
-    width: 100%;
-  }
+  width: 100%;
+}
 @media (max-width: 767px) {
   .mainWrapper .rightSection {
     width: 100%;
@@ -4724,7 +4724,11 @@ footer .footerMenu a {
   backdrop-filter: blur(80px);
   padding: 30px 24px;
   border-radius: 20px;
-  margin: 0 auto;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 32;
 }
 
 .popup-wrapper h2 {
@@ -6607,7 +6611,8 @@ h3 {
   font-size: 16px;
   font-weight: 400;
   color: #cfd6db;
-  width: 791px;
+  width: 100%;
+  max-width: 790px;
   font-family: Inter, sans-serif;
 }
 
@@ -6791,7 +6796,8 @@ h3 {
 
 .feedbackSection form textarea {
   margin-bottom: 16px;
-  width: 612px;
+  width: 100%;
+  max-width: 612px;
   border-radius: 12px;
   border: 2px solid rgba(229, 241, 249, 0.3607843137);
   font-size: 16px;

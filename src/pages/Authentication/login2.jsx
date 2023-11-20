@@ -1,4 +1,5 @@
 import { type } from "@testing-library/user-event/dist/type";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -10,49 +11,69 @@ const Login2 = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .post({
+  //       url: "https://genaiadmin.sdsstaging.co.uk/api/auth/register",
+  //       headers: {},
+  //       data: {
+  //         // This is the body part
+  //         name: name,
+  //         email: email,
+  //         password: password,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
   };
-  const onchangeCheck = (key,value) =>{
+
+  const onchangeCheck = (key, value) => {
     const errors = {};
-    if(!value){
-      errors[key] = key +"Required !"
+    if (!value) {
+      errors[key] = key + "Required !";
     }
     setErrors(errors);
-   }
+  };
+
   const validate = () => {
     const error = {};
     if (!name) {
-      error['name'] = "Name Required!";
+      error["name"] = "Name Required!";
     } else if (name.length < 3) {
-      error['name'] = "Please Enter a Valid Name!";}
-    else {
-      error['name'] = "";
+      error["name"] = "Please Enter a Valid Name!";
+    } else {
+      error["name"] = "";
     }
 
     if (!email) {
-      error['email'] = "Email Required!";
+      error["email"] = "Email Required!";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      error['email'] = "Please Enter Valid Email!";
+      error["email"] = "Please Enter Valid Email!";
     } else {
-      error['email'] = "";
+      error["email"] = "";
     }
 
     if (!password) {
-      error['password'] = "Password Required!";
+      error["password"] = "Password Required!";
     } else if (password.length < 8) {
-      error['password'] = "Please Enter a Valid Password!";
+      error["password"] = "Please Enter a Valid Password!";
     } else {
-      error['password'] = "";
+      error["password"] = "";
     }
     if (!confirmPassword) {
-      error['confirmPassword'] = "Password Required!";
+      error["confirmPassword"] = "Password Required!";
     } else if (confirmPassword != password) {
-      error['confirmPassword'] = "Password not Matched!";
+      error["confirmPassword"] = "Password not Matched!";
     } else {
-      error['confirmPassword'] = "";
+      error["confirmPassword"] = "";
     }
     return error;
   };
@@ -60,27 +81,30 @@ const Login2 = () => {
   return (
     <>
       <div>
-        <section class="createAccount mainBg">
-          <div class="wrapper400">
-            <div class="backBtn">
+        <section className="createAccount mainBg">
+          <div className="wrapper400">
+            <div className="backBtn">
               <a href="#">
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                <i className="fa fa-angle-left" aria-hidden="true"></i>
               </a>
               Back
             </div>
             <h1>
               <span>Create an account</span> with your name and email address!
             </h1>
-            <form action="" class="accountCreate" onSubmit={handleSubmit}>
-              <div class="form_group flex">
+            <form action="" className="accountCreate" onSubmit={handleSubmit}>
+              <div className="form_group flex">
                 <label for="name">Your name</label>
-                <input type="text" name="name" placeholder="GenAIGuru" 
-                onKeyUp={onchangeCheck}
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="GenAIGuru"
+                  onKeyUp={onchangeCheck}
                   onChange={(e) => setname(e.target.value)}
                 />
                 {errors.name && <div className="error">{errors.name}</div>}
               </div>
-              <div class="form_group flex">
+              <div className="form_group flex">
                 <label for="email">Email address</label>
                 <input
                   type="email"
@@ -91,15 +115,20 @@ const Login2 = () => {
                 />
                 {errors.email && <div className="error">{errors.email}</div>}
               </div>
-              <div class="form_group flex">
+              <div className="form_group flex">
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="****" 
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="****"
                   onKeyUp={onchangeCheck}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                {errors.password && <div className="error">{errors.password}</div>}
+                {errors.password && (
+                  <div className="error">{errors.password}</div>
+                )}
               </div>
-              <div class="form_group flex">
+              <div className="form_group flex">
                 <label for="confirmPassword">Confirm password</label>
                 <input
                   type="password"
@@ -108,9 +137,11 @@ const Login2 = () => {
                   onKeyUp={onchangeCheck}
                   onChange={(e) => setconfirmPassword(e.target.value)}
                 />
-                 {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
+                {errors.confirmPassword && (
+                  <div className="error">{errors.confirmPassword}</div>
+                )}
               </div>
-              <div class="form_group flex">
+              <div className="form_group flex">
                 <label for="profilePicture">Choose Profile Picture</label>
                 <input
                   type="file"
@@ -120,9 +151,9 @@ const Login2 = () => {
                   onChange={(e) => setconfirmPassword(e.target.value)}
                 />
               </div>
-              <div class="form_group">
+              <div className="form_group">
                 {/* <Link
-                  class="loginBtn"
+                  className="loginBtn"
                   onClick={() => {
                     alert("Account Created");
                     setDisplayGoToMail(true);
@@ -130,29 +161,36 @@ const Login2 = () => {
                 >
                   Create account
                 </Link> */}
-                <button class="loginBtn">Create account</button> 
+                <button
+                  className="loginBtn"
+                  onClick={() => {
+                    console.log(name, email, password, confirmPassword);
+                  }}
+                >
+                  Create account
+                </button>
               </div>
             </form>
-            <p class="termsText">
+            <p className="termsText">
               By continuing, you agree to our <a href="#">Terms and Services</a>{" "}
               and <a href="#">Privacy Policy.</a>
             </p>
-            <div class="starsImg">
+            <div className="starsImg">
               <img src="app/images/star.png" alt="Genaiguru stars" />
               <img src="app/images/star2.png" alt="Genaiguru stars" />
             </div>
           </div>
         </section>
         {displayGoToMail && (
-          <section class="mailInbox mainBg">
-            <div class="wrapper400">
-              <div class="mailbox">
+          <section className="mailInbox mainBg">
+            <div className="wrapper400">
+              <div className="mailbox">
                 <img
                   src="app/images/mailBox.png"
                   alt="Genaiguru mail image"
                   title="Genaiguru mail image"
                 />
-                <div class="topStarsImg">
+                <div className="topStarsImg">
                   <img src="app/images/star.png" alt="Genaiguru star" />
                   <img src="app/images/star2.png" alt="Genaiguru star" />
                 </div>
@@ -161,7 +199,7 @@ const Login2 = () => {
                   Quick check your email box and confirm us that you would like
                   to create an account.
                 </p>
-                <Link to={"/login4"} class="loginBtn">
+                <Link to={"/login4"} className="loginBtn">
                   Go to the email inbox
                 </Link>
               </div>
