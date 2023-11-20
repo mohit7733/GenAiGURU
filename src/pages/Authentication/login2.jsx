@@ -2,6 +2,7 @@ import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { getBaseURL } from "../../api/config";
 
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
@@ -12,27 +13,46 @@ const Login2 = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .post({
-  //       url: "https://genaiadmin.sdsstaging.co.uk/api/auth/register",
-  //       headers: {},
-  //       data: {
-  //         // This is the body part
-  //         name: name,
-  //         email: email,
-  //         password: password,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // });
+  
+  const signUpPostMethod = () => {
+    fetch(`${getBaseURL()}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+          alert("Success");
+        } else if (res.status === 422) {
+          alert("already email");
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
+    if (
+      errors.email === "" &&
+      errors.name === "" &&
+      errors.confirmPassword === "" &&
+      errors.password === ""
+    ) {
+      signUpPostMethod();
+    }
   };
 
   const onchangeCheck = (key, value) => {
@@ -161,12 +181,7 @@ const Login2 = () => {
                 >
                   Create account
                 </Link> */}
-                <button
-                  className="loginBtn"
-                  onClick={() => {
-                    console.log(name, email, password, confirmPassword);
-                  }}
-                >
+                <button className="loginBtn" onClick={handleSubmit}>
                   Create account
                 </button>
               </div>
