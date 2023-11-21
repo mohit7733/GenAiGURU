@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-
 import MainLayout from "./components/Layout/MainLayout";
 import Loader from "./components/Loader/Loader";
 import Login from "./pages/Authentication/Login";
