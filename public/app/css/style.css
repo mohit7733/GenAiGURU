@@ -21,17 +21,26 @@
 }
 @media (max-width:2560px) {
     .kep-login-facebook.metro{
-        padding: 15px 95px;
+        padding: 15px 93px;
     }
 }
-
+@media (max-width:320px) {
+  .kep-login-facebook.metro{
+      padding: 15px 40px;
+  }}
+    
 .kep-login-facebook.metro:hover {
     border: 1px solid #be41c0
 }
 
 
 .error{
-    color: rgba(255, 0, 0, 0.396);
+    color: red;
+}
+.fa.fa-facebook{
+    color:#4267B2;
+    font-size: 22px;
+    margin-right: 12px;
 }
 
 
@@ -1491,7 +1500,7 @@ footer .footerMenu a {
   border-radius: 12px;
   margin-bottom: 16px;
   align-items: center;
-  padding: 15px 64px;
+  padding: 15px 92px;
   color: #f8fcff;
   font-size: 16px;
   line-height: 1.2em;
