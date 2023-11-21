@@ -8,10 +8,13 @@ import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
 const Login = () => {
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => console.log(tokenResponse),
+    redirect_uri: process.env.REACT_APP_URL,
   });
+
   const responseFacebook = (response) => {
     console.log(response);
   };
+
   return (
     <div>
       <section class="loginOption mainBg">

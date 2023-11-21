@@ -48,7 +48,10 @@ const Index = () => {
   };
   return (
     <>
-        <div className="">
+      <Header />
+      <section className="mainWrapper flex">
+        <Sidebar />
+        <div className="rightSection">
           <Latestblog />
           <Popularvideos />
           <Populararticles />
@@ -241,7 +244,9 @@ const Index = () => {
           <Categories />
           <ArticleBasedInterest />
         </div>
-        {/* <FixedAIButtonLogo /> */}
+      </section>
+      <Footer/>
+      {/* <FixedAIButtonLogo /> */}
     </>
   );
 };

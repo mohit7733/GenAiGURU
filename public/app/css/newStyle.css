@@ -1,0 +1,288 @@
+/* new css */
+.commanMobHead .mobileHead p{
+    font-size: 14px;
+    line-height: 1.4em;
+    font-weight: 500;
+    font-family: 'PlusJakartaSansMedium';
+    color: rgba(248, 252, 255, 1);
+    margin-left: auto;
+}
+.innerCommanContent{
+    background-image: linear-gradient(to top,#191f2b,#1e2732,#232f3a,#293841,#304048,#314249,#33434b,#34454c,#304048,#2c3b43,#28373f,#24323b);
+    padding: 25px 10px;
+}
+.innerCommanContent .interest-sliders{
+    padding-right: 0;
+}
+.innerCommanContent header{
+    background: none;
+    border-bottom: none;
+    padding: 0;
+}
+.innerCommanContent header .searchbar{
+    display: flex;
+    margin-left: 0;
+    width: 100%;
+}
+.mob_tab_list .rightSection .keeps-container .gurukeeps-wrapper{
+    width: 100%;
+    padding: 16px 0 20px;
+}
+.mob_tab_list .rightSection .keeps-container .gurukeeps-wrapper .connect-link{
+    margin: 0;
+}
+.mob_tab_list .rightSection .keeps-container .gurukeeps-wrapper .connect-link li{
+    margin-right: 8px;
+    margin-bottom: 10px;
+}
+.mob_tab_list .rightSection .keeps-container .gurukeeps-wrapper .connect-link li a{
+    color:rgba(207, 214, 219, 1);
+    padding: 8px 15px;
+    border: 1.5px solid rgba(84, 90, 107, 1);
+    border-radius: 26px;
+}
+.mob_tab_list .rightSection .keeps-container .gurukeeps-wrapper .connect-link li.active a{
+    color: white;
+    box-shadow: 0px 10px 24px 0px rgba(58, 74, 99, 0.63);
+    background: linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+    border: 1px solid rgba(255, 255, 255, 0.21);
+}
+.mob_tab_list .rightSection .keeps-container .gurukeeps-wrapper .connect-link li.active:after{
+    display: none;
+}
+.mob_tab_list .rightSection .keeps-container .interest-guru .wrap{
+    flex-direction: unset;
+    width: 100%;
+}
+.mob_tab_list .rightSection .keeps-container .interest-guru figure{
+    width: 109px;
+    height: 109px;
+}
+.mob_tab_list .rightSection .keeps-container .interest-guru .content{
+    width: calc(100% - 109px);
+    padding-left: 14px;
+    padding-top: 0;
+}
+.mob_tab_list .rightSection .keeps-container .interest-guru .wrapper{
+    margin-bottom: 3px;
+}
+.mob_tab_list .rightSection .keeps-container .interest-guru .wrapper figure{
+    width: 35px;
+    height: 35px;
+}
+.mob_tab_list .rightSection .keeps-container .interest-guru .content p{
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.3em;
+    font-weight: 600;
+    font-family: 'PlusJakartaSansSemiBold';
+    margin-bottom: 10px;
+    transition: all .5s ease-in-out;
+}
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link{
+    margin-top: 0;
+}
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper{
+    padding: 0 0 15px 0;
+}
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link li{
+    margin-right: 14px;
+}
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link li a{
+    padding: 8px 15px;
+    color: rgba(174, 179, 189, 1);
+    font-size: 14px;
+    line-height: 1.2em;
+    font-weight: 500;
+    font-family: 'PlusJakartaSansMedium';
+    border: 1.5px solid rgba(84, 90, 107, 1);
+    border-radius: 26px;
+}
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link li:after{
+    display: none;
+}
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link li.active a,
+.contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link li a.active{
+    background: linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+    border: 1px solid rgba(255, 255, 255, 0.21);
+    box-shadow: 0px 10px 24px 0px rgba(58, 74, 99, 0.63);
+    color: white;
+}
+.contactFaq .rightSection .contact-wrapper .faq-container .faq-box h4 {
+    font-size: 16px;
+    padding-right: 10px;
+}
+.commanMobHead .mobileHead .hamburger i{
+    color: white;
+    font-size: 26px;
+}
+.innerCommanContent.contactFaq{
+    background: #131f2c;
+}
+
+
+@media (max-width:1080px) {
+    .rightSection .setting-wrapper .setting-container{
+        display: none;   
+    }
+    .rightSection .setting-wrapper .setting-box{
+        width: 100%;
+        padding: 0 25px 30px 0;
+    }
+    
+}
+
+@media (max-width:992px) {
+    .rightSection .guru-gold-silver h1,
+    .rightSection .guru-gold-silver h1,
+    .rightSection .keeps-container .gurukeeps-wrapper h1{
+        font-size: 24px;
+    }
+    .rightSection .keeps-container .interest-guru .wrap{
+        flex-direction: column;
+    }
+    .rightSection .keeps-container .interest-guru figure{
+        width: 100%;
+    }
+    .rightSection .keeps-container .interest-guru figure a{
+        width: 100%;
+        height: 100%;
+    }
+    .rightSection .keeps-container .interest-guru .content{
+        width: 100%;
+        padding: 30px 0 0 0;
+    }
+    .rightSection .keeps-container .gurukeeps-wrapper .connect-link li{
+        margin-right: 15px;
+    }
+    .rightSection .contact-wrapper .faq-container{
+        width: 100%;
+        margin-right: 0;
+        padding-right: 20px;
+    }
+    .rightSection .contact-wrapper .faq-container .faq-box h4{
+        font-size: 18px;
+    }
+    .rightSection .contact-wrapper .contact-container{
+        width: 96%;
+        margin-top: 30px;
+    }
+    .rightSection .tab-content .about-content {
+        padding-right: 20px;
+    }
+    .subscriptionPlan .current-plan {
+        max-width: 100%;
+        padding-right: 20px;
+    }
+    .subscriptionPlan .change-plan .plans-wrapper{
+        max-width: 100%;
+    }
+    .subscriptionPlan .change-plan .plans-wrapper .monthly-plans{
+        width: calc(100% - 24px);
+        margin-bottom: 20px;
+    }
+    .subscriptionPlan .change-plan{
+        margin-top: 40px;
+    }
+    .subscriptionPlan .change-plan h6{
+        margin-bottom: 25px;
+    }
+    .feedbackSection form textarea{
+        width: 100%;
+    }
+    .rightSection .guru-gold-silver .center-box{
+        justify-content: flex-start;
+        padding-top: 30px;
+    }
+    .rightSection .guru-gold-silver .center-box .topThreeBox{
+        width: 420px;
+    }
+    .milestoneWrap .silver-coin-box:nth-of-type(odd){
+        margin-right: 20px;
+    }
+    .rightSection .guru-gold-silver .silver-coin-box{
+        margin-top: 24px;
+    }
+    .rightSection .keeps-container .gurukeeps-wrapper .connect-box li a {
+        width: 40px;
+        height: 40px;
+    }
+    .rightSection .keeps-container .gurukeeps-wrapper .connect-box {
+        margin-top: 30px;
+    }
+    .rightSection .keeps-container .gurukeeps-wrapper .connect-box li a img {
+        width: auto;
+        height: auto;
+    }
+    .rightSection .keeps-container .blog-details{
+        max-width: 100%;
+        padding: 0 25px 0 0;
+    }
+
+    
+}
+
+@media (max-width:767px) {
+    .subscriptionPlan .current-plan{
+        padding-right: 0;
+    }
+    .subscriptionPlan .current-plan .current-plan-container{
+        text-align: left;
+    }
+    .subscriptionPlan .change-plan .plans-wrapper .monthly-plans{
+        width: 100%;
+        margin-right: 0;
+    }
+    .heightAuto{
+        height: auto;
+    }
+    .rightSection .guru-gold-silver .silver-coin-box{
+        margin-top: 0;
+        width: 100%;
+    }
+    .rightSection .guru-gold-silver{
+        padding: 0;
+    }
+    .rightSection .guru-gold-silver .silver-coin-box .silverWrap{
+        padding: 25px 12px;
+    }
+    .rightSection .guru-gold-silver .reward .reward-container .reward-line .reward-box{
+        width: 100%;
+    }
+    .rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li {
+        margin: 26px 0px 0;
+        text-align: center;
+    }
+    .rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure{
+        width: 50%;
+        height: 50%;
+    }
+    .rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li:nth-of-type(2) figure {
+        width: 70px;
+        height: 70px;
+    }
+    .milestoneWrap .silver-coin-box:nth-of-type(odd){
+        margin-right: 0;
+    }
+    .milestoneWrap .silver-coin-box{
+        margin-bottom: 20px;
+    }
+    .rightSection .guru-gold-silver .points-box{
+        width: 100%;
+    }
+    .mob_profile .mobileHead .connect-box {
+        margin-left: auto;
+    }
+    .mob_profile .mobileHead .connect-box li{
+        margin-left: 12px;
+    }
+    .mob_profile .mobileHead .connect-box li a{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(124, 141, 184, 0.1);
+    }
+}
