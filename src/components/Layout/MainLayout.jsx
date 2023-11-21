@@ -8,16 +8,16 @@ import { Outlet } from "react-router-dom";
 const MainLayout = ({ children }) => {
   return (
     <div>
-      <Header />
-      <section className="mainWrapper flex">
-        <Sidebar />
-        <div className="rightSection">
+      {/* <Header /> */}
+      <section className="">
+        {/* <Sidebar /> */}
+        {/* <div className="rightSection"> */}
           <div className="">{children}</div>
           <FixedAIButtonLogo />
           <Outlet />
-        </div>
+        {/* </div> */}
       </section>
-      <Footer />
+      {/* <Footer /> */}
       <Outlet />
 
     </div>

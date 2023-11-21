@@ -16,7 +16,7 @@ const Login2 = () => {
 
   
   const signUpPostMethod = () => {
-    fetch(`${getBaseURL()}/api/auth/register`, {
+    fetch(`${getBaseURL()}/auth/register`, {
       method: "POST",
       headers: {
         Accept: "application/json",

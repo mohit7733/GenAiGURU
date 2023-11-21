@@ -293,18 +293,24 @@ const SilverPopup = () => {
           </div>
         </div>
       </section>
-      {/* <!-- main section end here -->
-  
-  <!-- login popup start here --> */}
-      <section class="loginPopup">
+      {/* <!-- login popup start here --> */}
+      <section class="loginPopup silverPopup">
         <div class="wrapper">
           <figure>
             <img
-              src="app/images/tickIcon.png"
-              alt="Genaiguru tick image"
-              title="Genaiguru tick image"
+              src="app/images/medal-second-place.png"
+              alt="Genaiguru medal-second-place.png"
+              title="Genaiguru medal-second-place.png"
             />
+            <div class="dotsImg">
+              <span></span>
+              <span></span>
+            </div>
           </figure>
+          <div class="labelInner">
+            <h6>Label 2</h6>
+            <p>Coins: 50,000</p>
+          </div>
           <h2>You’ve just earned a new label</h2>
           <a href="#" class="loginBtn">
             See your post
@@ -312,6 +318,7 @@ const SilverPopup = () => {
           {/* <!-- <a href="#">Add your interest</a> --> */}
         </div>
       </section>
+      {/* <!-- login popup end here -->   */}
     </div>
   );
 };
