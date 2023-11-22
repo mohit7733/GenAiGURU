@@ -12,6 +12,7 @@ const Login2 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
+  const [Profile_Picture, setProfile_Picture] = useState("");
   const [errors, setErrors] = useState([]);
 
   const signUpPostMethod = () => {
@@ -25,6 +26,7 @@ const Login2 = () => {
         name: name,
         email: email,
         password: password,
+        Profile_Picture:Profile_Picture,
       }),
     })
       .then((res) => res.json())
@@ -46,7 +48,8 @@ const Login2 = () => {
       errors.email === "" &&
       errors.name === "" &&
       errors.confirmPassword === "" &&
-      errors.password === ""
+      errors.password === "" &&
+      errors.Profile_Picture === ""
     ) {
       signUpPostMethod();
     }
@@ -91,6 +94,11 @@ const Login2 = () => {
       error["confirmPassword"] = "Password not Matched!";
     } else {
       error["confirmPassword"] = "";
+    }
+    if (!Profile_Picture) {
+      error["Profile_Picture"] = "Picture Required!";
+    }  else {
+      error["Profile_Picture"] = "";
     }
     return error;
   };
@@ -165,8 +173,11 @@ const Login2 = () => {
                   name="profilePicture"
                   placeholder="Choose Profile Picture"
                   onKeyUp={onchangeCheck}
-                  onChange={(e) => setconfirmPassword(e.target.value)}
+                  onChange={(e) => setProfile_Picture(e.target.value)}
                 />
+                {errors.Profile_Picture && (
+                  <div className="error">{errors.Profile_Picture}</div>
+                )}
               </div>
               <div className="form_group">
                 {/* <Link
