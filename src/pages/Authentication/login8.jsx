@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATH_LOGIN } from "../../routes";
 import React, { useState } from "react";
 import { login } from "../../api/Auth";
 import { getBaseURL } from "../../api/config";
+
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,6 +25,7 @@ const Login8 = () => {
     }
     setErrors(errors);
   };
+
   const validate = () => {
     const error = {};
     if (!email) {
@@ -50,8 +54,12 @@ const Login8 = () => {
     return login(payload)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("tokenDetail", JSON.stringify(res.data.accessToken));
+        localStorage.setItem(
+          "tokenDetail",
+          JSON.stringify(res.data.accessToken)
+        );
         window.alert("Logged In Successfully");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

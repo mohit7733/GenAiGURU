@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { PATH_ADDINTERESTS } from "../../routes";
 
 const Login6 = () => {
   return (
@@ -15,9 +16,9 @@ const Login6 = () => {
       <section class="interestSection second mainBg">
         <div class="wrapper">
           <div class="cancelBtn">
-            <a href="">
+            <Link to={PATH_ADDINTERESTS}>
               <i class="fa fa-times" aria-hidden="true"></i>
-            </a>
+            </Link>
             Cancel
           </div>
           <h1>You can follow expert writer!</h1>
