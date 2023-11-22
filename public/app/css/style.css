@@ -816,7 +816,7 @@ footer .newsletter {
 
 @media (min-width: 1022px) and (max-width: 1025px) {
   .leftSidebar {
-    height: 100vh;
+    height: initial;
   }
 }
 
@@ -1949,6 +1949,15 @@ footer .footerMenu a {
   .interestSection .cancelBtn {
     left: 10px;
   }
+  .contact-container {
+    width: 100% !important;
+    margin: 20px 40px 20px 0 !important;
+}
+
+.rightSection .contact-wrapper .faq-container {
+        width: 100% !important;
+        margin-right: 40px !important;
+    }
 }
 
 .interestSection .cancelBtn a {
