@@ -1,12 +1,16 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../../components/Layout/Header";
+import Sidebar from "../../components/Layout/Sidebar";
 
 const Index7 = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <section class="mobileMainWrap">
-        <div class="full-width innerRight desktopHelp">
+      <Header />
+      <section class="mainWrapper mobileMainWrap flex">
+        <Sidebar />
+        <div class="rightSection innerRight desktopHelp">
           <div class="help-section flex">
             <div class="genaiguruSelect flex">
               <figure>
