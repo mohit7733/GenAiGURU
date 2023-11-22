@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PATH_ADDINTERESTS } from "../../routes";
 
 const Login4 = () => {
   return (
@@ -18,7 +19,7 @@ const Login4 = () => {
               title="Genaiguru logo"
             />
           </figure>
-          <Link to={"/login5"} className="loginBtn">
+          <Link to={PATH_ADDINTERESTS} className="loginBtn">
             Add your interest
           </Link>
       

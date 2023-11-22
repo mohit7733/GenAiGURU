@@ -51,9 +51,14 @@ const Login5 = () => {
   const addInterestIndex = (index) => {
     const indexExists = selectedInterestIndex.includes(index);
 
-    if (!indexExists) {
-      setSelectedInterestIndex((prevIndices) => [...prevIndices, index]);
-    }
+    // if (!indexExists) {
+    //   setSelectedInterestIndex((prevIndices) => [...prevIndices, index]);
+    // }
+    setSelectedInterestIndex((prevIndices) =>
+    indexExists
+      ? prevIndices.filter((prevIndex) => prevIndex !== index)
+      : [...prevIndices, index]
+  );
   };
 
   // Logsss
@@ -83,7 +88,7 @@ const Login5 = () => {
                     addInterestIndex(data.id);
                   }}
                   className={
-                    selectedInterestIndex.includes(index) ? "selected" : ""
+                    selectedInterestIndex.includes(data.id) ? "selected" : ""
                   }
                 >
                   {data.interestName}

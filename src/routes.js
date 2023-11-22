@@ -31,6 +31,7 @@ export const BASE_PATH = "/";
 export const PATH_LOGIN = "/login";
 export const PATH_SIGNUP = "/signup";
 export const PATH_SIGNIN = "/signin";
+export const PATH_WELCOME = "/welcome";
 export const PATH_ADDINTERESTS = "/addinterests";
 export const PATH_FOLLOWEXPERTS = "/followexperts";
 
@@ -45,56 +46,7 @@ const Login7 = React.lazy(() => import("./pages/Authentication/login7"));
 const Login8 = React.lazy(() => import("./pages/Authentication/login8"));
 
 export function RouterElement({ isLogged }) {
-  const publicRoutes = [
-    {
-      path: "/",
-      name: "login",
-      element: <Login />,
-      exact: true,
-    },
-    {
-      path: "login2",
-      name: "login2",
-      element: <Login2 />,
-      exact: true,
-    },
-    {
-      path: "login3",
-      name: "login3",
-      element: <Login3 />,
-      exact: true,
-    },
-    {
-      path: "login4",
-      name: "login4",
-      element: <Login4 />,
-      exact: true,
-    },
-    {
-      path: "login5",
-      name: "login5",
-      element: <Login5 />,
-      exact: true,
-    },
-    {
-      path: "login6",
-      name: "login6",
-      element: <Login6 />,
-      exact: true,
-    },
-    {
-      path: "login7",
-      name: "login7",
-      element: <Login7 />,
-      exact: true,
-    },
-    {
-      path: "Sign-in",
-      name: "Sign-in",
-      element: <Login8 />,
-      exact: true,
-    },
-  ];
+
   const routes = [
     {
       path: "/",
