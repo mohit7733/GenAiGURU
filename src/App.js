@@ -8,6 +8,7 @@ import Login from "./pages/Authentication/Login";
 import {
   PATH_ADDINTERESTS,
   PATH_FOLLOWEXPERTS,
+  PATH_GOTOMAIL,
   PATH_LOGIN,
   PATH_SIGNIN,
   PATH_SIGNUP,
@@ -19,6 +20,7 @@ import Login8 from "./pages/Authentication/login8";
 import Login5 from "./pages/Authentication/login5";
 import Login6 from "./pages/Authentication/login6";
 import Login4 from "./pages/Authentication/login4";
+import Login3 from "./pages/Authentication/login3";
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
           <Routes>
             <Route path={PATH_LOGIN} element={<Login />}></Route>
             <Route path={PATH_SIGNUP} element={<Login2 />}></Route>
+            <Route path={PATH_GOTOMAIL} element={<Login3 />}></Route>
             <Route path={PATH_SIGNIN} element={<Login8 />}></Route>
             <Route path={PATH_WELCOME} element={<Login4 />}></Route>
             <Route path={PATH_ADDINTERESTS} element={<Login5 />}></Route>

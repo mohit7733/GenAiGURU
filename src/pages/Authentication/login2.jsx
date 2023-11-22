@@ -1,13 +1,13 @@
 import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
-import { PATH_LOGIN } from "../../routes";
+import { PATH_GOTOMAIL, PATH_LOGIN } from "../../routes";
 
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
-
+  const navigate = useNavigate();
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,9 +29,11 @@ const Login2 = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("UserId", JSON.stringify(res.data.id));
+        localStorage.setItem("UserId", JSON.stringify(res.data?.id));
         window.alert(res.message);
+        if (res.message === "Successfully created user!") {
+          navigate(`${PATH_GOTOMAIL}`);
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -94,15 +96,14 @@ const Login2 = () => {
     }
     return error;
   };
-
   return (
     <>
       <div>
-        <section class="createAccount mainBg">
-          <div class="wrapper400">
-            <div class="backBtn">
+        <section className="createAccount mainBg">
+          <div className="wrapper400">
+            <div className="backBtn">
               <Link to={PATH_LOGIN}>
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                <i className="fa fa-angle-left" aria-hidden="true"></i>
               </Link>
               Back
             </div>
@@ -193,31 +194,6 @@ const Login2 = () => {
             </div>
           </div>
         </section>
-        {displayGoToMail && (
-          <section className="mailInbox mainBg">
-            <div className="wrapper400">
-              <div className="mailbox">
-                <img
-                  src="app/images/mailBox.png"
-                  alt="Genaiguru mail image"
-                  title="Genaiguru mail image"
-                />
-                <div className="topStarsImg">
-                  <img src="app/images/star.png" alt="Genaiguru star" />
-                  <img src="app/images/star2.png" alt="Genaiguru star" />
-                </div>
-                <h1>Check your email inbox</h1>
-                <p>
-                  Quick check your email box and confirm us that you would like
-                  to create an account.
-                </p>
-                <Link to={"/login4"} className="loginBtn">
-                  Go to the email inbox
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
       </div>
     </>
   );

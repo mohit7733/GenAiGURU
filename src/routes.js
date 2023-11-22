@@ -30,6 +30,7 @@ export const BASE_PATH = "/";
 
 export const PATH_LOGIN = "/login";
 export const PATH_SIGNUP = "/signup";
+export const PATH_GOTOMAIL = "/gotomail";
 export const PATH_SIGNIN = "/signin";
 export const PATH_WELCOME = "/welcome";
 export const PATH_ADDINTERESTS = "/addinterests";

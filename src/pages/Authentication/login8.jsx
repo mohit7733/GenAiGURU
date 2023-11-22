@@ -68,31 +68,7 @@ const Login8 = () => {
         );
       });
   };
-  // const onLogin = async () => {
-  //   try {
-  //     const response = await fetch(`${getBaseURL()}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email,
-  //         password,
-  //       }),
-  //     });
 
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     const data = await response.json();
-  //     // Handle the response, such as storing the token or redirecting to a new page
-  //     console.log(data);
-  //   } catch (error) {
-  //     // Handle errors, such as displaying an error message
-  //     console.error("Login failed:", error.message);
-  //   }
-  // };
   return (
     <div>
       <section className="createAccount mainBg">
