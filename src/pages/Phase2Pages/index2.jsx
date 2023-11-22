@@ -8,9 +8,11 @@ const Index2 = () => {
   return (
     <>
       <Header />
-      <section class=" mobileMainWrap">
-        <Sidebar/>
-        <div class="full-width innerRight desktopHelp">
+      <section class="mainWrapper mobileMainWrap flex">
+        <Sidebar />
+        <div class="rightSection innerRight desktopHelp">
+          {/* <!-- help section start here --> */}
+
           <div class="help-section flex">
             <div class="genaiguruSelect flex">
               <figure>
