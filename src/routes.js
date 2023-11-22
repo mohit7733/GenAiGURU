@@ -32,6 +32,7 @@ export const PATH_LOGIN = "/login";
 export const PATH_SIGNUP = "/signup";
 export const PATH_SIGNIN = "/signin";
 export const PATH_ADDINTERESTS = "/addinterests";
+export const PATH_FOLLOWEXPERTS = "/followexperts";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 const Login = React.lazy(() => import("./pages/Authentication/Login"));

@@ -14,7 +14,6 @@ const Login2 = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  
   const signUpPostMethod = () => {
     fetch(`${getBaseURL()}/auth/register`, {
       method: "POST",
@@ -28,19 +27,16 @@ const Login2 = () => {
         password: password,
       }),
     })
+      .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        if (res.status === 201) {
-          alert("Success");
-        } else if (res.status === 422) {
-          alert("already email");
-        }
+        localStorage.setItem("UserId", JSON.stringify(res.data.id));
+        window.alert(res.message);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -102,14 +98,12 @@ const Login2 = () => {
   return (
     <>
       <div>
-
         <section class="createAccount mainBg">
           <div class="wrapper400">
             <div class="backBtn">
-            <Link to={PATH_LOGIN}>
-              <i class="fa fa-angle-left" aria-hidden="true"></i>
-            </Link>
-
+              <Link to={PATH_LOGIN}>
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              </Link>
               Back
             </div>
             <h1>

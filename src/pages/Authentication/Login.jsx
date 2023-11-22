@@ -5,9 +5,14 @@ import { jwtDecode } from "jwt-decode";
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
+
+
 const Login = () => {
+
+  
+  // Login with Google Function 
   const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onSuccess: (credentialResponse) => console.log(credentialResponse),
     redirect_uri: process.env.REACT_APP_URL,
   });
 
@@ -17,8 +22,8 @@ const Login = () => {
 
   return (
     <div>
-      <section class="loginOption mainBg">
-        <div class="wrapper400 stars">
+      <section className="loginOption mainBg">
+        <div className="wrapper400 stars">
           <h1>
             <span>Hello!</span> Join with us by your info
           </h1>
@@ -26,7 +31,7 @@ const Login = () => {
           <ul>
             <li>
               <Link
-                class="flex"
+                className="flex"
                 onClick={() => {
                   login();
                 }}
@@ -50,18 +55,10 @@ const Login = () => {
                   textButton="Continue with Facebook"
                 />
               </div>
-              {/* <Link class="flex">
-                <img
-                  src="app/images/facebookIcon.png"
-                  alt="Genaiguru facebook icon"
-                  title="Genaiguru on facebook"
-                />{" "}
-                Continue with Facebook  
-              </Link> */}
             </li>
 
             {/* <li>
-              <a href="#" class="flex">
+              <a href="#" className="flex">
                 <img
                   src="app/images/appleIcon.png"
                   alt="Genaiguru apple icon"
@@ -71,19 +68,19 @@ const Login = () => {
               </a>
             </li> */}
             <li>
-              <NavLink to={PATH_SIGNUP} class="flex">
+              <NavLink to={PATH_SIGNUP} className="flex">
                 Sign up with Email
               </NavLink>
             </li>
           </ul>
-          <p class="alreadyAccount">
+          <p className="alreadyAccount">
             Already have an account? <Link to={PATH_SIGNIN}>Log in</Link>
           </p>
-          <p class="termsText">
+          <p className="termsText">
             By continuing, you agree to our <a href="#">Terms and Services</a>{" "}
             and <a href="#">Privacy Policy.</a>
           </p>
-          <div class="starsImg">
+          <div className="starsImg">
             <img src="app/images/star.png" alt="Genaiguru stars" />
             <img src="app/images/star2.png" alt="Genaiguru stars" />
           </div>
