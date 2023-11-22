@@ -5,14 +5,6 @@ import { PATH_ADDINTERESTS } from "../../routes";
 const Login6 = () => {
   return (
     <div>
-      {/* <div class="loader">
-        <img
-          src="app/images/lodingLogo.png"
-          alt="Genaiguru logo"
-          title="Genaiguru Logo"
-        />
-      </div> */}
-
       <section class="interestSection second mainBg">
         <div class="wrapper">
           <div class="cancelBtn">
