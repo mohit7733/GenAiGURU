@@ -294,7 +294,9 @@ font-size: 16px;
 .btn,
 a,
 li {
-color: #000;
+
+  color:white;
+
 }
 
 .btn {
@@ -812,6 +814,13 @@ padding: 32px 10px;
 .leftSidebar .menu li.active a,
 .leftSidebar li a:hover {
 background: #2f4154;
+}
+
+
+@media (min-width: 1022px) and (max-width: 1025px) {
+  .leftSidebar {
+    height: initial;
+  }
 }
 
 
@@ -1937,10 +1946,20 @@ top: 0;
 }
 
 @media (max-width: 1024px) {
-.interestSection .cancelBtn {
-  left: 10px;
+
+  .interestSection .cancelBtn {
+    left: 10px;
+  }
+  .contact-container {
+    width: 100% !important;
+    margin: 20px 40px 20px 0 !important;
 }
-}
+
+.rightSection .contact-wrapper .faq-container {
+        width: 100% !important;
+        margin-right: 40px !important;
+    }
+
 
 .interestSection .cancelBtn a {
 width: 48px;

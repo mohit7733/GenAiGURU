@@ -1,6 +1,7 @@
 import React from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import { Link } from "react-router-dom";
 
 const LeaderBoard = () => {
   return (
@@ -13,7 +14,7 @@ const LeaderBoard = () => {
             <div class="guru-gold-silver">
               <div class="innerBreadcrumb">
                 <p>
-                  <a href="#">Gurugold</a>{" "}
+                  <Link to="/gurugold">Gurugold</Link>{" "}
                   <i class="fa fa-angle-right" aria-hidden="true"></i>{" "}
                   Leaderboard
                 </p>
@@ -402,7 +403,14 @@ const LeaderBoard = () => {
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
           <div class="hamburger">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <i>
+              {" "}
+              <Link
+                to="/gurugold"
+                class="fa fa-angle-left"
+                aria-hidden="true"
+              ></Link>
+            </i>
           </div>
           <h2>Leaderboard</h2>
         </div>
@@ -411,8 +419,9 @@ const LeaderBoard = () => {
             <div class="guru-gold-silver">
               <div class="innerBreadcrumb">
                 <p>
-                  <a href="#">Gurugold</a>{" "}
-                  <i class="fa fa-angle-right" aria-hidden="true"></i>{" "}
+                  <Link to="/gurugold">Gurugold</Link>
+                  {""}
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
                   Leaderboard
                 </p>
               </div>
