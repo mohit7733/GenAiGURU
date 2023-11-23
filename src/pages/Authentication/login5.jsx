@@ -9,6 +9,7 @@ const Login5 = () => {
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
 
   const token = getHeaders().token;
+  const registerToken = JSON.parse(localStorage.getItem("registerToken"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   /* UseEffect for Get Interest API */
@@ -16,7 +17,7 @@ const Login5 = () => {
     axios
       .get(`${getBaseURL()}/auth/interests`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${registerToken}`,
         },
       })
       .then((response) => {
@@ -55,10 +56,10 @@ const Login5 = () => {
     //   setSelectedInterestIndex((prevIndices) => [...prevIndices, index]);
     // }
     setSelectedInterestIndex((prevIndices) =>
-    indexExists
-      ? prevIndices.filter((prevIndex) => prevIndex !== index)
-      : [...prevIndices, index]
-  );
+      indexExists
+        ? prevIndices.filter((prevIndex) => prevIndex !== index)
+        : [...prevIndices, index]
+    );
   };
 
   // Logsss

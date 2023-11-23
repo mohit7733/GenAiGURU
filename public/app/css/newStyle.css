@@ -131,7 +131,18 @@
     }
     
 }
+@media (max-width:1024px){
+          .rightSection .contact-wrapper .faq-container{
+        width: 100%;
+        margin-right: 0;
+        padding-right: 20px;
+    }
+    .rightSection .contact-wrapper .contact-container{
+        width: 100%;
+        margin: 30px 20px 0 0;
+    }
 
+}
 @media (max-width:992px) {
     .rightSection .guru-gold-silver h1,
     .rightSection .guru-gold-silver h1,
@@ -155,18 +166,11 @@
     .rightSection .keeps-container .gurukeeps-wrapper .connect-link li{
         margin-right: 15px;
     }
-    .rightSection .contact-wrapper .faq-container{
-        width: 100%;
-        margin-right: 0;
-        padding-right: 20px;
-    }
+ 
     .rightSection .contact-wrapper .faq-container .faq-box h4{
         font-size: 18px;
     }
-    .rightSection .contact-wrapper .contact-container{
-        width: 96%;
-        margin-top: 30px;
-    }
+
     .rightSection .tab-content .about-content {
         padding-right: 20px;
     }
