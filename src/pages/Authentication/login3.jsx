@@ -21,7 +21,7 @@ const Login3 = () => {
               create an account.
             </p>
             <a
-              href="mailto:"
+              href="mailto:xyz@gmail.com"
               className="loginBtn"
               target="_blank"
               rel="noopener noreferrer"
