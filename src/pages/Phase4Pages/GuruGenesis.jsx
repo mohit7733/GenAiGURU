@@ -204,28 +204,29 @@ const GuruGenesis = () => {
               <div class="gurukeeps-wrapper ">
                 {/* <!-- tab-link start here --> */}
                 <ul class="connect-link flex">
-                  <li>
-                    <a
-                      href="#"
-                      class="tab active"
+                <li className="tab-content tab-content-1 active">
+                    <Link
+                      onClick={() => handleTabClick(1)}
+                      className={"tab-content tab-content-1 active"? "tab active" : ""}
                       data-toggle-target=".tab-content-1"
                     >
                       Contact us
-                    </a>
+                    </Link>
                   </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="tab "
+                  <li className="tab-content tab-content-2 active">
+                    <Link
+                      onClick={() => handleTabClick(2)}
+                      className={"tab-content tab-content-2 active"? "tab active" : ""}
                       data-toggle-target=".tab-content-2"
                     >
-                      Guru genesis
-                    </a>
+                      Guru Genesis
+                    </Link>
                   </li>
                 </ul>
                 {/* <!-- tab-link start here --> */}
               </div>
               {/* <!--  faq tab-content here --> */}
+              {activeTab === 1 && (
               <div class="tab-content tab-content-1 active">
                 <div class="contact-wrapper flex">
                   <div class="faq-container">
@@ -319,8 +320,10 @@ const GuruGenesis = () => {
                   </div>
                 </div>
               </div>
+              )}
               {/* <!--  faq tab-content end here --> */}
-              <div class="tab-content tab-content-2">
+              {activeTab === 2 && (
+              <div class="tab-content tab-content-2 active">
                 <div class="about-content">
                   <h4>About us</h4>
                   <p>
@@ -347,6 +350,7 @@ const GuruGenesis = () => {
                   </p>
                 </div>
               </div>
+              )}
             </div>
           </div>
         </div>
