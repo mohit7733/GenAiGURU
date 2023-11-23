@@ -1,46 +1,48 @@
-import { type } from "@testing-library/user-event/dist/type";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
-import { PATH_LOGIN } from "../../routes";
+import { PATH_GOTOMAIL, PATH_LOGIN } from "../../routes";
 
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
 
+  const navigate = useNavigate();
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [Profile_Picture, setProfile_Picture] = useState("");
+  const [profilePicture, setProfilePicture] = useState(null);
   const [errors, setErrors] = useState([]);
 
   const signUpPostMethod = () => {
+    let fd = new FormData();
+    fd.append("name", name);
+    fd.append("email", email);
+    fd.append("password", password);
+    fd.append("profile_image", profilePicture);
+
     fetch(`${getBaseURL()}/auth/register`, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-        Profile_Picture:Profile_Picture,
-      }),
+      body: fd,
+      redirect: "follow",
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("UserId", JSON.stringify(res.data.id));
+        localStorage.setItem("registerToken", JSON.stringify(res.accessToken));
+        localStorage.setItem("UserId", JSON.stringify(res.data?.id));
         window.alert(res.message);
+        if (
+          res.message === "Successfully created user! Confirmation email sent."
+        ) {
+          navigate(`${PATH_GOTOMAIL}`);
+        }
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
-  const handleSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
@@ -49,7 +51,7 @@ const Login2 = () => {
       errors.name === "" &&
       errors.confirmPassword === "" &&
       errors.password === "" &&
-      errors.Profile_Picture === ""
+      errors.profilePicture === ""
     ) {
       signUpPostMethod();
     }
@@ -95,29 +97,34 @@ const Login2 = () => {
     } else {
       error["confirmPassword"] = "";
     }
-    if (!Profile_Picture) {
-      error["Profile_Picture"] = "Picture Required!";
-    }  else {
-      error["Profile_Picture"] = "";
+    if (!profilePicture) {
+      error["profilePicture"] = "Picture Required!";
+    } else {
+      error["profilePicture"] = "";
     }
     return error;
   };
 
+  // Profile image onchange event
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfilePicture(file);
+  };
   return (
     <>
       <div>
-        <section class="createAccount mainBg">
-          <div class="wrapper400">
-            <div class="backBtn">
+        <section className="createAccount mainBg">
+          <div className="wrapper400">
+            <div className="backBtn">
               <Link to={PATH_LOGIN}>
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                <i className="fa fa-angle-left" aria-hidden="true"></i>
               </Link>
               Back
             </div>
             <h1>
               <span>Create an account</span> with your name and email address!
             </h1>
-            <form action="" className="accountCreate" onSubmit={handleSubmit}>
+            <form action="" className="accountCreate" onSubmit={onSubmit}>
               <div className="form_group flex">
                 <label for="name">Your name</label>
                 <input
@@ -173,25 +180,14 @@ const Login2 = () => {
                   name="profilePicture"
                   placeholder="Choose Profile Picture"
                   onKeyUp={onchangeCheck}
-                  onChange={(e) => setProfile_Picture(e.target.value)}
+                  onChange={handleImageChange}
                 />
-                {errors.Profile_Picture && (
-                  <div className="error">{errors.Profile_Picture}</div>
+                {errors.profilePicture && (
+                  <div className="error">{errors.profilePicture}</div>
                 )}
               </div>
               <div className="form_group">
-                {/* <Link
-                  className="loginBtn"
-                  onClick={() => {
-                    alert("Account Created");
-                    setDisplayGoToMail(true);
-                  }}
-                >
-                  Create account
-                </Link> */}
-                <button className="loginBtn" onClick={handleSubmit}>
-                  Create account
-                </button>
+                <button className="loginBtn">Create account</button>
               </div>
             </form>
             <p className="termsText">
@@ -204,31 +200,6 @@ const Login2 = () => {
             </div>
           </div>
         </section>
-        {displayGoToMail && (
-          <section className="mailInbox mainBg">
-            <div className="wrapper400">
-              <div className="mailbox">
-                <img
-                  src="app/images/mailBox.png"
-                  alt="Genaiguru mail image"
-                  title="Genaiguru mail image"
-                />
-                <div className="topStarsImg">
-                  <img src="app/images/star.png" alt="Genaiguru star" />
-                  <img src="app/images/star2.png" alt="Genaiguru star" />
-                </div>
-                <h1>Check your email inbox</h1>
-                <p>
-                  Quick check your email box and confirm us that you would like
-                  to create an account.
-                </p>
-                <Link to={"/login4"} className="loginBtn">
-                  Go to the email inbox
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
       </div>
     </>
   );
