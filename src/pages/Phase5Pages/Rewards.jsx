@@ -1,7 +1,6 @@
 import React from "react";
 import Sidebar from "../../components/Layout/Sidebar";
 import MobileHeader from "../../components/Layout/MobileHeader";
-import { Link } from "react-router-dom";
 
 const Rewards = () => {
   return (
@@ -14,7 +13,7 @@ const Rewards = () => {
             <div class="guru-gold-silver">
               <div class="innerBreadcrumb">
                 <p>
-                  <Link to="/gurugold">Gurugold</Link>{" "}
+                  <a href="#">Gurugold</a>{" "}
                   <i class="fa fa-angle-right" aria-hidden="true"></i> Rewards
                 </p>
               </div>
@@ -133,7 +132,7 @@ const Rewards = () => {
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
           <div class="hamburger">
-           <i><Link to= "/gurugold" class="fa fa-angle-left" aria-hidden="true"></Link></i>
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
           </div>
           <h2>Rewards</h2>
         </div>
