@@ -8,7 +8,6 @@ const Login5 = () => {
   const [interestData, setInterestData] = useState([]);
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
 
-  const token = getHeaders().token;
   const registerToken = JSON.parse(localStorage.getItem("registerToken"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -52,21 +51,12 @@ const Login5 = () => {
   const addInterestIndex = (index) => {
     const indexExists = selectedInterestIndex.includes(index);
 
-    // if (!indexExists) {
-    //   setSelectedInterestIndex((prevIndices) => [...prevIndices, index]);
-    // }
     setSelectedInterestIndex((prevIndices) =>
       indexExists
         ? prevIndices.filter((prevIndex) => prevIndex !== index)
         : [...prevIndices, index]
     );
   };
-
-  // Logsss
-  console.log(userId, "*******UserId");
-  console.log(token, "------Token");
-  console.log(interestData, "------Incoming Interests");
-  console.log(selectedInterestIndex, "------Selected Interests index");
 
   return (
     <div>

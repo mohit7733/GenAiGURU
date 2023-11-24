@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import { PATH_GOTOMAIL, PATH_LOGIN } from "../../routes";
+import axios from "axios";
 
 const Login2 = () => {
   const [displayGoToMail, setDisplayGoToMail] = useState(false);
@@ -21,24 +22,28 @@ const Login2 = () => {
     fd.append("password", password);
     fd.append("profile_image", profilePicture);
 
-    fetch(`${getBaseURL()}/auth/register`, {
-      method: "POST",
-      body: fd,
-      redirect: "follow",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        localStorage.setItem("registerToken", JSON.stringify(res.accessToken));
-        localStorage.setItem("UserId", JSON.stringify(res.data?.id));
-        window.alert(res.message);
-        if (
-          res.message === "Successfully created user! Confirmation email sent."
-        ) {
+    axios
+      .post(`${getBaseURL()}/auth/register`, fd)
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem(
+          "registerToken",
+          JSON.stringify(response.data.accessToken)
+        );
+        localStorage.setItem("UserId", JSON.stringify(response.data.data?.id));
+        if (response.status === 201) {
           navigate(`${PATH_GOTOMAIL}`);
         }
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          window.alert(error.response.data.message);
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
       });
   };
 
