@@ -337,7 +337,7 @@ const GuruGold = () => {
                 <div class="reward-container">
                   <div class="reward-line ">
                     <div class="reward-box">
-                      <a href="#" class="flex">
+                      <Link to="/leaderboard" class="flex">
                         <figure>
                           <img
                             src="app/images/reward-1.png"
@@ -353,12 +353,12 @@ const GuruGold = () => {
                             title="Genaiguru arrow-left"
                           />
                         </figure>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div class="reward-line ">
                     <div class="reward-box">
-                      <a href="#" class="flex">
+                      <Link to="/reward" class="flex">
                         <figure>
                           <img
                             src="app/images/reward-2.png"
@@ -374,12 +374,12 @@ const GuruGold = () => {
                             title="Genaiguru arrow-left"
                           />
                         </figure>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div class="reward-line ">
                     <div class="reward-box">
-                      <a href="#" class="flex">
+                      <Link to="/milestone" class="flex">
                         <figure>
                           <img
                             src="app/images/reward-2.png"
@@ -395,7 +395,7 @@ const GuruGold = () => {
                             title="Genaiguru arrow-left"
                           />
                         </figure>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

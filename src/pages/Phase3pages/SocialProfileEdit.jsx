@@ -1,6 +1,7 @@
 import React from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import { Link } from "react-router-dom";
 
 const SocialProfileEdit = () => {
   return (
@@ -15,7 +16,7 @@ const SocialProfileEdit = () => {
             {/* <!-- edit-profile start here --> */}
             <div class="profile-edit socialLinkEdit flex">
               <p>
-                <a href="#">Profile</a>{" "}
+                <Link to="/phasepage1">Profile</Link>{" "}
                 <i class="fa fa-angle-right" aria-hidden="true"></i> Edit social
                 profile
               </p>
@@ -163,7 +164,7 @@ const SocialProfileEdit = () => {
       <div class="mob_profile hideDes">
         <div class="mobileHead flex">
           <div class="backBtns">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <Link to="/phasepage1"><i class="fa fa-angle-left" aria-hidden="true"></i></Link>
           </div>
           <h2>Edit social profile</h2>
         </div>
