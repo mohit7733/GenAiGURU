@@ -1,15 +1,83 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import { PATH_ADDINTERESTS } from "../../routes";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { PATH_ADDINTERESTS, PATH_REGISTER_COMPLETE } from "../../routes";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const Login6 = () => {
+  const navigate = useNavigate();
+  // State to store data from the API
+  const [expertData, setExpertData] = useState([]);
+  const [selectedExpertsIndex, setSelectedExpertsIndex] = useState([]);
+  const token = JSON.parse(localStorage.getItem("registerToken"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  /* UseEffect for Get Expert Writer's API */
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/expert-users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const expertsWithInitialFollowState = response.data.experts.map(
+          (expert) => ({
+            ...expert,
+            isFollowing: false,
+          })
+        );
+        setExpertData(expertsWithInitialFollowState);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  const sendExpertsIDOnContinue = () => {
+    fetch(`${getBaseURL()}/follow-experts`, {
+      method: "POST",
+      body: JSON.stringify({
+        // user_id: userId,
+        expert_ids: selectedExpertsIndex,
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          navigate(`${PATH_REGISTER_COMPLETE}`);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  // Function to handle Follow button click for a specific expert
+  const handleFollowClick = (expertId) => {
+    setExpertData((prevExpertData) =>
+      prevExpertData.map((expert) =>
+        expert.id === expertId
+          ? { ...expert, isFollowing: !expert.isFollowing }
+          : expert
+      )
+    );
+
+    const indexExists = selectedExpertsIndex.includes(expertId);
+    setSelectedExpertsIndex((prevIndices) =>
+      indexExists
+        ? prevIndices.filter((prevIndex) => prevIndex !== expertId)
+        : [...prevIndices, expertId]
+    );
+  };
+
   return (
     <div>
-      <section class="interestSection second mainBg">
-        <div class="wrapper">
-          <div class="cancelBtn">
+      <section className="interestSection second mainBg">
+        <div className="wrapper">
+          <div className="cancelBtn">
             <Link to={PATH_ADDINTERESTS}>
-              <i class="fa fa-times" aria-hidden="true"></i>
+              <i className="fa fa-times" aria-hidden="true"></i>
             </Link>
             Cancel
           </div>
@@ -18,123 +86,37 @@ const Login6 = () => {
             You will find the best posts in the feed according <br /> to your
             following authors.
           </p>
-          <ul class="profileList">
-            <li>
-              <figure>
-                <img
-                  src="app/images/bigAvatar.png"
-                  alt="Genaiguru user img"
-                  title="Genaiguru user image"
-                />
-              </figure>
-              <div class="names">
-                <h5>Jms Mittan</h5>
-                <p>UX Content writer</p>
-              </div>
-              <div class="btnWrap">
-                <a href="#" class="btnSecond">
-                  Follow
-                </a>
-              </div>
-            </li>
-            <li>
-              <figure>
-                <img
-                  src="app/images/bigAvatar.png"
-                  alt="Genaiguru user img"
-                  title="Genaiguru user image"
-                />
-              </figure>
-              <div class="names">
-                <h5>Jms Mittan</h5>
-                <p>UX Content writer</p>
-              </div>
-              <div class="btnWrap">
-                <a href="#" class="btnSecond">
-                  Following
-                </a>
-              </div>
-            </li>
-            <li>
-              <figure>
-                <img
-                  src="app/images/bigAvatar.png"
-                  alt="Genaiguru user img"
-                  title="Genaiguru user image"
-                />
-              </figure>
-              <div class="names">
-                <h5>Jms Mittan</h5>
-                <p>UX Content writer</p>
-              </div>
-              <div class="btnWrap">
-                <a href="#" class="btnSecond">
-                  Follow
-                </a>
-              </div>
-            </li>
-            <li>
-              <figure>
-                <img
-                  src="app/images/bigAvatar.png"
-                  alt="Genaiguru user img"
-                  title="Genaiguru user image"
-                />
-              </figure>
-              <div class="names">
-                <h5>Jms Mittan</h5>
-                <p>UX Content writer</p>
-              </div>
-              <div class="btnWrap">
-                <a href="#" class="btnSecond">
-                  Following
-                </a>
-              </div>
-            </li>
-            <li>
-              <figure>
-                <img
-                  src="app/images/bigAvatar.png"
-                  alt="Genaiguru user img"
-                  title="Genaiguru user image"
-                />
-              </figure>
-              <div class="names">
-                <h5>Jms Mittan</h5>
-                <p>UX Content writer</p>
-              </div>
-              <div class="btnWrap">
-                <a href="#" class="btnSecond">
-                  Follow
-                </a>
-              </div>
-            </li>
-            <li>
-              <figure>
-                <img
-                  src="app/images/bigAvatar.png"
-                  alt="Genaiguru user img"
-                  title="Genaiguru user image"
-                />
-              </figure>
-              <div class="names">
-                <h5>Jms Mittan</h5>
-                <p>UX Content writer</p>
-              </div>
-              <div class="btnWrap">
-                <a href="#" class="btnSecond">
-                  Following
-                </a>
-              </div>
-            </li>
+          <ul className="profileList">
+            {expertData.map((Writer, index) => {
+              return (
+                <li key={Writer.id}>
+                  <figure>
+                    <img
+                      src="app/images/bigAvatar.png"
+                      alt="Genaiguru user img"
+                      title="Genaiguru user image"
+                    />
+                  </figure>
+                  <div className="names">
+                    <h5>{Writer.name}</h5>
+                    <p>{Writer.role_user}</p>
+                  </div>
+                  <div className="btnWrap">
+                    <Link
+                      className="btnSecond"
+                      onClick={() => handleFollowClick(Writer.id)}
+                    >
+                      {Writer.isFollowing ? "Following" : "Follow"}
+                    </Link>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
-          <div class="buttonText">
-            <Link to={"/login7"} class="loginBtn">
+          <div className="buttonText">
+            <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
               Continue
             </Link>
-            {/* <a href="#" class="loginBtn">
-              Continue
-            </a> */}
           </div>
         </div>
       </section>

@@ -35,18 +35,12 @@ export const PATH_SIGNIN = "/signin";
 export const PATH_WELCOME = "/welcome";
 export const PATH_ADDINTERESTS = "/addinterests";
 export const PATH_FOLLOWEXPERTS = "/followexperts";
+export const PATH_REGISTER_COMPLETE = "/completion";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
-const Login = React.lazy(() => import("./pages/Authentication/Login"));
-const Login2 = React.lazy(() => import("./pages/Authentication/login2"));
-const Login3 = React.lazy(() => import("./pages/Authentication/login3"));
-const Login4 = React.lazy(() => import("./pages/Authentication/login4"));
-const Login5 = React.lazy(() => import("./pages/Authentication/login5"));
-const Login6 = React.lazy(() => import("./pages/Authentication/login6"));
-const Login7 = React.lazy(() => import("./pages/Authentication/login7"));
-const Login8 = React.lazy(() => import("./pages/Authentication/login8"));
 
-export function RouterElement({ isLogged }) {
+
+export function RouterElement() {
 
   const routes = [
     {
