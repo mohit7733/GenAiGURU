@@ -988,55 +988,56 @@ const GuruJournal = () => {
                 <div class="gurukeeps-wrapper">
                   {/* <!-- tab-link start here --> */}
                   <ul class="connect-link flex">
-                    <li>
-                      <a
-                        href="#"
-                        class="tab active"
-                        data-toggle-target=".tab-content-1"
-                      >
-                        All
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="tab "
-                        data-toggle-target=".tab-content-2"
-                      >
-                        Ai in healthcare
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="tab "
-                        data-toggle-target=".tab-content-3"
-                      >
-                        ML in finance
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="tab "
-                        data-toggle-target=".tab-content-4"
-                      >
-                        Crypto
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="tab "
-                        data-toggle-target=".tab-content-5"
-                      >
-                        Bitcoin
-                      </a>
-                    </li>
+                  <li className={activeTab === 1 ? "active" : ""}>
+                    <Link
+                      onClick={() => handleTabClick(1)}
+                      className={activeTab === 1 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-1"
+                    >
+                      All
+                    </Link>
+                  </li>
+                  <li className={activeTab === 2 ? " active" : ""}>
+                    <Link
+                      onClick={() => handleTabClick(2)}
+                      className={activeTab === 2 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-2"
+                    >
+                      Ai in healthcare
+                    </Link>
+                  </li>
+                  <li className={activeTab === 3 ? " active" : ""}>
+                    <Link
+                      onClick={() => handleTabClick(3)}
+                      className={activeTab === 3 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-3"
+                    >
+                      ML in finance
+                    </Link>
+                  </li>
+                  <li className={activeTab === 4 ? "active" : ""}>
+                    <Link
+                      onClick={() => handleTabClick(4)}
+                      className={activeTab === 4 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-4"
+                    >
+                      Crypto
+                    </Link>
+                  </li>
+                  <li className={activeTab === 5 ? " active" : ""}>
+                    <Link
+                      onClick={() => handleTabClick(5)}
+                      className={activeTab === 5 ? "tab active" : ""}
+                      data-toggle-target=".tab-content-5"
+                    >
+                      Bitcoin
+                    </Link>
+                  </li>
                   </ul>
                   {/* <!-- tab-link start here --> */}
                 </div>
                 {/* <!-- tab-content here --> */}
+                {activeTab === 1 && (
                 <div class="tab-content tab-content-1 active">
                   <div class="interest-guru ">
                     <div class="interest-sliders">
@@ -1339,8 +1340,10 @@ const GuruJournal = () => {
                     </div>
                   </div>
                 </div>
+                )}
                 {/* <!-- 2nd --> */}
-                <div class="tab-content tab-content-2 ">
+                {activeTab === 2 && (
+                <div class="tab-content tab-content-2 active">
                   <div class="interest-guru ">
                     <div class="interest-sliders">
                       <div class="wrap flex">
@@ -1642,8 +1645,10 @@ const GuruJournal = () => {
                     </div>
                   </div>
                 </div>
+                )}
                 {/* <!-- 3rd --> */}
-                <div class="tab-content tab-content-3">
+                {activeTab === 3 && (
+                <div class="tab-content tab-content-3 active">
                   <div class="interest-guru ">
                     <div class="interest-sliders">
                       <div class="wrap flex">
@@ -1945,8 +1950,10 @@ const GuruJournal = () => {
                     </div>
                   </div>
                 </div>
+                )}
                 {/* <!-- 4th --> */}
-                <div class="tab-content tab-content-4">
+                {activeTab === 4 && (
+                <div class="tab-content tab-content-4 active">
                   <div class="interest-guru ">
                     <div class="interest-sliders">
                       <div class="wrap flex">
@@ -2248,8 +2255,10 @@ const GuruJournal = () => {
                     </div>
                   </div>
                 </div>
+                )}
                 {/* <!-- 5th --> */}
-                <div class="tab-content tab-content-5">
+                {activeTab === 5 && (
+                <div class="tab-content tab-content-5 active">
                   <div class="interest-guru ">
                     <div class="interest-sliders">
                       <div class="wrap flex">
@@ -2551,6 +2560,7 @@ const GuruJournal = () => {
                     </div>
                   </div>
                 </div>
+                )}
               </div>
             </div>
           </div>
