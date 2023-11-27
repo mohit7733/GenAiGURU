@@ -1,8 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { PATH_SIGNIN } from "../../routes";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { PATH_LOGIN, PATH_SIGNIN } from "../../routes";
 
 const Login7 = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
+  });
   return (
     <div>
       <section className="loginPopup">
@@ -15,7 +21,7 @@ const Login7 = () => {
             />
           </figure>
           <h2>Wow! You did Awesome.</h2>
-          <Link to={PATH_SIGNIN}>Login</Link>
+          {/* <Link to={PATH_SIGNIN}>Login</Link> */}
         </div>
       </section>
     </div>

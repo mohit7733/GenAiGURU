@@ -1,10 +1,23 @@
 import React from "react";
 import userimageIcon from "../../assets/images/person.png";
 import { Link, useNavigate } from "react-router-dom";
+import { PATH_LOGIN } from "../../routes";
 
 const Header = () => {
-  const isLogged = true;
   const navigate = useNavigate();
+
+  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
+  console.log(userLoggedIn);
+
+  const changeLoginStatus = () => {
+    console.log(userLoggedIn);
+    if (userLoggedIn === "true") {
+      localStorage.setItem("userLoggedIn", "false");
+      localStorage.removeItem("token");
+      localStorage.removeItem("UserId");
+    }
+  };
+
   return (
     <>
       <header className="flex">
@@ -33,16 +46,16 @@ const Header = () => {
             />
           </figure>
           <form action="">
-          <Link to={"/index2"}>
-            <div className="form_group">
-              <input
-                type="search"
-                placeholder="Search genaiguru"
-                onClick={() => {
-                  navigate("/index2");
-                }}
-              />
-            </div>
+            <Link to={"/index2"}>
+              <div className="form_group">
+                <input
+                  type="search"
+                  placeholder="Search genaiguru"
+                  onClick={() => {
+                    navigate("/index2");
+                  }}
+                />
+              </div>
             </Link>
           </form>
         </div>
@@ -88,14 +101,8 @@ const Header = () => {
           </li>
           <li className="userIcon">
             {/* Login page link before user login */}
-            {/* <Link to={"/login"}>
-              <img
-                src={userimageIcon}
-                alt="Genaiguru user image"
-                title="Genaiguru user image"
-              />
-            </Link> */}
-            {isLogged ? (
+
+            {userLoggedIn ? (
               <Link to={"/phasepage1"}>
                 <img
                   src={userimageIcon}
@@ -115,7 +122,9 @@ const Header = () => {
 
             <ul class="userNav">
               <li>
-                <Link to={"/login"}>SignUp/Login</Link>
+                <Link onClick={changeLoginStatus} to={PATH_LOGIN}>
+                  {userLoggedIn ? "Logout" : "SignUp/Login"}
+                </Link>
               </li>
             </ul>
           </li>

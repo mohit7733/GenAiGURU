@@ -9,7 +9,8 @@ const Login6 = () => {
   // State to store data from the API
   const [expertData, setExpertData] = useState([]);
   const [selectedExpertsIndex, setSelectedExpertsIndex] = useState([]);
-  const token = JSON.parse(localStorage.getItem("registerToken"));
+
+  const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   /* UseEffect for Get Expert Writer's API */
@@ -37,15 +38,22 @@ const Login6 = () => {
   const sendExpertsIDOnContinue = () => {
     fetch(`${getBaseURL()}/follow-experts`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        // user_id: userId,
         expert_ids: selectedExpertsIndex,
       }),
     })
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
-          navigate(`${PATH_REGISTER_COMPLETE}`);
+        if (selectedExpertsIndex.length > 1) {
+          if (res.status === 200) {
+            navigate(`${PATH_REGISTER_COMPLETE}`);
+            localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+          }
         }
       })
       .catch((err) => {
@@ -74,6 +82,15 @@ const Login6 = () => {
   return (
     <div>
       <section className="interestSection second mainBg">
+        <figure className="headerLogo">
+          <a href="https://genaigurudev.sdsstaging.co.uk/">
+            <img
+              src="app/images/headerLogo.png"
+              alt="Genaiguru header logo"
+              title="Genaiguru"
+            />
+          </a>
+        </figure>
         <div className="wrapper">
           <div className="cancelBtn">
             <Link to={PATH_ADDINTERESTS}>

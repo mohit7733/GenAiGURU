@@ -18,6 +18,7 @@ import "slick-carousel/slick/slick-theme.css";
 const Index = () => {
   const sliderRef = useRef();
 
+
   var settings2 = {
     dots: false,
     infinite: true,
@@ -245,7 +246,7 @@ const Index = () => {
           <ArticleBasedInterest />
         </div>
       </section>
-      <Footer/>
+      <Footer />
       {/* <FixedAIButtonLogo /> */}
     </>
   );
