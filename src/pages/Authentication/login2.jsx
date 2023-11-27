@@ -119,6 +119,15 @@ const Login2 = () => {
     <>
       <div>
         <section className="createAccount mainBg">
+          <figure className="headerLogo">
+            <a href="https://genaigurudev.sdsstaging.co.uk/">
+              <img
+                src="app/images/headerLogo.png"
+                alt="Genaiguru header logo"
+                title="Genaiguru"
+              />
+            </a>
+          </figure>
           <div className="wrapper400">
             <div className="backBtn">
               <Link to={PATH_LOGIN}>
