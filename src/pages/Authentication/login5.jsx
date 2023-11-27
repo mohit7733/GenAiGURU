@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL, getHeaders } from "../../api/config";
 import { PATH_FOLLOWEXPERTS } from "../../routes";
 
 const Login5 = () => {
+  const navigate = useNavigate();
   const [interestData, setInterestData] = useState([]);
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
 
-  const registerToken = JSON.parse(localStorage.getItem("registerToken"));
+  const registerToken = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   /* UseEffect for Get Interest API */
@@ -42,6 +43,9 @@ const Login5 = () => {
     })
       .then((res) => {
         console.log(res);
+        if (selectedInterestIndex.length > 1) {
+          navigate(`${PATH_FOLLOWEXPERTS}`);
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -88,18 +92,14 @@ const Login5 = () => {
             })}
           </ul>
           <div className="buttonText">
-            <p>
-              Selected <span>{selectedInterestIndex.length}</span>
-            </p>
             {selectedInterestIndex.length !== 0 && (
-              <Link
-                to={PATH_FOLLOWEXPERTS}
-                className="loginBtn"
-                onClick={sendInterestsOnContinue}
-              >
-                Continue
-              </Link>
+              <p>
+                Selected <span>{selectedInterestIndex.length}</span>
+              </p>
             )}
+            <button className="loginBtn" onClick={sendInterestsOnContinue}>
+              Continue
+            </button>
           </div>
         </div>
       </section>

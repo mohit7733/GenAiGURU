@@ -27,7 +27,7 @@ const Login2 = () => {
       .then((response) => {
         console.log(response);
         localStorage.setItem(
-          "registerToken",
+          "token",
           JSON.stringify(response.data.accessToken)
         );
         localStorage.setItem("UserId", JSON.stringify(response.data.data?.id));

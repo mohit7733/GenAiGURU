@@ -54,10 +54,9 @@ const Login8 = () => {
     return login(payload)
       .then((res) => {
         console.log(res);
-        localStorage.setItem(
-          "tokenDetail",
-          JSON.stringify(res.data.accessToken)
-        );
+        localStorage.setItem("token", JSON.stringify(res.data.accessToken));
+        localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+
         window.alert("Logged In Successfully");
         navigate("/");
       })
