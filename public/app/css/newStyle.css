@@ -11,6 +11,12 @@
     background-image: linear-gradient(to top,#191f2b,#1e2732,#232f3a,#293841,#304048,#314249,#33434b,#34454c,#304048,#2c3b43,#28373f,#24323b);
     padding: 25px 10px;
 }
+.loginOption figure.headerLogo, .createAccount figure.headerLogo{
+    padding-bottom: 80px;
+}
+.createAccount {
+    padding: 0px 0 50px;
+}
 .innerCommanContent .interest-sliders{
     padding-right: 0;
 }

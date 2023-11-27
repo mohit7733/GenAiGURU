@@ -6,11 +6,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
 
-
 const Login = () => {
-
-  
-  // Login with Google Function 
+  // Login with Google Function
   const login = useGoogleLogin({
     onSuccess: (credentialResponse) => console.log(credentialResponse),
     redirect_uri: process.env.REACT_APP_URL,
@@ -23,6 +20,15 @@ const Login = () => {
   return (
     <div>
       <section className="loginOption mainBg">
+        <figure className="headerLogo">
+          <a href="https://genaigurudev.sdsstaging.co.uk/">
+            <img
+              src="app/images/headerLogo.png"
+              alt="Genaiguru header logo"
+              title="Genaiguru"
+            />
+          </a>
+        </figure>
         <div className="wrapper400 stars">
           <h1>
             <span>Hello!</span> Join with us by your info

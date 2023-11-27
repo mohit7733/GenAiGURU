@@ -1412,10 +1412,10 @@ font-family: PlusJakartaSansMedium;
 }
 
 .loginOption {
-width: 100%;
-padding: 160px 0 50px;
-height: 100%;
-position: relative;
+  width: 100%;
+  padding: 0px 0 50px;
+  height: 100%;
+  position: relative;
 }
 
 @media (max-width: 576px) {
