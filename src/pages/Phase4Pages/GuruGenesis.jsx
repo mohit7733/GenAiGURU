@@ -37,7 +37,7 @@ const GuruGenesis = () => {
                       className={activeTab === 2 ? "tab active" : ""}
                       data-toggle-target=".tab-content-2"
                     >
-                      Guru genesis
+                      GenAIGuru
                     </Link>
                   </li>
                 </ul>

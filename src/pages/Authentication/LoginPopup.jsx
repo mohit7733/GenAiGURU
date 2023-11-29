@@ -5,6 +5,10 @@ const LoginPopup = () => {
     <div>
       <section className="login_popup loginOption">
         <div className="wrapper400 stars">
+          <div className="cross-icon">
+            <img src="/app/images/close.png" alt="Close Icon" />
+          </div>
+
           <h1>
             <span>Hello!</span> Join with us by your info
           </h1>
@@ -77,10 +81,7 @@ const LoginPopup = () => {
           <p className="alreadyAccount">
             Already have an account? <a href="/signin">Log in</a>
           </p>
-          <div className="starsImg">
-            <img src="app/images/star.png" alt="Genaiguru stars" />
-            <img src="app/images/star2.png" alt="Genaiguru stars" />
-          </div>
+          
         </div>
       </section>
     </div>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { PATH_LOGIN } from "../../routes";
+import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
 import React, { useState } from "react";
 import { login } from "../../api/Auth";
 import { getBaseURL } from "../../api/config";
@@ -118,6 +118,7 @@ const Login8 = () => {
                 }}
               >
                 Forgot Password?
+                <Link to={PATH_FORGOT_PASSWORD} style={{color:"blue"}}>Click Here</Link>
               </p>
 
               <button className="loginBtn" onClick={handleSubmit}>
