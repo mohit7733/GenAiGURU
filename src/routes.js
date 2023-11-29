@@ -36,6 +36,10 @@ export const PATH_WELCOME = "/welcome";
 export const PATH_ADDINTERESTS = "/addinterests";
 export const PATH_FOLLOWEXPERTS = "/followexperts";
 export const PATH_REGISTER_COMPLETE = "/completion";
+export const PATH_FORGOT_PASSWORD = "/forgotpassword";
+export const PATH_LOGIN_POPUP = "/loginpopup";
+export const PATH_CREATE_NEW_PASSWORD= "/createnewpassword";
+export const PATH_OTP_SCREEN= "/otpscreen";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 

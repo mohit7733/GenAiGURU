@@ -7,9 +7,13 @@ import Loader from "./components/Loader/Loader";
 import Login from "./pages/Authentication/Login";
 import {
   PATH_ADDINTERESTS,
+  PATH_CREATE_NEW_PASSWORD,
   PATH_FOLLOWEXPERTS,
+  PATH_FORGOT_PASSWORD,
   PATH_GOTOMAIL,
   PATH_LOGIN,
+  PATH_LOGIN_POPUP,
+  PATH_OTP_SCREEN,
   PATH_REGISTER_COMPLETE,
   PATH_SIGNIN,
   PATH_SIGNUP,
@@ -23,6 +27,10 @@ import Login6 from "./pages/Authentication/login6";
 import Login4 from "./pages/Authentication/login4";
 import Login3 from "./pages/Authentication/login3";
 import Login7 from "./pages/Authentication/login7";
+import CreacteNewPassword from "./pages/Authentication/CreacteNewPassword";
+import ForgotPassword from "./pages/Authentication/ForgotPassword";
+import Otpscreen from "./pages/Authentication/Otpscreen";
+import LoginPopup from "./pages/Authentication/LoginPopup";
 
 function App() {
   return (
@@ -44,6 +52,16 @@ function App() {
             <Route path={PATH_ADDINTERESTS} element={<Login5 />}></Route>
             <Route path={PATH_FOLLOWEXPERTS} element={<Login6 />}></Route>
             <Route path={PATH_REGISTER_COMPLETE} element={<Login7 />}></Route>
+            <Route
+              path={PATH_CREATE_NEW_PASSWORD}
+              element={<CreacteNewPassword />}
+            ></Route>
+            <Route
+              path={PATH_FORGOT_PASSWORD}
+              element={<ForgotPassword />}
+            ></Route>
+            <Route path={PATH_OTP_SCREEN} element={<Otpscreen />}></Route>
+            <Route path={PATH_LOGIN_POPUP} element={<LoginPopup />}></Route>
             <Route
               path="/*"
               element={

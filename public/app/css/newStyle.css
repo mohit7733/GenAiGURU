@@ -125,7 +125,12 @@
 .innerCommanContent.contactFaq{
     background: #131f2c;
 }
-
+section.login_popup .wrapper400 {
+    background: linear-gradient( 172.97deg, #000000bf 99.88%, #e43f3f 95.56%, rgb(110 3 56 / 35%) 45% ), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+    padding: 25px;
+    border-radius: 20px;
+    max-width: 450px;
+}
 
 @media (max-width:1080px) {
     .rightSection .setting-wrapper .setting-container{
@@ -228,9 +233,8 @@
         max-width: 100%;
         padding: 0 25px 0 0;
     }
-
-    
 }
+
 
 @media (max-width:767px) {
     .subscriptionPlan .current-plan{

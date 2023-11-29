@@ -106,7 +106,20 @@ const Login8 = () => {
                 <div className="error">{errors.password}</div>
               )}
             </div>
+
             <div className="form_group">
+              <p
+                className=""
+                style={{
+                  color: "white",
+                  display: "flex",
+                  fontSize: "14px",
+                  marginTop: "5px",
+                }}
+              >
+                Forgot Password?
+              </p>
+
               <button className="loginBtn" onClick={handleSubmit}>
                 Login
               </button>

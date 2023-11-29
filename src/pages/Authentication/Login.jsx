@@ -21,13 +21,13 @@ const Login = () => {
     <div>
       <section className="loginOption mainBg">
         <figure className="headerLogo">
-          <a href="https://genaigurudev.sdsstaging.co.uk/">
+          <Link to="/">
             <img
               src="app/images/headerLogo.png"
               alt="Genaiguru header logo"
               title="Genaiguru"
             />
-          </a>
+          </Link>
         </figure>
         <div className="wrapper400 stars">
           <h1>
