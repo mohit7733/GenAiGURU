@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const Latestblog = () => {
   const sliderRef = useRef();
+  const [latestBlog, setLatestBlog] = useState([]);
 
+  const token = JSON.parse(localStorage.getItem("token"));
+
+
+  // Get API for Popular Blogs
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/latest-blogs`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setLatestBlog(response.data.blogs);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  // Slide code
   var settings2 = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     arrows: true,
     slidesToScroll: 1,
@@ -47,32 +70,38 @@ const Latestblog = () => {
             id="Slider-4"
             className="slider_test"
           >
-            <div>
-              <div className="wrap">
-                <Link to="/blogdetails">
-                  <figure>
-                    <img
-                      src="app/images/blogImgOne.png"
-                      alt="Genaiguru blog image"
-                      title="Genaiguru blog image"
-                    />
-                  </figure>
-                  <div className="layer">
-                    <h5>
-                      Discover the Latest <br /> Breakthroughs in AI{" "}
-                    </h5>
-                    <button type="button">
-                      <img
-                        src="app/images/blogArrowBtnImg.png"
-                        alt="Genaiguru arrow button"
-                        title="Genaiguru arrow button"
-                      />
-                    </button>
+            {latestBlog.map((blog, index) => {
+              return (
+                <div key={index}>
+                  <div className="wrap">
+                    <Link to="/blogdetails">
+                      <figure>
+                        <img
+                          src="app/images/blogImgOne.png"
+                          alt="Genaiguru blog image"
+                          title="Genaiguru blog image"
+                        />
+                      </figure>
+                      <div className="layer">
+                        <h5>
+                          {blog.title}
+                          <br />
+                          {blog.content}
+                        </h5>
+                        <button type="button">
+                          <img
+                            src="app/images/blogArrowBtnImg.png"
+                            alt="Genaiguru arrow button"
+                            title="Genaiguru arrow button"
+                          />
+                        </button>
+                      </div>
+                    </Link>
                   </div>
-                </Link>
-              </div>
-            </div>
-            <div>
+                </div>
+              );
+            })}
+            {/* <div>
               <div className="wrap">
                 <Link to="/blogdetails">
                   <figure>
@@ -146,7 +175,7 @@ const Latestblog = () => {
                   </div>
                 </a>
               </div>
-            </div>
+            </div> */}
           </Slider>
         </div>
       </div>

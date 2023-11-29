@@ -142,7 +142,7 @@ const Settings = () => {
                           title="Genaiguru feedd-back-admin"
                         />
                       </figure>
-                      <span>Send feedback to admin</span>
+                      <span>Send feedback</span>
                     </Link>
                   </li>
                 </ul>
@@ -199,7 +199,7 @@ const Settings = () => {
                       <form action="">
                         <div class="profile-edit">
                           <label for="name">Your Name</label>
-                          <input type="text" placeholder="GenAIGuru kingdom" />
+                          <input type="text" placeholder="GenAIGuru" />
                         </div>
                         <div class="profile-edit">
                           <label for="name">Bio</label>
