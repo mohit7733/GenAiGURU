@@ -1,9 +1,11 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { getBaseURL } from "../../api/config";
 import { PATH_SIGNIN } from "../../routes";
 
 const Otpscreen = ({ email }) => {
+  const [otp, setOtp] = useState("");
+
   const onResendOtp = () => {
     axios
       .post(`${getBaseURL()}/resend-otp`, {
@@ -13,6 +15,18 @@ const Otpscreen = ({ email }) => {
         console.log(res);
         window.alert(res.data.message);
       });
+  };
+
+  const onSendOTP = () => {
+    alert(otp);
+    // axios
+    //   .post(`${getBaseURL()}/resend-otp`, {
+    //     otp: otp,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     window.alert(res.data.message);
+    //   });
   };
   return (
     <>
@@ -27,13 +41,15 @@ const Otpscreen = ({ email }) => {
           <h1>
             <span>Enter OTP</span>Otp is sent to your registered EmailID
           </h1>
-          <form action="" className="accountCreate">
+          <div className="accountCreate">
             <div className="form_group flex">
               <label htmlFor="otp">Enter OTP here</label>
               <input
-                type="otp"
-                name="otp"
+                type="number"
+                name="number"
+                value={otp}
                 placeholder=""
+                onChange={(e) => setOtp(e.target.value)}
                 className="otp_field"
               />
               <label htmlFor="email" onClick={onResendOtp}>
@@ -41,9 +57,11 @@ const Otpscreen = ({ email }) => {
               </label>
             </div>
             <div className="form_group">
-              <button className="loginBtn">Submit</button>
+              <button className="loginBtn" onClick={onSendOTP}>
+                Submit
+              </button>
             </div>
-          </form>
+          </div>
           <p className="termsText">
             By continuing, you agree to our <a href="#">Terms and conditions</a>{" "}
             and <a href="#">Privacy Policy.</a>
