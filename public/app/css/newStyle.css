@@ -215,6 +215,13 @@ section.login_popup .wrapper400 {
   right: 20px;
 }
 
+.interestSection button.loginBtn {
+  position: absolute;
+  width: 100%;
+  top: 20px;
+  margin: 20px auto 0;
+}
+
 @media (max-width: 1080px) {
   .rightSection .setting-wrapper .setting-container {
     display: none;

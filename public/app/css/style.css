@@ -1889,9 +1889,10 @@ width: auto;
 }
 
 .interestSection {
-padding: 0px 15px 70px;
-height: 100%;
-}
+  height: 100%;
+  padding: 175px 0;
+} 
+
 section.interestSection.second.mainBg figure.headerLogo {
   padding-bottom: 80px  ;
 } 
@@ -2076,8 +2077,10 @@ box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.13);
 }
 
 .interestSection .buttonText {
-max-width: 385px;
-margin: 10px auto 0;
+  max-width: 385px;
+  margin: 10px auto 0;
+  min-height: 100px;
+  position: relative;
 }
 
 .interestSection .buttonText p {
