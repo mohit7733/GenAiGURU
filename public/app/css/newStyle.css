@@ -1,4 +1,37 @@
 /* new css */
+
+/* Updated CSS for Popup and background Akshay*/
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the background color and opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  /* Additional styles for your popup content */
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #b03fcc;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+} 
+
 .commanMobHead .mobileHead p {
   font-size: 14px;
   line-height: 1.4em;

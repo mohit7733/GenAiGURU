@@ -1,16 +1,33 @@
 import React, { useState } from "react";
 import { PATH_LOGIN } from "../../routes";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
+import { useNavigate } from "react-router-dom";
 
-const CreacteNewPassword = () => {
+const CreacteNewPassword = ({ email, verifyToken }) => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate();
 
   const onSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
-    
+    axios
+      .post(`${getBaseURL()}/create-new-password`, {
+        password: password,
+        password_confirmation: confirmPassword,
+        email: email,
+        verify_token: verifyToken,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          navigate(`${PATH_LOGIN}`);
+        }
+      });
   };
 
   const onchangeCheck = (key, value) => {
@@ -50,20 +67,32 @@ const CreacteNewPassword = () => {
             Back
           </div>
           <h1>Create New Password</h1>
-          <form action="" className="accountCreate"  onSubmit={onSubmit}>
+          <form action="" className="accountCreate" onSubmit={onSubmit}>
             <div className="form_group flex">
               <label htmlFor="password">Enter New Password</label>
-              <input type="password" name="password" placeholder="****"
+              <input
+                type="password"
+                name="password"
+                placeholder="****"
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyUp={onchangeCheck} />
-                {errors["password"] && <div className="error">{errors.password}</div>}
+                onKeyUp={onchangeCheck}
+              />
+              {errors["password"] && (
+                <div className="error">{errors.password}</div>
+              )}
             </div>
             <div className="form_group flex">
               <label htmlFor="password">Confirm New Password</label>
-              <input type="password" name="confirmPassword" placeholder="****"
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="****"
                 onChange={(e) => setconfirmPassword(e.target.value)}
-                onKeyUp={onchangeCheck} />
-                {errors["confirmPassword"] && <div className="error">{errors.confirmPassword}</div>}
+                onKeyUp={onchangeCheck}
+              />
+              {errors["confirmPassword"] && (
+                <div className="error">{errors.confirmPassword}</div>
+              )}
             </div>
             <div className="form_group">
               <button className="loginBtn">Submit</button>
