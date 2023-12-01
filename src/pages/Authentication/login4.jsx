@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PATH_ADDINTERESTS } from "../../routes";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
+
 
 const Login4 = () => {
+  const [userDetalis, setUserDetalis] = useState([]);
+
+  const token = JSON.parse(localStorage.getItem("token"));
+
+    // Get API for get user detalis
+    useEffect(() => {
+      axios
+        .get(`${getBaseURL()}/auth/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserDetalis(response.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }, []);
   return (
     <div>
       <section className="welcomeSection mainBg">
@@ -10,7 +32,7 @@ const Login4 = () => {
           <h1>
             Welcome <span>👋</span>
           </h1>
-          <h2>GenAIGuru</h2>
+          <h2>{userDetalis.name}</h2>
           <figure>
             <img
               src="app/images/welcomeLogo.png"
