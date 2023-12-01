@@ -108,18 +108,19 @@ const Login8 = () => {
             </div>
 
             <div className="form_group">
-              <p
-                className=""
-                style={{
-                  color: "white",
-                  display: "flex",
-                  fontSize: "14px",
-                  marginTop: "5px",
-                }}
-              >
-                Forgot Password?
-                <Link to={PATH_FORGOT_PASSWORD} style={{color:"blue"}}>Click Here</Link>
-              </p>
+              <Link to={PATH_FORGOT_PASSWORD}>
+                <p
+                  className=""
+                  style={{
+                    color: "white",
+                    display: "flex",
+                    fontSize: "14px",
+                    marginTop: "5px",
+                  }}
+                >
+                  Forgot Password?
+                </p>
+              </Link>
 
               <button className="loginBtn" onClick={handleSubmit}>
                 Login

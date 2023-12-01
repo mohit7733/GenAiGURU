@@ -1890,8 +1890,8 @@ width: auto;
 
 .interestSection {
   height: 100%;
-  padding: 175px 0;
-} 
+  min-height: 100vh;
+}
 
 section.interestSection.second.mainBg figure.headerLogo {
   padding-bottom: 80px  ;

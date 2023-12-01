@@ -1,12 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LoginPopup = () => {
+const LoginPopup = ({ onClosePopup }) => {
+  const handleButtonClick = (e) => {
+    console.log(onClosePopup(e));
+  };
+
   return (
     <div>
-      <section className="login_popup loginOption">
-        <div className="wrapper400 stars">
+      <section className="popup-background login_popup loginOption">
+        <div className=" popup wrapper400 stars">
           <div className="cross-icon">
-            <img src="/app/images/close.png" alt="Close Icon" />
+            <div onClick={(e) => handleButtonClick(e)}>
+              <img src="/app/images/close.png" alt="Close Icon" />
+            </div>
           </div>
 
           <h1>
@@ -81,7 +88,6 @@ const LoginPopup = () => {
           <p className="alreadyAccount">
             Already have an account? <a href="/signin">Log in</a>
           </p>
-          
         </div>
       </section>
     </div>

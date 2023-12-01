@@ -2,8 +2,9 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
+import LoginPopup from "../Authentication/LoginPopup";
 
-const Index2 = () => {
+const Index2 = ({ isLoggedIn }) => {
   const navigate = useNavigate();
   return (
     <>
