@@ -90,7 +90,13 @@ const Login2 = () => {
 
     if (!password) {
       error["password"] = "Password Required!";
-    } else if (password.length < 8) {
+    } else if (
+      password.length <= 8 &&
+      /[A-Z]/.test(password) && // At least one uppercase letter
+      /[a-z]/.test(password) && // At least one lowercase letter
+      /\d/.test(password) && // At least one number
+      /[!@#$%^&*(),.?":{}|<>]/.test(password) // At least one special character
+    ) {
       error["password"] = "Please Enter a Valid Password!";
     } else {
       error["password"] = "";

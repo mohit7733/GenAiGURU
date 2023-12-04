@@ -3,7 +3,8 @@ import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
 import React, { useState } from "react";
 import { login } from "../../api/Auth";
 import { getBaseURL } from "../../api/config";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,6 @@ const Login8 = () => {
     setErrors(errors);
     onLogin();
   };
-
   const onchangeCheck = (key, value) => {
     const errors = {};
     if (!value) {
@@ -31,7 +31,7 @@ const Login8 = () => {
     if (!email) {
       error["email"] = "Email Required!";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      error["email"] = "Email not valid!";
+      error["email"] = " Incorrect Email !";
     } else {
       error["email"] = "";
     }
@@ -39,7 +39,7 @@ const Login8 = () => {
     if (!password) {
       error["password"] = "Password Required!";
     } else if (password.length < 8) {
-      error["password"] = "Password not valid!";
+      error["password"] = " Incorrect Password !";
     } else {
       error["password"] = "";
     }
@@ -53,18 +53,22 @@ const Login8 = () => {
     };
     return login(payload)
       .then((res) => {
-        console.log(res);
+        console.log(res, "response");
         localStorage.setItem("token", JSON.stringify(res.data.accessToken));
         localStorage.setItem("userLoggedIn", JSON.stringify("true"));
-
-        window.alert("Logged In Successfully");
-        navigate("/");
+        if (res.status === 200) {
+          toast.success("Login Successful !", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, [2000]);
+        }
       })
       .catch((err) => {
-        console.log(err);
-        window.alert(
-          err?.response?.data?.error ?? "Incorrect Username and Password"
-        );
+        // toast.error("Incorrect Username and Password !", {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
       });
   };
 
@@ -125,6 +129,7 @@ const Login8 = () => {
               <button className="loginBtn" onClick={handleSubmit}>
                 Login
               </button>
+              <ToastContainer autoClose={1000} />
             </div>
           </form>
           <p className="termsText">
