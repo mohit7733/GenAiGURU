@@ -43,7 +43,7 @@ const Login5 = () => {
     })
       .then((res) => {
         console.log(res);
-        if (selectedInterestIndex.length > 1) {
+        if (selectedInterestIndex.length >= 1) {
           navigate(`${PATH_FOLLOWEXPERTS}`);
         }
       })
