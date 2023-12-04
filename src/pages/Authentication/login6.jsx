@@ -49,7 +49,7 @@ const Login6 = () => {
     })
       .then((res) => {
         console.log(res);
-        if (selectedExpertsIndex.length > 1) {
+        if (selectedExpertsIndex.length >= 1) {
           if (res.status === 200) {
             navigate(`${PATH_REGISTER_COMPLETE}`);
             localStorage.setItem("userLoggedIn", JSON.stringify("true"));
