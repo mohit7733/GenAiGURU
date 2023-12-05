@@ -26,7 +26,7 @@ const Login3 = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Go to your inbox
+              Check your inbox{" "}
             </a>
             {/* <a
               href="https://mail.google.com/"

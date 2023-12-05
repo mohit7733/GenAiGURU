@@ -5,11 +5,26 @@ import { jwtDecode } from "jwt-decode";
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
+import axios from "axios";
 
 const Login = () => {
+
+
   // Login with Google Function
   const login = useGoogleLogin({
-    onSuccess: (credentialResponse) => console.log(credentialResponse),
+    onSuccess: async (credentialResponse) => {
+      // console.log("Credential Response:", credentialResponse);
+
+      // API call to get USER DETAILS OF GMAIL
+      const userInfo = await axios
+        .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${credentialResponse.access_token}`,
+          },
+        })
+        .then((res) => res.data);
+      console.log(userInfo);
+    },
     redirect_uri: process.env.REACT_APP_URL,
   });
 
@@ -46,7 +61,7 @@ const Login = () => {
                   src="app/images/googleIcon.png"
                   alt="Genaiguru google icon"
                   title="Genaiguru on google"
-                />{" "}
+                />
                 Continue with Google
               </Link>
             </li>
@@ -62,17 +77,6 @@ const Login = () => {
                 />
               </div>
             </li>
-
-            {/* <li>
-              <a href="#" className="flex">
-                <img
-                  src="app/images/appleIcon.png"
-                  alt="Genaiguru apple icon"
-                  title="Genaiguru apple icon"
-                />{" "}
-                Continue with Apple
-              </a>
-            </li> */}
             <li>
               <NavLink to={PATH_SIGNUP} className="flex">
                 Sign up with Email

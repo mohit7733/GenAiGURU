@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import userimageIcon from "../../assets/images/person.png";
 import { Link, useNavigate } from "react-router-dom";
-import { PATH_LOGIN } from "../../routes";
+import { PATH_LOGIN, PATH_PROFILE } from "../../routes";
 import LoginPopup from "../../pages/Authentication/LoginPopup";
 import WithAuth from "../../pages/Authentication/WithAuth";
 import axios from "axios";
@@ -55,7 +55,7 @@ const Header = ({ isLoggedIn }) => {
           />
         </div>
         <figure className="headerLogo">
-          <a href="#">
+          <a href="/">
             <img
               src="app/images/headerLogo.png"
               alt="Genaiguru header logo"
@@ -135,7 +135,7 @@ const Header = ({ isLoggedIn }) => {
             {/* Login page link before user login */}
 
             {userLoggedIn ? (
-              <Link to={"/phasepage1"}>
+              <Link to={PATH_PROFILE}>
                 <img
                   src={profileImage}
                   alt="Genaiguru user image"

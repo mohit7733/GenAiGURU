@@ -38,14 +38,15 @@ export const PATH_FOLLOWEXPERTS = "/followexperts";
 export const PATH_REGISTER_COMPLETE = "/completion";
 export const PATH_FORGOT_PASSWORD = "/forgotpassword";
 export const PATH_LOGIN_POPUP = "/loginpopup";
-export const PATH_CREATE_NEW_PASSWORD= "/createnewpassword";
-export const PATH_OTP_SCREEN= "/otpscreen";
+export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
+export const PATH_OTP_SCREEN = "/otpscreen";
+
+// Private Routes
+export const PATH_PROFILE = "/profile";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
-
 export function RouterElement() {
-
   const routes = [
     {
       path: "/",
@@ -86,8 +87,8 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "phasepage1",
-      name: "phasepage1",
+      path: PATH_PROFILE,
+      name: "profile",
       element: <Profile />,
       exact: true,
     },
