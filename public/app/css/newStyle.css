@@ -292,6 +292,8 @@ section.login_popup .wrapper400 {
     padding-right: 20px;
 }
 
+
+
 @media (max-width: 1080px) {
   .rightSection .setting-wrapper .setting-container {
     display: none;
@@ -469,11 +471,11 @@ section.login_popup .wrapper400 {
   }
 }
 /* new css @D */
-.loginOption figure.headerLogo{
+.mainBg figure.headerLogo{
 	position: relative;
     z-index: 9;
 }
-.loginOption figure.headerLogo a{
+.mainBg figure.headerLogo a{
 	background: #26353d;
     padding-right: 20px;
 }

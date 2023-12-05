@@ -94,22 +94,16 @@ const Sidebar = () => {
             </WithAuth>
           </li>
           <li>
-            <WithAuth
-              callBack={(e) => {
-                navigate("/gurugenesis");
-              }}
-            >
-              <Link>
-                <figure>
-                  <img
-                    src="app/images/contactToGuruIcon.png"
-                    alt="Genaiguru contactToGuruIcon"
-                    title="Genaiguru contactToGuruIcon"
-                  />
-                </figure>
-                Contact
-              </Link>
-            </WithAuth>
+            <Link to={"/gurugenesis"}>
+              <figure>
+                <img
+                  src="app/images/contactToGuruIcon.png"
+                  alt="Genaiguru contactToGuruIcon"
+                  title="Genaiguru contactToGuruIcon"
+                />
+              </figure>
+              Contact
+            </Link>
           </li>
           <li>
             <WithAuth

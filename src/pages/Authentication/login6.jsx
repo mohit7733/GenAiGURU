@@ -16,13 +16,13 @@ const Login6 = () => {
   /* UseEffect for Get Expert Writer's API */
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/expert-users`, {
+      .get(`${getBaseURL()}/authors`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        const expertsWithInitialFollowState = response.data.experts.map(
+        const expertsWithInitialFollowState = response.data.authors.map(
           (expert) => ({
             ...expert,
             isFollowing: false,
@@ -36,7 +36,7 @@ const Login6 = () => {
   }, []);
 
   const sendExpertsIDOnContinue = () => {
-    fetch(`${getBaseURL()}/follow-experts`, {
+    fetch(`${getBaseURL()}/auth/follow-author`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const Login6 = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        expert_ids: selectedExpertsIndex,
+        author_ids: selectedExpertsIndex,
       }),
     })
       .then((res) => {
@@ -83,7 +83,7 @@ const Login6 = () => {
     <div>
       <section className="interestSection second mainBg">
         <figure className="headerLogo">
-          <a href="https://genaigurudev.sdsstaging.co.uk/">
+          <a href="/">
             <img
               src="app/images/headerLogo.png"
               alt="Genaiguru header logo"
@@ -116,7 +116,7 @@ const Login6 = () => {
                   </figure>
                   <div className="names">
                     <h5>{Writer.name}</h5>
-                    <p>{Writer.role_user}</p>
+                    <p>{Writer.type}</p>
                   </div>
                   <div className="btnWrap">
                     <Link
