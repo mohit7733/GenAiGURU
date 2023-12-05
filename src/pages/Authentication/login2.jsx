@@ -90,6 +90,7 @@ const Login2 = () => {
 
     if (!password) {
       error["password"] = "Password Required!";
+
     } else if (
       password.length <= 8 &&
       /[A-Z]/.test(password) && // At least one uppercase letter
@@ -98,6 +99,7 @@ const Login2 = () => {
       /[!@#$%^&*(),.?":{}|<>]/.test(password) // At least one special character
     ) {
       error["password"] = "Please Enter a Valid Password!";
+
     } else {
       error["password"] = "";
     }
@@ -119,7 +121,19 @@ const Login2 = () => {
   // Profile image onchange event
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setProfilePicture(file);
+
+    if (file) {
+      // Validate the file type
+      const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (allowedImageTypes.includes(file.type)) {
+        // Valid image file
+        setProfilePicture(file);
+      } else {
+        // Invalid file type
+        alert("Please select a valid image file (JPEG, PNG, GIF).");
+        // Optionally, you can clear the input or do other error handling
+      }
+    }
   };
   return (
     <>

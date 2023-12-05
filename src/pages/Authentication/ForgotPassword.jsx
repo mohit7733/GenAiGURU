@@ -4,6 +4,9 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { useNavigate } from "react-router-dom";
 import Otpscreen from "./Otpscreen";
+import CustomToast from "../../components/CustomToast/CustomToast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -17,16 +20,30 @@ const ForgotPassword = () => {
       })
       .then((res) => {
         console.log(res);
-        window.alert(res.data.message);
-        if (res.status === 200) {
+        // window.alert(res.data.message);
+        toast(res.data.message);
+
+        if (res.data.status === true) {
           setShowOTPScreen(true);
         }
       });
   };
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {showOTPScreen ? (
-        <Otpscreen email={email}/>
+        <Otpscreen email={email} />
       ) : (
         <section className="forgot_field createAccount mainBg">
           <div className="wrapper400">
