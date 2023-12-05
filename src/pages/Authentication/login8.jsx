@@ -30,16 +30,12 @@ const Login8 = () => {
     const error = {};
     if (!email) {
       error["email"] = "Email Required!";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      error["email"] = " Incorrect Email !";
     } else {
       error["email"] = "";
     }
 
     if (!password) {
       error["password"] = "Password Required!";
-    } else if (password.length < 8) {
-      error["password"] = " Incorrect Password !";
     } else {
       error["password"] = "";
     }
@@ -66,9 +62,9 @@ const Login8 = () => {
         }
       })
       .catch((err) => {
-        // toast.error("Incorrect Username and Password !", {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
+        toast.error("Incorrect Username or Password !", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
 
