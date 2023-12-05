@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { getBaseURL } from "../../api/config";
 import { PATH_SIGNIN } from "../../routes";
 import CreacteNewPassword from "./CreacteNewPassword";
+import { ToastContainer, toast } from "react-toastify";
 
 const Otpscreen = ({ email }) => {
   const [otp, setOtp] = useState("");
@@ -16,7 +17,10 @@ const Otpscreen = ({ email }) => {
       })
       .then((res) => {
         console.log(res);
-        window.alert(res.data.message);
+        // window.alert(res.data.message);
+        toast.success((res.data.message), {
+          position: toast.POSITION.TOP_CENTER
+        });
       });
   };
 
@@ -70,6 +74,7 @@ const Otpscreen = ({ email }) => {
                 <button className="loginBtn" onClick={onSendOTP}>
                   Submit
                 </button>
+                <ToastContainer autoClose={1000} />
               </div>
             </div>
             <p className="termsText">
