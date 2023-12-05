@@ -468,3 +468,12 @@ section.login_popup .wrapper400 {
     background: rgba(124, 141, 184, 0.1);
   }
 }
+/* new css @D */
+.loginOption figure.headerLogo{
+	position: relative;
+    z-index: 9;
+}
+.loginOption figure.headerLogo a{
+	background: #26353d;
+    padding-right: 20px;
+}
