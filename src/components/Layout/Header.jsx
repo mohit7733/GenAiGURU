@@ -136,19 +136,11 @@ const Header = ({ isLoggedIn }) => {
 
             {userLoggedIn ? (
               <Link to={PATH_PROFILE}>
-                <img
-                  src={profileImage}
-                  alt="Genaiguru user image"
-                  title="Genaiguru user image"
-                />
+                <img src={profileImage} alt=" " title="Genaiguru user image" />
               </Link>
             ) : (
               <Link to={"/login"}>
-                <img
-                  src={userimageIcon}
-                  alt="Genaiguru user image"
-                  title="Genaiguru user image"
-                />
+                <img src={userimageIcon} alt=" " title="Genaiguru user image" />
               </Link>
             )}
 
