@@ -2,9 +2,56 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GuruGenesis = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [contactUsDetails, setContactUsDetails] = useState({
+    fullName: "",
+    email: "",
+    comment: "",
+  });
+
+  const handleContactUsDetails = (e) => {
+    setContactUsDetails({
+      ...contactUsDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onContact = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(`${getBaseURL()}/contact-us`, {
+        name: contactUsDetails.fullName,
+        email: contactUsDetails.email,
+        comment: contactUsDetails.comment,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          toast.success(response.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
+      });
+  };
 
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
@@ -120,16 +167,25 @@ const GuruGenesis = () => {
                     </div>
                     <div class="contact-container">
                       <h4>Contact us</h4>
-                      <form action="">
+                      <form>
                         <div class="contact-box">
                           <label for="">Full Name</label>
-                          <input type="text" placeholder="GenAIGuru" />
+                          <input
+                            type="text"
+                            placeholder="GenAIGuru"
+                            name="fullName"
+                            value={contactUsDetails.fullName}
+                            onChange={handleContactUsDetails}
+                          />
                         </div>
                         <div class="contact-box">
                           <label for="">Email</label>
                           <input
-                            type="text"
+                            type="email"
                             placeholder="genaiguru@gmail.com"
+                            name="email"
+                            value={contactUsDetails.email}
+                            onChange={handleContactUsDetails}
                           />
                         </div>
                         <div class="contact-box">
@@ -137,11 +193,14 @@ const GuruGenesis = () => {
                           <textarea
                             name="comment"
                             placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
+                            value={contactUsDetails.comment}
+                            onChange={handleContactUsDetails}
                           ></textarea>
                         </div>
-                        <button type="submit" class="loginBtn">
+                        <button class="loginBtn" onClick={onContact}>
                           Contact
                         </button>
+                        <ToastContainer autoClose={1000} />
                       </form>
                     </div>
                   </div>
@@ -204,7 +263,7 @@ const GuruGenesis = () => {
               <div class="gurukeeps-wrapper ">
                 {/* <!-- tab-link start here --> */}
                 <ul class="connect-link flex">
-                <li className={activeTab === 1 ? " active" : ""}>
+                  <li className={activeTab === 1 ? " active" : ""}>
                     <Link
                       onClick={() => handleTabClick(1)}
                       className={activeTab === 1 ? "tab active" : ""}
@@ -227,129 +286,129 @@ const GuruGenesis = () => {
               </div>
               {/* <!--  faq tab-content here --> */}
               {activeTab === 1 && (
-              <div class="tab-content tab-content-1 active">
-                <div class="contact-wrapper flex">
-                  <div class="faq-container">
-                    <h5>FAQ</h5>
-                    <div class="faq-box">
-                      <div class="accordion">
-                        <h4>What impact have commons users had so far </h4>
-                        <div class="leftArrow">
-                          <img
-                            src="app/images/arrow-left.png"
-                            alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
-                          />
+                <div class="tab-content tab-content-1 active">
+                  <div class="contact-wrapper flex">
+                    <div class="faq-container">
+                      <h5>FAQ</h5>
+                      <div class="faq-box">
+                        <div class="accordion">
+                          <h4>What impact have commons users had so far </h4>
+                          <div class="leftArrow">
+                            <img
+                              src="app/images/arrow-left.png"
+                              alt="Genaiguru arrow-left"
+                              title="Genaiguru arrow-left"
+                            />
+                          </div>
+                        </div>
+                        <div class="panel">
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat.
+                          </p>
                         </div>
                       </div>
-                      <div class="panel">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                      </div>
-                    </div>
-                    <div class="faq-box">
-                      <div class="accordion">
-                        <h4>What impact have commons users had so far </h4>
-                        <div class="leftArrow">
-                          <img
-                            src="app/images/arrow-left.png"
-                            alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
-                          />
+                      <div class="faq-box">
+                        <div class="accordion">
+                          <h4>What impact have commons users had so far </h4>
+                          <div class="leftArrow">
+                            <img
+                              src="app/images/arrow-left.png"
+                              alt="Genaiguru arrow-left"
+                              title="Genaiguru arrow-left"
+                            />
+                          </div>
+                        </div>
+                        <div class="panel">
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat.
+                          </p>
                         </div>
                       </div>
-                      <div class="panel">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                      </div>
-                    </div>
-                    <div class="faq-box">
-                      <div class="accordion">
-                        <h4>What impact have commons users had so far </h4>
-                        <div class="leftArrow">
-                          <img
-                            src="app/images/arrow-left.png"
-                            alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
-                          />
+                      <div class="faq-box">
+                        <div class="accordion">
+                          <h4>What impact have commons users had so far </h4>
+                          <div class="leftArrow">
+                            <img
+                              src="app/images/arrow-left.png"
+                              alt="Genaiguru arrow-left"
+                              title="Genaiguru arrow-left"
+                            />
+                          </div>
+                        </div>
+                        <div class="panel">
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat.
+                          </p>
                         </div>
                       </div>
-                      <div class="panel">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                      </div>
                     </div>
-                  </div>
-                  <div class="contact-container">
-                    <h4>Contact us</h4>
-                    <form action="">
-                      <div class="contact-box">
-                        <label for="">Full Name</label>
-                        <input type="text" placeholder="Prosing" />
-                      </div>
-                      <div class="contact-box">
-                        <label for="">Email</label>
-                        <input type="text" placeholder="prosing@gmail.com" />
-                      </div>
-                      <div class="contact-box">
-                        <label for="">Comment</label>
-                        <textarea
-                          name="comment"
-                          placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
-                        ></textarea>
-                      </div>
-                      <button type="submit" class="loginBtn">
-                        Contact
-                      </button>
-                    </form>
+                    <div class="contact-container">
+                      <h4>Contact us</h4>
+                      <form action="">
+                        <div class="contact-box">
+                          <label for="">Full Name</label>
+                          <input type="text" placeholder="Prosing" />
+                        </div>
+                        <div class="contact-box">
+                          <label for="">Email</label>
+                          <input type="text" placeholder="prosing@gmail.com" />
+                        </div>
+                        <div class="contact-box">
+                          <label for="">Comment</label>
+                          <textarea
+                            name="comment"
+                            placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
+                          ></textarea>
+                        </div>
+                        <button type="submit" class="loginBtn">
+                          Contact
+                        </button>
+                      </form>
+                    </div>
                   </div>
                 </div>
-              </div>
               )}
               {/* <!--  faq tab-content end here --> */}
               {activeTab === 2 && (
-              <div class="tab-content tab-content-2 active">
-                <div class="about-content">
-                  <h4>About us</h4>
-                  <p>
-                    Looking To Upgrade Your Salary In The UK? Get The Salary
-                    You’re Worth By Learning To Code. 98% Employed Within 12
-                    Months Of Qualifying. 28% Of Students Are Hired While On The
-                    Course. Change Career. Career Changing Skills. Spaces
-                    Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "}
-                  </p>
+                <div class="tab-content tab-content-2 active">
+                  <div class="about-content">
+                    <h4>About us</h4>
+                    <p>
+                      Looking To Upgrade Your Salary In The UK? Get The Salary
+                      You’re Worth By Learning To Code. 98% Employed Within 12
+                      Months Of Qualifying. 28% Of Students Are Hired While On
+                      The Course. Change Career. Career Changing Skills. Spaces
+                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "}
+                    </p>
+                  </div>
+                  <div class="about-content">
+                    <h4>Terms of service </h4>
+                    <p>
+                      Looking to upgrade your salary in the uk? Get the salary
+                      you’re worth by learning to code. 98% employed within 12
+                      months of qualifying. 28% of students are hired while on
+                      the course. Change career. Career changing skills. Spaces
+                      filling up fast. Looking to upgrade your salary in the uk?
+                      Looking to upgrade your salary in the uk? Get the salary
+                      you’re worth by learning to code. 98% employed within 12
+                      months of qualifying. 28% of students are hired while on
+                      the course. Change career. Career changing skills. Spaces
+                      filling up fast.{" "}
+                    </p>
+                  </div>
                 </div>
-                <div class="about-content">
-                  <h4>Terms of service </h4>
-                  <p>
-                    Looking to upgrade your salary in the uk? Get the salary
-                    you’re worth by learning to code. 98% employed within 12
-                    months of qualifying. 28% of students are hired while on the
-                    course. Change career. Career changing skills. Spaces
-                    filling up fast. Looking to upgrade your salary in the uk?
-                    Looking to upgrade your salary in the uk? Get the salary
-                    you’re worth by learning to code. 98% employed within 12
-                    months of qualifying. 28% of students are hired while on the
-                    course. Change career. Career changing skills. Spaces
-                    filling up fast.{" "}
-                  </p>
-                </div>
-              </div>
               )}
             </div>
           </div>
