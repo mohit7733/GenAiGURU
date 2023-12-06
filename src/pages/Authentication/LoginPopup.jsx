@@ -8,7 +8,7 @@ const LoginPopup = ({ onClosePopup }) => {
 
   return (
     <div>
-      <section className="popup-background login_popup loginOption">
+      <section className="popup-background new_login_popup loginOption">
         <div className=" popup wrapper400 stars">
           <div className="cross-icon">
             <div onClick={(e) => handleButtonClick(e)}>

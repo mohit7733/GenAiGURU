@@ -485,3 +485,43 @@ section.login_popup .wrapper400 {
   appearance: none;
   margin: 0;
 }
+.new_login_popup{
+  background-color: rgba(19,31,44,.9);
+  backdrop-filter: blur(3.89px);
+}
+.new_login_popup .popup {
+  background-color: rgba(187,191,198,.5);
+  padding: 70px 50px 40px;
+  max-width: 500px;
+  border-radius: 32px;
+}
+.new_login_popup.loginOption p {
+  margin: 20px 0;
+}
+.new_login_popup.loginOption li{
+  margin-left: 0 !important;
+}
+.new_login_popup.loginOption li .kep-login-facebook.metro,
+.new_login_popup.loginOption li:first-child a {
+  background: linear-gradient(0deg, #243343, #243343),  linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+}
+.new_login_popup.loginOption .alreadyAccount a{
+  background: none;
+  box-shadow: none;
+  border: none;
+  border-radius: 0px;
+  padding: 0 0 0 8px !important;
+  color: #3316ff;
+  width: auto;
+}
+.new_login_popup.loginOption .alreadyAccount a:hover{
+  color: #be41c0;
+}
+.new_login_popup .cross-icon {
+  top: 30px;
+  right: 30px;
+}
+.new_login_popup.loginOption .alreadyAccount{
+  display: flex;
+  justify-content: center;
+}
