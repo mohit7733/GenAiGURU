@@ -127,20 +127,12 @@ const MobileHeader = ({ isLogged }) => {
             {/* Login page link before user login */}
 
             {userLoggedIn ? (
-              <Link>
-                <img
-                  src={profileImage}
-                  alt="Genaiguru user image"
-                  title="Genaiguru user image"
-                />
+              <Link to={PATH_PROFILE}>
+                <img src={profileImage} alt="" title="Genaiguru user image" />
               </Link>
             ) : (
               <Link to={PATH_LOGIN}>
-                <img
-                  src={userimageIcon}
-                  alt="Genaiguru user image"
-                  title="Genaiguru user image"
-                />
+                <img src={userimageIcon} alt="" title="Genaiguru user image" />
               </Link>
             )}
             <ul className="userNav">

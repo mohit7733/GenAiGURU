@@ -1,20 +1,16 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 import { useGoogleLogin } from "@react-oauth/google";
-import FacebookLogin from "react-facebook-login";
-import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
 import axios from "axios";
+import React from "react";
+import FacebookLogin from "react-facebook-login";
+import { Link, NavLink } from "react-router-dom";
+import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
 
 const Login = () => {
 
-
+  
   // Login with Google Function
-  const login = useGoogleLogin({
+  const onGoogleLogin = useGoogleLogin({
     onSuccess: async (credentialResponse) => {
-      // console.log("Credential Response:", credentialResponse);
-
       // API call to get USER DETAILS OF GMAIL
       const userInfo = await axios
         .get("https://www.googleapis.com/oauth2/v3/userinfo", {
@@ -28,6 +24,7 @@ const Login = () => {
     redirect_uri: process.env.REACT_APP_URL,
   });
 
+  // Login with Facebook Function
   const responseFacebook = (response) => {
     console.log(response);
   };
@@ -54,7 +51,7 @@ const Login = () => {
               <Link
                 className="flex"
                 onClick={() => {
-                  login();
+                  onGoogleLogin();
                 }}
               >
                 <img
