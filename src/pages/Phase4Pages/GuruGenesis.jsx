@@ -34,6 +34,11 @@ const GuruGenesis = () => {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
+          setContactUsDetails({
+            fullName: "",
+            email: "",
+            comment: "",
+          });
           toast.success(response.data.message, {
             position: toast.POSITION.TOP_CENTER,
           });

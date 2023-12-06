@@ -18,8 +18,8 @@ const Otpscreen = ({ email }) => {
       .then((res) => {
         console.log(res);
         // window.alert(res.data.message);
-        toast.success((res.data.message), {
-          position: toast.POSITION.TOP_CENTER
+        toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
         });
       });
   };
@@ -59,12 +59,18 @@ const Otpscreen = ({ email }) => {
               <div className="form_group flex">
                 <label htmlFor="otp">Enter OTP here</label>
                 <input
-                  type="number"
+                  type="text"
                   name="number"
                   value={otp}
                   placeholder=""
-                  onChange={(e) => setOtp(e.target.value)}
+                  onChange={(e) => {
+                    const enteredValue = e.target.value;
+                    if (/^[0-9]*$/.test(enteredValue)) {
+                      setOtp(enteredValue);
+                    }
+                  }}
                   className="otp_field"
+                  onWheel={(e) => e.target.blur()}
                 />
                 <label htmlFor="email" onClick={onResendOtp}>
                   Resend OTP

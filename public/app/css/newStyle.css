@@ -479,3 +479,9 @@ section.login_popup .wrapper400 {
 	background: #26353d;
     padding-right: 20px;
 }
+.accountCreate input.otp_field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
