@@ -18,7 +18,9 @@ import {
   PATH_SIGNIN,
   PATH_SIGNUP,
   PATH_WELCOME,
+  PATH_SPEAK_TO_TEXT,
   RouterElement,
+
 } from "./routes";
 import Login2 from "./pages/Authentication/login2";
 import Login8 from "./pages/Authentication/login8";
@@ -31,6 +33,7 @@ import CreacteNewPassword from "./pages/Authentication/CreacteNewPassword";
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import Otpscreen from "./pages/Authentication/Otpscreen";
 import LoginPopup from "./pages/Authentication/LoginPopup";
+
 
 function App() {
   return (

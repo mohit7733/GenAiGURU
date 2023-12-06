@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PATH_OTP_SCREEN, PATH_SIGNIN } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Otpscreen from "./Otpscreen";
 import CustomToast from "../../components/CustomToast/CustomToast";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,7 +14,12 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const onSendEmail = () => {
-    axios
+    if(email.length === 0){
+      toast.error( "Please Enter Email" , {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }else{
+      axios
       .post(`${getBaseURL()}/forgot-password`, {
         email: email,
       })
@@ -26,10 +31,17 @@ const ForgotPassword = () => {
         if (res.data.status === true) {
           setShowOTPScreen(true);
         }
-      });
+      }).catch((errors) => {
+        toast.error(errors , {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      })
+    }
+   
   };
   return (
     <>
+    <div className="logowrap"></div>
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -46,6 +58,26 @@ const ForgotPassword = () => {
         <Otpscreen email={email} />
       ) : (
         <section className="forgot_field createAccount mainBg">
+        <div style={{position:'absolute',top:'0px'}}>
+        <figure className="headerLogo">
+        <Link to="/">
+          <img
+            src="app/images/headerLogo.png"
+            alt="Genaiguru header logo"
+            title="Genaiguru"
+          />
+        </Link>
+        </figure>
+        </div>
+        {/* <figure className="headerLogo">
+        <Link to="/">
+          <img
+            src="app/images/headerLogo.png"
+            alt="Genaiguru header logo"
+            title="Genaiguru"
+          />
+        </Link>
+        </figure> */}
           <div className="wrapper400">
             <div className="backBtn">
               <a href={PATH_SIGNIN}>
