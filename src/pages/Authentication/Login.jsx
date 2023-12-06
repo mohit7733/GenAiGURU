@@ -2,12 +2,13 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import React from "react";
 import FacebookLogin from "react-facebook-login";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-
-  
+  const navigate = useNavigate();
   // Login with Google Function
   const onGoogleLogin = useGoogleLogin({
     onSuccess: async (credentialResponse) => {
@@ -20,6 +21,36 @@ const Login = () => {
         })
         .then((res) => res.data);
       console.log(userInfo);
+
+      axios
+        .post("https://genaiadmindev.sdsstaging.co.uk/api/auth/google-login", {
+          google_response: JSON.stringify(userInfo),
+        })
+        .then((response) => {
+          console.log(response);
+          localStorage.setItem("token", JSON.stringify(response.data.accessToken));
+          localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+          if (response.status === 200) {
+            toast.success("Logged in Successfully", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            setTimeout(() => {
+              navigate("/");
+            }, [2000]);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+            toast.error(error.response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          } else if (error.request) {
+            console.log("network error");
+          } else {
+            console.log(error);
+          }
+        });
     },
     redirect_uri: process.env.REACT_APP_URL,
   });
@@ -31,6 +62,8 @@ const Login = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} />
+
       <section className="loginOption mainBg">
         <figure className="headerLogo">
           <Link to="/">
