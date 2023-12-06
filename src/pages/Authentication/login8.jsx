@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
-import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
 import React, { useState } from "react";
-import { login } from "../../api/Auth";
-import { getBaseURL } from "../../api/config";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { login } from "../../api/Auth";
+import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
