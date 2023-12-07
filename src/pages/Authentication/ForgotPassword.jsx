@@ -25,8 +25,9 @@ const ForgotPassword = () => {
         })
         .then((res) => {
           console.log(res);
-          window.alert(res.data.message);
-          // toast(res.data.message);
+          toast.success((res.data.message), {
+            position: toast.POSITION.TOP_CENTER,
+          });
 
           if (res.data.status === true) {
             setShowOTPScreen(true);

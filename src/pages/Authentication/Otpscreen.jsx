@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { getBaseURL } from "../../api/config";
-import { PATH_SIGNIN } from "../../routes";
+import { BASE_PATH, PATH_SIGNIN } from "../../routes";
 import CreacteNewPassword from "./CreacteNewPassword";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
@@ -46,6 +46,15 @@ const Otpscreen = ({ email }) => {
         <CreacteNewPassword email={email} verifyToken={verifyToken} />
       ) : (
         <section className="Otp_Wrapper createAccount mainBg">
+          <figure className="headerLogo">
+            <Link to="BASE_PATH">
+              <img
+                src="app/images/headerLogo.png"
+                alt="Genaiguru header logo"
+                title="Genaiguru"
+              />
+            </Link>
+          </figure>
           <div className="wrapper400">
             <div className="backBtn">
               <a href={PATH_SIGNIN}>
