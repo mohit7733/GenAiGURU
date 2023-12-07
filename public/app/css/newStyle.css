@@ -535,3 +535,6 @@ header .userIcon img {
   height: 100%;
   object-fit: cover;
 }
+.interestSection{
+  padding-top:65px;
+}
