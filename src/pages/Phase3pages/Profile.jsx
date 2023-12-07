@@ -1838,7 +1838,7 @@ const Profile = () => {
       {/* <!-- profile mobile section end here --> */}
       {displayInterestPopup && (
         <>
-          <div className="popup-container hideMob">
+          <div className="popup-container customNewPopups hideMob">
             <div className="popup-wrapper">
               <div className="popup-header flex">
                 <h2>
