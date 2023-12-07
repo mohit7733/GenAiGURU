@@ -10,6 +10,66 @@ const Settings = () => {
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const errors = validate();
+    setErrors(errors);
+  };
+  const onchangeCheck = (key, value) => {
+    const errors = {};
+    if (!value) {
+      errors[key] = key + "Required !";
+    }
+    setErrors(errors);
+  };
+  const validate = () => {
+    const error = {};
+    var lowerCase = /[a-z]/g;
+    var upperCase = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+    var SpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
+    if (!password) {
+      error["password"] = "Password Required!";
+    } else if (!password.match(lowerCase)) {
+      error["password"] = "Password Should Contains lowercase letters !";
+    } else if (!password.match(upperCase)) {
+      error["password"] = "Password Should Contain Uppercase letters !";
+    } else if (!password.match(numbers)) {
+      error["password"] = "Password Should Contains Numbers also !";
+    } else if (!password.match(SpecialCharacter)) {
+      error["password"] = "Password Should Contains Special Character also !";
+    } else if (password.length < 8) {
+      error["password"] = "Password length Should be more than 8 !";
+    } else {
+      error["password"] = "";
+    }
+    // if (!confirmPassword) {
+    //   error["confirmPassword"] = "Password Required!";
+    // } else if (confirmPassword != password) {
+    //   error["confirmPassword"] = "Password not Matched!";
+    // } else {
+    //   error["confirmPassword"] = "";
+    // }
+    if (!confirmPassword) {
+      error["confirmPassword"] = "Password Required!";
+    } else if (!confirmPassword.match(lowerCase)) {
+      error["confirmPassword"] = "Password Should Contains lowercase letters !";
+    } else if (!confirmPassword.match(upperCase)) {
+      error["confirmPassword"] = "Password Should Contain Uppercase letters !";
+    } else if (!confirmPassword.match(numbers)) {
+      error["confirmPassword"] = "Password Should Contains Numbers also !";
+    } else if (!confirmPassword.match(SpecialCharacter)) {
+      error["confirmPassword"] = "Password Should Contains Special Character also !";
+    } else if (confirmPassword.length < 8) {
+      error["confirmPassword"] = "Password length Should be more than 8 !";
+    } else {
+      error["confirmPassword"] = "";
+    }
+    return error;
+  };
 
   return (
     <div>
@@ -230,7 +290,7 @@ const Settings = () => {
                     {/* <div class="tab-content tab-content-2 passChangeTab"> */}
                     {/* <!-- password --> */}
                     <h5>Change password</h5>
-                    <form action="">
+                    <form action="" onSubmit={onSubmit}>
                       <div class="password-box">
                         <label for="">Old password</label>
                         <input
@@ -238,7 +298,12 @@ const Settings = () => {
                           name=""
                           id=""
                           placeholder="****"
+                          onChange={(e) => setPassword(e.target.value)}
+                          onKeyUp={onchangeCheck}
                         />
+                        {errors["password"] && (
+                          <div className="error">{errors.password}</div>
+                        )}
                       </div>
                       <div class="password-box">
                         <label for="">New password</label>
@@ -247,7 +312,12 @@ const Settings = () => {
                           name=""
                           id=""
                           placeholder="****"
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          onKeyUp={onchangeCheck}
                         />
+                        {errors["confirmPassword"] && (
+                          <div className="error">{errors.confirmPassword}</div>
+                        )}
                       </div>
                       <div class="form_group">
                         <button type="submit" class="loginBtn">
