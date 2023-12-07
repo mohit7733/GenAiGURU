@@ -90,17 +90,22 @@ const Login2 = () => {
     } else {
       error["email"] = "";
     }
-
+    var lowerCase = /[a-z]/g;
+    var upperCase = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+    var SpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
     if (!password) {
       error["password"] = "Password Required!";
-    } else if (
-      password.length <= 8 &&
-      /[A-Z]/.test(password) &&
-      /[a-z]/.test(password) &&
-      /\d/.test(password) &&
-      /[!@#$%^&*(),.?":{}|<>]/.test(password)
-    ) {
-      error["password"] = "Please Enter a Valid Password!";
+    } else if (!password.match(lowerCase)) {
+      error["password"] = "Password Should Contains lowercase letters !";
+    } else if (!password.match(upperCase)) {
+      error["password"] = "Password Should Contain Uppercase letters !";
+    } else if (!password.match(numbers)) {
+      error["password"] = "Password Should Contains Numbers also !";
+    } else if (!password.match(SpecialCharacter)) {
+      error["password"] = "Password Should Contains Special Character also !";
+    } else if (password.length < 8) {
+      error["password"] = "Password length Should be more than 8 !";
     } else {
       error["password"] = "";
     }
@@ -223,10 +228,7 @@ const Login2 = () => {
               </div>
               <div className="form_group">
                 <button className="loginBtn">Create account</button>
-                <ToastContainer
-                  autoClose={1000}
-                  pauseOnHover={false}
-                />
+                <ToastContainer autoClose={1000} pauseOnHover={false} />
               </div>
             </form>
             <p className="termsText">

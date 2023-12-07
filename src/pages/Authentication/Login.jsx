@@ -28,7 +28,10 @@ const Login = () => {
         })
         .then((response) => {
           console.log(response);
-          localStorage.setItem("token", JSON.stringify(response.data.accessToken));
+          localStorage.setItem(
+            "token",
+            JSON.stringify(response.data.accessToken)
+          );
           localStorage.setItem("userLoggedIn", JSON.stringify("true"));
           if (response.status === 200) {
             toast.success("Logged in Successfully", {
@@ -102,7 +105,13 @@ const Login = () => {
                   autoLoad={false}
                   fields="name,email,picture"
                   callback={responseFacebook}
-                  icon="fa-facebook"
+                  icon={
+                    <img
+                      src="app/images/facebookIcon.png"
+                      alt="Genaiguru facebook icon"
+                      title="Genaiguru on facebook"
+                    />
+                  }
                   textButton="Continue with Facebook"
                 />
               </div>
