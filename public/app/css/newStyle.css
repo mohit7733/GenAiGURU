@@ -19,7 +19,31 @@
 }
 
 
+/* Updated CSS for login Popup and background Akshay*/
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Adjust the background color and opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
+.popup {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  /* Additional styles for your popup content */
+}
 
 input[type="file"]::file-selector-button {
   margin-right: 20px;
@@ -519,11 +543,7 @@ header .userIcon .userNav {
 }
 .rightSection .profile-img figure img{
 	border-radius: 50%;
-  height: 100%;
-    object-fit: cover;
-    
 }
-
 .customNewPopups{
 	display: block;
 }
