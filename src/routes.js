@@ -25,7 +25,7 @@ import FeaturedContent from "./pages/Phase6Pages/FeaturedContent";
 import BlogDetails from "./pages/Phase6Pages/BlogDetails";
 import FeaturedContentPopup from "./pages/Phase6Pages/FeaturedContentPopup";
 import Sortbydate from "./pages/Phase6Pages/Sortbydate";
-
+import SpeakToText from "./pages/Phase2Pages/SpeakToText";
 export const BASE_PATH = "/";
 
 export const PATH_LOGIN = "/login";
@@ -40,7 +40,7 @@ export const PATH_FORGOT_PASSWORD = "/forgotpassword";
 export const PATH_LOGIN_POPUP = "/loginpopup";
 export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
 export const PATH_OTP_SCREEN = "/otpscreen";
-
+export const PATH_SPEAK_TO_TEXT="/Speaktotext";
 // Private Routes
 export const PATH_PROFILE = "/profile";
 
@@ -66,6 +66,12 @@ export function RouterElement() {
       name: "index3",
       element: <Index3 />,
       exact: true,
+    },
+    {
+      path:"Speaktotext",
+      name:"SpeakToText",
+      element:<SpeakToText/>,
+      exact:true,
     },
     {
       path: "index7",

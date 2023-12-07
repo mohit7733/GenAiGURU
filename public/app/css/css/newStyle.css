@@ -121,6 +121,10 @@
   margin-bottom: 10px;
   transition: all 0.5s ease-in-out;
 }
+.logowrap {
+  position: absolute;
+  top: 0;
+}
 .contactFaq .rightSection .keeps-container .gurukeeps-wrapper .connect-link {
   margin-top: 0;
 }

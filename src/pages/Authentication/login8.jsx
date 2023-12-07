@@ -7,69 +7,62 @@ import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const errors = validate();
-    setErrors(errors);
     onLogin();
   };
-  const onchangeCheck = (key, value) => {
-    const errors = {};
-    if (!value) {
-      errors[key] = key + "Required !";
-    }
-    setErrors(errors);
-  };
-
-  const validate = () => {
-    const error = {};
-    if (!email) {
-      error["email"] = "Email Required!";
-    } else {
-      error["email"] = "";
-    }
-
-    if (!password) {
-      error["password"] = "Password Required!";
-    } else {
-      error["password"] = "";
-    }
-    return error;
-  };
-
   const onLogin = async () => {
     let payload = {
       email: email,
       password: password,
     };
-    return login(payload)
-      .then((res) => {
-        console.log(res, "response");
-        localStorage.setItem("token", JSON.stringify(res.data.accessToken));
-        localStorage.setItem("userLoggedIn", JSON.stringify("true"));
-        if (res.status === 200) {
-          toast.success("Login Successful !", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-          setTimeout(() => {
-            navigate("/");
-          }, [2000]);
-        }
-      })
-      .catch((err) => {
-        toast.error("Incorrect Username or Password !", {
+     if (email.length === 0 && password.length === 0) {
+        toast.error("Enter Email and Password !", {
           position: toast.POSITION.TOP_CENTER,
         });
+    }
+    else if (email.length === 0 || password.length === 0) {
+      toast.error(email.length===0?"Please Enter Email !":"Please Enter Password !", {
+        position: toast.POSITION.TOP_CENTER,
       });
+  }
+     else {
+      return login(payload)
+        .then((res) => {
+          console.log(res, "response");
+          localStorage.setItem("token", JSON.stringify(res.data.accessToken));
+          localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+          if (res.status === 200) {
+            toast.success("Login Successful !", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            setTimeout(() => {
+              navigate("/");
+            }, [2000]);
+          }
+        })
+        .catch((err) => {
+          toast.error("Incorrect Email or Password !", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        });
+    }
   };
 
   return (
     <div>
       <section className="createAccount mainBg">
+        <figure className="headerLogo">
+          <Link to="/">
+            <img
+              src="app/images/headerLogo.png"
+              alt="Genaiguru header logo"
+              title="Genaiguru"
+            />
+          </Link>
+        </figure>
         <div className="wrapper400">
           <div className="backBtn">
             <Link to={PATH_LOGIN}>
@@ -88,9 +81,7 @@ const Login8 = () => {
                 name="email"
                 placeholder="GenAIGuru@gmail.com"
                 onChange={(e) => setEmail(e.target.value)}
-                onKeyUp={onchangeCheck}
               />
-              {errors["email"] && <div className="error">{errors.email}</div>}
             </div>
             <div className="form_group flex">
               <label for="password">Password</label>
@@ -99,11 +90,7 @@ const Login8 = () => {
                 name="password"
                 placeholder="****"
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyUp={onchangeCheck}
               />
-              {errors["password"] && (
-                <div className="error">{errors.password}</div>
-              )}
             </div>
 
             <div className="form_group">

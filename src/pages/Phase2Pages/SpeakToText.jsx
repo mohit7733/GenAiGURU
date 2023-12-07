@@ -1,10 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 
 const SpeakToText = () => {
   const navigate = useNavigate();
+  const [transcription, setTranscription] = useState("");
+  const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] =
+    useState(!!window.SpeechRecognition || !!window.webkitSpeechRecognition);
+
+  const handleSpeechRecognition = () => {
+    if (isSpeechRecognitionSupported) {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setTranscription(transcript);
+        console.log(transcript)
+
+        // Save the transcribed text to the server
+        // saveTranscriptionToServer(transcript);
+      };
+
+      recognition.start();
+    }
+  };
+
+  // const saveTranscriptionToServer = async (transcript) => {
+  //   try {
+  //     // Make an HTTP request to your backend API to save the transcribed text
+  //     const response = await fetch("/api/transcription", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ text: transcript }),
+  //     });
+
+  //     if (response.ok) {
+  //       console.log("Transcription saved successfully.");
+  //     } else {
+  //       console.error("Failed to save transcription.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving transcription:", error);
+  //   }
+  // };
   return (
     <>
       <Header />
@@ -69,7 +112,15 @@ const SpeakToText = () => {
                     </form>
                   </div>
                 </div>
-                <div>{/* Add your Speak to text code here */}</div>
+                <div>
+                  {/* Add your Speak to text code here */}
+                </div>
+                {isSpeechRecognitionSupported ? (
+                    <button onClick={handleSpeechRecognition}>Speak Now</button>
+                  ) : (
+                    <p>Speech recognition is not supported in your browser.</p>
+                  )}
+                  <p style={{color: "white"}}>Transcription: {transcription}</p>
               </div>
             </div>
           </div>
