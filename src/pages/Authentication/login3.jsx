@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Login3 = () => {
   return (
@@ -20,21 +21,9 @@ const Login3 = () => {
               Quick check your inbox and confirm us that you would like to
               create an account.
             </p>
-            <a
-              href="mailto:xyz@gmail.com"
-              className="loginBtn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Check your inbox{" "}
+            <a href="" className="loginBtn">
+              Check your inbox
             </a>
-            {/* <a
-              href="https://mail.google.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Go to Gmail Inbox
-            </a> */}
           </div>
         </div>
       </section>

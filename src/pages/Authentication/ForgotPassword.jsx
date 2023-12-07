@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PATH_OTP_SCREEN, PATH_SIGNIN } from "../../routes";
+import { BASE_PATH, PATH_OTP_SCREEN, PATH_SIGNIN } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,70 +14,50 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const onSendEmail = () => {
-    if(email.length === 0){
-      toast.error( "Please Enter Email" , {
+    if (email.length === 0) {
+      toast.error("Please Enter Email", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }else{
+    } else {
       axios
-      .post(`${getBaseURL()}/forgot-password`, {
-        email: email,
-      })
-      .then((res) => {
-        console.log(res);
-        // window.alert(res.data.message);
-        toast(res.data.message);
+        .post(`${getBaseURL()}/forgot-password`, {
+          email: email,
+        })
+        .then((res) => {
+          console.log(res);
+          window.alert(res.data.message);
+          // toast(res.data.message);
 
-        if (res.data.status === true) {
-          setShowOTPScreen(true);
-        }
-      }).catch((errors) => {
-        toast.error(errors , {
-          position: toast.POSITION.TOP_CENTER,
+          if (res.data.status === true) {
+            setShowOTPScreen(true);
+          }
+        })
+        .catch((errors) => {
+          toast.error(errors, {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
-      })
     }
-   
   };
   return (
     <>
-    <div className="logowrap"></div>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer autoClose={2000} />
       {showOTPScreen ? (
         <Otpscreen email={email} />
       ) : (
         <section className="forgot_field createAccount mainBg">
-        <div style={{position:'absolute',top:'0px'}}>
-        <figure className="headerLogo">
-        <Link to="/">
-          <img
-            src="app/images/headerLogo.png"
-            alt="Genaiguru header logo"
-            title="Genaiguru"
-          />
-        </Link>
-        </figure>
-        </div>
-        {/* <figure className="headerLogo">
-        <Link to="/">
-          <img
-            src="app/images/headerLogo.png"
-            alt="Genaiguru header logo"
-            title="Genaiguru"
-          />
-        </Link>
-        </figure> */}
+          <div style={{ position: "absolute", top: "0px" }}>
+            <figure className="headerLogo">
+              <Link to={BASE_PATH}>
+                <img
+                  src="app/images/headerLogo.png"
+                  alt="Genaiguru header logo"
+                  title="Genaiguru"
+                />
+              </Link>
+            </figure>
+          </div>
+
           <div className="wrapper400">
             <div className="backBtn">
               <a href={PATH_SIGNIN}>

@@ -26,8 +26,10 @@ import BlogDetails from "./pages/Phase6Pages/BlogDetails";
 import FeaturedContentPopup from "./pages/Phase6Pages/FeaturedContentPopup";
 import Sortbydate from "./pages/Phase6Pages/Sortbydate";
 import SpeakToText from "./pages/Phase2Pages/SpeakToText";
+
 export const BASE_PATH = "/";
 
+// Public Routes
 export const PATH_LOGIN = "/login";
 export const PATH_SIGNUP = "/signup";
 export const PATH_GOTOMAIL = "/gotomail";
@@ -40,9 +42,11 @@ export const PATH_FORGOT_PASSWORD = "/forgotpassword";
 export const PATH_LOGIN_POPUP = "/loginpopup";
 export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
 export const PATH_OTP_SCREEN = "/otpscreen";
-export const PATH_SPEAK_TO_TEXT="/Speaktotext";
+
+
 // Private Routes
 export const PATH_PROFILE = "/profile";
+export const PATH_SPEAK_TO_TEXT = "/speaktotext";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -68,10 +72,10 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path:"Speaktotext",
-      name:"SpeakToText",
-      element:<SpeakToText/>,
-      exact:true,
+      path: PATH_SPEAK_TO_TEXT,
+      name: "speakToText",
+      element: <SpeakToText />,
+      exact: true,
     },
     {
       path: "index7",

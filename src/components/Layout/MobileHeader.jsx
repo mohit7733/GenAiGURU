@@ -14,7 +14,7 @@ const MobileHeader = ({ isLogged }) => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
-  console.log(userLoggedIn);
+  console.log(userLoggedIn, "--=-User LoggedIn");
 
   useEffect(() => {
     axios
@@ -24,8 +24,6 @@ const MobileHeader = ({ isLogged }) => {
         },
       })
       .then((response) => {
-        console.log(response);
-
         setProfileImage(response.data.profile_image);
       })
       .catch((err) => {
@@ -136,6 +134,11 @@ const MobileHeader = ({ isLogged }) => {
               </Link>
             )}
             <ul className="userNav">
+              {userLoggedIn && (
+                <li>
+                  <Link to="/profile">My Profile </Link>
+                </li>
+              )}
               <li>
                 <Link onClick={changeLoginStatus} to={PATH_LOGIN}>
                   {userLoggedIn ? "Logout" : "SignUp/Login"}

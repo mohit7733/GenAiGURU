@@ -4,27 +4,26 @@ import { PATH_ADDINTERESTS } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
-
 const Login4 = () => {
   const [userDetalis, setUserDetalis] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
 
-    // Get API for get user detalis
-    useEffect(() => {
-      axios
-        .get(`${getBaseURL()}/auth/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setUserDetalis(response.data);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }, []);
+  // Get API for get user detalis
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserDetalis(response.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <div>
       <section className="welcomeSection mainBg">
@@ -44,7 +43,7 @@ const Login4 = () => {
           <Link to={PATH_ADDINTERESTS} className="loginBtn">
             Add your interest
           </Link>
-      
+
           <div className="starsImg">
             <img src="app/images/star.png" alt="Genaiguru star" />
             <img src="app/images/star2.png" alt="Genaiguru star" />
