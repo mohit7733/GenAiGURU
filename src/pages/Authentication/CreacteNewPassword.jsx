@@ -40,10 +40,22 @@ const CreacteNewPassword = ({ email, verifyToken }) => {
 
   const validate = () => {
     const error = {};
+    var lowerCase = /[a-z]/g;
+    var upperCase = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+    var SpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
     if (!password) {
       error["password"] = "Password Required!";
+    } else if (!password.match(lowerCase)) {
+      error["password"] = "Password Should Contains lowercase letters !";
+    } else if (!password.match(upperCase)) {
+      error["password"] = "Password Should Contain Uppercase letters !";
+    } else if (!password.match(numbers)) {
+      error["password"] = "Password Should Contains Numbers also !";
+    } else if (!password.match(SpecialCharacter)) {
+      error["password"] = "Password Should Contains Special Character also !";
     } else if (password.length < 8) {
-      error["password"] = "Please Enter a Valid Password!";
+      error["password"] = "Password length Should be more than 8 !";
     } else {
       error["password"] = "";
     }

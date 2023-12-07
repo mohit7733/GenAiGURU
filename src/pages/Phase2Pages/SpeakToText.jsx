@@ -18,7 +18,7 @@ const SpeakToText = () => {
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         setTranscription(transcript);
-        console.log(transcript)
+        console.log(transcript);
 
         // Save the transcribed text to the server
         // saveTranscriptionToServer(transcript);
@@ -112,15 +112,19 @@ const SpeakToText = () => {
                     </form>
                   </div>
                 </div>
-                <div>
-                  {/* Add your Speak to text code here */}
-                </div>
+                <div>{/* Add your Speak to text code here */}</div>
                 {isSpeechRecognitionSupported ? (
-                    <button onClick={handleSpeechRecognition}>Speak Now</button>
-                  ) : (
-                    <p>Speech recognition is not supported in your browser.</p>
-                  )}
-                  <p style={{color: "white"}}>Transcription: {transcription}</p>
+                  <button onClick={handleSpeechRecognition}>
+                    <img
+                      src="app/images/speaknow.png"
+                      alt="Genaiguru speaknow"
+                    />
+                  </button>
+                ) : (
+                  <p>Speech recognition is not supported in your browser.</p>
+                )}
+                
+                <p style={{ color: "white" }}>Search Messages: {transcription}</p>
               </div>
             </div>
           </div>

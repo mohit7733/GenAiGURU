@@ -39,7 +39,11 @@ const LoginPopup = ({ onClosePopup }) => {
                     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
                   />
                   <button type="button" className="kep-login-facebook metro">
-                    <i className="fa fa-facebook"></i>Continue with Facebook
+                    <i><img
+                      src="app/images/facebookIcon.png"
+                      alt="Genaiguru facebook icon"
+                      title="Genaiguru on facebook"
+                    /></i>Continue with Facebook
                   </button>
                   <style>
                     {`
