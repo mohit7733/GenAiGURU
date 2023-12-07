@@ -1,36 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
+  const [profileImage, setProfileImage] = useState();
+
+  const token = JSON.parse(localStorage.getItem("token"));
+
   const navigate = useNavigate();
 
-  // Function to handle tab click
+  // User details GET-API------
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setProfileImage(response.data.profile_image);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  // Function to handle tab click-------
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-  console.log(displayInterestPopup);
 
   return (
     <>
       <MobileHeader />
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
-        <div class="rightSection">
-          <div class=" full-width">
+        <div className="rightSection">
+          <div className=" full-width">
             {/* <!-- banner start here --> */}
-            <div class="profile-banner"></div>
+            <div className="profile-banner"></div>
 
             {/* <!-- banner end here -->
             <!-- profile img start here --> */}
-            <div class="row flex space-between">
-              <div class="profile-img">
+            <div className="row flex space-between">
+              <div className="profile-img">
                 <figure>
                   <img
-                    src="/app/images/userIcon.png"
+                    src={profileImage}
                     alt="Genaiguru user-icon"
                     title="Genaiguru user-icon"
                   />
@@ -40,8 +62,8 @@ const Profile = () => {
                   Philosophy student|| Content writer|| Avid Writer||
                   Storyteller|| Technical Writer|| Tech Trends ||
                 </p>
-                <div class="followers">
-                  <ul class="flex space-between">
+                <div className="followers">
+                  <ul className="flex space-between">
                     <li>
                       <a href="#">
                         <span>118</span> Following
@@ -55,13 +77,13 @@ const Profile = () => {
                   </ul>
                 </div>
               </div>
-              <div class="edit-profile">
-                <div class="profile-link">
-                  <Link to={"/phasepage2"} class="pop-up">
+              <div className="edit-profile">
+                <div className="profile-link">
+                  <Link to={"/phasepage2"} className="pop-up">
                     Edit profile
                   </Link>
                 </div>
-                <ul class="connect-link flex">
+                <ul className="connect-link flex">
                   <li className={activeTab === 1 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(1)}
@@ -101,15 +123,15 @@ const Profile = () => {
                 </ul>
                 {/* <!-- Content --> */}
                 {activeTab === 1 && (
-                  // <div class="tab-content tab-content-1 active">
+                  // <div className="tab-content tab-content-1 active">
                   <div
                     className={
                       activeTab === 1 && "tab-content tab-content-1 active"
                     }
                   >
-                    <div class="intrest-area">
+                    <div className="intrest-area">
                       <h5>My Interests</h5>
-                      <ul class="flex link-button">
+                      <ul className="flex link-button">
                         <li>
                           <a href="#">GPT</a>
                         </li>
@@ -122,13 +144,13 @@ const Profile = () => {
                             onClick={() => {
                               setDisplayInterestPopup(true);
                             }}
-                            class="addBtns addInterest"
+                            className="addBtns addInterest"
                           >
                             +
                           </Link>
                         </li>
                       </ul>
-                      <div class="social-link">
+                      <div className="social-link">
                         <h4>
                           My social link{" "}
                           <Link to={"/phasepage3"}>
@@ -213,10 +235,10 @@ const Profile = () => {
                       activeTab === 2 && "tab-content tab-content-2 active"
                     }
                   >
-                    <div class="home-interest">
-                      <div class="heading-link flex"></div>
-                      <div class="interest-box flex space-between">
-                        <div class="wrap flex">
+                    <div className="home-interest">
+                      <div className="heading-link flex"></div>
+                      <div className="interest-box flex space-between">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <img
@@ -226,8 +248,8 @@ const Profile = () => {
                               />
                             </a>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -235,7 +257,7 @@ const Profile = () => {
                                   title="Genaiguru  authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -246,7 +268,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -269,7 +291,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <img
@@ -279,8 +301,8 @@ const Profile = () => {
                               />
                             </a>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -288,7 +310,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -299,7 +321,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -321,7 +343,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <img
@@ -331,8 +353,8 @@ const Profile = () => {
                               />
                             </a>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -340,7 +362,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -351,7 +373,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -374,7 +396,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <img
@@ -384,8 +406,8 @@ const Profile = () => {
                               />
                             </a>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -393,7 +415,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -404,7 +426,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -427,7 +449,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <img
@@ -437,8 +459,8 @@ const Profile = () => {
                               />
                             </a>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -446,7 +468,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -457,7 +479,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -491,11 +513,11 @@ const Profile = () => {
                       activeTab === 3 && "tab-content tab-content-3 active"
                     }
                   >
-                    <div class="home-interest">
-                      <div class="heading-link flex"></div>
-                      <div class="interest-box flex space-between">
+                    <div className="home-interest">
+                      <div className="heading-link flex"></div>
+                      <div className="interest-box flex space-between">
                         <div
-                          class="wrap flex"
+                          className="wrap flex"
                           onClick={() => {
                             navigate("/phasepage4");
                           }}
@@ -507,7 +529,7 @@ const Profile = () => {
                                 poster="/app/images/videoTabvideoImage.png"
                               ></video>
                             </a>
-                            <div class="videoTime flex">
+                            <div className="videoTime flex">
                               <img
                                 src="app/images/videoIconBlack.png"
                                 alt="Genaiguru videoIconBlack"
@@ -516,8 +538,8 @@ const Profile = () => {
                               <span>3:38</span>
                             </div>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -525,7 +547,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -536,7 +558,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -560,7 +582,7 @@ const Profile = () => {
                         </div>
 
                         <div
-                          class="wrap flex"
+                          className="wrap flex"
                           onClick={() => {
                             navigate("/phasepage4");
                           }}
@@ -572,7 +594,7 @@ const Profile = () => {
                                 poster="/app/images/interestSliderImg.png"
                               ></video>
                             </a>
-                            <div class="videoTime flex">
+                            <div className="videoTime flex">
                               <img
                                 src="app/images/videoIconBlack.png"
                                 alt="Genaiguru videoIconBlack"
@@ -581,8 +603,8 @@ const Profile = () => {
                               <span>3:38</span>
                             </div>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -590,7 +612,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -601,7 +623,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -624,7 +646,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <video
@@ -632,7 +654,7 @@ const Profile = () => {
                                 poster="/app/images/interestSliderImg.png"
                               ></video>
                             </a>
-                            <div class="videoTime flex">
+                            <div className="videoTime flex">
                               <img
                                 src="app/images/videoIconBlack.png"
                                 alt="Genaiguru videoIconBlack"
@@ -641,8 +663,8 @@ const Profile = () => {
                               <span>3:38</span>
                             </div>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -650,7 +672,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -661,7 +683,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -684,7 +706,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <video
@@ -692,7 +714,7 @@ const Profile = () => {
                                 poster="/app/images/videoTabvideoImage.png"
                               ></video>
                             </a>
-                            <div class="videoTime flex">
+                            <div className="videoTime flex">
                               <img
                                 src="app/images/videoIconBlack.png"
                                 alt="Genaiguru videoIconBlack"
@@ -701,8 +723,8 @@ const Profile = () => {
                               <span>3:38</span>
                             </div>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -710,7 +732,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -721,7 +743,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -744,7 +766,7 @@ const Profile = () => {
                           </div>
                         </div>
 
-                        <div class="wrap flex">
+                        <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <video
@@ -752,7 +774,7 @@ const Profile = () => {
                                 poster="/app/images/interestSliderImg.png"
                               ></video>
                             </a>
-                            <div class="videoTime flex">
+                            <div className="videoTime flex">
                               <img
                                 src="app/images/videoIconBlack.png"
                                 alt="Genaiguru videoIconBlack"
@@ -761,8 +783,8 @@ const Profile = () => {
                               <span>3:38</span>
                             </div>
                           </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
+                          <div className="content">
+                            <div className="wrapper flex">
                               <figure>
                                 <img
                                   src="app/images/authorImg.png"
@@ -770,7 +792,7 @@ const Profile = () => {
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
-                              <div class="innerContent">
+                              <div className="innerContent">
                                 <h6>Alex Smih</h6>
                                 <p>24 M view . 3 month ago</p>
                               </div>
@@ -781,7 +803,7 @@ const Profile = () => {
                                 Open-source Adversaries
                               </a>
                             </p>
-                            <ul class="flex">
+                            <ul className="flex">
                               <li>
                                 <a href="#">
                                   <img
@@ -815,8 +837,8 @@ const Profile = () => {
                       activeTab === 4 && "tab-content tab-content-4 active"
                     }
                   >
-                    <div class="badges-box">
-                      <ul class="flex ">
+                    <div className="badges-box">
+                      <ul className="flex ">
                         <li>
                           <a href="#">
                             <img
@@ -927,9 +949,9 @@ const Profile = () => {
         </div>
       </section>
       {/* <!-- profile mobile section start here --> */}
-      <div class="mob_profile hideDes">
-        <div class="mobileHead flex">
-          <div class="hamburger">
+      <div className="mob_profile hideDes">
+        <div className="mobileHead flex">
+          <div className="hamburger">
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
@@ -939,18 +961,18 @@ const Profile = () => {
           <h2>My Profile</h2>
           <button type="button">Edit profile</button>
         </div>
-        <div class="mob_profile_inner">
+        <div className="mob_profile_inner">
           {/* <!-- banner start here --> */}
-          <div class="profile-banner"></div>
+          <div className="profile-banner"></div>
           {/* <!-- banner end here --> */}
 
           {/* <!-- profile img start here --> */}
-          <div class="row flex space-between">
-            <div class="profile-img">
+          <div className="row flex space-between">
+            <div className="profile-img">
               <figure>
                 <img
-                  src="/app/images/userIcon.png"
-                  alt="Genaiguru user-icon"
+                    src={profileImage}
+                    alt="Genaiguru user-icon"
                   title="Genaiguru user-icon"
                 />
               </figure>
@@ -959,8 +981,8 @@ const Profile = () => {
                 Philosophy student|| Content writer|| Avid Writer||
                 Storyteller|| Technical Writer|| Tech Trends ||
               </p>
-              <div class="followers">
-                <ul class="flex space-between">
+              <div className="followers">
+                <ul className="flex space-between">
                   <li>
                     <a href="#">
                       <span>118</span> Following
@@ -974,8 +996,8 @@ const Profile = () => {
                 </ul>
               </div>
             </div>
-            <div class="edit-profile">
-              <ul class="connect-link flex">
+            <div className="edit-profile">
+              <ul className="connect-link flex">
                 <li className={activeTab === 1 ? "active" : ""}>
                   <Link
                     onClick={() => handleTabClick(1)}
@@ -1015,10 +1037,10 @@ const Profile = () => {
               </ul>
               {/* <!-- Content --> */}
               {activeTab === 1 && (
-                <div class="tab-content tab-content-1 active">
-                  <div class="intrest-area">
+                <div className="tab-content tab-content-1 active">
+                  <div className="intrest-area">
                     <h5>My Interests</h5>
-                    <ul class="flex link-button">
+                    <ul className="flex link-button">
                       <li>
                         <a href="#">GPT</a>
                       </li>
@@ -1027,25 +1049,27 @@ const Profile = () => {
                         <a href="#">Large language models</a>{" "}
                       </li>
                       <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="addBtns addInterest"
+                        <Link
+                          onClick={() => {
+                            setDisplayInterestPopup(true);
+                          }}
+                          className="addBtns addInterest"
                         >
                           +
-                        </a>
+                        </Link>
                       </li>
                     </ul>
-                    <div class="social-link">
+                    <div className="social-link">
                       <h4>
                         My social link{" "}
                         <Link to={"/phasepage3"}>
-                            <img
-                              src="/app/images/edit-icon.png"
-                              alt="Genaiguru edit-icon"
-                              title="Genaiguru edit-icon"
-                            />
-                            Edit
-                          </Link>
+                          <img
+                            src="/app/images/edit-icon.png"
+                            alt="Genaiguru edit-icon"
+                            title="Genaiguru edit-icon"
+                          />
+                          Edit
+                        </Link>
                       </h4>
                       <ul>
                         <li>
@@ -1115,11 +1139,11 @@ const Profile = () => {
               )}
               {/* <!-- post here --> */}
               {activeTab === 2 && (
-                <div class="tab-content tab-content-2 active">
-                  <div class="home-interest">
-                    <div class="heading-link flex"></div>
-                    <div class="interest-box flex space-between">
-                      <div class="wrap flex">
+                <div className="tab-content tab-content-2 active">
+                  <div className="home-interest">
+                    <div className="heading-link flex"></div>
+                    <div className="interest-box flex space-between">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <img
@@ -1129,8 +1153,8 @@ const Profile = () => {
                             />
                           </a>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1138,7 +1162,7 @@ const Profile = () => {
                                 title="Genaiguru  authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1149,7 +1173,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1172,7 +1196,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <img
@@ -1182,8 +1206,8 @@ const Profile = () => {
                             />
                           </a>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1191,7 +1215,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1202,7 +1226,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1224,7 +1248,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <img
@@ -1234,8 +1258,8 @@ const Profile = () => {
                             />
                           </a>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1243,7 +1267,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1254,7 +1278,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1277,7 +1301,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <img
@@ -1287,8 +1311,8 @@ const Profile = () => {
                             />
                           </a>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1296,7 +1320,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1307,7 +1331,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1330,7 +1354,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <img
@@ -1340,8 +1364,8 @@ const Profile = () => {
                             />
                           </a>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1349,7 +1373,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1360,7 +1384,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1388,11 +1412,11 @@ const Profile = () => {
               )}
               {/* <!-- video here --> */}
               {activeTab === 3 && (
-                <div class="tab-content tab-content-3 active">
-                  <div class="home-interest">
-                    <div class="heading-link flex"></div>
-                    <div class="interest-box flex space-between">
-                      <div class="wrap flex">
+                <div className="tab-content tab-content-3 active">
+                  <div className="home-interest">
+                    <div className="heading-link flex"></div>
+                    <div className="interest-box flex space-between">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <video
@@ -1400,7 +1424,7 @@ const Profile = () => {
                               poster="/app/images/videoTabvideoImage.png"
                             ></video>
                           </a>
-                          <div class="videoTime flex">
+                          <div className="videoTime flex">
                             <img
                               src="app/images/videoIconBlack.png"
                               alt="Genaiguru videoIconBlack"
@@ -1409,8 +1433,8 @@ const Profile = () => {
                             <span>3:38</span>
                           </div>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1418,7 +1442,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1429,7 +1453,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1452,7 +1476,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <video
@@ -1460,7 +1484,7 @@ const Profile = () => {
                               poster="/app/images/interestSliderImg.png"
                             ></video>
                           </a>
-                          <div class="videoTime flex">
+                          <div className="videoTime flex">
                             <img
                               src="app/images/videoIconBlack.png"
                               alt="Genaiguru videoIconBlack"
@@ -1469,8 +1493,8 @@ const Profile = () => {
                             <span>3:38</span>
                           </div>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1478,7 +1502,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1489,7 +1513,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1512,7 +1536,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <video
@@ -1520,7 +1544,7 @@ const Profile = () => {
                               poster="/app/images/interestSliderImg.png"
                             ></video>
                           </a>
-                          <div class="videoTime flex">
+                          <div className="videoTime flex">
                             <img
                               src="app/images/videoIconBlack.png"
                               alt="Genaiguru videoIconBlack"
@@ -1529,8 +1553,8 @@ const Profile = () => {
                             <span>3:38</span>
                           </div>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1538,7 +1562,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1549,7 +1573,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1572,7 +1596,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <video
@@ -1580,7 +1604,7 @@ const Profile = () => {
                               poster="/app/images/videoTabvideoImage.png"
                             ></video>
                           </a>
-                          <div class="videoTime flex">
+                          <div className="videoTime flex">
                             <img
                               src="app/images/videoIconBlack.png"
                               alt="Genaiguru videoIconBlack"
@@ -1589,8 +1613,8 @@ const Profile = () => {
                             <span>3:38</span>
                           </div>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1598,7 +1622,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1609,7 +1633,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1632,7 +1656,7 @@ const Profile = () => {
                         </div>
                       </div>
 
-                      <div class="wrap flex">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <video
@@ -1640,7 +1664,7 @@ const Profile = () => {
                               poster="/app/images/interestSliderImg.png"
                             ></video>
                           </a>
-                          <div class="videoTime flex">
+                          <div className="videoTime flex">
                             <img
                               src="app/images/videoIconBlack.png"
                               alt="Genaiguru videoIconBlack"
@@ -1649,8 +1673,8 @@ const Profile = () => {
                             <span>3:38</span>
                           </div>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -1658,7 +1682,7 @@ const Profile = () => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
@@ -1669,7 +1693,7 @@ const Profile = () => {
                               Open-source Adversaries
                             </a>
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
@@ -1698,9 +1722,9 @@ const Profile = () => {
               {/* <!-- video end here -->
                 <!-- badges here --> */}
               {activeTab === 4 && (
-                <div class="tab-content tab-content-4 active">
-                  <div class="badges-box">
-                    <ul class="flex ">
+                <div className="tab-content tab-content-4 active">
+                  <div className="badges-box">
+                    <ul className="flex ">
                       <li>
                         <a href="#">
                           <img
@@ -1814,9 +1838,9 @@ const Profile = () => {
       {/* <!-- profile mobile section end here --> */}
       {displayInterestPopup && (
         <>
-          <div class="popup-container hideMob">
-            <div class="popup-wrapper ">
-              <div class="popup-header flex">
+          <div className="popup-container hideMob">
+            <div className="popup-wrapper">
+              <div className="popup-header flex">
                 <h2>
                   Add or change your <br /> interested topic
                 </h2>
@@ -1824,7 +1848,7 @@ const Profile = () => {
                   onClick={() => {
                     setDisplayInterestPopup(false);
                   }}
-                  class="cross_btn"
+                  className="cross_btn"
                 >
                   <img
                     src="app/images/cancelButtonIcon.png"
@@ -1833,130 +1857,130 @@ const Profile = () => {
                   />
                 </Link>
               </div>
-              <div class="popupp-btn-box">
+              <div className="popupp-btn-box">
                 <form action="">
-                  <div class="flex">
-                    <div class="button-container">
+                  <div className="flex">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Artificial intelligence"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Open AI"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Blockchain"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Topic 02"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Digital innovation"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Mid-journey"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Artificial intelligence"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="GPT"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Data science"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Machine learning"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Large language models"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="NLP"
                       />
                     </div>
                   </div>
-                  <button type="submit" class="loginBtn">
+                  <button type="submit" className="loginBtn">
                     Add Now
                   </button>
                 </form>
@@ -1964,8 +1988,8 @@ const Profile = () => {
             </div>
           </div>
           {/* <!-- mobile popup starts here -- */}
-          <div class="mob_popup hideDes">
-            <div class="mobileClose">
+          <div className="mob_popup hideDes">
+            <div className="mobileClose">
               <figure>
                 <img
                   src="app/images/mobileCloseIconImg.png"
@@ -1973,135 +1997,135 @@ const Profile = () => {
                 />
               </figure>
             </div>
-            <div class="popup-wrapper ">
-              <div class="popup-header flex">
+            <div className="popup-wrapper ">
+              <div className="popup-header flex">
                 <h2>Add or change your interested topic</h2>
               </div>
-              <div class="popupp-btn-box">
+              <div className="popupp-btn-box">
                 <form action="">
-                  <div class="flex">
-                    <div class="button-container">
+                  <div className="flex">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Artificial intelligence"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Open AI"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Blockchain"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Topic 02"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Digital innovation"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Mid-journey"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Artificial intelligence"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="GPT"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Data science"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Machine learning"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="Large language models"
                       />
                     </div>
-                    <div class="button-container">
+                    <div className="button-container">
                       {" "}
                       <input
                         name=""
                         id=""
-                        class="ai-button"
+                        className="ai-button"
                         type="button"
                         value="NLP"
                       />
                     </div>
                   </div>
-                  <button type="submit" class="loginBtn">
+                  <button type="submit" className="loginBtn">
                     Add Now
                   </button>
                 </form>

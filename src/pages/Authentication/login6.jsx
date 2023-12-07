@@ -36,6 +36,9 @@ const Login6 = () => {
   }, []);
 
   const sendExpertsIDOnContinue = () => {
+    if (selectedExpertsIndex == 0) {
+      alert("Please Follow Atleast One Experts");
+    }
     fetch(`${getBaseURL()}/auth/follow-author`, {
       method: "POST",
       headers: {
@@ -82,15 +85,6 @@ const Login6 = () => {
   return (
     <div>
       <section className="interestSection second mainBg">
-        <figure className="headerLogo">
-          <a href="/">
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-              title="Genaiguru"
-            />
-          </a>
-        </figure>
         <div className="wrapper">
           <div className="cancelBtn">
             <Link to={PATH_ADDINTERESTS}>

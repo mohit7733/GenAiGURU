@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL, getHeaders } from "../../api/config";
-import { PATH_FOLLOWEXPERTS } from "../../routes";
+import { PATH_FOLLOWEXPERTS, PATH_WELCOME } from "../../routes";
 
 const Login5 = () => {
   const navigate = useNavigate();
@@ -30,6 +30,9 @@ const Login5 = () => {
 
   /* send Interests API on Clicking Continue button */
   const sendInterestsOnContinue = () => {
+    if (selectedInterestIndex.length == 0) {
+      alert("Please Select Atleast One Interest");
+    }
     fetch(`${getBaseURL()}/myinterests`, {
       method: "POST",
       headers: {
@@ -67,7 +70,7 @@ const Login5 = () => {
       <section className="interestSection mainBg">
         <div className="wrapper">
           <div className="cancelBtn">
-            <Link to="#">
+            <Link to={PATH_WELCOME}>
               <i className="fa fa-times" aria-hidden="true"></i>
             </Link>
             Cancel

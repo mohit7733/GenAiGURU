@@ -4,6 +4,7 @@ import { getBaseURL } from "../../api/config";
 import { PATH_SIGNIN } from "../../routes";
 import CreacteNewPassword from "./CreacteNewPassword";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Otpscreen = ({ email }) => {
   const [otp, setOtp] = useState("");
