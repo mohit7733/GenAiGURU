@@ -71,7 +71,7 @@ const GuruGenesis = () => {
           <div class="full-width">
             <div class="keeps-container">
               <div class="gurukeeps-wrapper ">
-                <h1>Contact to GenAIGuru</h1>
+                <h1>Contact GenAIGuru</h1>
                 {/* <!-- tab-link start here --> */}
                 <ul class="connect-link flex">
                   <li className={activeTab === 1 ? " active" : ""}>

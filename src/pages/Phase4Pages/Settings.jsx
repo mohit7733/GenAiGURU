@@ -2,9 +2,36 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import { getBaseURL } from "../../api/config";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [feedback, setFeedback] = useState([]);
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  // console.log(userId,"userid");
+  const handleSubmit = (event) => {
+
+    event.preventDefault();
+    fetch(`${getBaseURL()}/send-feedback`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        comment: feedback
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+  };
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -46,13 +73,6 @@ const Settings = () => {
     } else {
       error["password"] = "";
     }
-    // if (!confirmPassword) {
-    //   error["confirmPassword"] = "Password Required!";
-    // } else if (confirmPassword != password) {
-    //   error["confirmPassword"] = "Password not Matched!";
-    // } else {
-    //   error["confirmPassword"] = "";
-    // }
     if (!confirmPassword) {
       error["confirmPassword"] = "Password Required!";
     } else if (!confirmPassword.match(lowerCase)) {
@@ -62,7 +82,8 @@ const Settings = () => {
     } else if (!confirmPassword.match(numbers)) {
       error["confirmPassword"] = "Password Should Contains Numbers also !";
     } else if (!confirmPassword.match(SpecialCharacter)) {
-      error["confirmPassword"] = "Password Should Contains Special Character also !";
+      error["confirmPassword"] =
+        "Password Should Contains Special Character also !";
     } else if (confirmPassword.length < 8) {
       error["confirmPassword"] = "Password length Should be more than 8 !";
     } else {
@@ -487,7 +508,11 @@ const Settings = () => {
                           </div>
                         </div>
                         <div class="form_group">
-                          <button type="submit" class="loginBtn">
+                          <button
+                            type="submit"
+                            class="loginBtn"
+                            onClick={handleSubmit}
+                          >
                             Submit
                           </button>
                         </div>

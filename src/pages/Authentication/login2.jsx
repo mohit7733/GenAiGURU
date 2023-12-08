@@ -14,6 +14,7 @@ const Login2 = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
+  const[title,setTitle]=useState("");
   const [errors, setErrors] = useState([]);
 
   const signUpPostMethod = () => {
@@ -22,7 +23,7 @@ const Login2 = () => {
     fd.append("email", email);
     fd.append("password", password);
     fd.append("profile_image", profilePicture);
-
+    fd.append("title",title);
     axios
       .post(`${getBaseURL()}/auth/register`, fd)
       .then((response) => {
@@ -59,7 +60,8 @@ const Login2 = () => {
       errors.name === "" &&
       errors.confirmPassword === "" &&
       errors.password === "" &&
-      errors.profilePicture === ""
+      errors.profilePicture === ""&&
+      errors.title===""
     ) {
       signUpPostMethod();
     }
@@ -115,6 +117,13 @@ const Login2 = () => {
       error["confirmPassword"] = "Password not Matched!";
     } else {
       error["confirmPassword"] = "";
+    }
+    if (!title) {
+      error["title"] = "Title Required!";
+    } else if (title.length >= 30) {
+      error["title"] = "Title length can not more then 30 !";
+    } else {
+      error["title"] = "";
     }
     if (!profilePicture) {
       error["profilePicture"] = "Picture Required!";
@@ -212,6 +221,17 @@ const Login2 = () => {
                 {errors.confirmPassword && (
                   <div className="error">{errors.confirmPassword}</div>
                 )}
+              </div>
+              <div className="form_group flex">
+                <label for="name">Title</label>
+                <input
+                  type="text"
+                  name="Title"
+                  placeholder="UX Content "
+                  onKeyUp={onchangeCheck}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                {errors.title && <div className="error">{errors.title}</div>}
               </div>
               <div className="form_group flex">
                 <label for="profilePicture">Choose Profile Picture</label>

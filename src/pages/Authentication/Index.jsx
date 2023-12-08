@@ -19,9 +19,7 @@ import WithAuth from "./WithAuth";
 import LoginPopup from "./LoginPopup";
 const Index = () => {
   const sliderRef = useRef();
-
- 
-
+  const token = JSON.parse(localStorage.getItem("token"));
   var settings2 = {
     dots: false,
     infinite: true,
@@ -50,7 +48,6 @@ const Index = () => {
       },
     ],
   };
-
   return (
     <>
       <Header />
@@ -246,8 +243,8 @@ const Index = () => {
               View all
             </a>
           </div>
-          <Categories />
-          <ArticleBasedInterest />
+          {token && <Categories />}
+          {token && <ArticleBasedInterest />}
         </div>
       </section>
       <Footer />
