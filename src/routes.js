@@ -47,6 +47,7 @@ export const PATH_OTP_SCREEN = "/otpscreen";
 // Private Routes
 export const PATH_PROFILE = "/profile";
 export const PATH_SPEAK_TO_TEXT = "/speaktotext";
+export const PATH_EDIT_PROFILE = "/editprofile";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -103,8 +104,8 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "phasepage2",
-      name: "phasepage2",
+      path: PATH_EDIT_PROFILE,
+      name: "PATH_EDIT_PROFILE",
       element: <EditProfile />,
       exact: true,
     },

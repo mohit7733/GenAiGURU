@@ -647,3 +647,6 @@ header .userIcon img {
 		margin-bottom: 0;
 	}
 }
+.article-slider .wrap a, .video-slider .wrap a{
+	width: 100%;
+}

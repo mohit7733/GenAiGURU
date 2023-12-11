@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
+import MobileHeader from "../../components/Layout/MobileHeader";
 
 const Index5 = () => {
   const navigate = useNavigate();
   const [displaySeePost, setDisplaySeePost] = useState(false);
   return (
     <div>
-      <Header />
+      <MobileHeader />
       <section class="mainWrapper mobileMainWrap flex desktopPostCreate">
         <Sidebar />
         <div class="rightSection innerRight desktopHelp">

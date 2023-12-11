@@ -4,6 +4,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { PATH_EDIT_PROFILE } from "../../routes";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -79,7 +80,7 @@ const Profile = () => {
               </div>
               <div className="edit-profile">
                 <div className="profile-link">
-                  <Link to={"/phasepage2"} className="pop-up">
+                  <Link to={PATH_EDIT_PROFILE} className="pop-up">
                     Edit profile
                   </Link>
                 </div>
