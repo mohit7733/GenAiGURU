@@ -558,3 +558,92 @@ header .userIcon img {
 .interestSection{
   padding-top:65px;
 }
+
+.createAccount{
+	flex-wrap: wrap;
+}
+.kep-login-facebook.metro {
+    display: flex;
+    align-items: center;
+    padding: 15px 78px 15px 90px;
+}
+.kep-login-facebook.metro img {
+    margin-right: 15px;
+}
+.mob_profile .profile-img figure img,
+.rightSection .profile-img figure img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+.edit-profile .intrest-area .social-link ul li a {
+    display: flex;
+    align-items: center;
+    width: 105px;
+}
+.edit-profile .intrest-area .social-link ul li a figure {
+    width: 26px;
+}
+.fixedBtn{
+	z-index: 9;
+}
+.mob_profile .mob_profile_inner{
+	height: 100%;
+}
+.mob_profile .edit-profile .connect-link li a {
+    padding: 8px 13px;
+}
+
+
+
+@media (min-width: 1551px) and (max-width: 1980px){
+	.createAccount {
+	    height: 100%;
+	}
+}
+
+@media (max-width:1230px){
+	.rightSection .contact-wrapper .faq-container {
+	    width: 100%;
+	    margin-right: 0px;
+	    padding-right: 20px;
+	}
+	.rightSection .contact-wrapper .contact-container {
+	    width: 97.5%;
+	    margin-top: 25px;
+	}
+}
+
+@media (max-width:767px){
+	.rightSection .contact-wrapper .faq-container {
+	    padding-right: 5px;
+	}
+	.rightSection .contact-wrapper .contact-container {
+	    width: 100%;
+	    margin: 30px 5px 0 0;
+	}
+	.mobileVideoSection .layer{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.mobileVideoSection .layer .author-tag{
+		width: 100%;
+		margin-top: auto;
+	}
+	.mobileVideoSection .layer h5 {
+	    margin: auto 0 12px;
+	}
+	.mobileVideoSection .layer .price{
+		width: 65px;
+		padding: 0 10px;
+	}
+	.mobileVideoSection .author-tag .col_right{
+		margin-top: 0;
+    	align-self: flex-end;
+	}
+	.mobileVideoSection .wrapper{
+		margin-bottom: 0;
+	}
+}

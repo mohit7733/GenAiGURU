@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
-import { PATH_GOTOMAIL, PATH_LOGIN } from "../../routes";
+import { BASE_PATH, PATH_GOTOMAIL, PATH_LOGIN } from "../../routes";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -14,7 +14,7 @@ const Login2 = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
-  const[title,setTitle]=useState("");
+  const [title, setTitle] = useState("");
   const [errors, setErrors] = useState([]);
 
   const signUpPostMethod = () => {
@@ -23,7 +23,7 @@ const Login2 = () => {
     fd.append("email", email);
     fd.append("password", password);
     fd.append("profile_image", profilePicture);
-    fd.append("title",title);
+    fd.append("title", title);
     axios
       .post(`${getBaseURL()}/auth/register`, fd)
       .then((response) => {
@@ -60,8 +60,8 @@ const Login2 = () => {
       errors.name === "" &&
       errors.confirmPassword === "" &&
       errors.password === "" &&
-      errors.profilePicture === ""&&
-      errors.title===""
+      errors.profilePicture === "" &&
+      errors.title === ""
     ) {
       signUpPostMethod();
     }
@@ -154,15 +154,15 @@ const Login2 = () => {
     <>
       <div>
         <section className="createAccount mainBg">
-        <figure className="headerLogo">
-          <Link to="/">
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-              title="Genaiguru"
-            />
-          </Link>
-        </figure>
+          <figure className="headerLogo">
+            <Link to={BASE_PATH}>
+              <img
+                src="app/images/headerLogo.png"
+                alt="Genaiguru header logo"
+                title="Genaiguru"
+              />
+            </Link>
+          </figure>
           <div className="wrapper400">
             <div className="backBtn">
               <Link to={PATH_LOGIN}>
@@ -173,7 +173,7 @@ const Login2 = () => {
             <h1>
               <span>Create an account</span> with your name and email address!
             </h1>
-            <form action="" className="accountCreate" onSubmit={onSubmit}>
+            <form className="accountCreate" onSubmit={onSubmit}>
               <div className="form_group flex">
                 <label for="name">Your name</label>
                 <input

@@ -6,24 +6,26 @@ import "slick-carousel/slick/slick-theme.css";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 const Popularvideos = () => {
   const sliderRef = useRef();
   const [popularVideos, setPopularVideos] = useState([]);
-
+  const [userID, setuserID] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
 
   // Get API for Popular Videos
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/popular-latest-videos`, {
+      .get(`${getBaseURL()}/auth/popular-latest-videos`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
+        // console.log(response.data.videos);
         setPopularVideos(response.data.videos);
-        console.log(popularVideos);
+        // console.log(popularVideos);
       })
       .catch((err) => {
         console.log(err.message);
@@ -187,73 +189,142 @@ const Popularvideos = () => {
             View all
           </a>
         </div>
-        <div className="video-slider">
-          <Slider
-            ref={sliderRef}
-            {...settings2}
-            id="Slider-4"
-            className="slider_test"
-          >
-            {popularVideos.map((video, index) => {
-              return (
-                <div>
-                  <div className="wrap">
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="app/images/videoImg.png"
-                          alt="Genaiguru video image"
-                          title="Genaiguru video image"
-                        />
-                      </figure>
-                      <div className="layer">
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
+        {token ? (
+          <div className="video-slider">
+            <Slider
+              ref={sliderRef}
+              {...settings2}
+              id="Slider-4"
+              className="slider_test"
+            >
+              {popularVideos.map((video, index) => {
+                return (
+                  <div key={index}>
+                    <div className="wrap">
+                      <a href="#">
+                        <figure>
+                          <ReactPlayer
+                            url={video.youtube_link}
+                            width="100%"
+                            height="100%"
                           />
-                          17
-                        </div>
-                        <h5>{video.title}</h5>
-                        <div className="author-tag flex">
-                          <div className="col_left">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="content">
-                                <h6>Alex Smih</h6>
-                                <p>24 M view . 3 month ago</p>
-                              </div>
-                            </div>
-                            <ul className="flex">
-                              <li>#finance</li>
-                              <li>#crypto</li>
-                              <li>#economy</li>
-                            </ul>
-                          </div>
-                          <div className="col_right flex">
+                        </figure>
+                        <div className="layer">
+                          <div className="price flex">
                             <img
-                              src="app/images/videoIcon.png"
-                              alt="Genaiguru videoIcon"
-                              title="Genaiguru videoIcon"
+                              src="app/images/orangeStrike.png"
+                              alt="Genaiguru orangeStrike"
+                              title="Genaiguru orangeStrike"
                             />
-                            3:38
+                            17
+                          </div>
+                          <h5>{video.title}</h5>
+                          <div className="author-tag flex">
+                            <div className="col_left">
+                              <div className="wrapper flex">
+                                {/* <figure>
+                                    <img
+                                      src="app/images/authorImg.png"
+                                      alt="Genaiguru authorImg"
+                                      title="Genaiguru authorImg"
+                                    />
+                                  </figure> */}
+                                {/* <div className="content">
+                                    <h6>Alex Smih</h6>
+                                    <p>24 M view . 3 month ago</p>
+                                  </div> */}
+                              </div>
+                              <ul className="flex">
+                                {video?.tags?.map((tag, index) => {
+                                  return <li>#{tag}</li>;
+                                })}
+                              </ul>
+                            </div>
+                            {/* <div className="col_right flex">
+                                <img
+                                  src="app/images/videoIcon.png"
+                                  alt="Genaiguru videoIcon"
+                                  title="Genaiguru videoIcon"
+                                />
+                                3:38
+                              </div> */}
                           </div>
                         </div>
-                      </div>
-                    </a>
+                      </a>
+                    </div>
                   </div>
+                );
+              })}
+            </Slider>
+          </div>
+        ) : (
+          <div className="video-slider">
+            <Slider
+              ref={sliderRef}
+              {...settings2}
+              id="Slider-4"
+              className="slider_test"
+            >
+              <div>
+                <div className="wrap">
+                  <a href="#">
+                    <figure>
+                      <img
+                        src="app/images/interestSliderImg.png"
+                        alt="Genaiguru video image"
+                        title="Genaiguru video image"
+                      />
+                    </figure>
+                    <div className="layer">
+                      <div className="price flex">
+                        <img
+                          src="app/images/orangeStrike.png"
+                          alt="Genaiguru orangeStrike"
+                          title="Genaiguru orangeStrike"
+                        />
+                        17
+                      </div>
+                      <h5>
+                        It’s a catch-22 for young startups: How do you attract
+                        investors?
+                      </h5>
+                      <div className="author-tag flex">
+                        <div className="col_left">
+                          <div className="wrapper flex">
+                            {/* <figure>
+                              <img
+                                src="app/images/authorImg.png"
+                                alt="Genaiguru authorImg"
+                                title="Genaiguru authorImg"
+                              />
+                            </figure> */}
+                            {/* <div className="content">
+                              <h6>Alex Smih</h6>
+                              <p>24 M view . 3 month ago</p>
+                            </div> */}
+                          </div>
+                          <ul className="flex">
+                            <li>#finance</li>
+                            <li>#History</li>
+                            <li>#Development</li>
+                          </ul>
+                        </div>
+                        {/* <div className="col_right flex">
+                          <img
+                            src="app/images/videoIcon.png"
+                            alt="Genaiguru videoIcon"
+                            title="Genaiguru videoIcon"
+                          />
+                          3:38
+                        </div> */}
+                      </div>
+                    </div>
+                  </a>
                 </div>
-              );
-            })}
-          </Slider>
-        </div>
+              </div>
+            </Slider>
+          </div>
+        )}
       </div>
     </>
   );

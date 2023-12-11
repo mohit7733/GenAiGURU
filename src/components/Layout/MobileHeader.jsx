@@ -4,7 +4,7 @@ import userimageIcon from "../../assets/images/person.png";
 import { useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import { PATH_LOGIN, PATH_PROFILE } from "../../routes";
+import { BASE_PATH, PATH_LOGIN, PATH_PROFILE } from "../../routes";
 
 const MobileHeader = ({ isLogged }) => {
   const [loginPopupVisible, setLoginPopupVisible] = useState(false);
@@ -31,8 +31,7 @@ const MobileHeader = ({ isLogged }) => {
       });
   }, []);
 
-  const changeLoginStatus = ({ isLoggedIn }) => {
-    console.log(userLoggedIn);
+  const changeLoginStatus = () => {
     if (userLoggedIn === "true") {
       localStorage.setItem("userLoggedIn", "false");
       localStorage.removeItem("token");
@@ -51,7 +50,7 @@ const MobileHeader = ({ isLogged }) => {
           />
         </div>
         <figure className="headerLogo">
-          <a href="/">
+          <a href={BASE_PATH}>
             <img
               src="app/images/headerLogo.png"
               alt="Genaiguru header logo"
