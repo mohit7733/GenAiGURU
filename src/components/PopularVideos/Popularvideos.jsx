@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Popularvideos = () => {
   const sliderRef = useRef();
@@ -63,7 +64,7 @@ const Popularvideos = () => {
       <div className="video-section">
         <div className="heading-link flex">
           <h3>Popular youtube videos</h3>
-          <a href="#">View all</a>
+          <Link to="/featuredcontent">View all</Link>
         </div>
         <div className="mobileVideoSection">
           <div className="wrap">
@@ -198,7 +199,6 @@ const Popularvideos = () => {
                 <div>
                   <div className="wrap">
                     <a href="#">
-                      
                       <figure>
                         <img
                           src="app/images/videoImg.png"
@@ -215,9 +215,7 @@ const Popularvideos = () => {
                           />
                           17
                         </div>
-                        <h5>
-                         {video.title}
-                        </h5>
+                        <h5>{video.title}</h5>
                         <div className="author-tag flex">
                           <div className="col_left">
                             <div className="wrapper flex">

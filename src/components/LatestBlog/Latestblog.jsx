@@ -62,7 +62,10 @@ const Latestblog = () => {
   return (
     <>
       <div className="blog-wrap">
+        <div className="heading-link flex">
         <h1>Latest blog</h1>
+        <Link to="/BlogDetails">View all</Link>
+        </div>
         <div className="blog-slider ">
           <Slider
             ref={sliderRef}
@@ -85,8 +88,8 @@ const Latestblog = () => {
                       <div className="layer">
                         <h5>
                           {blog.title}
-                          <br />
-                          {blog.content}
+                          {/* <br />
+                          {blog.content} */}
                         </h5>
                         <button type="button">
                           <img

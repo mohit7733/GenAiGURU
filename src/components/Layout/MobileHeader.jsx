@@ -14,7 +14,7 @@ const MobileHeader = ({ isLogged }) => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
-  console.log(userLoggedIn, "--=-User LoggedIn");
+  // console.log(userLoggedIn, "--=-User LoggedIn");
 
   useEffect(() => {
     axios

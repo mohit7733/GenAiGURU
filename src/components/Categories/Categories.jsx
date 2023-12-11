@@ -6,7 +6,7 @@ const Categories = () => {
       {" "}
       <div className="home-category">
         <div className="heading-link flex">
-          <h3>Categories</h3>
+          <h3>My Interests</h3>
         </div>
         <ul className="flex">
           <li>

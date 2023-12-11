@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL, getHeaders } from "../../api/config";
-import { PATH_FOLLOWEXPERTS, PATH_WELCOME } from "../../routes";
+import { PATH_FOLLOWEXPERTS, BASE_PATH } from "../../routes";
+import { toast ,ToastContainer} from "react-toastify";
 
 const Login5 = () => {
   const navigate = useNavigate();
@@ -31,7 +32,10 @@ const Login5 = () => {
   /* send Interests API on Clicking Continue button */
   const sendInterestsOnContinue = () => {
     if (selectedInterestIndex.length == 0) {
-      alert("Please Select Atleast One Interest");
+      // alert("Please Select Atleast One Interest");
+      toast.warn("Please Select Atleast One Interest !", {
+        position: toast.POSITION.TOP_CENTER
+      });
     }
     fetch(`${getBaseURL()}/myinterests`, {
       method: "POST",
@@ -70,7 +74,7 @@ const Login5 = () => {
       <section className="interestSection mainBg">
         <div className="wrapper">
           <div className="cancelBtn">
-            <Link to={PATH_WELCOME}>
+            <Link to={BASE_PATH}>
               <i className="fa fa-times" aria-hidden="true"></i>
             </Link>
             Cancel
@@ -100,9 +104,10 @@ const Login5 = () => {
                 Selected <span>{selectedInterestIndex.length}</span>
               </p>
             )}
-            <button className="loginBtn" onClick={sendInterestsOnContinue}>
+            <button className="loginBtn"  onClick={sendInterestsOnContinue} >
               Continue
             </button>
+            <ToastContainer  autoClose={1000} />
           </div>
         </div>
       </section>

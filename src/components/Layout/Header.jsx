@@ -146,15 +146,15 @@ const Header = ({ isLoggedIn }) => {
 
             <ul className="userNav">
               <li>
+                {userLoggedIn && (
+                  <li>
+                    <Link to="/profile">My Profile </Link>
+                  </li>
+                )}
                 <Link onClick={changeLoginStatus} to={PATH_LOGIN}>
                   {userLoggedIn ? "Logout" : "SignUp/Login"}
                 </Link>
               </li>
-              {userLoggedIn && (
-                <li>
-                  <Link to="/profile">My Profile </Link>
-                </li>
-              )}
             </ul>
           </li>
         </ul>
