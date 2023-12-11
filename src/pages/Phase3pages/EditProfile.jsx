@@ -1,8 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
+import { useNavigate } from "react-router";
+import { PATH_PROFILE } from "../../routes";
 
 const EditProfile = () => {
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [coverPicture, setCoverPicture] = useState(null);
+
+  const navigate = useNavigate();
+
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (allowedImageTypes.includes(file.type)) {
+        setProfilePicture(file);
+      } else {
+        alert("Please select a valid profile image file (JPEG, PNG, GIF).");
+      }
+    }
+  };
+  const handleCoverImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (allowedImageTypes.includes(file.type)) {
+        setCoverPicture(file);
+      } else {
+        alert("Please select a valid cover image file (JPEG, PNG, GIF).");
+      }
+    }
+  };
+
+  const onEditProfile = (e) => {
+    e.preventDefault();
+    let fd = new FormData();
+    fd.append("user_id", userId);
+    fd.append("bio", bio);
+    fd.append("name", name);
+    fd.append("cover_image", coverPicture);
+    fd.append("profile_image", profilePicture);
+    axios
+      .post(`${getBaseURL()}/update-user-profile`, fd)
+      .then((response) => {
+        if (response.status === 201) {
+          alert("Saved");
+          navigate(`${PATH_PROFILE}`);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
+      });
+  };
+
   return (
     <div>
       <MobileHeader />
@@ -38,7 +101,7 @@ const EditProfile = () => {
                         title="Genaiguru camera-icon"
                       />
                     </figure>
-                    <input type="file" />
+                    <input type="file" onChange={handleProfileImageChange} />
                   </div>
                 </figure>
               </div>
@@ -55,28 +118,42 @@ const EditProfile = () => {
                         title="Genaiguru camera-icon"
                       />
                     </figure>
-                    <input type="file" />
+                    <input type="file" onChange={handleCoverImageChange} />
                   </div>
                   <h6>Replace cover image</h6>
                   <p>Optimal dimensions 1600 x 1200 px</p>
                 </div>
               </div>
-              <form action="">
+              <form>
                 <div class="profile-edit">
                   <label for="name">Your Name</label>
-                  <input type="text" placeholder="GenAIGuru kingdom" />
+                  <input
+                    type="text"
+                    placeholder="GenAIGuru kingdom"
+                    name="name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
                 </div>
                 <div class="profile-edit">
                   <label for="name">Bio</label>
                   <textarea
-                    name=""
+                    name="bio"
+                    value={bio}
+                    onChange={(e) => {
+                      setBio(e.target.value);
+                    }}
                     id=""
                     cols="5"
                     rows="10"
                     placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
                   ></textarea>
                 </div>
-                <button type="submit">Save to change</button>
+                <button type="submit" onClick={onEditProfile}>
+                  Save to change
+                </button>
               </form>
             </div>
 

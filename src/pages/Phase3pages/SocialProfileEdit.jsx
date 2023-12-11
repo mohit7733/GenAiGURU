@@ -1,12 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
+import { PATH_PROFILE } from "../../routes";
 
 const SocialProfileEdit = () => {
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  const [linksObj, setLinksObj] = useState({
+    facebook: "",
+    twitter: "",
+    youtube: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleChangeLinks = (e) => {
+    setLinksObj({ ...linksObj, [e.target.name]: e.target.value });
+  };
+
+  const onSocialEditProfile = (e) => {
+    e.preventDefault();
+    let fd = new FormData();
+    fd.append("user_id", userId);
+    fd.append("facebook", linksObj.facebook);
+    fd.append("youtube", linksObj.youtube);
+    fd.append("twitter", linksObj.twitter);
+    axios
+      .post(`${getBaseURL()}/update-user-socialprofile`, fd)
+      .then((response) => {
+        if (response.status === 201) {
+          alert("Saved");
+          navigate(`${PATH_PROFILE}`);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
+      });
+  };
+
   return (
     <div>
-   
       <MobileHeader />
       {/* <!-- main section start here --> */}
       <section class="mainWrapper flex hideMob">
@@ -37,7 +79,9 @@ const SocialProfileEdit = () => {
                     </label>
                     <input
                       type="url"
-                      name=""
+                      name="twitter"
+                      value={linksObj.twitter}
+                      onChange={handleChangeLinks}
                       id=""
                       placeholder="https://twitter.com/home"
                     />
@@ -62,8 +106,9 @@ const SocialProfileEdit = () => {
                     </label>
                     <input
                       type="url"
-                      name=""
-                      id=""
+                      name="facebook"
+                      value={linksObj.facebook}
+                      onChange={handleChangeLinks}
                       placeholder="https://facebook.com/home"
                     />
                     <a href="#">
@@ -87,8 +132,9 @@ const SocialProfileEdit = () => {
                     </label>
                     <input
                       type="url"
-                      name=""
-                      id=""
+                      name="youtube"
+                      value={linksObj.youtube}
+                      onChange={handleChangeLinks}
                       placeholder="https://twitter.com/home"
                     />
                     <a href="#">
@@ -150,7 +196,11 @@ const SocialProfileEdit = () => {
                     </a>
                   </div>
                 </div>
-                <button type="submit" class="social-profile">
+                <button
+                  type="submit"
+                  class="social-profile"
+                  onClick={onSocialEditProfile}
+                >
                   Save to change
                 </button>
               </form>
@@ -164,7 +214,9 @@ const SocialProfileEdit = () => {
       <div class="mob_profile hideDes">
         <div class="mobileHead flex">
           <div class="backBtns">
-            <Link to="/phasepage1"><i class="fa fa-angle-left" aria-hidden="true"></i></Link>
+            <Link to="/phasepage1">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </Link>
           </div>
           <h2>Edit social profile</h2>
         </div>
