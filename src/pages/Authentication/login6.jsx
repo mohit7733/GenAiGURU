@@ -103,7 +103,7 @@ const Login6 = () => {
                 <li key={Writer.id}>
                   <figure>
                     <img
-                      src="app/images/bigAvatar.png"
+                      src={Writer.profile_image}
                       alt="Genaiguru user img"
                       title="Genaiguru user image"
                     />

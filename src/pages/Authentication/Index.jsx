@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useActionData } from "react-router-dom";
-import userimageIcon from "../../../src/assets/images/person.png";
-import { RouterElement } from "../../routes";
-import FixedAIButtonLogo from "../../components/FixedAIButton/FixedAIButtonLogo";
-import Latestblog from "../../components/LatestBlog/Latestblog";
-import Popularvideos from "../../components/PopularVideos/Popularvideos";
-import Populararticles from "../../components/PopularArticles/Populararticles";
+import React, { useRef } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import ArticleBasedInterest from "../../components/ArticlesBasedInterest/ArticleBasedInterest";
 import Categories from "../../components/Categories/Categories";
+import Latestblog from "../../components/LatestBlog/Latestblog";
+import Footer from "../../components/Layout/Footer";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
-import Footer from "../../components/Layout/Footer";
-import { useRef } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import WithAuth from "./WithAuth";
-import LoginPopup from "./LoginPopup";
+import Populararticles from "../../components/PopularArticles/Populararticles";
+import Popularvideos from "../../components/PopularVideos/Popularvideos";
 const Index = () => {
   const sliderRef = useRef();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -48,6 +41,8 @@ const Index = () => {
       },
     ],
   };
+
+  
   return (
     <>
       <Header />

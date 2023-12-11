@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
-import userimageIcon from "../../assets/images/person.png";
-import { Link, useNavigate } from "react-router-dom";
-import { PATH_LOGIN, PATH_PROFILE } from "../../routes";
-import LoginPopup from "../../pages/Authentication/LoginPopup";
-import WithAuth from "../../pages/Authentication/WithAuth";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
+import userimageIcon from "../../assets/images/person.png";
+import WithAuth from "../../pages/Authentication/WithAuth";
+import { PATH_LOGIN, PATH_PROFILE } from "../../routes";
 
-const Header = ({ isLoggedIn }) => {
-  const [loginPopupVisible, setLoginPopupVisible] = useState(false);
+const Header = () => {
   const [profileImage, setProfileImage] = useState();
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
-  console.log(userLoggedIn);
 
   useEffect(() => {
     axios
@@ -26,7 +23,7 @@ const Header = ({ isLoggedIn }) => {
       })
       .then((response) => {
         console.log(response);
-
+        localStorage.setItem("UserId", JSON.stringify(response.data?.id));
         setProfileImage(response.data.profile_image);
       })
       .catch((err) => {
@@ -34,8 +31,7 @@ const Header = ({ isLoggedIn }) => {
       });
   }, []);
 
-  const changeLoginStatus = ({ isLoggedIn }) => {
-    console.log(userLoggedIn);
+  const changeLoginStatus = () => {
     if (userLoggedIn === "true") {
       localStorage.setItem("userLoggedIn", "false");
       localStorage.removeItem("token");
@@ -43,7 +39,6 @@ const Header = ({ isLoggedIn }) => {
     }
   };
 
-  console.log(profileImage);
   return (
     <>
       <header className="flex">

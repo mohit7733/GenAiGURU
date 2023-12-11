@@ -13,7 +13,6 @@ const Latestblog = () => {
 
   const token = JSON.parse(localStorage.getItem("token"));
 
-
   // Get API for Popular Blogs
   useEffect(() => {
     axios
@@ -35,7 +34,7 @@ const Latestblog = () => {
     dots: false,
     infinite: false,
     slidesToShow: 3,
-    arrows: true,
+    arrows: false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -63,8 +62,8 @@ const Latestblog = () => {
     <>
       <div className="blog-wrap">
         <div className="heading-link flex">
-        <h1>Latest blog</h1>
-        <Link to="/BlogDetails">View all</Link>
+          <h1>Latest blog</h1>
+          <Link to="/BlogDetails">View all</Link>
         </div>
         <div className="blog-slider ">
           <Slider
@@ -104,81 +103,6 @@ const Latestblog = () => {
                 </div>
               );
             })}
-            {/* <div>
-              <div className="wrap">
-                <Link to="/blogdetails">
-                  <figure>
-                    <img
-                      src="app/images/blogImgTwo.png"
-                      alt="Genaiguru blog image"
-                      title="Genaiguru blog image"
-                    />
-                  </figure>
-                  <div className="layer">
-                    <h5>
-                      Discover the Latest <br /> Breakthroughs in AI{" "}
-                    </h5>
-                    <button type="button">
-                      <img
-                        src="app/images/blogArrowBtnImg.png"
-                        alt="Genaiguru arrow button"
-                        title="Genaiguru arrow button"
-                      />
-                    </button>
-                  </div>
-                </Link>
-              </div>
-            </div>
-            <div>
-              <div className="wrap">
-                <Link to="/blogdetails">
-                  <figure>
-                    <img
-                      src="app/images/blogImgOne.png"
-                      alt="Genaiguru blog image"
-                      title="Genaiguru blog image"
-                    />
-                  </figure>
-                  <div className="layer">
-                    <h5>
-                      Discover the Latest <br /> Breakthroughs in AI{" "}
-                    </h5>
-                    <button type="button">
-                      <img
-                        src="app/images/blogArrowBtnImg.png"
-                        alt="Genaiguru arrow button"
-                        title="Genaiguru arrow button"
-                      />
-                    </button>
-                  </div>
-                </Link>
-              </div>
-            </div>
-            <div>
-              <div className="wrap">
-                <a href="#">
-                  <figure>
-                    <img
-                      src="app/images/blogImgTwo.png"
-                      alt="Genaiguru blog image"
-                      title="Genaiguru blog image"
-                    />
-                  </figure>
-                  <div className="layer">
-                    <h5>
-                      Discover the Latest <br /> Breakthroughs in AI{" "}
-                    </h5>
-                    <button type="button">
-                      <img
-                        src="app/images/blogArrowBtnImg.png"
-                        alt="Genaiguru arrow button"
-                        title="Genaiguru arrow button"
-                      />
-                    </button>
-                  </div>
-                </a>
-              </div>
-            </div> */}
           </Slider>
         </div>
       </div>

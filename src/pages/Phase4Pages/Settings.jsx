@@ -3,48 +3,54 @@ import { Link } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { getBaseURL } from "../../api/config";
+import axios from "axios";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [feedback, setFeedback] = useState([]);
+  const [screenshot, setScreenshot] = useState(null);
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
 
-  // console.log(userId,"userid");
   const handleSubmit = (event) => {
-
     event.preventDefault();
-    fetch(`${getBaseURL()}/send-feedback`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id: userId,
-        comment: feedback
-      }),
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    let fd = new FormData();
+    fd.append("user_id", userId);
+    fd.append("comment", feedback);
+    fd.append("media", screenshot);
 
+    axios
+      .post(`${getBaseURL()}/send-feedback`, fd)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("FeedBack Sent Successfully");
+          setFeedback("");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+
   const onSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
   };
+
   const onchangeCheck = (key, value) => {
     const errors = {};
     if (!value) {
@@ -52,6 +58,7 @@ const Settings = () => {
     }
     setErrors(errors);
   };
+
   const validate = () => {
     const error = {};
     var lowerCase = /[a-z]/g;
@@ -92,28 +99,45 @@ const Settings = () => {
     return error;
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      // Validate the file type
+      const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (allowedImageTypes.includes(file.type)) {
+        // Valid image file
+        setScreenshot(file);
+      } else {
+        // Invalid file type
+        alert("Please select a valid image file (JPEG, PNG, GIF).");
+        // Optionally, you can clear the input or do other error handling
+      }
+    }
+  };
+
   return (
     <div>
       <MobileHeader />
       {/* <!-- mobile header start here --> */}
-      <div class="mob_profile commanMobHead heightAuto hideDes">
-        <div class="mobileHead flex">
-          <div class="hamburger">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+      <div className="mob_profile commanMobHead heightAuto hideDes">
+        <div className="mobileHead flex">
+          <div className="hamburger">
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
           </div>
           <h2>Edit Profile</h2>
         </div>
       </div>
       {/* <!-- mobile header end here --> */}
-      <section class="mainWrapper flex">
+      <section className="mainWrapper flex">
         <Sidebar />
         <div className="rightSection">
-          <div class=" full-width">
+          <div className=" full-width">
             {/* <!-- setting start --> */}
-            <div class="setting-wrapper flex">
+            <div className="setting-wrapper flex">
               <h1>Setting</h1>
-              <div class="setting-container">
-                <ul class="connect-link">
+              <div className="setting-container">
+                <ul className="connect-link">
                   <li className={activeTab === 1 ? " active" : ""}>
                     <Link
                       onClick={() => handleTabClick(1)}
@@ -228,17 +252,17 @@ const Settings = () => {
                   </li>
                 </ul>
               </div>
-              <div class="setting-box">
+              <div className="setting-box">
                 {activeTab === 1 && (
-                  // <div class="tab-content tab-content-1 active">
+                  // <div className="tab-content tab-content-1 active">
                   <div
                     className={
                       activeTab === 1 && "tab-content tab-content-1 active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-1 active"> */}
-                    <div class="profile-img-box">
-                      <div class="profileImgChange">
+                    {/* <div className="tab-content tab-content-1 active"> */}
+                    <div className="profile-img-box">
+                      <div className="profileImgChange">
                         <p>Profile image</p>
                         <figure>
                           <img
@@ -246,8 +270,8 @@ const Settings = () => {
                             alt="Genaiguru user-icon"
                             title="Genaiguru user-icon"
                           />
-                          <div class="imageChange">
-                            <figure class="cameraImg">
+                          <div className="imageChange">
+                            <figure className="cameraImg">
                               <img
                                 src="/app/images/camera-icon.png"
                                 alt="Genaiguru camera-icon"
@@ -261,9 +285,9 @@ const Settings = () => {
                       <p>
                         <a href="#">Cover image</a>
                       </p>
-                      <div class="cover-img-banner">
-                        <div class="banner-txt">
-                          <div class="img-box cameraBgImg">
+                      <div className="cover-img-banner">
+                        <div className="banner-txt">
+                          <div className="img-box cameraBgImg">
                             <figure>
                               <img
                                 src="/app/images/camera-icon.png"
@@ -278,11 +302,11 @@ const Settings = () => {
                         </div>
                       </div>
                       <form action="">
-                        <div class="profile-edit">
+                        <div className="profile-edit">
                           <label for="name">Your Name</label>
                           <input type="text" placeholder="GenAIGuru" />
                         </div>
-                        <div class="profile-edit">
+                        <div className="profile-edit">
                           <label for="name">Bio</label>
                           <textarea
                             name=""
@@ -292,7 +316,7 @@ const Settings = () => {
                             placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
                           ></textarea>
                         </div>
-                        <button type="submit" class="loginBtn">
+                        <button type="submit" className="loginBtn">
                           Save to change
                         </button>
                       </form>
@@ -301,18 +325,18 @@ const Settings = () => {
                 )}
                 {/* <!-- password here --> */}
                 {activeTab === 2 && (
-                  // <div class="tab-content tab-content-2 active">
+                  // <div className="tab-content tab-content-2 active">
                   <div
                     className={
                       activeTab === 2 &&
                       "tab-content tab-content-2 passChangeTab active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-2 passChangeTab"> */}
+                    {/* <div className="tab-content tab-content-2 passChangeTab"> */}
                     {/* <!-- password --> */}
                     <h5>Change password</h5>
                     <form action="" onSubmit={onSubmit}>
-                      <div class="password-box">
+                      <div className="password-box">
                         <label for="">Old password</label>
                         <input
                           type="password"
@@ -326,7 +350,7 @@ const Settings = () => {
                           <div className="error">{errors.password}</div>
                         )}
                       </div>
-                      <div class="password-box">
+                      <div className="password-box">
                         <label for="">New password</label>
                         <input
                           type="password"
@@ -340,8 +364,8 @@ const Settings = () => {
                           <div className="error">{errors.confirmPassword}</div>
                         )}
                       </div>
-                      <div class="form_group">
-                        <button type="submit" class="loginBtn">
+                      <div className="form_group">
+                        <button type="submit" className="loginBtn">
                           Save to Change
                         </button>
                       </div>
@@ -356,11 +380,11 @@ const Settings = () => {
                       activeTab === 3 && "tab-content tab-content-3 active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-3"> */}
+                    {/* <div className="tab-content tab-content-3"> */}
                     {/* <!-- intrest  --> */}
                     <h5>Edit your interest</h5>
-                    <div class="intrest-box">
-                      <ul class="flex">
+                    <div className="intrest-box">
+                      <ul className="flex">
                         <li>
                           <a href="#">Artificial intelligence</a>
                         </li>
@@ -401,7 +425,7 @@ const Settings = () => {
                           <a href="#">Digital innovation</a>
                         </li>
                       </ul>
-                      <button type="submit" class="loginBtn">
+                      <button type="submit" className="loginBtn">
                         Save to change
                       </button>
                     </div>
@@ -414,19 +438,19 @@ const Settings = () => {
                       activeTab === 5 && "tab-content tab-content-5 active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-4"> */}
+                    {/* <div className="tab-content tab-content-4"> */}
                     {/* <!-- privacy --> */}
                     <h5>Privacy & Policy</h5>
-                    <div class="privacy-banner">
+                    <div className="privacy-banner">
                       <img
                         src="app/images/privacy-banner.png"
                         alt="Genaiguru privacy-banner"
                         title="Genaiguru privacy-banner"
                       />
                     </div>
-                    <div class="privacy-vats">
+                    <div className="privacy-vats">
                       <h3>Privacy policy</h3>
-                      <div class="date">
+                      <div className="date">
                         <p>
                           Effactive date: <span> March 24, 2023</span>
                         </p>
@@ -440,7 +464,7 @@ const Settings = () => {
                         in{" "}
                       </p>
                     </div>
-                    <div class="service-terms">
+                    <div className="service-terms">
                       <ul>
                         <li>
                           <a href="#">Terms of service</a>
@@ -473,10 +497,10 @@ const Settings = () => {
                       activeTab === 7 && "tab-content tab-content-7 active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-5"> */}
-                    <div class="feedbackSection">
+                    {/* <div className="tab-content tab-content-5"> */}
+                    <div className="feedbackSection">
                       <h5>Tell us the problem</h5>
-                      <div class="problem-container">
+                      <div className="problem-container">
                         <h3>Send us some feedback!</h3>
                         <p>
                           Do you have a suggestion or found some bug? let us
@@ -484,33 +508,35 @@ const Settings = () => {
                         </p>
                       </div>
                       <form action="">
-                        <div class="form_group">
+                        <div className="form_group">
                           <label for="">Describe your issue or idea</label>
                           <textarea
-                            name=""
+                            name="feedback"
+                            value={feedback}
                             id=""
                             cols="30"
                             rows="5"
                             placeholder="Type here"
+                            onChange={(e) => setFeedback(e.target.value)}
                           ></textarea>
                         </div>
-                        <div class="form_group">
+                        <div className="form_group">
                           <p>Screenshot or videos (optional)</p>
-                          <div class="add-idea">
-                            <div class="wrapper">
+                          <div className="add-idea">
+                            <div className="wrapper">
                               <img
                                 src="app/images/addIconsImg.png"
                                 alt="Genaiguru addIconsImg"
                                 title="Genaiguru addIconsImg"
                               />
-                              <input type="file" />
+                              <input type="file" onChange={handleImageChange} />
                             </div>
                           </div>
                         </div>
-                        <div class="form_group">
+                        <div className="form_group">
                           <button
                             type="submit"
-                            class="loginBtn"
+                            className="loginBtn"
                             onClick={handleSubmit}
                           >
                             Submit
@@ -527,7 +553,7 @@ const Settings = () => {
                       activeTab === 6 && "tab-content tab-content-6 active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-6"> */}
+                    {/* <div className="tab-content tab-content-6"> */}
                     <h5>Q&A</h5>
                   </div>
                 )}
@@ -538,18 +564,18 @@ const Settings = () => {
                       activeTab === 4 && "tab-content tab-content-4 active"
                     }
                   >
-                    {/* <div class="tab-content tab-content-7"> */}
-                    <div class="notification">
+                    {/* <div className="tab-content tab-content-7"> */}
+                    <div className="notification">
                       <form action="">
-                        <div class="notification flex space-between">
+                        <div className="notification flex space-between">
                           <label for="">Email notifications</label>
-                          <label class="onoffbtn">
+                          <label className="onoffbtn">
                             <input type="checkbox" />
                           </label>
                         </div>
-                        <div class="notification flex space-between">
+                        <div className="notification flex space-between">
                           <label for="">Push notifications</label>
-                          <label class="onoffbtn">
+                          <label className="onoffbtn">
                             <input type="checkbox" />
                           </label>
                         </div>
