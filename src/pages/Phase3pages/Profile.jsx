@@ -13,6 +13,15 @@ const Profile = () => {
   const [interestData, setInterestData] = useState([]);
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
   const [myInterests, setMyInterests] = useState();
+  const [userDetails, setUserDetails] = useState({
+    bio: "",
+    userName: "",
+    facebookLink: "",
+    twitterLink: "",
+    instagramLink: "",
+    youtubeLink: "",
+    linkedinLink: "",
+  });
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -28,7 +37,17 @@ const Profile = () => {
         },
       })
       .then((response) => {
+        console.log(response.data);
         setProfileImage(response.data.profile_image);
+        setUserDetails({
+          userName: response?.data?.name,
+          bio: response?.data?.bio,
+          facebookLink: response?.data?.facebook,
+          youtubeLink: response?.data?.youtube,
+          twitterLink: response?.data?.twitter,
+          instagramLink: response?.data?.instagram,
+          linkedinLink: response?.data?.linkedin,
+        });
       })
       .catch((err) => {
         console.log(err.message);
@@ -45,7 +64,6 @@ const Profile = () => {
       })
       .then((response) => {
         setInterestData(response.data.data);
-        console.log(interestData);
       })
       .catch((err) => {
         console.log(err.message);
@@ -66,14 +84,16 @@ const Profile = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  },[]);
+  }, []);
 
-  const uniqueInterests = [...new Set(myInterests?.map(data => data.interest_name))];
+  const uniqueInterests = [
+    ...new Set(myInterests?.map((data) => data.interest_name)),
+  ];
 
   // Changing my Interesrts
   const onChangeInterest = (e) => {
     e.preventDefault();
-    fetch(`${getBaseURL()}/myinterests`, {
+    fetch(`${getBaseURL()}/update-user-interests`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -130,11 +150,8 @@ const Profile = () => {
                     title="Genaiguru user-icon"
                   />
                 </figure>
-                <h3>Esther Howard</h3>
-                <p>
-                  Philosophy student|| Content writer|| Avid Writer||
-                  Storyteller|| Technical Writer|| Tech Trends ||
-                </p>
+                <h3>{userDetails.userName}</h3>
+                <p>{userDetails.bio}</p>
                 <div className="followers">
                   <ul className="flex space-between">
                     <li>
@@ -237,7 +254,7 @@ const Profile = () => {
                         </h4>
                         <ul>
                           <li>
-                            <a href="#">
+                            <a href={userDetails.twitterLink} target="_blank">
                               <figure>
                                 <img
                                   src="/app/images/twitter.png"
@@ -249,7 +266,7 @@ const Profile = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={userDetails.facebookLink} target="_blank">
                               <figure>
                                 <img
                                   src="/app/images/facebookIcon.png"
@@ -261,7 +278,7 @@ const Profile = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={userDetails.youtubeLink} target="_blank">
                               <figure>
                                 <img
                                   src="/app/images/youtubeIcon.png"
@@ -273,7 +290,7 @@ const Profile = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={userDetails.linkedinLink} target="_blank">
                               <figure>
                                 <img
                                   src="/app/images/linkdin-icon.png"
@@ -285,7 +302,7 @@ const Profile = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a href={userDetails.instagramLink} target="_blank">
                               <figure>
                                 <img
                                   src="/app/images/insta-icon.png"
