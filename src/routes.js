@@ -43,11 +43,11 @@ export const PATH_LOGIN_POPUP = "/loginpopup";
 export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
 export const PATH_OTP_SCREEN = "/otpscreen";
 
-
 // Private Routes
 export const PATH_PROFILE = "/profile";
 export const PATH_SPEAK_TO_TEXT = "/speaktotext";
 export const PATH_EDIT_PROFILE = "/editprofile";
+export const PATH_SOCIAL_EDIT_PROFILE = "/socialeditprofile";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -111,8 +111,8 @@ export function RouterElement() {
     },
 
     {
-      path: "phasepage3",
-      name: "phasepage3",
+      path: PATH_SOCIAL_EDIT_PROFILE,
+      name: "PATH_SOCIAL_EDIT_PROFILE",
       element: <SocialProfileEdit />,
       exact: true,
     },
