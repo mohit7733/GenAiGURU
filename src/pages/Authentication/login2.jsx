@@ -33,7 +33,7 @@ const Login2 = () => {
           JSON.stringify(response.data.accessToken)
         );
         localStorage.setItem("UserId", JSON.stringify(response.data.data?.id));
-        if (response.status === 200) {
+        if (response.status === 201) {
           navigate(`${PATH_GOTOMAIL}`);
         }
       })
