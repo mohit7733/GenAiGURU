@@ -4,14 +4,18 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { PATH_EDIT_PROFILE } from "../../routes";
+import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
   const [profileImage, setProfileImage] = useState();
+  const [interestData, setInterestData] = useState([]);
+  const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
+  const [myInterests, setMyInterests] = useState();
 
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   const navigate = useNavigate();
 
@@ -24,13 +28,81 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setProfileImage(response.data.profile_image);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
+  // GET ALL-INTERESTS API------------
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/interests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setInterestData(response.data.data);
+        console.log(interestData);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  // GET SELECTED INTEREST API+++++++++++++++++
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/userinterests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setMyInterests(response?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  },[]);
+
+  const uniqueInterests = [...new Set(myInterests?.map(data => data.interest_name))];
+
+  // Changing my Interesrts
+  const onChangeInterest = (e) => {
+    e.preventDefault();
+    fetch(`${getBaseURL()}/myinterests`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        interest_id: selectedInterestIndex,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          setDisplayInterestPopup(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const addInterestIndex = (index) => {
+    const indexExists = selectedInterestIndex.includes(index);
+
+    setSelectedInterestIndex((prevIndices) =>
+      indexExists
+        ? prevIndices.filter((prevIndex) => prevIndex !== index)
+        : [...prevIndices, index]
+    );
+  };
 
   // Function to handle tab click-------
   const handleTabClick = (tabNumber) => {
@@ -133,13 +205,13 @@ const Profile = () => {
                     <div className="intrest-area">
                       <h5>My Interests</h5>
                       <ul className="flex link-button">
-                        <li>
-                          <a href="#">GPT</a>
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="#">Large language models</a>{" "}
-                        </li>
+                        {uniqueInterests?.map((data, index) => {
+                          return (
+                            <li>
+                              <a>{data}</a>
+                            </li>
+                          );
+                        })}
                         <li>
                           <Link
                             onClick={() => {
@@ -154,7 +226,7 @@ const Profile = () => {
                       <div className="social-link">
                         <h4>
                           My social link{" "}
-                          <Link to={"/phasepage3"}>
+                          <Link to={PATH_SOCIAL_EDIT_PROFILE}>
                             <img
                               src="/app/images/edit-icon.png"
                               alt="Genaiguru edit-icon"
@@ -972,8 +1044,8 @@ const Profile = () => {
             <div className="profile-img">
               <figure>
                 <img
-                    src={profileImage}
-                    alt="Genaiguru user-icon"
+                  src={profileImage}
+                  alt="Genaiguru user-icon"
                   title="Genaiguru user-icon"
                 />
               </figure>
@@ -1859,129 +1931,33 @@ const Profile = () => {
                 </Link>
               </div>
               <div className="popupp-btn-box">
-                <form action="">
+                <form>
                   <div className="flex">
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Artificial intelligence"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Open AI"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Blockchain"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Topic 02"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Digital innovation"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Mid-journey"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Artificial intelligence"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="GPT"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Data science"
-                      />
-                    </div>
-                    <div className="button-container">
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Machine learning"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Large language models"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="NLP"
-                      />
-                    </div>
+                    {interestData.map((data, index) => {
+                      return (
+                        <div className="button-container">
+                          <input
+                            type="button"
+                            key={index}
+                            onClick={() => {
+                              addInterestIndex(data.id);
+                            }}
+                            style={
+                              selectedInterestIndex.includes(data.id)
+                                ? { backgroundColor: "purple" }
+                                : {}
+                            }
+                            value={data.interestName}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
-                  <button type="submit" className="loginBtn">
+                  <button
+                    type="submit"
+                    className="loginBtn"
+                    onClick={onChangeInterest}
+                  >
                     Add Now
                   </button>
                 </form>
