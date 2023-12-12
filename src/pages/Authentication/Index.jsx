@@ -13,6 +13,7 @@ import Popularvideos from "../../components/PopularVideos/Popularvideos";
 const Index = () => {
   const sliderRef = useRef();
   const token = JSON.parse(localStorage.getItem("token"));
+  
   var settings2 = {
     dots: false,
     infinite: true,
