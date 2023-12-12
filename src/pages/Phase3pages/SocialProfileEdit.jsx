@@ -83,7 +83,7 @@ const SocialProfileEdit = () => {
                       value={linksObj.twitter}
                       onChange={handleChangeLinks}
                       id=""
-                      placeholder="https://twitter.com/home"
+                      placeholder="Add your profile link here."
                     />
                     <a href="#">
                       <img
@@ -109,7 +109,7 @@ const SocialProfileEdit = () => {
                       name="facebook"
                       value={linksObj.facebook}
                       onChange={handleChangeLinks}
-                      placeholder="https://facebook.com/home"
+                      placeholder="Add your profile link here."
                     />
                     <a href="#">
                       <img
@@ -135,7 +135,7 @@ const SocialProfileEdit = () => {
                       name="youtube"
                       value={linksObj.youtube}
                       onChange={handleChangeLinks}
-                      placeholder="https://twitter.com/home"
+                      placeholder="Add your profile link here."
                     />
                     <a href="#">
                       <img
@@ -160,7 +160,7 @@ const SocialProfileEdit = () => {
                       type="url"
                       name=""
                       id=""
-                      placeholder="https://twitter.com/home"
+                      placeholder="Add your profile link here."
                     />
                     <a href="#">
                       <img
@@ -185,7 +185,7 @@ const SocialProfileEdit = () => {
                       type="url"
                       name=""
                       id=""
-                      placeholder="https://twitter.com/home"
+                      placeholder="Add your profile link here."
                     />
                     <a href="#">
                       <img
