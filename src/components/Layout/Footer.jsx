@@ -62,28 +62,6 @@ const Footer = () => {
               </a>
             </li>
           </ul>
-          <ul className="footerMenu flex">
-            <li>
-              <a href="#">Q&A Page</a>
-            </li>
-            <li>
-              <a href="#">Blog articles page</a>
-            </li>
-            <li>
-              <a href="#">Abc</a>
-            </li>
-          </ul>
-          <ul className="footerMenu flex">
-            <li>
-              <a href="#">About page</a>
-            </li>
-            <li>
-              <a href="#">Privacy policy page</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
         </div>
       </footer>
     </>

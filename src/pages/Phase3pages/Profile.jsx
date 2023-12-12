@@ -37,7 +37,7 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setProfileImage(response.data.profile_image);
         setUserDetails({
           userName: response?.data?.name,
@@ -80,15 +80,14 @@ const Profile = () => {
       })
       .then((response) => {
         setMyInterests(response?.data?.data);
+        // console.log(response?.data?.data);
+        const interestIds = response?.data?.data.map(item => item.interest_id);
+        setSelectedInterestIndex(interestIds);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-
-  const uniqueInterests = [
-    ...new Set(myInterests?.map((data) => data.interest_name)),
-  ];
 
   // Changing my Interesrts
   const onChangeInterest = (e) => {
@@ -106,6 +105,7 @@ const Profile = () => {
     })
       .then((res) => {
         if (res.status === 201) {
+          alert("Interests Changed Successfully");
           setDisplayInterestPopup(false);
         }
       })
@@ -116,7 +116,6 @@ const Profile = () => {
 
   const addInterestIndex = (index) => {
     const indexExists = selectedInterestIndex.includes(index);
-
     setSelectedInterestIndex((prevIndices) =>
       indexExists
         ? prevIndices.filter((prevIndex) => prevIndex !== index)
@@ -128,6 +127,8 @@ const Profile = () => {
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
+
+  console.log(selectedInterestIndex,"selected");
 
   return (
     <>
@@ -222,10 +223,10 @@ const Profile = () => {
                     <div className="intrest-area">
                       <h5>My Interests</h5>
                       <ul className="flex link-button">
-                        {uniqueInterests?.map((data, index) => {
+                        {myInterests?.map((data, index) => {
                           return (
                             <li>
-                              <a>{data}</a>
+                              <a>{data.interest_name}</a>
                             </li>
                           );
                         })}

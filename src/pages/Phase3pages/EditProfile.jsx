@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
@@ -14,7 +14,26 @@ const EditProfile = () => {
 
   const navigate = useNavigate();
 
+  const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setProfilePicture(response?.data?.profile_image);
+        setName(response?.data?.name);
+        setBio(response?.data?.bio);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
@@ -89,7 +108,7 @@ const EditProfile = () => {
                 <p>Profile image</p>
                 <figure>
                   <img
-                    src="/app/images/userIcon.png"
+                    src={profilePicture}
                     alt="Genaiguru user-icon"
                     title="Genaiguru user-icon"
                   />

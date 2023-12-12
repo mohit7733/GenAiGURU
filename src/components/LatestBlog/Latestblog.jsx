@@ -79,7 +79,7 @@ const Latestblog = () => {
                     <Link to="/blogdetails">
                       <figure>
                         <img
-                          src="app/images/blogImgOne.png"
+                          src={blog.photo}
                           alt="Genaiguru blog image"
                           title="Genaiguru blog image"
                         />
