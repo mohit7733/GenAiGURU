@@ -23,7 +23,7 @@ const Login2 = () => {
     fd.append("email", email);
     fd.append("password", password);
     fd.append("profile_image", profilePicture);
-    fd.append("title", title);
+    fd.append("type", title);
     axios
       .post(`${getBaseURL()}/auth/register`, fd)
       .then((response) => {
@@ -33,7 +33,7 @@ const Login2 = () => {
           JSON.stringify(response.data.accessToken)
         );
         localStorage.setItem("UserId", JSON.stringify(response.data.data?.id));
-        if (response.status === 201) {
+        if (response.status === 200) {
           navigate(`${PATH_GOTOMAIL}`);
         }
       })
