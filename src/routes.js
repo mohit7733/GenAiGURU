@@ -42,6 +42,7 @@ export const PATH_FORGOT_PASSWORD = "/forgotpassword";
 export const PATH_LOGIN_POPUP = "/loginpopup";
 export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
 export const PATH_OTP_SCREEN = "/otpscreen";
+export const PATH_BLOG_DETAILS = "/blogdetails";
 
 // Private Routes
 export const PATH_PROFILE = "/profile";
@@ -196,8 +197,8 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "blogdetails",
-      name: "blogdetails",
+      path: PATH_BLOG_DETAILS,
+      name: PATH_BLOG_DETAILS,
       element: <BlogDetails />,
       exact: true,
     },

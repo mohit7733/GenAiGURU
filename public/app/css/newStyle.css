@@ -665,3 +665,45 @@ header .userIcon img {
 	    width: 60%;
 	}
 }
+
+.blog-slider .wrap .layer {
+  background: rgba(0, 0, 0, 0.4);
+}
+.blog-slider .slick-arrow.slick-prev {
+  right: 55px;
+  left: auto;
+}
+.blog-slider .slick-arrow {
+  right: 20px;
+  top: -24px;
+}
+.blog-slider {
+  padding-top: 10px;
+}
+.video-slider .layer {
+  display: flex;
+  flex-direction: column;
+}
+.video-slider .layer .author-tag {
+  margin-top: auto;
+}
+.rightSection .profile-img-box form .url-box .social-box input::placeholder{
+color: #cfd6db;
+}
+.rightSection .profile-img-box form .url-box .social-box input::-ms-input-placeholder{
+color: #cfd6db;
+}
+.video-slider .layer h5 {
+  padding-top: 15px;
+}
+@media (max-width:1200px){
+.video-slider .layer h5 {
+    padding-top: 0px;
+}
+}
+.profileImgChange figure, .profileImgChange figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}

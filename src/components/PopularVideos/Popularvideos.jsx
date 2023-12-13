@@ -199,48 +199,47 @@ const Popularvideos = () => {
             >
               {popularVideos.map((video, index) => {
                 return (
-                  <div key={index}>
-                    <div className="wrap">
-                      <a href={video.youtube_link} target="_blank">
-                        <figure>
-                          <ReactPlayer
-                            url={video.youtube_link}
-                            width="100%"
-                            height="100%"
+                  <div className="wrap" key={index}>
+                    <a href={video.youtube_link} target="_blank">
+                      <figure>
+                        <ReactPlayer
+                          url={video.youtube_link}
+                          width="100%"
+                          height="100%"
+                        />
+                      </figure>
+                      <div className="layer">
+                        <div className="price flex">
+                          <img
+                            src="app/images/orangeStrike.png"
+                            alt="Genaiguru orangeStrike"
+                            title="Genaiguru orangeStrike"
                           />
-                        </figure>
-                        <div className="layer">
-                          <div className="price flex">
-                            <img
-                              src="app/images/orangeStrike.png"
-                              alt="Genaiguru orangeStrike"
-                              title="Genaiguru orangeStrike"
-                            />
-                            17
-                          </div>
-                          <h5>{video.title}</h5>
-                          <div className="author-tag flex">
-                            <div className="col_left">
-                              <div className="wrapper flex">
-                                {/* <figure>
+                          17
+                        </div>
+                        <h5>{video.title}</h5>
+                        <div className="author-tag flex">
+                          <div className="col_left">
+                            <div className="wrapper flex">
+                              {/* <figure>
                                     <img
                                       src="app/images/authorImg.png"
                                       alt="Genaiguru authorImg"
                                       title="Genaiguru authorImg"
                                     />
                                   </figure> */}
-                                {/* <div className="content">
+                              {/* <div className="content">
                                     <h6>Alex Smih</h6>
                                     <p>24 M view . 3 month ago</p>
                                   </div> */}
-                              </div>
-                              <ul className="flex">
-                                {video?.tags?.map((tag, index) => {
-                                  return <li>#{tag}</li>;
-                                })}
-                              </ul>
                             </div>
-                            {/* <div className="col_right flex">
+                            <ul className="flex">
+                              {video?.tags?.map((tag, index) => {
+                                return <li>#{tag}</li>;
+                              })}
+                            </ul>
+                          </div>
+                          {/* <div className="col_right flex">
                                 <img
                                   src="app/images/videoIcon.png"
                                   alt="Genaiguru videoIcon"
@@ -248,10 +247,9 @@ const Popularvideos = () => {
                                 />
                                 3:38
                               </div> */}
-                          </div>
                         </div>
-                      </a>
-                    </div>
+                      </div>
+                    </a>
                   </div>
                 );
               })}
@@ -265,338 +263,227 @@ const Popularvideos = () => {
               id="Slider-4"
               className="slider_test"
             >
-              <div>
-                <div class="wrap">
-                  <a href="#">
-                    <figure>
+              <div class="wrap">
+                <a href="#">
+                  <figure>
+                    <img
+                      src="app/images/videoImg.png"
+                      alt="Genaiguru video image"
+                      title="Genaiguru video image"
+                    />
+                  </figure>
+                  <div class="layer">
+                    <div class="price flex">
                       <img
-                        src="app/images/videoImg.png"
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
+                        src="app/images/orangeStrike.png"
+                        alt="Genaiguru orangeStrike"
+                        title="Genaiguru orangeStrike"
                       />
-                    </figure>
-                    <div class="layer">
-                      <div class="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
-                      <h5>
-                        It’s a catch-22 for young startups: How do you attract
-                        investors?{" "}
-                      </h5>
-                      <div class="author-tag flex">
-                        <div class="col_left">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div class="content">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
+                      17
+                    </div>
+                    <h5>
+                      It’s a catch-22 for young startups: How do you attract
+                      investors?{" "}
+                    </h5>
+                    <div class="author-tag flex">
+                      <div class="col_left">
+                        <div class="wrapper flex">
+                          <figure>
+                            <img
+                              src="app/images/authorImg.png"
+                              alt="Genaiguru authorImg"
+                              title="Genaiguru authorImg"
+                            />
+                          </figure>
+                          <div class="content">
+                            <h6>Alex Smih</h6>
+                            <p>24 M view . 3 month ago</p>
                           </div>
-                          <ul class="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul>
                         </div>
-                        <div class="col_right flex">
-                          <img
-                            src="app/images/videoIcon.png"
-                            alt="Genaiguru videoIcon"
-                            title="Genaiguru videoIcon"
-                          />
-                          3:38
-                        </div>
+                        <ul class="flex">
+                          <li>#finance</li>
+                          <li>#crypto</li>
+                          <li>#economy</li>
+                        </ul>
+                      </div>
+                      <div class="col_right flex">
+                        <img
+                          src="app/images/videoIcon.png"
+                          alt="Genaiguru videoIcon"
+                          title="Genaiguru videoIcon"
+                        />
+                        3:38
                       </div>
                     </div>
-                  </a>
-                </div>
-                <div class="wrap">
-                  <a href="#">
-                    <figure>
-                      <img
-                        src="app/images/videoImg.png"
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
-                      />
-                    </figure>
-                    <div class="layer">
-                      <div class="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
-                      <h5>
-                        It’s a catch-22 for young startups: How do you attract
-                        investors?{" "}
-                      </h5>
-                      <div class="author-tag flex">
-                        <div class="col_left">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div class="content">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul>
-                        </div>
-                        <div class="col_right flex">
-                          <img
-                            src="app/images/videoIcon.png"
-                            alt="Genaiguru videoIcon"
-                            title="Genaiguru videoIcon"
-                          />
-                          3:38
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="wrap">
-                  <a href="#">
-                    <figure>
-                      <img
-                        src="app/images/videoImg.png"
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
-                      />
-                    </figure>
-                    <div class="layer">
-                      <div class="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
-                      <h5>
-                        It’s a catch-22 for young startups: How do you attract
-                        investors?{" "}
-                      </h5>
-                      <div class="author-tag flex">
-                        <div class="col_left">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div class="content">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul>
-                        </div>
-                        <div class="col_right flex">
-                          <img
-                            src="app/images/videoIcon.png"
-                            alt="Genaiguru videoIcon"
-                            title="Genaiguru videoIcon"
-                          />
-                          3:38
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="wrap">
-                  <a href="#">
-                    <figure>
-                      <img
-                        src="app/images/videoImg.png"
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
-                      />
-                    </figure>
-                    <div class="layer">
-                      <div class="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
-                      <h5>
-                        It’s a catch-22 for young startups: How do you attract
-                        investors?{" "}
-                      </h5>
-                      <div class="author-tag flex">
-                        <div class="col_left">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div class="content">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul>
-                        </div>
-                        <div class="col_right flex">
-                          <img
-                            src="app/images/videoIcon.png"
-                            alt="Genaiguru videoIcon"
-                            title="Genaiguru videoIcon"
-                          />
-                          3:38
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="wrap">
-                  <a href="#">
-                    <figure>
-                      <img
-                        src="app/images/videoImg.png"
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
-                      />
-                    </figure>
-                    <div class="layer">
-                      <div class="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
-                      <h5>
-                        It’s a catch-22 for young startups: How do you attract
-                        investors?{" "}
-                      </h5>
-                      <div class="author-tag flex">
-                        <div class="col_left">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div class="content">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul>
-                        </div>
-                        <div class="col_right flex">
-                          <img
-                            src="app/images/videoIcon.png"
-                            alt="Genaiguru videoIcon"
-                            title="Genaiguru videoIcon"
-                          />
-                          3:38
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="wrap">
-                  <a href="#">
-                    <figure>
-                      <img
-                        src="app/images/videoImg.png"
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
-                      />
-                    </figure>
-                    <div class="layer">
-                      <div class="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
-                      <h5>
-                        It’s a catch-22 for young startups: How do you attract
-                        investors?{" "}
-                      </h5>
-                      <div class="author-tag flex">
-                        <div class="col_left">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div class="content">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul>
-                        </div>
-                        <div class="col_right flex">
-                          <img
-                            src="app/images/videoIcon.png"
-                            alt="Genaiguru videoIcon"
-                            title="Genaiguru videoIcon"
-                          />
-                          3:38
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+                  </div>
+                </a>
               </div>
+              <div class="wrap">
+                <a href="#">
+                  <figure>
+                    <img
+                      src="app/images/videoImg.png"
+                      alt="Genaiguru video image"
+                      title="Genaiguru video image"
+                    />
+                  </figure>
+                  <div class="layer">
+                    <div class="price flex">
+                      <img
+                        src="app/images/orangeStrike.png"
+                        alt="Genaiguru orangeStrike"
+                        title="Genaiguru orangeStrike"
+                      />
+                      17
+                    </div>
+                    <h5>
+                      It’s a catch-22 for young startups: How do you attract
+                      investors?{" "}
+                    </h5>
+                    <div class="author-tag flex">
+                      <div class="col_left">
+                        <div class="wrapper flex">
+                          <figure>
+                            <img
+                              src="app/images/authorImg.png"
+                              alt="Genaiguru authorImg"
+                              title="Genaiguru authorImg"
+                            />
+                          </figure>
+                          <div class="content">
+                            <h6>Alex Smih</h6>
+                            <p>24 M view . 3 month ago</p>
+                          </div>
+                        </div>
+                        <ul class="flex">
+                          <li>#finance</li>
+                          <li>#crypto</li>
+                          <li>#economy</li>
+                        </ul>
+                      </div>
+                      <div class="col_right flex">
+                        <img
+                          src="app/images/videoIcon.png"
+                          alt="Genaiguru videoIcon"
+                          title="Genaiguru videoIcon"
+                        />
+                        3:38
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="wrap">
+                <a href="#">
+                  <figure>
+                    <img
+                      src="app/images/videoImg.png"
+                      alt="Genaiguru video image"
+                      title="Genaiguru video image"
+                    />
+                  </figure>
+                  <div class="layer">
+                    <div class="price flex">
+                      <img
+                        src="app/images/orangeStrike.png"
+                        alt="Genaiguru orangeStrike"
+                        title="Genaiguru orangeStrike"
+                      />
+                      17
+                    </div>
+                    <h5>
+                      It’s a catch-22 for young startups: How do you attract
+                      investors?{" "}
+                    </h5>
+                    <div class="author-tag flex">
+                      <div class="col_left">
+                        <div class="wrapper flex">
+                          <figure>
+                            <img
+                              src="app/images/authorImg.png"
+                              alt="Genaiguru authorImg"
+                              title="Genaiguru authorImg"
+                            />
+                          </figure>
+                          <div class="content">
+                            <h6>Alex Smih</h6>
+                            <p>24 M view . 3 month ago</p>
+                          </div>
+                        </div>
+                        <ul class="flex">
+                          <li>#finance</li>
+                          <li>#crypto</li>
+                          <li>#economy</li>
+                        </ul>
+                      </div>
+                      <div class="col_right flex">
+                        <img
+                          src="app/images/videoIcon.png"
+                          alt="Genaiguru videoIcon"
+                          title="Genaiguru videoIcon"
+                        />
+                        3:38
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="wrap">
+                <a href="#">
+                  <figure>
+                    <img
+                      src="app/images/videoImg.png"
+                      alt="Genaiguru video image"
+                      title="Genaiguru video image"
+                    />
+                  </figure>
+                  <div class="layer">
+                    <div class="price flex">
+                      <img
+                        src="app/images/orangeStrike.png"
+                        alt="Genaiguru orangeStrike"
+                        title="Genaiguru orangeStrike"
+                      />
+                      17
+                    </div>
+                    <h5>
+                      It’s a catch-22 for young startups: How do you attract
+                      investors?{" "}
+                    </h5>
+                    <div class="author-tag flex">
+                      <div class="col_left">
+                        <div class="wrapper flex">
+                          <figure>
+                            <img
+                              src="app/images/authorImg.png"
+                              alt="Genaiguru authorImg"
+                              title="Genaiguru authorImg"
+                            />
+                          </figure>
+                          <div class="content">
+                            <h6>Alex Smih</h6>
+                            <p>24 M view . 3 month ago</p>
+                          </div>
+                        </div>
+                        <ul class="flex">
+                          <li>#finance</li>
+                          <li>#crypto</li>
+                          <li>#economy</li>
+                        </ul>
+                      </div>
+                      <div class="col_right flex">
+                        <img
+                          src="app/images/videoIcon.png"
+                          alt="Genaiguru videoIcon"
+                          title="Genaiguru videoIcon"
+                        />
+                        3:38
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+      
             </Slider>
           </div>
         )}
