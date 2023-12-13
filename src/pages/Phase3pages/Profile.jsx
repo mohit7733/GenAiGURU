@@ -147,8 +147,8 @@ const Profile = () => {
                 <figure>
                   <img
                     src={profileImage}
-                    alt="Genaiguru user-icon"
-                    title="Genaiguru user-icon"
+                    // alt="Genaiguru user-icon"
+                    // title="Genaiguru user-icon"
                   />
                 </figure>
                 <h3>{userDetails.userName}</h3>
