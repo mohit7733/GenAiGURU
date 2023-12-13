@@ -9,7 +9,7 @@ import { PATH_PROFILE } from "../../routes";
 const EditProfile = () => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState(null);
 
   const navigate = useNavigate();
@@ -46,6 +46,7 @@ const EditProfile = () => {
       }
     }
   };
+
   const handleCoverImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -89,27 +90,34 @@ const EditProfile = () => {
     <div>
       <MobileHeader />
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
-          <div class=" full-width">
+          <div className=" full-width">
             {/* <!-- edit-profile start here --> */}
-            <div class="profile-edit socialLinkEdit flex">
+            <div className="profile-edit socialLinkEdit flex">
               <p>
                 <a href="#">Profile</a>{" "}
-                <i class="fa fa-angle-right" aria-hidden="true"></i> Edit
+                <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
                 profile
               </p>
               <h1>Edit profile</h1>
             </div>
             {/* <!-- profile start here --> */}
-            <div class="profile-img-box">
-              <div class="profileImgChange">
+            <div className="profile-img-box">
+              <div className="profileImgChange">
                 <p>Profile image</p>
                 <figure>
-                  <img src={profilePicture} />
-                  <div class="imageChange">
-                    <figure class="cameraImg">
+                  <img
+                    src={
+                      typeof profilePicture == "object"
+                        ? URL.createObjectURL(profilePicture)
+                        : profilePicture
+                    }
+                  />
+                  {/* <img src={profilePicture} /> */}
+                  <div className="imageChange">
+                    <figure className="cameraImg">
                       <img
                         src="/app/images/camera-icon.png"
                         alt="Genaiguru camera-icon"
@@ -123,9 +131,9 @@ const EditProfile = () => {
               <p>
                 <a href="#">Cover image</a>
               </p>
-              <div class="cover-img-banner">
-                <div class="banner-txt">
-                  <div class="img-box cameraBgImg">
+              <div className="cover-img-banner">
+                <div className="banner-txt">
+                  <div className="img-box cameraBgImg">
                     <figure>
                       <img
                         src="/app/images/camera-icon.png"
@@ -140,7 +148,7 @@ const EditProfile = () => {
                 </div>
               </div>
               <form>
-                <div class="profile-edit">
+                <div className="profile-edit">
                   <label for="name">Your Name</label>
                   <input
                     type="text"
@@ -152,7 +160,7 @@ const EditProfile = () => {
                     }}
                   />
                 </div>
-                <div class="profile-edit">
+                <div className="profile-edit">
                   <label for="name">Bio</label>
                   <textarea
                     name="bio"
@@ -178,21 +186,21 @@ const EditProfile = () => {
       </section>
       {/* <!-- main section end here --> */}
       {/* <!-- profile edit mobile section start here --> */}
-      <div class="mob_profile hideDes">
-        <div class="mobileHead flex">
-          <div class="backBtns">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+      <div className="mob_profile hideDes">
+        <div className="mobileHead flex">
+          <div className="backBtns">
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
           </div>
           <h2>Edit profile</h2>
         </div>
-        <div class="innerProfileEdits rightSection">
-          <div class="profile-img-box">
+        <div className="innerProfileEdits rightSection">
+          <div className="profile-img-box">
             <p>
               <a href="#">Cover image</a>
             </p>
-            <div class="cover-img-banner">
-              <div class="banner-txt">
-                <div class="img-box cameraBgImg">
+            <div className="cover-img-banner">
+              <div className="banner-txt">
+                <div className="img-box cameraBgImg">
                   <figure>
                     <img
                       src="/app/images/camera-icon.png"
@@ -204,7 +212,7 @@ const EditProfile = () => {
                 </div>
               </div>
             </div>
-            <div class="profileImgChange">
+            <div className="profileImgChange">
               <p>Profile image</p>
               <figure>
                 <img
@@ -212,8 +220,8 @@ const EditProfile = () => {
                   alt="Genaiguru user-icon"
                   title="Genaiguru user-icon"
                 />
-                <div class="imageChange">
-                  <figure class="cameraImg">
+                <div className="imageChange">
+                  <figure className="cameraImg">
                     <img
                       src="/app/images/camera-icon.png"
                       alt="Genaiguru camera-icon"
@@ -225,11 +233,11 @@ const EditProfile = () => {
               </figure>
             </div>
             <form action="">
-              <div class="profile-edit">
+              <div className="profile-edit">
                 <label for="name">Your Name</label>
                 <input type="text" placeholder="Prosing kingdom" />
               </div>
-              <div class="profile-edit">
+              <div className="profile-edit">
                 <label for="name">Bio</label>
                 <textarea
                   name=""

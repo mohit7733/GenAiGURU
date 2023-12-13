@@ -72,6 +72,10 @@ const Profile = () => {
 
   // GET SELECTED INTEREST API+++++++++++++++++
   useEffect(() => {
+    getMyInterest();
+  }, []);
+
+  const getMyInterest = () => {
     axios
       .get(`${getBaseURL()}/auth/userinterests`, {
         headers: {
@@ -89,7 +93,7 @@ const Profile = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  };
 
   // Changing my Interesrts
   const onChangeInterest = (e) => {
@@ -109,6 +113,7 @@ const Profile = () => {
         if (res.status === 201) {
           alert("Interests Changed Successfully");
           setDisplayInterestPopup(false);
+          getMyInterest();
         }
       })
       .catch((err) => {
@@ -130,8 +135,6 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
 
-  console.log(selectedInterestIndex, "selected");
-
   return (
     <>
       <MobileHeader />
@@ -149,8 +152,8 @@ const Profile = () => {
                 <figure>
                   <img
                     src={profileImage}
-                    alt="Genaiguru user-icon"
-                    title="Genaiguru user-icon"
+                    // alt="Genaiguru user-icon"
+                    // title="Genaiguru user-icon"
                   />
                 </figure>
                 <h3>{userDetails.userName}</h3>

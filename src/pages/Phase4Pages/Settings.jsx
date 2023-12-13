@@ -7,14 +7,13 @@ import axios from "axios";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [feedback, setFeedback] = useState([]);
-  const userId = JSON.parse(localStorage.getItem("UserId"));
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   //  validation code hear
   const handleSubmit = (event) => {
@@ -22,6 +21,8 @@ const Settings = () => {
     const errors = validate();
     setErrors(errors);
   };
+
+  
   const onSubmit = (event) => {
     event.preventDefault();
     const errors = validate1();
@@ -30,7 +31,6 @@ const Settings = () => {
     fd.append("user_id", userId);
     fd.append("comment", idea);
     fd.append("media", selectedFile);
-
     axios
       .post(`${getBaseURL()}/send-feedback`, fd)
       .then((response) => {
@@ -548,7 +548,7 @@ const Settings = () => {
                           <label for="">Describe your issue or idea</label>
                           <textarea
                             name="feedback"
-                            // value={idea}
+                            value={idea}
                             id=""
                             cols="30"
                             rows="5"
