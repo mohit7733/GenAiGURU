@@ -131,11 +131,11 @@ const Header = () => {
 
             {userLoggedIn ? (
               <Link>
-                <img src={profileImage} alt=" " title="Profile Image" />
+                <img src={profileImage} alt=" " />
               </Link>
             ) : (
-              <Link to={"/login"}>
-                <img src={userimageIcon} alt=" " title="Genaiguru user image" />
+              <Link>
+                <img src={userimageIcon} alt=" " />
               </Link>
             )}
 

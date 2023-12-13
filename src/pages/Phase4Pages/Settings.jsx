@@ -8,12 +8,13 @@ import axios from "axios";
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [feedback, setFeedback] = useState([]);
-  const [screenshot, setScreenshot] = useState(null);
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  
 
   //  validation code hear
   const handleSubmit = (event) => {
@@ -28,7 +29,7 @@ const Settings = () => {
     let fd = new FormData();
     fd.append("user_id", userId);
     fd.append("comment", idea);
-    fd.append("media", screenshot);
+    fd.append("media", selectedFile);
 
     axios
       .post(`${getBaseURL()}/send-feedback`, fd)
@@ -110,24 +111,43 @@ const Settings = () => {
     }
     return error;
   };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      // Validate the file type
-      const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
-      if (allowedImageTypes.includes(file.type)) {
-        // Valid image file
-        setScreenshot(file);
-      } else {
-        // Invalid file type
-        alert("Please select a valid image file (JPEG, PNG, GIF).");
-        // Optionally, you can clear the input or do other error handling
-      }
-    }
+  const FileInput = ({ onFileChange }) => {
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+      onFileChange(file);
+    };
+    return (
+      <input type="file" accept="image/*,video/*" onChange={handleFileChange} />
+    );
   };
+  const Preview = ({ file }) => {
+    if (!file) return null;
+    const isImage = file.type.startsWith("image/");
+    const isVideo = file.type.startsWith("video/");
+    if (isImage) {
+      return (
+        <img
+          width="100"
+          height="100"
+          src={URL.createObjectURL(file)}
+          alt="Preview"
+        />
+      );
+    } else if (isVideo) {
+      return (
+        <video width="100" height="100">
+          <source src={URL.createObjectURL(file)} type={file.type} />
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
 
+    return null;
+  };
+  const handleFileChange = (file) => {
+    setSelectedFile(file);
+  };
+  
   return (
     <div>
       <MobileHeader />
@@ -347,7 +367,7 @@ const Settings = () => {
                     {/* <div className="tab-content tab-content-2 passChangeTab"> */}
                     {/* <!-- password --> */}
                     <h5>Change password</h5>
-                    <form action="" onClick={handleSubmit}>
+                    <form action="">
                       <div className="password-box">
                         <label for="">Old password</label>
                         <input
@@ -377,7 +397,11 @@ const Settings = () => {
                         )}
                       </div>
                       <div className="form_group">
-                        <button type="submit" className="loginBtn">
+                        <button
+                          type="submit"
+                          className="loginBtn"
+                          onClick={handleSubmit}
+                        >
                           Save to Change
                         </button>
                       </div>
@@ -515,8 +539,8 @@ const Settings = () => {
                       <div className="problem-container">
                         <h3>Send us some feedback!</h3>
                         <p>
-                          Do you have a suggestion or found some bug? let us
-                          know in the bellow.
+                          Do you have a suggestion or found some bug? Let us
+                          know in the below.
                         </p>
                       </div>
                       <form action="" onSubmit={onSubmit}>
@@ -545,16 +569,13 @@ const Settings = () => {
                                 alt="Genaiguru addIconsImg"
                                 title="Genaiguru addIconsImg"
                               />
-                              <input type="file" onChange={handleImageChange} />
+                              <FileInput onFileChange={handleFileChange} />
+                              <Preview file={selectedFile} />
                             </div>
                           </div>
                         </div>
                         <div className="form_group">
-                          <button
-                            type="submit"
-                            className="loginBtn"
-                            // onSubmit={onSubmit}
-                          >
+                          <button type="submit" className="loginBtn">
                             Submit
                           </button>
                         </div>
