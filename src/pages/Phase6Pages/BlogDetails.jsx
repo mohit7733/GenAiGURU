@@ -12,6 +12,7 @@ const BlogDetails = () => {
     content: "",
     title: "",
     banner_image: "",
+    creation_date: "",
   });
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -35,6 +36,7 @@ const BlogDetails = () => {
           content: response?.data?.blog_details?.content,
           title: response?.data?.blog_details?.title,
           banner_image: response?.data?.blog_details?.banner_image,
+          creation_date: response?.data?.blog_details?.creation_date,
         });
         console.log(response?.data?.blog_details);
       })
@@ -99,7 +101,7 @@ const BlogDetails = () => {
                     <p>
                       By <a href="#">{blogDetail.author}</a>
                     </p>
-                    <p>Sep 15, 2023. 11:05 pm</p>
+                    <p>{blogDetail.creation_date}</p>
                   </div>
                   <div className="blog-img">
                     <figure>

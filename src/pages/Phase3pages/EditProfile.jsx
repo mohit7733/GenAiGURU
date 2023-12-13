@@ -107,11 +107,7 @@ const EditProfile = () => {
               <div class="profileImgChange">
                 <p>Profile image</p>
                 <figure>
-                  <img
-                    src={profilePicture}
-                    alt="Genaiguru user-icon"
-                    title="Genaiguru user-icon"
-                  />
+                  <img src={profilePicture} />
                   <div class="imageChange">
                     <figure class="cameraImg">
                       <img

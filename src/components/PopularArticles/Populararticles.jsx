@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
+import { PATH_FEATURED_CONTENT } from "../../routes";
 
 const Populararticles = () => {
   const sliderRef = useRef();
@@ -63,7 +64,7 @@ const Populararticles = () => {
       <div className="video-section second">
         <div className="heading-link flex">
           <h3>Popular articles</h3>
-          <Link to="/featuredcontent">View all</Link>
+          <Link to={PATH_FEATURED_CONTENT}>View all</Link>
         </div>
         <div className="article-slider">
           <Slider
