@@ -34,7 +34,7 @@ const Latestblog = () => {
     dots: false,
     infinite: false,
     slidesToShow: 3,
-    arrows: false,
+    arrows: true,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,

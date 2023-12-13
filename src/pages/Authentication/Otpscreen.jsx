@@ -1,15 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { getBaseURL } from "../../api/config";
-import { BASE_PATH, PATH_SIGNIN } from "../../routes";
+import { BASE_PATH, PATH_CREATE_NEW_PASSWORD, PATH_SIGNIN } from "../../routes";
 import CreacteNewPassword from "./CreacteNewPassword";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Otpscreen = ({ email }) => {
+const Otpscreen = () => {
   const [otp, setOtp] = useState("");
   const [verifyToken, setVerifyToken] = useState("");
   const [showNewPasswordScreen, setShowNewPasswordScreen] = useState(false);
+
+  const navigate = useNavigate();
+  let location = useLocation();
+  const email = location.state.email;
 
   const onResendOtp = () => {
     axios
@@ -18,8 +22,12 @@ const Otpscreen = ({ email }) => {
       })
       .then((res) => {
         console.log(res);
-        // window.alert(res.data.message);
         toast.success(res.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      })
+      .catch((error) => {
+        toast.success(error.data.message, {
           position: toast.POSITION.TOP_CENTER,
         });
       });
@@ -35,76 +43,81 @@ const Otpscreen = ({ email }) => {
         console.log(res);
         if (res.status === 200) {
           setVerifyToken(res.data.verify_token);
-          setShowNewPasswordScreen(true);
+          navigate(`${PATH_CREATE_NEW_PASSWORD}`, {
+            state: {
+              email: email,
+              verifyToken: verifyToken,
+            },
+          });
         }
+      })
+      .catch((error) => {
+        toast.success(error.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
 
   return (
     <>
-      {showNewPasswordScreen ? (
-        <CreacteNewPassword email={email} verifyToken={verifyToken} />
-      ) : (
-        <section className="Otp_Wrapper createAccount mainBg">
-          <figure className="headerLogo">
-            <Link to="BASE_PATH">
-              <img
-                src="app/images/headerLogo.png"
-                alt="Genaiguru header logo"
-                title="Genaiguru"
+      <section className="Otp_Wrapper createAccount mainBg">
+        <figure className="headerLogo">
+          <Link>
+            <img
+              src="app/images/headerLogo.png"
+              alt="Genaiguru header logo"
+              title="Genaiguru"
+            />
+          </Link>
+        </figure>
+        <div className="wrapper400">
+          <div className="backBtn">
+            <a href={PATH_SIGNIN}>
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+            Back
+          </div>
+          <h1>
+            <span>Enter OTP</span>Otp is sent to your registered EmailID
+          </h1>
+          <div className="accountCreate">
+            <div className="form_group flex">
+              <label htmlFor="otp">Enter OTP here</label>
+              <input
+                type="text"
+                name="number"
+                value={otp}
+                placeholder=""
+                onChange={(e) => {
+                  const enteredValue = e.target.value;
+                  if (/^[0-9]*$/.test(enteredValue)) {
+                    setOtp(enteredValue);
+                  }
+                }}
+                className="otp_field"
+                onWheel={(e) => e.target.blur()}
               />
-            </Link>
-          </figure>
-          <div className="wrapper400">
-            <div className="backBtn">
-              <a href={PATH_SIGNIN}>
-                <i className="fa fa-angle-left" aria-hidden="true"></i>
-              </a>
-              Back
+              <label htmlFor="email" onClick={onResendOtp}>
+                Resend OTP
+              </label>
             </div>
-            <h1>
-              <span>Enter OTP</span>Otp is sent to your registered EmailID
-            </h1>
-            <div className="accountCreate">
-              <div className="form_group flex">
-                <label htmlFor="otp">Enter OTP here</label>
-                <input
-                  type="text"
-                  name="number"
-                  value={otp}
-                  placeholder=""
-                  onChange={(e) => {
-                    const enteredValue = e.target.value;
-                    if (/^[0-9]*$/.test(enteredValue)) {
-                      setOtp(enteredValue);
-                    }
-                  }}
-                  className="otp_field"
-                  onWheel={(e) => e.target.blur()}
-                />
-                <label htmlFor="email" onClick={onResendOtp}>
-                  Resend OTP
-                </label>
-              </div>
-              <div className="form_group">
-                <button className="loginBtn" onClick={onSendOTP}>
-                  Submit
-                </button>
-                <ToastContainer autoClose={1000} />
-              </div>
-            </div>
-            <p className="termsText">
-              By continuing, you agree to our{" "}
-              <a href="#">Terms and conditions</a> and{" "}
-              <a href="#">Privacy Policy.</a>
-            </p>
-            <div className="starsImg">
-              <img src="app/images/star.png" alt="Genaiguru stars" />
-              <img src="app/images/star2.png" alt="Genaiguru stars" />
+            <div className="form_group">
+              <button className="loginBtn" onClick={onSendOTP}>
+                Submit
+              </button>
+              <ToastContainer autoClose={1000} />
             </div>
           </div>
-        </section>
-      )}
+          <p className="termsText">
+            By continuing, you agree to our <a href="#">Terms and conditions</a>{" "}
+            and <a href="#">Privacy Policy.</a>
+          </p>
+          <div className="starsImg">
+            <img src="app/images/star.png" alt="Genaiguru stars" />
+            <img src="app/images/star2.png" alt="Genaiguru stars" />
+          </div>
+        </div>
+      </section>
     </>
   );
 };

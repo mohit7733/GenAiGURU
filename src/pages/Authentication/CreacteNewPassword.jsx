@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { PATH_LOGIN } from "../../routes";
+import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
-const CreacteNewPassword = ({ email, verifyToken }) => {
+import { useLocation, useNavigate } from "react-router-dom";
+
+const CreacteNewPassword = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
+  let location = useLocation();
+  const email = location.state.email;
+  const verifyToken = location.state.verifyToken;
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -27,6 +32,11 @@ const CreacteNewPassword = ({ email, verifyToken }) => {
         if (res.status === 200) {
           navigate(`${PATH_LOGIN}`);
         }
+      })
+      .catch((error) => {
+        toast.success(error.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
 
@@ -73,7 +83,7 @@ const CreacteNewPassword = ({ email, verifyToken }) => {
       <section className="create_password createAccount mainBg">
         <div className="wrapper400">
           <div className="backBtn">
-            <a href={PATH_LOGIN}>
+            <a href={PATH_FORGOT_PASSWORD}>
               <i className="fa fa-angle-left" aria-hidden="true"></i>
             </a>
             Back
@@ -108,6 +118,7 @@ const CreacteNewPassword = ({ email, verifyToken }) => {
             </div>
             <div className="form_group">
               <button className="loginBtn">Submit</button>
+              <ToastContainer autoClose={1000} />
             </div>
           </form>
           <p className="termsText">
