@@ -12,13 +12,22 @@ const Settings = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
 
+  //  validation code hear
   const handleSubmit = (event) => {
     event.preventDefault();
+    const errors = validate();
+    setErrors(errors);
+  };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const errors = validate1();
+    setErrors(errors);
     let fd = new FormData();
     fd.append("user_id", userId);
-    fd.append("comment", feedback);
+    fd.append("comment", idea);
     fd.append("media", screenshot);
 
     axios
@@ -43,12 +52,6 @@ const Settings = () => {
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const errors = validate();
-    setErrors(errors);
   };
 
   const onchangeCheck = (key, value) => {
@@ -76,7 +79,7 @@ const Settings = () => {
     } else if (!password.match(SpecialCharacter)) {
       error["password"] = "Password Should Contains Special Character also !";
     } else if (password.length < 8) {
-      error["password"] = "Password length Should be more than 8 !";
+      error["password"] = "Password length Should be more than 8.";
     } else {
       error["password"] = "";
     }
@@ -92,9 +95,18 @@ const Settings = () => {
       error["confirmPassword"] =
         "Password Should Contains Special Character also !";
     } else if (confirmPassword.length < 8) {
-      error["confirmPassword"] = "Password length Should be more than 8 !";
+      error["confirmPassword"] = "Password length Should be more than 8.";
     } else {
       error["confirmPassword"] = "";
+    }
+    return error;
+  };
+  const validate1 = () => {
+    const error = {};
+    if (!idea) {
+      error["idea"] = "Feedback Required!";
+    } else {
+      error["idea"] = "";
     }
     return error;
   };
@@ -335,7 +347,7 @@ const Settings = () => {
                     {/* <div className="tab-content tab-content-2 passChangeTab"> */}
                     {/* <!-- password --> */}
                     <h5>Change password</h5>
-                    <form action="" onSubmit={onSubmit}>
+                    <form action="" onClick={handleSubmit}>
                       <div className="password-box">
                         <label for="">Old password</label>
                         <input
@@ -507,18 +519,22 @@ const Settings = () => {
                           know in the bellow.
                         </p>
                       </div>
-                      <form action="">
+                      <form action="" onSubmit={onSubmit}>
                         <div className="form_group">
                           <label for="">Describe your issue or idea</label>
                           <textarea
                             name="feedback"
-                            value={feedback}
+                            // value={idea}
                             id=""
                             cols="30"
                             rows="5"
                             placeholder="Type here"
-                            onChange={(e) => setFeedback(e.target.value)}
+                            onChange={(e) => setIdea(e.target.value)}
+                            onKeyUp={onchangeCheck}
                           ></textarea>
+                          {errors["idea"] && (
+                            <div className="error">{errors.idea}</div>
+                          )}
                         </div>
                         <div className="form_group">
                           <p>Screenshot or videos (optional)</p>
@@ -537,7 +553,7 @@ const Settings = () => {
                           <button
                             type="submit"
                             className="loginBtn"
-                            onClick={handleSubmit}
+                            // onSubmit={onSubmit}
                           >
                             Submit
                           </button>
