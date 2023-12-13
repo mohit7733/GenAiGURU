@@ -650,3 +650,18 @@ header .userIcon img {
 .article-slider .wrap a, .video-slider .wrap a{
 	width: 100%;
 }
+.article-slider figure iframe, .video-slider figure iframe{
+	border-radius: 12px;
+}
+.edit-profile .intrest-area .link-button li {
+    margin-bottom: 10px;
+}
+@media (max-width:767px){
+	.fixedBtn {
+	    width: 50px;
+	    height: 50px;
+	}
+	.fixedBtn figure img {
+	    width: 60%;
+	}
+}
