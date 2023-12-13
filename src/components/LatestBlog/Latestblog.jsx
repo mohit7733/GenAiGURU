@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { PATH_BLOG_DETAILS } from "../../routes";
+import { PATH_BLOG_DETAILS, PATH_FEATURED_CONTENT } from "../../routes";
 
 const Latestblog = () => {
   const sliderRef = useRef();
@@ -69,7 +69,7 @@ const Latestblog = () => {
       <div className="blog-wrap">
         <div className="heading-link flex">
           <h1>Latest blog</h1>
-          <Link to="/BlogDetails">View all</Link>
+          <Link to={PATH_FEATURED_CONTENT}>View all</Link>
         </div>
         <div className="blog-slider ">
           <Slider

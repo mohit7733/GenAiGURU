@@ -7,6 +7,7 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
+import { PATH_FEATURED_CONTENT } from "../../routes";
 
 const Popularvideos = () => {
   const sliderRef = useRef();
@@ -185,7 +186,7 @@ const Popularvideos = () => {
               <p className="tags">#finance #crypto #economy</p>
             </div>
           </div>
-          <a href="#" className="viewAll">
+          <a href={PATH_FEATURED_CONTENT} className="viewAll">
             View all
           </a>
         </div>

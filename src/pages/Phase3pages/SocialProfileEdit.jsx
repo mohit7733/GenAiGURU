@@ -86,8 +86,8 @@ const SocialProfileEdit = () => {
             <div className="profile-edit socialLinkEdit flex">
               <p>
                 <Link to="/phasepage1">Profile</Link>{" "}
-                <i className="fa fa-angle-right" aria-hidden="true"></i> Edit social
-                profile
+                <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
+                social profile
               </p>
               <h1>Edit social profile</h1>
             </div>
@@ -112,7 +112,7 @@ const SocialProfileEdit = () => {
                       id=""
                       placeholder="Add your profile link here."
                     />
-                    <a href="#">
+                    <a onClick={() => setLinksObj({ twitter: "" })}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -138,7 +138,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a href="#">
+                    <a onClick={() => setLinksObj({ facebook: "" })}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -164,7 +164,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a href="#">
+                    <a onClick={() => setLinksObj({ youtube: "" })}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"

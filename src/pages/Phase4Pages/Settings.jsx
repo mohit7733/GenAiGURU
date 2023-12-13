@@ -35,8 +35,8 @@ const Settings = () => {
       .post(`${getBaseURL()}/send-feedback`, fd)
       .then((response) => {
         if (response.status === 200) {
-          alert("FeedBack Sent Successfully");
-          setFeedback("");
+          alert("Feedback Sent Successfully");
+          setIdea("");
         }
       })
       .catch((error) => {

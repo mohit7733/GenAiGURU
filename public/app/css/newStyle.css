@@ -5,19 +5,16 @@
   color: #fff;
   font-size: 16px;
   border-radius: 10px;
-
 }
 
 .custom-toast-container {
-    width: 300px;
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-  
+  width: 300px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
 }
-
 
 /* Updated CSS for login Popup and background Akshay*/
 .popup-background {
@@ -283,16 +280,14 @@ section.login_popup .wrapper400 {
   margin: 20px auto 0;
 }
 
-.loginOption figure.headerLogo{
-	position: relative;
-    z-index: 9;
+.loginOption figure.headerLogo {
+  position: relative;
+  z-index: 9;
 }
-.loginOption figure.headerLogo a{
-	background: #26353d;
-    padding-right: 20px;
+.loginOption figure.headerLogo a {
+  background: #26353d;
+  padding-right: 20px;
 }
-
-
 
 @media (max-width: 1080px) {
   .rightSection .setting-wrapper .setting-container {
@@ -471,13 +466,13 @@ section.login_popup .wrapper400 {
   }
 }
 /* new css @D */
-.mainBg figure.headerLogo{
-	position: relative;
-    z-index: 9;
+.mainBg figure.headerLogo {
+  position: relative;
+  z-index: 9;
 }
-.mainBg figure.headerLogo a{
-	background: #26353d;
-    padding-right: 20px;
+.mainBg figure.headerLogo a {
+  background: #26353d;
+  padding-right: 20px;
 }
 .accountCreate input.otp_field {
   -webkit-appearance: none;
@@ -485,12 +480,12 @@ section.login_popup .wrapper400 {
   appearance: none;
   margin: 0;
 }
-.new_login_popup{
-  background-color: rgba(19,31,44,.9);
+.new_login_popup {
+  background-color: rgba(19, 31, 44, 0.9);
   backdrop-filter: blur(3.89px);
 }
 .new_login_popup .popup {
-  background-color: rgba(187,191,198,.5);
+  background-color: rgba(187, 191, 198, 0.5);
   padding: 70px 50px 40px;
   max-width: 500px;
   border-radius: 32px;
@@ -498,14 +493,15 @@ section.login_popup .wrapper400 {
 .new_login_popup.loginOption p {
   margin: 20px 0;
 }
-.new_login_popup.loginOption li{
+.new_login_popup.loginOption li {
   margin-left: 0 !important;
 }
 .new_login_popup.loginOption li .kep-login-facebook.metro,
 .new_login_popup.loginOption li:first-child a {
-  background: linear-gradient(0deg, #243343, #243343),  linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+  background: linear-gradient(0deg, #243343, #243343),
+    linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
 }
-.new_login_popup.loginOption .alreadyAccount a{
+.new_login_popup.loginOption .alreadyAccount a {
   background: none;
   box-shadow: none;
   border: none;
@@ -514,156 +510,156 @@ section.login_popup .wrapper400 {
   color: #3316ff;
   width: auto;
 }
-.new_login_popup.loginOption .alreadyAccount a:hover{
+.new_login_popup.loginOption .alreadyAccount a:hover {
   color: #be41c0;
 }
 .new_login_popup .cross-icon {
   top: 30px;
   right: 30px;
 }
-.new_login_popup.loginOption .alreadyAccount{
+.new_login_popup.loginOption .alreadyAccount {
   display: flex;
   justify-content: center;
 }
-.new_login_popup .cross-icon{
-	cursor: pointer;
+.new_login_popup .cross-icon {
+  cursor: pointer;
 }
-.new_login_popup .cross-icon img{
-	transition: all 0.25s ease;
+.new_login_popup .cross-icon img {
+  transition: all 0.25s ease;
 }
-.new_login_popup .cross-icon:hover img{
-	filter: brightness(0.1);
+.new_login_popup .cross-icon:hover img {
+  filter: brightness(0.1);
 }
 .mailInbox .loginBtn {
-    pointer-events: none;
+  pointer-events: none;
 }
 header .userIcon .userNav {
-    bottom: auto;
-    top: 100%;
+  bottom: auto;
+  top: 100%;
 }
-.rightSection .profile-img figure img{
-	border-radius: 50%;
+.rightSection .profile-img figure img {
+  border-radius: 50%;
 }
-.customNewPopups{
-	display: block;
+.customNewPopups {
+  display: block;
 }
-.customNewPopups .popup-wrapper{
-	backdrop-filter: none;
+.customNewPopups .popup-wrapper {
+  backdrop-filter: none;
 }
 header .userIcon img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.interestSection{
-  padding-top:65px;
+.interestSection {
+  padding-top: 160px;
 }
 
-.createAccount{
-	flex-wrap: wrap;
+.createAccount {
+  flex-wrap: wrap;
 }
 .kep-login-facebook.metro {
-    display: flex;
-    align-items: center;
-    padding: 15px 78px 15px 90px;
+  display: flex;
+  align-items: center;
+  padding: 15px 78px 15px 90px;
 }
 .kep-login-facebook.metro img {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 .mob_profile .profile-img figure img,
 .rightSection .profile-img figure img {
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 }
 .edit-profile .intrest-area .social-link ul li a {
-    display: flex;
-    align-items: center;
-    width: 105px;
+  display: flex;
+  align-items: center;
+  width: 105px;
 }
 .edit-profile .intrest-area .social-link ul li a figure {
-    width: 26px;
+  width: 26px;
 }
-.fixedBtn{
-	z-index: 9;
+.fixedBtn {
+  z-index: 9;
 }
-.mob_profile .mob_profile_inner{
-	height: 100%;
+.mob_profile .mob_profile_inner {
+  height: 100%;
 }
 .mob_profile .edit-profile .connect-link li a {
-    padding: 8px 13px;
+  padding: 8px 13px;
 }
 
-
-
-@media (min-width: 1551px) and (max-width: 1980px){
-	.createAccount {
-	    height: 100%;
-	}
+@media (min-width: 1551px) and (max-width: 1980px) {
+  .createAccount {
+    height: 100%;
+  }
 }
 
-@media (max-width:1230px){
-	.rightSection .contact-wrapper .faq-container {
-	    width: 100%;
-	    margin-right: 0px;
-	    padding-right: 20px;
-	}
-	.rightSection .contact-wrapper .contact-container {
-	    width: 97.5%;
-	    margin-top: 25px;
-	}
+@media (max-width: 1230px) {
+  .rightSection .contact-wrapper .faq-container {
+    width: 100%;
+    margin-right: 0px;
+    padding-right: 20px;
+  }
+  .rightSection .contact-wrapper .contact-container {
+    width: 97.5%;
+    margin-top: 25px;
+  }
 }
 
-@media (max-width:767px){
-	.rightSection .contact-wrapper .faq-container {
-	    padding-right: 5px;
-	}
-	.rightSection .contact-wrapper .contact-container {
-	    width: 100%;
-	    margin: 30px 5px 0 0;
-	}
-	.mobileVideoSection .layer{
-		display: flex;
-		flex-wrap: wrap;
-	}
-	.mobileVideoSection .layer .author-tag{
-		width: 100%;
-		margin-top: auto;
-	}
-	.mobileVideoSection .layer h5 {
-	    margin: auto 0 12px;
-	}
-	.mobileVideoSection .layer .price{
-		width: 65px;
-		padding: 0 10px;
-	}
-	.mobileVideoSection .author-tag .col_right{
-		margin-top: 0;
-    	align-self: flex-end;
-	}
-	.mobileVideoSection .wrapper{
-		margin-bottom: 0;
-	}
+@media (max-width: 767px) {
+  .rightSection .contact-wrapper .faq-container {
+    padding-right: 5px;
+  }
+  .rightSection .contact-wrapper .contact-container {
+    width: 100%;
+    margin: 30px 5px 0 0;
+  }
+  .mobileVideoSection .layer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .mobileVideoSection .layer .author-tag {
+    width: 100%;
+    margin-top: auto;
+  }
+  .mobileVideoSection .layer h5 {
+    margin: auto 0 12px;
+  }
+  .mobileVideoSection .layer .price {
+    width: 65px;
+    padding: 0 10px;
+  }
+  .mobileVideoSection .author-tag .col_right {
+    margin-top: 0;
+    align-self: flex-end;
+  }
+  .mobileVideoSection .wrapper {
+    margin-bottom: 0;
+  }
 }
-.article-slider .wrap a, .video-slider .wrap a{
-	width: 100%;
+.article-slider .wrap a,
+.video-slider .wrap a {
+  width: 100%;
 }
-.article-slider figure iframe, .video-slider figure iframe{
-	border-radius: 12px;
+.article-slider figure iframe,
+.video-slider figure iframe {
+  border-radius: 12px;
 }
 .edit-profile .intrest-area .link-button li {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-@media (max-width:767px){
-	.fixedBtn {
-	    width: 50px;
-	    height: 50px;
-	}
-	.fixedBtn figure img {
-	    width: 60%;
-	}
+@media (max-width: 767px) {
+  .fixedBtn {
+    width: 50px;
+    height: 50px;
+  }
+  .fixedBtn figure img {
+    width: 60%;
+  }
 }
 
 .blog-slider .wrap .layer {
@@ -687,23 +683,61 @@ header .userIcon img {
 .video-slider .layer .author-tag {
   margin-top: auto;
 }
-.rightSection .profile-img-box form .url-box .social-box input::placeholder{
-color: #cfd6db;
+.rightSection .profile-img-box form .url-box .social-box input::placeholder {
+  color: #cfd6db;
 }
-.rightSection .profile-img-box form .url-box .social-box input::-ms-input-placeholder{
-color: #cfd6db;
+.rightSection
+  .profile-img-box
+  form
+  .url-box
+  .social-box
+  input::-ms-input-placeholder {
+  color: #cfd6db;
 }
 .video-slider .layer h5 {
   padding-top: 15px;
 }
-@media (max-width:1200px){
-.video-slider .layer h5 {
+@media (max-width: 1200px) {
+  .video-slider .layer h5 {
     padding-top: 0px;
+  }
 }
-}
-.profileImgChange figure, .profileImgChange figure img {
+.profileImgChange figure,
+.profileImgChange figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+}
+.interestSection.second ul li figure img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+@media (max-width: 575px) {
+  .interestSection {
+    padding-top: 40px;
+  }
+  .interestSection .cancelBtn a {
+    width: 45px;
+    height: 45px;
+  }
+  .interestSection .cancelBtn a i {
+    font-size: 18px;
+  }
+}
+.blogDetails .blogger-profile figure {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+}
+.blogDetails .blogger-profile figure img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.rightSection .keeps-container .blog-details .blog-img {
+  width: 100%;
 }

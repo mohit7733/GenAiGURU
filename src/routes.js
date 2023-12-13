@@ -49,6 +49,7 @@ export const PATH_PROFILE = "/profile";
 export const PATH_SPEAK_TO_TEXT = "/speaktotext";
 export const PATH_EDIT_PROFILE = "/editprofile";
 export const PATH_SOCIAL_EDIT_PROFILE = "/socialeditprofile";
+export const PATH_FEATURED_CONTENT = "/featuredcontent";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -191,8 +192,8 @@ export function RouterElement() {
     },
     // Phase 6 Routes
     {
-      path: "featuredcontent",
-      name: "featuredcontent",
+      path: PATH_FEATURED_CONTENT,
+      name: PATH_FEATURED_CONTENT,
       element: <FeaturedContent />,
       exact: true,
     },
