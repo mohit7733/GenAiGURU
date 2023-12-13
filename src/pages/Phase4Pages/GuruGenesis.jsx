@@ -8,6 +8,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const GuruGenesis = () => {
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
+  const [errors, setErrors] = useState([]);
   const [activeTab, setActiveTab] = useState(1);
   const [contactUsDetails, setContactUsDetails] = useState({
     fullName: "",
@@ -22,40 +26,81 @@ const GuruGenesis = () => {
     });
   };
 
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  //   const errors = validate();
+  //   setErrors(errors);
+  // };
+
+  const onchangeCheck = (key, value) => {
+    const errors = {};
+    if (!value) {
+      errors[key] = key + "Required !";
+    }
+    setErrors(errors);
+  };
+
+  const validate = () => {
+    const error = {};
+    if (!fullname) {
+      error["fullname"] = "Name Required!";
+    } else {
+      error["fullname"] = "";
+    }
+    if (!email) {
+      error["email"] = "Email Required!";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      error["email"] = "Please Enter Valid Email!";
+    } else {
+      error["email"] = "";
+    }
+    if (!comment) {
+      error["comment"] = "Comment Required!";
+    } else {
+      error["comment"] = "";
+    }
+
+    return error;
+  };
+
   const onContact = (e) => {
     e.preventDefault();
-
-    axios
-      .post(`${getBaseURL()}/contact-us`, {
-        name: contactUsDetails.fullName,
-        email: contactUsDetails.email,
-        comment: contactUsDetails.comment,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          setContactUsDetails({
-            fullName: "",
-            email: "",
-            comment: "",
-          });
-          toast.success(response.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          toast.error(error.response.data.message, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        } else if (error.request) {
-          console.log("network error");
-        } else {
-          console.log(error);
-        }
-      });
+    const errors = validate();
+    if (errors.fullname == "" && errors.email == "" && errors.comment == "") {
+      axios
+        .post(`${getBaseURL()}/contact-us`, {
+          name: fullname,
+          email: email,
+          comment: comment,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            setContactUsDetails({
+              fullName: "",
+              email: "",
+              comment: "",
+            });
+            toast.success(response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+            toast.error(error.response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          } else if (error.request) {
+            console.log("network error");
+          } else {
+            console.log(error);
+          }
+        });
+    } else {
+      setErrors(errors);
+    }
   };
 
   const handleTabClick = (tabNumber) => {
@@ -172,16 +217,21 @@ const GuruGenesis = () => {
                     </div>
                     <div class="contact-container">
                       <h4>Contact us</h4>
-                      <form>
+                      <form action="" onSubmit={onContact}>
                         <div class="contact-box">
                           <label for="">Full Name</label>
                           <input
                             type="text"
                             placeholder="GenAIGuru"
                             name="fullName"
-                            value={contactUsDetails.fullName}
-                            onChange={handleContactUsDetails}
+                            // value={contactUsDetails.fullName}
+                            // onChange={handleContactUsDetails}
+                            onChange={(e) => setFullName(e.target.value)}
+                            onKeyUp={onchangeCheck}
                           />
+                          {errors["fullname"] && (
+                            <div className="error">{errors.fullname}</div>
+                          )}
                         </div>
                         <div class="contact-box">
                           <label for="">Email</label>
@@ -189,22 +239,30 @@ const GuruGenesis = () => {
                             type="email"
                             placeholder="genaiguru@gmail.com"
                             name="email"
-                            value={contactUsDetails.email}
-                            onChange={handleContactUsDetails}
+                            // value={contactUsDetails.email}
+                            // onChange={handleContactUsDetails}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onKeyUp={onchangeCheck}
                           />
+                          {errors["email"] && (
+                            <div className="error">{errors.email}</div>
+                          )}
                         </div>
                         <div class="contact-box">
                           <label for="">Comment</label>
                           <textarea
                             name="comment"
                             placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
-                            value={contactUsDetails.comment}
-                            onChange={handleContactUsDetails}
+                            // value={contactUsDetails.comment}
+                            // onChange={handleContactUsDetails}
+                            onChange={(e) => setComment(e.target.value)}
+                            onKeyUp={onchangeCheck}
                           ></textarea>
+                          {errors["comment"] && (
+                            <div className="error">{errors.comment}</div>
+                          )}
                         </div>
-                        <button class="loginBtn" onClick={onContact}>
-                          Contact
-                        </button>
+                        <button class="loginBtn">Contact</button>
                         <ToastContainer autoClose={1000} />
                       </form>
                     </div>
@@ -361,21 +419,42 @@ const GuruGenesis = () => {
                     </div>
                     <div class="contact-container">
                       <h4>Contact us</h4>
-                      <form action="">
+                      <form action="" onSubmit={onContact}>
                         <div class="contact-box">
                           <label for="">Full Name</label>
-                          <input type="text" placeholder="Prosing" />
+                          <input
+                            type="text"
+                            placeholder="Prosing"
+                            onChange={(e) => setFullName(e.target.value)}
+                            onKeyUp={onchangeCheck}
+                          />
+                          {errors["fullname"] && (
+                            <div className="error">{errors.fullname}</div>
+                          )}
                         </div>
                         <div class="contact-box">
                           <label for="">Email</label>
-                          <input type="text" placeholder="prosing@gmail.com" />
+                          <input
+                            type="text"
+                            placeholder="prosing@gmail.com"
+                            onChange={(e) => setEmail(e.target.value)}
+                            onKeyUp={onchangeCheck}
+                          />
+                          {errors["email"] && (
+                            <div className="error">{errors.email}</div>
+                          )}
                         </div>
                         <div class="contact-box">
                           <label for="">Comment</label>
                           <textarea
                             name="comment"
                             placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
+                            onChange={(e) => setComment(e.target.value)}
+                            onKeyUp={onchangeCheck}
                           ></textarea>
+                          {errors["comment"] && (
+                            <div className="error">{errors.comment}</div>
+                          )}
                         </div>
                         <button type="submit" class="loginBtn">
                           Contact
