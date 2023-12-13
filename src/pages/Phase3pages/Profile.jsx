@@ -81,7 +81,9 @@ const Profile = () => {
       .then((response) => {
         setMyInterests(response?.data?.data);
         // console.log(response?.data?.data);
-        const interestIds = response?.data?.data.map(item => item.interest_id);
+        const interestIds = response?.data?.data.map(
+          (item) => item.interest_id
+        );
         setSelectedInterestIndex(interestIds);
       })
       .catch((err) => {
@@ -128,7 +130,7 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
 
-  console.log(selectedInterestIndex,"selected");
+  console.log(selectedInterestIndex, "selected");
 
   return (
     <>
@@ -254,30 +256,37 @@ const Profile = () => {
                           </Link>
                         </h4>
                         <ul>
-                          <li>
-                            <a href={userDetails.twitterLink} target="_blank">
-                              <figure>
-                                <img
-                                  src="/app/images/twitter.png"
-                                  alt="Genaiguru twitter"
-                                  title="Genaiguru Genaiguru twitter"
-                                />
-                              </figure>
-                              <span>Twitter</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={userDetails.facebookLink} target="_blank">
-                              <figure>
-                                <img
-                                  src="/app/images/facebookIcon.png"
-                                  alt="Genaiguru facebookIcon"
-                                  title="Genaiguru facebookIcon"
-                                />
-                              </figure>
-                              <span>Facebook</span>
-                            </a>
-                          </li>
+                          {userDetails.twitterLink && (
+                            <li>
+                              <a href={userDetails.twitterLink} target="_blank">
+                                <figure>
+                                  <img
+                                    src="/app/images/twitter.png"
+                                    alt="Genaiguru twitter"
+                                    title="Genaiguru Genaiguru twitter"
+                                  />
+                                </figure>
+                                <span>Twitter</span>
+                              </a>
+                            </li>
+                          )}
+                          {userDetails.facebookLink && (
+                            <li>
+                              <a
+                                href={userDetails.facebookLink}
+                                target="_blank"
+                              >
+                                <figure>
+                                  <img
+                                    src="/app/images/facebookIcon.png"
+                                    alt="Genaiguru facebookIcon"
+                                    title="Genaiguru facebookIcon"
+                                  />
+                                </figure>
+                                <span>Facebook</span>
+                              </a>
+                            </li>
+                          )}
                           <li>
                             <a href={userDetails.youtubeLink} target="_blank">
                               <figure>

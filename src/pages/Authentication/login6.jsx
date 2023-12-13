@@ -110,7 +110,7 @@ const Login6 = () => {
                   </figure>
                   <div className="names">
                     <h5>{Writer.name}</h5>
-                    <p>{Writer.type}</p>
+                    <p>{Writer.title}</p>
                   </div>
                   <div className="btnWrap">
                     <Link

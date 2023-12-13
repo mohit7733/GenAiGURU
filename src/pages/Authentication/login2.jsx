@@ -6,7 +6,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
 const Login2 = () => {
-  const [displayGoToMail, setDisplayGoToMail] = useState(false);
 
   const navigate = useNavigate();
   const [name, setname] = useState("");
@@ -23,7 +22,7 @@ const Login2 = () => {
     fd.append("email", email);
     fd.append("password", password);
     fd.append("profile_image", profilePicture);
-    fd.append("type", title);
+    fd.append("title", title);
     axios
       .post(`${getBaseURL()}/auth/register`, fd)
       .then((response) => {

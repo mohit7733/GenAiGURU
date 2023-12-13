@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,10 +13,35 @@ const SocialProfileEdit = () => {
     facebook: "",
     twitter: "",
     youtube: "",
+    instagram: "",
+    linkedin: "",
   });
 
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"));
 
+  // User details GET-API------
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setLinksObj({
+          facebook: response?.data?.facebook,
+          youtube: response?.data?.youtube,
+          twitter: response?.data?.twitter,
+          instagram: response?.data?.instagram,
+          linkedin: response?.data?.linkedin,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   const handleChangeLinks = (e) => {
     setLinksObj({ ...linksObj, [e.target.name]: e.target.value });
   };
@@ -28,6 +53,8 @@ const SocialProfileEdit = () => {
     fd.append("facebook", linksObj.facebook);
     fd.append("youtube", linksObj.youtube);
     fd.append("twitter", linksObj.twitter);
+    fd.append("linkedin", linksObj.linkedin);
+    fd.append("instagram", linksObj.instagram);
     axios
       .post(`${getBaseURL()}/update-user-socialprofile`, fd)
       .then((response) => {
@@ -51,26 +78,26 @@ const SocialProfileEdit = () => {
     <div>
       <MobileHeader />
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
-          <div class=" full-width">
+          <div className=" full-width">
             {/* <!-- edit-profile start here --> */}
-            <div class="profile-edit socialLinkEdit flex">
+            <div className="profile-edit socialLinkEdit flex">
               <p>
                 <Link to="/phasepage1">Profile</Link>{" "}
-                <i class="fa fa-angle-right" aria-hidden="true"></i> Edit social
+                <i className="fa fa-angle-right" aria-hidden="true"></i> Edit social
                 profile
               </p>
               <h1>Edit social profile</h1>
             </div>
             {/* <!-- social-media --> */}
-            <div class="profile-img-box">
+            <div className="profile-img-box">
               <form action="">
-                <div class="url-box">
+                <div className="url-box">
                   <p>Twitter</p>
-                  <div class="social-box">
-                    <label for="twitter">
+                  <div className="social-box">
+                    <label htmlFor="twitter">
                       <img
                         src="/app/images/twitter.png"
                         alt="Genaiguru twitter"
@@ -94,10 +121,10 @@ const SocialProfileEdit = () => {
                     </a>
                   </div>
                 </div>
-                <div class="url-box">
+                <div className="url-box">
                   <p>Facebook</p>
-                  <div class="social-box">
-                    <label for="twitter">
+                  <div className="social-box">
+                    <label htmlFor="twitter">
                       <img
                         src="/app/images/facebookIcon.png"
                         alt="Genaiguru Facebook"
@@ -120,10 +147,10 @@ const SocialProfileEdit = () => {
                     </a>
                   </div>
                 </div>
-                <div class="url-box">
+                <div className="url-box">
                   <p>Youtube</p>
-                  <div class="social-box">
-                    <label for="twitter">
+                  <div className="social-box">
+                    <label htmlFor="twitter">
                       <img
                         src="/app/images/youtubeIcon.png"
                         alt="Genaiguru youtube"
@@ -146,10 +173,10 @@ const SocialProfileEdit = () => {
                     </a>
                   </div>
                 </div>
-                <div class="url-box">
+                <div className="url-box">
                   <p>LinkedIn</p>
-                  <div class="social-box">
-                    <label for="twitter">
+                  <div className="social-box">
+                    <label htmlFor="twitter">
                       <img
                         src="/app/images/linkdin-icon.png"
                         alt="Genaiguru LinkedIn"
@@ -158,8 +185,9 @@ const SocialProfileEdit = () => {
                     </label>
                     <input
                       type="url"
-                      name=""
-                      id=""
+                      name="linkedin"
+                      value={linksObj.linkedin}
+                      onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
                     <a href="#">
@@ -171,10 +199,10 @@ const SocialProfileEdit = () => {
                     </a>
                   </div>
                 </div>
-                <div class="url-box">
+                <div className="url-box">
                   <p>Instagram</p>
-                  <div class="social-box">
-                    <label for="twitter">
+                  <div className="social-box">
+                    <label htmlFor="twitter">
                       <img
                         src="/app/images/insta-icon.png"
                         alt="Genaiguru twitter"
@@ -183,8 +211,9 @@ const SocialProfileEdit = () => {
                     </label>
                     <input
                       type="url"
-                      name=""
-                      id=""
+                      name="instagram"
+                      value={linksObj.instagram}
+                      onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
                     <a href="#">
@@ -198,7 +227,7 @@ const SocialProfileEdit = () => {
                 </div>
                 <button
                   type="submit"
-                  class="social-profile"
+                  className="social-profile"
                   onClick={onSocialEditProfile}
                 >
                   Save to change
@@ -211,22 +240,22 @@ const SocialProfileEdit = () => {
       </section>
       {/* <!-- main section end here --> */}
       {/* <!-- mobile social profile edit start here --> */}
-      <div class="mob_profile hideDes">
-        <div class="mobileHead flex">
-          <div class="backBtns">
+      <div className="mob_profile hideDes">
+        <div className="mobileHead flex">
+          <div className="backBtns">
             <Link to="/phasepage1">
-              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
             </Link>
           </div>
           <h2>Edit social profile</h2>
         </div>
-        <div class="socialEditInner rightSection">
-          <div class="profile-img-box">
+        <div className="socialEditInner rightSection">
+          <div className="profile-img-box">
             <form action="">
-              <div class="url-box">
+              <div className="url-box">
                 <p>Twitter</p>
-                <div class="social-box">
-                  <label for="twitter">
+                <div className="social-box">
+                  <label htmlFor="twitter">
                     <img
                       src="/app/images/twitter.png"
                       alt="Genaiguru twitter"
@@ -248,10 +277,10 @@ const SocialProfileEdit = () => {
                   </a>
                 </div>
               </div>
-              <div class="url-box">
+              <div className="url-box">
                 <p>Facebook</p>
-                <div class="social-box">
-                  <label for="twitter">
+                <div className="social-box">
+                  <label htmlFor="twitter">
                     <img
                       src="/app/images/facebookIcon.png"
                       alt="Genaiguru Facebook"
@@ -273,10 +302,10 @@ const SocialProfileEdit = () => {
                   </a>
                 </div>
               </div>
-              <div class="url-box">
+              <div className="url-box">
                 <p>Youtube</p>
-                <div class="social-box">
-                  <label for="twitter">
+                <div className="social-box">
+                  <label htmlFor="twitter">
                     <img
                       src="/app/images/youtubeIcon.png"
                       alt="Genaiguru youtube"
@@ -298,10 +327,10 @@ const SocialProfileEdit = () => {
                   </a>
                 </div>
               </div>
-              <div class="url-box">
+              <div className="url-box">
                 <p>LinkedIn</p>
-                <div class="social-box">
-                  <label for="twitter">
+                <div className="social-box">
+                  <label htmlFor="twitter">
                     <img
                       src="/app/images/linkdin-icon.png"
                       alt="Genaiguru LinkedIn"
@@ -323,10 +352,10 @@ const SocialProfileEdit = () => {
                   </a>
                 </div>
               </div>
-              <div class="url-box">
+              <div className="url-box">
                 <p>Instagram</p>
-                <div class="social-box">
-                  <label for="twitter">
+                <div className="social-box">
+                  <label htmlFor="twitter">
                     <img
                       src="/app/images/insta-icon.png"
                       alt="Genaiguru twitter"
@@ -348,7 +377,7 @@ const SocialProfileEdit = () => {
                   </a>
                 </div>
               </div>
-              <button type="submit" class="social-profile">
+              <button type="submit" className="social-profile">
                 Save to change
               </button>
             </form>

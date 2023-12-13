@@ -3,14 +3,16 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { PATH_BLOG_DETAILS } from "../../routes";
 
 const Latestblog = () => {
   const sliderRef = useRef();
   const [latestBlog, setLatestBlog] = useState([]);
 
+  const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
   // Get API for Popular Blogs
@@ -58,6 +60,10 @@ const Latestblog = () => {
       },
     ],
   };
+
+  const onBlogClick = (BlogId) => {
+    navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  };
   return (
     <>
       <div className="blog-wrap">
@@ -76,7 +82,7 @@ const Latestblog = () => {
               return (
                 <div key={index}>
                   <div className="wrap">
-                    <Link to="/blogdetails">
+                    <div onClick={() => onBlogClick(blog.id)}>
                       <figure>
                         <img
                           src={blog.photo}
@@ -98,7 +104,7 @@ const Latestblog = () => {
                           />
                         </button>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 </div>
               );
