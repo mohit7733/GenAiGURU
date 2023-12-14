@@ -31,11 +31,41 @@ const SocialProfileEdit = () => {
       .then((response) => {
         console.log(response.data);
         setLinksObj({
-          facebook: response?.data?.facebook,
-          youtube: response?.data?.youtube,
-          twitter: response?.data?.twitter,
-          instagram: response?.data?.instagram,
-          linkedin: response?.data?.linkedin,
+          facebook:
+            response?.data?.facebook === undefined ||
+            response?.data?.facebook === null ||
+            response?.data?.facebook === "undefined" ||
+            response?.data?.facebook === "null"
+              ? ""
+              : response?.data?.facebook,
+          youtube:
+            response?.data?.youtube === undefined ||
+            response?.data?.youtube === null ||
+            response?.data?.youtube === "undefined" ||
+            response?.data?.youtube === "null"
+              ? ""
+              : response?.data?.youtube,
+          twitter:
+            response?.data?.twitter === undefined ||
+            response?.data?.twitter === null ||
+            response?.data?.twitter === "undefined" ||
+            response?.data?.twitter === "null"
+              ? ""
+              : response?.data?.twitter,
+          instagram:
+            response?.data?.instagram === undefined ||
+            response?.data?.instagram === null ||
+            response?.data?.instagram === "undefined" ||
+            response?.data?.instagram === "null"
+              ? ""
+              : response?.data?.instagram,
+          linkedin:
+            response?.data?.linkedin === undefined ||
+            response?.data?.linkedin === null ||
+            response?.data?.linkedin === "undefined" ||
+            response?.data?.linkedin === "null"
+              ? ""
+              : response?.data?.linkedin,
         });
       })
       .catch((err) => {
@@ -73,7 +103,7 @@ const SocialProfileEdit = () => {
         }
       });
   };
-
+  console.log(linksObj);
   return (
     <div>
       <MobileHeader />
@@ -190,7 +220,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a href="#">
+                    <a onClick={() => setLinksObj({ linkedin: "" })}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -216,7 +246,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a href="#">
+                    <a onClick={() => setLinksObj({ instagram: "" })}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"

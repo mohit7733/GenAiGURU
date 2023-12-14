@@ -40,13 +40,55 @@ const Profile = () => {
         // console.log(response.data);
         setProfileImage(response.data.profile_image);
         setUserDetails({
-          userName: response?.data?.name,
-          bio: response?.data?.bio,
-          facebookLink: response?.data?.facebook,
-          youtubeLink: response?.data?.youtube,
-          twitterLink: response?.data?.twitter,
-          instagramLink: response?.data?.instagram,
-          linkedinLink: response?.data?.linkedin,
+          userName:
+            response?.data?.name === undefined ||
+            response?.data?.name === null ||
+            response?.data?.name === "undefined" ||
+            response?.data?.name === "null"
+              ? ""
+              : response?.data?.name,
+          bio:
+            response?.data?.bio === undefined ||
+            response?.data?.bio === null ||
+            response?.data?.bio === "undefined" ||
+            response?.data?.bio === "null"
+              ? ""
+              : response?.data?.bio,
+          facebookLink:
+            response?.data?.facebook === undefined ||
+            response?.data?.facebook === null ||
+            response?.data?.facebook === "undefined" ||
+            response?.data?.facebook === "null"
+              ? ""
+              : response?.data?.facebook,
+          youtubeLink:
+            response?.data?.youtube === undefined ||
+            response?.data?.youtube === null ||
+            response?.data?.youtube === "undefined" ||
+            response?.data?.youtube === "null"
+              ? ""
+              : response?.data?.youtube,
+          twitterLink:
+            response?.data?.twitter === undefined ||
+            response?.data?.twitter === null ||
+            response?.data?.twitter === "undefined" ||
+            response?.data?.twitter === "null"
+              ? ""
+              : response?.data?.twitter,
+          instagramLink:
+            response?.data?.instagram === undefined ||
+            response?.data?.instagram === null ||
+            response?.data?.instagram === "undefined" ||
+            response?.data?.instagram === "null"
+              ? ""
+              : response?.data?.instagram,
+          linkedinLink:
+            response?.data?.linkedin === undefined ||
+            response?.data?.linkedin === null ||
+            response?.data?.linkedin === "undefined" ||
+            response?.data?.linkedin === "null"
+              ? ""
+              : response?.data?.linkedin,
         });
       })
       .catch((err) => {
@@ -135,6 +177,7 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
 
+  console.log(userDetails);
   return (
     <>
       <MobileHeader />
@@ -259,7 +302,9 @@ const Profile = () => {
                           </Link>
                         </h4>
                         <ul>
-                          {userDetails.twitterLink && (
+                          {userDetails.twitterLink == "" ? (
+                            <></>
+                          ) : (
                             <li>
                               <a href={userDetails.twitterLink} target="_blank">
                                 <figure>
@@ -273,7 +318,9 @@ const Profile = () => {
                               </a>
                             </li>
                           )}
-                          {userDetails.facebookLink && (
+                          {userDetails.facebookLink == "" ? (
+                            <></>
+                          ) : (
                             <li>
                               <a
                                 href={userDetails.facebookLink}
@@ -290,42 +337,60 @@ const Profile = () => {
                               </a>
                             </li>
                           )}
-                          <li>
-                            <a href={userDetails.youtubeLink} target="_blank">
-                              <figure>
-                                <img
-                                  src="/app/images/youtubeIcon.png"
-                                  alt="Genaiguru youtube"
-                                  title="Genaiguru Youtube"
-                                />
-                              </figure>
-                              <span>Youtube</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={userDetails.linkedinLink} target="_blank">
-                              <figure>
-                                <img
-                                  src="/app/images/linkdin-icon.png"
-                                  alt="Genaiguru linkdin-icon"
-                                  title="Genaiguru linkdin-icon"
-                                />
-                              </figure>
-                              <span>LinkedIn</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={userDetails.instagramLink} target="_blank">
-                              <figure>
-                                <img
-                                  src="/app/images/insta-icon.png"
-                                  alt="Genaiguru insta-icon"
-                                  title="Genaiguru insta-icon"
-                                />
-                              </figure>
-                              <span>Instagram</span>
-                            </a>
-                          </li>
+                          {userDetails.youtubeLink == "" ? (
+                            <></>
+                          ) : (
+                            <li>
+                              <a href={userDetails.youtubeLink} target="_blank">
+                                <figure>
+                                  <img
+                                    src="/app/images/youtubeIcon.png"
+                                    alt="Genaiguru youtube"
+                                    title="Genaiguru Youtube"
+                                  />
+                                </figure>
+                                <span>Youtube</span>
+                              </a>
+                            </li>
+                          )}
+                          {userDetails.linkedinLink == "" ? (
+                            <></>
+                          ) : (
+                            <li>
+                              <a
+                                href={userDetails.linkedinLink}
+                                target="_blank"
+                              >
+                                <figure>
+                                  <img
+                                    src="/app/images/linkdin-icon.png"
+                                    alt="Genaiguru linkdin-icon"
+                                    title="Genaiguru linkdin-icon"
+                                  />
+                                </figure>
+                                <span>LinkedIn</span>
+                              </a>
+                            </li>
+                          )}
+                          {userDetails.instagramLink == "" ? (
+                            <></>
+                          ) : (
+                            <li>
+                              <a
+                                href={userDetails.instagramLink}
+                                target="_blank"
+                              >
+                                <figure>
+                                  <img
+                                    src="/app/images/insta-icon.png"
+                                    alt="Genaiguru insta-icon"
+                                    title="Genaiguru insta-icon"
+                                  />
+                                </figure>
+                                <span>Instagram</span>
+                              </a>
+                            </li>
+                          )}
                         </ul>
                       </div>
                     </div>
