@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL, getHeaders } from "../../api/config";
-import { PATH_FOLLOWEXPERTS, BASE_PATH } from "../../routes";
+import { PATH_FOLLOWEXPERTS, BASE_PATH, PATH_WELCOME } from "../../routes";
 import { toast ,ToastContainer} from "react-toastify";
 
 const Login5 = () => {
@@ -74,7 +74,7 @@ const Login5 = () => {
       <section className="interestSection mainBg">
         <div className="wrapper">
           <div className="cancelBtn">
-            <Link to={BASE_PATH}>
+            <Link to={PATH_WELCOME}>
               <i className="fa fa-times" aria-hidden="true"></i>
             </Link>
             Cancel

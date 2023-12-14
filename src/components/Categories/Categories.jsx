@@ -6,7 +6,7 @@ const Categories = () => {
   const [myInterests, setMyInterests] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
 
-  // Get API for Popular Videos
+  // Get API for Categories
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/auth/userinterests`, {

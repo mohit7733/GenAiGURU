@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import Slider from "react-slick";
@@ -6,11 +6,50 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [myInterests, setMyInterests] = useState();
+  const [latestBlog, setLatestBlog] = useState([]);
 
   const sliderRef = useRef();
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  // Get API for Popular Blogs
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/latest-blogs`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setLatestBlog(response.data.blogs);
+        console.log(latestBlog);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  // Get API for Categories
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/userinterests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setMyInterests(response?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -1070,66 +1109,26 @@ const FeaturedContent = () => {
                   <h3>Categories</h3>
                 </div>
                 <ul class="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/paint-board.png"
-                        alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
-                      />{" "}
-                      AI in Healthcare
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/paint-board.png"
-                        alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
-                      />{" "}
-                      Data science
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/paint-board.png"
-                        alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
-                      />{" "}
-                      Large Language models
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/paint-board.png"
-                        alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
-                      />{" "}
-                      Data science
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/paint-board.png"
-                        alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
-                      />{" "}
-                      Data science
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/paint-board.png"
-                        alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
-                      />{" "}
-                      Large Language models
-                    </a>
-                  </li>
+                  {myInterests?.map((interest, index) => {
+                    return (
+                      <li key={index}>
+                        <a href="#">
+                          <img
+                            src="app/images/paint-board.png"
+                            alt="Genaiguru paint-board"
+                            title="Genaiguru paint-board"
+                          />
+                          <img
+                            src="app/images/colorPaintBoard.png"
+                            alt="Genaiguru colorPaintBoard"
+                            title="Genaiguru colorPaintBoard"
+                            className="hoverImg"
+                          />{" "}
+                          {interest.interest_name}
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div class="youtube-wraper">
@@ -1327,7 +1326,7 @@ const FeaturedContent = () => {
                 </Link>
               </li>
               <li>
-              <Link to="/featuredpopup">
+                <Link to="/featuredpopup">
                   <figure>
                     <img src="./app/images/filter-icon.png" alt="" />
                   </figure>

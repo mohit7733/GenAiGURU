@@ -49,6 +49,7 @@ export const PATH_PROFILE = "/profile";
 export const PATH_SPEAK_TO_TEXT = "/speaktotext";
 export const PATH_EDIT_PROFILE = "/editprofile";
 export const PATH_SOCIAL_EDIT_PROFILE = "/socialeditprofile";
+export const PATH_VIDEO_PLAY = "/videoplay";
 export const PATH_FEATURED_CONTENT = "/featuredcontent";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
@@ -119,8 +120,8 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "phasepage4",
-      name: "phasepage4",
+      path: PATH_VIDEO_PLAY,
+      name: "PATH_VIDEO_PLAY",
       element: <VideoPlay />,
       exact: true,
     },

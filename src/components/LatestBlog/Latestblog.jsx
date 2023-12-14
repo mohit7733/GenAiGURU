@@ -11,6 +11,7 @@ import { PATH_BLOG_DETAILS, PATH_FEATURED_CONTENT } from "../../routes";
 const Latestblog = () => {
   const sliderRef = useRef();
   const [latestBlog, setLatestBlog] = useState([]);
+  const [featured, setFeatured] = useState("");
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -25,6 +26,7 @@ const Latestblog = () => {
       })
       .then((response) => {
         setLatestBlog(response.data.blogs);
+        console.log(latestBlog);
       })
       .catch((err) => {
         console.log(err.message);
@@ -34,12 +36,12 @@ const Latestblog = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: false,
+    infinite: true,
     slidesToShow: 3,
     arrows: true,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
     responsive: [
       {
@@ -81,31 +83,33 @@ const Latestblog = () => {
             {latestBlog.map((blog, index) => {
               return (
                 <div key={index}>
-                  <div className="wrap">
-                    <div onClick={() => onBlogClick(blog.id)}>
-                      <figure>
-                        <img
-                          src={blog.photo}
-                          alt="Genaiguru blog image"
-                          title="Genaiguru blog image"
-                        />
-                      </figure>
-                      <div className="layer">
-                        <h5>
-                          {blog.title}
-                          {/* <br />
-                          {blog.content} */}
-                        </h5>
-                        <button type="button">
+                  {blog.featured == "yes" && (
+                    <div className="wrap">
+                      <div onClick={() => onBlogClick(blog.id)}>
+                        <figure>
                           <img
-                            src="app/images/blogArrowBtnImg.png"
-                            alt="Genaiguru arrow button"
-                            title="Genaiguru arrow button"
+                            src={blog.photo}
+                            alt="Genaiguru blog image"
+                            title="Genaiguru blog image"
                           />
-                        </button>
+                        </figure>
+                        <div className="layer">
+                          <h5>
+                            {blog.title}
+                            {/* <br />
+                          {blog.content} */}
+                          </h5>
+                          <button type="button">
+                            <img
+                              src="app/images/blogArrowBtnImg.png"
+                              alt="Genaiguru arrow button"
+                              title="Genaiguru arrow button"
+                            />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
