@@ -76,7 +76,7 @@ const ForgotPassword = () => {
           <h1>Forgot Your Password</h1>
           <div className="accountCreate">
             <div className="form_group flex">
-              <label htmlFor="email">Email address</label>
+              <label htmlFor="email">Email address*</label>
               <input
                 type="email"
                 name="email"

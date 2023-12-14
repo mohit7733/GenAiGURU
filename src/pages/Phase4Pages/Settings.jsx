@@ -15,6 +15,7 @@ const Settings = () => {
   const [errors, setErrors] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // validation for feedback
@@ -25,18 +26,16 @@ const Settings = () => {
     let fd = new FormData();
     fd.append("user_id", userId);
     fd.append("comment", idea);
-    fd.append("media", selectedFile);
+    fd.append("media", selectedFiles);
     axios
       .post(`${getBaseURL()}/send-feedback`, fd)
       .then((response) => {
         if (response.status === 200) {
-          alert("Feedback Sent Successfully");
-          setIdea("");
           toast.success("Feedback Sent Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
           setIdea("");
-          setSelectedFile("");
+          setSelectedFiles([]);
         }
       })
       .catch((error) => {
@@ -117,41 +116,58 @@ const Settings = () => {
     return error;
   };
   // code for get input img and video in feedback
-  const FileInput = ({ onFileChange }) => {
-    const handleFileChange = (e) => {
-      const file = e.target.files[0];
-      onFileChange(file);
+
+  const FileInput = ({ onFilesChange }) => {
+    const handleFilesChange = (e) => {
+      const files = Array.from(e.target.files);
+      onFilesChange(files);
     };
+
     return (
-      <input type="file" accept="image/*,video/*" onChange={handleFileChange} />
+      <input
+        type="file"
+        accept="image/*,video/*"
+        multiple
+        onChange={handleFilesChange}
+      />
     );
   };
-  const Preview = ({ file }) => {
-    if (!file) return null;
-    const isImage = file.type.startsWith("image/");
-    const isVideo = file.type.startsWith("video/");
-    if (isImage) {
-      return (
-        <img
-          width="100"
-          height="100"
-          src={URL.createObjectURL(file)}
-          alt="Preview"
-        />
-      );
-    } else if (isVideo) {
-      return (
-        <video width="100" height="100">
-          <source src={URL.createObjectURL(file)} type={file.type} />
-          Your browser does not support the video tag.
-        </video>
-      );
-    }
 
-    return null;
+  const FeedbackGallery = ({ files }) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        {files.map((file, index) => (
+          <div key={index} className="file-preview">
+            {file.type.startsWith("image/") ? (
+              <img
+                width="100"
+                height="100"
+                src={URL.createObjectURL(file)}
+                alt={`Image Preview ${index}`}
+              />
+            ) : file.type.startsWith("video/") ? (
+              <div>
+                <video
+                  width="100"
+                  height="100"
+                  src={URL.createObjectURL(file)}
+                  alt={`Video Preview ${index}`}
+                />
+              </div>
+            ) : (
+              <p>Unsupported file type</p>
+            )}
+          </div>
+        ))}
+      </div>
+    );
   };
-  const handleFileChange = (file) => {
-    setSelectedFile(file);
+  const handleFilesChange = (files) => {
+    setSelectedFiles([...selectedFiles, ...files]);
   };
 
   return (
@@ -315,7 +331,7 @@ const Settings = () => {
                     <h5>Change password</h5>
                     <form action="">
                       <div className="password-box">
-                        <label for="">Old password</label>
+                        <label for="">Old password*</label>
                         <input
                           type="password"
                           name=""
@@ -329,7 +345,7 @@ const Settings = () => {
                         )}
                       </div>
                       <div className="password-box">
-                        <label for="">New password</label>
+                        <label for="">New password*</label>
                         <input
                           type="password"
                           name=""
@@ -491,7 +507,7 @@ const Settings = () => {
                       </div>
                       <form action="" onSubmit={onSubmit}>
                         <div className="form_group">
-                          <label for="">Describe your issue or idea</label>
+                          <label for="">Describe your issue or idea*</label>
                           <textarea
                             name="feedback"
                             value={idea}
@@ -515,9 +531,13 @@ const Settings = () => {
                                 alt="Genaiguru addIconsImg"
                                 title="Genaiguru addIconsImg"
                               />
-                              <FileInput onFileChange={handleFileChange} />
-                              <Preview file={selectedFile} />
+                              <FileInput onFilesChange={handleFilesChange} />
                             </div>
+                            {selectedFiles.length > 0 && (
+                              <div>
+                                <FeedbackGallery files={selectedFiles} />
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="form_group">

@@ -82,7 +82,7 @@ const Otpscreen = () => {
           </h1>
           <div className="accountCreate">
             <div className="form_group flex">
-              <label htmlFor="otp">Enter OTP here</label>
+              <label htmlFor="otp">Enter OTP here*</label>
               <input
                 type="text"
                 name="number"

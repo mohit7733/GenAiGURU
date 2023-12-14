@@ -6,12 +6,15 @@ import { getBaseURL } from "../../api/config";
 import { useNavigate } from "react-router";
 import { PATH_PROFILE } from "../../routes";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
 
 const EditProfile = ({ settingsPage }) => {
   const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [bio, setBio] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
 
@@ -30,6 +33,7 @@ const EditProfile = ({ settingsPage }) => {
         setProfilePicture(response?.data?.profile_image);
         setCoverPicture(response?.data?.cover_image);
         setName(response?.data?.name);
+        setTitle(response?.data?.title);
         setBio(response?.data?.bio);
       })
       .catch((err) => {
@@ -60,20 +64,28 @@ const EditProfile = ({ settingsPage }) => {
       }
     }
   };
+  console.log(typeof coverPicture)
 
   const onEditProfile = (e) => {
     e.preventDefault();
+    const errors = validate();
+    // setErrors(errors);
+    if(errors.name==""&&errors.title=="")
+    {
     let fd = new FormData();
     fd.append("user_id", userId);
     fd.append("bio", bio);
     fd.append("name", name);
+    fd.append("title", title);
     fd.append("cover_image", coverPicture);
     fd.append("profile_image", profilePicture);
     axios
       .post(`${getBaseURL()}/update-user-profile`, fd)
       .then((response) => {
         if (response.status === 201) {
-          alert("Saved");
+          toast.success("Saved !", {
+            position: toast.POSITION.TOP_CENTER
+          });
           navigate(`${PATH_PROFILE}`);
         }
       })
@@ -86,6 +98,36 @@ const EditProfile = ({ settingsPage }) => {
           console.log(error);
         }
       });
+    }
+    else{
+      setErrors(errors);
+    }
+  };
+  const onchangeCheck = (key, value) => {
+    const errors = {};
+    if (!value) {
+      errors[key] = key + "Required !";
+    }
+    setErrors(errors);
+  };
+  const validate = () => {
+    const error = {};
+    // if (!profilePicture) {
+    //   error["profilePicture"] = "Profile Picture Required!";
+    // } else {
+    //   error["profilePicture"] = "";
+    // }
+    if (!name) {
+      error["name"] = "Name Required!";
+    } else {
+      error["name"] = "";
+    }
+    if (!title) {
+      error["title"] = "Title Required!";
+    } else {
+      error["title"] = "";
+    }
+    return error;
   };
 
   return (
@@ -114,7 +156,7 @@ const EditProfile = ({ settingsPage }) => {
             {/* <!-- profile start here --> */}
             <div className="profile-img-box">
               <div className="profileImgChange">
-                <p>Profile image</p>
+                <p>Profile image*</p>
                 <figure>
                   <img
                     src={
@@ -159,7 +201,7 @@ const EditProfile = ({ settingsPage }) => {
               </div>
               <form>
                 <div className="profile-edit">
-                  <label for="name">Your Name</label>
+                  <label for="name">Your Name*</label>
                   <input
                     type="text"
                     placeholder="GenAIGuru kingdom"
@@ -168,7 +210,25 @@ const EditProfile = ({ settingsPage }) => {
                     onChange={(e) => {
                       setName(e.target.value);
                     }}
+                    onKeyUp={onchangeCheck}
                   />
+                  {errors["name"] && <div className="error">{errors.name}</div>}
+                </div>
+                <div className="profile-edit">
+                  <label for="title">Title*</label>
+                  <input
+                    type="text"
+                    placeholder="UI Content"
+                    name="title"
+                    value={title}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                    onKeyUp={onchangeCheck}
+                  />
+                  {errors["title"] && (
+                    <div className="error">{errors.title}</div>
+                  )}
                 </div>
                 <div className="profile-edit">
                   <label for="name">Bio</label>
@@ -187,6 +247,7 @@ const EditProfile = ({ settingsPage }) => {
                 <button type="submit" onClick={onEditProfile}>
                   Save to change
                 </button>
+                <ToastContainer autoClose={1000} />
               </form>
             </div>
 
