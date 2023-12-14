@@ -3,37 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login } from "../../api/Auth";
-import { PATH_FORGOT_PASSWORD, PATH_LOGIN, PATH_WELCOME } from "../../routes";
+import {
+  BASE_PATH,
+  PATH_FORGOT_PASSWORD,
+  PATH_LOGIN,
+  PATH_WELCOME,
+} from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [verified, setVerified] = useState("");
   const navigate = useNavigate();
-
-  // Get API for verification registration process
-  useEffect(() => {
-    processComplitionStatus();
-  }, []);
-
-  const processComplitionStatus = () => {
-    const token = JSON.parse(localStorage.getItem("token"));
-
-    axios
-      .get(`${getBaseURL()}/auth/user/email-verification-status`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setVerified(response.data.email_verified);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,20 +43,36 @@ const Login8 = () => {
           console.log(res, "response");
           localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           localStorage.setItem("userLoggedIn", JSON.stringify("true"));
-          if (res.status === 200) {
-            toast.success("Login Successful !", {
-              position: toast.POSITION.TOP_CENTER,
-            });
-            processComplitionStatus();
 
-            setTimeout(() => {
-              if (verified == "yes") {
-                navigate("/");
-              } else {
-                navigate(`${PATH_WELCOME}`);
+          axios
+            .get(`${getBaseURL()}/auth/user/email-verification-status`, {
+              headers: {
+                Authorization: `Bearer ${res.data.accessToken}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+
+              if (res.status === 200) {
+                toast.success("Login Successful !", {
+                  position: toast.POSITION.TOP_CENTER,
+                });
+
+                setTimeout(() => {
+                  if (
+                    response?.data?.email_verified == "yes" &&
+                    response?.data?.post_follwed == "yes"
+                  ) {
+                    navigate("/");
+                  } else {
+                    navigate(`${PATH_WELCOME}`);
+                  }
+                }, [2000]);
               }
-            }, [2000]);
-          }
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
         })
         .catch((err) => {
           toast.error("Incorrect Email or Password !", {
@@ -89,7 +86,7 @@ const Login8 = () => {
     <div>
       <section className="createAccount mainBg">
         <figure className="headerLogo">
-          <Link to="/">
+          <Link to={BASE_PATH}>
             <img
               src="app/images/headerLogo.png"
               alt="Genaiguru header logo"
