@@ -5,6 +5,7 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { useNavigate } from "react-router";
 import { PATH_PROFILE } from "../../routes";
+import { Link } from "react-router-dom";
 
 const EditProfile = () => {
   const [name, setName] = useState("");
@@ -99,6 +100,8 @@ const EditProfile = () => {
               <p>
                 <a href="#">Profile</a>{" "}
                 <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
+                <Link to="/profile">Profile</Link>{" "}
+                <i class="fa fa-angle-right" aria-hidden="true"></i> Edit
                 profile
               </p>
               <h1>Edit profile</h1>

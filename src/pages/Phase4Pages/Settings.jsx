@@ -4,6 +4,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -15,14 +16,7 @@ const Settings = () => {
   
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
-  //  validation code hear
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const errors = validate();
-    setErrors(errors);
-  };
-
-  
+  // validation for feedback
   const onSubmit = (event) => {
     event.preventDefault();
     const errors = validate1();
@@ -37,6 +31,11 @@ const Settings = () => {
         if (response.status === 200) {
           alert("Feedback Sent Successfully");
           setIdea("");
+          toast.success("Feedback Sent Successfully", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          setIdea("");
+          setSelectedFile("");
         }
       })
       .catch((error) => {
@@ -49,12 +48,26 @@ const Settings = () => {
         }
       });
   };
+  const validate1 = () => {
+    const error = {};
+    if (!idea) {
+      error["idea"] = "Feedback Required!";
+    } else {
+      error["idea"] = "";
+    }
+    return error;
+  };
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-
+  //  validation code for old password and new password
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const errors = validate();
+    setErrors(errors);
+  };
   const onchangeCheck = (key, value) => {
     const errors = {};
     if (!value) {
@@ -102,15 +115,7 @@ const Settings = () => {
     }
     return error;
   };
-  const validate1 = () => {
-    const error = {};
-    if (!idea) {
-      error["idea"] = "Feedback Required!";
-    } else {
-      error["idea"] = "";
-    }
-    return error;
-  };
+  // code for get input img and video in feedback
   const FileInput = ({ onFileChange }) => {
     const handleFileChange = (e) => {
       const file = e.target.files[0];
@@ -578,6 +583,7 @@ const Settings = () => {
                           <button type="submit" className="loginBtn">
                             Submit
                           </button>
+                          <ToastContainer  autoClose={1000} />
                         </div>
                       </form>
                     </div>

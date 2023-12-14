@@ -166,7 +166,7 @@ const BlogDetails = () => {
                     {/* <!-- home interest section start here --> */}
                     <div className="home-interest">
                       <div className="heading-link flex">
-                        <h3>Realted posts</h3>
+                        <h3>Related posts</h3>
                       </div>
                       <div className="interest-sliders">
                         <div className="wrap flex">
@@ -409,7 +409,7 @@ const BlogDetails = () => {
                     {/* <!-- home interest section start here --> */}
                     <div className="home-interest">
                       <div className="heading-link flex">
-                        <h3>Realted posts</h3>
+                        <h3>Related posts</h3>
                       </div>
                       <div className="interest-sliders">
                         <div className="wrap flex">
