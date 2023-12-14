@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { PATH_LOGIN, PATH_SIGNIN } from "../../routes";
+import { useNavigate } from "react-router-dom";
 
 const Login7 = () => {
   const navigate = useNavigate();

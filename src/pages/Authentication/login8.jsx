@@ -1,34 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login } from "../../api/Auth";
-import { PATH_FORGOT_PASSWORD, PATH_LOGIN } from "../../routes";
+import { PATH_FORGOT_PASSWORD, PATH_LOGIN, PATH_WELCOME } from "../../routes";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [verified, setVerified] = useState("");
   const navigate = useNavigate();
+
+  // Get API for verification registration process
+  useEffect(() => {
+    processComplitionStatus();
+  }, []);
+
+  const processComplitionStatus = () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+
+    axios
+      .get(`${getBaseURL()}/auth/user/email-verification-status`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setVerified(response.data.email_verified);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onLogin();
   };
+
   const onLogin = async () => {
     let payload = {
       email: email,
       password: password,
     };
-     if (email.length === 0 && password.length === 0) {
-        toast.error("Enter Email and Password !", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-    }
-    else if (email.length === 0 || password.length === 0) {
-      toast.error(email.length===0?"Please Enter Email !":"Please Enter Password !", {
+    if (email.length === 0 && password.length === 0) {
+      toast.error("Enter Email and Password !", {
         position: toast.POSITION.TOP_CENTER,
       });
-  }
-     else {
+    } else if (email.length === 0 || password.length === 0) {
+      toast.error(
+        email.length === 0 ? "Please Enter Email !" : "Please Enter Password !",
+        {
+          position: toast.POSITION.TOP_CENTER,
+        }
+      );
+    } else {
       return login(payload)
         .then((res) => {
           console.log(res, "response");
@@ -38,8 +66,14 @@ const Login8 = () => {
             toast.success("Login Successful !", {
               position: toast.POSITION.TOP_CENTER,
             });
+            processComplitionStatus();
+
             setTimeout(() => {
-              navigate("/");
+              if (verified == "yes") {
+                navigate("/");
+              } else {
+                navigate(`${PATH_WELCOME}`);
+              }
             }, [2000]);
           }
         })
