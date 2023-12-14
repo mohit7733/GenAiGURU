@@ -76,14 +76,13 @@ const GuruGenesis = () => {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            setContactUsDetails({
-              fullName: "",
-              email: "",
-              comment: "",
-            });
+            
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_CENTER,
             });
+            setFullName("")
+            setComment("")
+            setEmail("")
           }
         })
         .catch((error) => {
@@ -224,7 +223,7 @@ const GuruGenesis = () => {
                             type="text"
                             placeholder="GenAIGuru"
                             name="fullName"
-                            // value={contactUsDetails.fullName}
+                            value={fullname}
                             // onChange={handleContactUsDetails}
                             onChange={(e) => setFullName(e.target.value)}
                             onKeyUp={onchangeCheck}
@@ -239,7 +238,7 @@ const GuruGenesis = () => {
                             type="email"
                             placeholder="genaiguru@gmail.com"
                             name="email"
-                            // value={contactUsDetails.email}
+                            value={email}
                             // onChange={handleContactUsDetails}
                             onChange={(e) => setEmail(e.target.value)}
                             onKeyUp={onchangeCheck}
@@ -253,7 +252,7 @@ const GuruGenesis = () => {
                           <textarea
                             name="comment"
                             placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
-                            // value={contactUsDetails.comment}
+                            value={comment}
                             // onChange={handleContactUsDetails}
                             onChange={(e) => setComment(e.target.value)}
                             onKeyUp={onchangeCheck}

@@ -176,7 +176,7 @@ const Login2 = () => {
             </h1>
             <form className="accountCreate" onSubmit={onSubmit}>
               <div className="form_group flex">
-                <label for="name">Your name</label>
+                <label for="name">Your Name*</label>
                 <input
                   type="text"
                   name="name"
@@ -187,7 +187,7 @@ const Login2 = () => {
                 {errors.name && <div className="error">{errors.name}</div>}
               </div>
               <div className="form_group flex">
-                <label for="email">Email address</label>
+                <label for="email">Email Address*</label>
                 <input
                   type="email"
                   name="email"
@@ -198,7 +198,7 @@ const Login2 = () => {
                 {errors.email && <div className="error">{errors.email}</div>}
               </div>
               <div className="form_group flex">
-                <label for="password">Password</label>
+                <label for="password">Password*</label>
                 <input
                   type="password"
                   name="password"
@@ -211,7 +211,7 @@ const Login2 = () => {
                 )}
               </div>
               <div className="form_group flex">
-                <label for="confirmPassword">Confirm password</label>
+                <label for="confirmPassword">Confirm Password*</label>
                 <input
                   type="password"
                   name="confirmPassword"
@@ -224,7 +224,7 @@ const Login2 = () => {
                 )}
               </div>
               <div className="form_group flex">
-                <label for="name">Title</label>
+                <label for="name">Title*</label>
                 <input
                   type="text"
                   name="Title"
@@ -235,7 +235,7 @@ const Login2 = () => {
                 {errors.title && <div className="error">{errors.title}</div>}
               </div>
               <div className="form_group flex">
-                <label for="profilePicture">Choose Profile Picture</label>
+                <label for="profilePicture">Choose Profile Picture*</label>
                 <input
                   type="file"
                   name="profilePicture"

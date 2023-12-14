@@ -106,7 +106,7 @@ const Login8 = () => {
           </h1>
           <form action="" className="accountCreate">
             <div className="form_group flex">
-              <label for="email">Email address</label>
+              <label for="email">Email Address*</label>
               <input
                 type="email"
                 name="email"
@@ -115,7 +115,7 @@ const Login8 = () => {
               />
             </div>
             <div className="form_group flex">
-              <label for="password">Password</label>
+              <label for="password">Password*</label>
               <input
                 type="password"
                 name="password"
