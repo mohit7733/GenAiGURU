@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_PATH, PATH_REGISTER_COMPLETE } from "../../routes";
+import { BASE_PATH, PATH_ADDINTERESTS, PATH_REGISTER_COMPLETE } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
@@ -87,7 +87,7 @@ const Login6 = () => {
       <section className="interestSection second mainBg">
         <div className="wrapper">
           <div className="cancelBtn">
-            <Link to={BASE_PATH}>
+            <Link to={PATH_ADDINTERESTS}>
               <i className="fa fa-times" aria-hidden="true"></i>
             </Link>
             Cancel

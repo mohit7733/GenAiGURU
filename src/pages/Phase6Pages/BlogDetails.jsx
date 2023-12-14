@@ -36,7 +36,7 @@ const BlogDetails = () => {
           content: response?.data?.blog_details?.content,
           title: response?.data?.blog_details?.title,
           banner_image: response?.data?.blog_details?.banner_image,
-          creation_date: response?.data?.blog_details?.creation_date,
+          // creation_date: response?.data?.blog_details?.creation_date,
         });
         console.log(response?.data?.blog_details);
       })
@@ -101,7 +101,7 @@ const BlogDetails = () => {
                     <p>
                       By <a href="#">{blogDetail.author}</a>
                     </p>
-                    <p>{blogDetail.creation_date}</p>
+                    {/* <p>{blogDetail.creation_date}</p> */}
                   </div>
                   <div className="blog-img">
                     <figure>
@@ -118,7 +118,7 @@ const BlogDetails = () => {
                       className="blog-txt"
                       dangerouslySetInnerHTML={{ __html: blogDetail.content }}
                     />
-                    <div className="blog-img">
+                    {/* <div className="blog-img">
                       <figure>
                         <img
                           src={"./app/images/blog-img-2.png"}
@@ -133,7 +133,7 @@ const BlogDetails = () => {
                       months of qualifying. 28% of students are hired while on
                       the course. Change career. Career changing skills. Spaces
                       filling up{" "}
-                    </p>
+                    </p> */}
                     <div className="comment-box">
                       <ul className="flex">
                         <li>

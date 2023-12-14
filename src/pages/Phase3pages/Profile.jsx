@@ -21,6 +21,7 @@ const Profile = () => {
     instagramLink: "",
     youtubeLink: "",
     linkedinLink: "",
+    coverImage: "",
   });
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -37,7 +38,7 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setProfileImage(response.data.profile_image);
         setUserDetails({
           userName:
@@ -89,6 +90,7 @@ const Profile = () => {
             response?.data?.linkedin === "null"
               ? ""
               : response?.data?.linkedin,
+          coverImage: response?.data?.cover_image,
         });
       })
       .catch((err) => {
@@ -177,7 +179,7 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
 
-  console.log(userDetails);
+  // console.log(userDetails);
   return (
     <>
       <MobileHeader />
@@ -186,18 +188,18 @@ const Profile = () => {
         <div className="rightSection">
           <div className=" full-width">
             {/* <!-- banner start here --> */}
-            <div className="profile-banner"></div>
+            <div className="profile-banner">
+              <figure>
+                <img src={userDetails.coverImage} />
+              </figure>
+            </div>
 
             {/* <!-- banner end here -->
             <!-- profile img start here --> */}
             <div className="row flex space-between">
               <div className="profile-img">
                 <figure>
-                  <img
-                    src={profileImage}
-                    // alt="Genaiguru user-icon"
-                    // title="Genaiguru user-icon"
-                  />
+                  <img src={profileImage} />
                 </figure>
                 <h3>{userDetails.userName}</h3>
                 <p>{userDetails.bio}</p>
@@ -291,7 +293,7 @@ const Profile = () => {
                       </ul>
                       <div className="social-link">
                         <h4>
-                          My social link{" "}
+                          My social links{" "}
                           <Link to={PATH_SOCIAL_EDIT_PROFILE}>
                             <img
                               src="/app/images/edit-icon.png"

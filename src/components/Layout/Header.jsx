@@ -22,7 +22,7 @@ const Header = () => {
         },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         localStorage.setItem("UserId", JSON.stringify(response.data?.id));
         setProfileImage(response.data.profile_image);
       })

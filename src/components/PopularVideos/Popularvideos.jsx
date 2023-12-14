@@ -5,9 +5,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { PATH_FEATURED_CONTENT } from "../../routes";
+import { PATH_FEATURED_CONTENT, PATH_VIDEO_PLAY } from "../../routes";
 
 const Popularvideos = () => {
   const sliderRef = useRef();
@@ -15,6 +15,7 @@ const Popularvideos = () => {
   const [userID, setuserID] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
 
+  const navigate = useNavigate();
   // Get API for Popular Videos
   useEffect(() => {
     axios
@@ -67,7 +68,7 @@ const Popularvideos = () => {
       <div className="video-section">
         <div className="heading-link flex">
           <h3>Popular youtube videos</h3>
-          <Link to="/featuredcontent">View all</Link>
+          <Link to={PATH_FEATURED_CONTENT}>View all</Link>
         </div>
         <div className="mobileVideoSection">
           <div className="wrap">
@@ -201,7 +202,12 @@ const Popularvideos = () => {
               {popularVideos.map((video, index) => {
                 return (
                   <div className="wrap" key={index}>
-                    <a href={video.youtube_link} target="_blank">
+                    <a
+                      onClick={() => {
+                        navigate(`${PATH_VIDEO_PLAY}`);
+                      }}
+                      target="_blank"
+                    >
                       <figure>
                         <ReactPlayer
                           url={video.youtube_link}
@@ -484,7 +490,6 @@ const Popularvideos = () => {
                   </div>
                 </a>
               </div>
-      
             </Slider>
           </div>
         )}

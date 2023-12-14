@@ -7,11 +7,11 @@ import { useNavigate } from "react-router";
 import { PATH_PROFILE } from "../../routes";
 import { Link } from "react-router-dom";
 
-const EditProfile = () => {
+const EditProfile = ({ settingsPage }) => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
-  const [coverPicture, setCoverPicture] = useState(null);
+  const [coverPicture, setCoverPicture] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,6 +28,7 @@ const EditProfile = () => {
       .then((response) => {
         console.log(response.data);
         setProfilePicture(response?.data?.profile_image);
+        setCoverPicture(response?.data?.cover_image);
         setName(response?.data?.name);
         setBio(response?.data?.bio);
       })
@@ -89,23 +90,27 @@ const EditProfile = () => {
 
   return (
     <div>
-      <MobileHeader />
+      {settingsPage ? <></> : <MobileHeader />}
+
       {/* <!-- main section start here --> */}
       <section className="mainWrapper flex hideMob">
-        <Sidebar />
+        {settingsPage ? <></> : <Sidebar />}
+
         <div className="rightSection">
           <div className=" full-width">
             {/* <!-- edit-profile start here --> */}
-            <div className="profile-edit socialLinkEdit flex">
-              <p>
-                <a href="#">Profile</a>{" "}
-                <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
-                <Link to="/profile">Profile</Link>{" "}
-                <i class="fa fa-angle-right" aria-hidden="true"></i> Edit
-                profile
-              </p>
-              <h1>Edit profile</h1>
-            </div>
+            {settingsPage ? (
+              <></>
+            ) : (
+              <div className="profile-edit socialLinkEdit flex">
+                <p>
+                  <a href="#">Profile</a>{" "}
+                  <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
+                  <Link to={PATH_PROFILE}>Profile</Link>{" "}
+                </p>
+                <h1>Edit profile</h1>
+              </div>
+            )}
             {/* <!-- profile start here --> */}
             <div className="profile-img-box">
               <div className="profileImgChange">
@@ -139,9 +144,11 @@ const EditProfile = () => {
                   <div className="img-box cameraBgImg">
                     <figure>
                       <img
-                        src="/app/images/camera-icon.png"
-                        alt="Genaiguru camera-icon"
-                        title="Genaiguru camera-icon"
+                        src={
+                          typeof coverPicture == "object"
+                            ? URL.createObjectURL(coverPicture)
+                            : coverPicture
+                        }
                       />
                     </figure>
                     <input type="file" onChange={handleCoverImageChange} />

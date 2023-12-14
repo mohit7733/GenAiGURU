@@ -4,7 +4,8 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
+import EditProfile from "../Phase3pages/EditProfile";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -13,7 +14,7 @@ const Settings = () => {
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-  
+
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // validation for feedback
@@ -32,7 +33,7 @@ const Settings = () => {
           alert("Feedback Sent Successfully");
           setIdea("");
           toast.success("Feedback Sent Successfully", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
           });
           setIdea("");
           setSelectedFile("");
@@ -152,7 +153,7 @@ const Settings = () => {
   const handleFileChange = (file) => {
     setSelectedFile(file);
   };
-  
+
   return (
     <div>
       <MobileHeader />
@@ -172,7 +173,7 @@ const Settings = () => {
           <div className=" full-width">
             {/* <!-- setting start --> */}
             <div className="setting-wrapper flex">
-              <h1>Setting</h1>
+              <h1>Settings</h1>
               <div className="setting-container">
                 <ul className="connect-link">
                   <li className={activeTab === 1 ? " active" : ""}>
@@ -297,72 +298,12 @@ const Settings = () => {
                       activeTab === 1 && "tab-content tab-content-1 active"
                     }
                   >
-                    {/* <div className="tab-content tab-content-1 active"> */}
-                    <div className="profile-img-box">
-                      <div className="profileImgChange">
-                        <p>Profile image</p>
-                        <figure>
-                          <img
-                            src="/app/images/userIcon.png"
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
-                          <div className="imageChange">
-                            <figure className="cameraImg">
-                              <img
-                                src="/app/images/camera-icon.png"
-                                alt="Genaiguru camera-icon"
-                                title="Genaiguru camera-icon"
-                              />
-                            </figure>
-                            <input type="file" />
-                          </div>
-                        </figure>
-                      </div>
-                      <p>
-                        <a href="#">Cover image</a>
-                      </p>
-                      <div className="cover-img-banner">
-                        <div className="banner-txt">
-                          <div className="img-box cameraBgImg">
-                            <figure>
-                              <img
-                                src="/app/images/camera-icon.png"
-                                alt="Genaiguru camera-icon"
-                                title="Genaiguru camera-icon"
-                              />
-                            </figure>
-                            <input type="file" />
-                          </div>
-                          <h6>Replace cover image</h6>
-                          <p>Optimal dimensions 1600 x 1200 px</p>
-                        </div>
-                      </div>
-                      <form action="">
-                        <div className="profile-edit">
-                          <label for="name">Your Name</label>
-                          <input type="text" placeholder="GenAIGuru" />
-                        </div>
-                        <div className="profile-edit">
-                          <label for="name">Bio</label>
-                          <textarea
-                            name=""
-                            id=""
-                            cols="5"
-                            rows="10"
-                            placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
-                          ></textarea>
-                        </div>
-                        <button type="submit" className="loginBtn">
-                          Save to change
-                        </button>
-                      </form>
-                    </div>
+                    {/* Profile Page added here as a component based on props Header and sidebar is hidden */}
+                    <EditProfile settingsPage={true} />
                   </div>
                 )}
                 {/* <!-- password here --> */}
                 {activeTab === 2 && (
-                  // <div className="tab-content tab-content-2 active">
                   <div
                     className={
                       activeTab === 2 &&
@@ -583,7 +524,7 @@ const Settings = () => {
                           <button type="submit" className="loginBtn">
                             Submit
                           </button>
-                          <ToastContainer  autoClose={1000} />
+                          <ToastContainer autoClose={1000} />
                         </div>
                       </form>
                     </div>
