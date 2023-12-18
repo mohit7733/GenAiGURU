@@ -2,7 +2,6 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 import Index2 from "./pages/Phase2Pages/index2";
 import Index3 from "./pages/Phase2Pages/index3";
-// import Index4 from "./pages/Phase2Pages/index4";
 import Index5 from "./pages/Phase2Pages/Index5";
 import Index6 from "./pages/Phase2Pages/Index6";
 import Index7 from "./pages/Phase2Pages/index7";
@@ -27,6 +26,7 @@ import FeaturedContentPopup from "./pages/Phase6Pages/FeaturedContentPopup";
 import Sortbydate from "./pages/Phase6Pages/Sortbydate";
 import SpeakToText from "./pages/Phase2Pages/SpeakToText";
 import FeaturedVideo from "./pages/Phase6Pages/FeaturedVideo";
+import FeaturedArticles from "./pages/Phase6Pages/FeaturedArticles";
 
 export const BASE_PATH = "/";
 
@@ -52,7 +52,9 @@ export const PATH_EDIT_PROFILE = "/editprofile";
 export const PATH_SOCIAL_EDIT_PROFILE = "/socialeditprofile";
 export const PATH_VIDEO_PLAY = "/videoplay";
 export const PATH_FEATURED_CONTENT = "/featuredcontent";
-export const PATH_FEATURED_VIDEO="/featuredvideo";
+export const PATH_FEATURED_VIDEO = "/featuredvideo";
+export const PATH_FEATURED_ARTICLES = "/featuredarticle";
+
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
 export function RouterElement() {
@@ -203,6 +205,11 @@ export function RouterElement() {
       path: PATH_FEATURED_VIDEO,
       name: PATH_FEATURED_VIDEO,
       element: <FeaturedVideo />,
+    },
+    {
+      path: PATH_FEATURED_ARTICLES,
+      name: PATH_FEATURED_ARTICLES,
+      element: <FeaturedArticles />,
       exact: true,
     },
     {

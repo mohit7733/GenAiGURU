@@ -74,7 +74,7 @@ const Popularvideos = () => {
       <div className="video-section">
         <div className="heading-link flex">
           <h3>Popular youtube videos</h3>
-          <Link to={PATH_FEATURED_VIDEO}>View all</Link>
+          <Link>View all</Link>
         </div>
         <div className="mobileVideoSection">
           <div className="wrap" >
