@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { getBaseURL } from "../../api/config";
+import ArticleBasedInterest from "../ArticlesBasedInterest/ArticleBasedInterest";
 
 const Categories = () => {
   const [myInterests, setMyInterests] = useState();
@@ -16,6 +17,7 @@ const Categories = () => {
       })
       .then((response) => {
         setMyInterests(response?.data?.data);
+        console.log(myInterests);
       })
       .catch((err) => {
         console.log(err.message);
@@ -23,6 +25,17 @@ const Categories = () => {
   }, []);
 
 
+  const onCategoryClick = (categoryId) => {
+    console.log(categoryId);
+    axios
+      .post(`${getBaseURL()}/articles?interest_id=${categoryId}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
   return (
     <div>
       <div className="home-category">
@@ -33,7 +46,11 @@ const Categories = () => {
           {myInterests?.map((interest, index) => {
             return (
               <li key={index}>
-                <a href="#">
+                <a
+                  onClick={() => {
+                    onCategoryClick(interest.interest_id);
+                  }}
+                >
                   <img
                     src="app/images/paint-board.png"
                     alt="Genaiguru paint-board"
@@ -52,6 +69,7 @@ const Categories = () => {
           })}
         </ul>
       </div>
+      <ArticleBasedInterest />
     </div>
   );
 };

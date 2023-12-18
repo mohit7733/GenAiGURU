@@ -54,7 +54,7 @@ const Index = () => {
           <Popularvideos />
           <Populararticles />
           {/* Slider Code Inside this div */}
-          <div className="featuredArticle">
+          {/* <div className="featuredArticle">
             <div className="heading-link flex">
               <h3>
                 <span className="destop-view">Featured articles</span>{" "}
@@ -238,13 +238,12 @@ const Index = () => {
             <a href="#" className="viewAll">
               View all
             </a>
-          </div>
+          </div> */}
           {token && <Categories />}
-          {token && <ArticleBasedInterest />}
+          {/* {token && <ArticleBasedInterest />} */}
         </div>
       </section>
       <Footer />
-      {/* <FixedAIButtonLogo /> */}
     </>
   );
 };

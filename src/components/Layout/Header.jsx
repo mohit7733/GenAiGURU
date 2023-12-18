@@ -22,7 +22,6 @@ const Header = () => {
         },
       })
       .then((response) => {
-        // console.log(response);
         localStorage.setItem("UserId", JSON.stringify(response.data?.id));
         setProfileImage(response.data.profile_image);
       })
@@ -142,9 +141,11 @@ const Header = () => {
             <ul className="userNav">
               <li>
                 {userLoggedIn && (
-                  <li>
-                    <Link to="/profile">My Profile </Link>
-                  </li>
+                  <ul>
+                    <li>
+                      <Link to="/profile">My Profile </Link>
+                    </li>
+                  </ul>
                 )}
                 <Link onClick={changeLoginStatus} to={PATH_LOGIN}>
                   {userLoggedIn ? "Logout" : "SignUp/Login"}

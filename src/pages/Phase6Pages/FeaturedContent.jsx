@@ -111,51 +111,64 @@ const FeaturedContent = () => {
                 {/* <!-- tab-link start here --> */}
                 <div className="row flex space-between align-center">
                   <ul className="connect-link flex">
-                    <li className={activeTab === 1 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(1)}
-                        className={activeTab === 1 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-1"
-                      >
-                        All
-                      </Link>
-                    </li>
-                    <li className={activeTab === 2 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(2)}
-                        className={activeTab === 2 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-2"
-                      >
-                        Ai in healthcare
-                      </Link>
-                    </li>
-                    <li className={activeTab === 3 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(3)}
-                        className={activeTab === 3 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-3"
-                      >
-                        ML in finance
-                      </Link>
-                    </li>
-                    <li className={activeTab === 4 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(4)}
-                        className={activeTab === 4 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-4"
-                      >
-                        Crypto
-                      </Link>
-                    </li>
-                    <li className={activeTab === 5 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(5)}
-                        className={activeTab === 5 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-5"
-                      >
-                        Bitcoin
-                      </Link>
-                    </li>
+                      <li className={activeTab === 1 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(1)}
+                          className={activeTab === 1 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-1"
+                        >
+                          All
+                        </Link>
+                      </li>
+                      <li className={activeTab === 2 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(2)}
+                          className={activeTab === 2 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-2"
+                        >
+                          Ai in healthcare
+                        </Link>
+                      </li>
+                      <li className={activeTab === 3 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(3)}
+                          className={activeTab === 3 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-3"
+                        >
+                          ML in finance
+                        </Link>
+                      </li>
+                      <li className={activeTab === 4 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(4)}
+                          className={activeTab === 4 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-4"
+                        >
+                          Crypto
+                        </Link>
+                      </li>
+                      <li className={activeTab === 5 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(5)}
+                          className={activeTab === 5 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-5"
+                        >
+                          Bitcoin
+                        </Link>
+                      </li>
+                      {/* {myInterests.map((interest, index) => {
+                        return (
+                          <li key={index}>
+                            <Link
+                              onClick={() => handleTabClick(5)}
+                              className={activeTab === 5 ? "tab active" : ""}
+                              data-toggle-target=".tab-content-5"
+                            >
+                              {interest.interest_name}
+                            </Link>
+                          </li>
+                        );
+                      })} */}
                   </ul>
                   <div className="connect-box">
                     <ul className="flex">
