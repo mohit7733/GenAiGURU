@@ -4,6 +4,8 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { PATH_FEATURED_CONTENT } from "../../routes";
+import { Link } from "react-router-dom";
 
 const BlogDetails = () => {
   const [blogDetail, setBlogDetail] = useState({
@@ -280,9 +282,9 @@ const BlogDetails = () => {
       {/* <!-- mobile section start here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
-          <div className="hamburger">
+          <Link to={PATH_FEATURED_CONTENT} className="hamburger">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
-          </div>
+          </Link>
           <h2>Blog Details</h2>
           <div className="connect-box">
             <ul className="flex">
@@ -308,7 +310,7 @@ const BlogDetails = () => {
             <div className="keeps-container blogDetails">
               {/* <!-- blog-start --> */}
               <div className="blog-details">
-                <h2>10 Great Java Frame- works used in 2023</h2>
+                <h2>{blogDetail.title}</h2>
                 <div className="blogger flex">
                   <div className="blogger-profile">
                     <figure>
@@ -321,14 +323,14 @@ const BlogDetails = () => {
                   </div>
                   <div className="content-box">
                     <p>
-                      By <a href="#">Wade Warren</a>
+                      By <a href="#">{blogDetail.author}</a>
                     </p>
-                    <p>Sep 15, 2023. 11:05 pm</p>
+                    <p>{blogDetail.creation_date}</p>
                   </div>
                   <div className="blog-img">
                     <figure>
                       <img
-                        src="./app/images/web-deigner-learn-book.png"
+                        src={blogDetail.banner_image}
                         alt="Genaiguru web-deigner-learn-book"
                         title="Genaiguru web-deigner-learn-book"
                       />
@@ -336,47 +338,11 @@ const BlogDetails = () => {
                     <span>Photo by jan maelstrom on Unsplash</span>
                   </div>
                   <div className="blog-txt">
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up{" "}
-                    </p>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up{" "}
-                    </p>
-                    <h4>
-                      10 Essential frameworks and libraries for java web
-                      developers
-                    </h4>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up{" "}
-                    </p>
-                    <div className="blog-img">
-                      <figure>
-                        <img
-                          src="./app/images/blog-img-2.png"
-                          alt="Genaiguru blog-img-2"
-                          title="Genaiguru blog-img-2"
-                        />
-                      </figure>
-                    </div>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up{" "}
-                    </p>
+                    <div
+                      className="blog-txt"
+                      dangerouslySetInnerHTML={{ __html: blogDetail.content }}
+                    />
+                
                     <div className="comment-box">
                       <ul className="flex">
                         <li>

@@ -1,7 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { getBaseURL } from "../../api/config";
-import { BASE_PATH, PATH_CREATE_NEW_PASSWORD, PATH_SIGNIN } from "../../routes";
+import {
+  BASE_PATH,
+  PATH_CREATE_NEW_PASSWORD,
+  PATH_FORGOT_PASSWORD,
+  PATH_SIGNIN,
+} from "../../routes";
 import CreacteNewPassword from "./CreacteNewPassword";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -72,13 +77,13 @@ const Otpscreen = () => {
         </figure>
         <div className="wrapper400">
           <div className="backBtn">
-            <a href={PATH_SIGNIN}>
+            <a href={PATH_FORGOT_PASSWORD}>
               <i className="fa fa-angle-left" aria-hidden="true"></i>
             </a>
             Back
           </div>
           <h1>
-            <span>Enter OTP</span>Otp is sent to your registered EmailID
+            <span>Enter OTP</span>OTP is sent to your registered EmailID
           </h1>
           <div className="accountCreate">
             <div className="form_group flex">

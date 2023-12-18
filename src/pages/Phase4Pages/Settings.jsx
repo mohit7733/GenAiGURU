@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import EditProfile from "../Phase3pages/EditProfile";
+import { PATH_EDIT_PROFILE, PATH_PROFILE } from "../../routes";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -13,11 +14,10 @@ const Settings = () => {
   const [password, setPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
-
   const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
+  const navigate = useNavigate();
   // validation for feedback
   const onSubmit = (event) => {
     event.preventDefault();
@@ -196,22 +196,6 @@ const Settings = () => {
                     <Link
                       onClick={() => handleTabClick(1)}
                       className={activeTab === 1 ? "tab" : ""}
-                      data-toggle-target=".tab-content-1"
-                    >
-                      <figure>
-                        <img
-                          src="./app/images/profile.png"
-                          alt="Genaiguru profile"
-                          title="Genaiguru profile"
-                        />
-                      </figure>
-                      <span>Profile</span>
-                    </Link>
-                  </li>
-                  <li className={activeTab === 2 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(2)}
-                      className={activeTab === 2 ? "tab" : ""}
                       data-toggle-target=".tab-content-2"
                     >
                       <figure>
@@ -222,6 +206,25 @@ const Settings = () => {
                         />
                       </figure>
                       <span>Edit password</span>
+                    </Link>
+                  </li>
+                  <li className={activeTab === 2 ? " active" : ""}>
+                    <Link
+                      to={PATH_PROFILE}
+                      onClick={() => {
+                        handleTabClick(2);
+                      }}
+                      className={activeTab === 2 ? "tab" : ""}
+                      data-toggle-target=".tab-content-1"
+                    >
+                      <figure>
+                        <img
+                          src="./app/images/profile.png"
+                          alt="Genaiguru profile"
+                          title="Genaiguru profile"
+                        />
+                      </figure>
+                      <span>Profile</span>
                     </Link>
                   </li>
                   <li className={activeTab === 3 ? " active" : ""}>
@@ -307,23 +310,23 @@ const Settings = () => {
                 </ul>
               </div>
               <div className="setting-box">
-                {activeTab === 1 && (
+                {activeTab === 2 && (
                   // <div className="tab-content tab-content-1 active">
                   <div
                     className={
-                      activeTab === 1 && "tab-content tab-content-1 active"
+                      activeTab === 2 && "tab-content tab-content-2 active"
                     }
                   >
                     {/* Profile Page added here as a component based on props Header and sidebar is hidden */}
-                    <EditProfile settingsPage={true} />
+                    {/* <EditProfile settingsPage={true} /> */}
                   </div>
                 )}
                 {/* <!-- password here --> */}
-                {activeTab === 2 && (
+                {activeTab === 1 && (
                   <div
                     className={
-                      activeTab === 2 &&
-                      "tab-content tab-content-2 passChangeTab active"
+                      activeTab === 1 &&
+                      "tab-content tab-content-1 passChangeTab active"
                     }
                   >
                     {/* <div className="tab-content tab-content-2 passChangeTab"> */}

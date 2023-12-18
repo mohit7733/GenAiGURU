@@ -26,7 +26,6 @@ const Latestblog = () => {
       })
       .then((response) => {
         setLatestBlog(response.data.blogs);
-        console.log(latestBlog);
       })
       .catch((err) => {
         console.log(err.message);
@@ -36,7 +35,7 @@ const Latestblog = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     arrows: true,
     slidesToScroll: 1,

@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import {
-  BASE_PATH,
-  PATH_FORGOT_PASSWORD,
-  PATH_OTP_SCREEN,
-  PATH_SIGNIN,
-} from "../../routes";
 import axios from "axios";
-import { getBaseURL } from "../../api/config";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Otpscreen from "./Otpscreen";
-import CustomToast from "../../components/CustomToast/CustomToast";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getBaseURL } from "../../api/config";
+import {
+  BASE_PATH,
+  PATH_OTP_SCREEN,
+  PATH_SIGNIN
+} from "../../routes";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -68,7 +65,7 @@ const ForgotPassword = () => {
 
         <div className="wrapper400">
           <div className="backBtn">
-            <a href={PATH_FORGOT_PASSWORD}>
+            <a href={PATH_SIGNIN}>
               <i className="fa fa-angle-left" aria-hidden="true"></i>
             </a>
             Back

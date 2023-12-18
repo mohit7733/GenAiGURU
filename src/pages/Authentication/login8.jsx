@@ -15,6 +15,22 @@ const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user/email-verification-status`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,7 +56,7 @@ const Login8 = () => {
     } else {
       return login(payload)
         .then((res) => {
-          console.log(res, "response");
+          // console.log(res, "response");
           localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           localStorage.setItem("userLoggedIn", JSON.stringify("true"));
 
@@ -52,22 +68,27 @@ const Login8 = () => {
             })
             .then((response) => {
               console.log(response.data);
-
-              if (res.status === 200) {
-                toast.success("Login Successful !", {
+              if (response?.data?.email_verified == "no") {
+                toast.warn("Please Verify Email First", {
                   position: toast.POSITION.TOP_CENTER,
                 });
+              } else {
+                if (res.status === 200) {
+                  toast.success("Login Successful !", {
+                    position: toast.POSITION.TOP_CENTER,
+                  });
 
-                setTimeout(() => {
-                  if (
-                    response?.data?.email_verified == "yes" &&
-                    response?.data?.post_follwed == "yes"
-                  ) {
-                    navigate("/");
-                  } else {
-                    navigate(`${PATH_WELCOME}`);
-                  }
-                }, [2000]);
+                  setTimeout(() => {
+                    if (
+                      response?.data?.email_verified == "yes" &&
+                      response?.data?.post_follwed == "yes"
+                    ) {
+                      navigate("/");
+                    } else {
+                      navigate(`${PATH_WELCOME}`);
+                    }
+                  }, [2000]);
+                }
               }
             })
             .catch((err) => {
@@ -106,7 +127,7 @@ const Login8 = () => {
           </h1>
           <form action="" className="accountCreate">
             <div className="form_group flex">
-              <label for="email">Email Address*</label>
+              <label htmlFor="email">Email Address*</label>
               <input
                 type="email"
                 name="email"
@@ -115,7 +136,7 @@ const Login8 = () => {
               />
             </div>
             <div className="form_group flex">
-              <label for="password">Password*</label>
+              <label htmlFor="password">Password*</label>
               <input
                 type="password"
                 name="password"

@@ -275,7 +275,7 @@ const Profile = () => {
                       <ul className="flex link-button">
                         {myInterests?.map((data, index) => {
                           return (
-                            <li>
+                            <li key={index}>
                               <a>{data.interest_name}</a>
                             </li>
                           );
@@ -1129,7 +1129,14 @@ const Profile = () => {
             />
           </div>
           <h2>My Profile</h2>
-          <button type="button">Edit profile</button>
+          <button
+            type="button"
+            onClick={() => {
+              navigate(PATH_EDIT_PROFILE);
+            }}
+          >
+            Edit profile
+          </button>
         </div>
         <div className="mob_profile_inner">
           {/* <!-- banner start here --> */}
@@ -1146,11 +1153,8 @@ const Profile = () => {
                   title="Genaiguru user-icon"
                 />
               </figure>
-              <h3>Esther Howard</h3>
-              <p>
-                Philosophy student|| Content writer|| Avid Writer||
-                Storyteller|| Technical Writer|| Tech Trends ||
-              </p>
+              <h3>{userDetails.userName}</h3>
+              <p>{userDetails.bio}</p>
               <div className="followers">
                 <ul className="flex space-between">
                   <li>
@@ -1211,13 +1215,13 @@ const Profile = () => {
                   <div className="intrest-area">
                     <h5>My Interests</h5>
                     <ul className="flex link-button">
-                      <li>
-                        <a href="#">GPT</a>
-                      </li>
-                      <li>
-                        {" "}
-                        <a href="#">Large language models</a>{" "}
-                      </li>
+                      {myInterests?.map((data, index) => {
+                        return (
+                          <li key={index}>
+                            <a>{data.interest_name}</a>
+                          </li>
+                        );
+                      })}
                       <li>
                         <Link
                           onClick={() => {
@@ -1232,7 +1236,7 @@ const Profile = () => {
                     <div className="social-link">
                       <h4>
                         My social link{" "}
-                        <Link to={"/phasepage3"}>
+                        <Link to={PATH_SOCIAL_EDIT_PROFILE}>
                           <img
                             src="/app/images/edit-icon.png"
                             alt="Genaiguru edit-icon"
@@ -1242,66 +1246,86 @@ const Profile = () => {
                         </Link>
                       </h4>
                       <ul>
-                        <li>
-                          <a href="#">
-                            <figure>
-                              <img
-                                src="/app/images/twitter.png"
-                                alt="Genaiguru twitter"
-                                title="Genaiguru Genaiguru twitter"
-                              />
-                            </figure>
-                            <span>Twitter</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <figure>
-                              <img
-                                src="/app/images/facebookIcon.png"
-                                alt="Genaiguru facebookIcon"
-                                title="Genaiguru facebookIcon"
-                              />
-                            </figure>
-                            <span>Facebook</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <figure>
-                              <img
-                                src="/app/images/youtubeIcon.png"
-                                alt="Genaiguru youtube"
-                                title="Genaiguru Youtube"
-                              />
-                            </figure>
-                            <span>Youtube</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <figure>
-                              <img
-                                src="/app/images/linkdin-icon.png"
-                                alt="Genaiguru linkdin-icon"
-                                title="Genaiguru linkdin-icon"
-                              />
-                            </figure>
-                            <span>LinkedIn</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <figure>
-                              <img
-                                src="/app/images/insta-icon.png"
-                                alt="Genaiguru insta-icon"
-                                title="Genaiguru insta-icon"
-                              />
-                            </figure>
-                            <span>Instagram</span>
-                          </a>
-                        </li>
+                        {userDetails.twitterLink == "" ? (
+                          <></>
+                        ) : (
+                          <li>
+                            <a href={userDetails.twitterLink} target="_blank">
+                              <figure>
+                                <img
+                                  src="/app/images/twitter.png"
+                                  alt="Genaiguru twitter"
+                                  title="Genaiguru Genaiguru twitter"
+                                />
+                              </figure>
+                              <span>Twitter</span>
+                            </a>
+                          </li>
+                        )}
+                        {userDetails.facebookLink == "" ? (
+                          <></>
+                        ) : (
+                          <li>
+                            <a href={userDetails.facebookLink} target="_blank">
+                              <figure>
+                                <img
+                                  src="/app/images/facebookIcon.png"
+                                  alt="Genaiguru facebookIcon"
+                                  title="Genaiguru facebookIcon"
+                                />
+                              </figure>
+                              <span>Facebook</span>
+                            </a>
+                          </li>
+                        )}
+                        {userDetails.youtubeLink == "" ? (
+                          <></>
+                        ) : (
+                          <li>
+                            <a href={userDetails.youtubeLink} target="_blank">
+                              <figure>
+                                <img
+                                  src="/app/images/youtubeIcon.png"
+                                  alt="Genaiguru youtube"
+                                  title="Genaiguru Youtube"
+                                />
+                              </figure>
+                              <span>Youtube</span>
+                            </a>
+                          </li>
+                        )}
+                        {userDetails.linkedinLink == "" ? (
+                          <></>
+                        ) : (
+                          <li>
+                            <a href={userDetails.linkedinLink} target="_blank">
+                              <figure>
+                                <img
+                                  src="/app/images/linkdin-icon.png"
+                                  alt="Genaiguru linkdin-icon"
+                                  title="Genaiguru linkdin-icon"
+                                />
+                              </figure>
+                              <span>LinkedIn</span>
+                            </a>
+                          </li>
+                        )}
+                        {userDetails.instagramLink == "" ? (
+                          <></>
+                        ) : (
+                          <li>
+                            <a href={userDetails.instagramLink} target="_blank">
+                              <figure>
+                                <img
+                                  src="/app/images/insta-icon.png"
+                                  alt="Genaiguru insta-icon"
+                                  title="Genaiguru insta-icon"
+                                />
+                              </figure>
+                              <span>Instagram</span>
+                            </a>
+                          </li>
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -2032,7 +2056,7 @@ const Profile = () => {
                   <div className="flex">
                     {interestData.map((data, index) => {
                       return (
-                        <div className="button-container">
+                        <div className="button-container" key={index}>
                           <input
                             type="button"
                             key={index}
@@ -2064,7 +2088,11 @@ const Profile = () => {
           {/* <!-- mobile popup starts here -- */}
           <div className="mob_popup hideDes">
             <div className="mobileClose">
-              <figure>
+              <figure
+                onClick={() => {
+                  setDisplayInterestPopup(false);
+                }}
+              >
                 <img
                   src="app/images/mobileCloseIconImg.png"
                   alt="mobile close icon"
@@ -2078,128 +2106,31 @@ const Profile = () => {
               <div className="popupp-btn-box">
                 <form action="">
                   <div className="flex">
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Artificial intelligence"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Open AI"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Blockchain"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Topic 02"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Digital innovation"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Mid-journey"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Artificial intelligence"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="GPT"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Data science"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Machine learning"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="Large language models"
-                      />
-                    </div>
-                    <div className="button-container">
-                      {" "}
-                      <input
-                        name=""
-                        id=""
-                        className="ai-button"
-                        type="button"
-                        value="NLP"
-                      />
-                    </div>
+                    {interestData.map((data, index) => {
+                      return (
+                        <div className="button-container" key={index}>
+                          <input
+                            type="button"
+                            key={index}
+                            onClick={() => {
+                              addInterestIndex(data.id);
+                            }}
+                            style={
+                              selectedInterestIndex.includes(data.id)
+                                ? { backgroundColor: "purple" }
+                                : {}
+                            }
+                            value={data.interestName}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
-                  <button type="submit" className="loginBtn">
+                  <button
+                    type="submit"
+                    className="loginBtn"
+                    onClick={onChangeInterest}
+                  >
                     Add Now
                   </button>
                 </form>

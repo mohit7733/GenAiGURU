@@ -6,7 +6,7 @@ import { getBaseURL } from "../../api/config";
 import { useNavigate } from "react-router";
 import { PATH_PROFILE } from "../../routes";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 
 const EditProfile = ({ settingsPage }) => {
   const [name, setName] = useState("");
@@ -64,42 +64,39 @@ const EditProfile = ({ settingsPage }) => {
       }
     }
   };
-  console.log(typeof coverPicture)
 
   const onEditProfile = (e) => {
     e.preventDefault();
     const errors = validate();
     // setErrors(errors);
-    if(errors.name==""&&errors.title=="")
-    {
-    let fd = new FormData();
-    fd.append("user_id", userId);
-    fd.append("bio", bio);
-    fd.append("name", name);
-    fd.append("title", title);
-    fd.append("cover_image", coverPicture);
-    fd.append("profile_image", profilePicture);
-    axios
-      .post(`${getBaseURL()}/update-user-profile`, fd)
-      .then((response) => {
-        if (response.status === 201) {
-          toast.success("Saved !", {
-            position: toast.POSITION.TOP_CENTER
-          });
-          navigate(`${PATH_PROFILE}`);
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        } else if (error.request) {
-          console.log("network error");
-        } else {
-          console.log(error);
-        }
-      });
-    }
-    else{
+    if (errors.name == "" && errors.title == "") {
+      let fd = new FormData();
+      fd.append("user_id", userId);
+      fd.append("bio", bio);
+      fd.append("name", name);
+      fd.append("title", title);
+      fd.append("cover_image", coverPicture);
+      fd.append("profile_image", profilePicture);
+      axios
+        .post(`${getBaseURL()}/update-user-profile`, fd)
+        .then((response) => {
+          if (response.status === 201) {
+            toast.success("Saved !", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            navigate(`${PATH_PROFILE}`);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+          } else if (error.request) {
+            console.log("network error");
+          } else {
+            console.log(error);
+          }
+        });
+    } else {
       setErrors(errors);
     }
   };
@@ -158,14 +155,16 @@ const EditProfile = ({ settingsPage }) => {
               <div className="profileImgChange">
                 <p>Profile image*</p>
                 <figure>
-                  <img
-                    src={
-                      typeof profilePicture == "object"
-                        ? URL.createObjectURL(profilePicture)
-                        : profilePicture
-                    }
-                  />
-                  {/* <img src={profilePicture} /> */}
+                  {profilePicture && (
+                    <img
+                      src={
+                        typeof profilePicture == "object"
+                          ? URL.createObjectURL(profilePicture || "")
+                          : profilePicture
+                      }
+                    />
+                  )}
+
                   <div className="imageChange">
                     <figure className="cameraImg">
                       <img
@@ -185,13 +184,15 @@ const EditProfile = ({ settingsPage }) => {
                 <div className="banner-txt">
                   <div className="img-box cameraBgImg">
                     <figure>
-                      <img
-                        src={
-                          typeof coverPicture == "object"
-                            ? URL.createObjectURL(coverPicture)
-                            : coverPicture
-                        }
-                      />
+                      {coverPicture && (
+                        <img
+                          src={
+                            typeof coverPicture == "object"
+                              ? URL.createObjectURL(coverPicture || "")
+                              : coverPicture
+                          }
+                        />
+                      )}
                     </figure>
                     <input type="file" onChange={handleCoverImageChange} />
                   </div>
@@ -201,7 +202,7 @@ const EditProfile = ({ settingsPage }) => {
               </div>
               <form>
                 <div className="profile-edit">
-                  <label for="name">Your Name*</label>
+                  <label htmlFor="name">Your Name*</label>
                   <input
                     type="text"
                     placeholder="GenAIGuru kingdom"
@@ -215,7 +216,7 @@ const EditProfile = ({ settingsPage }) => {
                   {errors["name"] && <div className="error">{errors.name}</div>}
                 </div>
                 <div className="profile-edit">
-                  <label for="title">Title*</label>
+                  <label htmlFor="title">Title*</label>
                   <input
                     type="text"
                     placeholder="UI Content"
@@ -231,7 +232,7 @@ const EditProfile = ({ settingsPage }) => {
                   )}
                 </div>
                 <div className="profile-edit">
-                  <label for="name">Bio</label>
+                  <label htmlFor="name">Bio</label>
                   <textarea
                     name="bio"
                     value={bio}
@@ -259,9 +260,9 @@ const EditProfile = ({ settingsPage }) => {
       {/* <!-- profile edit mobile section start here --> */}
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
-          <div className="backBtns">
+          <Link to={PATH_PROFILE} className="backBtns">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
-          </div>
+          </Link>
           <h2>Edit profile</h2>
         </div>
         <div className="innerProfileEdits rightSection">
@@ -273,11 +274,15 @@ const EditProfile = ({ settingsPage }) => {
               <div className="banner-txt">
                 <div className="img-box cameraBgImg">
                   <figure>
-                    <img
-                      src="/app/images/camera-icon.png"
-                      alt="Genaiguru camera-icon"
-                      title="Genaiguru camera-icon"
-                    />
+                    {coverPicture && (
+                      <img
+                        src={
+                          typeof coverPicture == "object"
+                            ? URL.createObjectURL(coverPicture || "")
+                            : coverPicture
+                        }
+                      />
+                    )}
                   </figure>
                   <input type="file" />
                 </div>
@@ -286,11 +291,15 @@ const EditProfile = ({ settingsPage }) => {
             <div className="profileImgChange">
               <p>Profile image</p>
               <figure>
-                <img
-                  src="/app/images/userIcon.png"
-                  alt="Genaiguru user-icon"
-                  title="Genaiguru user-icon"
-                />
+                {profilePicture && (
+                  <img
+                    src={
+                      typeof profilePicture == "object"
+                        ? URL.createObjectURL(profilePicture || "")
+                        : profilePicture
+                    }
+                  />
+                )}
                 <div className="imageChange">
                   <figure className="cameraImg">
                     <img
@@ -305,20 +314,50 @@ const EditProfile = ({ settingsPage }) => {
             </div>
             <form action="">
               <div className="profile-edit">
-                <label for="name">Your Name</label>
-                <input type="text" placeholder="Prosing kingdom" />
+                <label htmlFor="name">Your Name*</label>
+                <input
+                  type="text"
+                  placeholder="GenAIGuru kingdom"
+                  name="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  onKeyUp={onchangeCheck}
+                />
+                {errors["name"] && <div className="error">{errors.name}</div>}
               </div>
               <div className="profile-edit">
-                <label for="name">Bio</label>
+                <label htmlFor="title">Title*</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
+                  onKeyUp={onchangeCheck}
+                  placeholder="UI Content"
+                />
+                {errors["title"] && <div className="error">{errors.title}</div>}
+              </div>
+              <div className="profile-edit">
+                <label htmlFor="name">Bio</label>
                 <textarea
-                  name=""
+                  name="bio"
+                  value={bio}
+                  onChange={(e) => {
+                    setBio(e.target.value);
+                  }}
                   id=""
                   cols="5"
                   rows="10"
                   placeholder="Philosophy student|| Content writer|| Avid Writer|| Storyteller|| Technical Writer|| Tech Trends ||"
                 ></textarea>
               </div>
-              <button type="submit">Save to change</button>
+              <button type="submit" onClick={onEditProfile}>
+                Save to change
+              </button>
             </form>
           </div>
         </div>
