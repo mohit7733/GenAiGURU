@@ -20,7 +20,13 @@ const ForgotPassword = () => {
       toast.error("Please Enter Email", {
         position: toast.POSITION.TOP_CENTER,
       });
-    } else {
+    }
+    else if (!/\S+@\S+\.\S+/.test(email)){
+      toast.error("Please Enter Valid Email", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+     else {
       axios
         .post(`${getBaseURL()}/forgot-password`, {
           email: email,
@@ -65,9 +71,9 @@ const ForgotPassword = () => {
 
         <div className="wrapper400">
           <div className="backBtn">
-            <a href={PATH_SIGNIN}>
+            <Link to={BASE_PATH}>
               <i className="fa fa-angle-left" aria-hidden="true"></i>
-            </a>
+            </Link>
             Back
           </div>
           <h1>Forgot Your Password</h1>

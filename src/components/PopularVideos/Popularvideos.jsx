@@ -7,7 +7,11 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
-import { PATH_FEATURED_CONTENT, PATH_VIDEO_PLAY } from "../../routes";
+import {
+  PATH_FEATURED_CONTENT,
+  PATH_FEATURED_VIDEO,
+  PATH_VIDEO_PLAY,
+} from "../../routes";
 
 const Popularvideos = () => {
   const sliderRef = useRef();
@@ -60,16 +64,20 @@ const Popularvideos = () => {
       },
     ],
   };
+  const onVideoClick = (VideoId) => {
+    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
+    console.log(VideoId);
+  };
 
   return (
     <>
       <div className="video-section">
         <div className="heading-link flex">
           <h3>Popular youtube videos</h3>
-          <Link to={PATH_FEATURED_CONTENT}>View all</Link>
+          <Link to={PATH_FEATURED_VIDEO}>View all</Link>
         </div>
         <div className="mobileVideoSection">
-          <div className="wrap">
+          <div className="wrap" >
             <a href="#">
               <figure>
                 <img
@@ -198,7 +206,7 @@ const Popularvideos = () => {
           >
             {popularVideos.map((video, index) => {
               return (
-                <div className="wrap" key={index}>
+                <div className="wrap" key={index}  onClick={() => onVideoClick(video.video_id)} >
                   <a
                     onClick={() => {
                       navigate(`${PATH_VIDEO_PLAY}`);
