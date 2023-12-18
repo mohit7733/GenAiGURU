@@ -26,6 +26,7 @@ import BlogDetails from "./pages/Phase6Pages/BlogDetails";
 import FeaturedContentPopup from "./pages/Phase6Pages/FeaturedContentPopup";
 import Sortbydate from "./pages/Phase6Pages/Sortbydate";
 import SpeakToText from "./pages/Phase2Pages/SpeakToText";
+import FeaturedVideo from "./pages/Phase6Pages/FeaturedVideo";
 
 export const BASE_PATH = "/";
 
@@ -51,7 +52,7 @@ export const PATH_EDIT_PROFILE = "/editprofile";
 export const PATH_SOCIAL_EDIT_PROFILE = "/socialeditprofile";
 export const PATH_VIDEO_PLAY = "/videoplay";
 export const PATH_FEATURED_CONTENT = "/featuredcontent";
-
+export const PATH_FEATURED_VIDEO="/featuredvideo";
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
 export function RouterElement() {
@@ -196,6 +197,12 @@ export function RouterElement() {
       path: PATH_FEATURED_CONTENT,
       name: PATH_FEATURED_CONTENT,
       element: <FeaturedContent />,
+      exact: true,
+    },
+    {
+      path: PATH_FEATURED_VIDEO,
+      name: PATH_FEATURED_VIDEO,
+      element: <FeaturedVideo />,
       exact: true,
     },
     {

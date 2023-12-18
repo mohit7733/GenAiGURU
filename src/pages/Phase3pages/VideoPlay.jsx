@@ -1,28 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import { useLocation } from "react-router";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
+import ReactPlayer from "react-player";
 
 const VideoPlay = () => {
+  const [videoPlay, setVideoPlay] = useState({
+    title: "",
+    youtube_link: "",
+    tags: [],
+  });
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  // useLocation to get id from url
+  let location = useLocation();
+  const queryParam = new URLSearchParams(location.search);
+  const videoId = queryParam.get("id");
+
+
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/popular-latest-videos?id=${videoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setVideoPlay({
+          title: response?.data?.video_details?.title,
+          youtube_link: response?.data?.video_details?.youtube_link,
+          tags: response?.data?.video_details?.tags,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <div>
       <MobileHeader />
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
-          <div class="full-width">
+          <div className="full-width">
             {/* <!-- edit-profile start here --> */}
-            <div class="video-wrapper flex">
-              <div class="video-box">
+            <div className="video-wrapper flex">
+              <div className="video-box">
                 <p>
-                  <i class="fa fa-angle-left" aria-hidden="true"></i> Videos
+                  <i className="fa fa-angle-left" aria-hidden="true"></i> Videos
                 </p>
-                <video src="" poster="/app/images/cartonn-vdeo.png"></video>
-                <ul class="flex space-between link">
+                <ReactPlayer
+                  url={videoPlay.youtube_link}
+                  width="100%"
+                  height="60%"
+                />
+                <ul className="flex space-between link">
                   <li>
-                    <a href="#">#finace #crypto #economy</a>
+                    {videoPlay?.tags?.map((tag, index) => {
+                      return <a key={index}>#{tag}</a>;
+                    })}
                   </li>
-                  <li class="download-btn">
+                  <li className="download-btn">
                     <a href="#">
                       <img
                         src="/app/images/thumbs-up.png"
@@ -50,19 +91,16 @@ const VideoPlay = () => {
                     </a>
                   </li>
                 </ul>
-                <h3>
-                  Navigating the world of ChatGPT and Its open-source
-                  adversaries
-                </h3>
+                <h2>{videoPlay.title}</h2>
                 {/* <!-- view details here --> */}
-                <div class="view-details">
+                <div className="view-details">
                   <a href="#">24 M views |</a>
                   <a href="#">3 months |</a>
                   <a href="#">Details</a>
                 </div>
                 {/* <!-- view details end here -->
               <!-- profile  --> */}
-                <ul class="profile-video flex">
+                <ul className="profile-video flex">
                   <li>
                     <a href="">
                       <img
@@ -82,7 +120,7 @@ const VideoPlay = () => {
                 </ul>
                 {/* <!--profile -end -->
                   <!-- review start --> */}
-                <div class="review">
+                <div className="review">
                   <ul>
                     <li>
                       <a href="#">
@@ -136,11 +174,11 @@ const VideoPlay = () => {
 
                 {/* <!-- review end --> */}
               </div>
-              <div class="video-list">
+              <div className="video-list">
                 <h1>More Videos</h1>
-                <div class="tab-content">
-                  <div class="interest-box flex space-between">
-                    <div class="wrap flex">
+                <div className="tab-content">
+                  <div className="interest-box flex space-between">
+                    <div className="wrap flex">
                       <figure>
                         <a href="#">
                           <video
@@ -148,7 +186,7 @@ const VideoPlay = () => {
                             poster="/app/images/videoTabvideoImage.png"
                           ></video>
                         </a>
-                        <div class="videoTime flex">
+                        <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
@@ -157,8 +195,8 @@ const VideoPlay = () => {
                           <span>3:38</span>
                         </div>
                       </figure>
-                      <div class="content">
-                        <div class="wrapper flex">
+                      <div className="content">
+                        <div className="wrapper flex">
                           <figure>
                             <img
                               src="app/images/authorImg.png"
@@ -166,7 +204,7 @@ const VideoPlay = () => {
                               title="Genaiguru authorImg"
                             />
                           </figure>
-                          <div class="innerContent">
+                          <div className="innerContent">
                             <h6>Alex Smih</h6>
                             <p>24 M view . 3 month ago</p>
                           </div>
@@ -177,7 +215,7 @@ const VideoPlay = () => {
                             Adversaries
                           </a>
                         </p>
-                        <ul class="flex">
+                        <ul className="flex">
                           <li>
                             <a href="#">
                               <img
@@ -200,7 +238,7 @@ const VideoPlay = () => {
                       </div>
                     </div>
 
-                    <div class="wrap flex">
+                    <div className="wrap flex">
                       <figure>
                         <a href="#">
                           <video
@@ -208,7 +246,7 @@ const VideoPlay = () => {
                             poster="/app/images/interestSliderImg.png"
                           ></video>
                         </a>
-                        <div class="videoTime flex">
+                        <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
@@ -217,8 +255,8 @@ const VideoPlay = () => {
                           <span>3:38</span>
                         </div>
                       </figure>
-                      <div class="content">
-                        <div class="wrapper flex">
+                      <div className="content">
+                        <div className="wrapper flex">
                           <figure>
                             <img
                               src="app/images/authorImg.png"
@@ -226,7 +264,7 @@ const VideoPlay = () => {
                               title="Genaiguru authorImg"
                             />
                           </figure>
-                          <div class="innerContent">
+                          <div className="innerContent">
                             <h6>Alex Smih</h6>
                             <p>24 M view . 3 month ago</p>
                           </div>
@@ -237,7 +275,7 @@ const VideoPlay = () => {
                             Adversaries
                           </a>
                         </p>
-                        <ul class="flex">
+                        <ul className="flex">
                           <li>
                             <a href="#">
                               <img
@@ -260,7 +298,7 @@ const VideoPlay = () => {
                       </div>
                     </div>
 
-                    <div class="wrap flex">
+                    <div className="wrap flex">
                       <figure>
                         <a href="#">
                           <video
@@ -268,7 +306,7 @@ const VideoPlay = () => {
                             poster="/app/images/interestSliderImg.png"
                           ></video>
                         </a>
-                        <div class="videoTime flex">
+                        <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
@@ -277,8 +315,8 @@ const VideoPlay = () => {
                           <span>3:38</span>
                         </div>
                       </figure>
-                      <div class="content">
-                        <div class="wrapper flex">
+                      <div className="content">
+                        <div className="wrapper flex">
                           <figure>
                             <img
                               src="app/images/authorImg.png"
@@ -286,7 +324,7 @@ const VideoPlay = () => {
                               title="Genaiguru authorImg"
                             />
                           </figure>
-                          <div class="innerContent">
+                          <div className="innerContent">
                             <h6>Alex Smih</h6>
                             <p>24 M view . 3 month ago</p>
                           </div>
@@ -297,7 +335,7 @@ const VideoPlay = () => {
                             Adversaries
                           </a>
                         </p>
-                        <ul class="flex">
+                        <ul className="flex">
                           <li>
                             <a href="#">
                               <img
@@ -320,7 +358,7 @@ const VideoPlay = () => {
                       </div>
                     </div>
 
-                    <div class="wrap flex">
+                    <div className="wrap flex">
                       <figure>
                         <a href="#">
                           <video
@@ -328,7 +366,7 @@ const VideoPlay = () => {
                             poster="/app/images/videoTabvideoImage.png"
                           ></video>
                         </a>
-                        <div class="videoTime flex">
+                        <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
@@ -337,8 +375,8 @@ const VideoPlay = () => {
                           <span>3:38</span>
                         </div>
                       </figure>
-                      <div class="content">
-                        <div class="wrapper flex">
+                      <div className="content">
+                        <div className="wrapper flex">
                           <figure>
                             <img
                               src="app/images/authorImg.png"
@@ -346,7 +384,7 @@ const VideoPlay = () => {
                               title="Genaiguru authorImg"
                             />
                           </figure>
-                          <div class="innerContent">
+                          <div className="innerContent">
                             <h6>Alex Smih</h6>
                             <p>24 M view . 3 month ago</p>
                           </div>
@@ -357,7 +395,7 @@ const VideoPlay = () => {
                             Adversaries
                           </a>
                         </p>
-                        <ul class="flex">
+                        <ul className="flex">
                           <li>
                             <a href="#">
                               <img
@@ -380,7 +418,7 @@ const VideoPlay = () => {
                       </div>
                     </div>
 
-                    <div class="wrap flex">
+                    <div className="wrap flex">
                       <figure>
                         <a href="#">
                           <video
@@ -388,7 +426,7 @@ const VideoPlay = () => {
                             poster="/app/images/interestSliderImg.png"
                           ></video>
                         </a>
-                        <div class="videoTime flex">
+                        <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
@@ -397,8 +435,8 @@ const VideoPlay = () => {
                           <span>3:38</span>
                         </div>
                       </figure>
-                      <div class="content">
-                        <div class="wrapper flex">
+                      <div className="content">
+                        <div className="wrapper flex">
                           <figure>
                             <img
                               src="app/images/authorImg.png"
@@ -406,7 +444,7 @@ const VideoPlay = () => {
                               title="Genaiguru authorImg"
                             />
                           </figure>
-                          <div class="innerContent">
+                          <div className="innerContent">
                             <h6>Alex Smih</h6>
                             <p>24 M view . 3 month ago</p>
                           </div>
@@ -417,7 +455,7 @@ const VideoPlay = () => {
                             Adversaries
                           </a>
                         </p>
-                        <ul class="flex">
+                        <ul className="flex">
                           <li>
                             <a href="#">
                               <img
@@ -448,22 +486,22 @@ const VideoPlay = () => {
         </div>
       </section>
       {/* <!-- video section mobile start here --> */}
-      <div class="mob_profile hideDes">
-        <div class="mobileHead flex">
-          <div class="backBtns">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+      <div className="mob_profile hideDes">
+        <div className="mobileHead flex">
+          <div className="backBtns">
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
           </div>
           <h2>Videos</h2>
         </div>
-        <div class="innerVideosection rightSection">
-          <div class="video-wrapper flex">
-            <div class="video-box">
+        <div className="innerVideosection rightSection">
+          <div className="video-wrapper flex">
+            <div className="video-box">
               <video src="" poster="/app/images/cartonn-vdeo.png"></video>
-              <ul class="flex space-between link">
+              <ul className="flex space-between link">
                 <li>
                   <a href="#">#finace #crypto #economy</a>
                 </li>
-                <li class="download-btn">
+                <li className="download-btn">
                   <a href="#">
                     <img
                       src="/app/images/thumbs-up.png"
@@ -494,14 +532,14 @@ const VideoPlay = () => {
                 Navigating the world of ChatGPT and Its open-source adversaries
               </h3>
               {/* <!-- view details here --> */}
-              <div class="view-details">
+              <div className="view-details">
                 <a href="#">24 M views |</a>
                 <a href="#">3 months |</a>
                 <a href="#">Details</a>
               </div>
               {/* <!-- view details end here --> */}
               {/* <!-- profile  --> */}
-              <ul class="profile-video flex">
+              <ul className="profile-video flex">
                 <li>
                   <a href="">
                     <img
@@ -521,7 +559,7 @@ const VideoPlay = () => {
               </ul>
               {/* <!--profile -end -->
                   <!-- review start --> */}
-              <div class="review">
+              <div className="review">
                 <ul>
                   <li>
                     <a href="#">
@@ -577,11 +615,11 @@ const VideoPlay = () => {
 
               {/* <!-- review end --> */}
             </div>
-            <div class="video-list">
+            <div className="video-list">
               <h1>More Videos</h1>
-              <div class="tab-content">
-                <div class="interest-box flex space-between">
-                  <div class="wrap flex">
+              <div className="tab-content">
+                <div className="interest-box flex space-between">
+                  <div className="wrap flex">
                     <figure>
                       <a href="#">
                         <video
@@ -589,7 +627,7 @@ const VideoPlay = () => {
                           poster="/app/images/videoTabvideoImage.png"
                         ></video>
                       </a>
-                      <div class="videoTime flex">
+                      <div className="videoTime flex">
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
@@ -598,8 +636,8 @@ const VideoPlay = () => {
                         <span>3:38</span>
                       </div>
                     </figure>
-                    <div class="content">
-                      <div class="wrapper flex">
+                    <div className="content">
+                      <div className="wrapper flex">
                         <figure>
                           <img
                             src="app/images/authorImg.png"
@@ -607,7 +645,7 @@ const VideoPlay = () => {
                             title="Genaiguru authorImg"
                           />
                         </figure>
-                        <div class="innerContent">
+                        <div className="innerContent">
                           <h6>Alex Smih</h6>
                           <p>24 M view . 3 month ago</p>
                         </div>
@@ -618,7 +656,7 @@ const VideoPlay = () => {
                           Adversaries
                         </a>
                       </p>
-                      <ul class="flex">
+                      <ul className="flex">
                         <li>
                           <a href="#">
                             <img
@@ -641,7 +679,7 @@ const VideoPlay = () => {
                     </div>
                   </div>
 
-                  <div class="wrap flex">
+                  <div className="wrap flex">
                     <figure>
                       <a href="#">
                         <video
@@ -649,7 +687,7 @@ const VideoPlay = () => {
                           poster="/app/images/interestSliderImg.png"
                         ></video>
                       </a>
-                      <div class="videoTime flex">
+                      <div className="videoTime flex">
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
@@ -658,8 +696,8 @@ const VideoPlay = () => {
                         <span>3:38</span>
                       </div>
                     </figure>
-                    <div class="content">
-                      <div class="wrapper flex">
+                    <div className="content">
+                      <div className="wrapper flex">
                         <figure>
                           <img
                             src="app/images/authorImg.png"
@@ -667,7 +705,7 @@ const VideoPlay = () => {
                             title="Genaiguru authorImg"
                           />
                         </figure>
-                        <div class="innerContent">
+                        <div className="innerContent">
                           <h6>Alex Smih</h6>
                           <p>24 M view . 3 month ago</p>
                         </div>
@@ -678,7 +716,7 @@ const VideoPlay = () => {
                           Adversaries
                         </a>
                       </p>
-                      <ul class="flex">
+                      <ul className="flex">
                         <li>
                           <a href="#">
                             <img
@@ -701,7 +739,7 @@ const VideoPlay = () => {
                     </div>
                   </div>
 
-                  <div class="wrap flex">
+                  <div className="wrap flex">
                     <figure>
                       <a href="#">
                         <video
@@ -709,7 +747,7 @@ const VideoPlay = () => {
                           poster="/app/images/interestSliderImg.png"
                         ></video>
                       </a>
-                      <div class="videoTime flex">
+                      <div className="videoTime flex">
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
@@ -718,8 +756,8 @@ const VideoPlay = () => {
                         <span>3:38</span>
                       </div>
                     </figure>
-                    <div class="content">
-                      <div class="wrapper flex">
+                    <div className="content">
+                      <div className="wrapper flex">
                         <figure>
                           <img
                             src="app/images/authorImg.png"
@@ -727,7 +765,7 @@ const VideoPlay = () => {
                             title="Genaiguru authorImg"
                           />
                         </figure>
-                        <div class="innerContent">
+                        <div className="innerContent">
                           <h6>Alex Smih</h6>
                           <p>24 M view . 3 month ago</p>
                         </div>
@@ -738,7 +776,7 @@ const VideoPlay = () => {
                           Adversaries
                         </a>
                       </p>
-                      <ul class="flex">
+                      <ul className="flex">
                         <li>
                           <a href="#">
                             <img
@@ -761,7 +799,7 @@ const VideoPlay = () => {
                     </div>
                   </div>
 
-                  <div class="wrap flex">
+                  <div className="wrap flex">
                     <figure>
                       <a href="#">
                         <video
@@ -769,7 +807,7 @@ const VideoPlay = () => {
                           poster="/app/images/videoTabvideoImage.png"
                         ></video>
                       </a>
-                      <div class="videoTime flex">
+                      <div className="videoTime flex">
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
@@ -778,8 +816,8 @@ const VideoPlay = () => {
                         <span>3:38</span>
                       </div>
                     </figure>
-                    <div class="content">
-                      <div class="wrapper flex">
+                    <div className="content">
+                      <div className="wrapper flex">
                         <figure>
                           <img
                             src="app/images/authorImg.png"
@@ -787,7 +825,7 @@ const VideoPlay = () => {
                             title="Genaiguru authorImg"
                           />
                         </figure>
-                        <div class="innerContent">
+                        <div className="innerContent">
                           <h6>Alex Smih</h6>
                           <p>24 M view . 3 month ago</p>
                         </div>
@@ -798,7 +836,7 @@ const VideoPlay = () => {
                           Adversaries
                         </a>
                       </p>
-                      <ul class="flex">
+                      <ul className="flex">
                         <li>
                           <a href="#">
                             <img
@@ -821,7 +859,7 @@ const VideoPlay = () => {
                     </div>
                   </div>
 
-                  <div class="wrap flex">
+                  <div className="wrap flex">
                     <figure>
                       <a href="#">
                         <video
@@ -829,7 +867,7 @@ const VideoPlay = () => {
                           poster="/app/images/interestSliderImg.png"
                         ></video>
                       </a>
-                      <div class="videoTime flex">
+                      <div className="videoTime flex">
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
@@ -838,8 +876,8 @@ const VideoPlay = () => {
                         <span>3:38</span>
                       </div>
                     </figure>
-                    <div class="content">
-                      <div class="wrapper flex">
+                    <div className="content">
+                      <div className="wrapper flex">
                         <figure>
                           <img
                             src="app/images/authorImg.png"
@@ -847,7 +885,7 @@ const VideoPlay = () => {
                             title="Genaiguru authorImg"
                           />
                         </figure>
-                        <div class="innerContent">
+                        <div className="innerContent">
                           <h6>Alex Smih</h6>
                           <p>24 M view . 3 month ago</p>
                         </div>
@@ -858,7 +896,7 @@ const VideoPlay = () => {
                           Adversaries
                         </a>
                       </p>
-                      <ul class="flex">
+                      <ul className="flex">
                         <li>
                           <a href="#">
                             <img

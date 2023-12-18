@@ -14,6 +14,8 @@ const Settings = () => {
   const [password, setPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
+  // const [selectedFile, setSelectedFile] = useState(null);
+
   const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
