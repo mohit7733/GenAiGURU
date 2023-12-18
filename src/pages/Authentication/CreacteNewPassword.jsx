@@ -55,29 +55,30 @@ const CreacteNewPassword = () => {
     var numbers = /[0-9]/g;
     var SpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
     if (!password) {
-      error["password"] = "Password Required!";
+      error["password"] = "Password required!";
     } else if (!password.match(lowerCase)) {
-      error["password"] = "Password Should Contains lowercase letters !";
+      error["password"] = "Password should contains lowercase letters !";
     } else if (!password.match(upperCase)) {
-      error["password"] = "Password Should Contain Uppercase letters !";
+      error["password"] = "Password should contain uppercase letters !";
     } else if (!password.match(numbers)) {
-      error["password"] = "Password Should Contains Numbers also !";
+      error["password"] = "Password should contains numbers also !";
     } else if (!password.match(SpecialCharacter)) {
-      error["password"] = "Password Should Contains Special Character also !";
+      error["password"] = "Password should contains special character also !";
     } else if (password.length < 8) {
-      error["password"] = "Password length Should be more than 8 !";
+      error["password"] = "Password length should be more than 8 !";
     } else {
       error["password"] = "";
     }
     if (!confirmPassword) {
-      error["confirmPassword"] = "Password Required!";
+      error["confirmPassword"] = "Password required!";
     } else if (confirmPassword != password) {
-      error["confirmPassword"] = "Password not Matched!";
+      error["confirmPassword"] = "Confirm password not matched!";
     } else {
       error["confirmPassword"] = "";
     }
     return error;
   };
+  
   return (
     <>
       <section className="create_password createAccount mainBg">

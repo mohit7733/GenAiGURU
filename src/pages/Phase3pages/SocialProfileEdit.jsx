@@ -29,7 +29,6 @@ const SocialProfileEdit = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setLinksObj({
           facebook:
             response?.data?.facebook === undefined ||
@@ -75,6 +74,12 @@ const SocialProfileEdit = () => {
   const handleChangeLinks = (e) => {
     setLinksObj({ ...linksObj, [e.target.name]: e.target.value });
   };
+  const handleClearLinks = (platform) => {
+    setLinksObj((prevLinksObj) => ({
+      ...prevLinksObj,
+      [platform]: "",
+    }));
+  };
 
   const onSocialEditProfile = (e) => {
     e.preventDefault();
@@ -103,7 +108,7 @@ const SocialProfileEdit = () => {
         }
       });
   };
-  console.log(linksObj);
+
   return (
     <div>
       <MobileHeader />
@@ -115,7 +120,7 @@ const SocialProfileEdit = () => {
             {/* <!-- edit-profile start here --> */}
             <div className="profile-edit socialLinkEdit flex">
               <p>
-                <Link to="/phasepage1">Profile</Link>{" "}
+                <Link to={PATH_PROFILE}>Profile</Link>{" "}
                 <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
                 social profile
               </p>
@@ -142,7 +147,7 @@ const SocialProfileEdit = () => {
                       id=""
                       placeholder="Add your profile link here."
                     />
-                    <a onClick={() => setLinksObj({ twitter: "" })}>
+                    <a onClick={() => handleClearLinks("twitter")}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -168,7 +173,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a onClick={() => setLinksObj({ facebook: "" })}>
+                    <a onClick={() => handleClearLinks("facebook")}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -194,7 +199,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a onClick={() => setLinksObj({ youtube: "" })}>
+                    <a onClick={() => handleClearLinks("youtube")}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -220,7 +225,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a onClick={() => setLinksObj({ linkedin: "" })}>
+                    <a onClick={() => handleClearLinks("linkedin")}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -246,7 +251,7 @@ const SocialProfileEdit = () => {
                       onChange={handleChangeLinks}
                       placeholder="Add your profile link here."
                     />
-                    <a onClick={() => setLinksObj({ instagram: "" })}>
+                    <a onClick={() => handleClearLinks("instagram")}>
                       <img
                         src="/app/images/input-cross-icon.png"
                         alt="Genaiguru input-cross-icon"
@@ -273,7 +278,7 @@ const SocialProfileEdit = () => {
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
           <div className="backBtns">
-            <Link to="/phasepage1">
+            <Link to={PATH_PROFILE}>
               <i className="fa fa-angle-left" aria-hidden="true"></i>
             </Link>
           </div>
@@ -294,11 +299,13 @@ const SocialProfileEdit = () => {
                   </label>
                   <input
                     type="url"
-                    name=""
+                    name="twitter"
+                    value={linksObj.twitter}
+                    onChange={handleChangeLinks}
                     id=""
-                    placeholder="https://twitter.com/home"
+                    placeholder="Add your profile link here."
                   />
-                  <a href="#">
+                  <a onClick={() => handleClearLinks("twitter")}>
                     <img
                       src="/app/images/input-cross-icon.png"
                       alt="Genaiguru input-cross-icon"
@@ -319,11 +326,12 @@ const SocialProfileEdit = () => {
                   </label>
                   <input
                     type="url"
-                    name=""
-                    id=""
-                    placeholder="https://facebook.com/home"
+                    name="facebook"
+                    value={linksObj.facebook}
+                    onChange={handleChangeLinks}
+                    placeholder="Add your profile link here."
                   />
-                  <a href="#">
+                  <a onClick={() => handleClearLinks("facebook")}>
                     <img
                       src="/app/images/input-cross-icon.png"
                       alt="Genaiguru input-cross-icon"
@@ -344,11 +352,12 @@ const SocialProfileEdit = () => {
                   </label>
                   <input
                     type="url"
-                    name=""
-                    id=""
-                    placeholder="https://twitter.com/home"
+                    name="youtube"
+                    value={linksObj.youtube}
+                    onChange={handleChangeLinks}
+                    placeholder="Add your profile link here."
                   />
-                  <a href="#">
+                  <a onClick={() => handleClearLinks("youtube")}>
                     <img
                       src="/app/images/input-cross-icon.png"
                       alt="Genaiguru input-cross-icon"
@@ -369,11 +378,12 @@ const SocialProfileEdit = () => {
                   </label>
                   <input
                     type="url"
-                    name=""
-                    id=""
-                    placeholder="https://twitter.com/home"
+                    name="linkedin"
+                    value={linksObj.linkedin}
+                    onChange={handleChangeLinks}
+                    placeholder="Add your profile link here."
                   />
-                  <a href="#">
+                  <a onClick={() => handleClearLinks("linkedin")}>
                     <img
                       src="/app/images/input-cross-icon.png"
                       alt="Genaiguru input-cross-icon"
@@ -394,11 +404,12 @@ const SocialProfileEdit = () => {
                   </label>
                   <input
                     type="url"
-                    name=""
-                    id=""
-                    placeholder="https://twitter.com/home"
+                    name="instagram"
+                    value={linksObj.instagram}
+                    onChange={handleChangeLinks}
+                    placeholder="Add your profile link here."
                   />
-                  <a href="#">
+                  <a onClick={() => handleClearLinks("instagram")}>
                     <img
                       src="/app/images/input-cross-icon.png"
                       alt="Genaiguru input-cross-icon"
@@ -407,7 +418,12 @@ const SocialProfileEdit = () => {
                   </a>
                 </div>
               </div>
-              <button type="submit" className="social-profile">
+
+              <button
+                type="submit"
+                className="social-profile"
+                onClick={onSocialEditProfile}
+              >
                 Save to change
               </button>
             </form>
