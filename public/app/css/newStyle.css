@@ -1057,3 +1057,13 @@ section.mainWrapper.flex.hideMob {
   height: 100%;
   object-fit: contain;
 }
+.rightSection .keeps-container .blog-details .blog-txt .comment-box ul li {
+  list-style: none;
+}
+.rightSection .keeps-container .blog-details .blog-txt .home-interest li {
+  list-style: none;
+}
+.interestSection.second ul.profileList {
+  height: auto;
+  overflow-y: hidden;
+}
