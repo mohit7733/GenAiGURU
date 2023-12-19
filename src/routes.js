@@ -27,6 +27,7 @@ import Sortbydate from "./pages/Phase6Pages/Sortbydate";
 import SpeakToText from "./pages/Phase2Pages/SpeakToText";
 import FeaturedVideo from "./pages/Phase6Pages/FeaturedVideo";
 import FeaturedArticles from "./pages/Phase6Pages/FeaturedArticles";
+import ArticlesDetails from "./pages/Phase6Pages/ArticlesDetails";
 
 export const BASE_PATH = "/";
 
@@ -43,7 +44,6 @@ export const PATH_FORGOT_PASSWORD = "/forgotpassword";
 export const PATH_LOGIN_POPUP = "/loginpopup";
 export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
 export const PATH_OTP_SCREEN = "/otpscreen";
-export const PATH_BLOG_DETAILS = "/blogdetails";
 
 // Private Routes
 export const PATH_PROFILE = "/profile";
@@ -54,6 +54,8 @@ export const PATH_VIDEO_PLAY = "/videoplay";
 export const PATH_FEATURED_CONTENT = "/featuredcontent";
 export const PATH_FEATURED_VIDEO = "/featuredvideo";
 export const PATH_FEATURED_ARTICLES = "/featuredarticle";
+export const PATH_BLOG_DETAILS = "/blogdetails";
+export const PATH_ARTICLE_DETAILS = "/articledetails";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -216,6 +218,12 @@ export function RouterElement() {
       path: PATH_BLOG_DETAILS,
       name: PATH_BLOG_DETAILS,
       element: <BlogDetails />,
+      exact: true,
+    },
+    {
+      path: PATH_ARTICLE_DETAILS,
+      name: PATH_ARTICLE_DETAILS,
+      element: <ArticlesDetails />,
       exact: true,
     },
     {

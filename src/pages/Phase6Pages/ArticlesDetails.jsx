@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Layout/Sidebar";
+import { Link, useLocation } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
-import { useLocation } from "react-router";
+import Sidebar from "../../components/Layout/Sidebar";
+import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
-import { Link } from "react-router-dom";
 
-const BlogDetails = () => {
-  const [blogDetail, setBlogDetail] = useState({
+const ArticlesDetails = () => {
+  const [articleDetail, setArticleDetail] = useState({
     author: "",
     profilePhoto: "",
     content: "",
@@ -22,31 +21,30 @@ const BlogDetails = () => {
   // useLocation to get id from url
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
-  const blogId = queryParam.get("id");
+  const articleId = queryParam.get("id");
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/latest-blogs?id=${blogId}`, {
+      .get(`${getBaseURL()}/articles?id=${articleId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setBlogDetail({
-          author: response?.data?.blog_details?.author,
-          profilePhoto: response?.data?.blog_details?.photo,
-          content: response?.data?.blog_details?.content,
-          title: response?.data?.blog_details?.title,
-          banner_image: response?.data?.blog_details?.banner_image,
-          creation_date: response?.data?.blog_details?.creation_date,
+        setArticleDetail({
+          author: response?.data?.article_details?.author,
+          profilePhoto: response?.data?.article_details?.photo,
+          content: response?.data?.article_details?.content,
+          title: response?.data?.article_details?.title,
+          banner_image: response?.data?.article_details?.banner_image,
+          creation_date: response?.data?.article_details?.creation_date,
         });
-        console.log(response?.data?.blog_details);
+        console.log(response?.data?.article_details);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-  
   return (
     <div>
       <MobileHeader />
@@ -61,7 +59,7 @@ const BlogDetails = () => {
                   <div className="blog-box">
                     <div className="innerBreadcrumb">
                       <p>
-                        <Link to ={BASE_PATH}>Home</Link>{" "}
+                        <Link    to={BASE_PATH}>Home</Link>{" "}
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                         Blog details
                       </p>
@@ -89,12 +87,12 @@ const BlogDetails = () => {
                 </div>
               </div>
               <div className="blog-details">
-                <h2>{blogDetail.title}</h2>
+                <h2>{articleDetail.title}</h2>
                 <div className="blogger flex">
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src={blogDetail.profilePhoto}
+                        src={articleDetail.profilePhoto}
                         alt="Genaiguru blog-img"
                         title="Genaiguru blog-img"
                       />
@@ -102,14 +100,14 @@ const BlogDetails = () => {
                   </div>
                   <div className="content-box">
                     <p>
-                      By <a href="#">{blogDetail.author}</a>
+                      By <a href="#">{articleDetail.author}</a>
                     </p>
-                    <p>{blogDetail.creation_date}</p>
+                    <p>{articleDetail.creation_date}</p>
                   </div>
                   <div className="blog-img">
                     <figure>
                       <img
-                        src={blogDetail.banner_image}
+                        src={articleDetail.banner_image}
                         alt="Genaiguru web-deigner-learn-book"
                         title="Genaiguru web-deigner-learn-book"
                       />
@@ -119,24 +117,26 @@ const BlogDetails = () => {
                   <div className="blog-txt">
                     <div
                       className="blog-txt"
-                      dangerouslySetInnerHTML={{ __html: blogDetail.content }}
+                      dangerouslySetInnerHTML={{
+                        __html: articleDetail.content,
+                      }}
                     />
                     {/* <div className="blog-img">
-                      <figure>
-                        <img
-                          src={"./app/images/blog-img-2.png"}
-                          alt="Genaiguru blog-img-2"
-                          title="Genaiguru blog-img-2"
-                        />
-                      </figure>
-                    </div>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up{" "}
-                    </p> */}
+                  <figure>
+                    <img
+                      src={"./app/images/blog-img-2.png"}
+                      alt="Genaiguru blog-img-2"
+                      title="Genaiguru blog-img-2"
+                    />
+                  </figure>
+                </div>
+                <p>
+                  Looking to upgrade your salary in the uk? Get the salary
+                  you’re worth by learning to code. 98% employed within 12
+                  months of qualifying. 28% of students are hired while on
+                  the course. Change career. Career changing skills. Spaces
+                  filling up{" "}
+                </p> */}
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
@@ -283,7 +283,7 @@ const BlogDetails = () => {
       {/* <!-- mobile section start here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
-          <Link to={PATH_FEATURED_CONTENT} className="hamburger">
+          <Link to={PATH_FEATURED_ARTICLES} className="hamburger">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
           </Link>
           <h2>Blog Details</h2>
@@ -311,7 +311,7 @@ const BlogDetails = () => {
             <div className="keeps-container blogDetails">
               {/* <!-- blog-start --> */}
               <div className="blog-details">
-                <h2>{blogDetail.title}</h2>
+                <h2>{articleDetail.title}</h2>
                 <div className="blogger flex">
                   <div className="blogger-profile">
                     <figure>
@@ -324,14 +324,14 @@ const BlogDetails = () => {
                   </div>
                   <div className="content-box">
                     <p>
-                      By <a href="#">{blogDetail.author}</a>
+                      By <a href="#">{articleDetail.author}</a>
                     </p>
-                    <p>{blogDetail.creation_date}</p>
+                    <p>{articleDetail.creation_date}</p>
                   </div>
                   <div className="blog-img">
                     <figure>
                       <img
-                        src={blogDetail.banner_image}
+                        src={articleDetail.banner_image}
                         alt="Genaiguru web-deigner-learn-book"
                         title="Genaiguru web-deigner-learn-book"
                       />
@@ -341,9 +341,11 @@ const BlogDetails = () => {
                   <div className="blog-txt">
                     <div
                       className="blog-txt"
-                      dangerouslySetInnerHTML={{ __html: blogDetail.content }}
+                      dangerouslySetInnerHTML={{
+                        __html: articleDetail.content,
+                      }}
                     />
-                
+
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
@@ -493,4 +495,4 @@ const BlogDetails = () => {
   );
 };
 
-export default BlogDetails;
+export default ArticlesDetails;

@@ -111,64 +111,31 @@ const FeaturedContent = () => {
                 {/* <!-- tab-link start here --> */}
                 <div className="row flex space-between align-center">
                   <ul className="connect-link flex">
-                      <li className={activeTab === 1 ? "active" : ""}>
-                        <Link
-                          onClick={() => handleTabClick(1)}
-                          className={activeTab === 1 ? "tab active" : ""}
-                          data-toggle-target=".tab-content-1"
-                        >
-                          All
-                        </Link>
-                      </li>
-                      <li className={activeTab === 2 ? "active" : ""}>
-                        <Link
-                          onClick={() => handleTabClick(2)}
-                          className={activeTab === 2 ? "tab active" : ""}
-                          data-toggle-target=".tab-content-2"
-                        >
-                          Ai in healthcare
-                        </Link>
-                      </li>
-                      <li className={activeTab === 3 ? "active" : ""}>
-                        <Link
-                          onClick={() => handleTabClick(3)}
-                          className={activeTab === 3 ? "tab active" : ""}
-                          data-toggle-target=".tab-content-3"
-                        >
-                          ML in finance
-                        </Link>
-                      </li>
-                      <li className={activeTab === 4 ? "active" : ""}>
-                        <Link
-                          onClick={() => handleTabClick(4)}
-                          className={activeTab === 4 ? "tab active" : ""}
-                          data-toggle-target=".tab-content-4"
-                        >
-                          Crypto
-                        </Link>
-                      </li>
-                      <li className={activeTab === 5 ? "active" : ""}>
-                        <Link
-                          onClick={() => handleTabClick(5)}
-                          className={activeTab === 5 ? "tab active" : ""}
-                          data-toggle-target=".tab-content-5"
-                        >
-                          Bitcoin
-                        </Link>
-                      </li>
-                      {/* {myInterests.map((interest, index) => {
-                        return (
-                          <li key={index}>
-                            <Link
-                              onClick={() => handleTabClick(5)}
-                              className={activeTab === 5 ? "tab active" : ""}
-                              data-toggle-target=".tab-content-5"
-                            >
-                              {interest.interest_name}
-                            </Link>
-                          </li>
-                        );
-                      })} */}
+                    <li className={activeTab === 1 ? "active" : ""}>
+                      <Link
+                        onClick={() => handleTabClick(1)}
+                        className={activeTab === 1 ? "tab active" : ""}
+                        data-toggle-target=".tab-content-1"
+                      >
+                        All
+                      </Link>
+                    </li>
+                    <i className="fa fa-angle-left" aria-hidden="true"></i>
+
+                    {myInterests?.map((interest, index) => {
+                      return (
+                        <li key={index}>
+                          <Link
+                            onClick={() => handleTabClick(5)}
+                            className={activeTab === 5 ? "tab active" : ""}
+                            data-toggle-target=".tab-content-5"
+                          >
+                            {interest?.interest_name}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                    <i className="fa fa-angle-right" aria-hidden="true"></i>
                   </ul>
                   <div className="connect-box">
                     <ul className="flex">
@@ -201,63 +168,62 @@ const FeaturedContent = () => {
                   <div className="interest-guru ">
                     {latestBlog.map((blog, index) => {
                       return (
-                        <>
-                          <a
-                            className="wrap flex"
-                            onClick={() => onBlogClick(blog.id)}
-                            key={index}
-                          >
-                            <figure>
-                              <img
-                                src={blog.photo}
-                                alt="Genaiguru gureu-keeps-1"
-                                title="Genaiguru gureu-keeps-1"
-                              />
-                            </figure>
-                            <div className="content">
-                              <div className="flex space-between">
-                                <div className="wrapper flex">
-                                  <figure>
-                                    <img
-                                      src={blog.profilePhoto}
-                                      alt="userIcon"
-                                    />
-                                  </figure>
-                                  <div className="innerContent">
-                                    <h6>{blog.author}</h6>
-                                    <p>{blog.creation_date}</p>
+                        <div key={index}>
+                          {blog.featured == "yes" ? (
+                            <div
+                              className="wrap flex"
+                              onClick={() => onBlogClick(blog.id)}
+                            >
+                              <figure>
+                                <img
+                                  src={blog.photo}
+                                  alt="Genaiguru gureu-keeps-1"
+                                  title="Genaiguru gureu-keeps-1"
+                                />
+                              </figure>
+                              <div className="content">
+                                <div className="flex space-between">
+                                  <div className="wrapper flex">
+                                    <figure>
+                                      <img
+                                        src={blog.profilePhoto}
+                                        alt="userIcon"
+                                      />
+                                    </figure>
+                                    <div className="innerContent">
+                                      <h6>{blog.author}</h6>
+                                      <p>{blog.creation_date}</p>
+                                    </div>
                                   </div>
+                                  <ul className="flex">
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/color-bookmarks.png"
+                                          alt="Genaiguru color-bookmarks"
+                                          title="Genaiguru color-bookmarks"
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dots-icon"
+                                          title="Genaiguru dots-icon"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
                                 </div>
-                                <ul className="flex">
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
-                                        title="Genaiguru color-bookmarks"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dots-icon"
-                                        title="Genaiguru dots-icon"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <h5>{blog.title}</h5>
+                                <p>{blog.description}</p>
                               </div>
-                              <h5>{blog.title}</h5>
-                              <p>
-                                Looking to upgrade your salary in the uk? Get
-                                the salary you’re worth by learning to code. 98%
-                                employed within 12 months of qualifying....
-                              </p>
                             </div>
-                          </a>
-                        </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                       );
                     })}
                   </div>
@@ -1152,7 +1118,7 @@ const FeaturedContent = () => {
                     <div className="interest-sliders">
                       {latestBlog.map((blog, index) => {
                         return (
-                          <a
+                          <div
                             className="wrap flex"
                             onClick={() => onBlogClick(blog.id)}
                             key={index}
@@ -1201,7 +1167,7 @@ const FeaturedContent = () => {
                                 </li>
                               </ul>
                             </div>
-                          </a>
+                          </div>
                         );
                       })}
                     </div>

@@ -3,14 +3,16 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import { PATH_FEATURED_ARTICLES, PATH_FEATURED_CONTENT } from "../../routes";
+import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES, PATH_FEATURED_CONTENT } from "../../routes";
 
 const Populararticles = () => {
   const [articles, setArticles] = useState([]);
   const sliderRef = useRef();
+
+  const navigate = useNavigate();
 
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -32,8 +34,12 @@ const Populararticles = () => {
       });
   }, []);
 
-   // Slide code
-   var settings2 = {
+  const onArticleClick = (AricleID) => {
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  };
+
+  // Slide code
+  var settings2 = {
     dots: false,
     infinite: false,
     slidesToShow: 3,
@@ -61,6 +67,8 @@ const Populararticles = () => {
       },
     ],
   };
+
+  
   return (
     <>
       <div className="video-section second">
@@ -75,55 +83,58 @@ const Populararticles = () => {
             id="Slider-4"
             className="slider_test"
           >
-              
-              {articles.map((article, index) => {
-                return (
-                  <div className="wrap" key={index}>
-                    <Link to={PATH_FEATURED_ARTICLES}>
-                      <figure>
+            {articles.map((article, index) => {
+              return (
+                <div className="wrap" key={index}>
+                  <a
+                    onClick={() => {
+                      onArticleClick(article.id);
+                    }}
+                  >
+                    <figure>
+                      <img
+                        src="app/images/videoImg.png"
+                        alt="Genaiguru video image"
+                        title="Genaiguru video image"
+                      />
+                    </figure>
+                    <div className="layer">
+                      <div className="price flex">
                         <img
-                          src="app/images/videoImg.png"
-                          alt="Genaiguru video image"
-                          title="Genaiguru video image"
+                          src="app/images/orangeStrike.png"
+                          alt="Genaiguru orangeStrike"
+                          title="Genaiguru orangeStrike"
                         />
-                      </figure>
-                      <div className="layer">
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
-                          />
-                          17
-                        </div>
-                        <h5>{article.title}</h5>
-                        <div className="author-tag flex">
-                          <div className="col_left">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src={article.photo}
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="content">
-                                <h6>Alex Smih</h6>
-                                <p>24 M view . 3 month ago</p>
-                              </div>
+                        17
+                      </div>
+                      <h5>{article.title}</h5>
+                      <div className="author-tag flex">
+                        <div className="col_left">
+                          <div className="wrapper flex">
+                            <figure>
+                              <img
+                                src={article.photo}
+                                alt="Genaiguru authorImg"
+                                title="Genaiguru authorImg"
+                              />
+                            </figure>
+                            <div className="content">
+                              <h6>Alex Smih</h6>
+                              <p>24 M view . 3 month ago</p>
                             </div>
-                            <ul className="flex">
-                              <li>#finance</li>
-                              <li>#crypto</li>
-                              <li>#economy</li>
-                            </ul>
                           </div>
+                          <ul className="flex">
+                            <li>#finance</li>
+                            <li>#crypto</li>
+                            <li>#economy</li>
+                          </ul>
                         </div>
                       </div>
-                    </Link>
-                  </div>
-                );
-              })}
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
           </Slider>
         </div>
       </div>
