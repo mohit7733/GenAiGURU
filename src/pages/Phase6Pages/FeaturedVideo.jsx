@@ -8,6 +8,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { BASE_PATH } from "../../routes";
 
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -97,12 +98,12 @@ const FeaturedContent = () => {
               <div class="gurukeeps-wrapper">
                 <div class="innerBreadcrumb">
                   <p>
-                    <a href="#">Home</a>{" "}
+                    <Link to={BASE_PATH}>Home</Link>{" "}
                     <i class="fa fa-angle-right" aria-hidden="true"></i>{" "}
                     Featured Video
                   </p>
                 </div>
-                <h1>Featured Video</h1>
+                {/* <h1>Featured Video</h1> */}
                 {/* <!-- tab-link start here --> */}
                 <div class="row flex space-between align-center">
                   <ul class="connect-link flex">
@@ -1312,10 +1313,10 @@ const FeaturedContent = () => {
       {/* <!-- mobile section start here --> */}
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
-          <div class="hamburger">
+          <Link to={BASE_PATH} class="hamburger">
             <i class="fa fa-angle-left" aria-hidden="true"></i>
-          </div>
-          <h2>Featured content</h2>
+          </Link>
+          <h2>Featured video</h2>
           <div class="connect-box">
             <ul class="flex">
               <li>
