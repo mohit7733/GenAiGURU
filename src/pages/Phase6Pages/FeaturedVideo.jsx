@@ -9,48 +9,32 @@ import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { BASE_PATH } from "../../routes";
+import Index from "../Authentication/Index";
+import ReactPlayer from "react-player";
 
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [myInterests, setMyInterests] = useState();
-  const [latestBlog, setLatestBlog] = useState([]);
+  const [popularVideos, setPopularVideos] = useState([]);
 
   const sliderRef = useRef();
   const token = JSON.parse(localStorage.getItem("token"));
 
-  // Get API for Popular Blogs
+  // Get API for Popular Videos
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/latest-blogs`, {
+      .get(`${getBaseURL()}/popular-latest-videos`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setLatestBlog(response.data.blogs);
-        console.log(latestBlog);
+        // console.log(response.data.videos);
+        setPopularVideos(response.data.videos);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-
-  // Get API for Categories
-  useEffect(() => {
-    axios
-      .get(`${getBaseURL()}/auth/userinterests`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setMyInterests(response?.data?.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -182,69 +166,16 @@ const FeaturedContent = () => {
                   }
                 >
                   <div class="interest-guru ">
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
+                  {popularVideos.map((video, index) => {
+                        return (
+                          <div class="wrap flex">
+                          <figure>
+                                <ReactPlayer
+                                  url={video.youtube_link}
+                                  width="100%"
+                                  height="100%"
                                 />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dots-icon"
-                                  title="Genaiguru dots-icon"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                          title="Genaiguru guru-keeps-2"
-                        />
-                      </figure>
+                              </figure>
                       <div class="content">
                         <div class="flex space-between">
                           <div class="wrapper flex">
@@ -256,7 +187,7 @@ const FeaturedContent = () => {
                               />
                             </figure>
                             <div class="innerContent">
-                              <h6>AEsther Howard</h6>
+                              <h5>{video.title}</h5>
                               <p>Sep 15, 2023. 11:05 pm</p>
                             </div>
                           </div>
@@ -281,7 +212,7 @@ const FeaturedContent = () => {
                             </li>
                           </ul>
                         </div>
-                        <h5>
+                        {/* <h5>
                           Navigating the World of ChatGPT and Its Open-source
                           Adversaries
                         </h5>
@@ -289,65 +220,17 @@ const FeaturedContent = () => {
                           Looking to upgrade your salary in the uk? Get the
                           salary you’re worth by learning to code. 98% employed
                           within 12 months of qualifying....
-                        </p>
+                        </p> */}
                       </div>
                     </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3 "
-                          title="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
+                    
+                          
+                        );
+                      })}
+                    
+                    
+                   
+                    {/* <div class="wrap flex">
                       <figure>
                         <img
                           src="app/images/gureu-keeps-1.png"
@@ -401,7 +284,7 @@ const FeaturedContent = () => {
                           within 12 months of qualifying....
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}
@@ -1105,207 +988,6 @@ const FeaturedContent = () => {
                   </div>
                 </div>
               )}
-              <div class="home-category">
-                <div class="heading-link flex">
-                  <h3>Categories</h3>
-                </div>
-                <ul class="flex">
-                  {myInterests?.map((interest, index) => {
-                    return (
-                      <li key={index}>
-                        <a href="#">
-                          <img
-                            src="app/images/paint-board.png"
-                            alt="Genaiguru paint-board"
-                            title="Genaiguru paint-board"
-                          />
-                          <img
-                            src="app/images/colorPaintBoard.png"
-                            alt="Genaiguru colorPaintBoard"
-                            title="Genaiguru colorPaintBoard"
-                            className="hoverImg"
-                          />{" "}
-                          {interest.interest_name}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div class="youtube-wraper">
-                <h3>Youtube channel</h3>
-                <div class="wrap-container channelSlider">
-                  <Slider
-                    ref={sliderRef}
-                    {...settings2}
-                    id="Slider-4"
-                    className="slider_test"
-                  >
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Coodkeno</h6>
-                        <p>27.7M subscribers</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Coodkeno</h6>
-                        <p>27.7M subscribers</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Coodkeno</h6>
-                        <p>27.7M subscribers</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Webcood</h6>
-                        <p>UX Content writer</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Bubbble</h6>
-                        <p>UX Content writer</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Jms Mittan</h6>
-                        <p>UX Content writer</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Jms Mittan</h6>
-                        <p>UX Content writer</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Jms Mittan</h6>
-                        <p>UX Content writer</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="channel-box">
-                        <a href="#">
-                          <figure>
-                            <img
-                              src="./app/images/channel-1.png"
-                              alt="Genaiguru channel-1"
-                              title="Genaiguru channel-1"
-                            />
-                          </figure>
-                        </a>
-                        <h6>Jms Mittan</h6>
-                        <p>UX Content writer</p>
-                        <div class="btnWrap">
-                          <button type="button">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-                  </Slider>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -5,7 +5,6 @@ import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
-
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
@@ -13,6 +12,8 @@ const Profile = () => {
   const [interestData, setInterestData] = useState([]);
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
   const [myInterests, setMyInterests] = useState();
+  const [following,setFollowing]=useState("");
+  const [follower,setFollower]=useState("");
   const [userDetails, setUserDetails] = useState({
     bio: "",
     userName: "",
@@ -114,6 +115,19 @@ const Profile = () => {
       });
   }, []);
 
+   // GET API FOR Following ------------
+   useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/get-user-follow?user_id=${localStorage.getItem("UserId")}`)
+      .then((response) => {
+        setFollowing(response.data.following);
+        setFollower(response.data.follower)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   // GET SELECTED INTEREST API+++++++++++++++++
   useEffect(() => {
     getMyInterest();
@@ -207,12 +221,12 @@ const Profile = () => {
                   <ul className="flex space-between">
                     <li>
                       <a href="#">
-                        <span>118</span> Following
+                        <span>{following}</span> Following
                       </a>
                     </li>
                     <li>
                       <a href="#">
-                        <span>23k</span> Followers
+                        <span>{follower}</span> Followers
                       </a>
                     </li>
                   </ul>
