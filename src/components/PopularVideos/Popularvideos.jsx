@@ -40,7 +40,7 @@ const Popularvideos = () => {
     dots: false,
     infinite: false,
     slidesToShow: 3,
-    arrows: true,
+    arrows: false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -246,9 +246,9 @@ const Popularvideos = () => {
                                   </div> */}
                           </div>
                           <ul className="flex">
-                            {video?.tags?.map((tag, index) => {
+                            {/* {video?.tags?.map((tag, index) => {
                               return <li key={index}>#{tag}</li>;
-                            })}
+                            })} */}
                           </ul>
                         </div>
                         {/* <div className="col_right flex">
