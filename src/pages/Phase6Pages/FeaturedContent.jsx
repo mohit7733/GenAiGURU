@@ -123,18 +123,18 @@ const FeaturedContent = () => {
                     <i className="fa fa-angle-left" aria-hidden="true"></i>
 
                     {myInterests?.map((interest, index) => {
-                      return (
-                        <li key={index}>
-                          <Link
-                            onClick={() => handleTabClick(5)}
-                            className={activeTab === 5 ? "tab active" : ""}
-                            data-toggle-target=".tab-content-5"
-                          >
-                            {interest?.interest_name}
-                          </Link>
-                        </li>
-                      );
-                    })}
+                          return (
+                            <li key={index}>
+                              <Link
+                                onClick={() => handleTabClick(5)}
+                                className={activeTab === 5 ? "tab active" : ""}
+                                data-toggle-target=".tab-content-5"
+                              >
+                                {interest?.interest_name}
+                              </Link>
+                            </li>
+                          );
+                        })}
                     <i className="fa fa-angle-right" aria-hidden="true"></i>
                   </ul>
                   <div className="connect-box">
@@ -187,7 +187,7 @@ const FeaturedContent = () => {
                                     <figure>
                                       <img
                                         src={blog.profilePhoto}
-                                        alt="userIcon"
+                                        alt="profile"
                                       />
                                     </figure>
                                     <div className="innerContent">
@@ -217,7 +217,7 @@ const FeaturedContent = () => {
                                   </ul>
                                 </div>
                                 <h5>{blog.title}</h5>
-                                <p>{blog.description}</p>
+                                <p>{blog.short_description}</p>
                               </div>
                             </div>
                           ) : (
