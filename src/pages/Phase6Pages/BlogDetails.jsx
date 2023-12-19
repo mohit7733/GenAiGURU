@@ -4,7 +4,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { PATH_FEATURED_CONTENT } from "../../routes";
+import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import { Link } from "react-router-dom";
 
 const BlogDetails = () => {
@@ -60,12 +60,12 @@ const BlogDetails = () => {
                   <div className="blog-box">
                     <div className="innerBreadcrumb">
                       <p>
-                        <a href="#">Articles</a>{" "}
+                        <Link to ={BASE_PATH}>Home</Link>{" "}
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                         Blog details
                       </p>
                     </div>
-                    <h1>Blog details</h1>
+                    {/* <h1>Blog details</h1> */}
                   </div>
                   <div className="connect-box">
                     <ul className="flex">
@@ -113,7 +113,7 @@ const BlogDetails = () => {
                         title="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
-                    <span>Photo by jan maelstrom on Unsplash</span>
+                    {/* <span>Photo by jan maelstrom on Unsplash</span> */}
                   </div>
                   <div className="blog-txt">
                     <div
@@ -335,7 +335,7 @@ const BlogDetails = () => {
                         title="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
-                    <span>Photo by jan maelstrom on Unsplash</span>
+                    {/* <span>Photo by jan maelstrom on Unsplash</span> */}
                   </div>
                   <div className="blog-txt">
                     <div

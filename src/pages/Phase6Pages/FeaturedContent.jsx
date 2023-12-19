@@ -102,12 +102,12 @@ const FeaturedContent = () => {
               <div className="gurukeeps-wrapper">
                 <div className="innerBreadcrumb">
                   <p>
-                    <a href="#">Home</a>{" "}
+                    <Link to={BASE_PATH}>Home</Link>{" "}
                     <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                    Featured content
+                    Blog
                   </p>
                 </div>
-                <h1>Featured content</h1>
+                {/* <h1>Featured content</h1> */}
                 {/* <!-- tab-link start here --> */}
                 <div className="row flex space-between align-center">
                   <ul className="connect-link flex">
@@ -1071,7 +1071,7 @@ const FeaturedContent = () => {
           <Link to={BASE_PATH} className="hamburger">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
           </Link>
-          <h2>Featured content</h2>
+          <h2>Blog</h2>
           <div className="connect-box">
             <ul className="flex">
               <li>

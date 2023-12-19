@@ -64,12 +64,12 @@ const FeaturedArticles = () => {
             <div className="gurukeeps-wrapper">
               <div className="innerBreadcrumb">
                 <p>
-                  <a href="#">Home</a>{" "}
+                  <Link to={BASE_PATH}>Home</Link>{" "}
                   <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                   Featured Articles
                 </p>
               </div>
-              <h1>Featured Articles</h1>
+              {/* <h1>Featured Articles</h1> */}
               {/* <!-- tab-link start here --> */}
               <div className="row flex space-between align-center">
                 <ul className="connect-link flex">

@@ -5,6 +5,8 @@ import { useLocation } from "react-router";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import ReactPlayer from "react-player";
+import { BASE_PATH } from "../../routes";
+import { Link } from "react-router-dom";
 
 const VideoPlay = () => {
   const [videoPlay, setVideoPlay] = useState({
@@ -49,9 +51,13 @@ const VideoPlay = () => {
             {/* <!-- edit-profile start here --> */}
             <div className="video-wrapper flex">
               <div className="video-box">
-                <p>
-                  <i className="fa fa-angle-left" aria-hidden="true"></i> Videos
-                </p>
+              <div className="innerBreadcrumb">
+                  <p>
+                    <Link to={BASE_PATH}>Home</Link>{" "}
+                    <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
+                    Video
+                  </p>
+                </div>
                 <ReactPlayer
                   url={videoPlay.youtube_link}
                   width="100%"
