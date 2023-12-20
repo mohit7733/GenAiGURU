@@ -118,13 +118,13 @@ const Populararticles = () => {
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={article.photo}
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
+                                src={article.author_profile_image}
+                                alt="authorImg"
+                                title="authorImg"
                               />
                             </figure>
                             <div className="content">
-                              <h6>Alex Smih</h6>
+                              <h6>{article.author}</h6>
                               <p>24 M view . 3 month ago</p>
                             </div>
                           </div>

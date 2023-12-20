@@ -34,7 +34,7 @@ const BlogDetails = () => {
       .then((response) => {
         setBlogDetail({
           author: response?.data?.blog_details?.author,
-          profilePhoto: response?.data?.blog_details?.photo,
+          profilePhoto: response?.data?.blog_details?.author_profile_image,
           content: response?.data?.blog_details?.content,
           title: response?.data?.blog_details?.title,
           banner_image: response?.data?.blog_details?.banner_image,

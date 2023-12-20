@@ -1031,7 +1031,7 @@ section.mainWrapper.flex.hideMob {
   top: 0;
   transform: translate(-50%, 10px);
   height: 600px;
-}
+} 
 .interestSection ul {
   height: 170px;
   overflow-y: scroll;
@@ -1069,4 +1069,10 @@ section.mainWrapper.flex.hideMob {
 .interestSection.second ul.profileList {
   height: auto;
   overflow-y: hidden;
+}
+.profile-banner {
+  max-width: 1200px;
+}
+.edit-profile {
+  width: calc(100% - 280px);
 }
