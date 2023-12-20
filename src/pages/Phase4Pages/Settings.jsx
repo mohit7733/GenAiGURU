@@ -26,10 +26,7 @@ const Settings = () => {
     let fd = new FormData();
     fd.append("user_id", userId);
     fd.append("comment", idea);
-    // fd.append("media", JSON.stringify(selectedFiles));
-    selectedFiles?.map(e => 
-      fd.append("media", [e])
-    );
+    selectedFiles?.map((e) => fd.append("media[]", e));
     axios
       .post(`${getBaseURL()}/send-feedback`, fd)
       .then((response) => {
@@ -51,7 +48,6 @@ const Settings = () => {
         }
       });
   };
-  console.log(selectedFiles,"asdf")
   const validate1 = () => {
     const error = {};
     if (!idea) {

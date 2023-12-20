@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,6 +11,7 @@ import { getBaseURL } from "../../api/config";
 import { BASE_PATH } from "../../routes";
 import Index from "../Authentication/Index";
 import ReactPlayer from "react-player";
+import {PATH_VIDEO_PLAY} from "../../routes";
 
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -18,7 +19,7 @@ const FeaturedContent = () => {
 
   const sliderRef = useRef();
   const token = JSON.parse(localStorage.getItem("token"));
-
+  const navigate = useNavigate();
   // Get API for Popular Videos
   useEffect(() => {
     axios
@@ -70,7 +71,10 @@ const FeaturedContent = () => {
       },
     ],
   };
-
+  const onVideoClick = (VideoId) => {
+    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
+    console.log(VideoId);
+  };
   return (
     <div>
       <MobileHeader />
@@ -166,53 +170,64 @@ const FeaturedContent = () => {
                   }
                 >
                   <div class="interest-guru ">
-                  {popularVideos.map((video, index) => {
-                        return (
-                          <div class="wrap flex">
-                          <figure>
-                                <ReactPlayer
-                                  url={video.youtube_link}
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
+                    {popularVideos.map((video, index) => {
+                      return (
+                        <div
+                          class="wrap flex"
+                          key={index}
+                          onClick={() => onVideoClick(video.id)}
+                        >
+                          <a
+                            onClick={() => {
+                              navigate(`${PATH_VIDEO_PLAY}`);
+                            }}
+                            target="_blank"
+                          >
                             <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru user-icon"
-                                title="Genaiguru user-icon"
+                              <ReactPlayer
+                                url={video.youtube_link}
+                                width="100%"
+                                height="100%"
                               />
                             </figure>
-                            <div class="innerContent">
-                              <h5>{video.title}</h5>
-                              <p>Sep 15, 2023. 11:05 pm</p>
+                          </a>
+                          <div class="content">
+                            <div class="flex space-between">
+                              <div class="wrapper flex">
+                                <figure>
+                                  <img
+                                    src="app/images/userIcon.png"
+                                    alt="Genaiguru user-icon"
+                                    title="Genaiguru user-icon"
+                                  />
+                                </figure>
+                                <div class="innerContent">
+                                  <h5>{video.title}</h5>
+                                  <p>Sep 15, 2023. 11:05 pm</p>
+                                </div>
+                              </div>
+                              <ul class="flex">
+                                <li>
+                                  <a href="#">
+                                    <img
+                                      src="app/images/color-bookmarks.png"
+                                      alt="Genaiguru color-bookmarks"
+                                      title="Genaiguru color-bookmarks"
+                                    />
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <img
+                                      src="app/images/dotsIcons.png"
+                                      alt="Genaiguru dotsIcons"
+                                      title="Genaiguru dotsIcons"
+                                    />
+                                  </a>
+                                </li>
+                              </ul>
                             </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        {/* <h5>
+                            {/* <h5>
                           Navigating the World of ChatGPT and Its Open-source
                           Adversaries
                         </h5>
@@ -221,15 +236,11 @@ const FeaturedContent = () => {
                           salary you’re worth by learning to code. 98% employed
                           within 12 months of qualifying....
                         </p> */}
-                      </div>
-                    </div>
-                    
-                          
-                        );
-                      })}
-                    
-                    
-                   
+                          </div>
+                        </div>
+                      );
+                    })}
+
                     {/* <div class="wrap flex">
                       <figure>
                         <img
