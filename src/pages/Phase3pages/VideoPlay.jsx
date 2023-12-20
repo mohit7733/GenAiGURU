@@ -20,6 +20,7 @@ const VideoPlay = () => {
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
+  // console.log( videoId)
 
 
   useEffect(() => {
@@ -65,9 +66,9 @@ const VideoPlay = () => {
                 />
                 <ul className="flex space-between link">
                   <li>
-                    {videoPlay?.tags?.map((tag, index) => {
+                    {/* {videoPlay?.tags?.map((tag, index) => {
                       return <a key={index}>#{tag}</a>;
-                    })}
+                    })} */}
                   </li>
                   <li className="download-btn">
                     <a href="#">

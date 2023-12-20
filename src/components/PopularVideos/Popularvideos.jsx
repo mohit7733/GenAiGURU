@@ -68,13 +68,12 @@ const Popularvideos = () => {
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
     console.log(VideoId);
   };
-
   return (
     <>
       <div className="video-section">
         <div className="heading-link flex">
           <h3>Popular youtube videos</h3>
-          <Link>View all</Link>
+          <Link to={PATH_FEATURED_VIDEO}>View all</Link>
         </div>
         <div className="mobileVideoSection">
           <div className="wrap" >
@@ -206,7 +205,7 @@ const Popularvideos = () => {
           >
             {popularVideos.map((video, index) => {
               return (
-                <div className="wrap" key={index}  onClick={() => onVideoClick(video.video_id)} >
+                <div className="wrap" key={index}  onClick={() => onVideoClick(video.id)} >
                   <a
                     onClick={() => {
                       navigate(`${PATH_VIDEO_PLAY}`);
