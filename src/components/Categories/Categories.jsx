@@ -6,6 +6,7 @@ import ArticleBasedInterest from "../ArticlesBasedInterest/ArticleBasedInterest"
 const Categories = () => {
   const [myInterests, setMyInterests] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
+  const [articlesOnInterest, setArticlesOnInterest] = useState([]);
 
   // Get API for Categories
   useEffect(() => {
@@ -24,18 +25,19 @@ const Categories = () => {
       });
   }, []);
 
-
   const onCategoryClick = (categoryId) => {
     console.log(categoryId);
     axios
       .post(`${getBaseURL()}/articles?interest_id=${categoryId}`)
       .then((res) => {
-        console.log(res.data);
+        console.log(res?.data);
+        setArticlesOnInterest(res?.data?.articles);
       })
       .catch((errors) => {
         console.log(errors);
       });
   };
+
   return (
     <div>
       <div className="home-category">
@@ -69,7 +71,7 @@ const Categories = () => {
           })}
         </ul>
       </div>
-      <ArticleBasedInterest />
+      <ArticleBasedInterest articlesOnInterest={articlesOnInterest} />
     </div>
   );
 };
