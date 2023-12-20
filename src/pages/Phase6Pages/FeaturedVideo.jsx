@@ -196,14 +196,14 @@ const FeaturedContent = () => {
                               <div class="wrapper flex">
                                 <figure>
                                   <img
-                                    src="app/images/userIcon.png"
+                                    src={video.author_profile_image}
                                     alt="Genaiguru user-icon"
                                     title="Genaiguru user-icon"
                                   />
                                 </figure>
                                 <div class="innerContent">
-                                  <h5>{video.title}</h5>
-                                  <p>Sep 15, 2023. 11:05 pm</p>
+                                  <h5>{video.author}</h5>
+                                  <h6> {video.creation_date}</h6>
                                 </div>
                               </div>
                               <ul class="flex">
@@ -227,6 +227,12 @@ const FeaturedContent = () => {
                                 </li>
                               </ul>
                             </div>
+                            <h5>{video.title}</h5>
+                            {/* <ul className="flex">
+                            {video?.tags?.map((tag, index) => {
+                              return <li key={index}>#{tag}</li>;
+                            })}
+                          </ul> */}
                             {/* <h5>
                           Navigating the World of ChatGPT and Its Open-source
                           Adversaries

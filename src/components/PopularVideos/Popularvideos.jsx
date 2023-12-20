@@ -232,22 +232,22 @@ const Popularvideos = () => {
                       <div className="author-tag flex">
                         <div className="col_left">
                           <div className="wrapper flex">
-                            {/* <figure>
+                            <figure>
                                     <img
-                                      src="app/images/authorImg.png"
+                                      src={video.author_profile_image}
                                       alt="Genaiguru authorImg"
                                       title="Genaiguru authorImg"
                                     />
-                                  </figure> */}
-                            {/* <div className="content">
-                                    <h6>Alex Smih</h6>
-                                    <p>24 M view . 3 month ago</p>
-                                  </div> */}
+                                  </figure>
+                            <div className="content">
+                                    <h6>{video.author}</h6>
+                                    {/* <p>24 M view . 3 month ago</p> */}
+                                  </div>
                           </div>
                           <ul className="flex">
-                            {/* {video?.tags?.map((tag, index) => {
+                            {video?.tags?.map((tag, index) => {
                               return <li key={index}>#{tag}</li>;
-                            })} */}
+                            })}
                           </ul>
                         </div>
                         {/* <div className="col_right flex">
