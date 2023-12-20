@@ -12,8 +12,8 @@ const Profile = () => {
   const [interestData, setInterestData] = useState([]);
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
   const [myInterests, setMyInterests] = useState();
-  const [following,setFollowing]=useState("");
-  const [follower,setFollower]=useState("");
+  const [following, setFollowing] = useState("");
+  const [follower, setFollower] = useState("");
   const [userDetails, setUserDetails] = useState({
     bio: "",
     userName: "",
@@ -124,13 +124,17 @@ const Profile = () => {
       });
   }, []);
 
-   // GET API FOR Following ------------
-   useEffect(() => {
+  // GET API FOR Following ------------
+  useEffect(() => {
     axios
-      .get(`${getBaseURL()}/get-user-follow?user_id=${localStorage.getItem("UserId")}`)
+      .get(
+        `${getBaseURL()}/get-user-follow?user_id=${localStorage.getItem(
+          "UserId"
+        )}`
+      )
       .then((response) => {
         setFollowing(response.data.following);
-        setFollower(response.data.follower)
+        setFollower(response.data.follower);
       })
       .catch((err) => {
         console.log(err.message);
@@ -295,7 +299,7 @@ const Profile = () => {
                   >
                     <div className="intrest-area">
                       <h5>My Interests</h5>
-                      <ul className="flex link-button">
+                      <ul className="flex link-button intrest-wrapper">
                         {myInterests?.map((data, index) => {
                           return (
                             <li key={index}>
@@ -314,6 +318,11 @@ const Profile = () => {
                           </Link>
                         </li>
                       </ul>
+                      <div className="btn-wrap">
+                        <button type="button" class="loginBtn">
+                          view more
+                        </button>
+                      </div>
                       <div className="social-link">
                         <h4>
                           My social links{" "}

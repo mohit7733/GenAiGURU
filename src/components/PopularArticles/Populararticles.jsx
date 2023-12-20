@@ -98,7 +98,7 @@ const Populararticles = () => {
                   >
                     <figure>
                       <img
-                        src="app/images/videoImg.png"
+                        src={article.photo}
                         alt="Genaiguru video image"
                         title="Genaiguru video image"
                       />
@@ -125,14 +125,14 @@ const Populararticles = () => {
                             </figure>
                             <div className="content">
                               <h6>{article.author}</h6>
-                              <p>24 M view . 3 month ago</p>
+                              {/* <p>24 M view . 3 month ago</p> */}
                             </div>
                           </div>
-                          <ul className="flex">
+                          {/* <ul className="flex">
                             <li>#finance</li>
                             <li>#crypto</li>
                             <li>#economy</li>
-                          </ul>
+                          </ul> */}
                         </div>
                       </div>
                     </div>

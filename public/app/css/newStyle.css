@@ -1031,7 +1031,7 @@ section.mainWrapper.flex.hideMob {
   top: 0;
   transform: translate(-50%, 10px);
   height: 600px;
-} 
+}
 .interestSection ul {
   height: 170px;
   overflow-y: scroll;
@@ -1075,4 +1075,35 @@ section.mainWrapper.flex.hideMob {
 }
 .edit-profile {
   width: calc(100% - 280px);
+}
+.edit-profile .intrest-area .intrest-wrapper {
+  margin-top: 16px;
+  max-height: 190px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.intrest-area .btn-wrap {
+  display: flex;
+  justify-content: center;
+}
+.btn-wrap .loginBtn {
+  max-width: 160px;
+}
+.interestSection.second ul.profileList .names {
+  min-height: 40px;
+}
+section.mainWrapper
+  .rightSection
+  .keeps-container
+  .interest-guru
+  .wrapper
+  figure:hover {
+  border: 2px solid #25313f;
+}
+.rightSection .keeps-container .interest-guru h5:hover {
+  border: 2px solid #be41c0;
+  display: inline-block;
+}
+.rightSection .keeps-container .gurukeeps-wrapper .connect-link li:after {
+  display: none;
 }
