@@ -318,11 +318,11 @@ const Profile = () => {
                           </Link>
                         </li>
                       </ul>
-                      <div className="btn-wrap">
+                      {/* <div className="btn-wrap">
                         <button type="button" class="loginBtn">
                           view more
                         </button>
-                      </div>
+                      </div> */}
                       <div className="social-link">
                         <h4>
                           My social links{" "}

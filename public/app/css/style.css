@@ -2026,16 +2026,16 @@ line-height: 1.45em;
   display: none;
 }
 }
-/* 
+
 .interestSection ul {
 margin-top: 65px;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
-} */
-.interestSection ul {
-  display: flex;
 }
+/* .interestSection ul {
+  display: flex;
+} */
 
 @media (max-width: 576px) {
 .interestSection p {
