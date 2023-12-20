@@ -91,6 +91,14 @@ const FeaturedContent = () => {
     ],
   };
 
+  const sliderSettings = {
+    slidesToShow: 5, // Adjust the number of slides shown at once
+    slidesToScroll: 1,
+    infinite: false,
+    nextArrow: <i className="fa fa-angle-right" aria-hidden="true"></i>,
+    prevArrow: <i className="fa fa-angle-left" aria-hidden="true"></i>,
+  };
+
   return (
     <div>
       <MobileHeader />
@@ -110,33 +118,33 @@ const FeaturedContent = () => {
                 {/* <h1>Featured content</h1> */}
                 {/* <!-- tab-link start here --> */}
                 <div className="row flex space-between align-center">
-                  <ul className="connect-link flex">
-                    <li className={activeTab === 1 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(1)}
-                        className={activeTab === 1 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-1"
-                      >
-                        All
-                      </Link>
-                    </li>
-                    <i className="fa fa-angle-left" aria-hidden="true"></i>
-
-                    {myInterests?.map((interest, index) => {
-                          return (
-                            <li key={index}>
-                              <Link
-                                onClick={() => handleTabClick(5)}
-                                className={activeTab === 5 ? "tab active" : ""}
-                                data-toggle-target=".tab-content-5"
-                              >
-                                {interest?.interest_name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                    <i className="fa fa-angle-right" aria-hidden="true"></i>
-                  </ul>
+                  <Slider {...sliderSettings} className="slider_test">
+                    <ul className="connect-link flex">
+                      <li className={activeTab === 1 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(1)}
+                          className={activeTab === 1 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-1"
+                        >
+                          All
+                        </Link>
+                      </li>
+                      {myInterests?.map((interest, index) => (
+                        <li
+                          key={index}
+                          className={activeTab === 5 ? "active" : ""}
+                        >
+                          <Link
+                            onClick={() => handleTabClick(5)}
+                            className={activeTab === 5 ? "tab active" : ""}
+                            data-toggle-target=".tab-content-5"
+                          >
+                            {interest?.interest_name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </Slider>
                   <div className="connect-box">
                     <ul className="flex">
                       <li>
@@ -962,6 +970,37 @@ const FeaturedContent = () => {
                   <div className="youtube-wraper">
                     <h3>Youtube channel</h3>
                     <div className="wrap-container channelSlider">
+                      {/* <div className="">
+                        <Slider {...sliderSettings} className="slider_test">
+                          <ul className="connect-link flex">
+                            <li className={activeTab === 1 ? "active" : ""}>
+                              <Link
+                                onClick={() => handleTabClick(1)}
+                                className={activeTab === 1 ? "tab active" : ""}
+                                data-toggle-target=".tab-content-1"
+                              >
+                                All
+                              </Link>
+                            </li>
+                            {myInterests?.map((interest, index) => (
+                              <li
+                                key={index}
+                                className={activeTab === 5 ? "active" : ""}
+                              >
+                                <Link
+                                  onClick={() => handleTabClick(5)}
+                                  className={
+                                    activeTab === 5 ? "tab active" : ""
+                                  }
+                                  data-toggle-target=".tab-content-5"
+                                >
+                                  {interest?.interest_name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </Slider>
+                      </div> */}
                       <Slider
                         ref={sliderRef}
                         {...settings2}

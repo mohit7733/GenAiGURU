@@ -62,35 +62,36 @@ const Profile = () => {
             response?.data?.facebook === "undefined" ||
             response?.data?.facebook === "null"
               ? ""
-              : response?.data?.facebook,
+              : redirectToSocialMedia(response?.data?.facebook),
           youtubeLink:
             response?.data?.youtube === undefined ||
             response?.data?.youtube === null ||
             response?.data?.youtube === "undefined" ||
             response?.data?.youtube === "null"
               ? ""
-              : response?.data?.youtube,
+              : redirectToSocialMedia(response?.data?.youtube),
           twitterLink:
             response?.data?.twitter === undefined ||
             response?.data?.twitter === null ||
             response?.data?.twitter === "undefined" ||
             response?.data?.twitter === "null"
               ? ""
-              : response?.data?.twitter,
+              : redirectToSocialMedia(response?.data?.twitter),
           instagramLink:
             response?.data?.instagram === undefined ||
             response?.data?.instagram === null ||
             response?.data?.instagram === "undefined" ||
             response?.data?.instagram === "null"
               ? ""
-              : response?.data?.instagram,
+              : redirectToSocialMedia(response?.data?.instagram),
           linkedinLink:
             response?.data?.linkedin === undefined ||
             response?.data?.linkedin === null ||
             response?.data?.linkedin === "undefined" ||
             response?.data?.linkedin === "null"
               ? ""
-              : response?.data?.linkedin,
+              : redirectToSocialMedia(response?.data?.linkedin),
+
           coverImage: response?.data?.cover_image,
         });
       })
@@ -98,6 +99,14 @@ const Profile = () => {
         console.log(err.message);
       });
   }, []);
+
+  function redirectToSocialMedia(url) {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://" + url;
+      return url;
+    }
+    return url;
+  }
 
   // GET ALL-INTERESTS API------------
   useEffect(() => {

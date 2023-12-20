@@ -35,7 +35,7 @@ const Latestblog = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: false,
+    infinite: true,
     slidesToShow: 3,
     arrows: true,
     slidesToScroll: 1,
@@ -79,39 +79,38 @@ const Latestblog = () => {
             id="Slider-4"
             className="slider_test"
           >
-            {latestBlog.map((blog, index) => {
-              return (
-                <div key={index}>
-                  {blog.featured == "yes" && (
-                    <div className="wrap">
-                      <div onClick={() => onBlogClick(blog.id)}>
-                        <figure>
-                          <img
-                            src={blog.photo}
-                            alt="Genaiguru blog image"
-                            title="Genaiguru blog image"
-                          />
-                        </figure>
-                        <div className="layer">
-                          <h5>
-                            {blog.title}
-                            {/* <br />
-                          {blog.content} */}
-                          </h5>
-                          <button type="button">
-                            <img
-                              src="app/images/blogArrowBtnImg.png"
-                              alt="Genaiguru arrow button"
-                              title="Genaiguru arrow button"
-                            />
-                          </button>
-                        </div>
-                      </div>
+            {latestBlog.map(
+              (blog, index) =>
+                blog.featured === "yes" && (
+                  <div
+                    className="wrap"
+                    key={index}
+                    onClick={() => onBlogClick(blog.id)}
+                  >
+                    <figure>
+                      <img
+                        src={blog.photo}
+                        alt="Genaiguru blog image"
+                        title="Genaiguru blog image"
+                      />
+                    </figure>
+                    <div className="layer">
+                      <h5>
+                        {blog.title}
+                        {/* <br />
+            {blog.content} */}
+                      </h5>
+                      <button type="button">
+                        <img
+                          src="app/images/blogArrowBtnImg.png"
+                          alt="Genaiguru arrow button"
+                          title="Genaiguru arrow button"
+                        />
+                      </button>
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                  </div>
+                )
+            )}
           </Slider>
         </div>
       </div>
