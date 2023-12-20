@@ -16,6 +16,13 @@ const SocialProfileEdit = () => {
     instagram: "",
     linkedin: "",
   });
+  const [errors, setErrors] = useState({
+    instagram: "",
+    twitter: "",
+    facebook: "",
+    linkedin: "",
+    youtube: "",
+  });
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -71,9 +78,11 @@ const SocialProfileEdit = () => {
         console.log(err.message);
       });
   }, []);
+
   const handleChangeLinks = (e) => {
     setLinksObj({ ...linksObj, [e.target.name]: e.target.value });
   };
+  
   const handleClearLinks = (platform) => {
     setLinksObj((prevLinksObj) => ({
       ...prevLinksObj,
@@ -81,8 +90,91 @@ const SocialProfileEdit = () => {
     }));
   };
 
+  const isValidInstagramLink = (link) => {
+    // Regular expression to match Instagram profile URLs
+    const instagramRegex =
+      /^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9_.]+\/?$/;
+
+    return instagramRegex.test(link);
+  };
+  const isValidTwitterLink = (link) => {
+    // Regular expression to match Twitter profile URLs
+    const twitterRegex =
+      /^(https?:\/\/)?(www\.)?twitter\.com\/[a-zA-Z0-9_]+\/?$/;
+    return twitterRegex.test(link);
+  };
+
+  const isValidFacebookLink = (link) => {
+    // Regular expression to match Facebook profile or page URLs
+    const facebookRegex =
+      /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9_.]+\/?$/;
+    return facebookRegex.test(link);
+  };
+
+  const isValidLinkedInLink = (link) => {
+    // Regular expression to match LinkedIn profile URLs
+    const linkedInRegex =
+      /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+    return linkedInRegex.test(link);
+  };
+
+  const isValidYouTubeLink = (link) => {
+    // Regular expression to match YouTube channel URLs
+    const youtubeRegex =
+      /^(https?:\/\/)?(www\.)?youtube\.com\/(channel|user)\/[a-zA-Z0-9_-]+\/?$/;
+    return youtubeRegex.test(link);
+  };
+
   const onSocialEditProfile = (e) => {
     e.preventDefault();
+
+    const updatedErrors = {
+      instagram: "",
+      twitter: "",
+      facebook: "",
+      linkedin: "",
+      youtube: "",
+    };
+
+    // Validation for Instagram link
+    const instagramLink = linksObj.instagram;
+    if (instagramLink && !isValidInstagramLink(instagramLink)) {
+      updatedErrors.instagram = "Please enter a valid Instagram profile link.";
+    }
+
+    // Validation for Twitter link
+    const twitterLink = linksObj.twitter;
+    if (twitterLink && !isValidTwitterLink(twitterLink)) {
+      updatedErrors.twitter = "Please enter a valid Twitter profile link.";
+    }
+
+    // Validation for Facebook link
+    const facebookLink = linksObj.facebook;
+    if (facebookLink && !isValidFacebookLink(facebookLink)) {
+      updatedErrors.facebook =
+        "Please enter a valid Facebook profile or page link.";
+    }
+
+    // Validation for LinkedIn link
+    const linkedInLink = linksObj.linkedin;
+    if (linkedInLink && !isValidLinkedInLink(linkedInLink)) {
+      updatedErrors.linkedin = "Please enter a valid LinkedIn profile link.";
+    }
+
+    // Validation for YouTube link
+    const youtubeLink = linksObj.youtube;
+    if (youtubeLink && !isValidYouTubeLink(youtubeLink)) {
+      updatedErrors.youtube = "Please enter a valid YouTube channel link.";
+    }
+
+    // Update errors state
+    setErrors(updatedErrors);
+
+    // Check if there are any errors before saving
+    if (Object.values(updatedErrors).some((error) => error !== "")) {
+      return;
+    }
+
     let fd = new FormData();
     fd.append("user_id", userId);
     fd.append("facebook", linksObj.facebook);
@@ -155,6 +247,7 @@ const SocialProfileEdit = () => {
                       />
                     </a>
                   </div>
+                  <p style={{ color: "red" }}>{errors.twitter}</p>
                 </div>
                 <div className="url-box">
                   <p>Facebook</p>
@@ -181,6 +274,7 @@ const SocialProfileEdit = () => {
                       />
                     </a>
                   </div>
+                  <p style={{ color: "red" }}>{errors.facebook}</p>
                 </div>
                 <div className="url-box">
                   <p>Youtube</p>
@@ -207,6 +301,7 @@ const SocialProfileEdit = () => {
                       />
                     </a>
                   </div>
+                  <p style={{ color: "red" }}>{errors.youtube}</p>
                 </div>
                 <div className="url-box">
                   <p>LinkedIn</p>
@@ -233,6 +328,7 @@ const SocialProfileEdit = () => {
                       />
                     </a>
                   </div>
+                  <p style={{ color: "red" }}>{errors.linkedin}</p>
                 </div>
                 <div className="url-box">
                   <p>Instagram</p>
@@ -259,6 +355,7 @@ const SocialProfileEdit = () => {
                       />
                     </a>
                   </div>
+                  <p style={{ color: "red" }}>{errors.instagram}</p>
                 </div>
                 <button
                   type="submit"

@@ -45,7 +45,7 @@ const Populararticles = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: false,
+    infinite: true,
     slidesToShow: 3,
     arrows: false,
     slidesToScroll: 1,
@@ -86,62 +86,59 @@ const Populararticles = () => {
             id="Slider-4"
             className="slider_test"
           >
-            {articles.map((article, index) => {
-              return (
-                <div key={index}>
-                  {article.featured == "yes" && (
-                    <div className="wrap" >
-                      <a
-                        onClick={() => {
-                          onArticleClick(article.id);
-                        }}
-                      >
-                        <figure>
-                          <img
-                            src="app/images/videoImg.png"
-                            alt="Genaiguru video image"
-                            title="Genaiguru video image"
-                          />
-                        </figure>
-                        <div className="layer">
-                          <div className="price flex">
-                            <img
-                              src="app/images/orangeStrike.png"
-                              alt="Genaiguru orangeStrike"
-                              title="Genaiguru orangeStrike"
-                            />
-                            17
-                          </div>
-                          <h5>{article.title}</h5>
-                          <div className="author-tag flex">
-                            <div className="col_left">
-                              <div className="wrapper flex">
-                                <figure>
-                                  <img
-                                    src={article.photo}
-                                    alt="Genaiguru authorImg"
-                                    title="Genaiguru authorImg"
-                                  />
-                                </figure>
-                                <div className="content">
-                                  <h6>Alex Smih</h6>
-                                  <p>24 M view . 3 month ago</p>
-                                </div>
-                              </div>
-                              <ul className="flex">
-                                <li>#finance</li>
-                                <li>#crypto</li>
-                                <li>#economy</li>
-                              </ul>
+            {articles.map(
+              (article, index) =>
+                article.featured == "yes" && (
+                  <div
+                    className="wrap"
+                    key={index}
+                    onClick={() => {
+                      onArticleClick(article.id);
+                    }}
+                  >
+                    <figure>
+                      <img
+                        src="app/images/videoImg.png"
+                        alt="Genaiguru video image"
+                        title="Genaiguru video image"
+                      />
+                    </figure>
+                    <div className="layer">
+                      <div className="price flex">
+                        <img
+                          src="app/images/orangeStrike.png"
+                          alt="Genaiguru orangeStrike"
+                          title="Genaiguru orangeStrike"
+                        />
+                        17
+                      </div>
+                      <h5>{article.title}</h5>
+                      <div className="author-tag flex">
+                        <div className="col_left">
+                          <div className="wrapper flex">
+                            <figure>
+                              <img
+                                src={article.photo}
+                                alt="Genaiguru authorImg"
+                                title="Genaiguru authorImg"
+                              />
+                            </figure>
+                            <div className="content">
+                              <h6>Alex Smih</h6>
+                              <p>24 M view . 3 month ago</p>
                             </div>
                           </div>
+                          <ul className="flex">
+                            <li>#finance</li>
+                            <li>#crypto</li>
+                            <li>#economy</li>
+                          </ul>
                         </div>
-                      </a>
+                      </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                  </div>
+                )
+            )}
           </Slider>
         </div>
       </div>
