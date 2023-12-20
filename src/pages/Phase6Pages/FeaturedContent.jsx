@@ -91,12 +91,46 @@ const FeaturedContent = () => {
     ],
   };
 
-  const sliderSettings = {
-    slidesToShow: 5, // Adjust the number of slides shown at once
-    slidesToScroll: 1,
+  // const sliderSettings = {
+  //   slidesToShow: 2,
+  //   slidesToScroll: 1,
+  //   infinite: true,
+  //   nextArrow: <i className="fa fa-angle-right" aria-hidden="true"></i>,
+  //   prevArrow: <i className="fa fa-angle-left" aria-hidden="true"></i>,
+  // };
+  var sliderSettings = {
+    dots: false,
     infinite: false,
-    nextArrow: <i className="fa fa-angle-right" aria-hidden="true"></i>,
-    prevArrow: <i className="fa fa-angle-left" aria-hidden="true"></i>,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -117,16 +151,43 @@ const FeaturedContent = () => {
                 </div>
                 {/* <h1>Featured content</h1> */}
                 {/* <!-- tab-link start here --> */}
-                <div className="row flex space-between align-center">
-                  <Slider {...sliderSettings} className="slider_test">
-                    <ul className="connect-link flex">
+                <div className="row space-between align-center">
+                  <ul className="connect-link">
+                    <li className={activeTab === 1 ? "active" : ""}>
+                      <Link
+                        onClick={() => handleTabClick(1)}
+                        className={activeTab === 1 ? "tab active" : ""}
+                        data-toggle-target=".tab-content-1"
+                      >
+                        All
+                      </Link>
+                    </li>
+                    <Slider {...sliderSettings}>
                       <li className={activeTab === 1 ? "active" : ""}>
                         <Link
                           onClick={() => handleTabClick(1)}
                           className={activeTab === 1 ? "tab active" : ""}
                           data-toggle-target=".tab-content-1"
                         >
-                          All
+                          All 1
+                        </Link>
+                      </li>
+                      <li className={activeTab === 1 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(1)}
+                          className={activeTab === 1 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-1"
+                        >
+                          All 2
+                        </Link>
+                      </li>
+                      <li className={activeTab === 1 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(1)}
+                          className={activeTab === 1 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-1"
+                        >
+                          All 3
                         </Link>
                       </li>
                       {myInterests?.map((interest, index) => (
@@ -143,8 +204,9 @@ const FeaturedContent = () => {
                           </Link>
                         </li>
                       ))}
-                    </ul>
-                  </Slider>
+                    </Slider>
+                  </ul>
+
                   <div className="connect-box">
                     <ul className="flex">
                       <li>
@@ -178,10 +240,7 @@ const FeaturedContent = () => {
                       return (
                         <div key={index}>
                           {blog.featured == "yes" ? (
-                            <div
-                              className="wrap flex"
-                              onClick={() => onBlogClick(blog.id)}
-                            >
+                            <div className="wrap flex">
                               <figure>
                                 <img
                                   src={blog.photo}
@@ -194,7 +253,7 @@ const FeaturedContent = () => {
                                   <div className="wrapper flex">
                                     <figure>
                                       <img
-                                        src={blog.profilePhoto}
+                                        src={blog.author_profile_image}
                                         alt="profile"
                                       />
                                     </figure>
@@ -224,7 +283,13 @@ const FeaturedContent = () => {
                                     </li>
                                   </ul>
                                 </div>
-                                <h5>{blog.title}</h5>
+
+                                <h5
+                                  onClick={() => onBlogClick(blog.id)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  {blog.title}
+                                </h5>
                                 <p>{blog.short_description}</p>
                               </div>
                             </div>

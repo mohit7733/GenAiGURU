@@ -176,11 +176,7 @@ const FeaturedArticles = () => {
                       return (
                         <div key={index}>
                           {article.featured == "yes" && (
-                            <div
-                              className="wrap flex"
-                              onClick={() => onArticleClick(article.id)}
-                              
-                            >
+                            <div className="wrap flex">
                               <figure>
                                 <img
                                   src={article.photo}
@@ -223,7 +219,12 @@ const FeaturedArticles = () => {
                                     </li>
                                   </ul>
                                 </div>
-                                <h5>{article.title}</h5>
+                                <h5
+                                  onClick={() => onArticleClick(article.id)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  {article.title}
+                                </h5>
                                 <p>
                                   Looking to upgrade your salary in the uk? Get
                                   the salary you’re worth by learning to code.
