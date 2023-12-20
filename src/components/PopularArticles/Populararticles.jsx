@@ -45,7 +45,7 @@ const Populararticles = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     arrows: false,
     slidesToScroll: 1,

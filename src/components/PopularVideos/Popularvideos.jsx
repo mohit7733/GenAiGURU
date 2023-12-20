@@ -76,7 +76,7 @@ const Popularvideos = () => {
           <Link to={PATH_FEATURED_VIDEO}>View all</Link>
         </div>
         <div className="mobileVideoSection">
-          <div className="wrap" >
+          <div className="wrap">
             <a href="#">
               <figure>
                 <img
@@ -205,7 +205,11 @@ const Popularvideos = () => {
           >
             {popularVideos.map((video, index) => {
               return (
-                <div className="wrap" key={index}  onClick={() => onVideoClick(video.id)} >
+                <div
+                  className="wrap"
+                  key={index}
+                  onClick={() => onVideoClick(video.id)}
+                >
                   <a
                     onClick={() => {
                       navigate(`${PATH_VIDEO_PLAY}`);
@@ -233,16 +237,16 @@ const Popularvideos = () => {
                         <div className="col_left">
                           <div className="wrapper flex">
                             <figure>
-                                    <img
-                                      src={video.author_profile_image}
-                                      alt="Genaiguru authorImg"
-                                      title="Genaiguru authorImg"
-                                    />
-                                  </figure>
+                              <img
+                                src={video.author_profile_image}
+                                alt="Genaiguru authorImg"
+                                title="Genaiguru authorImg"
+                              />
+                            </figure>
                             <div className="content">
-                                    <h6>{video.author}</h6>
-                                    {/* <p>24 M view . 3 month ago</p> */}
-                                  </div>
+                              <h6>{video.author}</h6>
+                              {/* <p>24 M view . 3 month ago</p> */}
+                            </div>
                           </div>
                           <ul className="flex">
                             {video?.tags?.map((tag, index) => {

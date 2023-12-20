@@ -35,7 +35,7 @@ const Latestblog = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: true,
+    infinite: false,
     slidesToShow: 3,
     arrows: true,
     slidesToScroll: 1,
