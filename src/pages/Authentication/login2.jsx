@@ -120,7 +120,7 @@ const Login2 = () => {
     if (!title) {
       error["title"] = "Title Required!";
     } else if (title.length >= 20) {
-      error["title"] = "Title length can not more then 30 !";
+      error["title"] = "Title length can not more then 20 chars.";
     } else {
       error["title"] = "";
     }
