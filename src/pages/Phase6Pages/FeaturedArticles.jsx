@@ -14,7 +14,9 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 
 const FeaturedArticles = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
+  const [indexTab, setIndexTab] = useState();
+
   const [myInterests, setMyInterests] = useState();
   const [articles, setArticles] = useState([]);
 
@@ -38,6 +40,21 @@ const FeaturedArticles = () => {
         console.log(err.message);
       });
   }, []);
+    // Get API for Categories
+    useEffect(() => {
+      axios
+        .get(`${getBaseURL()}/auth/userinterests`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setMyInterests(response?.data?.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }, []);
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -77,6 +94,40 @@ const FeaturedArticles = () => {
       },
     ],
   };
+  var sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   return (
     <div>
       <MobileHeader />
@@ -95,80 +146,88 @@ const FeaturedArticles = () => {
                 </div>
                 {/* <h1>Featured Articles</h1> */}
                 {/* <!-- tab-link start here --> */}
-                <div className="row flex space-between align-center">
-                  <ul className="connect-link flex">
-                    <li className={activeTab === 1 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(1)}
-                        className={activeTab === 1 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-1"
-                      >
-                        All
-                      </Link>
-                    </li>
-                    <li className={activeTab === 2 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(2)}
-                        className={activeTab === 2 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-2"
-                      >
-                        Ai in healthcare
-                      </Link>
-                    </li>
-                    <li className={activeTab === 3 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(3)}
-                        className={activeTab === 3 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-3"
-                      >
-                        ML in finance
-                      </Link>
-                    </li>
-                    <li className={activeTab === 4 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(4)}
-                        className={activeTab === 4 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-4"
-                      >
-                        Crypto
-                      </Link>
-                    </li>
-                    <li className={activeTab === 5 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(5)}
-                        className={activeTab === 5 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-5"
-                      >
-                        Bitcoin
-                      </Link>
-                    </li>
-                  </ul>
-                  <div className="connect-box">
-                    <ul className="flex">
-                      <li>
-                        <Link to="/sortbydate">
-                          <figure>
-                            <img src="./app/images/sorting-icon.png" alt="" />
-                          </figure>
+           
+                <div className="row space-between align-center">
+                  <div className="connect-link flex align-center">
+                    {/* All Tab div */}
+                    <div style={{ width: "2%" }}>
+                      <li className={activeTab === 0 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(0)}
+                          className={activeTab === 0 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-0"
+                        >
+                          All
                         </Link>
                       </li>
-                      <li>
-                        <Link to="/featuredpopup">
-                          <figure>
-                            <img src="./app/images/filter-icon.png" alt="" />
-                          </figure>
-                        </Link>
-                      </li>
-                    </ul>
+                    </div>
+                    {/* Slider Div */}
+                    <div
+                      style={{
+                        width: "85%",
+                        paddingLeft: "46px",
+                        paddingRight: "46px",
+                      }}
+                    >
+                      <Slider {...sliderSettings}>
+                        {myInterests?.map((interest, index) => (
+                          <li
+                            key={index}
+                            className={activeTab === index + 1 ? "active" : ""}
+                          >
+                            <div
+                              style={{
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Link
+                                onClick={() => {
+                                  handleTabClick(index + 1);
+                                  setIndexTab(index + 1);
+                                }}
+                                className={
+                                  activeTab === index + 1 ? "tab active" : ""
+                                }
+                                data-toggle-target={`.tab-content-${index + 1}`}
+                              >
+                                {interest?.interest_name}
+                              </Link>
+                            </div>
+                          </li>
+                        ))}
+                      </Slider>
+                    </div>
+                    {/* Sort by and Filter By Div  */}
+                    <div className="connect-box" style={{ width: "11%" }}>
+                      <ul className="flex">
+                        <li>
+                          <Link to="/sortbydate">
+                            <figure>
+                              <img src="./app/images/sorting-icon.png" alt="" />
+                            </figure>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/featuredpopup">
+                            <figure>
+                              <img src="./app/images/filter-icon.png" alt="" />
+                            </figure>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
                 {/* <!-- tab-link start here --> */}
               </div>
               {/* <!-- tab-content here --> */}
-              {activeTab === 1 && (
+              {activeTab === 0 && (
                 <div
                   className={
-                    activeTab === 1 && "tab-content tab-content-1 active"
+                    activeTab === 0 && "tab-content tab-content-0 active"
                   }
                 >
                   <div className="interest-guru ">
@@ -189,7 +248,7 @@ const FeaturedArticles = () => {
                                   <div className="wrapper flex">
                                     <figure>
                                       <img
-                                        src={article.profilePhoto}
+                                        src={article.author_profile_image}
                                         alt="userIcon"
                                       />
                                     </figure>
@@ -226,10 +285,7 @@ const FeaturedArticles = () => {
                                   {article.title}
                                 </h5>
                                 <p>
-                                  Looking to upgrade your salary in the uk? Get
-                                  the salary you’re worth by learning to code.
-                                  98% employed within 12 months of
-                                  qualifying....
+                                 {article.short_description}
                                 </p>
                               </div>
                             </div>
@@ -241,10 +297,11 @@ const FeaturedArticles = () => {
                 </div>
               )}
               {/* <!-- 2nd --> */}
-              {activeTab === 2 && (
+              {activeTab === indexTab && (
                 <div
                   className={
-                    activeTab === 2 && "tab-content tab-content-2 active"
+                    activeTab === indexTab &&
+                    `tab-content tab-content-${indexTab} active`
                   }
                 >
                   {" "}
@@ -252,116 +309,6 @@ const FeaturedArticles = () => {
                     <div className="wrap flex">
                       <figure>
                         <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                          title="Genaiguru guru-keeps-2"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt=" Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>AEsther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                          title="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
                           src="app/images/gureu-keeps-1.png"
                           alt="Genaiguru gureu-keeps-1"
                           title="Genaiguru gureu-keeps-1"
@@ -417,530 +364,6 @@ const FeaturedArticles = () => {
                   </div>
                 </div>
               )}
-              {/* <!-- 3rd --> */}
-              {activeTab === 3 && (
-                <div
-                  className={
-                    activeTab === 3 && "tab-content tab-content-3 active"
-                  }
-                >
-                  <div className="interest-guru ">
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                          title="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title=" Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dots-icon"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <!-- 4th --> */}
-              {activeTab === 4 && (
-                <div
-                  className={
-                    activeTab === 4 && "tab-content tab-content-4 active"
-                  }
-                >
-                  <div className="interest-guru ">
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title=" Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru  dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                          title=" Genaiguru guru-keeps-2"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru usericon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>AEsther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru user-icon"
-                                title="Genaiguru userIcon "
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks "
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1 "
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <!-- 5th --> */}
-              {activeTab === 5 && (
-                <div
-                  className={
-                    activeTab === 5 && "tab-content tab-content-5 active"
-                  }
-                >
-                  <div className="interest-guru ">
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru user-icon"
-                                title="Genaiguru user-icon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>AEsther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                          title="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru usericon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons "
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {false && (
                 <>
                   <div className="home-category">

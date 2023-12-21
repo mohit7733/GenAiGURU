@@ -26,9 +26,11 @@ const Categories = () => {
   }, []);
 
   const onCategoryClick = (categoryId) => {
-    console.log(categoryId);
+    const array = [categoryId];
     axios
-      .post(`${getBaseURL()}/articles?interest_id=${categoryId}`)
+      .post(`${getBaseURL()}/interestsarticles`, {
+        interest_id: array,
+      })
       .then((res) => {
         console.log(res?.data);
         setArticlesOnInterest(res?.data?.articles);
