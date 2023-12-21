@@ -262,8 +262,8 @@ const FeaturedContent = () => {
                                   />
                                 </figure>
                                 <div class="innerContent">
-                                  <h5>{video.author}</h5>
-                                  <h6> {video.creation_date}</h6>
+                                  <h6>{video.author}</h6>
+                                  <p> {video.creation_date}</p>
                                 </div>
                               </div>
                               <ul class="flex">
