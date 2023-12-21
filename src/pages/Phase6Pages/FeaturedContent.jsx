@@ -28,9 +28,7 @@ const FeaturedContent = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.blogs);
         setLatestBlog(response?.data?.blogs);
-        console.log(latestBlog);
       })
       .catch((err) => {
         console.log(err.message);
@@ -66,7 +64,7 @@ const FeaturedContent = () => {
   var settings2 = {
     dots: false,
     infinite: true,
-    slidesToShow: 6,
+    slidesToShow: 3,
     arrows: false,
     slidesToScroll: 1,
     autoplay: true,
@@ -126,7 +124,6 @@ const FeaturedContent = () => {
       },
     ],
   };
-  console.log(activeTab, indexTab);
   return (
     <div>
       <MobileHeader />
@@ -160,27 +157,40 @@ const FeaturedContent = () => {
                       </li>
                     </div>
                     {/* Slider Div */}
-                    <div style={{ width: "85%", padding: "46px" }}>
+                    <div
+                      style={{
+                        width: "85%",
+                        paddingLeft: "46px",
+                        paddingRight: "46px",
+                      }}
+                    >
                       <Slider {...sliderSettings}>
                         {myInterests?.map((interest, index) => (
                           <li
                             key={index}
                             className={activeTab === index + 1 ? "active" : ""}
-                            
                           >
-                            <Link
-                              onClick={() => {
-                                handleTabClick(index + 1);
-                                setIndexTab(index + 1);
+                            <div
+                              style={{
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                display: "flex",
+                                justifyContent: "center",
                               }}
-                              className={
-                                activeTab === index + 1 ? "tab active" : ""
-                              }
-                              data-toggle-target={`.tab-content-${index + 1}`}
-                              // style={{backgroundColor:"red"}}
                             >
-                              {interest?.interest_name}
-                            </Link>
+                              <Link
+                                onClick={() => {
+                                  handleTabClick(index + 1);
+                                  setIndexTab(index + 1);
+                                }}
+                                className={
+                                  activeTab === index + 1 ? "tab active" : ""
+                                }
+                                data-toggle-target={`.tab-content-${index + 1}`}
+                              >
+                                {interest?.interest_name}
+                              </Link>
+                            </div>
                           </li>
                         ))}
                       </Slider>
