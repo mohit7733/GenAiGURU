@@ -1,8 +1,4 @@
 /* new css */
-/* .slick-slide {
-  width: 155px !important;
-} */
-
 /* Alert Popup css */
 .custom-toast {
   background-color: #3498db;
@@ -1109,4 +1105,88 @@ section.mainWrapper
 }
 .rightSection .keeps-container .gurukeeps-wrapper .connect-link li:after {
   display: none;
+}
+
+
+.edit-profile .intrest-area .btn-wrap {
+  text-align: center;
+}
+.edit-profile .intrest-area .btn-wrap .loginBtn {
+  width: 150px;
+  margin-top: 10px;
+}
+.interestSection.second .followexperts li {
+  background: rgba(198, 208, 225, 0.1);
+  padding: 11px;
+  border-radius: 16px;
+  text-align: center;
+  cursor: auto;
+}
+.interestSection.second .followexperts li figure {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+.interestSection.second .followexperts li figure img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.interestSection.second .followexperts li .names{
+min-height: 40px;
+}
+.interestSection.second .followexperts li .names h5{
+color: #fff;
+  margin-bottom: 2px;
+  font-size: 16px;
+  line-height: 1.25em;
+  font-weight: 500;
+  font-family: PlusJakartaSansMedium;
+}
+.interestSection.second .followexperts li .names p{
+color: #cfd6db;
+  font-size: 14px;
+  line-height: 1.45em;
+  font-weight: 400;
+}
+.interestSection.second .followexperts li .btnWrap{
+background: linear-gradient(91.54deg, #6591ff 0.79%, #ff2dcd 116.36%);
+  padding: 2px;
+  margin-top: 16px;
+  border-radius: 38px;
+}
+.interestSection.second .followexperts li .btnWrap .btnSecond{
+width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4em;
+  font-family: PlusJakartaSansSemiBold;
+  font-weight: 600;
+  background: #454d56;
+  border-radius: 38px;
+  padding: 10px;
+}
+.interestSection.second .followexperts li:hover {
+  border: 1px solid #be41c0;
+}
+.interestSection.second .followexperts li .btnWrap .btnSecond:hover{
+background: #873dd0;
+}
+.interestSection.second .followexperts li{
+	width: calc(100% - 12px) !important;
+}
+.popup-container.customNewPopups.hideMob {
+  overflow-y: hidden;
+}
+.featuredConatiner .connect-link .slick-slide li > div {
+  border: solid 1px #3b4f5f;
+  padding: 10px 1px;
+  border-radius: 12px;
+}
+.rightSection .keeps-container.featuredConatiner .gurukeeps-wrapper .connect-box li a {
+  width: 48px;
+  height: 48px;
 }

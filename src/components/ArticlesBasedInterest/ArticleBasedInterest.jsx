@@ -3,9 +3,18 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { PATH_ARTICLE_DETAILS } from "../../routes";
+import { useNavigate } from "react-router";
 
 const ArticleBasedInterest = ({ articlesOnInterest }) => {
   const sliderRef = useRef();
+
+  const navigate = useNavigate();
+
+
+  const onArticleClick = (AricleID) => {
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  };
 
   // Slide code
   var settings2 = {
@@ -36,7 +45,6 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
       },
     ],
   };
-
 
   return (
     <>
@@ -77,7 +85,14 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
                           <p> {aricles.creation_date}</p>
                         </div>
                       </div>
-                      <p>{aricles.title}</p>
+                      <p
+                        onClick={() => {
+                          onArticleClick(aricles.id);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {aricles.title}
+                      </p>
                       <ul className="flex">
                         <li>
                           <a href="#">

@@ -13,9 +13,11 @@ const Profile = () => {
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
   const [myInterests, setMyInterests] = useState();
   const [displayedInterests, setDisplayedInterests] = useState(7);
+  const [displayView, setDisplayView] = useState(true);
 
   const [following, setFollowing] = useState("");
   const [follower, setFollower] = useState("");
+
   const [userDetails, setUserDetails] = useState({
     bio: "",
     userName: "",
@@ -211,10 +213,12 @@ const Profile = () => {
   const handleViewMoreClick = () => {
     // Increment the number of displayed interests by 10
     setDisplayedInterests((prevCount) => prevCount + 10);
+    setDisplayView(false);
   };
   const handleViewLessClick = () => {
     // Reset the number of displayed interests to the initial state
     setDisplayedInterests(7);
+    setDisplayView(true);
   };
   // console.log(userDetails);
   return (
@@ -328,18 +332,18 @@ const Profile = () => {
                           </Link>
                         </li>
                       </ul>
-                      {myInterests?.length > displayedInterests && (
+                      {displayView && (
                         <div className="btn-wrap">
                           <button
                             type="button"
-                            class="loginBtn"
+                            className="loginBtn"
                             onClick={handleViewMoreClick}
                           >
                             view more
                           </button>
                         </div>
                       )}
-                      {displayedInterests > 10  && (
+                      {!displayView && (
                         <div className="btn-wrap">
                           <button
                             type="button"
