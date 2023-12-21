@@ -12,6 +12,8 @@ const Profile = () => {
   const [interestData, setInterestData] = useState([]);
   const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
   const [myInterests, setMyInterests] = useState();
+  const [displayedInterests, setDisplayedInterests] = useState(7);
+
   const [following, setFollowing] = useState("");
   const [follower, setFollower] = useState("");
   const [userDetails, setUserDetails] = useState({
@@ -206,6 +208,14 @@ const Profile = () => {
     setActiveTab(tabNumber);
   };
 
+  const handleViewMoreClick = () => {
+    // Increment the number of displayed interests by 10
+    setDisplayedInterests((prevCount) => prevCount + 10);
+  };
+  const handleViewLessClick = () => {
+    // Reset the number of displayed interests to the initial state
+    setDisplayedInterests(7);
+  };
   // console.log(userDetails);
   return (
     <>
@@ -300,13 +310,13 @@ const Profile = () => {
                     <div className="intrest-area">
                       <h5>My Interests</h5>
                       <ul className="flex link-button intrest-wrapper">
-                        {myInterests?.map((data, index) => {
-                          return (
+                        {myInterests
+                          ?.slice(0, displayedInterests)
+                          .map((data, index) => (
                             <li key={index}>
                               <a>{data.interest_name}</a>
                             </li>
-                          );
-                        })}
+                          ))}
                         <li>
                           <Link
                             onClick={() => {
@@ -318,11 +328,28 @@ const Profile = () => {
                           </Link>
                         </li>
                       </ul>
-                      {/* <div className="btn-wrap">
-                        <button type="button" class="loginBtn">
-                          view more
-                        </button>
-                      </div> */}
+                      {myInterests?.length > displayedInterests && (
+                        <div className="btn-wrap">
+                          <button
+                            type="button"
+                            class="loginBtn"
+                            onClick={handleViewMoreClick}
+                          >
+                            view more
+                          </button>
+                        </div>
+                      )}
+                      {displayedInterests > 10  && (
+                        <div className="btn-wrap">
+                          <button
+                            type="button"
+                            className="loginBtn"
+                            onClick={handleViewLessClick}
+                          >
+                            View less
+                          </button>
+                        </div>
+                      )}
                       <div className="social-link">
                         <h4>
                           My social links{" "}

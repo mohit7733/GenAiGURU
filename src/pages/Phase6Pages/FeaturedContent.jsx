@@ -96,7 +96,7 @@ const FeaturedContent = () => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
@@ -146,56 +146,64 @@ const FeaturedContent = () => {
                 {/* <h1>Featured content</h1> */}
                 {/* <!-- tab-link start here --> */}
                 <div className="row space-between align-center">
-                  <ul className="connect-link">
-                    <li className={activeTab === 0 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(0)}
-                        className={activeTab === 0 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-0"
-                      >
-                        All
-                      </Link>
-                    </li>
-                    <Slider {...sliderSettings}>
-                      {myInterests?.map((interest, index) => (
-                        <li
-                          key={index}
-                          className={activeTab === index + 1 ? "active" : ""}
+                  <div className="connect-link flex align-center">
+                    {/* All Tab div */}
+                    <div style={{ width: "2%" }}>
+                      <li className={activeTab === 0 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(0)}
+                          className={activeTab === 0 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-0"
                         >
-                          <Link
-                            onClick={() => {
-                              handleTabClick(index + 1);
-                              setIndexTab(index + 1);
-                            }}
-                            className={
-                              activeTab === index + 1 ? "tab active" : ""
-                            }
-                            data-toggle-target={`.tab-content-${index + 1}`}
+                          All
+                        </Link>
+                      </li>
+                    </div>
+                    {/* Slider Div */}
+                    <div style={{ width: "85%", padding: "46px" }}>
+                      <Slider {...sliderSettings}>
+                        {myInterests?.map((interest, index) => (
+                          <li
+                            key={index}
+                            className={activeTab === index + 1 ? "active" : ""}
+                            
                           >
-                            {interest?.interest_name}
+                            <Link
+                              onClick={() => {
+                                handleTabClick(index + 1);
+                                setIndexTab(index + 1);
+                              }}
+                              className={
+                                activeTab === index + 1 ? "tab active" : ""
+                              }
+                              data-toggle-target={`.tab-content-${index + 1}`}
+                              // style={{backgroundColor:"red"}}
+                            >
+                              {interest?.interest_name}
+                            </Link>
+                          </li>
+                        ))}
+                      </Slider>
+                    </div>
+                    {/* Sort by and Filter By Div  */}
+                    <div className="connect-box" style={{ width: "11%" }}>
+                      <ul className="flex">
+                        <li>
+                          <Link to="/sortbydate">
+                            <figure>
+                              <img src="./app/images/sorting-icon.png" alt="" />
+                            </figure>
                           </Link>
                         </li>
-                      ))}
-                    </Slider>
-                  </ul>
-
-                  <div className="connect-box">
-                    <ul className="flex">
-                      <li>
-                        <Link to="/sortbydate">
-                          <figure>
-                            <img src="./app/images/sorting-icon.png" alt="" />
-                          </figure>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/featuredpopup">
-                          <figure>
-                            <img src="./app/images/filter-icon.png" alt="" />
-                          </figure>
-                        </Link>
-                      </li>
-                    </ul>
+                        <li>
+                          <Link to="/featuredpopup">
+                            <figure>
+                              <img src="./app/images/filter-icon.png" alt="" />
+                            </figure>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
                 {/* <!-- tab-link start here --> */}
