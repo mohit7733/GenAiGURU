@@ -1,4 +1,8 @@
 /* new css */
+/* .slick-slide {
+  width: 155px !important;
+} */
+
 /* Alert Popup css */
 .custom-toast {
   background-color: #3498db;
@@ -990,7 +994,7 @@ section.mainWrapper.flex.hideMob {
 
 .video-slider .layer h5 {
   padding-top: 0px;
-} 
+}
 .profile-banner figure {
   width: 100%;
   height: 100%;
@@ -1100,9 +1104,8 @@ section.mainWrapper
   figure:hover {
   border: 2px solid #25313f;
 }
-.rightSection .keeps-container .interest-guru h5:hover {
-  border: 2px solid #be41c0;
-  display: inline-block;
+.rightSection .keeps-container .interest-guru .content h5:hover {
+  color: #be41c0;
 }
 .rightSection .keeps-container .gurukeeps-wrapper .connect-link li:after {
   display: none;

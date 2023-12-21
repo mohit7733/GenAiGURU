@@ -139,8 +139,9 @@ const Login6 = () => {
             You will find the best posts in the feed according <br /> to your
             following authors.
           </p>
-          {/* <Slider {...sliderSettings}> */}
-            <ul className="profileList">
+
+          <div className="profileList followexperts">
+            <Slider {...sliderSettings}>
               {expertData.map((Writer, index) => {
                 return (
                   <li key={Writer.id}>
@@ -166,8 +167,8 @@ const Login6 = () => {
                   </li>
                 );
               })}
-            </ul>
-          {/* </Slider> */}
+            </Slider>
+          </div>
 
           <div className="buttonText">
             <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
