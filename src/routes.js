@@ -131,7 +131,7 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "gurugenesis",
+      path: "contact",
       name: "gurugenesis",
       element: <GuruGenesis />,
       exact: true,
