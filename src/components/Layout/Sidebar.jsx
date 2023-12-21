@@ -94,7 +94,7 @@ const Sidebar = () => {
             </WithAuth>
           </li>
           <li>
-            <Link to={"/gurugenesis"}>
+            <Link to={"/contact"}>
               <figure>
                 <img
                   src="app/images/contactToGuruIcon.png"

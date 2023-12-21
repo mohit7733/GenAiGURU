@@ -59,6 +59,7 @@ const VideoPlay = () => {
                     Video
                   </p>
                 </div>
+                
                 <ReactPlayer
                   url={videoPlay.youtube_link}
                   width="100%"

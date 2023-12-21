@@ -5,6 +5,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import Index from "../Authentication/Index";
 
 const ArticlesDetails = () => {
   const [articleDetail, setArticleDetail] = useState({
@@ -15,6 +16,7 @@ const ArticlesDetails = () => {
     banner_image: "",
     creation_date: "",
   });
+  const[relatedArticle,setRelatedArticle]=useState([])
 
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -39,7 +41,9 @@ const ArticlesDetails = () => {
           banner_image: response?.data?.article_details?.banner_image,
           creation_date: response?.data?.article_details?.creation_date,
         });
-        console.log(response?.data?.article_details);
+        // console.log(response?.data?.article_details);
+        setRelatedArticle(response?.data?.related_articles)
+        console.log(relatedArticle)
       })
       .catch((err) => {
         console.log(err.message);
@@ -171,11 +175,13 @@ const ArticlesDetails = () => {
                       <div className="heading-link flex">
                         <h3>Related posts</h3>
                       </div>
-                      <div className="interest-sliders">
+                      {relatedArticle.map((article,Index)=>{
+                        return(
+                          <div className="interest-sliders">
                         <div className="wrap flex">
                           <figure>
                             <img
-                              src="app/images/interestSliderImg.png"
+                              src={article.banner_image}
                               alt="Genaiguru interestSliderImg"
                               title="Genaiguru interestSliderImg"
                             />
@@ -184,67 +190,18 @@ const ArticlesDetails = () => {
                             <div className="wrapper flex">
                               <figure>
                                 <img
-                                  src="app/images/authorImg.png"
+                                  src={article.photo}
                                   alt="Genaiguru authorImg"
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
                               <div className="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
+                                <h6>{article.author}</h6>
+                                <p> {article.creation_date}</p>
                               </div>
                             </div>
                             <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul className="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                    title="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                              title="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div className="content">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
+                              {article.short_description}
                             </p>
                             <ul className="flex">
                               <li>
@@ -269,6 +226,9 @@ const ArticlesDetails = () => {
                           </div>
                         </div>
                       </div>
+                        );
+                      }
+                      )}
                       <a href="#" className="viewAll">
                         View all
                       </a>
