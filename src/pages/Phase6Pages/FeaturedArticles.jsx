@@ -40,21 +40,21 @@ const FeaturedArticles = () => {
         console.log(err.message);
       });
   }, []);
-    // Get API for Categories
-    useEffect(() => {
-      axios
-        .get(`${getBaseURL()}/auth/userinterests`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setMyInterests(response?.data?.data);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }, []);
+  // Get API for Categories
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/interests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setMyInterests(response?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -146,7 +146,7 @@ const FeaturedArticles = () => {
                 </div>
                 {/* <h1>Featured Articles</h1> */}
                 {/* <!-- tab-link start here --> */}
-           
+
                 <div className="row space-between align-center">
                   <div className="connect-link flex align-center">
                     {/* All Tab div */}
@@ -193,7 +193,7 @@ const FeaturedArticles = () => {
                                 }
                                 data-toggle-target={`.tab-content-${index + 1}`}
                               >
-                                {interest?.interest_name}
+                                {interest?.interestName}
                               </Link>
                             </div>
                           </li>
@@ -234,62 +234,58 @@ const FeaturedArticles = () => {
                     {articles?.map((article, index) => {
                       return (
                         <div key={index}>
-                          {article.featured == "yes" && (
-                            <div className="wrap flex">
-                              <figure>
-                                <img
-                                  src={article.photo}
-                                  alt="Genaiguru gureu-keeps-1"
-                                  title="Genaiguru gureu-keeps-1"
-                                />
-                              </figure>
-                              <div className="content">
-                                <div className="flex space-between">
-                                  <div className="wrapper flex">
-                                    <figure>
-                                      <img
-                                        src={article.author_profile_image}
-                                        alt="userIcon"
-                                      />
-                                    </figure>
-                                    <div className="innerContent">
-                                      <h6>{article.author}</h6>
-                                      <p>{article.creation_date}</p>
-                                    </div>
+                          <div className="wrap flex">
+                            <figure>
+                              <img
+                                src={article.photo}
+                                alt="Genaiguru gureu-keeps-1"
+                                title="Genaiguru gureu-keeps-1"
+                              />
+                            </figure>
+                            <div className="content">
+                              <div className="flex space-between">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                      src={article.author_profile_image}
+                                      alt="userIcon"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{article.author}</h6>
+                                    <p>{article.creation_date}</p>
                                   </div>
-                                  <ul className="flex">
-                                    <li>
-                                      <a href="#">
-                                        <img
-                                          src="app/images/color-bookmarks.png"
-                                          alt="Genaiguru color-bookmarks"
-                                          title="Genaiguru color-bookmarks"
-                                        />
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="#">
-                                        <img
-                                          src="app/images/dotsIcons.png"
-                                          alt="Genaiguru dots-icon"
-                                          title="Genaiguru dots-icon"
-                                        />
-                                      </a>
-                                    </li>
-                                  </ul>
                                 </div>
-                                <h5
-                                  onClick={() => onArticleClick(article.id)}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  {article.title}
-                                </h5>
-                                <p>
-                                 {article.short_description}
-                                </p>
+                                <ul className="flex">
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru color-bookmarks"
+                                        title="Genaiguru color-bookmarks"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dots-icon"
+                                        title="Genaiguru dots-icon"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
                               </div>
+                              <h5
+                                onClick={() => onArticleClick(article.id)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                {article.title}
+                              </h5>
+                              <p>{article.short_description}</p>
                             </div>
-                          )}
+                          </div>
                         </div>
                       );
                     })}

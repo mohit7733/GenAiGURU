@@ -42,7 +42,7 @@ const FeaturedContent = () => {
   // Get API for Categories
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/auth/userinterests`, {
+      .get(`${getBaseURL()}/auth/interests`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -192,7 +192,7 @@ const FeaturedContent = () => {
                                 }
                                 data-toggle-target={`.tab-content-${index + 1}`}
                               >
-                                {interest?.interest_name}
+                                {interest?.interestName}
                               </Link>
                             </div>
                           </li>

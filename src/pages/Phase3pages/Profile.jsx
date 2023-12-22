@@ -121,7 +121,7 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        setInterestData(response.data.data);
+        setInterestData(response?.data?.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -220,7 +220,7 @@ const Profile = () => {
     setDisplayedInterests(7);
     setDisplayView(true);
   };
-  // console.log(userDetails);
+  
   return (
     <>
       <MobileHeader />
@@ -339,7 +339,7 @@ const Profile = () => {
                             className="loginBtn"
                             onClick={handleViewMoreClick}
                           >
-                            view more
+                            View More
                           </button>
                         </div>
                       )}
@@ -350,7 +350,7 @@ const Profile = () => {
                             className="loginBtn"
                             onClick={handleViewLessClick}
                           >
-                            View less
+                            View Less
                           </button>
                         </div>
                       )}
@@ -2142,7 +2142,7 @@ const Profile = () => {
                     className="loginBtn"
                     onClick={onChangeInterest}
                   >
-                    Add Now
+                    Save Changes{" "}
                   </button>
                 </form>
               </div>
@@ -2194,7 +2194,7 @@ const Profile = () => {
                     className="loginBtn"
                     onClick={onChangeInterest}
                   >
-                    Add Now
+                    Save Changes
                   </button>
                 </form>
               </div>

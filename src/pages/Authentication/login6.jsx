@@ -158,7 +158,11 @@ const Login6 = () => {
                     </div>
                     <div className="btnWrap">
                       <Link
-                        className="btnSecond"
+                        className={
+                          selectedExpertsIndex.includes(Writer.id)
+                            ? "selectedExperts"
+                            : "btnSecond"
+                        }
                         onClick={() => handleFollowClick(Writer.id)}
                       >
                         {Writer.isFollowing ? "Following" : "Follow"}

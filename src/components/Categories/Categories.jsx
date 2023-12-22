@@ -7,6 +7,8 @@ const Categories = () => {
   const [myInterests, setMyInterests] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
   const [articlesOnInterest, setArticlesOnInterest] = useState([]);
+  const [displayedInterests, setDisplayedInterests] = useState(7);
+  const [displayView, setDisplayView] = useState(true);
 
   // Get API for Categories
   useEffect(() => {
@@ -40,6 +42,17 @@ const Categories = () => {
       });
   };
 
+  const handleViewMoreClick = () => {
+    // Increment the number of displayed interests by 10
+    setDisplayedInterests((prevCount) => prevCount + 10);
+    setDisplayView(false);
+  };
+  const handleViewLessClick = () => {
+    // Reset the number of displayed interests to the initial state
+    setDisplayedInterests(7);
+    setDisplayView(true);
+  };
+
   return (
     <div>
       <div className="home-category">
@@ -47,7 +60,7 @@ const Categories = () => {
           <h3>Your Interests</h3>
         </div>
         <ul className="flex">
-          {myInterests?.map((interest, index) => {
+          {myInterests?.slice(0, displayedInterests).map((interest, index) => {
             return (
               <li key={index}>
                 <a
@@ -72,6 +85,28 @@ const Categories = () => {
             );
           })}
         </ul>
+        {myInterests?.length > 7 && displayView && (
+          <div className="btn-wrap">
+            <button
+              type="button"
+              className="loginBtn"
+              onClick={handleViewMoreClick}
+            >
+              View More
+            </button>
+          </div>
+        )}
+        {!displayView && (
+          <div className="btn-wrap">
+            <button
+              type="button"
+              className="loginBtn"
+              onClick={handleViewLessClick}
+            >
+              View Less
+            </button>
+          </div>
+        )}
       </div>
       <ArticleBasedInterest articlesOnInterest={articlesOnInterest} />
     </div>
