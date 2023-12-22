@@ -10,8 +10,9 @@ import { PATH_EDIT_PROFILE, PATH_PROFILE } from "../../routes";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -66,7 +67,34 @@ const Settings = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const errors = validate();
-    setErrors(errors);
+    // setErrors(errors);
+    console.log(errors)
+    if(errors.password==""&& errors.confirmPassword==""&&errors.newPassword==""){
+    let fd = new FormData();
+    fd.append("user_id", userId);
+    fd.append("old_password", password);
+    fd.append("new_password", newPassword);
+
+    axios
+      .post(`${getBaseURL()}/change-password`, fd)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Password Changed ", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          setPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.FormData);
+        alert("Please enter correct old password");
+      });
+    }
+    else{
+      setErrors(errors);
+    }
   };
   const onchangeCheck = (key, value) => {
     const errors = {};
@@ -98,21 +126,29 @@ const Settings = () => {
       error["password"] = "";
     }
     if (!confirmPassword) {
-      error["confirmPassword"] = "Password Required!";
-    } else if (!confirmPassword.match(lowerCase)) {
-      error["confirmPassword"] = "Password Should Contains lowercase letters !";
-    } else if (!confirmPassword.match(upperCase)) {
-      error["confirmPassword"] = "Password Should Contain Uppercase letters !";
-    } else if (!confirmPassword.match(numbers)) {
-      error["confirmPassword"] = "Password Should Contains Numbers also !";
-    } else if (!confirmPassword.match(SpecialCharacter)) {
-      error["confirmPassword"] =
-        "Password Should Contains Special Character also !";
-    } else if (confirmPassword.length < 8) {
-      error["confirmPassword"] = "Password length Should be more than 8.";
+      error["confirmPassword"] = "Confirm Password Required!";
+    } else if (newPassword != confirmPassword) {
+      error["confirmPassword"] = "Password Not Match.";
     } else {
       error["confirmPassword"] = "";
     }
+    if (!newPassword) {
+      error["newPassword"] = "Password Required!";
+    } else if (!newPassword.match(lowerCase)) {
+      error["newPassword"] = "Password Should Contains lowercase letters !";
+    } else if (!newPassword.match(upperCase)) {
+      error["newPassword"] = "Password Should Contain Uppercase letters !";
+    } else if (!newPassword.match(numbers)) {
+      error["newPassword"] = "Password Should Contains Numbers also !";
+    } else if (!newPassword.match(SpecialCharacter)) {
+      error["newPassword"] =
+        "Password Should Contains Special Character also !";
+    } else if (newPassword.length < 8) {
+      error["newPassword"] = "Password length Should be more than 8.";
+    } else {
+      error["newPassword"] = "";
+    }
+
     return error;
   };
   // code for get input img and video in feedback
@@ -338,6 +374,7 @@ const Settings = () => {
                         <input
                           type="password"
                           name=""
+                          value={password}
                           id=""
                           placeholder="****"
                           onChange={(e) => setPassword(e.target.value)}
@@ -352,7 +389,23 @@ const Settings = () => {
                         <input
                           type="password"
                           name=""
+                          value={newPassword}
                           id=""
+                          placeholder="****"
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          onKeyUp={onchangeCheck}
+                        />
+                        {errors["newPassword"] && (
+                          <div className="error">{errors.newPassword}</div>
+                        )}
+                      </div>
+                      <div className="password-box">
+                        <label for="">Confirm password*</label>
+                        <input
+                          type="password"
+                          name=""
+                          id=""
+                          value={confirmPassword}
                           placeholder="****"
                           onChange={(e) => setConfirmPassword(e.target.value)}
                           onKeyUp={onchangeCheck}
@@ -370,6 +423,7 @@ const Settings = () => {
                           Save to Change
                         </button>
                       </div>
+                      <ToastContainer autoClose={1000} />
                     </form>
                   </div>
                 )}

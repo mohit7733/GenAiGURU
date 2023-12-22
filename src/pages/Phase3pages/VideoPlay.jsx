@@ -70,6 +70,7 @@ const VideoPlay = () => {
                     {/* {videoPlay?.tags?.map((tag, index) => {
                       return <a key={index}>#{tag}</a>;
                     })} */}
+                    {videoPlay.tags}
                   </li>
                   <li className="download-btn">
                     <a href="#">

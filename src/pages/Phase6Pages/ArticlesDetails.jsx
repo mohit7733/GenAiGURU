@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation ,useNavigate} from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
+import { BASE_PATH, PATH_FEATURED_ARTICLES,PATH_ARTICLE_DETAILS } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import Index from "../Authentication/Index";
@@ -10,7 +10,7 @@ import Index from "../Authentication/Index";
 const ArticlesDetails = () => {
   const [articleDetail, setArticleDetail] = useState({
     author: "",
-    profilePhoto: "",
+    author_profile_image: "",
     content: "",
     title: "",
     banner_image: "",
@@ -35,7 +35,7 @@ const ArticlesDetails = () => {
       .then((response) => {
         setArticleDetail({
           author: response?.data?.article_details?.author,
-          profilePhoto: response?.data?.article_details?.photo,
+          author_profile_image: response?.data?.article_details?.author_profile_image,
           content: response?.data?.article_details?.content,
           title: response?.data?.article_details?.title,
           banner_image: response?.data?.article_details?.banner_image,
@@ -49,6 +49,11 @@ const ArticlesDetails = () => {
         console.log(err.message);
       });
   }, []);
+  
+  const navigate = useNavigate();
+  const onArticleClick = (ArticleId) => {
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${ArticleId}`);
+  };
   return (
     <div>
       <MobileHeader />
@@ -65,7 +70,7 @@ const ArticlesDetails = () => {
                       <p>
                         <Link    to={BASE_PATH}>Home</Link>{" "}
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                        Blog details
+                        Article details
                       </p>
                     </div>
                     {/* <h1>Blog details</h1> */}
@@ -96,7 +101,7 @@ const ArticlesDetails = () => {
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src={articleDetail.profilePhoto}
+                        src={articleDetail.author_profile_image}
                         alt="Genaiguru blog-img"
                         title="Genaiguru blog-img"
                       />
@@ -200,8 +205,10 @@ const ArticlesDetails = () => {
                                 <p> {article.creation_date}</p>
                               </div>
                             </div>
-                            <p>
-                              {article.short_description}
+                            <p><Link  onClick={() => onArticleClick(article.id)} >
+                            {article.title}
+                            </Link>
+                              
                             </p>
                             <ul className="flex">
                               <li>
@@ -340,11 +347,13 @@ const ArticlesDetails = () => {
                       <div className="heading-link flex">
                         <h3>Related posts</h3>
                       </div>
-                      <div className="interest-sliders">
+                      {relatedArticle.map((article,Index)=>{
+                        return(
+                          <div className="interest-sliders">
                         <div className="wrap flex">
                           <figure>
                             <img
-                              src="app/images/interestSliderImg.png"
+                              src={article.banner_image}
                               alt="Genaiguru interestSliderImg"
                               title="Genaiguru interestSliderImg"
                             />
@@ -353,67 +362,18 @@ const ArticlesDetails = () => {
                             <div className="wrapper flex">
                               <figure>
                                 <img
-                                  src="app/images/authorImg.png"
+                                  src={article.photo}
                                   alt="Genaiguru authorImg"
                                   title="Genaiguru authorImg"
                                 />
                               </figure>
                               <div className="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
+                                <h6>{article.author}</h6>
+                                <p> {article.creation_date}</p>
                               </div>
                             </div>
                             <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul className="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                    title="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                              title="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div className="content">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
+                              {article.title}
                             </p>
                             <ul className="flex">
                               <li>
@@ -438,6 +398,9 @@ const ArticlesDetails = () => {
                           </div>
                         </div>
                       </div>
+                        );
+                      }
+                      )}
                       <a href="#" className="viewAll">
                         View all
                       </a>

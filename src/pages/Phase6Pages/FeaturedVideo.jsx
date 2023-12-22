@@ -238,10 +238,10 @@ const FeaturedContent = () => {
                           onClick={() => onVideoClick(video.id)}
                         >
                           <a
-                            onClick={() => {
-                              navigate(`${PATH_VIDEO_PLAY}`);
-                            }}
-                            target="_blank"
+                            // onClick={() => {
+                            //   navigate(`${PATH_VIDEO_PLAY}`);
+                            // }}
+                            // target="_blank"
                           >
                             <figure>
                               <ReactPlayer

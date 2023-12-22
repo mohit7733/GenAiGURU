@@ -200,7 +200,7 @@ const BlogDetails = () => {
                                     <p>{blogdata.creation_date}</p>
                                   </div>
                                 </div>
-                                <p>{blogdata.short_description}</p>
+                                <p>{blogdata.title}</p>
                                 <ul className="flex">
                                   <li>
                                     <a href="#">
@@ -360,7 +360,7 @@ const BlogDetails = () => {
                                     <p>{blogdata.created_at}</p>
                                   </div>
                                 </div>
-                                <p>{blogdata.short_description}</p>
+                                <p>{blogdata.title}</p>
                                 <ul className="flex">
                                   <li>
                                     <a href="#">
