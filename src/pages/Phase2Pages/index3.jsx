@@ -36,13 +36,13 @@ const Index3 = ({ responseMessage }) => {
                   </div>
                   <div className="boxes">
                     <a href="#">
-                      <h6>
+                      {/* <h6>
                         By <span>Wade Warren</span>
                       </h6>
                       <ul className="dateTime flex">
                         <li>Sep 15, 2023</li>
                         <li>. 5 min read</li>
-                      </ul>
+                      </ul> */}
                       {/* <p>{responseMessage.map((message) => message.message)}</p> */}
                       <p>{responseMessage}</p>
                     </a>

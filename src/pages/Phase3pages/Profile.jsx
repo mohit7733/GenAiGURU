@@ -332,7 +332,7 @@ const Profile = () => {
                           </Link>
                         </li>
                       </ul>
-                      {displayView && (
+                      {myInterests?.length > 7 && displayView && (
                         <div className="btn-wrap">
                           <button
                             type="button"

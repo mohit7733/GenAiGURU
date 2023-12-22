@@ -1194,3 +1194,11 @@ background: #873dd0;
 .profileList.followexperts {
   margin-top: 20px;
 }
+.home-category .btn-wrap {
+  text-align: center;
+}
+.home-category .btn-wrap .loginBtn {
+  width: 120px;
+  padding: 12px;
+  margin-top: 10px;
+}

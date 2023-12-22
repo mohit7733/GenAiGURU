@@ -15,6 +15,7 @@ const FeaturedContent = () => {
   const [indexTab, setIndexTab] = useState();
   const [myInterests, setMyInterests] = useState();
   const [latestBlog, setLatestBlog] = useState([]);
+  const [interestBlog, setInterestBlogs] = useState([]);
   const navigate = useNavigate();
   const sliderRef = useRef();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -58,6 +59,22 @@ const FeaturedContent = () => {
 
   const onBlogClick = (BlogId) => {
     navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  };
+  // API for Blogs on Clinking Interest in Slider
+
+  const onInterestClick = (interestid, e) => {
+    const array = [interestid];
+    axios
+      .post(`${getBaseURL()}/blogs-by-interests`, {
+        interest_id: array,
+      })
+      .then((response) => {
+        console.log(response?.data);
+        setInterestBlogs(response?.data?.blogs);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   // Slider Code
@@ -104,7 +121,7 @@ const FeaturedContent = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -182,6 +199,7 @@ const FeaturedContent = () => {
                                 onClick={() => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
+                                  onInterestClick(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
@@ -296,64 +314,65 @@ const FeaturedContent = () => {
                     `tab-content tab-content-${indexTab} active`
                   }
                 >
-                  {" "}
-                  <div className="interest-guru ">
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
+                  {interestBlog.length < 1 ? (
+                    <h1>Data Not Found</h1>
+                  ) : (
+                    <div className="interest-guru ">
+                      {interestBlog.map((interest, index) => {
+                        return (
+                          <div className="wrap flex">
                             <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
-                              />
+                              <img src={interest.banner_image} />
                             </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
+                            <div className="content">
+                              <div className="flex space-between">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                      src={interest.author_profile_image}
+                                      alt="Genaiguru userIcon"
+                                      title="Genaiguru userIcon"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{interest.author}</h6>
+                                    <p>{interest.creation_date}</p>
+                                  </div>
+                                </div>
+                                <ul className="flex">
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru color-bookmarks"
+                                        title="Genaiguru color-bookmarks"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <h5
+                                onClick={() => onBlogClick(interest.id)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                {interest.title}
+                              </h5>
+                              <p>{interest.short_description}</p>
                             </div>
                           </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
+                        );
+                      })}
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
 

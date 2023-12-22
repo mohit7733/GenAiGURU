@@ -17,8 +17,9 @@ const Index2 = ({ isLoggedIn }) => {
       sender: "ChatGPT",
     },
   ]);
-  const API_KEY = "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";
-
+  // const API_KEY = "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";
+  const API_KEY = process.env.REACT_APP_CHAT_GPT_API_KEY;
+  console.log(API_KEY);
   const navigate = useNavigate();
 
   const handleSendRequest = async (e) => {
