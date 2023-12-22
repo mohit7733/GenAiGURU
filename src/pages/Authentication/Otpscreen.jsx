@@ -47,11 +47,13 @@ const Otpscreen = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          setVerifyToken(res.data.verify_token);
+          console.log(res?.data?.verify_token);
+
+          setVerifyToken(res?.data?.verify_token);
           navigate(`${PATH_CREATE_NEW_PASSWORD}`, {
             state: {
               email: email,
-              verifyToken: verifyToken,
+              verifyToken: res?.data?.verify_token,
             },
           });
         }
@@ -62,7 +64,6 @@ const Otpscreen = () => {
         });
       });
   };
-
   return (
     <>
       <section className="Otp_Wrapper createAccount mainBg">
