@@ -19,10 +19,13 @@ const ArticlesDetails = () => {
     title: "",
     banner_image: "",
     creation_date: "",
+    article_id:"",
   });
   const [relatedArticle, setRelatedArticle] = useState([]);
   const [relatedArticlesId, setRelatedArticlesId] = useState();
+
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // useLocation to get id from url
   let location = useLocation();
@@ -49,6 +52,7 @@ const ArticlesDetails = () => {
           title: response?.data?.article_details?.title,
           banner_image: response?.data?.article_details?.banner_image,
           creation_date: response?.data?.article_details?.creation_date,
+          article_id: response?.data?.article_details?.id,
         });
         // console.log(response?.data?.article_details);
         setRelatedArticle(response?.data?.related_articles);
@@ -58,12 +62,31 @@ const ArticlesDetails = () => {
         console.log(err.message);
       });
   }, [relatedArticlesId]);
+
+
+
   const onArticleClick = (articleId) => {
     setTimeout(()=>{
       window.scrollTo(0, 0)
     },1000)
     setRelatedArticlesId(articleId);
   };
+
+  const onArticleSave = (articleID) => {
+    axios
+      .post(`${getBaseURL()}/save-article`, {
+        user_id: userId,
+        article_id: articleID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+
   return (
     <div>
       <MobileHeader />
@@ -87,8 +110,8 @@ const ArticlesDetails = () => {
                   </div>
                   <div className="connect-box">
                     <ul className="flex">
-                      <li>
-                        <a href="#">
+                      <li onClick={()=>onArticleSave(articleDetail.article_id)}>
+                        <a>
                           <figure>
                             <img src="./app/images/bookmarkIcon.png" alt="" />
                           </figure>
@@ -119,7 +142,7 @@ const ArticlesDetails = () => {
                   </div>
                   <div className="content-box">
                     <p>
-                      By <a href="#">{articleDetail.author}</a>
+                      By <a>{articleDetail.author}</a>
                     </p>
                     <p>{articleDetail.creation_date}</p>
                   </div>
@@ -140,22 +163,6 @@ const ArticlesDetails = () => {
                         __html: articleDetail.content,
                       }}
                     />
-                    {/* <div className="blog-img">
-                  <figure>
-                    <img
-                      src={"./app/images/blog-img-2.png"}
-                      alt="Genaiguru blog-img-2"
-                      title="Genaiguru blog-img-2"
-                    />
-                  </figure>
-                </div>
-                <p>
-                  Looking to upgrade your salary in the uk? Get the salary
-                  you’re worth by learning to code. 98% employed within 12
-                  months of qualifying. 28% of students are hired while on
-                  the course. Change career. Career changing skills. Spaces
-                  filling up{" "}
-                </p> */}
                     <div className="comment-box">
                       <ul className="flex">
                         <li>

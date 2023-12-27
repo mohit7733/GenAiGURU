@@ -1204,3 +1204,15 @@ background: #873dd0;
   padding: 12px;
   margin-top: 10px;
 }
+.interestSection.second .followexperts li .btnWrap .selectedExperts {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4em;
+  font-family: PlusJakartaSansSemiBold;
+  font-weight: 600;
+  background: linear-gradient(91.54deg, #6591ff 0.79%, #ff2dcd 116.36%);
+  border-radius: 38px;
+  padding: 10px;
+}

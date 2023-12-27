@@ -31,11 +31,14 @@ const BlogDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/latest-blogs?id=${blogId?blogId:relatedBlogId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/latest-blogs?id=${blogId ? blogId : relatedBlogId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setBlogDetail({
           author: response?.data?.blog_details?.author,
@@ -54,10 +57,11 @@ const BlogDetails = () => {
         console.log(err.message);
       });
   }, [relatedBlogId]);
+
   const onBlogClick = (blogId) => {
-    setTimeout(()=>{
-      window.scrollTo(0, 0)
-    },1000)
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1000);
     setRelatedBlogId(blogId);
   };
 
@@ -69,7 +73,6 @@ const BlogDetails = () => {
       })
       .then((res) => {
         console.log(res?.data);
-      
       })
       .catch((errors) => {
         console.log(errors);
@@ -98,8 +101,8 @@ const BlogDetails = () => {
                   </div>
                   <div className="connect-box">
                     <ul className="flex">
-                      <li onClick={()=>onBlogSave(blogDetail.blog_id)}>
-                        <a href="">
+                      <li onClick={() => onBlogSave(blogDetail.blog_id)}>
+                        <a>
                           <figure>
                             <img src="./app/images/bookmarkIcon.png" alt="" />
                           </figure>
@@ -130,7 +133,7 @@ const BlogDetails = () => {
                   </div>
                   <div className="content-box">
                     <p>
-                      By <a href="#">{blogDetail.author}</a>
+                      By <a>{blogDetail.author}</a>
                     </p>
                     <p>{blogDetail.creation_date}</p>
                   </div>
@@ -207,7 +210,13 @@ const BlogDetails = () => {
                                     <p>{blogdata.creation_date}</p>
                                   </div>
                                 </div>
-                                <p><Link onClick={() => onBlogClick(blogdata.id)}>{blogdata.title}</Link></p>
+                                <p>
+                                  <Link
+                                    onClick={() => onBlogClick(blogdata.id)}
+                                  >
+                                    {blogdata.title}
+                                  </Link>
+                                </p>
                                 <ul className="flex">
                                   <li>
                                     <a href="#">
