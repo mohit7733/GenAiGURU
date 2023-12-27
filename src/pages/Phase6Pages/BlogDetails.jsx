@@ -16,10 +16,12 @@ const BlogDetails = () => {
     title: "",
     banner_image: "",
     creation_date: "",
+    blog_id: "",
   });
   const [relatedBlogs, setRelatedBlogs] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // useLocation to get id from url
   let location = useLocation();
@@ -41,15 +43,31 @@ const BlogDetails = () => {
           title: response?.data?.blog_details?.title,
           banner_image: response?.data?.blog_details?.banner_image,
           creation_date: response?.data?.blog_details?.creation_date,
+          blog_id: response?.data?.blog_details?.id,
         });
         // console.log(response?.data?.blog_details);
         setRelatedBlogs(response?.data?.related_blogs);
-        console.log(response?.data.related_blogs);
+        // console.log(response?.data.related_blogs);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
+  const onBlogSave = (blogID) => {
+    axios
+      .post(`${getBaseURL()}/save-blog`, {
+        user_id: userId,
+        blog_id: blogID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+      
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
 
   return (
     <div>
@@ -70,12 +88,11 @@ const BlogDetails = () => {
                         Blog details
                       </p>
                     </div>
-                    {/* <h1>Blog details</h1> */}
                   </div>
                   <div className="connect-box">
                     <ul className="flex">
-                      <li>
-                        <a href="#">
+                      <li onClick={()=>onBlogSave(blogDetail.blog_id)}>
+                        <a href="">
                           <figure>
                             <img src="./app/images/bookmarkIcon.png" alt="" />
                           </figure>
@@ -118,29 +135,12 @@ const BlogDetails = () => {
                         title="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
-                    {/* <span>Photo by jan maelstrom on Unsplash</span> */}
                   </div>
                   <div className="blog-txt">
                     <div
                       className="blog-txt"
                       dangerouslySetInnerHTML={{ __html: blogDetail.content }}
                     />
-                    {/* <div className="blog-img">
-                      <figure>
-                        <img
-                          src={"./app/images/blog-img-2.png"}
-                          alt="Genaiguru blog-img-2"
-                          title="Genaiguru blog-img-2"
-                        />
-                      </figure>
-                    </div>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up{" "}
-                    </p> */}
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
