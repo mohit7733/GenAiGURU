@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation ,useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_ARTICLES,PATH_ARTICLE_DETAILS } from "../../routes";
+import {
+  BASE_PATH,
+  PATH_FEATURED_ARTICLES,
+  PATH_ARTICLE_DETAILS,
+} from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import Index from "../Authentication/Index";
@@ -16,8 +20,8 @@ const ArticlesDetails = () => {
     banner_image: "",
     creation_date: "",
   });
-  const[relatedArticle,setRelatedArticle]=useState([])
-
+  const [relatedArticle, setRelatedArticle] = useState([]);
+  const [relatedArticlesId, setRelatedArticlesId] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
 
   // useLocation to get id from url
@@ -27,32 +31,38 @@ const ArticlesDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/articles?id=${articleId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/articles?id=${
+          articleId ? articleId : relatedArticlesId
+        }`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setArticleDetail({
           author: response?.data?.article_details?.author,
-          author_profile_image: response?.data?.article_details?.author_profile_image,
+          author_profile_image:response?.data?.article_details?.author_profile_image,
           content: response?.data?.article_details?.content,
           title: response?.data?.article_details?.title,
           banner_image: response?.data?.article_details?.banner_image,
           creation_date: response?.data?.article_details?.creation_date,
         });
         // console.log(response?.data?.article_details);
-        setRelatedArticle(response?.data?.related_articles)
-        console.log(relatedArticle)
+        setRelatedArticle(response?.data?.related_articles);
+        console.log(relatedArticle);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
-  
-  const navigate = useNavigate();
-  const onArticleClick = (ArticleId) => {
-    navigate(`${PATH_ARTICLE_DETAILS}?id=${ArticleId}`);
+  }, [relatedArticlesId]);
+  const onArticleClick = (articleId) => {
+    setTimeout(()=>{
+      window.scrollTo(0, 0)
+    },1000)
+    setRelatedArticlesId(articleId);
   };
   return (
     <div>
@@ -68,7 +78,7 @@ const ArticlesDetails = () => {
                   <div className="blog-box">
                     <div className="innerBreadcrumb">
                       <p>
-                        <Link    to={BASE_PATH}>Home</Link>{" "}
+                        <Link to={BASE_PATH}>Home</Link>{" "}
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                         Article details
                       </p>
@@ -180,62 +190,63 @@ const ArticlesDetails = () => {
                       <div className="heading-link flex">
                         <h3>Related posts</h3>
                       </div>
-                      {relatedArticle.map((article,Index)=>{
-                        return(
+                      {relatedArticle.map((article, Index) => {
+                        return (
                           <div className="interest-sliders">
-                        <div className="wrap flex">
-                          <figure>
-                            <img
-                              src={article.banner_image}
-                              alt="Genaiguru interestSliderImg"
-                              title="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div className="content">
-                            <div className="wrapper flex">
+                            <div className="wrap flex">
                               <figure>
                                 <img
-                                  src={article.photo}
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
+                                  src={article.banner_image}
+                                  alt="Genaiguru interestSliderImg"
+                                  title="Genaiguru interestSliderImg"
                                 />
                               </figure>
-                              <div className="innerContent">
-                                <h6>{article.author}</h6>
-                                <p> {article.creation_date}</p>
+                              <div className="content">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                      src={article.author_profile_image}
+                                      alt="Genaiguru authorImg"
+                                      title="Genaiguru authorImg"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{article.author}</h6>
+                                    <p> {article.creation_date}</p>
+                                  </div>
+                                </div>
+                                <p>
+                                  <Link
+                                    onClick={() => onArticleClick(article.id)}
+                                  >
+                                    {article.title}
+                                  </Link>
+                                </p>
+                                <ul className="flex">
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru bookmarkIcon"
+                                        title="Genaiguru bookmarkIcon"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
                               </div>
                             </div>
-                            <p><Link  onClick={() => onArticleClick(article.id)} >
-                            {article.title}
-                            </Link>
-                              
-                            </p>
-                            <ul className="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                    title="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
                           </div>
-                        </div>
-                      </div>
                         );
-                      }
-                      )}
+                      })}
                       <a href="#" className="viewAll">
                         View all
                       </a>
@@ -347,60 +358,57 @@ const ArticlesDetails = () => {
                       <div className="heading-link flex">
                         <h3>Related posts</h3>
                       </div>
-                      {relatedArticle.map((article,Index)=>{
-                        return(
+                      {relatedArticle.map((article, Index) => {
+                        return (
                           <div className="interest-sliders">
-                        <div className="wrap flex">
-                          <figure>
-                            <img
-                              src={article.banner_image}
-                              alt="Genaiguru interestSliderImg"
-                              title="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div className="content">
-                            <div className="wrapper flex">
+                            <div className="wrap flex">
                               <figure>
                                 <img
-                                  src={article.photo}
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
+                                  src={article.banner_image}
+                                  alt="Genaiguru interestSliderImg"
+                                  title="Genaiguru interestSliderImg"
                                 />
                               </figure>
-                              <div className="innerContent">
-                                <h6>{article.author}</h6>
-                                <p> {article.creation_date}</p>
+                              <div className="content">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                      src={article.photo}
+                                      alt="Genaiguru authorImg"
+                                      title="Genaiguru authorImg"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{article.author}</h6>
+                                    <p> {article.creation_date}</p>
+                                  </div>
+                                </div>
+                                <p>{article.title}</p>
+                                <ul className="flex">
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru bookmarkIcon"
+                                        title="Genaiguru bookmarkIcon"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
                               </div>
                             </div>
-                            <p>
-                              {article.title}
-                            </p>
-                            <ul className="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                    title="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
                           </div>
-                        </div>
-                      </div>
                         );
-                      }
-                      )}
+                      })}
                       <a href="#" className="viewAll">
                         View all
                       </a>

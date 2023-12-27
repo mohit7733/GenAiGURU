@@ -19,6 +19,7 @@ const BlogDetails = () => {
     blog_id: "",
   });
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [relatedBlogId, setRelatedBlogId] = useState();
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -30,7 +31,7 @@ const BlogDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/latest-blogs?id=${blogId}`, {
+      .get(`${getBaseURL()}/latest-blogs?id=${blogId?blogId:relatedBlogId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +53,13 @@ const BlogDetails = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [relatedBlogId]);
+  const onBlogClick = (blogId) => {
+    setTimeout(()=>{
+      window.scrollTo(0, 0)
+    },1000)
+    setRelatedBlogId(blogId);
+  };
 
   const onBlogSave = (blogID) => {
     axios
@@ -190,7 +197,7 @@ const BlogDetails = () => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={blogdata.photo}
+                                      src={blogdata.author_profile_image}
                                       alt="Genaiguru authorImg"
                                       title="Genaiguru authorImg"
                                     />
@@ -200,7 +207,7 @@ const BlogDetails = () => {
                                     <p>{blogdata.creation_date}</p>
                                   </div>
                                 </div>
-                                <p>{blogdata.title}</p>
+                                <p><Link onClick={() => onBlogClick(blogdata.id)}>{blogdata.title}</Link></p>
                                 <ul className="flex">
                                   <li>
                                     <a href="#">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
@@ -17,8 +17,29 @@ const Settings = () => {
   const [errors, setErrors] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
-
   const navigate = useNavigate();
+  const [privacyPolicy, setPrivacyPolicy] = useState({
+    title: "",
+    description: "",
+  });
+
+ // get API for Privacy Policy.......
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/privacy-policy`, {
+        
+      })
+      .then((response) => {
+        setPrivacyPolicy({
+          title: response?.data?.data?.title,
+          description: response?.data?.data?.description,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+  
   // validation for feedback
   const onSubmit = (event) => {
     event.preventDefault();
@@ -504,19 +525,20 @@ const Settings = () => {
                       />
                     </div>
                     <div className="privacy-vats">
-                      <h3>Privacy policy</h3>
+                      <h3>{privacyPolicy.title}</h3>
                       <div className="date">
                         <p>
                           Effactive date: <span> March 24, 2023</span>
                         </p>
                       </div>
                       <p>
-                        Looking to upgrade your salary in the uk? Get the salary
+                        {/* Looking to upgrade your salary in the uk? Get the salary
                         you’re worth by learning to code. 98% employed within 12
                         months of qualifying. 28% of students are hired while on
                         the course. Change career. Career changing skills.
                         Spaces filling up fast. Looking to upgrade your salary
-                        in{" "}
+                        in{" "} */}
+                        {privacyPolicy.description}
                       </p>
                     </div>
                     <div className="service-terms">

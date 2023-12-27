@@ -13,15 +13,19 @@ const VideoPlay = () => {
     title: "",
     youtube_link: "",
     tags: [],
+    author_profile_image: "",
+    time_difference:"",
+    views: "",
+    author:"",
   });
-  const token = JSON.parse(localStorage.getItem("token"));
 
+  const token = JSON.parse(localStorage.getItem("token"));
   // useLocation to get id from url
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
   // console.log( videoId)
-
+  // const splitsTag = videoPlay.tags.split(",")
 
   useEffect(() => {
     axios
@@ -35,6 +39,10 @@ const VideoPlay = () => {
           title: response?.data?.video_details?.title,
           youtube_link: response?.data?.video_details?.youtube_link,
           tags: response?.data?.video_details?.tags,
+          author_profile_image:response?.data?.video_details?.author_profile_image,
+          time_difference:response?.data?.video_details?.time_difference,
+          views:response?.data?.video_details?.views,
+          author:response?.data?.video_details?.author
         });
       })
       .catch((err) => {
@@ -52,25 +60,26 @@ const VideoPlay = () => {
             {/* <!-- edit-profile start here --> */}
             <div className="video-wrapper flex">
               <div className="video-box">
-              <div className="innerBreadcrumb">
+                <div className="innerBreadcrumb">
                   <p>
                     <Link to={BASE_PATH}>Home</Link>{" "}
                     <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                     Video
                   </p>
                 </div>
-                
+
                 <ReactPlayer
                   url={videoPlay.youtube_link}
+                  playing={true}
+                  controls={true}
                   width="100%"
                   height="60%"
                 />
                 <ul className="flex space-between link">
                   <li>
-                    {/* {videoPlay?.tags?.map((tag, index) => {
-                      return <a key={index}>#{tag}</a>;
-                    })} */}
-                    {videoPlay.tags}
+                    {videoPlay?.tags?.map((tag, index) => {
+                      return <a key={index}> #{tag}</a>;
+                    })}
                   </li>
                   <li className="download-btn">
                     <a href="#">
@@ -103,8 +112,8 @@ const VideoPlay = () => {
                 <h2>{videoPlay.title}</h2>
                 {/* <!-- view details here --> */}
                 <div className="view-details">
-                  <a href="#">24 M views |</a>
-                  <a href="#">3 months |</a>
+                  <a href="#">{videoPlay.views} views| </a>
+                  <a href="#">{videoPlay.time_difference} |</a>
                   <a href="#">Details</a>
                 </div>
                 {/* <!-- view details end here -->
@@ -113,7 +122,7 @@ const VideoPlay = () => {
                   <li>
                     <a href="">
                       <img
-                        src="/app/images/userIcon.png"
+                        src={videoPlay.author_profile_image}
                         alt="Genaiguru userIcon"
                         title="Genaiguru userIcon"
                       />
@@ -121,7 +130,7 @@ const VideoPlay = () => {
                   </li>
                   <li>
                     <a href="">
-                      <span>Esther Howard </span>
+                      <span>{videoPlay.author}</span>
                       <br />
                       <small>alexsmih@</small>
                     </a>

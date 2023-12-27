@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
@@ -18,6 +18,27 @@ const GuruGenesis = () => {
     email: "",
     comment: "",
   });
+  const [aboutus, setAboutus] = useState({
+    title: "",
+    description: "",
+  });
+
+ // get API for About-us.......
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/about-us`, {
+        
+      })
+      .then((response) => {
+        setAboutus({
+          title: response?.data?.data?.title,
+          description: response?.data?.data?.description,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const handleContactUsDetails = (e) => {
     setContactUsDetails({
@@ -25,12 +46,6 @@ const GuruGenesis = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  //   const errors = validate();
-  //   setErrors(errors);
-  // };
 
   const onchangeCheck = (key, value) => {
     const errors = {};
@@ -276,13 +291,14 @@ const GuruGenesis = () => {
                   }
                 >
                   <div class="about-content">
-                    <h4>About us</h4>
+                    <h4>{aboutus.title}</h4>
                     <p>
-                      Looking To Upgrade Your Salary In The UK? Get The Salary
+                      {/* Looking To Upgrade Your Salary In The UK? Get The Salary
                       You’re Worth By Learning To Code. 98% Employed Within 12
                       Months Of Qualifying. 28% Of Students Are Hired While On
                       The Course. Change Career. Career Changing Skills. Spaces
-                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "}
+                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
+                      {aboutus.description}
                     </p>
                   </div>
                   <div class="about-content">
@@ -467,13 +483,14 @@ const GuruGenesis = () => {
               {activeTab === 2 && (
                 <div class="tab-content tab-content-2 active">
                   <div class="about-content">
-                    <h4>About us</h4>
+                    <h4>{aboutus.title}</h4>
                     <p>
-                      Looking To Upgrade Your Salary In The UK? Get The Salary
+                      {/* Looking To Upgrade Your Salary In The UK? Get The Salary
                       You’re Worth By Learning To Code. 98% Employed Within 12
                       Months Of Qualifying. 28% Of Students Are Hired While On
                       The Course. Change Career. Career Changing Skills. Spaces
-                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "}
+                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
+                      {aboutus.description}
                     </p>
                   </div>
                   <div class="about-content">
