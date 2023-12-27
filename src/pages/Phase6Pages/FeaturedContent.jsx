@@ -71,17 +71,42 @@ const FeaturedContent = () => {
         console.log(err.message);
       });
   };
-  // Get API for ALL interests
+
+  // Get API for ALL interests and User Selected Interset
   useEffect(() => {
     getAllInterests();
     getSelectedInterest();
   }, []);
 
-  const mergedInterests = Array.from(
-    new Set([...userSelectedIneterests, ...myInterests])
+  // Function to merge and remove duplicates based on interest_id and id
+  const mergeAndRemoveDuplicates = (arr1, arr2, key1, key2) => {
+    const uniqueMap = new Map();
+
+    // Add items from arr1 to uniqueMap
+    arr1.forEach((item) => uniqueMap.set(item[key1], item));
+
+    // Add items from arr2 to uniqueMap, overwriting duplicates
+    arr2.forEach((item) => uniqueMap.set(item[key2], item));
+
+    // Convert uniqueMap values back to an array
+    const mergedInterests = Array.from(uniqueMap.values());
+
+    return mergedInterests;
+  };
+
+  // Specify the key names to use for comparison
+  const keyForUserSelected = "interest_id";
+  const keyForMyInterests = "id";
+
+  // Merge and remove duplicates
+  const mergedInterests = mergeAndRemoveDuplicates(
+    userSelectedIneterests,
+    myInterests,
+    keyForUserSelected,
+    keyForMyInterests
   );
 
-  // console.log(mergedInterests);
+  console.log(mergedInterests);
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -214,7 +239,7 @@ const FeaturedContent = () => {
                       }}
                     >
                       <Slider {...sliderSettings}>
-                        {myInterests?.map((interest, index) => (
+                        {mergedInterests?.map((interest, index) => (
                           <li
                             key={index}
                             className={activeTab === index + 1 ? "active" : ""}
