@@ -4,6 +4,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { toast, ToastContainer } from 'react-toastify';
 import { PATH_PROFILE } from "../../routes";
 
 const SocialProfileEdit = () => {
@@ -187,6 +188,10 @@ const SocialProfileEdit = () => {
       .then((response) => {
         if (response.status === 201) {
           alert("Saved");
+          // toast.success("Saved", {
+          //   position: toast.POSITION.TOP_CENTER
+          // });
+          // <ToastContainer autoClose={1000} />
           navigate(`${PATH_PROFILE}`);
         }
       })
@@ -364,6 +369,7 @@ const SocialProfileEdit = () => {
                 >
                   Save to change
                 </button>
+                {/* <ToastContainer /> */}
               </form>
             </div>
             {/* <!-- edit-profile start here --> */}

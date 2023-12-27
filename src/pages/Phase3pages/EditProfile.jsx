@@ -48,8 +48,13 @@ const EditProfile = ({ settingsPage }) => {
       if (allowedImageTypes.includes(file.type)) {
         setProfilePicture(file);
       } else {
-        alert("Please select a valid profile image file (JPEG, PNG, GIF).");
+        // alert("Please select a valid profile image file (JPEG, PNG, GIF).");
+        toast.warn("Please select JPEG, PNG, GIF.", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        <ToastContainer autoClose={1000}/>
       }
+      
     }
   };
 
@@ -60,7 +65,11 @@ const EditProfile = ({ settingsPage }) => {
       if (allowedImageTypes.includes(file.type)) {
         setCoverPicture(file);
       } else {
-        alert("Please select a valid cover image file (JPEG, PNG, GIF).");
+        // alert("Please select a valid cover image file (JPEG, PNG, GIF).");
+        toast.warn("Please select JPEG, PNG, GIF.", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        
       }
     }
   };

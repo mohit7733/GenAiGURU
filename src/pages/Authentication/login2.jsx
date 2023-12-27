@@ -59,7 +59,7 @@ const Login2 = () => {
       errors.name === "" &&
       errors.confirmPassword === "" &&
       errors.password === "" &&
-      errors.profilePicture === "" &&
+      // errors.profilePicture === "" &&
       errors.title === ""
     ) {
       signUpPostMethod();
@@ -124,11 +124,11 @@ const Login2 = () => {
     } else {
       error["title"] = "";
     }
-    if (!profilePicture) {
-      error["profilePicture"] = "Picture Required!";
-    } else {
-      error["profilePicture"] = "";
-    }
+    // if (!profilePicture) {
+    //   error["profilePicture"] = "Picture Required!";
+    // } else {
+    //   error["profilePicture"] = "";
+    // }
     return error;
   };
 
@@ -235,7 +235,7 @@ const Login2 = () => {
                 {errors.title && <div className="error">{errors.title}</div>}
               </div>
               <div className="form_group flex">
-                <label for="profilePicture">Choose Profile Picture*</label>
+                <label for="profilePicture">Choose Profile Picture</label>
                 <input
                   type="file"
                   name="profilePicture"
@@ -243,9 +243,9 @@ const Login2 = () => {
                   onKeyUp={onchangeCheck}
                   onChange={handleImageChange}
                 />
-                {errors.profilePicture && (
+                {/* {errors.profilePicture && (
                   <div className="error">{errors.profilePicture}</div>
-                )}
+                )} */}
               </div>
               <div className="form_group">
                 <button className="loginBtn">Create account</button>

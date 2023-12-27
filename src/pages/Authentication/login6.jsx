@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import {
   BASE_PATH,
   PATH_ADDINTERESTS,
@@ -44,7 +45,9 @@ const Login6 = () => {
 
   const sendExpertsIDOnContinue = () => {
     if (selectedExpertsIndex == 0) {
-      alert("Please Follow Atleast One Experts");
+      toast.warn("Follow Atleast One Experts", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
     fetch(`${getBaseURL()}/auth/follow-author`, {
       method: "POST",
@@ -178,6 +181,7 @@ const Login6 = () => {
             <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
               Continue
             </Link>
+            <ToastContainer autoClose={1000} />
           </div>
         </div>
       </section>
