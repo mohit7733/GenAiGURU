@@ -21,8 +21,11 @@ const FeaturedContent = () => {
   const [myInterests, setMyInterests] = useState();
 
   const sliderRef = useRef();
-  const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+
+  const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
   // Get API for Popular Videos
   useEffect(() => {
     axios
@@ -128,6 +131,21 @@ const FeaturedContent = () => {
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
     console.log(VideoId);
   };
+
+  const onVideoSave = (videoID) => {
+    axios
+      .post(`${getBaseURL()}/save-video`, {
+        user_id: userId,
+        video_id: videoID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
   return (
     <div>
       <MobileHeader />
@@ -232,17 +250,8 @@ const FeaturedContent = () => {
                   <div class="interest-guru ">
                     {popularVideos.map((video, index) => {
                       return (
-                        <div
-                          class="wrap flex"
-                          key={index}
-                          onClick={() => onVideoClick(video.id)}
-                        >
-                          <a
-                            // onClick={() => {
-                            //   navigate(`${PATH_VIDEO_PLAY}`);
-                            // }}
-                            // target="_blank"
-                          >
+                        <div class="wrap flex" key={index}>
+                          <a>
                             <figure>
                               <ReactPlayer
                                 url={video.youtube_link}
@@ -267,8 +276,8 @@ const FeaturedContent = () => {
                                 </div>
                               </div>
                               <ul class="flex">
-                                <li>
-                                  <a href="#">
+                                <li onClick={() => onVideoSave(video.id)}>
+                                  <a>
                                     <img
                                       src="app/images/color-bookmarks.png"
                                       alt="Genaiguru color-bookmarks"
@@ -287,21 +296,9 @@ const FeaturedContent = () => {
                                 </li>
                               </ul>
                             </div>
-                            <h5>{video.title}</h5>
-                            {/* <ul className="flex">
-                            {video?.tags?.map((tag, index) => {
-                              return <li key={index}>#{tag}</li>;
-                            })}
-                          </ul> */}
-                            {/* <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p> */}
+                            <h5 onClick={() => onVideoClick(video.id)}>
+                              {video.title}
+                            </h5>
                           </div>
                         </div>
                       );

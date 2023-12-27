@@ -13,11 +13,17 @@ import { BASE_PATH, PATH_BLOG_DETAILS } from "../../routes";
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [indexTab, setIndexTab] = useState();
-  const [myInterests, setMyInterests] = useState();
+
+  const [myInterests, setMyInterests] = useState([]);
+  const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
+  const [mergeredInterests, setMergeredInterests] = useState([]);
+
   const [latestBlog, setLatestBlog] = useState([]);
   const [interestBlog, setInterestBlogs] = useState([]);
+
   const navigate = useNavigate();
   const sliderRef = useRef();
+
   const token = JSON.parse(localStorage.getItem("token"));
 
   // Get API for Popular Blogs
@@ -36,8 +42,7 @@ const FeaturedContent = () => {
       });
   }, []);
 
-  // Get API for Categories
-  useEffect(() => {
+  const getAllInterests = () => {
     axios
       .get(`${getBaseURL()}/auth/interests`, {
         headers: {
@@ -50,7 +55,33 @@ const FeaturedContent = () => {
       .catch((err) => {
         console.log(err.message);
       });
+  };
+
+  const getSelectedInterest = () => {
+    axios
+      .get(`${getBaseURL()}/auth/userinterests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserSelectedIneterests(response?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  // Get API for ALL interests
+  useEffect(() => {
+    getAllInterests();
+    getSelectedInterest();
   }, []);
+
+  const mergedInterests = Array.from(
+    new Set([...userSelectedIneterests, ...myInterests])
+  );
+
+  // console.log(mergedInterests);
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -60,6 +91,7 @@ const FeaturedContent = () => {
   const onBlogClick = (BlogId) => {
     navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
   };
+
   // API for Blogs on Clinking Interest in Slider
 
   const onInterestClick = (interestid, e) => {
