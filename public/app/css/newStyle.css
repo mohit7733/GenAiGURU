@@ -1028,9 +1028,11 @@ section.mainWrapper.flex.hideMob {
 }
 .customNewPopups .popup-wrapper {
   overflow-y: scroll;
-  top: 0;
-  transform: translate(-50%, 10px);
-  height: 600px;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 400px;
+  position: absolute;
 }
 .interestSection ul {
   height: 170px;

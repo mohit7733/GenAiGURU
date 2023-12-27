@@ -9,6 +9,7 @@ const Categories = () => {
   const [articlesOnInterest, setArticlesOnInterest] = useState([]);
   const [displayedInterests, setDisplayedInterests] = useState(7);
   const [displayView, setDisplayView] = useState(true);
+  const [defaultCategoryId, setDefaultCategoryId] = useState();
 
   // Get API for Categories
   useEffect(() => {
@@ -20,14 +21,18 @@ const Categories = () => {
       })
       .then((response) => {
         setMyInterests(response?.data?.data);
-        console.log(myInterests);
+        setDefaultCategoryId(response?.data?.data[0].interest_id);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
-  const onCategoryClick = (categoryId) => {
+  useEffect(() => {
+    onCategoryClick();
+  }, []);
+
+  const onCategoryClick = (categoryId = defaultCategoryId) => {
     const array = [categoryId];
     axios
       .post(`${getBaseURL()}/interestsarticles`, {
