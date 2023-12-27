@@ -59,7 +59,7 @@ const Otpscreen = () => {
         }
       })
       .catch((error) => {
-        toast.success(error.data.message, {
+        toast.error(error.data.message, {
           position: toast.POSITION.TOP_CENTER,
         });
       });

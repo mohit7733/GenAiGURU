@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import WithAuth from "../../pages/Authentication/WithAuth";
+import { PATH_TERMS_AND_SERVICES ,PATH_SETTINGS} from "../../routes";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -139,10 +140,10 @@ const Sidebar = () => {
         </div>
         <ul className="bottom-menu">
           <li>
-            <a href="#">Terms & Services</a>
+            <Link to={PATH_TERMS_AND_SERVICES}>Terms & Services</Link>
           </li>
           <li>
-            <a href="#">Privacy policy</a>
+            <Link to={PATH_SETTINGS}>Privacy policy</Link>
           </li>
         </ul>
         <ul className="social-icons flex">

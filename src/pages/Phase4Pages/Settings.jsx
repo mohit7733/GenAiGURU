@@ -6,7 +6,7 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import EditProfile from "../Phase3pages/EditProfile";
-import { PATH_EDIT_PROFILE, PATH_PROFILE } from "../../routes";
+import { PATH_EDIT_PROFILE, PATH_PROFILE, PATH_TERMS_AND_SERVICES } from "../../routes";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -110,7 +110,10 @@ const Settings = () => {
       })
       .catch((error) => {
         console.log(error.response.FormData);
-        alert("Please enter correct old password");
+        // alert("Please enter correct old password");
+        toast.error("Enter Correct old password", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
     }
     else{
@@ -524,34 +527,36 @@ const Settings = () => {
                         title="Genaiguru privacy-banner"
                       />
                     </div>
-                    <div className="privacy-vats">
-                      <h3>{privacyPolicy.title}</h3>
+                    <div className="privacy-vats commanContent">
+                      {/* <h3>{privacyPolicy.title}</h3> */}
                       <div className="date">
-                        <p>
+                        {/* <p>
                           Effactive date: <span> March 24, 2023</span>
-                        </p>
+                        </p> */}
                       </div>
                       <p>
+                      <p dangerouslySetInnerHTML={{ __html: privacyPolicy.description }} />
+
                         {/* Looking to upgrade your salary in the uk? Get the salary
                         you’re worth by learning to code. 98% employed within 12
                         months of qualifying. 28% of students are hired while on
                         the course. Change career. Career changing skills.
                         Spaces filling up fast. Looking to upgrade your salary
                         in{" "} */}
-                        {privacyPolicy.description}
+                        {/* {privacyPolicy.description} */}
                       </p>
                     </div>
                     <div className="service-terms">
                       <ul>
                         <li>
-                          <a href="#">Terms of service</a>
+                          <Link to={PATH_TERMS_AND_SERVICES}>Terms of service</Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <a href="#">Privacy Policy</a>
-                        </li>
+                        </li> */}
                       </ul>
 
-                      <h5>Terms of service</h5>
+                      {/* <h5>Terms of service</h5>
                       <p>
                         Looking to upgrade your salary in the uk? Get the salary
                         you’re worth by learning to code. 98% employed within 12
@@ -563,7 +568,7 @@ const Settings = () => {
                         employed within 12 months of qualifying. 28% of students
                         are hired while on the course. Change career. Career
                         changing skills. Spaces filling up fast.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 )}

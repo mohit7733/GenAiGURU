@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
 import { getBaseURL } from "../../api/config";
 import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
 const Profile = () => {
@@ -187,6 +188,11 @@ const Profile = () => {
       .then((res) => {
         if (res.status === 201) {
           alert("Interests Changed Successfully");
+          // toast.success("Interests Changed Successfully", {
+          //   position: toast.POSITION.TOP_CENTER
+          // });
+          // <ToastContainer autoClose={1000} />
+         
           setDisplayInterestPopup(false);
           getMyInterest();
         }
@@ -2141,9 +2147,11 @@ const Profile = () => {
                     type="submit"
                     className="loginBtn"
                     onClick={onChangeInterest}
+                    
                   >
                     Save Changes{" "}
                   </button>
+                  <ToastContainer autoClose={1000} />
                 </form>
               </div>
             </div>

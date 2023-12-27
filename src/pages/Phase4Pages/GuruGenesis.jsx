@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
@@ -23,12 +23,10 @@ const GuruGenesis = () => {
     description: "",
   });
 
- // get API for About-us.......
+  // get API for About-us.......
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/about-us`, {
-        
-      })
+      .get(`${getBaseURL()}/about-us`, {})
       .then((response) => {
         setAboutus({
           title: response?.data?.data?.title,
@@ -91,13 +89,12 @@ const GuruGenesis = () => {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            
             toast.success(response.data.message, {
               position: toast.POSITION.TOP_CENTER,
             });
-            setFullName("")
-            setComment("")
-            setEmail("")
+            setFullName("");
+            setComment("");
+            setEmail("");
           }
         })
         .catch((error) => {
@@ -290,19 +287,24 @@ const GuruGenesis = () => {
                     activeTab === 2 && "tab-content tab-content-2 active"
                   }
                 >
-                  <div class="about-content">
-                    <h4>{aboutus.title}</h4>
+                  <div class="about-content commanContent" >
+                    {/* <h4>{aboutus.title}</h4> */}
                     <p>
                       {/* Looking To Upgrade Your Salary In The UK? Get The Salary
                       You’re Worth By Learning To Code. 98% Employed Within 12
                       Months Of Qualifying. 28% Of Students Are Hired While On
                       The Course. Change Career. Career Changing Skills. Spaces
                       Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
-                      {aboutus.description}
+                      {/* {aboutus.description} */}
+                      <p 
+                        dangerouslySetInnerHTML={{
+                          __html: aboutus.description,
+                        }}
+                      />
                     </p>
                   </div>
                   <div class="about-content">
-                    <h4>Terms of service </h4>
+                    {/* <h4>Terms of service </h4>
                     <p>
                       Looking to upgrade your salary in the uk? Get the salary
                       you’re worth by learning to code. 98% employed within 12
@@ -314,7 +316,7 @@ const GuruGenesis = () => {
                       months of qualifying. 28% of students are hired while on
                       the course. Change career. Career changing skills. Spaces
                       filling up fast.{" "}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               )}
