@@ -32,7 +32,7 @@ const Index3 = ({ responseMessage }) => {
                         title="Genaiguru search logo icon"
                       />
                     </figure>
-                    <h5>Bellow we suggest you best articles</h5>
+                    <h5>Below we suggest you best articles</h5>
                   </div>
                   <div className="boxes">
                     <a href="#">

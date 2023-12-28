@@ -17,8 +17,10 @@ const BlogDetails = () => {
     banner_image: "",
     creation_date: "",
     blog_id: "",
+    blogSaved: "",
   });
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+
   const [relatedBlogId, setRelatedBlogId] = useState();
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -48,6 +50,7 @@ const BlogDetails = () => {
           banner_image: response?.data?.blog_details?.banner_image,
           creation_date: response?.data?.blog_details?.creation_date,
           blog_id: response?.data?.blog_details?.id,
+          blogSaved: response?.data?.blog_details?.saved,
         });
         // console.log(response?.data?.blog_details);
         setRelatedBlogs(response?.data?.related_blogs);
@@ -73,11 +76,27 @@ const BlogDetails = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
       })
       .catch((errors) => {
         console.log(errors);
       });
   };
+  const onBlogUnSave = (blogID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-blog`, {
+        user_id: userId,
+        blog_id: blogID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+  console.log(blogDetail.blogSaved);
 
   return (
     <div>
@@ -101,13 +120,23 @@ const BlogDetails = () => {
                   </div>
                   <div className="connect-box">
                     <ul className="flex">
-                      <li onClick={() => onBlogSave(blogDetail.blog_id)}>
-                        <a>
-                          <figure>
-                            <img src="./app/images/bookmarkIcon.png" alt="" />
-                          </figure>
-                        </a>
-                      </li>
+                      {blogDetail.blogSaved == "yes" ? (
+                        <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
+                          <a style={{ backgroundColor:"grey" }}>
+                            <figure>
+                              <img src="./app/images/bookmarkIcon.png" alt="" />
+                            </figure>
+                          </a>
+                        </li>
+                      ) : (
+                        <li onClick={() => onBlogSave(blogDetail.blog_id)}>
+                          <a>
+                            <figure>
+                              <img src="./app/images/bookmarkIcon.png" alt="" />
+                            </figure>
+                          </a>
+                        </li>
+                      )}
                       <li>
                         <a href="#">
                           <figure>
@@ -187,7 +216,7 @@ const BlogDetails = () => {
                       </div>
                       {relatedBlogs.map((blogdata, Index) => {
                         return (
-                          <div className="interest-sliders">
+                          <div className="interest-sliders" key={Index}>
                             <div className="wrap flex">
                               <figure>
                                 <img
@@ -353,7 +382,7 @@ const BlogDetails = () => {
                       </div>
                       {relatedBlogs.map((blogdata, Index) => {
                         return (
-                          <div className="interest-sliders">
+                          <div className="interest-sliders" key={Index}>
                             <div className="wrap flex">
                               <figure>
                                 <img
