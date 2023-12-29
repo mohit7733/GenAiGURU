@@ -6,6 +6,7 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
+import WithAuth from "../Authentication/WithAuth";
 
 const ArticlesDetails = () => {
   const [articleDetail, setArticleDetail] = useState({
@@ -133,43 +134,52 @@ const ArticlesDetails = () => {
                     {/* <h1>Blog details</h1> */}
                   </div>
                   <div className="connect-box">
-                    <ul className="flex">
-                      {articleDetail.articleSaved == "yes" ? (
-                        <li
-                          onClick={() =>
-                            onArticleUnSave(articleDetail.article_id)
-                          }
-                        >
+                    <WithAuth
+                      callBack={(e) => {
+                        console.log("dd");
+                      }}
+                    >
+                      <ul className="flex">
+                        {articleDetail.articleSaved == "yes" ? (
+                          <li
+                            onClick={() =>
+                              onArticleUnSave(articleDetail.article_id)
+                            }
+                          >
+                            <a>
+                              <figure>
+                                <img
+                                  src="app/images/color-bookmarks.png"
+                                  alt=""
+                                />
+                              </figure>
+                            </a>
+                          </li>
+                        ) : (
+                          <li
+                            onClick={() =>
+                              onArticleSave(articleDetail.article_id)
+                            }
+                          >
+                            <a>
+                              <figure>
+                                <img
+                                  src="./app/images/bookmarkIcon.png"
+                                  alt=""
+                                />
+                              </figure>
+                            </a>
+                          </li>
+                        )}
+                        <li>
                           <a>
                             <figure>
-                              <img
-                                src="app/images/color-bookmarks.png"
-                                alt=""
-                              />
+                              <img src="./app/images/share-icon.png" alt="" />
                             </figure>
                           </a>
                         </li>
-                      ) : (
-                        <li
-                          onClick={() =>
-                            onArticleSave(articleDetail.article_id)
-                          }
-                        >
-                          <a>
-                            <figure>
-                              <img src="./app/images/bookmarkIcon.png" alt="" />
-                            </figure>
-                          </a>
-                        </li>
-                      )}
-                      <li>
-                        <a>
-                          <figure>
-                            <img src="./app/images/share-icon.png" alt="" />
-                          </figure>
-                        </a>
-                      </li>
-                    </ul>
+                      </ul>
+                    </WithAuth>
                   </div>
                 </div>
               </div>
@@ -274,45 +284,51 @@ const ArticlesDetails = () => {
                                     {article.title}
                                   </Link>
                                 </p>
-                                <ul className="flex">
-                                  <li
-                                    onClick={() => {
-                                      article.saved === "yes"
-                                        ? onArticleUnSave(article.id)
-                                        : onArticleSave(article.id);
-                                      setButtonClicked(!buttonClicked);
-                                    }}
-                                  >
-                                    <a>
-                                      <img
-                                        src={
-                                          article.saved === "yes"
-                                            ? "app/images/color-bookmarks.png"
-                                            : "./app/images/bookmarkIcon.png"
-                                        }
-                                        alt={
-                                          article.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                        title={
-                                          article.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <WithAuth
+                                  callBack={(e) => {
+                                    console.log("dd");
+                                  }}
+                                >
+                                  <ul className="flex">
+                                    <li
+                                      onClick={() => {
+                                        article.saved === "yes"
+                                          ? onArticleUnSave(article.id)
+                                          : onArticleSave(article.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
+                                        <img
+                                          src={
+                                            article.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            article.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          title={
+                                            article.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dotsIcons"
+                                          title="Genaiguru dotsIcons"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </WithAuth>
                               </div>
                             </div>
                           </div>

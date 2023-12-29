@@ -10,6 +10,7 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_VIDEO_PLAY } from "../../routes";
+import WithAuth from "../Authentication/WithAuth";
 
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -299,45 +300,51 @@ const FeaturedContent = () => {
                                   <p> {video.creation_date}</p>
                                 </div>
                               </div>
-                              <ul class="flex">
-                                <li
-                                  onClick={() => {
-                                    video.saved === "yes"
-                                      ? onVideoUnSave(video.id)
-                                      : onVideoSave(video.id);
-                                    setButtonClicked(!buttonClicked);
-                                  }}
-                                >
-                                  <a>
-                                    <img
-                                      src={
-                                        video.saved === "yes"
-                                          ? "app/images/color-bookmarks.png"
-                                          : "./app/images/bookmarkIcon.png"
-                                      }
-                                      alt={
-                                        video.saved === "yes"
-                                          ? "coloredbookmarkIcon"
-                                          : "bookmarkIcon"
-                                      }
-                                      title={
-                                        video.saved === "yes"
-                                          ? "coloredbookmarkIcon"
-                                          : "bookmarkIcon"
-                                      }
-                                    />
-                                  </a>
-                                </li>
-                                <li>
-                                  <a>
-                                    <img
-                                      src="app/images/dotsIcons.png"
-                                      alt="Genaiguru dotsIcons"
-                                      title="Genaiguru dotsIcons"
-                                    />
-                                  </a>
-                                </li>
-                              </ul>
+                              <WithAuth
+                                callBack={(e) => {
+                                  console.log("dd");
+                                }}
+                              >
+                                <ul class="flex">
+                                  <li
+                                    onClick={() => {
+                                      video.saved === "yes"
+                                        ? onVideoUnSave(video.id)
+                                        : onVideoSave(video.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
+                                      <img
+                                        src={
+                                          video.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          video.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        title={
+                                          video.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a>
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </WithAuth>
                             </div>
                             <h5 onClick={() => onVideoClick(video.id)}>
                               {video.title}

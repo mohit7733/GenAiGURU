@@ -10,6 +10,8 @@ const Sidebar = () => {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [message, setmessage] = useState("");
+  const [errormessage, seterromessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,18 +37,18 @@ const Sidebar = () => {
         })
         .then((res) => {
           console.log(res?.data);
-
-          toast.success(res?.data?.message, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-
+          setmessage(res?.data?.message);
           setEmail("");
+          setTimeout(() => {
+            setmessage("");
+          }, 2000);
         })
         .catch((errors) => {
           console.log(errors);
-          toast.warn("Please Enter Email for Subscribe", {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          seterromessage("Please Enter Email");
+          setTimeout(() => {
+            seterromessage("");
+          }, 2000);
         });
     }
   };
@@ -182,9 +184,12 @@ const Sidebar = () => {
                 value={email}
                 onChange={handleEmailChange}
               />
-              {showErrorMessage && !isValidEmail && email !== "" && (
+              {showErrorMessage && !isValidEmail && (
                 <p style={{ color: "red" }}>Invalid email address</p>
               )}
+
+              <p style={{ color: "white" }}>{message}</p>
+              <p style={{ color: "red" }}>{errormessage}</p>
             </div>
             <div className="form_group">
               <button

@@ -9,6 +9,7 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_BLOG_DETAILS } from "../../routes";
+import WithAuth from "../Authentication/WithAuth";
 
 const FeaturedContent = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -365,45 +366,51 @@ const FeaturedContent = () => {
                                     <p>{blog.creation_date}</p>
                                   </div>
                                 </div>
-                                <ul className="flex">
-                                  <li
-                                    onClick={() => {
-                                      blog.saved === "yes"
-                                        ? onBlogUnSave(blog.id)
-                                        : onBlogSave(blog.id);
-                                      setButtonClicked(!buttonClicked);
-                                    }}
-                                  >
-                                    <a>
-                                      <img
-                                        src={
-                                          blog.saved === "yes"
-                                            ? "app/images/color-bookmarks.png"
-                                            : "./app/images/bookmarkIcon.png"
-                                        }
-                                        alt={
-                                          blog.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                        title={
-                                          blog.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a>
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dots-icon"
-                                        title="Genaiguru dots-icon"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <WithAuth
+                                  callBack={(e) => {
+                                    console.log("dd");
+                                  }}
+                                >
+                                  <ul className="flex">
+                                    <li
+                                      onClick={() => {
+                                        blog.saved === "yes"
+                                          ? onBlogUnSave(blog.id)
+                                          : onBlogSave(blog.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
+                                        <img
+                                          src={
+                                            blog.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            blog.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          title={
+                                            blog.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dots-icon"
+                                          title="Genaiguru dots-icon"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </WithAuth>
                               </div>
 
                               <h5

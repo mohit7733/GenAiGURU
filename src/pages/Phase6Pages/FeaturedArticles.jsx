@@ -9,6 +9,7 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_ARTICLE_DETAILS } from "../../routes";
+import WithAuth from "../Authentication/WithAuth";
 
 const FeaturedArticles = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -296,45 +297,51 @@ const FeaturedArticles = () => {
                                     <p>{article.creation_date}</p>
                                   </div>
                                 </div>
-                                <ul className="flex">
-                                  <li
-                                    onClick={() => {
-                                      article.saved === "yes"
-                                        ? onArticleUnSave(article.id)
-                                        : onArticleSave(article.id);
-                                      setButtonClicked(!buttonClicked);
-                                    }}
-                                  >
-                                    <a>
-                                      <img
-                                        src={
-                                          article.saved === "yes"
-                                            ? "app/images/color-bookmarks.png"
-                                            : "./app/images/bookmarkIcon.png"
-                                        }
-                                        alt={
-                                          article.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                        title={
-                                          article.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dots-icon"
-                                        title="Genaiguru dots-icon"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <WithAuth
+                                  callBack={(e) => {
+                                    console.log("dd");
+                                  }}
+                                >
+                                  <ul className="flex">
+                                    <li
+                                      onClick={() => {
+                                        article.saved === "yes"
+                                          ? onArticleUnSave(article.id)
+                                          : onArticleSave(article.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
+                                        <img
+                                          src={
+                                            article.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            article.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          title={
+                                            article.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dots-icon"
+                                          title="Genaiguru dots-icon"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </WithAuth>
                               </div>
                               <h5
                                 onClick={() => onArticleClick(article.id)}
