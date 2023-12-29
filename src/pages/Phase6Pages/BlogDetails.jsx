@@ -7,6 +7,9 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import { ToastContainer, toast } from "react-toastify";
+import { FacebookShareButton, TwitterShareButton } from "react-social";
+import Modal from "react-modal";
+import WithAuth from "../Authentication/WithAuth";
 
 const BlogDetails = () => {
   const [blogDetail, setBlogDetail] = useState({
@@ -31,6 +34,16 @@ const BlogDetails = () => {
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const blogId = queryParam.get("id");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -107,6 +120,7 @@ const BlogDetails = () => {
         console.log(errors);
       });
   };
+  const shareUrl = "https://example.com"; // Replace with your actual URL
 
   return (
     <div>
@@ -131,35 +145,44 @@ const BlogDetails = () => {
                     </div>
                   </div>
                   <div className="connect-box">
-                    <ul className="flex">
-                      {blogDetail.blogSaved == "yes" ? (
-                        <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
+                    <WithAuth
+                      callBack={(e) => {
+                        console.log("dd");
+                      }}
+                    >
+                      <ul className="flex">
+                        {blogDetail.blogSaved == "yes" ? (
+                          <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
+                            <a>
+                              <figure>
+                                <img
+                                  src="app/images/color-bookmarks.png"
+                                  alt=""
+                                />
+                              </figure>
+                            </a>
+                          </li>
+                        ) : (
+                          <li onClick={() => onBlogSave(blogDetail.blog_id)}>
+                            <a>
+                              <figure>
+                                <img
+                                  src="./app/images/bookmarkIcon.png"
+                                  alt=""
+                                />
+                              </figure>
+                            </a>
+                          </li>
+                        )}
+                        <li onClick={handleButtonClick}>
                           <a>
                             <figure>
-                              <img
-                                src="app/images/color-bookmarks.png"
-                                alt=""
-                              />
+                              <img src="./app/images/share-icon.png" alt="" />
                             </figure>
                           </a>
                         </li>
-                      ) : (
-                        <li onClick={() => onBlogSave(blogDetail.blog_id)}>
-                          <a>
-                            <figure>
-                              <img src="./app/images/bookmarkIcon.png" alt="" />
-                            </figure>
-                          </a>
-                        </li>
-                      )}
-                      <li>
-                        <a href="#">
-                          <figure>
-                            <img src="./app/images/share-icon.png" alt="" />
-                          </figure>
-                        </a>
-                      </li>
-                    </ul>
+                      </ul>
+                    </WithAuth>
                   </div>
                 </div>
               </div>
@@ -261,45 +284,51 @@ const BlogDetails = () => {
                                     {blogdata.title}
                                   </Link>
                                 </p>
-                                <ul className="flex">
-                                  <li
-                                    onClick={() => {
-                                      blogdata.saved === "yes"
-                                        ? onBlogUnSave(blogdata.id)
-                                        : onBlogSave(blogdata.id);
-                                      setButtonClicked(!buttonClicked);
-                                    }}
-                                  >
-                                    <a>
-                                      <img
-                                        src={
-                                          blogdata.saved === "yes"
-                                            ? "app/images/color-bookmarks.png"
-                                            : "./app/images/bookmarkIcon.png"
-                                        }
-                                        alt={
-                                          blogdata.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                        title={
-                                          blogdata.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <WithAuth
+                                  callBack={(e) => {
+                                    console.log("dd");
+                                  }}
+                                >
+                                  <ul className="flex">
+                                    <li
+                                      onClick={() => {
+                                        blogdata.saved === "yes"
+                                          ? onBlogUnSave(blogdata.id)
+                                          : onBlogSave(blogdata.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
+                                        <img
+                                          src={
+                                            blogdata.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            blogdata.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          title={
+                                            blogdata.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dotsIcons"
+                                          title="Genaiguru dotsIcons"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </WithAuth>
                               </div>
                             </div>
                           </div>
