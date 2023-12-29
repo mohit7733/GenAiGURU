@@ -29,6 +29,7 @@ const VideoPlay = () => {
 
 
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(`${getBaseURL()}/popular-latest-videos?id=${videoId}`, {
         headers: {
@@ -508,17 +509,26 @@ const VideoPlay = () => {
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
           <div className="backBtns">
-            <i className="fa fa-angle-left" aria-hidden="true"></i>
+            <Link to="/" className="fa fa-angle-left" aria-hidden="true"></Link>
           </div>
           <h2>Videos</h2>
         </div>
         <div className="innerVideosection rightSection">
           <div className="video-wrapper flex">
             <div className="video-box">
-              <video src="" poster="/app/images/cartonn-vdeo.png"></video>
+            <ReactPlayer
+                  url={videoPlay.youtube_link}
+                  // playing={true}
+                  controls={true}
+                  width="100%"
+                  height="20%"
+                />
               <ul className="flex space-between link">
+              
                 <li>
-                  <a href="#">#finace #crypto #economy</a>
+                  <a href="#">{videoPlay?.tags?.map((tag, index) => {
+                      return <a key={index}> #{tag}</a>;
+                    })}</a>
                 </li>
                 <li className="download-btn">
                   <a href="#">
@@ -548,12 +558,13 @@ const VideoPlay = () => {
                 </li>
               </ul>
               <h3>
-                Navigating the world of ChatGPT and Its open-source adversaries
+                {/* Navigating the world of ChatGPT and Its open-source adversaries */}
+                {videoPlay.title}
               </h3>
               {/* <!-- view details here --> */}
               <div className="view-details">
-                <a href="#">24 M views |</a>
-                <a href="#">3 months |</a>
+                <a href="#">{videoPlay.views} Views |</a>
+                <a href="#">{videoPlay.time_difference}|</a>
                 <a href="#">Details</a>
               </div>
               {/* <!-- view details end here --> */}
@@ -562,7 +573,7 @@ const VideoPlay = () => {
                 <li>
                   <a href="">
                     <img
-                      src="/app/images/userIcon.png"
+                      src={videoPlay.author_profile_image}
                       alt="Genaiguru userIcon"
                       title="Genaiguru userIcon"
                     />
@@ -570,7 +581,7 @@ const VideoPlay = () => {
                 </li>
                 <li>
                   <a href="">
-                    <span>Esther Howard </span>
+                    <span>{videoPlay.author}</span>
                     <br />
                     <small>alexsmih@</small>
                   </a>

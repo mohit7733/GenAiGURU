@@ -30,6 +30,7 @@ const SocialProfileEdit = () => {
 
   // User details GET-API------
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -187,12 +188,13 @@ const SocialProfileEdit = () => {
       .post(`${getBaseURL()}/update-user-socialprofile`, fd)
       .then((response) => {
         if (response.status === 201) {
-          alert("Saved");
-          // toast.success("Saved", {
-          //   position: toast.POSITION.TOP_CENTER
-          // });
-          // <ToastContainer autoClose={1000} />
-          navigate(`${PATH_PROFILE}`);
+          // alert("Saved");
+          toast.success("Social Links Saved", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          setTimeout(() => {
+            navigate(`${PATH_PROFILE}`);
+          }, 1000);
         }
       })
       .catch((error) => {
@@ -369,7 +371,7 @@ const SocialProfileEdit = () => {
                 >
                   Save to change
                 </button>
-                {/* <ToastContainer /> */}
+                <ToastContainer  autoClose={1000}/>
               </form>
             </div>
             {/* <!-- edit-profile start here --> */}

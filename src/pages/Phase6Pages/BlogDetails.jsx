@@ -31,6 +31,7 @@ const BlogDetails = () => {
   const blogId = queryParam.get("id");
 
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(
         `${getBaseURL()}/latest-blogs?user_id=${userId}&id=${blogId ? blogId : relatedBlogId}`,

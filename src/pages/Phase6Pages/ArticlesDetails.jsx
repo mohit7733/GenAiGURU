@@ -34,6 +34,7 @@ const ArticlesDetails = () => {
   const articleId = queryParam.get("id");
 
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(
         `${getBaseURL()}/articles?user_id=${userId}&id=${

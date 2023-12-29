@@ -77,7 +77,7 @@ const Popularvideos = () => {
         </div>
         <div className="mobileVideoSection">
           <div className="wrap">
-            <a href="#">
+            {/* <a href="#">
               <figure>
                 <img
                   src="app/images/videoImg.png"
@@ -124,7 +124,80 @@ const Popularvideos = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </a> */}
+            <Slider
+            ref={sliderRef}
+            // {...settings2}
+            id="Slider-4"
+            className="slider_test"
+          >
+            {popularVideos.map((video, index) => {
+              return (
+                <div
+                  className="wrap"
+                  key={index}
+                  onClick={() => onVideoClick(video.id)}
+                >
+                  <a
+                    onClick={() => {
+                      navigate(`${PATH_VIDEO_PLAY}`);
+                    }}
+                    target="_blank"
+                  >
+                    <figure>
+                      <ReactPlayer
+                        url={video.youtube_link}
+                        playing={false}
+                        width="100%"
+                        height="100%"
+                      />
+                    </figure>
+                    <div className="layer">
+                      <div className="price flex">
+                        <img
+                          src="app/images/orangeStrike.png"
+                          alt="Genaiguru orangeStrike"
+                          title="Genaiguru orangeStrike"
+                        />
+                        17
+                      </div>
+                      <h5>{video.title}</h5>
+                      <div className="author-tag flex">
+                        <div className="col_left">
+                          <div className="wrapper flex">
+                            <figure>
+                              <img
+                                src={video.author_profile_image}
+                                alt="Genaiguru authorImg"
+                                title="Genaiguru authorImg"
+                              />
+                            </figure>
+                            <div className="content">
+                              <h6>{video.author}</h6>
+                              {/* <p>24 M view . 3 month ago</p> */}
+                            </div>
+                          </div>
+                          <ul className="flex">
+                            {/* {video?.tags?.map((tag, index) => {
+                              return <li key={index}>#{tag}</li>;
+                            })} */}
+                          </ul>
+                        </div>
+                        {/* <div className="col_right flex">
+                                <img
+                                  src="app/images/videoIcon.png"
+                                  alt="Genaiguru videoIcon"
+                                  title="Genaiguru videoIcon"
+                                />
+                                3:38
+                              </div> */}
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
+          </Slider>
           </div>
           <div className="videoBoxes flex">
             <figure>

@@ -26,6 +26,7 @@ const FeaturedContent = () => {
 
   // Get API for Popular Videos
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(`${getBaseURL()}/popular-latest-videos?user_id=${userId}`, {
         headers: {
