@@ -20,12 +20,13 @@ const VideoPlay = () => {
   });
 
   const token = JSON.parse(localStorage.getItem("token"));
+
+
   // useLocation to get id from url
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
-  // console.log( videoId)
-  // const splitsTag = videoPlay.tags.split(",")
+
 
   useEffect(() => {
     axios
@@ -97,7 +98,7 @@ const VideoPlay = () => {
                         alt="Genaiguru thumbs-down"
                         title="Genaiguru thumbs-down"
                       />
-                      Download
+                      download
                     </a>
                     <a href="#">
                       <img

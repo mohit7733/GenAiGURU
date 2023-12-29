@@ -4,14 +4,24 @@ import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import ReactPlayer from "react-player";
+import {
+  PATH_ARTICLE_DETAILS,
+  PATH_BLOG_DETAILS,
+  PATH_VIDEO_PLAY,
+} from "../../routes";
+import { useNavigate } from "react-router-dom";
 
 const GuruKeeps = () => {
   const [savedData, setSavedData] = useState([]);
 
+  const navigate = useNavigate();
+
+  const [buttonClicked, setButtonClicked] = useState(false);
+
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
-  // Get API for Popular Blogs
+  // Get API
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/saved-items?user_id=${userId}`, {
@@ -20,14 +30,66 @@ const GuruKeeps = () => {
         },
       })
       .then((response) => {
-        // setLatestBlog(response?.data?.blogs);
         console.log(response?.data?.data);
         setSavedData(response?.data?.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+    setButtonClicked(false);
+  }, [buttonClicked]);
+
+  const onBlogUnSave = (blogID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-blog`, {
+        user_id: userId,
+        blog_id: blogID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  const onArticleUnSave = (articleID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-article`, {
+        user_id: userId,
+        article_id: articleID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  const onVideoUnSave = (videoID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-video`, {
+        user_id: userId,
+        video_id: videoID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  const onBlogClick = (BlogId) => {
+    navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  };
+  const onArticleClick = (AricleID) => {
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  };
+  const onVideoClick = (VideoId) => {
+    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
+  };
 
   return (
     <div>
@@ -57,7 +119,7 @@ const GuruKeeps = () => {
                         </a>
                       ) : (
                         <figure>
-                          <a href="#">
+                          <a>
                             <img
                               src={data.photo}
                               alt="Genaiguru Guru-keeps"
@@ -83,15 +145,27 @@ const GuruKeeps = () => {
                             </div>
                           </div>
                           <ul className="flex">
-                            <li>
-                              <a href="#">
+                            <li
+                              onClick={() => {
+                                if (data.type === "blog") {
+                                  onBlogUnSave(data.id);
+                                } else if (data.type === "article") {
+                                  onArticleUnSave(data.id);
+                                } else if (data.type === "video") {
+                                  onVideoUnSave(data.id);
+                                }
+                                setButtonClicked(!buttonClicked);
+                              }}
+                            >
+                              <a>
                                 <img
                                   src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru bookmark"
-                                  title="Genaiguru bookmark"
+                                  alt=" coloredbookmarkIcon"
+                                  title=" coloredbookmarkIcon"
                                 />
                               </a>
                             </li>
+
                             <li>
                               <a href="#">
                                 <img
@@ -104,7 +178,19 @@ const GuruKeeps = () => {
                           </ul>
                         </div>
                         <h5>
-                          <a href="#">{data.title}</a>
+                          <a
+                            onClick={() => {
+                              if (data.type === "blog") {
+                                onBlogClick(data.id);
+                              } else if (data.type === "article") {
+                                onArticleClick(data.id);
+                              } else if (data.type === "video") {
+                                onVideoClick(data.id);
+                              }
+                            }}
+                          >
+                            {data.title}
+                          </a>
                         </h5>
                         <p>{data.short_description}</p>
                       </div>
@@ -127,306 +213,96 @@ const GuruKeeps = () => {
             />
           </div>
           <h2>Guru keeps</h2>
-          <p>39 Saved</p>
+          <p>{savedData.length} Saved</p>
         </div>
         <div className="innerCommanContent">
           <div className="interest-sliders">
-            <div className="wrap flex">
-              <figure>
-                <a href="#">
-                  <img
-                    src="app/images/gureu-keeps-1.png"
-                    alt="Genaiguru Guru-keeps"
-                    title="Genaiguru Guru-keeps"
-                  />
-                </a>
-              </figure>
-              <div className="content">
-                <div className="wrapper flex">
-                  <figure>
-                    <img
-                      src="app/images/authorImg.png"
-                      alt="Genaiguru authorImg"
-                      title="Genaiguru authorImg"
-                    />
-                  </figure>
-                  <div className="innerContent">
-                    <h6>Alex Smih</h6>
-                    <p> Sep 15, 2023. 11:05 pm</p>
+            {savedData.map((data, index) => {
+              return (
+                <div className="wrap flex" key={index}>
+                  {data.youtube_link ? (
+                    <a>
+                      <figure>
+                        <ReactPlayer
+                          url={data.youtube_link}
+                          width="100%"
+                          height="100%"
+                        />
+                      </figure>
+                    </a>
+                  ) : (
+                    <figure>
+                      <a href="#">
+                        <img
+                          src={data.photo}
+                          alt="Genaiguru Guru-keeps"
+                          title="Genaiguru Guru-keeps"
+                        />
+                      </a>
+                    </figure>
+                  )}
+                  <div className="content">
+                    <div className="wrapper flex">
+                      <figure>
+                        <img
+                          src={data.author_profile_image}
+                          alt="Genaiguru authorImg"
+                          title="Genaiguru authorImg"
+                        />
+                      </figure>
+                      <div className="innerContent">
+                        <h6>{data.author}</h6>
+                        <p> {data.creation_date}</p>
+                      </div>
+                    </div>
+                    <p
+                      onClick={() => {
+                        if (data.type === "blog") {
+                          onBlogClick(data.id);
+                        } else if (data.type === "article") {
+                          onArticleClick(data.id);
+                        } else if (data.type === "video") {
+                          onVideoClick(data.id);
+                        }
+                      }}
+                    >
+                      {data.title}
+                    </p>
+                    <ul className="flex">
+                      <li
+                        onClick={() => {
+                          if (data.type === "blog") {
+                            onBlogUnSave(data.id);
+                          } else if (data.type === "article") {
+                            onArticleUnSave(data.id);
+                          } else if (data.type === "video") {
+                            onVideoUnSave(data.id);
+                          }
+                          setButtonClicked(!buttonClicked);
+                        }}
+                      >
+                        <a>
+                          <img
+                            src="app/images/color-bookmarks.png"
+                            alt="Genaiguru bookmarkIcon"
+                            title="Genaiguru bookmarkIcon"
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img
+                            src="app/images/dotsIcons.png"
+                            alt="Genaiguru dotsIcons"
+                            title="Genaiguru dotsIcons"
+                          />
+                        </a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <p>
-                  Navigating the World of ChatGPT and Its Open-source
-                  Adversaries
-                </p>
-                <ul className="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/color-bookmarks.png"
-                        alt="Genaiguru bookmarkIcon"
-                        title="Genaiguru bookmarkIcon"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/dotsIcons.png"
-                        alt="Genaiguru dotsIcons"
-                        title="Genaiguru dotsIcons"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="wrap flex">
-              <figure>
-                <a href="#">
-                  <img
-                    src="app/images/guru-keeps-2.png"
-                    alt="Genaiguru Guru-keeps"
-                    title="Genaiguru Guru-keeps"
-                  />
-                </a>
-              </figure>
-              <div className="content">
-                <div className="wrapper flex">
-                  <figure>
-                    <img
-                      src="app/images/authorImg.png"
-                      alt="Genaiguru authorImg"
-                      title="Genaiguru authorImg"
-                    />
-                  </figure>
-                  <div className="innerContent">
-                    <h6>Alex Smih</h6>
-                    <p> Sep 15, 2023. 11:05 pm</p>
-                  </div>
-                </div>
-                <p>
-                  Navigating the World of ChatGPT and Its Open-source
-                  Adversaries
-                </p>
-                <ul className="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/color-bookmarks.png"
-                        alt="Genaiguru bookmarkIcon"
-                        title="Genaiguru bookmarkIcon"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/dotsIcons.png"
-                        alt="Genaiguru dotsIcons"
-                        title="Genaiguru dotsIcons"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="wrap flex">
-              <figure>
-                <img
-                  src="app/images/interestSliderImg.png"
-                  alt="Genaiguru interestSliderImg"
-                  title="Genaiguru interestSliderImg"
-                />
-              </figure>
-              <div className="content">
-                <div className="wrapper flex">
-                  <figure>
-                    <img
-                      src="app/images/authorImg.png"
-                      alt="Genaiguru authorImg"
-                      title="Genaiguru authorImg"
-                    />
-                  </figure>
-                  <div className="innerContent">
-                    <h6>Alex Smih</h6>
-                    <p>Sep 15, 2023. 11:05 pm</p>
-                  </div>
-                </div>
-                <p>
-                  Navigating the World of ChatGPT and Its Open-source
-                  Adversaries
-                </p>
-                <ul className="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/color-bookmarks.png"
-                        alt="Genaiguru bookmarkIcon"
-                        title="Genaiguru bookmarkIcon"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/dotsIcons.png"
-                        alt="Genaiguru dotsIcons"
-                        title="Genaiguru dotsIcons"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="wrap flex">
-              <figure>
-                <a href="#">
-                  <img
-                    src="app/images/gureu-keeps-1.png"
-                    alt="Genaiguru Guru-keeps"
-                    title="Genaiguru Guru-keeps"
-                  />
-                </a>
-              </figure>
-              <div className="content">
-                <div className="wrapper flex">
-                  <figure>
-                    <img
-                      src="app/images/authorImg.png"
-                      alt="Genaiguru authorImg"
-                      title="Genaiguru authorImg"
-                    />
-                  </figure>
-                  <div className="innerContent">
-                    <h6>Alex Smih</h6>
-                    <p> Sep 15, 2023. 11:05 pm</p>
-                  </div>
-                </div>
-                <p>
-                  Navigating the World of ChatGPT and Its Open-source
-                  Adversaries
-                </p>
-                <ul className="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/color-bookmarks.png"
-                        alt="Genaiguru bookmarkIcon"
-                        title="Genaiguru bookmarkIcon"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/dotsIcons.png"
-                        alt="Genaiguru dotsIcons"
-                        title="Genaiguru dotsIcons"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="wrap flex">
-              <figure>
-                <a href="#">
-                  <img
-                    src="app/images/guru-keeps-2.png"
-                    alt="Genaiguru Guru-keeps"
-                    title="Genaiguru Guru-keeps"
-                  />
-                </a>
-              </figure>
-              <div className="content">
-                <div className="wrapper flex">
-                  <figure>
-                    <img
-                      src="app/images/authorImg.png"
-                      alt="Genaiguru authorImg"
-                      title="Genaiguru authorImg"
-                    />
-                  </figure>
-                  <div className="innerContent">
-                    <h6>Alex Smih</h6>
-                    <p> Sep 15, 2023. 11:05 pm</p>
-                  </div>
-                </div>
-                <p>
-                  Navigating the World of ChatGPT and Its Open-source
-                  Adversaries
-                </p>
-                <ul className="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/color-bookmarks.png"
-                        alt="Genaiguru bookmarkIcon"
-                        title="Genaiguru bookmarkIcon"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/dotsIcons.png"
-                        alt="Genaiguru dotsIcons"
-                        title="Genaiguru dotsIcons"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="wrap flex">
-              <figure>
-                <img
-                  src="app/images/interestSliderImg.png"
-                  alt="Genaiguru interestSliderImg"
-                  title="Genaiguru interestSliderImg"
-                />
-              </figure>
-              <div className="content">
-                <div className="wrapper flex">
-                  <figure>
-                    <img
-                      src="app/images/authorImg.png"
-                      alt="Genaiguru authorImg"
-                      title="Genaiguru authorImg"
-                    />
-                  </figure>
-                  <div className="innerContent">
-                    <h6>Alex Smih</h6>
-                    <p>Sep 15, 2023. 11:05 pm</p>
-                  </div>
-                </div>
-                <p>
-                  Navigating the World of ChatGPT and Its Open-source
-                  Adversaries
-                </p>
-                <ul className="flex">
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/color-bookmarks.png"
-                        alt="Genaiguru bookmarkIcon"
-                        title="Genaiguru bookmarkIcon"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        src="app/images/dotsIcons.png"
-                        alt="Genaiguru dotsIcons"
-                        title="Genaiguru dotsIcons"
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>

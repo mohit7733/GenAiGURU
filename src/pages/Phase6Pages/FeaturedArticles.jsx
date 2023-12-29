@@ -1,46 +1,48 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  BASE_PATH,
-  PATH_ARTICLE_DETAILS,
-  PATH_BLOG_DETAILS,
-} from "../../routes";
-import MobileHeader from "../../components/Layout/MobileHeader";
-import Sidebar from "../../components/Layout/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import { getBaseURL } from "../../api/config";
-import axios from "axios";
+import MobileHeader from "../../components/Layout/MobileHeader";
+import Sidebar from "../../components/Layout/Sidebar";
+import { BASE_PATH, PATH_ARTICLE_DETAILS } from "../../routes";
 
 const FeaturedArticles = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [indexTab, setIndexTab] = useState();
+
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const [myInterests, setMyInterests] = useState();
   const [articles, setArticles] = useState([]);
 
   const navigate = useNavigate();
   const sliderRef = useRef();
+
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // Get API for Popular articles View ALL
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/articles`, {
+      .get(`${getBaseURL()}/articles?user_id=${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        console.log(response?.data?.articles);
+        // console.log(response?.data?.articles);
         setArticles(response?.data?.articles);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
-  // Get API for Categories
+    setButtonClicked(false);
+  }, [buttonClicked]);
+
+  // Get API for Interests
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/auth/interests`, {
@@ -128,6 +130,37 @@ const FeaturedArticles = () => {
       },
     ],
   };
+
+  const onArticleSave = (articleID) => {
+    axios
+      .post(`${getBaseURL()}/save-article`, {
+        user_id: userId,
+        article_id: articleID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        // setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  const onArticleUnSave = (articleID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-article`, {
+        user_id: userId,
+        article_id: articleID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        // setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
   return (
     <div>
       <MobileHeader />
@@ -257,12 +290,32 @@ const FeaturedArticles = () => {
                                   </div>
                                 </div>
                                 <ul className="flex">
-                                  <li>
-                                    <a href="#">
+                                  <li
+                                    onClick={() => {
+                                      // Toggle between onBlogSave and onBlogUnSave based on the condition
+                                      article.saved === "yes"
+                                        ? onArticleUnSave(article.id)
+                                        : onArticleSave(article.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
-                                        title="Genaiguru color-bookmarks"
+                                        src={
+                                          article.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          article.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        title={
+                                          article.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
                                       />
                                     </a>
                                   </li>
@@ -546,60 +599,78 @@ const FeaturedArticles = () => {
                 <div className="tab-content tab-content-1 active">
                   <div className="interest-guru ">
                     <div className="interest-sliders">
-                      {/* {latestBlog.map((blog, index) => {
-                      return (
-                        <a
-                          className="wrap flex"
-                          onClick={() => onBlogClick(blog.id)}
-                          key={index}
-                        >
-                          <figure>
-                            <Link>
-                              <img
-                                src={blog.photo}
-                                alt="Genaiguru Guru-keeps"
-                                title="Genaiguru Guru-keeps"
-                              />
-                            </Link>
-                          </figure>
-                          <div className="content">
-                            <div className="wrapper flex">
-                              <figure>
+                      {articles?.map((article, index) => {
+                        return (
+                          <a className="wrap flex" key={index}>
+                            <figure>
+                              <Link>
                                 <img
-                                  src={blog.profilePhoto}
-                                  alt="user_icon"
+                                  src={article.photo}
+                                  alt="Genaiguru Guru-keeps"
+                                  title="Genaiguru Guru-keeps"
                                 />
-                              </figure>
-                              <div className="innerContent">
-                                <h6>{blog.author}</h6>
-                                <p>{blog.creation_date}</p>
+                              </Link>
+                            </figure>
+                            <div className="content">
+                              <div className="wrapper flex">
+                                <figure>
+                                  <img
+                                    src={article.author_profile_image}
+                                    alt="user_icon"
+                                  />
+                                </figure>
+                                <div className="innerContent">
+                                  <h6>{article.author}</h6>
+                                  <p>{article.creation_date}</p>
+                                </div>
                               </div>
+                              <p onClick={() => onArticleClick(article.id)}>
+                                {article.title}
+                              </p>
+                              <ul className="flex">
+                                <li
+                                  onClick={() => {
+                                    // Toggle between onBlogSave and onBlogUnSave based on the condition
+                                    article.saved === "yes"
+                                      ? onArticleUnSave(article.id)
+                                      : onArticleSave(article.id);
+                                    setButtonClicked(!buttonClicked);
+                                  }}
+                                >
+                                  <a>
+                                    <img
+                                      src={
+                                        article.saved === "yes"
+                                          ? "app/images/color-bookmarks.png"
+                                          : "./app/images/bookmarkIcon.png"
+                                      }
+                                      alt={
+                                        article.saved === "yes"
+                                          ? "coloredbookmarkIcon"
+                                          : "bookmarkIcon"
+                                      }
+                                      title={
+                                        article.saved === "yes"
+                                          ? "coloredbookmarkIcon"
+                                          : "bookmarkIcon"
+                                      }
+                                    />
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <img
+                                      src="app/images/dotsIcons.png"
+                                      alt="Genaiguru dotsIcons"
+                                      title="Genaiguru dotsIcons"
+                                    />
+                                  </a>
+                                </li>
+                              </ul>
                             </div>
-                            <p>{blog.title}</p>
-                            <ul className="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                    title="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </a>
-                      );
-                    })} */}
+                          </a>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
