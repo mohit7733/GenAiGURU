@@ -4,10 +4,12 @@ import WithAuth from "../../pages/Authentication/WithAuth";
 import { PATH_TERMS_AND_SERVICES, PATH_SETTINGS } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { ToastContainer, toast } from "react-toastify";
 
 const Sidebar = () => {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,23 +21,40 @@ const Sidebar = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsValidEmail(emailRegex.test(newEmail));
   };
+
   const subscribeNewsletter = () => {
-    axios
-      .post(`${getBaseURL()}/subscribe`, {
-        email: email,
-      })
-      .then((res) => {
-        console.log(res?.data);
-        alert(res?.data?.message);
-        setEmail("");
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = email === "" || emailRegex.test(email);
+
+    setIsValidEmail(isValid);
+    setShowErrorMessage(!isValid);
+    if (isValid) {
+      axios
+        .post(`${getBaseURL()}/subscribe`, {
+          email: email,
+        })
+        .then((res) => {
+          console.log(res?.data);
+
+          toast.success(res?.data?.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+
+          setEmail("");
+        })
+        .catch((errors) => {
+          console.log(errors);
+          toast.warn(errors?.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        });
+    }
   };
 
   return (
     <>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <div className="leftSidebar">
         <ul className="menu">
           <li>
@@ -163,7 +182,7 @@ const Sidebar = () => {
                 value={email}
                 onChange={handleEmailChange}
               />
-              {!isValidEmail && email !== "" && (
+              {showErrorMessage && !isValidEmail && email !== "" && (
                 <p style={{ color: "red" }}>Invalid email address</p>
               )}
             </div>

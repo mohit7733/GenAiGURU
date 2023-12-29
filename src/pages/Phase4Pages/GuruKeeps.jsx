@@ -1,15 +1,16 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import axios from "axios";
-import { getBaseURL } from "../../api/config";
-import ReactPlayer from "react-player";
 import {
   PATH_ARTICLE_DETAILS,
   PATH_BLOG_DETAILS,
   PATH_VIDEO_PLAY,
 } from "../../routes";
-import { useNavigate } from "react-router-dom";
 
 const GuruKeeps = () => {
   const [savedData, setSavedData] = useState([]);
@@ -47,6 +48,9 @@ const GuruKeeps = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Blog Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -61,6 +65,9 @@ const GuruKeeps = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Article Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -75,6 +82,9 @@ const GuruKeeps = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Video Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -93,6 +103,8 @@ const GuruKeeps = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
       <section className="mainWrapper flex hideMob">
         <Sidebar />

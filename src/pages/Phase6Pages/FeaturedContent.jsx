@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
+import { ToastContainer, toast } from "react-toastify";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import axios from "axios";
-import { getBaseURL } from "../../api/config";
 import { BASE_PATH, PATH_BLOG_DETAILS } from "../../routes";
 
 const FeaturedContent = () => {
@@ -209,6 +209,9 @@ const FeaturedContent = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Blog Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -223,6 +226,9 @@ const FeaturedContent = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Blog Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -231,6 +237,8 @@ const FeaturedContent = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
       <section className="mainWrapper flex hideMob">
         <Sidebar />

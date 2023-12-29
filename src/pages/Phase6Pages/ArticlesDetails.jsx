@@ -1,15 +1,11 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import {
-  BASE_PATH,
-  PATH_FEATURED_ARTICLES,
-  PATH_ARTICLE_DETAILS,
-} from "../../routes";
-import axios from "axios";
-import { getBaseURL } from "../../api/config";
-import Index from "../Authentication/Index";
+import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
 
 const ArticlesDetails = () => {
   const [articleDetail, setArticleDetail] = useState({
@@ -25,6 +21,8 @@ const ArticlesDetails = () => {
   const [relatedArticle, setRelatedArticle] = useState([]);
   const [relatedArticlesId, setRelatedArticlesId] = useState();
 
+  const [buttonClicked, setButtonClicked] = useState(false);
+
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -34,7 +32,7 @@ const ArticlesDetails = () => {
   const articleId = queryParam.get("id");
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
       .get(
         `${getBaseURL()}/articles?user_id=${userId}&id=${
@@ -65,7 +63,8 @@ const ArticlesDetails = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [relatedArticlesId]);
+    setButtonClicked(false);
+  }, [relatedArticlesId, buttonClicked]);
 
   const onArticleClick = (articleId) => {
     setTimeout(() => {
@@ -83,6 +82,9 @@ const ArticlesDetails = () => {
       .then((res) => {
         console.log(res?.data);
         setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
+        toast.success("Article Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -98,6 +100,9 @@ const ArticlesDetails = () => {
       .then((res) => {
         console.log(res?.data);
         setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
+        toast.success("Article Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -106,6 +111,8 @@ const ArticlesDetails = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
       {/* <!-- main section start here --> */}
       <section className="mainWrapper flex hideMob">
@@ -135,7 +142,10 @@ const ArticlesDetails = () => {
                         >
                           <a>
                             <figure>
-                              <img src="app/images/color-bookmarks.png" alt="" />
+                              <img
+                                src="app/images/color-bookmarks.png"
+                                alt=""
+                              />
                             </figure>
                           </a>
                         </li>
@@ -234,7 +244,7 @@ const ArticlesDetails = () => {
                       </div>
                       {relatedArticle.map((article, Index) => {
                         return (
-                          <div className="interest-sliders">
+                          <div className="interest-sliders" key={Index}>
                             <div className="wrap flex">
                               <figure>
                                 <img
@@ -265,12 +275,31 @@ const ArticlesDetails = () => {
                                   </Link>
                                 </p>
                                 <ul className="flex">
-                                  <li>
-                                    <a href="#">
+                                  <li
+                                    onClick={() => {
+                                      article.saved === "yes"
+                                        ? onArticleUnSave(article.id)
+                                        : onArticleSave(article.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru bookmarkIcon"
-                                        title="Genaiguru bookmarkIcon"
+                                        src={
+                                          article.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          article.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        title={
+                                          article.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
                                       />
                                     </a>
                                   </li>
