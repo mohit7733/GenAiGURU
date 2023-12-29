@@ -1216,3 +1216,9 @@ background: #873dd0;
   border-radius: 38px;
   padding: 10px;
 }
+.commanContent li,
+.commanContent li strong,
+.commanContent p,
+.commanContent p strong{
+    color: #fff;
+}

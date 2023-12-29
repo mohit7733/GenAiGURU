@@ -25,6 +25,7 @@ const Settings = () => {
 
  // get API for Privacy Policy.......
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(`${getBaseURL()}/privacy-policy`, {
         

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Link } from "react-router-dom";
 
 const LeaderBoard = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <>
       <MobileHeader />

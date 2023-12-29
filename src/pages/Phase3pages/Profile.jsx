@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
 const Profile = () => {
@@ -37,6 +37,7 @@ const Profile = () => {
 
   // User details GET-API------
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -174,6 +175,7 @@ const Profile = () => {
   // Changing my Interesrts
   const onChangeInterest = (e) => {
     e.preventDefault();
+    window.scrollTo(0,0)
     fetch(`${getBaseURL()}/update-user-interests`, {
       method: "POST",
       headers: {
@@ -184,20 +186,23 @@ const Profile = () => {
         user_id: userId,
         interest_id: selectedInterestIndex,
       }),
-    })
-      .then((res) => {
+    }).then((res) => {
         if (res.status === 201) {
-          alert("Interests Changed Successfully");
-          // toast.success("Interests Changed Successfully", {
-          //   position: toast.POSITION.TOP_CENTER
-          // });
-          // <ToastContainer autoClose={1000} />
-         
+          // alert("Interests Changed Successfully");
+          toast.success("Interests Changed Successfully", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // setTimeout(() => {
+          //   setDisplayInterestPopup(false);
+          // }, 1000);
           setDisplayInterestPopup(false);
           getMyInterest();
+        }else{
+          toast.error("Please Select Atleast One Interest", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err.message);
       });
   };
@@ -226,7 +231,7 @@ const Profile = () => {
     setDisplayedInterests(7);
     setDisplayView(true);
   };
-  
+
   return (
     <>
       <MobileHeader />
@@ -2147,11 +2152,9 @@ const Profile = () => {
                     type="submit"
                     className="loginBtn"
                     onClick={onChangeInterest}
-                    
                   >
-                    Save Changes{" "}
+                    Save Changes <ToastContainer autoClose={2000} />
                   </button>
-                  <ToastContainer autoClose={1000} />
                 </form>
               </div>
             </div>

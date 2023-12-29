@@ -144,8 +144,11 @@ const Login2 = () => {
         setProfilePicture(file);
       } else {
         // Invalid file type
-        alert("Please select a valid image file (JPEG, PNG, GIF).");
         // Optionally, you can clear the input or do other error handling
+        toast.warn("select a valid image file (JPEG, PNG, GIF).", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        <ToastContainer autoClose={1000}/>
       }
     }
   };

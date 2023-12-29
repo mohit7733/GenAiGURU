@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../components/Layout/Sidebar";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import { Link } from "react-router-dom";
 
 const Rewards = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div>
       <MobileHeader />
