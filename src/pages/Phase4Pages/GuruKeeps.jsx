@@ -108,24 +108,20 @@ const GuruKeeps = () => {
                   return (
                     <div className="wrap flex" key={index}>
                       {data.youtube_link ? (
-                        <a>
-                          <figure>
-                            <ReactPlayer
-                              url={data.youtube_link}
-                              width="100%"
-                              height="100%"
-                            />
-                          </figure>
-                        </a>
+                        <figure>
+                          <ReactPlayer
+                            url={data.youtube_link}
+                            width="100%"
+                            height="100%"
+                          />
+                        </figure>
                       ) : (
                         <figure>
-                          <a>
-                            <img
-                              src={data.photo}
-                              alt="Genaiguru Guru-keeps"
-                              title="Genaiguru Guru-keeps"
-                            />
-                          </a>
+                          <img
+                            src={data.photo}
+                            alt="Genaiguru Guru-keeps"
+                            title="Genaiguru Guru-keeps"
+                          />
                         </figure>
                       )}
 
