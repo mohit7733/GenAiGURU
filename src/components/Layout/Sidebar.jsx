@@ -7,8 +7,18 @@ import { getBaseURL } from "../../api/config";
 
 const Sidebar = () => {
   const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
   const navigate = useNavigate();
 
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value.trim();
+    setEmail(newEmail);
+
+    // Regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(newEmail));
+  };
   const subscribeNewsletter = () => {
     axios
       .post(`${getBaseURL()}/subscribe`, {
@@ -151,8 +161,11 @@ const Sidebar = () => {
                 type="email"
                 placeholder="Email address"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
               />
+              {!isValidEmail && email !== "" && (
+                <p style={{ color: "red" }}>Invalid email address</p>
+              )}
             </div>
             <div className="form_group">
               <button
