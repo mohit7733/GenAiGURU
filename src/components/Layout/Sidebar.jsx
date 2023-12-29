@@ -44,7 +44,7 @@ const Sidebar = () => {
         })
         .catch((errors) => {
           console.log(errors);
-          toast.warn(errors?.message, {
+          toast.warn("Please Enter Email for Subscribe", {
             position: toast.POSITION.TOP_CENTER,
           });
         });
