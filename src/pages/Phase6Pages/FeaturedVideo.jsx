@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
+import { ToastContainer, toast } from "react-toastify";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { getBaseURL } from "../../api/config";
@@ -26,7 +27,7 @@ const FeaturedContent = () => {
 
   // Get API for Popular Videos
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/popular-latest-videos?user_id=${userId}`, {
         headers: {
@@ -141,6 +142,9 @@ const FeaturedContent = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Video Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -155,6 +159,9 @@ const FeaturedContent = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        toast.success("Video Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -163,6 +170,8 @@ const FeaturedContent = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
       <section class="mainWrapper flex hideMob">
         <Sidebar />
@@ -527,7 +536,7 @@ const FeaturedContent = () => {
                               </div>
                               <p>{video.title}</p>
                               <ul class="flex">
-                              <li
+                                <li
                                   onClick={() => {
                                     video.saved === "yes"
                                       ? onVideoUnSave(video.id)

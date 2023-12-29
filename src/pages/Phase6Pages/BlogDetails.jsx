@@ -6,6 +6,7 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
+import { ToastContainer, toast } from "react-toastify";
 
 const BlogDetails = () => {
   const [blogDetail, setBlogDetail] = useState({
@@ -21,6 +22,7 @@ const BlogDetails = () => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
 
   const [relatedBlogId, setRelatedBlogId] = useState();
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -31,10 +33,12 @@ const BlogDetails = () => {
   const blogId = queryParam.get("id");
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
       .get(
-        `${getBaseURL()}/latest-blogs?user_id=${userId}&id=${blogId ? blogId : relatedBlogId}`,
+        `${getBaseURL()}/latest-blogs?user_id=${userId}&id=${
+          blogId ? blogId : relatedBlogId
+        }`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -52,14 +56,14 @@ const BlogDetails = () => {
           blog_id: response?.data?.blog_details?.id,
           blogSaved: response?.data?.blog_details?.saved,
         });
-        // console.log(response?.data?.blog_details);
         setRelatedBlogs(response?.data?.related_blogs);
         // console.log(response?.data.related_blogs);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, [relatedBlogId]);
+    setButtonClicked(false);
+  }, [relatedBlogId, buttonClicked]);
 
   const onBlogClick = (blogId) => {
     setTimeout(() => {
@@ -68,6 +72,7 @@ const BlogDetails = () => {
     setRelatedBlogId(blogId);
   };
 
+  // Save And Unsave API's
   const onBlogSave = (blogID) => {
     axios
       .post(`${getBaseURL()}/save-blog`, {
@@ -76,7 +81,11 @@ const BlogDetails = () => {
       })
       .then((res) => {
         console.log(res?.data);
+
         setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+        toast.success("Blog Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -89,8 +98,10 @@ const BlogDetails = () => {
         blog_id: blogID,
       })
       .then((res) => {
-        console.log(res?.data);
         setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+        toast.success("Blog Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -99,6 +110,8 @@ const BlogDetails = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
       {/* <!-- main section start here --> */}
       <section className="mainWrapper flex hideMob">
@@ -123,7 +136,10 @@ const BlogDetails = () => {
                         <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
                           <a>
                             <figure>
-                              <img src="app/images/color-bookmarks.png" alt="" />
+                              <img
+                                src="app/images/color-bookmarks.png"
+                                alt=""
+                              />
                             </figure>
                           </a>
                         </li>
@@ -246,12 +262,31 @@ const BlogDetails = () => {
                                   </Link>
                                 </p>
                                 <ul className="flex">
-                                  <li>
-                                    <a href="#">
+                                  <li
+                                    onClick={() => {
+                                      blogdata.saved === "yes"
+                                        ? onBlogUnSave(blogdata.id)
+                                        : onBlogSave(blogdata.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru bookmarkIcon"
-                                        title="Genaiguru bookmarkIcon"
+                                        src={
+                                          blogdata.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          blogdata.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        title={
+                                          blogdata.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
                                       />
                                     </a>
                                   </li>

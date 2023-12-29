@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
+import { ToastContainer, toast } from "react-toastify";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { getBaseURL } from "../../api/config";
@@ -139,7 +140,9 @@ const FeaturedArticles = () => {
       })
       .then((res) => {
         console.log(res?.data);
-        // setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+        toast.success("Article Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -154,7 +157,9 @@ const FeaturedArticles = () => {
       })
       .then((res) => {
         console.log(res?.data);
-        // setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
+        toast.success("Article Unaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((errors) => {
         console.log(errors);
@@ -163,6 +168,8 @@ const FeaturedArticles = () => {
 
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
       <section className="mainWrapper flex hideMob">
         <Sidebar />
@@ -292,7 +299,6 @@ const FeaturedArticles = () => {
                                 <ul className="flex">
                                   <li
                                     onClick={() => {
-                                      // Toggle between onBlogSave and onBlogUnSave based on the condition
                                       article.saved === "yes"
                                         ? onArticleUnSave(article.id)
                                         : onArticleSave(article.id);
