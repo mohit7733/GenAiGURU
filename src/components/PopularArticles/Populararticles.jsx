@@ -86,7 +86,7 @@ const Populararticles = () => {
             id="Slider-4"
             className="slider_test"
           >
-            {articles.map(
+            {articles?.map(
               (article, index) =>
                 article.featured == "yes" && (
                   <div

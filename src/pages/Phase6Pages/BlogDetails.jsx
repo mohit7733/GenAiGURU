@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Layout/Sidebar";
-import MobileHeader from "../../components/Layout/MobileHeader";
-import { useLocation } from "react-router";
 import axios from "axios";
-import { getBaseURL } from "../../api/config";
-import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import Index from "../Authentication/Index";
+import { getBaseURL } from "../../api/config";
+import MobileHeader from "../../components/Layout/MobileHeader";
+import Sidebar from "../../components/Layout/Sidebar";
+import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 
 const BlogDetails = () => {
   const [blogDetail, setBlogDetail] = useState({
@@ -34,7 +33,7 @@ const BlogDetails = () => {
   useEffect(() => {
     axios
       .get(
-        `${getBaseURL()}/latest-blogs?id=${blogId ? blogId : relatedBlogId}`,
+        `${getBaseURL()}/latest-blogs?user_id=${userId}&id=${blogId ? blogId : relatedBlogId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -96,7 +95,6 @@ const BlogDetails = () => {
         console.log(errors);
       });
   };
-  console.log(blogDetail.blogSaved);
 
   return (
     <div>
@@ -122,9 +120,9 @@ const BlogDetails = () => {
                     <ul className="flex">
                       {blogDetail.blogSaved == "yes" ? (
                         <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
-                          <a style={{ backgroundColor:"grey" }}>
+                          <a>
                             <figure>
-                              <img src="./app/images/bookmarkIcon.png" alt="" />
+                              <img src="app/images/color-bookmarks.png" alt="" />
                             </figure>
                           </a>
                         </li>
@@ -292,14 +290,14 @@ const BlogDetails = () => {
           <div className="connect-box">
             <ul className="flex">
               <li>
-                <a href="#">
+                <a>
                   <figure>
                     <img src="./app/images/sorting-icon.png" alt="" />
                   </figure>
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a>
                   <figure>
                     <img src="./app/images/filter-icon.png" alt="" />
                   </figure>
@@ -338,7 +336,6 @@ const BlogDetails = () => {
                         title="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
-                    {/* <span>Photo by jan maelstrom on Unsplash</span> */}
                   </div>
                   <div className="blog-txt">
                     <div

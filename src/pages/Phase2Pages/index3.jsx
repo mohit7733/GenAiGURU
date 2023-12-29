@@ -1,7 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "../../components/Layout/Header";
-import Sidebar from "../../components/Layout/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const Index3 = ({ responseMessage }) => {
   console.log(responseMessage);
