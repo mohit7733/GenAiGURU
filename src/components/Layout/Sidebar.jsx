@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import WithAuth from "../../pages/Authentication/WithAuth";
-import { PATH_TERMS_AND_SERVICES ,PATH_SETTINGS} from "../../routes";
+import { PATH_TERMS_AND_SERVICES, PATH_SETTINGS } from "../../routes";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const Sidebar = () => {
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
+  const subscribeNewsletter = () => {
+    axios
+      .post(`${getBaseURL()}/subscribe`, {
+        email: email,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        alert(res?.data?.message);
+        setEmail("");
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
 
   return (
     <>
@@ -129,10 +147,19 @@ const Sidebar = () => {
           <h5>Join our newsletter</h5>
           <form action="">
             <div className="form_group">
-              <input type="email" placeholder="Email address" />
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="form_group">
-              <button type="button" className="loginBtn">
+              <button
+                type="button"
+                className="loginBtn"
+                onClick={subscribeNewsletter}
+              >
                 Subscribe
               </button>
             </div>
