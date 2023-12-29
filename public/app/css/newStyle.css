@@ -489,6 +489,7 @@ section.login_popup .wrapper400 {
   padding: 70px 50px 40px;
   max-width: 500px;
   border-radius: 32px;
+  margin-top: 90px;
 }
 .new_login_popup.loginOption p {
   margin: 20px 0;
@@ -1216,9 +1217,7 @@ background: #873dd0;
   border-radius: 38px;
   padding: 10px;
 }
-.commanContent li,
-.commanContent li strong,
-.commanContent p,
-.commanContent p strong{
-    color: #fff;
+
+.rightSection .tab-content .about-content h2 {
+    padding: 23px 0;
 }

@@ -19,7 +19,8 @@ const ArticlesDetails = () => {
     title: "",
     banner_image: "",
     creation_date: "",
-    article_id:"",
+    article_id: "",
+    articleSaved: "",
   });
   const [relatedArticle, setRelatedArticle] = useState([]);
   const [relatedArticlesId, setRelatedArticlesId] = useState();
@@ -36,7 +37,7 @@ const ArticlesDetails = () => {
     window.scrollTo(0,0)
     axios
       .get(
-        `${getBaseURL()}/articles?id=${
+        `${getBaseURL()}/articles?user_id=${userId}&id=${
           articleId ? articleId : relatedArticlesId
         }`,
         {
@@ -48,12 +49,14 @@ const ArticlesDetails = () => {
       .then((response) => {
         setArticleDetail({
           author: response?.data?.article_details?.author,
-          author_profile_image:response?.data?.article_details?.author_profile_image,
+          author_profile_image:
+            response?.data?.article_details?.author_profile_image,
           content: response?.data?.article_details?.content,
           title: response?.data?.article_details?.title,
           banner_image: response?.data?.article_details?.banner_image,
           creation_date: response?.data?.article_details?.creation_date,
           article_id: response?.data?.article_details?.id,
+          articleSaved: response?.data?.article_details?.saved,
         });
         // console.log(response?.data?.article_details);
         setRelatedArticle(response?.data?.related_articles);
@@ -64,12 +67,10 @@ const ArticlesDetails = () => {
       });
   }, [relatedArticlesId]);
 
-
-
   const onArticleClick = (articleId) => {
-    setTimeout(()=>{
-      window.scrollTo(0, 0)
-    },1000)
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1000);
     setRelatedArticlesId(articleId);
   };
 
@@ -81,12 +82,27 @@ const ArticlesDetails = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
       })
       .catch((errors) => {
         console.log(errors);
       });
   };
 
+  const onArticleUnSave = (articleID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-article`, {
+        user_id: userId,
+        article_id: articleID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
 
   return (
     <div>
@@ -111,15 +127,33 @@ const ArticlesDetails = () => {
                   </div>
                   <div className="connect-box">
                     <ul className="flex">
-                      <li onClick={()=>onArticleSave(articleDetail.article_id)}>
-                        <a>
-                          <figure>
-                            <img src="./app/images/bookmarkIcon.png" alt="" />
-                          </figure>
-                        </a>
-                      </li>
+                      {articleDetail.articleSaved == "yes" ? (
+                        <li
+                          onClick={() =>
+                            onArticleUnSave(articleDetail.article_id)
+                          }
+                        >
+                          <a>
+                            <figure>
+                              <img src="app/images/color-bookmarks.png" alt="" />
+                            </figure>
+                          </a>
+                        </li>
+                      ) : (
+                        <li
+                          onClick={() =>
+                            onArticleSave(articleDetail.article_id)
+                          }
+                        >
+                          <a>
+                            <figure>
+                              <img src="./app/images/bookmarkIcon.png" alt="" />
+                            </figure>
+                          </a>
+                        </li>
+                      )}
                       <li>
-                        <a href="#">
+                        <a>
                           <figure>
                             <img src="./app/images/share-icon.png" alt="" />
                           </figure>
