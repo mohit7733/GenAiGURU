@@ -34,6 +34,8 @@ const BlogDetails = () => {
   const [comment, setComment] = useState("");
   const [replyComment, setReplyComment] = useState("");
   const [displayCommentModel, setDisplayCommentModel] = useState(false);
+  const [displayRepliesCommentModel, setDisplayRepliesCommentModel] =
+    useState(false);
 
   const [displayReplyCommentModel, setDisplayReplyCommentModel] =
     useState(false);
@@ -87,7 +89,6 @@ const BlogDetails = () => {
       });
     setButtonClicked(false);
     getComments();
-    // getReplyComments();
   }, [relatedBlogId, buttonClicked]);
 
   const onBlogClick = (blogId) => {
@@ -477,6 +478,9 @@ const BlogDetails = () => {
                                           style={{ cursor: "pointer" }}
                                           onClick={() => {
                                             getReplyComments(comment.id);
+                                            setDisplayRepliesCommentModel(
+                                              !displayRepliesCommentModel
+                                            );
                                           }}
                                         >
                                           Replies
@@ -484,35 +488,37 @@ const BlogDetails = () => {
                                       </span>
                                     </a>
                                   </li>
-                                  <li>
-                                    {getReplyBlogComments?.map(
-                                      (reply, index) => {
-                                        return (
-                                          <div key={index}>
-                                            {reply.comment_id ===
-                                              comment.id && (
-                                              <>
-                                                <figure>
-                                                  <img
-                                                    src={
-                                                      reply?.user_details
-                                                        ?.profile_image
-                                                    }
-                                                    alt="Genaiguru review"
-                                                    title="Genaiguru review"
-                                                  />
-                                                </figure>
-                                                <span>
-                                                  {reply?.user_details?.name}
-                                                </span>
-                                                <span>{reply.content}</span>
-                                              </>
-                                            )}
-                                          </div>
-                                        );
-                                      }
-                                    )}
-                                  </li>
+                                  {displayRepliesCommentModel && (
+                                    <li>
+                                      {getReplyBlogComments?.map(
+                                        (reply, index) => {
+                                          return (
+                                            <div key={index}>
+                                              {reply.comment_id ===
+                                                comment.id && (
+                                                <>
+                                                  <figure>
+                                                    <img
+                                                      src={
+                                                        reply?.user_details
+                                                          ?.profile_image
+                                                      }
+                                                      alt="repliedUserIcon"
+                                                      title="repliedUserIcon"
+                                                    />
+                                                  </figure>
+                                                  <span>
+                                                    {reply?.user_details?.name}
+                                                  </span>
+                                                  <span>{reply.content}</span>
+                                                </>
+                                              )}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                    </li>
+                                  )}
                                 </ul>
                                 {isReplyBoxOpen && (
                                   <div className="review">
