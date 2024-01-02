@@ -48,7 +48,7 @@ const FeaturedContent = () => {
 
   const getAllInterests = () => {
     axios
-      .get(`${getBaseURL()}/auth/interests`, {
+      .get(`${getBaseURL()}/interests`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -463,7 +463,7 @@ const FeaturedContent = () => {
                                 </div>
                                 <ul className="flex">
                                   <li>
-                                    <a href="#">
+                                    <a>
                                       <img
                                         src="app/images/color-bookmarks.png"
                                         alt="Genaiguru color-bookmarks"
@@ -472,7 +472,7 @@ const FeaturedContent = () => {
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a>
                                       <img
                                         src="app/images/dotsIcons.png"
                                         alt="Genaiguru dotsIcons"
