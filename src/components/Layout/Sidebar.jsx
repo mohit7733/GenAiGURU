@@ -19,9 +19,8 @@ const Sidebar = () => {
     const newEmail = event.target.value.trim();
     setEmail(newEmail);
 
-    // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setIsValidEmail(emailRegex.test(newEmail));
+    setIsValidEmail(newEmail === "" || emailRegex.test(newEmail));
   };
 
   const subscribeNewsletter = () => {
@@ -41,14 +40,14 @@ const Sidebar = () => {
           setEmail("");
           setTimeout(() => {
             setmessage("");
-          }, 2000);
+          }, 5000);
         })
         .catch((errors) => {
           console.log(errors);
           seterromessage("Please Enter Email");
           setTimeout(() => {
             seterromessage("");
-          }, 2000);
+          }, 5000);
         });
     }
   };

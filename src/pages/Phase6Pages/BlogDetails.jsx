@@ -7,7 +7,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import { ToastContainer, toast } from "react-toastify";
-import { FacebookShareButton, TwitterShareButton } from "react-social";
+import { FacebookButton, FacebookCount, LinkedInButton } from "react-social";
 import Modal from "react-modal";
 import WithAuth from "../Authentication/WithAuth";
 
@@ -36,6 +36,7 @@ const BlogDetails = () => {
   const blogId = queryParam.get("id");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [iconsVisible, setIconsVisible] = useState(false);
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
@@ -120,6 +121,7 @@ const BlogDetails = () => {
         console.log(errors);
       });
   };
+
   const shareUrl = "https://example.com"; // Replace with your actual URL
 
   return (
@@ -174,6 +176,59 @@ const BlogDetails = () => {
                             </a>
                           </li>
                         )}
+                        <Modal
+                          isOpen={isModalOpen}
+                          onRequestClose={handleModalClose}
+                          contentLabel="Share Icons Modal"
+                          style={{
+                            overlay: {
+                              backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            },
+                            content: {
+                              width: "500px",
+                              height: "300px",
+                              margin: "auto",
+                              marginTop: "10%",
+                              padding: "20px",
+                              borderRadius: "8px",
+                              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                              backgroundColor: "gray",
+                              position: "relative", // Ensure relative positioning for absolute child elements
+                            },
+                          }}
+                        >
+                          <a
+                            onClick={handleModalClose}
+                            style={{
+                              position: "absolute",
+                              top: "10px",
+                              right: "10px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <figure>
+                              <img src="./app/images/cross-icon.png" alt="" />
+                            </figure>
+                          </a>
+                          <ul style={{ listStyle: "none", padding: "0" }}>
+                            <li>
+                              <FacebookButton
+                                url={shareUrl}
+                                appId="1394023161194162"
+                              >
+                                {" "}
+                                <a href="#">
+                                  <figure>
+                                    <img
+                                      src="app/images/facebookIcon.png"
+                                      alt="Facebook Share"
+                                    />
+                                  </figure>
+                                </a>
+                              </FacebookButton>
+                            </li>
+                          </ul>
+                        </Modal>
                         <li onClick={handleButtonClick}>
                           <a>
                             <figure>
