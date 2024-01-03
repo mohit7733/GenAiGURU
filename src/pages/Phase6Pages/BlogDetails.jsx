@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { FacebookButton } from "react-social";
+import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
-import { ToastContainer, toast } from "react-toastify";
-import { FacebookButton, FacebookCount, LinkedInButton } from "react-social";
-import Modal from "react-modal";
 import WithAuth from "../Authentication/WithAuth";
 
 const BlogDetails = () => {
@@ -23,9 +23,22 @@ const BlogDetails = () => {
     blogSaved: "",
   });
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [getBlogComments, setGetBlogComments] = useState([]);
+  const [getReplyBlogComments, setGetReplyBlogComments] = useState([]);
+
+  const [replyCommentModels, setReplyCommentModels] = useState([]);
 
   const [relatedBlogId, setRelatedBlogId] = useState();
   const [buttonClicked, setButtonClicked] = useState(false);
+
+  const [comment, setComment] = useState("");
+  const [replyComment, setReplyComment] = useState("");
+  const [displayCommentModel, setDisplayCommentModel] = useState(false);
+  const [displayRepliesCommentModel, setDisplayRepliesCommentModel] =
+    useState(false);
+
+  const [displayReplyCommentModel, setDisplayReplyCommentModel] =
+    useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -36,7 +49,6 @@ const BlogDetails = () => {
   const blogId = queryParam.get("id");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [iconsVisible, setIconsVisible] = useState(false);
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
@@ -71,12 +83,12 @@ const BlogDetails = () => {
           blogSaved: response?.data?.blog_details?.saved,
         });
         setRelatedBlogs(response?.data?.related_blogs);
-        // console.log(response?.data.related_blogs);
       })
       .catch((err) => {
         console.log(err.message);
       });
     setButtonClicked(false);
+    getComments();
   }, [relatedBlogId, buttonClicked]);
 
   const onBlogClick = (blogId) => {
@@ -122,7 +134,86 @@ const BlogDetails = () => {
       });
   };
 
+  const getComments = () => {
+    axios
+      .get(`${getBaseURL()}/blog-comment?blog_id=${blogId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // console.log(res?.data);
+        setGetBlogComments(res?.data?.comments);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const getReplyComments = (id) => {
+    axios
+      .get(`${getBaseURL()}/blog-comment-reply?comment_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // console.log(res?.data?.replies);
+        setGetReplyBlogComments(res?.data?.replies);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const postBlogComment = () => {
+    axios
+      .post(`${getBaseURL()}/blog-comment`, {
+        user_id: userId,
+        blog_id: blogDetail.blog_id,
+        content: comment,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setComment("");
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const postBlogReplyComment = (commentId, replyCommentt) => {
+    axios
+      .post(`${getBaseURL()}/blog-comment-reply`, {
+        user_id: userId,
+        comment_id: commentId,
+        content: replyCommentt,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setReplyComment("");
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   const shareUrl = "https://example.com"; // Replace with your actual URL
+
+  // Function to toggle the reply input box for a specific comment
+  const toggleReplyCommentModel = (commentId) => {
+    const updatedModels = [...replyCommentModels];
+    const index = updatedModels.indexOf(commentId);
+
+    if (index === -1) {
+      updatedModels.push(commentId);
+    } else {
+      updatedModels.splice(index, 1);
+    }
+
+    setReplyCommentModels(updatedModels);
+  };
 
   return (
     <div>
@@ -276,7 +367,12 @@ const BlogDetails = () => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a href="#">
+                          <a
+                            onClick={() =>
+                              setDisplayCommentModel(!displayCommentModel)
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
                             <figure>
                               <img
                                 src="./app/images/comment-01.png"
@@ -288,7 +384,7 @@ const BlogDetails = () => {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a>
                             <figure>
                               <img
                                 src="./app/images/help-circle.png"
@@ -300,6 +396,179 @@ const BlogDetails = () => {
                           </a>
                         </li>
                       </ul>
+                      {displayCommentModel && (
+                        <>
+                          <div className="review">
+                            <ul>
+                              <li>
+                                <a>
+                                  <figure>
+                                    <img
+                                      src="/app/images/review-1.png"
+                                      alt="Genaiguru review"
+                                      title="Genaiguru review"
+                                    />
+                                  </figure>
+                                  <span>
+                                    <span>Prosing kingdom </span>
+                                    <br />
+                                    <small>
+                                      <input
+                                        type="text"
+                                        placeholder="Comment Here......"
+                                        value={comment}
+                                        onChange={(e) =>
+                                          setComment(e.target.value)
+                                        }
+                                      />
+                                      <button onClick={postBlogComment}>
+                                        Post
+                                      </button>
+                                    </small>
+                                    <br />
+                                  </span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                          {/* Get Comments */}
+                          {getBlogComments.map((comment, index) => {
+                            const isReplyBoxOpen = replyCommentModels.includes(
+                              comment.id
+                            );
+
+                            return (
+                              <div className="review" key={index}>
+                                <ul>
+                                  <li>
+                                    <a>
+                                      <figure>
+                                        <img
+                                          src={
+                                            comment?.user_details?.profile_image
+                                          }
+                                          alt="Genaiguru review"
+                                          title="Genaiguru review"
+                                        />
+                                      </figure>
+                                      <span>
+                                        <span>
+                                          {comment?.user_details?.name}{" "}
+                                        </span>
+                                        <br />
+                                        <small>{comment?.content}</small>
+                                        <br />
+                                        <img
+                                          src="/app/images/thumbs-up.png"
+                                          alt=""
+                                        />
+                                        <img
+                                          src="/app/images/thumbs-down.png"
+                                          alt=""
+                                        />
+                                        <span
+                                          style={{ cursor: "pointer" }}
+                                          onClick={() =>
+                                            toggleReplyCommentModel(comment.id)
+                                          }
+                                        >
+                                          Reply
+                                        </span>
+                                        <span
+                                          style={{ cursor: "pointer" }}
+                                          onClick={() => {
+                                            getReplyComments(comment.id);
+                                            setDisplayRepliesCommentModel(
+                                              !displayRepliesCommentModel
+                                            );
+                                          }}
+                                        >
+                                          Replies
+                                        </span>
+                                      </span>
+                                    </a>
+                                  </li>
+                                  {displayRepliesCommentModel && (
+                                    <li>
+                                      {getReplyBlogComments?.map(
+                                        (reply, index) => {
+                                          return (
+                                            <div key={index}>
+                                              {reply.comment_id ===
+                                                comment.id && (
+                                                <>
+                                                  <figure>
+                                                    <img
+                                                      src={
+                                                        reply?.user_details
+                                                          ?.profile_image
+                                                      }
+                                                      alt="repliedUserIcon"
+                                                      title="repliedUserIcon"
+                                                    />
+                                                  </figure>
+                                                  <span>
+                                                    {reply?.user_details?.name}
+                                                  </span>
+                                                  <span>{reply.content}</span>
+                                                </>
+                                              )}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                    </li>
+                                  )}
+                                </ul>
+                                {isReplyBoxOpen && (
+                                  <div className="review">
+                                    <ul>
+                                      <li>
+                                        <a>
+                                          <figure>
+                                            <img
+                                              src="/app/images/review-1.png"
+                                              alt="Genaiguru review"
+                                              title="Genaiguru review"
+                                            />
+                                          </figure>
+                                          <span>
+                                            <span>Prosing kingdom </span>
+                                            <br />
+                                            <small>
+                                              <input
+                                                type="text"
+                                                placeholder="Reply Here......"
+                                                value={replyComment}
+                                                onChange={(e) =>
+                                                  setReplyComment(
+                                                    e.target.value
+                                                  )
+                                                }
+                                              />
+                                              <button
+                                                onClick={() =>
+                                                  postBlogReplyComment(
+                                                    comment.id,
+                                                    replyComment
+                                                  )
+                                                }
+                                              >
+                                                Post
+                                              </button>
+                                            </small>
+                                            <br />
+                                          </span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
                     </div>
 
                     {/* <!-- home interest section start here --> */}

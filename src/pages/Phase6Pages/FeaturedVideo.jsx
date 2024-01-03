@@ -48,7 +48,7 @@ const FeaturedContent = () => {
   // Get API for interests
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/auth/interests`, {
+      .get(`${getBaseURL()}/interests`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

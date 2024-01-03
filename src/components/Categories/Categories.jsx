@@ -21,7 +21,7 @@ const Categories = () => {
       })
       .then((response) => {
         setMyInterests(response?.data?.data);
-        setDefaultCategoryId(response?.data?.data[0].interest_id);
+        setDefaultCategoryId(response?.data?.data[0]?.interest_id);
       })
       .catch((err) => {
         console.log(err.message);
@@ -58,6 +58,7 @@ const Categories = () => {
     setDisplayView(true);
   };
 
+  
   return (
     <div>
       <div className="home-category">
