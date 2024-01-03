@@ -272,7 +272,28 @@ section.login_popup .wrapper400 {
   top: 10px;
   right: 20px;
 }
+section.loginPopup.filterPopup .headingContent {
+  display: flex;
+  flex-wrap: wrap;
+ gap: 12px;
+}
+.loginPopup.filterPopup .headingContent .sortType button {
+  background-color: #C6D0E11A;
+  color: #fff;
+  border-radius: 30px;
+  padding: 17px 22px;
+  border: none;
+}
+section.loginPopup.filterPopup .headingContent h5  {
+  width: 100%;
+}
+.loginPopup.filterPopup .headingContent button:hover{
+  background-color:#873dd0 !important;
 
+}
+button.activebtn {
+  background-color: purple !important;
+}
 .interestSection button.loginBtn {
   position: absolute;
   width: 100%;

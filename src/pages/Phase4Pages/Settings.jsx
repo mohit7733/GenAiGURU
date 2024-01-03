@@ -16,6 +16,7 @@ const Settings = () => {
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
   const [faq,setFaq]=useState([]);
+  const [isVisible, setIsVisible] = useState();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const navigate = useNavigate();
@@ -662,10 +663,12 @@ const Settings = () => {
                     {/* <div className="tab-content tab-content-6"> */}
                     <h4>Q&A</h4>
                     <br/>
-                    {faq.map((faqdata) => (
+                    {faq.map((faqdata,index) => (
                         <div class="faq-box">
-                        <div class="accordion">
-                          <h6>{faqdata.question}</h6>
+                        <div class="accordion" onClick={(e) =>
+                              setIsVisible(isVisible == index ? -1 : index)
+                            }>
+                          <h4>{faqdata.question}</h4>
                           <div class="leftArrow">
                             <img
                               src="app/images/arrow-left.png"
@@ -674,15 +677,13 @@ const Settings = () => {
                             />
                           </div>
                         </div>
-                        <div class="panel">
-                          {/* <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p> */}
-                          {faqdata.answer}
+                        <div class="panel" style={
+                              isVisible == index ? { display: "block" } : {}
+                            }>
+                          <p>
+                          {faqdata.answer}  
+                          </p>
+                          
                         </div>
                       </div>
                         ))}

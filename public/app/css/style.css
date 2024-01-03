@@ -6016,19 +6016,19 @@ width: 485px;
 margin-right: 50px;
 }
 
-.rightSection .contact-wrapper .faq-container .faq-box {
+.rightSection .contact-wrapper .faq-container .faq-box, .rightSection .setting-wrapper .setting-box .faq-box {
 margin-top: 12px;
 }
 
-.rightSection .contact-wrapper .faq-container .faq-box.active .accordion {
+.rightSection .contact-wrapper .faq-container .faq-box.active .accordion, .rightSection .setting-wrapper .setting-box .faq-box.active .accordion{
 border-radius: 12px 12px 0 0;
 }
 
-.rightSection .contact-wrapper .faq-container .faq-box.active .leftArrow img {
+.rightSection .contact-wrapper .faq-container .faq-box.active .leftArrow img , .rightSection .setting-wrapper .setting-box .faq-box.active .leftArrow img {
 transform: rotate(90deg);
 }
 
-.rightSection .contact-wrapper .faq-container .faq-box .accordion {
+.rightSection .contact-wrapper .faq-container .faq-box .accordion, .rightSection .setting-wrapper .setting-box .faq-box .accordion {
 background: rgba(248, 252, 255, 0.1);
 box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.13);
 width: 100%;
@@ -6047,11 +6047,24 @@ transition: all 0.25s ease;
 .faq-container
 .faq-box
 .accordion:hover
+.leftArrow, .rightSection .setting-wrapper .setting-box .accordion:hover
 .leftArrow {
 border: 2px solid #be41c0;
 }
+.rightSection .setting-wrapper .setting-box .faq-box{
+  width: 100%;
+  /* display: flex; */
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.25s ease;
 
-.rightSection .contact-wrapper .faq-container .faq-box .leftArrow {
+}
+.rightSection .setting-wrapper .setting-box .faq-box .accordion:hover{
+  border: 2px solid #be41c0;
+}
+.rightSection .contact-wrapper .faq-container .faq-box .leftArrow, .rightSection .setting-wrapper .setting-box .faq-box .leftArrow {
 width: 40px;
 height: 40px;
 border-radius: 50%;
@@ -6063,7 +6076,7 @@ border: 2px solid transparent;
 transition: all 0.25s ease;
 }
 
-.rightSection .contact-wrapper .faq-container .faq-box .leftArrow img {
+.rightSection .contact-wrapper .faq-container .faq-box .leftArrow img,.rightSection .setting-wrapper .setting-box  .faq-box .leftArrow img {
 transition: all 0.25s ease;
 }
 
@@ -6076,20 +6089,24 @@ font-family: PlusJakartaSansMedium;
 padding-right: 90px;
 width: calc(100% - 40px);
 }
+.rightSection .setting-wrapper .setting-box .faq-box h4{
+  width: calc(100% - 40px);
+}
 
-.rightSection .contact-wrapper .faq-container .faq-box p {
+.rightSection .contact-wrapper .faq-container .faq-box p, .rightSection .setting-wrapper .setting-box .faq-box p {
 color: #fff;
 font-size: 16px;
 font-weight: 400;
 font-family: PlusJakartaSansRegular;
 }
 
-.rightSection .contact-wrapper .faq-container .faq-box .panel {
+.rightSection .contact-wrapper .faq-container .faq-box .panel, .rightSection .setting-wrapper .setting-box  .faq-box .panel{
 display: none;
 padding: 20px 18px;
 background: rgba(248, 252, 255, 0.1);
 box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.13);
-border-radius: 0 0 12px 12px;
+border-radius: 12px 12px;
+margin-top: 10px;
 }
 
 .rightSection .contact-wrapper .contact-container {
