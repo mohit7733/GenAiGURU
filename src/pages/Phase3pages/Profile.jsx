@@ -192,9 +192,6 @@ const Profile = () => {
           toast.success("Interests Changed Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
-          // setTimeout(() => {
-          //   setDisplayInterestPopup(false);
-          // }, 1000);
           setDisplayInterestPopup(false);
           getMyInterest();
         }else{

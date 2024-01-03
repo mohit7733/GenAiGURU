@@ -11,20 +11,56 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_VIDEO_PLAY } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
+import FeaturedContentPopup from "./FeaturedContentPopup";
 
-const FeaturedContent = () => {
+const FeaturedContent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [indexTab, setIndexTab] = useState();
-
+  const [filter, setFilter] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const [popularVideos, setPopularVideos] = useState([]);
   const [myInterests, setMyInterests] = useState();
 
   const navigate = useNavigate();
-
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  const date = new Date();
+  const data = date.setDate(date.getDate());
+  const dateObject = new Date(data);
+  const currentTime = dateObject.toISOString().split("T")[0];
+
+  const Featuredpopup = (popularity, sortby, currentDate) => {
+    console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
+
+    axios
+      .get(
+        `${getBaseURL()}/popular-latest-videos?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
+          popularity,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setPopularVideos(response?.data?.videos);
+        console.log(response?.data,"shjgfd");
+        setFilter(false);
+      })
+      .catch(
+        (err) => {
+          console.log(err.message, " popular-latest-videos api error");
+          toast.error("No data found.", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          <ToastContainer autoClose={1000}/>
+          setFilter(false);
+        },
+        [currentDate]
+      );
+  };
 
   // Get API for Popular Videos
   useEffect(() => {
@@ -245,15 +281,15 @@ const FeaturedContent = () => {
                     {/* Sort by and Filter By Div  */}
                     <div className="connect-box" style={{ width: "11%" }}>
                       <ul className="flex">
-                        <li>
+                        {/* <li>
                           <Link to="/sortbydate">
                             <figure>
                               <img src="./app/images/sorting-icon.png" alt="" />
                             </figure>
                           </Link>
-                        </li>
+                        </li> */}
                         <li>
-                          <Link to="/featuredpopup">
+                        <Link to="" onClick={(e) => setFilter(true)}>
                             <figure>
                               <img src="./app/images/filter-icon.png" alt="" />
                             </figure>
@@ -428,6 +464,7 @@ const FeaturedContent = () => {
           </div>
         </div>
       </section>
+      {filter ? <FeaturedContentPopup Featuredpopup={Featuredpopup} /> : ""}
       {/* <!-- mobile section start here --> */}
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">

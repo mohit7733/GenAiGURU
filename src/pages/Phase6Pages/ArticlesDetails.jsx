@@ -241,7 +241,7 @@ const ArticlesDetails = () => {
                                 title="Genaiguru help-circle"
                               />
                             </figure>{" "}
-                            <span>Ask question</span>
+                            <Link to="/contact"><span>Ask question</span></Link>
                           </a>
                         </li>
                       </ul>
