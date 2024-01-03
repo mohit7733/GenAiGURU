@@ -13,6 +13,8 @@ const GuruGenesis = () => {
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState([]);
   const [activeTab, setActiveTab] = useState(1);
+  const [faq, setFaq] = useState([]);
+  const [isVisible, setIsVisible] = useState();
   const [contactUsDetails, setContactUsDetails] = useState({
     fullName: "",
     email: "",
@@ -22,9 +24,13 @@ const GuruGenesis = () => {
     title: "",
     description: "",
   });
+  // const toggleVisibility = () => {
+  //   setIsVisible(!isVisible);
+  // };
 
   // get API for About-us.......
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/about-us`, {})
       .then((response) => {
@@ -35,6 +41,22 @@ const GuruGenesis = () => {
       })
       .catch((err) => {
         console.log(err.message);
+      });
+  }, []);
+
+  // get API for FAQ.......
+
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/faq`)
+      .then((response) => {
+        // Handle the successful response
+        setFaq(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error fetching data:", error);
       });
   }, []);
 
@@ -162,67 +184,81 @@ const GuruGenesis = () => {
                   <div class="contact-wrapper flex">
                     <div class="faq-container">
                       <h5>FAQ</h5>
+                      {faq.map((faqdata, index) => (
+                        <div class="faq-box">
+                          <div
+                            class="accordion"
+                            onClick={(e) =>
+                              setIsVisible(isVisible == index ? -1 : index)
+                            }
+                          >
+                            <h4>{faqdata.question}</h4>
+                            <div class="leftArrow">
+                              <img
+                                src="app/images/arrow-left.png"
+                                alt="Genaiguru arrow-left"
+                                title="Genaiguru arrow-left"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="panel"
+                            style={
+                              isVisible == index ? { display: "block" } : {}
+                            }
+                          >
+                            <p>
+                              {/* Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. */}
+                              {faqdata.answer}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+
                       <div class="faq-box">
-                        <div class="accordion">
-                          <h4>What impact have commons users had so far </h4>
-                          <div class="leftArrow">
+                        {/* <div class="accordion"> */}
+                        {/* <h4>What impact have commons users had so far </h4> */}
+                        {/* <div class="leftArrow">
                             <img
                               src="app/images/arrow-left.png"
                               alt="Genaiguru arrow-left"
                               title="Genaiguru arrow-left"
                             />
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div> */}
                         <div class="panel">
-                          <p>
+                          {/* <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing
                             elit, sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua. Ut enim ad minim veniam, quis
                             nostrud exercitation ullamco laboris nisi ut aliquip
                             ex ea commodo consequat.
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                       <div class="faq-box">
-                        <div class="accordion">
-                          <h4>What impact have commons users had so far </h4>
-                          <div class="leftArrow">
+                        {/* <div class="accordion"> */}
+                        {/* <h4>What impact have commons users had so far </h4> */}
+                        {/* <div class="leftArrow">
                             <img
                               src="app/images/arrow-left.png"
                               alt="Genaiguru arrow-left"
                               title="Genaiguru arrow-left"
                             />
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div> */}
                         <div class="panel">
-                          <p>
+                          {/* <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing
                             elit, sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua. Ut enim ad minim veniam, quis
                             nostrud exercitation ullamco laboris nisi ut aliquip
                             ex ea commodo consequat.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="faq-box">
-                        <div class="accordion">
-                          <h4>What impact have commons users had so far </h4>
-                          <div class="leftArrow">
-                            <img
-                              src="app/images/arrow-left.png"
-                              alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
-                            />
-                          </div>
-                        </div>
-                        <div class="panel">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>
@@ -287,7 +323,7 @@ const GuruGenesis = () => {
                     activeTab === 2 && "tab-content tab-content-2 active"
                   }
                 >
-                  <div class="about-content commanContent" >
+                  <div class="about-content commanContent">
                     {/* <h4>{aboutus.title}</h4> */}
                     <p>
                       {/* Looking To Upgrade Your Salary In The UK? Get The Salary
@@ -296,7 +332,7 @@ const GuruGenesis = () => {
                       The Course. Change Career. Career Changing Skills. Spaces
                       Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
                       {/* {aboutus.description} */}
-                      <p 
+                      <p
                         dangerouslySetInnerHTML={{
                           __html: aboutus.description,
                         }}

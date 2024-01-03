@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useRoutes } from "react-router-dom";
 import Slider from "react-slick";
 import { ToastContainer, toast } from "react-toastify";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,11 +10,12 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_BLOG_DETAILS } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
+import FeaturedContentPopup from "./FeaturedContentPopup";
 
-const FeaturedContent = () => {
+const FeaturedContent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [indexTab, setIndexTab] = useState();
-
+  const [filter, setFilter] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const [myInterests, setMyInterests] = useState([]);
@@ -25,11 +26,45 @@ const FeaturedContent = () => {
 
   const navigate = useNavigate();
   const sliderRef = useRef();
+  const date = new Date();
+  const data = date.setDate(date.getDate());
+  const dateObject = new Date(data);
+  const currentTime = dateObject.toISOString().split("T")[0];
+
+  const Featuredpopup = (popularity, sortby, currentDate) => {
+    console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
+
+    axios
+      .get(
+        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
+          popularity,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setLatestBlog(response?.data?.blogs);
+        setFilter(false);
+      })
+      .catch(
+        (err) => {
+          console.log(err.message, " blog api error");
+          toast.error("No data found.", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          <ToastContainer autoClose={1000}/>
+          setFilter(false);
+        },
+        [currentDate]
+      );
+  };
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const location = useLocation();
 
-  // Get API for Popular Blogs
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/latest-blogs?user_id=${userId}`, {
@@ -313,15 +348,15 @@ const FeaturedContent = () => {
                     {/* Sort by and Filter By Div  */}
                     <div className="connect-box" style={{ width: "11%" }}>
                       <ul className="flex">
-                        <li>
+                        {/* <li>
                           <Link to="/sortbydate">
                             <figure>
                               <img src="./app/images/sorting-icon.png" alt="" />
                             </figure>
                           </Link>
-                        </li>
+                        </li> */}
                         <li>
-                          <Link to="/featuredpopup">
+                          <Link to="" onClick={(e) => setFilter(true)}>
                             <figure>
                               <img src="./app/images/filter-icon.png" alt="" />
                             </figure>
@@ -333,7 +368,9 @@ const FeaturedContent = () => {
                 </div>
                 {/* <!-- tab-link start here --> */}
               </div>
+
               {/* <!-- tab-content here --> */}
+
               {activeTab === 0 && (
                 <div
                   className={
@@ -630,6 +667,7 @@ const FeaturedContent = () => {
           </div>
         </div>
       </section>
+      {filter ? <FeaturedContentPopup Featuredpopup={Featuredpopup} /> : ""}
       {/* <!-- mobile section start here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">

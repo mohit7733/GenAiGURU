@@ -15,6 +15,7 @@ const Settings = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
+  const [faq,setFaq]=useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const navigate = useNavigate();
@@ -22,6 +23,21 @@ const Settings = () => {
     title: "",
     description: "",
   });
+
+    // get API for FAQ.......
+
+    useEffect(() => {
+      axios.get(`${getBaseURL()}/faq`)
+      .then(response => {
+        // Handle the successful response
+        setFaq(response.data.data);
+        console.log(response.data.data)
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error fetching data:', error);
+      });
+    }, []);
 
  // get API for Privacy Policy.......
   useEffect(() => {
@@ -301,7 +317,7 @@ const Settings = () => {
                           title="Genaiguru Customize"
                         />
                       </figure>
-                      <span>Customize your interest</span>
+                      <Link to={PATH_PROFILE}><span>Customize your interest</span></Link>
                     </Link>
                   </li>
                   <li className={activeTab === 4 ? " active" : ""}>
@@ -350,6 +366,7 @@ const Settings = () => {
                         />
                       </figure>
                       <span>Q&A</span>
+                      
                     </Link>
                   </li>
                   <li className={activeTab === 7 ? " active" : ""}>
@@ -643,7 +660,32 @@ const Settings = () => {
                     }
                   >
                     {/* <div className="tab-content tab-content-6"> */}
-                    <h5>Q&A</h5>
+                    <h4>Q&A</h4>
+                    <br/>
+                    {faq.map((faqdata) => (
+                        <div class="faq-box">
+                        <div class="accordion">
+                          <h6>{faqdata.question}</h6>
+                          <div class="leftArrow">
+                            <img
+                              src="app/images/arrow-left.png"
+                              alt="Genaiguru arrow-left"
+                              title="Genaiguru arrow-left"
+                            />
+                          </div>
+                        </div>
+                        <div class="panel">
+                          {/* <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat.
+                          </p> */}
+                          {faqdata.answer}
+                        </div>
+                      </div>
+                        ))}
                   </div>
                 )}
                 {/* <!-- notification --> */}

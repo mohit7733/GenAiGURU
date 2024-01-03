@@ -10,10 +10,12 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_ARTICLE_DETAILS } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
+import FeaturedContentPopup from "./FeaturedContentPopup";
 
-const FeaturedArticles = () => {
+const FeaturedArticles = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [indexTab, setIndexTab] = useState();
+  const [filter, setFilter] = useState(false);
 
   const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -43,6 +45,42 @@ const FeaturedArticles = () => {
       });
     setButtonClicked(false);
   }, [buttonClicked]);
+
+  const date = new Date();
+  const data = date.setDate(date.getDate());
+  const dateObject = new Date(data);
+  const currentTime = dateObject.toISOString().split("T")[0];
+
+  const Featuredpopup = (popularity, sortby, currentDate) => {
+    console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
+
+    axios
+      .get(
+        `${getBaseURL()}/articles?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
+          popularity,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setArticles(response?.data?.articles);
+        console.log(response?.data,"shjgfd");
+        setFilter(false);
+      })
+      .catch(
+        (err) => {
+          console.log(err.message, " articles api error");
+          toast.error("No data found.", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          <ToastContainer autoClose={1000}/>
+          setFilter(false);
+        },
+        [currentDate]
+      );
+  };
 
   // Get API for Interests
   useEffect(() => {
@@ -244,15 +282,15 @@ const FeaturedArticles = () => {
                     {/* Sort by and Filter By Div  */}
                     <div className="connect-box" style={{ width: "11%" }}>
                       <ul className="flex">
-                        <li>
+                        {/* <li>
                           <Link to="/sortbydate">
                             <figure>
                               <img src="./app/images/sorting-icon.png" alt="" />
                             </figure>
                           </Link>
-                        </li>
+                        </li> */}
                         <li>
-                          <Link to="/featuredpopup">
+                        <Link to="" onClick={(e) => setFilter(true)}>
                             <figure>
                               <img src="./app/images/filter-icon.png" alt="" />
                             </figure>
@@ -527,6 +565,7 @@ const FeaturedArticles = () => {
           </div>
         </div>
       </section>
+      {filter ? <FeaturedContentPopup Featuredpopup={Featuredpopup} /> : ""}
       {/* <!-- mobile section start here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
