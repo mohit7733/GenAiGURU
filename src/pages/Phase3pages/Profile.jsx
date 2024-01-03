@@ -117,7 +117,7 @@ const Profile = () => {
   // GET ALL-INTERESTS API------------
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/auth/interests`, {
+      .get(`${getBaseURL()}/interests`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

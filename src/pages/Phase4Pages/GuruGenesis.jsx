@@ -24,9 +24,6 @@ const GuruGenesis = () => {
     title: "",
     description: "",
   });
-  // const toggleVisibility = () => {
-  //   setIsVisible(!isVisible);
-  // };
 
   // get API for About-us.......
   useEffect(() => {
@@ -197,7 +194,7 @@ const GuruGenesis = () => {
                               <img
                                 src="app/images/arrow-left.png"
                                 alt="Genaiguru arrow-left"
-                                title="Genaiguru arrow-left"
+                                // title="Genaiguru arrow-left"
                               />
                             </div>
                           </div>

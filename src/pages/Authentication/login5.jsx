@@ -16,7 +16,7 @@ const Login5 = () => {
   /* UseEffect for Get Interest API */
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/auth/interests`, {
+      .get(`${getBaseURL()}/interests`, {
         headers: {
           Authorization: `Bearer ${registerToken}`,
         },
