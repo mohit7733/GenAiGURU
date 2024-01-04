@@ -10,6 +10,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
+import Sharebtn from "./sharebtn";
 
 const BlogDetails = () => {
   const [blogDetail, setBlogDetail] = useState({
@@ -26,10 +27,10 @@ const BlogDetails = () => {
   const [getBlogComments, setGetBlogComments] = useState([]);
   const [getReplyBlogComments, setGetReplyBlogComments] = useState([]);
   const [profileImage, setProfileImage] = useState({
-    profile_image:"",
-    name:"",
+    profile_image: "",
+    name: "",
   });
-  
+
   const [replyCommentModels, setReplyCommentModels] = useState([]);
 
   const [relatedBlogId, setRelatedBlogId] = useState();
@@ -202,9 +203,9 @@ const BlogDetails = () => {
         console.log(err.message);
       });
   };
-   // get user details api..........
+  // get user details api..........
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -213,8 +214,8 @@ const BlogDetails = () => {
       })
       .then((response) => {
         setProfileImage({
-          profile_image:response.data.profile_image,
-          name:response.data.name,
+          profile_image: response.data.profile_image,
+          name: response.data.name,
         });
       })
       .catch((err) => {
@@ -290,7 +291,7 @@ const BlogDetails = () => {
                             </a>
                           </li>
                         )}
-                        <Modal
+                        {/* <Modal
                           isOpen={isModalOpen}
                           onRequestClose={handleModalClose}
                           contentLabel="Share Icons Modal"
@@ -349,6 +350,17 @@ const BlogDetails = () => {
                               <img src="./app/images/share-icon.png" alt="" />
                             </figure>
                           </a>
+                        </li> */}
+                        <li>
+                          <Sharebtn
+                            title={blogDetail.title}
+                            id={blogDetail.blog_id}
+                            url={
+                              window.location.origin +
+                              "/blogdetails?id=" +
+                              blogDetail.blog_id
+                            }
+                          />
                         </li>
                       </ul>
                     </WithAuth>
@@ -415,7 +427,9 @@ const BlogDetails = () => {
                                 title="Genaiguru help-circle"
                               />
                             </figure>{" "}
-                            <Link to="/contact"><span>Ask question</span></Link>
+                            <Link to="/contact">
+                              <span>Ask question</span>
+                            </Link>
                           </a>
                         </li>
                       </ul>
