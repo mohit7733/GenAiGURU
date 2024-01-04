@@ -36,11 +36,11 @@ const FeaturedContentPopup = (props) => {
       type: "Most Read",
     },
   ];
-  const selectSortType = (item) => {
-    const { type } = item;
-    // console.log( "selectSortType", type);
-    setPopularity(type);
-  };
+  // const selectSortType = (item) => {
+  //   const { type } = item;
+  //   // console.log( "selectSortType", type);
+  //   setPopularity(type);
+  // };
   const Sortby = (item) => {
     const { type } = item;
     // console.log("Sortby ", type);
@@ -91,7 +91,7 @@ const FeaturedContentPopup = (props) => {
             {sortType.map((item, index) => {
               return (
                 <div className="sortType">
-                  <button onClick={() => selectSortType(item)}>
+                  <button  className={popularity==item.type?"activebtn":""} onClick={() =>setPopularity(item.type)}>
                     {item.type}
                   </button>
                 </div>
@@ -119,7 +119,7 @@ const FeaturedContentPopup = (props) => {
             {Sortby1.map((item, index) => {
               return (
                 <div className="sortType">
-                  <button onClick={() => Sortby(item)}>{item.type}</button>
+                  <button className={sortby==item.type?"activebtn":""} onClick={() => Sortby(item)}>{item.type}</button>
                 </div>
               );
             })}
