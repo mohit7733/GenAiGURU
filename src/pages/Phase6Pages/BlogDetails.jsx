@@ -25,7 +25,11 @@ const BlogDetails = () => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [getBlogComments, setGetBlogComments] = useState([]);
   const [getReplyBlogComments, setGetReplyBlogComments] = useState([]);
-
+  const [profileImage, setProfileImage] = useState({
+    profile_image:"",
+    name:"",
+  });
+  
   const [replyCommentModels, setReplyCommentModels] = useState([]);
 
   const [relatedBlogId, setRelatedBlogId] = useState();
@@ -59,7 +63,7 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     axios
       .get(
         `${getBaseURL()}/latest-blogs?user_id=${userId}&id=${
@@ -142,7 +146,7 @@ const BlogDetails = () => {
         },
       })
       .then((res) => {
-        // console.log(res?.data);
+        //  console.log(res?.data);
         setGetBlogComments(res?.data?.comments);
       })
       .catch((err) => {
@@ -198,6 +202,25 @@ const BlogDetails = () => {
         console.log(err.message);
       });
   };
+   // get user details api..........
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setProfileImage({
+          profile_image:response.data.profile_image,
+          name:response.data.name,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const shareUrl = "https://example.com"; // Replace with your actual URL
 
@@ -404,13 +427,13 @@ const BlogDetails = () => {
                                 <a>
                                   <figure>
                                     <img
-                                      src="/app/images/review-1.png"
+                                      src={profileImage.profile_image}
                                       alt="Genaiguru review"
                                       title="Genaiguru review"
                                     />
                                   </figure>
                                   <span>
-                                    <span>Prosing kingdom </span>
+                                    <span>{profileImage.name} </span>
                                     <br />
                                     <small>
                                       <input
