@@ -35,7 +35,7 @@ import Otpscreen from "./pages/Authentication/Otpscreen";
 import LoginPopup from "./pages/Authentication/LoginPopup";
 
 
-function App() {
+function App() { 
   return (
     <div>
       <Router>
