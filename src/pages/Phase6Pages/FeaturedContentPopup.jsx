@@ -29,11 +29,11 @@ const FeaturedContentPopup = (props) => {
     },
     {
       id: 2,
-      type: "Feature",
+      type: "Featured",
     },
     {
       id: 3,
-      type: "Most Read",
+      type: "Most read",
     },
   ];
   // const selectSortType = (item) => {
@@ -91,7 +91,10 @@ const FeaturedContentPopup = (props) => {
             {sortType.map((item, index) => {
               return (
                 <div className="sortType">
-                  <button  className={popularity==item.type?"activebtn":""} onClick={() =>setPopularity(item.type)}>
+                  <button
+                    className={popularity == item.type ? "activebtn" : ""}
+                    onClick={() => setPopularity(item.type)}
+                  >
                     {item.type}
                   </button>
                 </div>
@@ -119,7 +122,21 @@ const FeaturedContentPopup = (props) => {
             {Sortby1.map((item, index) => {
               return (
                 <div className="sortType">
-                  <button className={sortby==item.type?"activebtn":""} onClick={() => Sortby(item)}>{item.type}</button>
+                  <button
+                    className={sortby == item.type ? "activebtn" : ""}
+                    onClick={() => Sortby(item)}
+                  >
+                    {item.type}
+                    {sortby === item.type && currentDate && (
+                      <span>
+                        - {""}
+                        {new Date(currentDate).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                    )}
+                  </button>
                 </div>
               );
             })}
