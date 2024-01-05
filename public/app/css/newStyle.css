@@ -299,6 +299,42 @@ button.activebtn {
   top: 20px;
   margin: 20px auto 0;
 }
+.review small > input[type="text"] {
+  background: transparent;
+  border-bottom: solid 1px;
+  border-top: none;
+  outline: none;
+  color: #fff;
+}
+.review li img {
+  width: 50px;
+  margin: 10px 0;
+  height: 50px;
+  border-radius: 50%;
+}
+.review div img {
+  width: 30px;
+  height: 30px;
+  margin-left: 50px;
+}
+.innerbtn > img {
+  margin-left: 0px !important;
+
+}
+.review div{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.review ul li button > img {
+  width: 20px;
+  height: 20px;
+}
+.review ul li button{
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
 
 .loginOption figure.headerLogo {
   position: relative;
