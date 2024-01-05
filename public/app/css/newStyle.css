@@ -326,14 +326,58 @@ button.activebtn {
   align-items: center;
   gap: 8px;
 }
+.review li span {
+  line-height: 1 !important;
+}
 .review ul li button > img {
   width: 20px;
   height: 20px;
+  margin: 0 7px;
+}
+small.pc {
+  margin-left: 6px;
+  padding: 5px 0;
+}
+.review small button {
+  background: linear-gradient( 87.97deg, #b03fcc 2.88%, #683fe4 25.56%, rgba(216, 63, 190, 0.94) 114.56% ), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+  outline: none;
+  border: none;
+  border-radius: 16px;
+  padding: 8px 20px;
+  color: #fff;
+  margin-left: 10px;
 }
 .review ul li button{
   background-color: transparent;
   border: none;
   outline: none;
+}
+.review input[type="text"] {
+  background: transparent;
+  border-top: none;
+  border-right: none;
+}
+.m-l{
+  margin-left: 0 !important;
+}
+.review input[type="text"]::placeholder {
+  background: transparent;
+  color: #fff;
+}
+.review a > span {
+  width: calc(100% - 50px);
+}
+.review a span small {
+  display: flex;
+  width: 100%;
+}
+.review a span small input {
+  width: calc(100% - 76px);
+}
+.review ul li a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .loginOption figure.headerLogo {

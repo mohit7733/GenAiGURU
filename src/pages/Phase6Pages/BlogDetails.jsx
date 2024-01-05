@@ -435,7 +435,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                     />
                                   </figure>
                                   <span>
-                                    <span>{profileImage.name} </span>
+                                    <span className="m-l">{profileImage.name} </span>
                                     <br />
                                     <small>
                                       <input
@@ -477,11 +477,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         />
                                       </figure>
                                       <span>
-                                        <span>
+                                        <span >
                                           {comment?.user_details?.name}{" "}
                                         </span>
                                         <br />
-                                        <small>{comment?.content}</small>
+                                        <small className="pc">{comment?.content}</small>
                                         <br />
                                         <button
                                           className="btnlike"
@@ -545,7 +545,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       title="repliedUserIcon"
                                                     />
                                                   </figure>
-                                                  <span>
+                                                  <span >
                                                     {reply?.user_details?.name}
                                                   </span>
                                                   <br />
@@ -554,7 +554,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                     onClick={() =>
                                                       postBlogReplyLike(
                                                         "like",
-                                                        comment.id
+                                                        reply.id
                                                       )
                                                     }
                                                   >
@@ -567,7 +567,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                     onClick={() =>
                                                       postBlogReplyLike(
                                                         "dislike",
-                                                        comment.id
+                                                        reply.id
                                                       )
                                                     }
                                                   >
@@ -598,7 +598,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             />
                                           </figure>
                                           <span>
-                                            <span>{profileImage.name}</span>
+                                            <span className="m-l">{profileImage.name}</span>
                                             <br />
                                             <small>
                                               <input
