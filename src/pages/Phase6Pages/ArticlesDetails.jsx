@@ -22,8 +22,19 @@ const ArticlesDetails = () => {
   });
   const [relatedArticle, setRelatedArticle] = useState([]);
   const [relatedArticlesId, setRelatedArticlesId] = useState();
-
+  const [displayCommentModel, setDisplayCommentModel] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [getarticleComments, setGetarticleComments] = useState([]);
+  const [getReplyArticleComments, setGetReplyArticleComments] = useState([]);
+  const [profileImage, setProfileImage] = useState({
+    profile_image: "",
+    name: "",
+  });
+  const [comment, setComment] = useState("");
+  const [replyCommentModels, setReplyCommentModels] = useState([]);
+  const [displayRepliesCommentModel, setDisplayRepliesCommentModel] =
+    useState(false);
+  const [replyComment, setReplyComment] = useState("");
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -33,8 +44,21 @@ const ArticlesDetails = () => {
   const queryParam = new URLSearchParams(location.search);
   const articleId = queryParam.get("id");
 
+  const toggleReplyCommentModel = (commentId) => {
+    const updatedModels = [...replyCommentModels];
+    const index = updatedModels.indexOf(commentId);
+
+    if (index === -1) {
+      updatedModels.push(commentId);
+    } else {
+      updatedModels.splice(index, 1);
+    }
+
+    setReplyCommentModels(updatedModels);
+  };
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     axios
       .get(
         `${getBaseURL()}/articles?user_id=${userId}&id=${
@@ -66,6 +90,7 @@ const ArticlesDetails = () => {
         console.log(err.message);
       });
     setButtonClicked(false);
+    getComments();
   }, [relatedArticlesId, buttonClicked]);
 
   const onArticleClick = (articleId) => {
@@ -110,7 +135,87 @@ const ArticlesDetails = () => {
         console.log(errors);
       });
   };
-
+  const getComments = () => {
+    axios
+      .get(`${getBaseURL()}/article-comment?article_id=${articleId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        //  console.log(res?.data);
+        setGetarticleComments(res?.data?.comments);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const getReplyComments = (id) => {
+    axios
+      .get(`${getBaseURL()}/article-comment-reply?comment_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res?.data?.replies);
+        setGetReplyArticleComments(res?.data?.replies);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  // get user details api..........
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setProfileImage({
+          profile_image: response.data.profile_image,
+          name: response.data.name,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+  const postArticleComment = () => {
+    axios
+      .post(`${getBaseURL()}/article-comment`, {
+        user_id: userId,
+        article_id: articleDetail.article_id,
+        content: comment,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setComment("");
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const postArticleReplyComment = (commentId, replyCommentt) => {
+    axios
+      .post(`${getBaseURL()}/article-comment-reply`, {
+        user_id: userId,
+        comment_id: commentId,
+        content: replyCommentt,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setReplyComment("");
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -231,7 +336,12 @@ const ArticlesDetails = () => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a href="#">
+                          <a
+                            onClick={() =>
+                              setDisplayCommentModel(!displayCommentModel)
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
                             <figure>
                               <img
                                 src="./app/images/comment-01.png"
@@ -257,6 +367,182 @@ const ArticlesDetails = () => {
                           </a>
                         </li>
                       </ul>
+                      {displayCommentModel && (
+                        <>
+                          <div className="review">
+                            <ul>
+                              <li>
+                                <a>
+                                  <figure>
+                                    <img
+                                      src={profileImage.profile_image}
+                                      alt="Genaiguru review"
+                                      title="Genaiguru review"
+                                    />
+                                  </figure>
+                                  <span>
+                                    <span>{profileImage.name} </span>
+                                    <br />
+                                    <small>
+                                      <input
+                                        type="text"
+                                        placeholder="Comment Here......"
+                                        value={comment}
+                                        onChange={(e) =>
+                                          setComment(e.target.value)
+                                        }
+                                      />
+                                      <button onClick={postArticleComment}>
+                                        Post
+                                      </button>
+                                    </small>
+                                    <br />
+                                  </span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                          {/* Get Comments */}
+                          {getarticleComments.map((comment, index) => {
+                            const isReplyBoxOpen = replyCommentModels.includes(
+                              comment.id
+                            );
+
+                            return (
+                              <div className="review" key={index}>
+                                <ul>
+                                  <li>
+                                    <a>
+                                      <figure>
+                                        <img
+                                          src={
+                                            comment?.user_details?.profile_image
+                                          }
+                                          alt="Genaiguru review"
+                                          title="Genaiguru review"
+                                        />
+                                      </figure>
+                                      <span>
+                                        <span>
+                                          {comment?.user_details?.name}{" "}
+                                        </span>
+                                        <br />
+                                        <small>
+                                          {comment.content}
+                                        </small>
+                                        <br />
+                                        <img
+                                          src="/app/images/thumbs-up.png"
+                                          alt=""
+                                        />
+                                        <img
+                                          src="/app/images/thumbs-down.png"
+                                          alt=""
+                                        />
+                                        <span
+                                          style={{ cursor: "pointer" }}
+                                          onClick={() =>
+                                            toggleReplyCommentModel(comment.id)
+                                          }
+                                        >
+                                          Reply
+                                        </span>
+                                        <span
+                                          style={{ cursor: "pointer" }}
+                                          onClick={() => {
+                                            getReplyComments(comment.id);
+                                            setDisplayRepliesCommentModel(
+                                              !displayRepliesCommentModel
+                                            );
+                                          }}
+                                        >
+                                          Replies
+                                        </span>
+                                      </span>
+                                    </a>
+                                  </li>
+                                  {displayRepliesCommentModel && (
+                                    <li>
+                                      {getReplyArticleComments?.map(
+                                        (reply, index) => {
+                                          return (
+                                            <div key={index}>
+                                              {reply.comment_id ===
+                                                comment.id && (
+                                                <>
+                                                  <figure>
+                                                    <img
+                                                      src={
+                                                        reply?.user_details
+                                                          ?.profile_image
+                                                      }
+                                                      alt="repliedUserIcon"
+                                                      title="repliedUserIcon"
+                                                    />
+                                                  </figure>
+                                                  <span>
+                                                    {reply?.user_details?.name}
+                                                  </span>
+                                                  <br/>
+                                                  <span>{reply.content}</span>
+                                                </>
+                                              )}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                    </li>
+                                  )}
+                                </ul>
+                                {isReplyBoxOpen && (
+                                  <div className="review">
+                                    <ul>
+                                      <li>
+                                        <a>
+                                          <figure>
+                                            <img
+                                              src={profileImage.profile_image}
+                                              alt="Genaiguru review"
+                                              title="Genaiguru review"
+                                            />
+                                          </figure>
+                                          <span>
+                                            <span>{profileImage.name}</span>
+                                            <br />
+                                            <small>
+                                              <input
+                                                type="text"
+                                                placeholder="Reply Here......"
+                                                value={replyComment}
+                                                onChange={(e) =>
+                                                  setReplyComment(
+                                                    e.target.value
+                                                  )
+                                                }
+                                              />
+                                              <button
+                                                onClick={() =>
+                                                  postArticleReplyComment(
+                                                    comment.id,
+                                                    replyComment
+                                                  )
+                                                }
+                                              >
+                                                Post
+                                              </button>
+                                            </small>
+                                            <br />
+                                          </span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
                     </div>
 
                     {/* <!-- home interest section start here --> */}

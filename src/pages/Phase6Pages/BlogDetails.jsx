@@ -564,13 +564,13 @@ const BlogDetails = () => {
                                         <a>
                                           <figure>
                                             <img
-                                              src="/app/images/review-1.png"
+                                              src={profileImage.profile_image}
                                               alt="Genaiguru review"
                                               title="Genaiguru review"
                                             />
                                           </figure>
                                           <span>
-                                            <span>Prosing kingdom </span>
+                                            <span>{profileImage.name}</span>
                                             <br />
                                             <small>
                                               <input
