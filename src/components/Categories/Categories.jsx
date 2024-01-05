@@ -10,7 +10,7 @@ const Categories = () => {
   const [displayedInterests, setDisplayedInterests] = useState(7);
   const [displayView, setDisplayView] = useState(true);
   const [defaultCategoryId, setDefaultCategoryId] = useState();
-
+  const [selectedInterest, setSelectedInterest] = useState(null);
   // Get API for Categories
   useEffect(() => {
     axios
@@ -30,16 +30,16 @@ const Categories = () => {
 
   useEffect(() => {
     onCategoryClick();
-  }, []);
+  }, [defaultCategoryId]);
 
   const onCategoryClick = (categoryId = defaultCategoryId) => {
     const array = [categoryId];
+    setSelectedInterest(categoryId);
     axios
       .post(`${getBaseURL()}/interestsarticles`, {
         interest_id: array,
       })
       .then((res) => {
-        console.log(res?.data);
         setArticlesOnInterest(res?.data?.articles);
       })
       .catch((errors) => {
@@ -58,7 +58,6 @@ const Categories = () => {
     setDisplayView(true);
   };
 
-  
   return (
     <div>
       <div className="home-category">
@@ -70,21 +69,36 @@ const Categories = () => {
             return (
               <li key={index}>
                 <a
+                  className={
+                    interest.interest_id == selectedInterest
+                      ? "selectedInterestInHome"
+                      : ""
+                  }
                   onClick={() => {
                     onCategoryClick(interest.interest_id);
                   }}
                 >
-                  <img
-                    src="app/images/paint-board.png"
-                    alt="Genaiguru paint-board"
-                    title="Genaiguru paint-board"
-                  />
-                  <img
-                    src="app/images/colorPaintBoard.png"
-                    alt="Genaiguru colorPaintBoard"
-                    title="Genaiguru colorPaintBoard"
-                    className="hoverImg"
-                  />{" "}
+                  {interest.interest_id == selectedInterest ? (
+                    <img
+                      src="app/images/colorPaintBoard.png"
+                      alt="Genaiguru colorPaintBoard"
+                      title="Genaiguru colorPaintBoard"
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src="app/images/paint-board.png"
+                        alt="Genaiguru paint-board"
+                        title="Genaiguru paint-board"
+                      />
+                      <img
+                        src="app/images/colorPaintBoard.png"
+                        alt="Genaiguru colorPaintBoard"
+                        title="Genaiguru colorPaintBoard"
+                        className="hoverImg"
+                      />
+                    </>
+                  )}
                   {interest.interest_name}
                 </a>
               </li>

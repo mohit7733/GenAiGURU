@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import WithAuth from "../../pages/Authentication/WithAuth";
-import { PATH_TERMS_AND_SERVICES, PATH_SETTINGS } from "../../routes";
+import {
+  PATH_TERMS_AND_SERVICES,
+  PATH_SETTINGS,
+  PATH_GURUGOLD,
+} from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -73,7 +77,7 @@ const Sidebar = () => {
           <li>
             <WithAuth
               callBack={(e) => {
-                navigate("/gurugold");
+                navigate(PATH_GURUGOLD);
               }}
             >
               <a>

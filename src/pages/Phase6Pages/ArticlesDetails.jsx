@@ -44,18 +44,22 @@ const ArticlesDetails = () => {
   const queryParam = new URLSearchParams(location.search);
   const articleId = queryParam.get("id");
 
-  const toggleReplyCommentModel = (commentId) => {
-    const updatedModels = [...replyCommentModels];
-    const index = updatedModels.indexOf(commentId);
+  // Useeffect for API of ArticleOpened Points
 
-    if (index === -1) {
-      updatedModels.push(commentId);
-    } else {
-      updatedModels.splice(index, 1);
-    }
-
-    setReplyCommentModels(updatedModels);
-  };
+  useEffect(() => {
+    axios
+      .post(`${getBaseURL()}/read-article`, {
+        user_id: userId,
+        post_id: articleId,
+        post_type: "article",
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors.message);
+      });
+  }, []);
 
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -92,6 +96,19 @@ const ArticlesDetails = () => {
     setButtonClicked(false);
     getComments();
   }, [relatedArticlesId, buttonClicked]);
+
+  const toggleReplyCommentModel = (commentId) => {
+    const updatedModels = [...replyCommentModels];
+    const index = updatedModels.indexOf(commentId);
+
+    if (index === -1) {
+      updatedModels.push(commentId);
+    } else {
+      updatedModels.splice(index, 1);
+    }
+
+    setReplyCommentModels(updatedModels);
+  };
 
   const onArticleClick = (articleId) => {
     setTimeout(() => {
