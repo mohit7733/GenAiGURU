@@ -12,7 +12,7 @@ import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 
-const BlogDetails = () => {
+const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
     author: "",
     profilePhoto: "",
@@ -29,6 +29,11 @@ const BlogDetails = () => {
   const [profileImage, setProfileImage] = useState({
     profile_image: "",
     name: "",
+  });
+  const [blogCommentLike, setBlogCommentLike] = useState({ likes, dislikes });
+  const [blogCommentLikeReply, setBlogCommentLikeReply] = useState({
+    likes,
+    dislikes,
   });
 
   const [replyCommentModels, setReplyCommentModels] = useState([]);
@@ -222,6 +227,44 @@ const BlogDetails = () => {
         console.log(err.message);
       });
   }, []);
+
+  // Post BlogComment Like/dislike api .............
+
+  const postBlogLike = (type, commentId) => {
+    axios
+      .post(`${getBaseURL()}/blog-like-comment`, {
+        user_id: userId,
+        type: type,
+        comment_id: commentId,
+      })
+      .then((res) => {
+        console.log(res.data, "fdggh");
+        setBlogCommentLike(res.data);
+        // alert("like/dislike")
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  //  Post BlogComment Like reply api ......
+
+  const postBlogReplyLike = (type, commentId) => {
+    axios
+      .post(`${getBaseURL()}/blog-like-reply`, {
+        user_id: userId,
+        type: type,
+        reply_id: commentId,
+      })
+      .then((res) => {
+        console.log(res.data, "fdggh");
+        setBlogCommentLikeReply(res.data);
+        alert("like/dislike");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   const shareUrl = "https://example.com"; // Replace with your actual URL
 
@@ -495,14 +538,27 @@ const BlogDetails = () => {
                                         <br />
                                         <small>{comment?.content}</small>
                                         <br />
-                                        <img
-                                          src="/app/images/thumbs-up.png"
-                                          alt=""
-                                        />
-                                        <img
-                                          src="/app/images/thumbs-down.png"
-                                          alt=""
-                                        />
+                                        <button
+                                          className="btnlike"
+                                          onClick={() =>
+                                            postBlogLike("like", comment.id)
+                                          }
+                                        >
+                                          <img
+                                            src="/app/images/thumbs-up.png"
+                                            alt=""
+                                          />
+                                        </button>
+                                        <button
+                                          onClick={() =>
+                                            postBlogLike("dislike", comment.id)
+                                          }
+                                        >
+                                          <img
+                                            src="/app/images/thumbs-down.png"
+                                            alt=""
+                                          />
+                                        </button>
                                         <span
                                           style={{ cursor: "pointer" }}
                                           onClick={() =>
@@ -547,7 +603,34 @@ const BlogDetails = () => {
                                                   <span>
                                                     {reply?.user_details?.name}
                                                   </span>
+                                                  <br />
                                                   <span>{reply.content}</span>
+                                                  <button className="innerbtn"
+                                                    onClick={() =>
+                                                      postBlogReplyLike(
+                                                        "like",
+                                                        comment.id
+                                                      )
+                                                    }
+                                                  >
+                                                    <img
+                                                      src="/app/images/thumbs-up.png"
+                                                      alt=""
+                                                    />
+                                                  </button>
+                                                  <button className="innerbtn"
+                                                    onClick={() =>
+                                                      postBlogReplyLike(
+                                                        "dislike",
+                                                        comment.id
+                                                      )
+                                                    }
+                                                  >
+                                                    <img
+                                                      src="/app/images/thumbs-down.png"
+                                                      alt=""
+                                                    />
+                                                  </button>
                                                 </>
                                               )}
                                             </div>
