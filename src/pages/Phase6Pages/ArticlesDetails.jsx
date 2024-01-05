@@ -7,6 +7,7 @@ import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
+import Sharebtn from "./sharebtn";
 
 const ArticlesDetails = () => {
   const [articleDetail, setArticleDetail] = useState({
@@ -172,11 +173,20 @@ const ArticlesDetails = () => {
                           </li>
                         )}
                         <li>
-                          <a>
+                          <Sharebtn
+                            title={articleDetail.title}
+                            id={articleDetail.article_id}
+                            url={
+                              window.location.origin +
+                              "/articledetails?id=" +
+                              articleDetail.article_id
+                            }
+                          />
+                          {/* <a>
                             <figure>
                               <img src="./app/images/share-icon.png" alt="" />
                             </figure>
-                          </a>
+                          </a> */}
                         </li>
                       </ul>
                     </WithAuth>
@@ -241,7 +251,9 @@ const ArticlesDetails = () => {
                                 title="Genaiguru help-circle"
                               />
                             </figure>{" "}
-                            <Link to="/contact"><span>Ask question</span></Link>
+                            <Link to="/contact">
+                              <span>Ask question</span>
+                            </Link>
                           </a>
                         </li>
                       </ul>
