@@ -275,21 +275,20 @@ section.login_popup .wrapper400 {
 section.loginPopup.filterPopup .headingContent {
   display: flex;
   flex-wrap: wrap;
- gap: 12px;
+  gap: 12px;
 }
 .loginPopup.filterPopup .headingContent .sortType button {
-  background-color: #C6D0E11A;
+  background-color: #c6d0e11a;
   color: #fff;
   border-radius: 30px;
   padding: 17px 22px;
   border: none;
 }
-section.loginPopup.filterPopup .headingContent h5  {
+section.loginPopup.filterPopup .headingContent h5 {
   width: 100%;
 }
-.loginPopup.filterPopup .headingContent button:hover{
-  background-color:#873dd0 !important;
-
+.loginPopup.filterPopup .headingContent button:hover {
+  background-color: #873dd0 !important;
 }
 button.activebtn {
   background-color: purple !important;
@@ -299,6 +298,42 @@ button.activebtn {
   width: 100%;
   top: 20px;
   margin: 20px auto 0;
+}
+.review small > input[type="text"] {
+  background: transparent;
+  border-bottom: solid 1px;
+  border-top: none;
+  outline: none;
+  color: #fff;
+}
+.review li img {
+  width: 50px;
+  margin: 10px 0;
+  height: 50px;
+  border-radius: 50%;
+}
+.review div img {
+  width: 30px;
+  height: 30px;
+  margin-left: 50px;
+}
+.innerbtn > img {
+  margin-left: 0px !important;
+
+}
+.review div{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.review ul li button > img {
+  width: 20px;
+  height: 20px;
+}
+.review ul li button{
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 .loginOption figure.headerLogo {
@@ -1131,7 +1166,6 @@ section.mainWrapper
   display: none;
 }
 
-
 .edit-profile .intrest-area .btn-wrap {
   text-align: center;
 }
@@ -1159,31 +1193,31 @@ section.mainWrapper
   border-radius: 50%;
   object-fit: cover;
 }
-.interestSection.second .followexperts li .names{
-min-height: 40px;
+.interestSection.second .followexperts li .names {
+  min-height: 40px;
 }
-.interestSection.second .followexperts li .names h5{
-color: #fff;
+.interestSection.second .followexperts li .names h5 {
+  color: #fff;
   margin-bottom: 2px;
   font-size: 16px;
   line-height: 1.25em;
   font-weight: 500;
   font-family: PlusJakartaSansMedium;
 }
-.interestSection.second .followexperts li .names p{
-color: #cfd6db;
+.interestSection.second .followexperts li .names p {
+  color: #cfd6db;
   font-size: 14px;
   line-height: 1.45em;
   font-weight: 400;
 }
-.interestSection.second .followexperts li .btnWrap{
-background: linear-gradient(91.54deg, #6591ff 0.79%, #ff2dcd 116.36%);
+.interestSection.second .followexperts li .btnWrap {
+  background: linear-gradient(91.54deg, #6591ff 0.79%, #ff2dcd 116.36%);
   padding: 2px;
   margin-top: 16px;
   border-radius: 38px;
 }
-.interestSection.second .followexperts li .btnWrap .btnSecond{
-width: 100%;
+.interestSection.second .followexperts li .btnWrap .btnSecond {
+  width: 100%;
   text-align: center;
   color: #fff;
   font-size: 14px;
@@ -1197,11 +1231,11 @@ width: 100%;
 .interestSection.second .followexperts li:hover {
   border: 1px solid #be41c0;
 }
-.interestSection.second .followexperts li .btnWrap .btnSecond:hover{
-background: #873dd0;
+.interestSection.second .followexperts li .btnWrap .btnSecond:hover {
+  background: #873dd0;
 }
-.interestSection.second .followexperts li{
-	width: calc(100% - 12px) !important;
+.interestSection.second .followexperts li {
+  width: calc(100% - 12px) !important;
 }
 .popup-container.customNewPopups.hideMob {
   overflow-y: hidden;
@@ -1211,7 +1245,12 @@ background: #873dd0;
   padding: 10px 1px;
   border-radius: 12px;
 }
-.rightSection .keeps-container.featuredConatiner .gurukeeps-wrapper .connect-box li a {
+.rightSection
+  .keeps-container.featuredConatiner
+  .gurukeeps-wrapper
+  .connect-box
+  li
+  a {
   width: 48px;
   height: 48px;
 }
@@ -1240,5 +1279,9 @@ background: #873dd0;
 }
 
 .rightSection .tab-content .about-content h2 {
-    padding: 23px 0;
+  padding: 23px 0;
+}
+.selectedInterestInHome {
+  border: 2px solid #be41c0 !important;
+  background: rgba(198, 208, 225, 0.1);
 }

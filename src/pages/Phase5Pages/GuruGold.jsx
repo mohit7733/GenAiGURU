@@ -1,13 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../components/Layout/Header";
-import Sidebar from "../../components/Layout/Sidebar";
 import MobileHeader from "../../components/Layout/MobileHeader";
+import Sidebar from "../../components/Layout/Sidebar";
+import { getBaseURL } from "../../api/config";
+import axios from "axios";
 
 const GuruGold = () => {
+  const [userPoints, setUserPoints] = useState(null);
+  const [userDetails, setDetails] = useState({
+    profile_image: "",
+    name: "",
+  });
+
+  const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    const fetchUserPoints = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/get-points`, {
+          params: {
+            user_id: userId, // Pass the user_id as a parameter
+          },
+        });
+
+        setUserPoints(response?.data?.data?.total);
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+
+    fetchUserPoints();
+  }, [userId]);
+
+  // get user details api..........
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setDetails({
+          profile_image: response?.data?.profile_image,
+          name: response?.data?.name,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   return (
     <div>
       <MobileHeader />
@@ -24,9 +69,9 @@ const GuruGold = () => {
                     <li>
                       <figure>
                         <img
-                          src="./app/images/userIcon.png"
-                          alt="Genaiguru userIcon"
-                          title="Genaiguru userIcon"
+                          src={userDetails.profile_image}
+                          alt="userIcon"
+                          title="userIcon"
                         />
                         <img
                           class="profileImageTag"
@@ -44,7 +89,7 @@ const GuruGold = () => {
                             title="Genaiguru headingProfileIcons"
                           />
                         </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
+                        <p>Coins: {userPoints}/50,000</p>
                       </li>
                     </Link>
                   </ul>

@@ -59,6 +59,7 @@ export const PATH_BLOG_DETAILS = "/blogdetails";
 export const PATH_ARTICLE_DETAILS = "/articledetails";
 export const PATH_TERMS_AND_SERVICES="/terms&services";
 export const PATH_SETTINGS="/settings";
+export const PATH_GURUGOLD="/gurugold";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -165,13 +166,13 @@ export function RouterElement() {
     },
     {
       path: PATH_SETTINGS,
-      name: PATH_SETTINGS,
+      name: "PATH_SETTINGS",
       element: <Settings />,
       exact: true,
     },
     {
-      path: "gurugold",
-      name: "gurugold",
+      path: PATH_GURUGOLD,
+      name: "PATH_GURUGOLD",
       element: <GuruGold />,
       exact: true,
     },
