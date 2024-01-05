@@ -427,9 +427,7 @@ const ArticlesDetails = () => {
                                           {comment?.user_details?.name}{" "}
                                         </span>
                                         <br />
-                                        <small>
-                                          {comment.content}
-                                        </small>
+                                        <small>{comment.content}</small>
                                         <br />
                                         <img
                                           src="/app/images/thumbs-up.png"
@@ -483,7 +481,7 @@ const ArticlesDetails = () => {
                                                   <span>
                                                     {reply?.user_details?.name}
                                                   </span>
-                                                  <br/>
+                                                  <br />
                                                   <span>{reply.content}</span>
                                                 </>
                                               )}
