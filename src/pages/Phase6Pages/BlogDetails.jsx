@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { FacebookButton } from "react-social";
 import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
@@ -42,9 +40,6 @@ const BlogDetails = () => {
   const [displayRepliesCommentModel, setDisplayRepliesCommentModel] =
     useState(false);
 
-  const [displayReplyCommentModel, setDisplayReplyCommentModel] =
-    useState(false);
-
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -53,15 +48,22 @@ const BlogDetails = () => {
   const queryParam = new URLSearchParams(location.search);
   const blogId = queryParam.get("id");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Useeffect for API of blogOpened Points
 
-  const handleButtonClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+  useEffect(() => {
+    axios
+      .post(`${getBaseURL()}/read-article`, {
+        user_id: userId,
+        post_id: blogId,
+        post_type: "blog",
+      })
+      .then((res) => {
+        console.log(res?.data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  }, []);
 
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -147,7 +149,6 @@ const BlogDetails = () => {
         },
       })
       .then((res) => {
-        //  console.log(res?.data);
         setGetBlogComments(res?.data?.comments);
       })
       .catch((err) => {
@@ -203,6 +204,7 @@ const BlogDetails = () => {
         console.log(err.message);
       });
   };
+
   // get user details api..........
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -222,8 +224,6 @@ const BlogDetails = () => {
         console.log(err.message);
       });
   }, []);
-
-  const shareUrl = "https://example.com"; // Replace with your actual URL
 
   // Function to toggle the reply input box for a specific comment
   const toggleReplyCommentModel = (commentId) => {
@@ -291,66 +291,7 @@ const BlogDetails = () => {
                             </a>
                           </li>
                         )}
-                        {/* <Modal
-                          isOpen={isModalOpen}
-                          onRequestClose={handleModalClose}
-                          contentLabel="Share Icons Modal"
-                          style={{
-                            overlay: {
-                              backgroundColor: "rgba(0, 0, 0, 0.5)",
-                            },
-                            content: {
-                              width: "500px",
-                              height: "300px",
-                              margin: "auto",
-                              marginTop: "10%",
-                              padding: "20px",
-                              borderRadius: "8px",
-                              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                              backgroundColor: "gray",
-                              position: "relative", // Ensure relative positioning for absolute child elements
-                            },
-                          }}
-                        >
-                          <a
-                            onClick={handleModalClose}
-                            style={{
-                              position: "absolute",
-                              top: "10px",
-                              right: "10px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <figure>
-                              <img src="./app/images/cross-icon.png" alt="" />
-                            </figure>
-                          </a>
-                          <ul style={{ listStyle: "none", padding: "0" }}>
-                            <li>
-                              <FacebookButton
-                                url={shareUrl}
-                                appId="1394023161194162"
-                              >
-                                {" "}
-                                <a href="#">
-                                  <figure>
-                                    <img
-                                      src="app/images/facebookIcon.png"
-                                      alt="Facebook Share"
-                                    />
-                                  </figure>
-                                </a>
-                              </FacebookButton>
-                            </li>
-                          </ul>
-                        </Modal>
-                        <li onClick={handleButtonClick}>
-                          <a>
-                            <figure>
-                              <img src="./app/images/share-icon.png" alt="" />
-                            </figure>
-                          </a>
-                        </li> */}
+
                         <li>
                           <Sharebtn
                             title={blogDetail.title}
