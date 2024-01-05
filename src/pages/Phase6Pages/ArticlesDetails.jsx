@@ -9,7 +9,7 @@ import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 
-const ArticlesDetails = () => {
+const ArticlesDetails = ({ likes, dislikes }) => {
   const [articleDetail, setArticleDetail] = useState({
     author: "",
     author_profile_image: "",
@@ -29,6 +29,14 @@ const ArticlesDetails = () => {
   const [profileImage, setProfileImage] = useState({
     profile_image: "",
     name: "",
+  });
+  const [articleCommentLike, setArticleCommentLike] = useState({
+    likes,
+    dislikes,
+  });
+  const [articleCommentLikeReply, setArticleCommentLikeReply] = useState({
+    likes,
+    dislikes,
   });
   const [comment, setComment] = useState("");
   const [replyCommentModels, setReplyCommentModels] = useState([]);
@@ -233,6 +241,45 @@ const ArticlesDetails = () => {
         console.log(err.message);
       });
   };
+
+  // Post BlogComment Like/dislike api .............
+
+  const postArticleLike = (type, commentId) => {
+    axios
+      .post(`${getBaseURL()}/article-like-comment`, {
+        user_id: userId,
+        type: type,
+        comment_id: commentId,
+      })
+      .then((res) => {
+        console.log(res.data, "fdggh");
+        setArticleCommentLike(res.data);
+        alert("like/dislike");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  //  Post Article Comment Like reply api ......
+
+  const postArticleReplyLike = (type, commentId) => {
+    axios
+      .post(`${getBaseURL()}/article-like-reply`, {
+        user_id: userId,
+        type: type,
+        reply_id: commentId,
+      })
+      .then((res) => {
+        console.log(res.data, "fdggh");
+        setArticleCommentLikeReply(res.data);
+        alert("like/dislike");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    console.log(userId, type, commentId, "fgfdgb");
+  };
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -398,7 +445,7 @@ const ArticlesDetails = () => {
                                     />
                                   </figure>
                                   <span>
-                                    <span>{profileImage.name} </span>
+                                    <span className="m-l">{profileImage.name} </span>
                                     <br />
                                     <small>
                                       <input
@@ -444,16 +491,32 @@ const ArticlesDetails = () => {
                                           {comment?.user_details?.name}{" "}
                                         </span>
                                         <br />
-                                        <small>{comment.content}</small>
+                                        <small className="pc">{comment.content}</small>
                                         <br />
-                                        <img
-                                          src="/app/images/thumbs-up.png"
-                                          alt=""
-                                        />
-                                        <img
-                                          src="/app/images/thumbs-down.png"
-                                          alt=""
-                                        />
+                                        <button
+                                          className="btnlike"
+                                          onClick={() =>
+                                            postArticleLike("like", comment.id)
+                                          }
+                                        >
+                                          <img
+                                            src="/app/images/thumbs-up.png"
+                                            alt=""
+                                          />
+                                        </button>
+                                        <button
+                                          onClick={() =>
+                                            postArticleLike(
+                                              "dislike",
+                                              comment.id
+                                            )
+                                          }
+                                        >
+                                          <img
+                                            src="/app/images/thumbs-down.png"
+                                            alt=""
+                                          />
+                                        </button>
                                         <span
                                           style={{ cursor: "pointer" }}
                                           onClick={() =>
@@ -500,6 +563,33 @@ const ArticlesDetails = () => {
                                                   </span>
                                                   <br />
                                                   <span>{reply.content}</span>
+                                                  <button
+                                                    className="btnlike"
+                                                    onClick={() =>
+                                                      postArticleReplyLike(
+                                                        "like",
+                                                        reply.id
+                                                      )
+                                                    }
+                                                  >
+                                                    <img
+                                                      src="/app/images/thumbs-up.png"
+                                                      alt=""
+                                                    />
+                                                  </button>
+                                                  <button
+                                                    onClick={() =>
+                                                      postArticleReplyLike(
+                                                        "dislike",
+                                                        reply.id
+                                                      )
+                                                    }
+                                                  >
+                                                    <img
+                                                      src="/app/images/thumbs-down.png"
+                                                      alt=""
+                                                    />
+                                                  </button>
                                                 </>
                                               )}
                                             </div>
@@ -522,7 +612,7 @@ const ArticlesDetails = () => {
                                             />
                                           </figure>
                                           <span>
-                                            <span>{profileImage.name}</span>
+                                            <span className="m-l">{profileImage.name}</span>
                                             <br />
                                             <small>
                                               <input
