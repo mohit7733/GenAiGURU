@@ -8,6 +8,7 @@ const Login4 = () => {
   const [userDetalis, setUserDetalis] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
+          // localStorage.setItem("UserId", JSON.stringify(response?.data?.id));
 
   // Get API for get user detalis
   useEffect(() => {
@@ -19,11 +20,14 @@ const Login4 = () => {
       })
       .then((response) => {
         setUserDetalis(response.data);
+          localStorage.setItem("UserId", JSON.stringify(response?.data?.id));
+
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
   return (
     <div>
       <section className="welcomeSection mainBg">
