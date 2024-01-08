@@ -168,12 +168,13 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   const getComments = () => {
     axios
-      .get(`${getBaseURL()}/blog-comment?blog_id=${blogId}`, {
+      .get(`${getBaseURL()}/blog-comment?user_id=${userId}&blog_id=${blogId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
+        console.log(res?.data);
         setGetBlogComments(res?.data?.comments);
       })
       .catch((err) => {
@@ -183,12 +184,17 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   const getReplyComments = (id) => {
     axios
-      .get(`${getBaseURL()}/blog-comment-reply?comment_id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/blog-comment-reply?user_id=${userId}&comment_id=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
+        console.log(res?.data);
+
         // console.log(res?.data?.replies);
         setGetReplyBlogComments(res?.data?.replies);
       })
@@ -196,6 +202,12 @@ const BlogDetails = ({ likes, dislikes }) => {
         console.log(err.message);
       });
   };
+
+  useEffect(() => {
+    getComments();
+    getReplyComments();
+    setButtonClicked(false);
+  }, [buttonClicked]);
 
   const postBlogComment = () => {
     axios
@@ -213,6 +225,7 @@ const BlogDetails = ({ likes, dislikes }) => {
         console.log(err.message);
       });
   };
+
   const postBlogReplyComment = (commentId, replyCommentt) => {
     axios
       .post(`${getBaseURL()}/blog-comment-reply`, {
@@ -240,9 +253,8 @@ const BlogDetails = ({ likes, dislikes }) => {
         comment_id: commentId,
       })
       .then((res) => {
-        console.log(res.data, "fdggh");
         setBlogCommentLike(res.data);
-        // alert("like/dislike")
+        setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -259,16 +271,13 @@ const BlogDetails = ({ likes, dislikes }) => {
         reply_id: commentId,
       })
       .then((res) => {
-        console.log(res.data, "fdggh");
-        setBlogCommentLikeReply(res.data);
-        alert("like/dislike");
+        setBlogCommentLikeReply(res?.data);
+        setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
-  const shareUrl = "https://example.com"; // Replace with your actual URL
 
   // Function to toggle the reply input box for a specific comment
   const toggleReplyCommentModel = (commentId) => {
@@ -494,7 +503,12 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         >
                                           <img
                                             src="/app/images/thumbs-up.png"
-                                            alt=""
+                                            style={
+                                              comment?.like_details?.type ==
+                                              "like"
+                                                ? { backgroundColor: "purple" }
+                                                : {}
+                                            }
                                           />
                                         </button>
                                         <button
@@ -504,7 +518,12 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         >
                                           <img
                                             src="/app/images/thumbs-down.png"
-                                            alt=""
+                                            style={
+                                              comment?.like_details?.type ==
+                                              "dislike"
+                                                ? { backgroundColor: "purple" }
+                                                : {}
+                                            }
                                           />
                                         </button>
                                         <span
@@ -581,7 +600,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                             }
                                                           : {}
                                                       }
-                                                      alt=""
                                                     />
                                                   </button>
                                                   <button
@@ -595,7 +613,15 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                   >
                                                     <img
                                                       src="/app/images/thumbs-down.png"
-                                                      alt=""
+                                                      style={
+                                                        reply?.like_details
+                                                          ?.type == "dislike"
+                                                          ? {
+                                                              backgroundColor:
+                                                                "purple",
+                                                            }
+                                                          : {}
+                                                      }
                                                     />
                                                   </button>
                                                 </>
