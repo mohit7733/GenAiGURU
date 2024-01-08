@@ -28,12 +28,13 @@ const Login = () => {
           google_response: JSON.stringify(userInfo),
         })
         .then((response) => {
-          console.log(response);
+          console.log(response?.data);
           localStorage.setItem(
             "token",
-            JSON.stringify(response.data.accessToken)
+            JSON.stringify(response?.data?.accessToken)
           );
           localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+          // localStorage.setItem("UserId", JSON.stringify(response?.data?.id));
 
           axios
             .get(`${getBaseURL()}/auth/user/email-verification-status`, {
