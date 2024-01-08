@@ -9,6 +9,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
+import userimageIcon from "../../assets/images/person.png";
 
 const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
@@ -54,7 +55,6 @@ const BlogDetails = ({ likes, dislikes }) => {
   const blogId = queryParam.get("id");
 
   // Useeffect for API of blogOpened Points
-
   useEffect(() => {
     axios
       .post(`${getBaseURL()}/read-article`, {
@@ -63,7 +63,7 @@ const BlogDetails = ({ likes, dislikes }) => {
         post_type: "blog",
       })
       .then((res) => {
-        console.log(res?.data);
+        // console.log(res?.data);
       })
       .catch((errors) => {
         console.log(errors);
@@ -102,6 +102,26 @@ const BlogDetails = ({ likes, dislikes }) => {
     setButtonClicked(false);
     getComments();
   }, [relatedBlogId, buttonClicked]);
+
+  // get user details api..........
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setProfileImage({
+          profile_image: response.data.profile_image,
+          name: response.data.name,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const onBlogClick = (blogId) => {
     setTimeout(() => {
@@ -210,27 +230,6 @@ const BlogDetails = ({ likes, dislikes }) => {
       });
   };
 
-  // get user details api..........
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    axios
-      .get(`${getBaseURL()}/auth/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setProfileImage({
-          profile_image: response.data.profile_image,
-          name: response.data.name,
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
-
   // Post BlogComment Like/dislike api .............
 
   const postBlogLike = (type, commentId) => {
@@ -270,7 +269,6 @@ const BlogDetails = ({ likes, dislikes }) => {
   };
 
   const shareUrl = "https://example.com"; // Replace with your actual URL
-
 
   // Function to toggle the reply input box for a specific comment
   const toggleReplyCommentModel = (commentId) => {
@@ -430,12 +428,14 @@ const BlogDetails = ({ likes, dislikes }) => {
                                   <figure>
                                     <img
                                       src={profileImage.profile_image}
-                                      alt="Genaiguru review"
-                                      title="Genaiguru review"
+                                      alt="profile_image"
+                                      title="profile_image"
                                     />
                                   </figure>
                                   <span>
-                                    <span className="m-l">{profileImage.name} </span>
+                                    <span className="m-l">
+                                      {profileImage.name}{" "}
+                                    </span>
                                     <br />
                                     <small>
                                       <input
@@ -471,17 +471,20 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         <img
                                           src={
                                             comment?.user_details?.profile_image
+                                              ? comment?.user_details
+                                                  ?.profile_image
+                                              : userimageIcon
                                           }
-                                          alt="Genaiguru review"
-                                          title="Genaiguru review"
                                         />
                                       </figure>
                                       <span>
-                                        <span >
+                                        <span>
                                           {comment?.user_details?.name}{" "}
                                         </span>
                                         <br />
-                                        <small className="pc">{comment?.content}</small>
+                                        <small className="pc">
+                                          {comment?.content}
+                                        </small>
                                         <br />
                                         <button
                                           className="btnlike"
@@ -545,12 +548,13 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       title="repliedUserIcon"
                                                     />
                                                   </figure>
-                                                  <span >
+                                                  <span>
                                                     {reply?.user_details?.name}
                                                   </span>
                                                   <br />
                                                   <span>{reply.content}</span>
-                                                  <button className="innerbtn"
+                                                  <button
+                                                    className="innerbtn"
                                                     onClick={() =>
                                                       postBlogReplyLike(
                                                         "like",
@@ -563,7 +567,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       alt=""
                                                     />
                                                   </button>
-                                                  <button className="innerbtn"
+                                                  <button
+                                                    className="innerbtn"
                                                     onClick={() =>
                                                       postBlogReplyLike(
                                                         "dislike",
@@ -598,7 +603,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             />
                                           </figure>
                                           <span>
-                                            <span className="m-l">{profileImage.name}</span>
+                                            <span className="m-l">
+                                              {profileImage.name}
+                                            </span>
                                             <br />
                                             <small>
                                               <input

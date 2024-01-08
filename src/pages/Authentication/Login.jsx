@@ -3,9 +3,10 @@ import axios from "axios";
 import React from "react";
 import FacebookLogin from "react-facebook-login";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { PATH_SIGNIN, PATH_SIGNUP } from "../../routes";
+import { PATH_SIGNIN, PATH_SIGNUP, PATH_WELCOME } from "../../routes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getBaseURL } from "../../api/config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,14 +34,36 @@ const Login = () => {
             JSON.stringify(response.data.accessToken)
           );
           localStorage.setItem("userLoggedIn", JSON.stringify("true"));
-          if (response.status === 200) {
-            toast.success("Logged in Successfully", {
-              position: toast.POSITION.TOP_CENTER,
+
+          axios
+            .get(`${getBaseURL()}/auth/user/email-verification-status`, {
+              headers: {
+                Authorization: `Bearer ${response.data.accessToken}`,
+              },
+            })
+            .then((res) => {
+              console.log(res.data);
+              toast.success("Logged in Successfully", {
+                position: toast.POSITION.TOP_CENTER,
+              });
+              setTimeout(() => {
+                if (
+                  res?.data?.email_verified == "yes" &&
+                  res?.data?.post_follwed == "yes"
+                ) {
+                  navigate("/");
+                } else {
+                  navigate(`${PATH_WELCOME}`);
+                }
+              }, [2000]);
             });
-            setTimeout(() => {
-              navigate("/");
-            }, [2000]);
-          }
+
+          // toast.success("Logged in Successfully", {
+          //   position: toast.POSITION.TOP_CENTER,
+          // });
+          // setTimeout(() => {
+          //   navigate("/");
+          // }, [2000]);
         })
         .catch((error) => {
           if (error.response) {

@@ -15,7 +15,7 @@ const Header = () => {
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -131,7 +131,10 @@ const Header = () => {
 
             {userLoggedIn ? (
               <Link>
-                <img src={profileImage?profileImage:userimageIcon} alt=" " />
+                <img
+                  src={profileImage ? profileImage : userimageIcon}
+                  alt=" "
+                />
               </Link>
             ) : (
               <Link>
