@@ -308,9 +308,23 @@ button.activebtn {
 }
 .review li img {
   width: 50px;
-  margin: 10px 0;
-  height: 50px;
-  border-radius: 50%;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.review ul li .btnlike img {
+	margin-right: 30px;
+}
+
+.review ul li {
+	margin-bottom: 20px !important;
+}
+p.d_blck {
+	cursor: pointer;
+	margin-top: 15px;
+	color: purple !important;
+	font-weight: 600 !important;
+  margin-left: 6px;
 }
 .review div img {
   width: 30px;
@@ -328,6 +342,7 @@ button.activebtn {
 }
 .review li span {
   line-height: 1 !important;
+	font-size: 12px !important;
 }
 .review ul li button > img {
   width: 20px;
@@ -336,7 +351,9 @@ button.activebtn {
 }
 small.pc {
   margin-left: 6px;
-  padding: 5px 0;
+	padding: 10px 0;
+	font-size: 16px;
+line-height: 1.3;
 }
 .review small button {
   background: linear-gradient( 87.97deg, #b03fcc 2.88%, #683fe4 25.56%, rgba(216, 63, 190, 0.94) 114.56% ), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
@@ -376,7 +393,7 @@ small.pc {
 }
 .review ul li a {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 15px;
 }
 
