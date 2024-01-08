@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES } from "../../routes";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const ArticleBasedInterest = ({ articlesOnInterest }) => {
   const sliderRef = useRef();
@@ -14,7 +15,6 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
   const onArticleClick = (AricleID) => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
   };
-
   // Slide code
   var settings2 = {
     dots: false,
@@ -50,7 +50,7 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
       <div className="home-interest">
         <div className="heading-link flex">
           <h3>Articles based on your interest</h3>
-          <a href={PATH_FEATURED_ARTICLES}>View all</a>
+          <Link to={PATH_FEATURED_ARTICLES}>View all</Link>
         </div>
         <div className="interest-slider">
           <Slider
