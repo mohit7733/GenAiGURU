@@ -494,7 +494,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         <small className="pc">
                                           {comment?.content}
                                         </small>
-                                        <br />
+                                        {/* <br /> */}
                                         <button
                                           className="btnlike"
                                           onClick={() =>
@@ -534,8 +534,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         >
                                           Reply
                                         </span>
-                                        <span
-                                          style={{ cursor: "pointer" }}
+                                        <p
+                                          className="d_blck"
+                                          style={{
+                                            cursor: "pointer",
+                                          }}
                                           onClick={() => {
                                             getReplyComments(comment.id);
                                             setDisplayRepliesCommentModel(
@@ -543,8 +546,13 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             );
                                           }}
                                         >
+                                          <i
+                                            style={{ marginRight: "5px" }}
+                                            class="fa fa-caret-down"
+                                            aria-hidden="true"
+                                          ></i>
                                           Replies
-                                        </span>
+                                        </p>
                                       </span>
                                     </a>
                                   </li>
