@@ -312,9 +312,9 @@ button.activebtn {
 	border-radius: 50%;
 	object-fit: cover;
 }
-.review ul li .btnlike img {
-	margin-right: 30px;
-}
+/* .review ul li .btnlike img {
+	margin-right: 10px;
+} */
 
 .review ul li {
 	margin-bottom: 20px !important;
@@ -339,6 +339,7 @@ p.d_blck {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 12px;
 }
 .review li span {
   line-height: 1 !important;
@@ -368,6 +369,7 @@ line-height: 1.3;
   background-color: transparent;
   border: none;
   outline: none;
+  color: white;
 }
 .review input[type="text"] {
   background: transparent;

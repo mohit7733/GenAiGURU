@@ -24,7 +24,7 @@ const BlogDetails = ({ likes, dislikes }) => {
   });
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [getBlogComments, setGetBlogComments] = useState([]);
-  const [getReplyBlogComments, setGetReplyBlogComments] = useState([]);
+  const [getReplyBlogComments, setGetReplyBlogComments] = useState([null]);
   const [profileImage, setProfileImage] = useState({
     profile_image: "",
     name: "",
@@ -43,8 +43,9 @@ const BlogDetails = ({ likes, dislikes }) => {
   const [comment, setComment] = useState("");
   const [replyComment, setReplyComment] = useState("");
   const [displayCommentModel, setDisplayCommentModel] = useState(false);
-  const [displayRepliesCommentModel, setDisplayRepliesCommentModel] =
-    useState(false);
+  const [displayRepliesCommentModel, setDisplayRepliesCommentModel] = useState(
+    {}
+  );
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -194,7 +195,6 @@ const BlogDetails = ({ likes, dislikes }) => {
       )
       .then((res) => {
         console.log(res?.data);
-
         // console.log(res?.data?.replies);
         setGetReplyBlogComments(res?.data?.replies);
       })
@@ -510,6 +510,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                 : {}
                                             }
                                           />
+                                          {comment.likes > 0
+                                            ? comment.likes
+                                            : ""}
                                         </button>
                                         <button
                                           onClick={() =>
@@ -525,6 +528,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                 : {}
                                             }
                                           />
+                                          {comment.dislikes > 0
+                                            ? comment.dislikes
+                                            : ""}
                                         </button>
                                         <span
                                           style={{ cursor: "pointer" }}
@@ -542,13 +548,25 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           onClick={() => {
                                             getReplyComments(comment.id);
                                             setDisplayRepliesCommentModel(
-                                              !displayRepliesCommentModel
+                                              (prevStatus) => ({
+                                                ...prevStatus,
+                                                [comment.id]:
+                                                  !prevStatus[comment.id],
+                                              })
                                             );
                                           }}
                                         >
                                           <i
                                             style={{ marginRight: "5px" }}
-                                            class="fa fa-caret-down"
+                                            class={
+                                              !displayRepliesCommentModel[
+                                                comment?.id
+                                              ] &&
+                                              getReplyBlogComments?.comment_id !==
+                                                comment?.id
+                                                ? "fa fa-caret-down"
+                                                : "fa fa-caret-up"
+                                            }
                                             aria-hidden="true"
                                           ></i>
                                           Replies
@@ -556,7 +574,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                       </span>
                                     </a>
                                   </li>
-                                  {displayRepliesCommentModel && (
+                                  {displayRepliesCommentModel[comment.id] && (
                                     <li>
                                       {getReplyBlogComments?.map(
                                         (reply, index) => {
@@ -601,6 +619,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                           : {}
                                                       }
                                                     />
+                                                    {reply.likes > 0
+                                                      ? reply.likes
+                                                      : ""}
                                                   </button>
                                                   <button
                                                     className="innerbtn"
@@ -623,6 +644,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                           : {}
                                                       }
                                                     />
+                                                    {reply.dislikes > 0
+                                                      ? reply.dislikes
+                                                      : ""}
                                                   </button>
                                                 </>
                                               )}
