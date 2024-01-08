@@ -162,11 +162,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
   };
   const getComments = () => {
     axios
-      .get(`${getBaseURL()}/article-comment?article_id=${articleId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/article-comment?user_id=${userId}&article_id=${articleId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         //  console.log(res?.data);
         setGetarticleComments(res?.data?.comments);
@@ -177,11 +180,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
   };
   const getReplyComments = (id) => {
     axios
-      .get(`${getBaseURL()}/article-comment-reply?comment_id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/article-comment-reply?user_id=${userId}&comment_id=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res?.data?.replies);
         setGetReplyArticleComments(res?.data?.replies);
@@ -190,6 +196,12 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         console.log(err.message);
       });
   };
+  useEffect(() => {
+    getComments();
+    getReplyComments();
+    setButtonClicked(false);
+  }, [buttonClicked]);
+
   // get user details api..........
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -254,7 +266,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .then((res) => {
         console.log(res.data, "fdggh");
         setArticleCommentLike(res.data);
-        alert("like/dislike");
+        setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -271,14 +283,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         reply_id: commentId,
       })
       .then((res) => {
-        console.log(res.data, "fdggh");
         setArticleCommentLikeReply(res.data);
-        alert("like/dislike");
+        setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
       });
-    console.log(userId, type, commentId, "fgfdgb");
+    // console.log(userId, type, commentId, "fgfdgb");
   };
   return (
     <div>
@@ -498,17 +509,27 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                         </small>
                                         {/* <br /> */}
                                         <button
-                                          className="btnlike"
+                                          style={{
+                                            cursor: "pointer",
+                                          }}
                                           onClick={() =>
                                             postArticleLike("like", comment.id)
                                           }
                                         >
                                           <img
                                             src="/app/images/thumbs-up.png"
-                                            alt=""
+                                            style={
+                                              comment?.like_details?.type ==
+                                              "like"
+                                                ? { backgroundColor: "purple" }
+                                                : {}
+                                            }
                                           />
                                         </button>
                                         <button
+                                          style={{
+                                            cursor: "pointer",
+                                          }}
                                           onClick={() =>
                                             postArticleLike(
                                               "dislike",
@@ -518,7 +539,12 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                         >
                                           <img
                                             src="/app/images/thumbs-down.png"
-                                            alt=""
+                                            style={
+                                              comment?.like_details?.type ==
+                                              "dislike"
+                                                ? { backgroundColor: "purple" }
+                                                : {}
+                                            }
                                           />
                                         </button>
                                         <span
@@ -576,6 +602,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   <br />
                                                   <span>{reply.content}</span>
                                                   <button
+                                                    style={{
+                                                      cursor: "pointer",
+                                                    }}
                                                     className="btnlike"
                                                     onClick={() =>
                                                       postArticleReplyLike(
@@ -586,10 +615,21 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   >
                                                     <img
                                                       src="/app/images/thumbs-up.png"
-                                                      alt=""
+                                                      style={
+                                                        reply?.like_details
+                                                          ?.type == "like"
+                                                          ? {
+                                                              backgroundColor:
+                                                                "purple",
+                                                            }
+                                                          : {}
+                                                      }
                                                     />
                                                   </button>
                                                   <button
+                                                    style={{
+                                                      cursor: "pointer",
+                                                    }}
                                                     onClick={() =>
                                                       postArticleReplyLike(
                                                         "dislike",
@@ -599,7 +639,15 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   >
                                                     <img
                                                       src="/app/images/thumbs-down.png"
-                                                      alt=""
+                                                      style={
+                                                        reply?.like_details
+                                                          ?.type == "dislike"
+                                                          ? {
+                                                              backgroundColor:
+                                                                "purple",
+                                                            }
+                                                          : {}
+                                                      }
                                                     />
                                                   </button>
                                                 </>
