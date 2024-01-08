@@ -56,7 +56,6 @@ const Login8 = () => {
     } else {
       return login(payload)
         .then((res) => {
-          // console.log(res, "response");
           localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           localStorage.setItem("userLoggedIn", JSON.stringify("true"));
 
