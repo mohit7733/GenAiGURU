@@ -118,6 +118,7 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
               );
             })}
           </Slider>
+          <div id="artilceBasesOnInterest"></div>
         </div>
         <a href={PATH_FEATURED_ARTICLES} className="viewAll">
           View all

@@ -29,10 +29,10 @@ const Categories = () => {
   }, []);
 
   useEffect(() => {
-    onCategoryClick();
+    onCategoryClick(false);
   }, [defaultCategoryId]);
 
-  const onCategoryClick = (categoryId = defaultCategoryId) => {
+  const onCategoryClick = (isScroll, categoryId = defaultCategoryId) => {
     const array = [categoryId];
     setSelectedInterest(categoryId);
     axios
@@ -45,6 +45,12 @@ const Categories = () => {
       .catch((errors) => {
         console.log(errors);
       });
+    if (isScroll) {
+      const scrollToMeDiv = document.getElementById("artilceBasesOnInterest");
+      if (scrollToMeDiv) {
+        scrollToMeDiv.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   const handleViewMoreClick = () => {
@@ -75,7 +81,7 @@ const Categories = () => {
                       : ""
                   }
                   onClick={() => {
-                    onCategoryClick(interest.interest_id);
+                    onCategoryClick(true, interest.interest_id);
                   }}
                 >
                   {interest.interest_id == selectedInterest ? (
