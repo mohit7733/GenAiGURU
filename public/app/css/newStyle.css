@@ -308,9 +308,10 @@ button.activebtn {
 }
 .review li img {
   width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	object-fit: cover;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: linear-gradient( 126.46deg, #2087ff -1.62%, rgba(129, 246, 239, 0.65) 48.02%, #ff45ec 99.78% );
 }
 .review ul li .btnlike img {
 	margin-right: 15px;
@@ -335,11 +336,14 @@ p.d_blck {
   margin-left: 0px !important;
 
 }
-.review div{
+.rightSection .keeps-container .blog-details li {
+  color: #cfd6db;
+}
+.review div {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 12px;
+  margin: 8px 12px;
 }
 .review li span {
   line-height: 1 !important;
@@ -349,6 +353,7 @@ p.d_blck {
   width: 20px;
   height: 20px;
   margin: 0 7px;
+  background: transparent;
 }
 small.pc {
   margin-left: 6px;
@@ -371,10 +376,10 @@ line-height: 1.3;
 	outline: none;
 	cursor: pointer;
 }
-.review ul li a > figure {
+/* .review ul li a > figure {
 	background: linear-gradient( 126.46deg, #2087ff -1.62%, rgba(129, 246, 239, 0.65) 48.02%, #ff45ec 99.78% );
 	border-radius: 50%;
-}
+} */
 .review ul li a span:first-child {
 	font-weight: bold !important;
 }
