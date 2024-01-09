@@ -495,51 +495,90 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           {comment?.content}
                                         </small>
                                         {/* <br /> */}
-                                        <button
-                                          className="btnlike"
-                                          onClick={() =>
-                                            postBlogLike("like", comment.id)
-                                          }
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            margin: "0px",
+                                          }}
                                         >
-                                          <img
-                                            src="/app/images/thumbs-up.png"
-                                            style={
-                                              comment?.like_details?.type ==
-                                              "like"
-                                                ? { backgroundColor: "purple" }
-                                                : {}
+                                          <button
+                                            className="btnlike"
+                                            onClick={() =>
+                                              postBlogLike("like", comment.id)
                                             }
-                                          />
-                                          {comment.likes > 0
-                                            ? comment.likes
-                                            : ""}
-                                        </button>
-                                        <button
-                                          onClick={() =>
-                                            postBlogLike("dislike", comment.id)
-                                          }
-                                        >
-                                          <img
-                                            src="/app/images/thumbs-down.png"
-                                            style={
-                                              comment?.like_details?.type ==
-                                              "dislike"
-                                                ? { backgroundColor: "purple" }
-                                                : {}
+                                          >
+                                            <img
+                                              className="borderImage"
+                                              src={
+                                                comment?.like_details?.type ==
+                                                "like"
+                                                  ? "/app/images/Group_1.png"
+                                                  : "/app/images/thumbs-up.png"
+                                              }
+                                              style={{ float: "left" }}
+                                            />
+                                            <img
+                                              className="fillImage"
+                                              src="/app/images/Group_1.png"
+                                              style={{ float: "left" }}
+                                            />
+                                            <span
+                                              style={{
+                                                marginLeft: "-5px",
+                                                marginTop: "4px",
+                                              }}
+                                            >
+                                              {comment.likes > 0
+                                                ? comment.likes
+                                                : ""}
+                                            </span>
+                                          </button>
+                                          <button
+                                            className="btnlike"
+                                            onClick={() =>
+                                              postBlogLike(
+                                                "dislike",
+                                                comment.id
+                                              )
                                             }
-                                          />
-                                          {comment.dislikes > 0
-                                            ? comment.dislikes
-                                            : ""}
-                                        </button>
-                                        <span
-                                          style={{ cursor: "pointer" }}
-                                          onClick={() =>
-                                            toggleReplyCommentModel(comment.id)
-                                          }
-                                        >
-                                          Reply
-                                        </span>
+                                          >
+                                            <img
+                                              className="borderImage"
+                                              src={
+                                                comment?.like_details?.type ==
+                                                "dislike"
+                                                  ? "/app/images/Group_2.png"
+                                                  : "/app/images/thumbs-down.png"
+                                              }
+                                              style={{ float: "left" }}
+                                            />
+                                            <img
+                                              className="fillImage"
+                                              src="/app/images/Group_2.png"
+                                              style={{ float: "left" }}
+                                            />
+                                            <span
+                                              style={{
+                                                marginLeft: "-5px",
+                                                marginTop: "4px",
+                                              }}
+                                            >
+                                              {comment.dislikes > 0
+                                                ? comment.dislikes
+                                                : ""}
+                                            </span>
+                                          </button>
+                                          <span
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() =>
+                                              toggleReplyCommentModel(
+                                                comment.id
+                                              )
+                                            }
+                                          >
+                                            Reply
+                                          </span>
+                                        </div>
                                         <p
                                           className="d_blck"
                                           style={{
@@ -588,6 +627,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       src={
                                                         reply?.user_details
                                                           ?.profile_image
+                                                          ? reply?.user_details
+                                                              ?.profile_image
+                                                          : userimageIcon
                                                       }
                                                       alt="repliedUserIcon"
                                                       title="repliedUserIcon"
@@ -598,56 +640,91 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                   </span>
                                                   <br />
                                                   <span>{reply.content}</span>
-                                                  <button
-                                                    className="innerbtn"
-                                                    onClick={() =>
-                                                      postBlogReplyLike(
-                                                        "like",
-                                                        reply.id
-                                                      )
-                                                    }
+                                                  <div
+                                                    style={{
+                                                      display: "flex",
+                                                      margin: "0px",
+                                                    }}
                                                   >
-                                                    <img
-                                                      src="/app/images/thumbs-up.png"
-                                                      style={
-                                                        reply?.like_details
-                                                          ?.type == "like"
-                                                          ? {
-                                                              backgroundColor:
-                                                                "purple",
-                                                            }
-                                                          : {}
+                                                    <button
+                                                      className="btnlike"
+                                                      onClick={() =>
+                                                        postBlogReplyLike(
+                                                          "like",
+                                                          reply.id
+                                                        )
                                                       }
-                                                    />
-                                                    {reply.likes > 0
-                                                      ? reply.likes
-                                                      : ""}
-                                                  </button>
-                                                  <button
-                                                    className="innerbtn"
-                                                    onClick={() =>
-                                                      postBlogReplyLike(
-                                                        "dislike",
-                                                        reply.id
-                                                      )
-                                                    }
-                                                  >
-                                                    <img
-                                                      src="/app/images/thumbs-down.png"
-                                                      style={
-                                                        reply?.like_details
-                                                          ?.type == "dislike"
-                                                          ? {
-                                                              backgroundColor:
-                                                                "purple",
-                                                            }
-                                                          : {}
+                                                    >
+                                                      <img
+                                                        className="borderImage"
+                                                        src={
+                                                          reply?.like_details
+                                                            ?.type == "like"
+                                                            ? "/app/images/Group_1.png"
+                                                            : "/app/images/thumbs-up.png"
+                                                        }
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <img
+                                                        className="fillImage"
+                                                        src="/app/images/Group_1.png"
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <span
+                                                        style={{
+                                                          marginLeft: "-5px",
+                                                          marginTop: "4px",
+                                                        }}
+                                                      >
+                                                        {reply.likes > 0
+                                                          ? reply.likes
+                                                          : ""}
+                                                      </span>
+                                                    </button>
+                                                    <button
+                                                      className="btnlike"
+                                                      onClick={() =>
+                                                        postBlogReplyLike(
+                                                          "dislike",
+                                                          reply.id
+                                                        )
                                                       }
-                                                    />
-                                                    {reply.dislikes > 0
-                                                      ? reply.dislikes
-                                                      : ""}
-                                                  </button>
+                                                    >
+                                                      <img
+                                                        className="borderImage"
+                                                        src={
+                                                          reply?.like_details
+                                                            ?.type == "dislike"
+                                                            ? "/app/images/Group_2.png"
+                                                            : "/app/images/thumbs-down.png"
+                                                        }
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <img
+                                                        className="fillImage"
+                                                        src="/app/images/Group_2.png"
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <span
+                                                        style={{
+                                                          marginLeft: "-5px",
+                                                          marginTop: "4px",
+                                                        }}
+                                                      >
+                                                        {reply.dislikes > 0
+                                                          ? reply.dislikes
+                                                          : ""}
+                                                      </span>
+                                                    </button>
+                                                  </div>
                                                 </>
                                               )}
                                             </div>
