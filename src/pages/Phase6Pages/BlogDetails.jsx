@@ -318,12 +318,16 @@ const BlogDetails = ({ likes, dislikes }) => {
                   <div className="connect-box">
                     <WithAuth
                       callBack={(e) => {
-                        console.log("dd");
+                        if (blogDetail.blogSaved == "yes") {
+                          onBlogUnSave(blogDetail.blog_id);
+                        } else {
+                          onBlogSave(blogDetail.blog_id);
+                        }
                       }}
                     >
                       <ul className="flex">
                         {blogDetail.blogSaved == "yes" ? (
-                          <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
+                          <li>
                             <a>
                               <figure>
                                 <img
@@ -334,7 +338,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                             </a>
                           </li>
                         ) : (
-                          <li onClick={() => onBlogSave(blogDetail.blog_id)}>
+                          <li>
                             <a>
                               <figure>
                                 <img
@@ -397,21 +401,22 @@ const BlogDetails = ({ likes, dislikes }) => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a
-                            onClick={() =>
-                              setDisplayCommentModel(!displayCommentModel)
-                            }
-                            style={{ cursor: "pointer" }}
+                          <WithAuth
+                            callBack={(e) => {
+                              setDisplayCommentModel(!displayCommentModel);
+                            }}
                           >
-                            <figure>
-                              <img
-                                src="./app/images/comment-01.png"
-                                alt="Genaiguru comment-01"
-                                title="Genaiguru comment-01"
-                              />
-                            </figure>
-                            <span>Comment</span>
-                          </a>
+                            <a style={{ cursor: "pointer" }}>
+                              <figure>
+                                <img
+                                  src="./app/images/comment-01.png"
+                                  alt="Genaiguru comment-01"
+                                  title="Genaiguru comment-01"
+                                />
+                              </figure>
+                              <span>Comment</span>
+                            </a>
+                          </WithAuth>
                         </li>
                         <li>
                           <a>

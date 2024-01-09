@@ -1375,3 +1375,6 @@ section.mainWrapper
   border: 2px solid #be41c0 !important;
   background: rgba(198, 208, 225, 0.1);
 }
+.rightSection .keeps-container .blog-details h3 {
+  color: #cfd6db !important;
+}
