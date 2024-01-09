@@ -312,9 +312,9 @@ button.activebtn {
 	border-radius: 50%;
 	object-fit: cover;
 }
-/* .review ul li .btnlike img {
-	margin-right: 10px;
-} */
+.review ul li .btnlike img {
+	margin-right: 15px;
+}
 
 .review ul li {
 	margin-bottom: 20px !important;
@@ -322,9 +322,9 @@ button.activebtn {
 p.d_blck {
 	cursor: pointer;
 	margin-top: 15px;
-	color: purple !important;
+	color: #873DD0 !important;
 	font-weight: 600 !important;
-  margin-left: 6px;
+	margin-left: 6px;
 }
 .review div img {
   width: 30px;
@@ -365,12 +365,34 @@ line-height: 1.3;
   color: #fff;
   margin-left: 10px;
 }
-.review ul li button{
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: white;
+.review ul li button {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
 }
+.review ul li a > figure {
+	background: linear-gradient( 126.46deg, #2087ff -1.62%, rgba(129, 246, 239, 0.65) 48.02%, #ff45ec 99.78% );
+	border-radius: 50%;
+}
+.review ul li a span:first-child {
+	font-weight: bold !important;
+}
+.review ul li .btnlike .fillImage{
+  display: none;
+  transition: all 0.1s ease;
+}
+.review ul li .btnlike .borderImage{
+  display: block;
+  transition: all 0.1s ease;
+}
+.review ul li .btnlike:hover .fillImage{
+  display: block;
+}
+.review ul li .btnlike:hover .borderImage{
+  display: none;
+}
+
 .review input[type="text"] {
   background: transparent;
   border-top: none;
