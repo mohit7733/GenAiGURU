@@ -1,9 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { getBaseURL } from "../../api/config";
-import axios from "axios";
 
 const GuruGold = () => {
   const [userPoints, setUserPoints] = useState(null);
@@ -13,6 +13,8 @@ const GuruGold = () => {
   });
   const [levelDetails, setLevelDetails] = useState([]);
   const [userLevel, setUserLevel] = useState("");
+  const [earnMorePoint, setEarnMorePoint] = useState("");
+  const [totalPoints, setTotalPoints] = useState("");
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -59,14 +61,14 @@ const GuruGold = () => {
   }, [userPoints, levelDetails]);
 
   async function getUserLevel(userPoints, apiData) {
-    console.log(apiData, userPoints);
     for (const levelData of apiData) {
       if (
         userPoints >= levelData.lower_limit &&
         userPoints <= levelData.upper_limit
       ) {
         setUserLevel(levelData.name);
-        console.log(levelData.name);
+        setEarnMorePoint(levelData.upper_limit - userPoints);
+        setTotalPoints(levelData.upper_limit);
       }
     }
     return "unknow level";
@@ -75,13 +77,12 @@ const GuruGold = () => {
   const fetchLevels = async () => {
     try {
       const response = await axios.get(`${getBaseURL()}/game-levels`);
-      console.log(response?.data?.data);
+      // console.log(response?.data?.data);
       setLevelDetails(response?.data?.data);
     } catch (error) {
       console.error("Error fetching game-levels:", error.message);
     }
   };
-
 
   return (
     <div>
@@ -114,13 +115,15 @@ const GuruGold = () => {
                         <h3>
                           {/* {levelDetails} */}
                           {userLevel}
-                          <img
+                          {/* <img
                             src="app/images/headingProfileIcons.png"
                             alt="Genaiguru headingProfileIcons"
                             title="Genaiguru headingProfileIcons"
-                          />
+                          /> */}
                         </h3>{" "}
-                        <p>Coins: {userPoints}/50,000</p>
+                        <p>
+                          Coins: {userPoints}/{totalPoints}
+                        </p>
                       </li>
                     </Link>
                   </ul>
@@ -134,7 +137,7 @@ const GuruGold = () => {
                     ></input>
                   </div>
                   <p className="profileBottomText">
-                    Earn more 47000 coins to ge next label
+                    Earn more {earnMorePoint} coins to go to next level
                   </p>
                 </div>
               </div>
