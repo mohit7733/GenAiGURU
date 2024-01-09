@@ -11,27 +11,10 @@ const GuruGold = () => {
     profile_image: "",
     name: "",
   });
-
+  const [levelDetails, setLevelDetails] = useState([]);
+  const [userLevel, setUserLevel] = useState("");
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
-
-  useEffect(() => {
-    const fetchUserPoints = async () => {
-      try {
-        const response = await axios.get(`${getBaseURL()}/get-points`, {
-          params: {
-            user_id: userId, // Pass the user_id as a parameter
-          },
-        });
-
-        setUserPoints(response?.data?.data?.total);
-      } catch (error) {
-        console.error("Error fetching user points:", error.message);
-      }
-    };
-
-    fetchUserPoints();
-  }, [userId]);
 
   // get user details api..........
   useEffect(() => {
@@ -53,6 +36,53 @@ const GuruGold = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const fetchUserPoints = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/get-points`, {
+          params: {
+            user_id: userId,
+          },
+        });
+
+        setUserPoints(response?.data?.data?.total);
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchUserPoints();
+    fetchLevels();
+  }, [userId]);
+
+  useEffect(() => {
+    getUserLevel(userPoints, levelDetails);
+  }, [userPoints, levelDetails]);
+
+  async function getUserLevel(userPoints, apiData) {
+    console.log(apiData, userPoints);
+    for (const levelData of apiData) {
+      if (
+        userPoints >= levelData.lower_limit &&
+        userPoints <= levelData.upper_limit
+      ) {
+        setUserLevel(levelData.name);
+        console.log(levelData.name);
+      }
+    }
+    return "unknow level";
+  }
+
+  const fetchLevels = async () => {
+    try {
+      const response = await axios.get(`${getBaseURL()}/game-levels`);
+      console.log(response?.data?.data);
+      setLevelDetails(response?.data?.data);
+    } catch (error) {
+      console.error("Error fetching game-levels:", error.message);
+    }
+  };
+
+
   return (
     <div>
       <MobileHeader />
@@ -60,12 +90,12 @@ const GuruGold = () => {
       <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
-          <div class="full-width">
-            <div class="guru-gold-silver">
+          <div className="full-width">
+            <div className="guru-gold-silver">
               <h1>Guru Gold</h1>
-              <div class="silver-coin-box">
-                <div class="silverWrap">
-                  <ul class="flex userPro">
+              <div className="silver-coin-box">
+                <div className="silverWrap">
+                  <ul className="flex userPro">
                     <li>
                       <figure>
                         <img
@@ -74,7 +104,7 @@ const GuruGold = () => {
                           title="userIcon"
                         />
                         <img
-                          class="profileImageTag"
+                          className="profileImageTag"
                           src="app/images/profileImageTag.png"
                         />
                       </figure>
@@ -82,7 +112,8 @@ const GuruGold = () => {
                     <Link to="/silver">
                       <li>
                         <h3>
-                          Silver
+                          {/* {levelDetails} */}
+                          {userLevel}
                           <img
                             src="app/images/headingProfileIcons.png"
                             alt="Genaiguru headingProfileIcons"
@@ -93,23 +124,23 @@ const GuruGold = () => {
                       </li>
                     </Link>
                   </ul>
-                  <div class="rangeWrap">
+                  <div className="rangeWrap">
                     <input
-                      class="range"
+                      className="range"
                       type="range"
-                      value="50"
-                      min="0"
-                      max="100"
+                      // value="50"
+                      // min="0"
+                      // max="100"
                     ></input>
                   </div>
-                  <p class="profileBottomText">
+                  <p className="profileBottomText">
                     Earn more 47000 coins to ge next label
                   </p>
                 </div>
               </div>
               {/* <!-- silver user --> */}
-              <div class="silver-user">
-                <ul class="flex">
+              <div className="silver-user">
+                <ul className="flex">
                   <li>
                     <a href="#">
                       <figure>
@@ -179,11 +210,11 @@ const GuruGold = () => {
                 </ul>
               </div>
               {/* <!-- reward start --> */}
-              <div class="reward">
-                <div class="reward-container">
-                  <div class="reward-line ">
-                    <div class="reward-box">
-                      <Link to="/leaderboard" class="flex">
+              <div className="reward">
+                <div className="reward-container">
+                  <div className="reward-line ">
+                    <div className="reward-box">
+                      <Link to="/leaderboard" className="flex">
                         <figure>
                           <img
                             src="app/images/reward-1.png"
@@ -192,7 +223,7 @@ const GuruGold = () => {
                           />
                         </figure>
                         <h6>Leaderboards</h6>
-                        <figure class="rightArrow">
+                        <figure className="rightArrow">
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
@@ -202,9 +233,9 @@ const GuruGold = () => {
                       </Link>
                     </div>
                   </div>
-                  <div class="reward-line ">
-                    <div class="reward-box">
-                      <Link to="/reward" class="flex">
+                  <div className="reward-line ">
+                    <div className="reward-box">
+                      <Link to="/reward" className="flex">
                         <figure>
                           <img
                             src="app/images/reward-2.png"
@@ -213,7 +244,7 @@ const GuruGold = () => {
                           />
                         </figure>
                         <h6>Rewards</h6>
-                        <figure class="rightArrow">
+                        <figure className="rightArrow">
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
@@ -223,9 +254,9 @@ const GuruGold = () => {
                       </Link>
                     </div>
                   </div>
-                  <div class="reward-line ">
-                    <div class="reward-box">
-                      <Link to="/milestone" class="flex">
+                  <div className="reward-line ">
+                    <div className="reward-box">
+                      <Link to="/milestone" className="flex">
                         <figure>
                           <img
                             src="app/images/reward-2.png"
@@ -234,7 +265,7 @@ const GuruGold = () => {
                           />
                         </figure>
                         <h6>Milestone</h6>
-                        <figure class="rightArrow">
+                        <figure className="rightArrow">
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
@@ -253,9 +284,9 @@ const GuruGold = () => {
       {/* <!-- main section end here --> */}
 
       {/* <!-- mobile section start here --> */}
-      <div class="mob_profile commanMobHead hideDes">
-        <div class="mobileHead flex">
-          <div class="hamburger">
+      <div className="mob_profile commanMobHead hideDes">
+        <div className="mobileHead flex">
+          <div className="hamburger">
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
@@ -264,12 +295,12 @@ const GuruGold = () => {
           </div>
           <h2>Gurugold</h2>
         </div>
-        <div class="innerCommanContent mobGuruGold">
-          <div class="rightSection">
-            <div class="guru-gold-silver">
-              <div class="silver-coin-box">
-                <div class="silverWrap">
-                  <ul class="flex userPro">
+        <div className="innerCommanContent mobGuruGold">
+          <div className="rightSection">
+            <div className="guru-gold-silver">
+              <div className="silver-coin-box">
+                <div className="silverWrap">
+                  <ul className="flex userPro">
                     <li>
                       <figure>
                         <img
@@ -278,7 +309,7 @@ const GuruGold = () => {
                           title="Genaiguru userIcon"
                         />
                         <img
-                          class="profileImageTag"
+                          className="profileImageTag"
                           src="app/images/profileImageTag.png"
                         />
                       </figure>
@@ -292,26 +323,26 @@ const GuruGold = () => {
                           title="Genaiguru headingProfileIcons"
                         />
                       </h3>{" "}
-                      <p>Coins: 20,000/50,000</p>
+                      <p>Coins: {userPoints}/50,000</p>
                     </li>
                   </ul>
-                  <div class="rangeWrap">
+                  <div className="rangeWrap">
                     <input
-                      class="range"
+                      className="range"
                       type="range"
-                      value="50"
+                      // value="50"
                       min="0"
                       max="100"
                     ></input>
                   </div>
-                  <p class="profileBottomText">
+                  <p className="profileBottomText">
                     Earn more 47000 coins to ge next label
                   </p>
                 </div>
               </div>
               {/* <!-- silver user --> */}
-              <div class="silver-user">
-                <ul class="flex">
+              <div className="silver-user">
+                <ul className="flex">
                   <li>
                     <a href="#">
                       <figure>
@@ -381,11 +412,11 @@ const GuruGold = () => {
                 </ul>
               </div>
               {/* <!-- reward start --> */}
-              <div class="reward">
-                <div class="reward-container">
-                  <div class="reward-line ">
-                    <div class="reward-box">
-                      <Link to="/leaderboard" class="flex">
+              <div className="reward">
+                <div className="reward-container">
+                  <div className="reward-line ">
+                    <div className="reward-box">
+                      <Link to="/leaderboard" className="flex">
                         <figure>
                           <img
                             src="app/images/reward-1.png"
@@ -394,7 +425,7 @@ const GuruGold = () => {
                           />
                         </figure>
                         <h6>Leaderboards</h6>
-                        <figure class="rightArrow">
+                        <figure className="rightArrow">
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
@@ -404,9 +435,9 @@ const GuruGold = () => {
                       </Link>
                     </div>
                   </div>
-                  <div class="reward-line ">
-                    <div class="reward-box">
-                      <Link to="/reward" class="flex">
+                  <div className="reward-line ">
+                    <div className="reward-box">
+                      <Link to="/reward" className="flex">
                         <figure>
                           <img
                             src="app/images/reward-2.png"
@@ -415,7 +446,7 @@ const GuruGold = () => {
                           />
                         </figure>
                         <h6>Rewards</h6>
-                        <figure class="rightArrow">
+                        <figure className="rightArrow">
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
@@ -425,9 +456,9 @@ const GuruGold = () => {
                       </Link>
                     </div>
                   </div>
-                  <div class="reward-line ">
-                    <div class="reward-box">
-                      <Link to="/milestone" class="flex">
+                  <div className="reward-line ">
+                    <div className="reward-box">
+                      <Link to="/milestone" className="flex">
                         <figure>
                           <img
                             src="app/images/reward-2.png"
@@ -436,7 +467,7 @@ const GuruGold = () => {
                           />
                         </figure>
                         <h6>Milestone</h6>
-                        <figure class="rightArrow">
+                        <figure className="rightArrow">
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
