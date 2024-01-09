@@ -928,23 +928,66 @@ const ArticlesDetails = ({ likes, dislikes }) => {
           <Link to={PATH_FEATURED_ARTICLES} className="hamburger">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
           </Link>
-          <h2>Blog Details</h2>
+          <h6>Article details</h6>
           <div className="connect-box">
             <ul className="flex">
-              <li>
+              {/* <li>
                 <a href="#">
                   <figure>
                     <img src="./app/images/sorting-icon.png" alt="" />
                   </figure>
                 </a>
               </li>
-              <li>
-                <a href="#">
+              <li> */}
+              {/* <a href="#">
                   <figure>
                     <img src="./app/images/filter-icon.png" alt="" />
                   </figure>
                 </a>
-              </li>
+              </li> */}
+              <WithAuth
+                callBack={(e) => {
+                  console.log("dd");
+                }}
+              >
+                <ul className="flex">
+                  {articleDetail.articleSaved == "yes" ? (
+                    <li
+                      onClick={() => onArticleUnSave(articleDetail.article_id)}
+                    >
+                      <a>
+                        <figure>
+                          <img src="app/images/color-bookmarks.png" alt="" />
+                        </figure>
+                      </a>
+                    </li>
+                  ) : (
+                    <li onClick={() => onArticleSave(articleDetail.article_id)}>
+                      <a>
+                        <figure>
+                          <img src="./app/images/bookmarkIcon.png" alt="" />
+                        </figure>
+                      </a>
+                    </li>
+                  )}
+                  <li>
+                    <Sharebtn
+                      title={articleDetail.title}
+                      id={articleDetail.article_id}
+                      url={
+                        window.location.origin +
+                        "/articledetails?id=" +
+                        articleDetail.article_id
+                      }
+                    />
+                    {/* <a>
+                            <figure>
+                              <img src="./app/images/share-icon.png" alt="" />
+                            </figure>
+                          </a> */}
+                  </li>
+                </ul>
+              </WithAuth>
             </ul>
           </div>
         </div>
@@ -991,7 +1034,12 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a href="#">
+                          <a
+                            onClick={() =>
+                              setDisplayCommentModel(!displayCommentModel)
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
                             <figure>
                               <img
                                 src="./app/images/comment-01.png"
@@ -1011,10 +1059,392 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 title="Genaiguru help-circle"
                               />
                             </figure>{" "}
-                            <span>Ask question</span>
+                            <Link to="/contact">
+                              <span>Ask question</span>
+                            </Link>
                           </a>
                         </li>
                       </ul>
+                      {displayCommentModel && (
+                        <>
+                          <div className="review">
+                            <ul>
+                              <li>
+                                <a>
+                                  <figure>
+                                    <img
+                                      src={profileImage.profile_image}
+                                      alt="Genaiguru review"
+                                      title="Genaiguru review"
+                                    />
+                                  </figure>
+                                  <span>
+                                    <span className="m-l">
+                                      {profileImage.name}{" "}
+                                    </span>
+                                    <br />
+                                    <small>
+                                      <input
+                                        type="text"
+                                        placeholder="Comment Here......"
+                                        value={comment}
+                                        onChange={(e) =>
+                                          setComment(e.target.value)
+                                        }
+                                      />
+                                      <button onClick={postArticleComment}>
+                                        Post
+                                      </button>
+                                    </small>
+                                    <br />
+                                  </span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                          {/* Get Comments */}
+                          {getarticleComments.map((comment, index) => {
+                            const isReplyBoxOpen = replyCommentModels.includes(
+                              comment.id
+                            );
+
+                            return (
+                              <div className="review" key={index}>
+                                <ul>
+                                  <li>
+                                    <a>
+                                      <figure>
+                                        <img
+                                          src={
+                                            comment?.user_details?.profile_image
+                                          }
+                                          alt="Genaiguru review"
+                                          title="Genaiguru review"
+                                        />
+                                      </figure>
+                                      <span>
+                                        <span>
+                                          {comment?.user_details?.name}{" "}
+                                        </span>
+                                        <br />
+                                        <small className="pc">
+                                          {comment.content}
+                                        </small>
+                                        {/* <br /> */}
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            margin: "0px",
+                                          }}
+                                        >
+                                          <button
+                                            className="btnlike"
+                                            style={{
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={() =>
+                                              postArticleLike(
+                                                "like",
+                                                comment.id
+                                              )
+                                            }
+                                          >
+                                            <img
+                                              className="borderImage"
+                                              src={
+                                                comment?.like_details?.type ==
+                                                "like"
+                                                  ? "/app/images/Group_1.png"
+                                                  : "/app/images/thumbs-up.png"
+                                              }
+                                              style={{ float: "left" }}
+                                              alt=""
+                                            />
+                                            <img
+                                              className="fillImage"
+                                              src="/app/images/Group_1.png"
+                                              style={{ float: "left" }}
+                                              alt=""
+                                            />
+                                            <span
+                                              style={{
+                                                marginLeft: "-5px",
+                                                marginTop: "4px",
+                                              }}
+                                            >
+                                              {comment.likes > 0
+                                                ? comment.likes
+                                                : ""}
+                                            </span>
+                                          </button>
+                                          <button
+                                            className="btnlike"
+                                            style={{
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={() =>
+                                              postArticleLike(
+                                                "dislike",
+                                                comment.id
+                                              )
+                                            }
+                                          >
+                                            <img
+                                              className="borderImage"
+                                              src={
+                                                comment?.like_details?.type ==
+                                                "dislike"
+                                                  ? "/app/images/Group_2.png"
+                                                  : "/app/images/thumbs-down.png"
+                                              }
+                                              alt=""
+                                              style={{ float: "left" }}
+                                            />
+                                            <img
+                                              className="fillImage"
+                                              src="/app/images/Group_2.png"
+                                              style={{ float: "left" }}
+                                              alt=""
+                                            />
+                                            <span
+                                              style={{
+                                                marginLeft: "-5px",
+                                                marginTop: "4px",
+                                              }}
+                                            >
+                                              {comment.dislikes > 0
+                                                ? comment.dislikes
+                                                : ""}
+                                            </span>
+                                          </button>
+                                          <span
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() =>
+                                              toggleReplyCommentModel(
+                                                comment.id
+                                              )
+                                            }
+                                          >
+                                            Reply
+                                          </span>
+                                        </div>
+                                        <p
+                                          className="d_blck"
+                                          style={{
+                                            cursor: "pointer",
+                                          }}
+                                          onClick={() => {
+                                            getReplyComments(comment.id);
+                                            setDisplayRepliesCommentModel(
+                                              (prevStatus) => ({
+                                                ...prevStatus,
+                                                [comment.id]:
+                                                  !prevStatus[comment.id],
+                                              })
+                                            );
+                                          }}
+                                        >
+                                          <i
+                                            style={{ marginRight: "5px" }}
+                                            class={
+                                              !displayRepliesCommentModel[
+                                                comment?.id
+                                              ] &&
+                                              getReplyArticleComments?.comment_id !==
+                                                comment?.id
+                                                ? "fa fa-caret-down"
+                                                : "fa fa-caret-up"
+                                            }
+                                            aria-hidden="true"
+                                          ></i>
+                                          Replies
+                                        </p>
+                                      </span>
+                                    </a>
+                                  </li>
+                                  {displayRepliesCommentModel[comment.id] && (
+                                    <li>
+                                      {getReplyArticleComments?.map(
+                                        (reply, index) => {
+                                          return (
+                                            <div key={index}>
+                                              {reply.comment_id ===
+                                                comment.id && (
+                                                <>
+                                                  <figure>
+                                                    <img
+                                                      src={
+                                                        reply?.user_details
+                                                          ?.profile_image
+                                                      }
+                                                      alt="repliedUserIcon"
+                                                      title="repliedUserIcon"
+                                                    />
+                                                  </figure>
+                                                  <span
+                                                    style={{
+                                                      fontWeight: "bold",
+                                                    }}
+                                                  >
+                                                    {reply?.user_details?.name}
+                                                  </span>
+                                                  <br />
+                                                  <span>{reply.content}</span>
+                                                  <div
+                                                    style={{
+                                                      display: "flex",
+                                                      margin: "0px",
+                                                    }}
+                                                  >
+                                                    <button
+                                                      style={{
+                                                        cursor: "pointer",
+                                                      }}
+                                                      className="btnlike"
+                                                      onClick={() =>
+                                                        postArticleReplyLike(
+                                                          "like",
+                                                          reply.id
+                                                        )
+                                                      }
+                                                    >
+                                                      <img
+                                                        className="borderImage"
+                                                        src={
+                                                          reply?.like_details
+                                                            ?.type == "like"
+                                                            ? "/app/images/Group_1.png"
+                                                            : "/app/images/thumbs-up.png"
+                                                        }
+                                                        alt=""
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <img
+                                                        className="fillImage"
+                                                        src="/app/images/Group_1.png"
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                        alt=""
+                                                      />
+                                                      <span
+                                                        style={{
+                                                          marginLeft: "-5px",
+                                                          marginTop: "4px",
+                                                        }}
+                                                      >
+                                                        {reply.likes > 0
+                                                          ? reply.likes
+                                                          : ""}
+                                                      </span>
+                                                    </button>
+                                                    <button
+                                                      className="btnlike"
+                                                      style={{
+                                                        cursor: "pointer",
+                                                      }}
+                                                      onClick={() =>
+                                                        postArticleReplyLike(
+                                                          "dislike",
+                                                          reply.id
+                                                        )
+                                                      }
+                                                    >
+                                                      <img
+                                                        className="borderImage"
+                                                        src={
+                                                          reply?.like_details
+                                                            ?.type == "dislike"
+                                                            ? "/app/images/Group_2.png"
+                                                            : "/app/images/thumbs-down.png"
+                                                        }
+                                                        alt=""
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <img
+                                                        className="fillImage"
+                                                        src="/app/images/Group_2.png"
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                        alt=""
+                                                      />
+                                                      <span
+                                                        style={{
+                                                          marginLeft: "-5px",
+                                                          marginTop: "4px",
+                                                        }}
+                                                      >
+                                                        {reply.dislikes > 0
+                                                          ? reply.dislikes
+                                                          : ""}
+                                                      </span>
+                                                    </button>
+                                                  </div>
+                                                </>
+                                              )}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                    </li>
+                                  )}
+                                </ul>
+                                {isReplyBoxOpen && (
+                                  <div className="review">
+                                    <ul>
+                                      <li>
+                                        <a>
+                                          <figure>
+                                            <img
+                                              src={profileImage.profile_image}
+                                              alt="Genaiguru review"
+                                              title="Genaiguru review"
+                                            />
+                                          </figure>
+                                          <span>
+                                            <span className="m-l">
+                                              {profileImage.name}
+                                            </span>
+                                            <br />
+                                            <small>
+                                              <input
+                                                type="text"
+                                                placeholder="Reply Here......"
+                                                value={replyComment}
+                                                onChange={(e) =>
+                                                  setReplyComment(
+                                                    e.target.value
+                                                  )
+                                                }
+                                              />
+                                              <button
+                                                onClick={() =>
+                                                  postArticleReplyComment(
+                                                    comment.id,
+                                                    replyComment
+                                                  )
+                                                }
+                                              >
+                                                Post
+                                              </button>
+                                            </small>
+                                            <br />
+                                          </span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
                     </div>
 
                     {/* <!-- home interest section start here --> */}
@@ -1024,7 +1454,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                       </div>
                       {relatedArticle.map((article, Index) => {
                         return (
-                          <div className="interest-sliders">
+                          <div className="interest-sliders" key={Index}>
                             <div className="wrap flex">
                               <figure>
                                 <img
@@ -1037,7 +1467,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.photo}
+                                      src={article.author_profile_image}
                                       alt="Genaiguru authorImg"
                                       title="Genaiguru authorImg"
                                     />
@@ -1047,35 +1477,66 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                     <p> {article.creation_date}</p>
                                   </div>
                                 </div>
-                                <p>{article.title}</p>
-                                <ul className="flex">
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru bookmarkIcon"
-                                        title="Genaiguru bookmarkIcon"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <p>
+                                  <Link
+                                    onClick={() => onArticleClick(article.id)}
+                                  >
+                                    {article.title}
+                                  </Link>
+                                </p>
+                                <WithAuth
+                                  callBack={(e) => {
+                                    console.log("dd");
+                                  }}
+                                >
+                                  <ul className="flex">
+                                    <li
+                                      onClick={() => {
+                                        article.saved === "yes"
+                                          ? onArticleUnSave(article.id)
+                                          : onArticleSave(article.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
+                                        <img
+                                          src={
+                                            article.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            article.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          title={
+                                            article.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dotsIcons"
+                                          title="Genaiguru dotsIcons"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </WithAuth>
                               </div>
                             </div>
                           </div>
                         );
                       })}
-                      <a href="#" className="viewAll">
+                      {/* <a href="#" className="viewAll">
                         View all
-                      </a>
+                      </a> */}
                     </div>
                     {/* <!-- home interest section end here --> */}
                   </div>

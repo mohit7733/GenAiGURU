@@ -52,9 +52,9 @@ const FeaturedContent = (props) => {
         (err) => {
           console.log(err.message, " blog api error");
           toast.error("No data found.", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
           });
-          <ToastContainer autoClose={1000}/>
+          <ToastContainer autoClose={1000} />;
           setFilter(false);
         },
         [currentDate]
@@ -677,15 +677,15 @@ const FeaturedContent = (props) => {
           <h2>Blog</h2>
           <div className="connect-box">
             <ul className="flex">
-              <li>
+              {/* <li>
                 <Link to="/sortbydate">
                   <figure>
                     <img src="./app/images/sorting-icon.png" alt="" />
                   </figure>
                 </Link>
-              </li>
+              </li> */}
               <li>
-                <Link to="/featuredpopup">
+                <Link to="" onClick={(e) => setFilter(true)}>
                   <figure>
                     <img src="./app/images/filter-icon.png" alt="" />
                   </figure>
@@ -778,7 +778,12 @@ const FeaturedContent = (props) => {
                                   <p>{blog.creation_date}</p>
                                 </div>
                               </div>
-                              <p>{blog.title}</p>
+                              <p
+                                onClick={() => onBlogClick(blog.id)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                {blog.title}
+                              </p>
                               <ul className="flex">
                                 <li
                                   onClick={() => {
