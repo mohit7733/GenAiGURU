@@ -2,11 +2,26 @@ import React, { useEffect } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const LeaderBoard = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    const fetchUserPoints = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/get-points`);
+
+        console.log(response?.data);
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchUserPoints();
+  }, [userId]);
+
   return (
     <>
       <MobileHeader />
@@ -406,7 +421,9 @@ const LeaderBoard = () => {
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
           <div class="hamburger">
-          <Link to="/gurugold"><i class="fa fa-angle-left" aria-hidden="true"></i></Link>
+            <Link to="/gurugold">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </Link>
           </div>
           <h2>Leaderboard</h2>
         </div>
