@@ -508,53 +508,103 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           {comment.content}
                                         </small>
                                         {/* <br /> */}
-                                        <button
+                                        <div
                                           style={{
-                                            cursor: "pointer",
+                                            display: "flex",
+                                            margin: "0px",
                                           }}
-                                          onClick={() =>
-                                            postArticleLike("like", comment.id)
-                                          }
                                         >
-                                          <img
-                                            src="/app/images/thumbs-up.png"
-                                            style={
-                                              comment?.like_details?.type ==
-                                              "like"
-                                                ? { backgroundColor: "purple" }
-                                                : {}
+                                          <button
+                                            className="btnlike"
+                                            style={{
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={() =>
+                                              postArticleLike(
+                                                "like",
+                                                comment.id
+                                              )
                                             }
-                                          />
-                                        </button>
-                                        <button
-                                          style={{
-                                            cursor: "pointer",
-                                          }}
-                                          onClick={() =>
-                                            postArticleLike(
-                                              "dislike",
-                                              comment.id
-                                            )
-                                          }
-                                        >
-                                          <img
-                                            src="/app/images/thumbs-down.png"
-                                            style={
-                                              comment?.like_details?.type ==
-                                              "dislike"
-                                                ? { backgroundColor: "purple" }
-                                                : {}
+                                          >
+                                            <img
+                                              className="borderImage"
+                                              src={
+                                                comment?.like_details?.type ==
+                                                "like"
+                                                  ? "/app/images/Group_1.png"
+                                                  : "/app/images/thumbs-up.png"
+                                              }
+                                              style={{ float: "left" }}
+                                              alt=""
+                                            />
+                                            <img
+                                              className="fillImage"
+                                              src="/app/images/Group_1.png"
+                                              style={{ float: "left" }}
+                                              alt=""
+                                            />
+                                            <span
+                                              style={{
+                                                marginLeft: "-5px",
+                                                marginTop: "4px",
+                                              }}
+                                            >
+                                              {comment.likes > 0
+                                                ? comment.likes
+                                                : ""}
+                                            </span>
+                                          </button>
+                                          <button
+                                            className="btnlike"
+                                            style={{
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={() =>
+                                              postArticleLike(
+                                                "dislike",
+                                                comment.id
+                                              )
                                             }
-                                          />
-                                        </button>
-                                        <span
-                                          style={{ cursor: "pointer" }}
-                                          onClick={() =>
-                                            toggleReplyCommentModel(comment.id)
-                                          }
-                                        >
-                                          Reply
-                                        </span>
+                                          >
+                                            <img
+                                              className="borderImage"
+                                              src={
+                                                comment?.like_details?.type ==
+                                                "dislike"
+                                                  ? "/app/images/Group_2.png"
+                                                  : "/app/images/thumbs-down.png"
+                                              }
+                                              alt=""
+                                              style={{ float: "left" }}
+                                            />
+                                            <img
+                                              className="fillImage"
+                                              src="/app/images/Group_2.png"
+                                              style={{ float: "left" }}
+                                              alt=""
+                                            />
+                                            <span
+                                              style={{
+                                                marginLeft: "-5px",
+                                                marginTop: "4px",
+                                              }}
+                                            >
+                                              {comment.dislikes > 0
+                                                ? comment.dislikes
+                                                : ""}
+                                            </span>
+                                          </button>
+                                          <span
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() =>
+                                              toggleReplyCommentModel(
+                                                comment.id
+                                              )
+                                            }
+                                          >
+                                            Reply
+                                          </span>
+                                        </div>
                                         <p
                                           className="d_blck"
                                           style={{
@@ -563,13 +613,25 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           onClick={() => {
                                             getReplyComments(comment.id);
                                             setDisplayRepliesCommentModel(
-                                              !displayRepliesCommentModel
+                                              (prevStatus) => ({
+                                                ...prevStatus,
+                                                [comment.id]:
+                                                  !prevStatus[comment.id],
+                                              })
                                             );
                                           }}
                                         >
                                           <i
                                             style={{ marginRight: "5px" }}
-                                            class="fa fa-caret-down"
+                                            class={
+                                              !displayRepliesCommentModel[
+                                                comment?.id
+                                              ] &&
+                                              getReplyArticleComments?.comment_id !==
+                                                comment?.id
+                                                ? "fa fa-caret-down"
+                                                : "fa fa-caret-up"
+                                            }
                                             aria-hidden="true"
                                           ></i>
                                           Replies
@@ -577,7 +639,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                       </span>
                                     </a>
                                   </li>
-                                  {displayRepliesCommentModel && (
+                                  {displayRepliesCommentModel[comment.id] && (
                                     <li>
                                       {getReplyArticleComments?.map(
                                         (reply, index) => {
@@ -596,60 +658,110 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                       title="repliedUserIcon"
                                                     />
                                                   </figure>
-                                                  <span>
+                                                  <span
+                                                    style={{
+                                                      fontWeight: "bold",
+                                                    }}
+                                                  >
                                                     {reply?.user_details?.name}
                                                   </span>
                                                   <br />
                                                   <span>{reply.content}</span>
-                                                  <button
+                                                  <div
                                                     style={{
-                                                      cursor: "pointer",
+                                                      display: "flex",
+                                                      margin: "0px",
                                                     }}
-                                                    className="btnlike"
-                                                    onClick={() =>
-                                                      postArticleReplyLike(
-                                                        "like",
-                                                        reply.id
-                                                      )
-                                                    }
                                                   >
-                                                    <img
-                                                      src="/app/images/thumbs-up.png"
-                                                      style={
-                                                        reply?.like_details
-                                                          ?.type == "like"
-                                                          ? {
-                                                              backgroundColor:
-                                                                "purple",
-                                                            }
-                                                          : {}
+                                                    <button
+                                                      style={{
+                                                        cursor: "pointer",
+                                                      }}
+                                                      className="btnlike"
+                                                      onClick={() =>
+                                                        postArticleReplyLike(
+                                                          "like",
+                                                          reply.id
+                                                        )
                                                       }
-                                                    />
-                                                  </button>
-                                                  <button
-                                                    style={{
-                                                      cursor: "pointer",
-                                                    }}
-                                                    onClick={() =>
-                                                      postArticleReplyLike(
-                                                        "dislike",
-                                                        reply.id
-                                                      )
-                                                    }
-                                                  >
-                                                    <img
-                                                      src="/app/images/thumbs-down.png"
-                                                      style={
-                                                        reply?.like_details
-                                                          ?.type == "dislike"
-                                                          ? {
-                                                              backgroundColor:
-                                                                "purple",
-                                                            }
-                                                          : {}
+                                                    >
+                                                      <img
+                                                        className="borderImage"
+                                                        src={
+                                                          reply?.like_details
+                                                            ?.type == "like"
+                                                            ? "/app/images/Group_1.png"
+                                                            : "/app/images/thumbs-up.png"
+                                                        }
+                                                        alt=""
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <img
+                                                        className="fillImage"
+                                                        src="/app/images/Group_1.png"
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                        alt=""
+                                                      />
+                                                      <span
+                                                        style={{
+                                                          marginLeft: "-5px",
+                                                          marginTop: "4px",
+                                                        }}
+                                                      >
+                                                        {reply.likes > 0
+                                                          ? reply.likes
+                                                          : ""}
+                                                      </span>
+                                                    </button>
+                                                    <button
+                                                      className="btnlike"
+                                                      style={{
+                                                        cursor: "pointer",
+                                                      }}
+                                                      onClick={() =>
+                                                        postArticleReplyLike(
+                                                          "dislike",
+                                                          reply.id
+                                                        )
                                                       }
-                                                    />
-                                                  </button>
+                                                    >
+                                                      <img
+                                                        className="borderImage"
+                                                        src={
+                                                          reply?.like_details
+                                                            ?.type == "dislike"
+                                                            ? "/app/images/Group_2.png"
+                                                            : "/app/images/thumbs-down.png"
+                                                        }
+                                                        alt=""
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                      />
+                                                      <img
+                                                        className="fillImage"
+                                                        src="/app/images/Group_2.png"
+                                                        style={{
+                                                          float: "left",
+                                                        }}
+                                                        alt=""
+                                                      />
+                                                      <span
+                                                        style={{
+                                                          marginLeft: "-5px",
+                                                          marginTop: "4px",
+                                                        }}
+                                                      >
+                                                        {reply.dislikes > 0
+                                                          ? reply.dislikes
+                                                          : ""}
+                                                      </span>
+                                                    </button>
+                                                  </div>
                                                 </>
                                               )}
                                             </div>
