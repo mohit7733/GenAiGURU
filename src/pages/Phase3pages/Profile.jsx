@@ -6,6 +6,8 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
+import userIcon from "../../assets/images/person.png";
+
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
@@ -175,7 +177,7 @@ const Profile = () => {
   // Changing my Interesrts
   const onChangeInterest = (e) => {
     e.preventDefault();
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     fetch(`${getBaseURL()}/update-user-interests`, {
       method: "POST",
       headers: {
@@ -186,7 +188,8 @@ const Profile = () => {
         user_id: userId,
         interest_id: selectedInterestIndex,
       }),
-    }).then((res) => {
+    })
+      .then((res) => {
         if (res.status === 201) {
           // alert("Interests Changed Successfully");
           toast.success("Interests Changed Successfully", {
@@ -194,12 +197,13 @@ const Profile = () => {
           });
           setDisplayInterestPopup(false);
           getMyInterest();
-        }else{
+        } else {
           toast.error("Please Select Atleast One Interest", {
             position: toast.POSITION.TOP_CENTER,
           });
         }
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err.message);
       });
   };
@@ -223,6 +227,7 @@ const Profile = () => {
     setDisplayedInterests((prevCount) => prevCount + 10);
     setDisplayView(false);
   };
+
   const handleViewLessClick = () => {
     // Reset the number of displayed interests to the initial state
     setDisplayedInterests(7);
@@ -239,7 +244,7 @@ const Profile = () => {
             {/* <!-- banner start here --> */}
             <div className="profile-banner">
               <figure>
-                <img src={userDetails.coverImage} />
+                {userDetails.coverImage && <img src={userDetails.coverImage} />}
               </figure>
             </div>
 
@@ -248,7 +253,11 @@ const Profile = () => {
             <div className="row flex space-between">
               <div className="profile-img">
                 <figure>
-                  <img src={profileImage} />
+                  {profileImage ? (
+                    <img src={profileImage} />
+                  ) : (
+                    <img src={userIcon} />
+                  )}
                 </figure>
                 <h3>{userDetails.userName}</h3>
                 <p>{userDetails.bio}</p>
@@ -364,7 +373,7 @@ const Profile = () => {
                       )}
                       <div className="social-link">
                         <h4>
-                          My social links{" "}
+                          My social links
                           <Link to={PATH_SOCIAL_EDIT_PROFILE}>
                             <img
                               src="/app/images/edit-icon.png"

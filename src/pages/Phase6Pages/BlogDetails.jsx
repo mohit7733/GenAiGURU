@@ -292,7 +292,7 @@ const BlogDetails = ({ likes, dislikes }) => {
 
     setReplyCommentModels(updatedModels);
   };
-
+  // console.log(getReplyBlogComments.length);
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -455,7 +455,10 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           setComment(e.target.value)
                                         }
                                       />
-                                      <button onClick={postBlogComment}>
+                                      <button
+                                        onClick={postBlogComment}
+                                        style={{ cursor: "pointer" }}
+                                      >
                                         Post
                                       </button>
                                     </small>
