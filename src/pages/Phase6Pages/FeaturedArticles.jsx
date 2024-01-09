@@ -66,16 +66,16 @@ const FeaturedArticles = (props) => {
       )
       .then((response) => {
         setArticles(response?.data?.articles);
-        console.log(response?.data,"shjgfd");
+        console.log(response?.data, "shjgfd");
         setFilter(false);
       })
       .catch(
         (err) => {
           console.log(err.message, " articles api error");
           toast.error("No data found.", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
           });
-          <ToastContainer autoClose={1000}/>
+          <ToastContainer autoClose={1000} />;
           setFilter(false);
         },
         [currentDate]
@@ -290,7 +290,7 @@ const FeaturedArticles = (props) => {
                           </Link>
                         </li> */}
                         <li>
-                        <Link to="" onClick={(e) => setFilter(true)}>
+                          <Link to="" onClick={(e) => setFilter(true)}>
                             <figure>
                               <img src="./app/images/filter-icon.png" alt="" />
                             </figure>
@@ -575,15 +575,15 @@ const FeaturedArticles = (props) => {
           <h2>Featured Articles</h2>
           <div className="connect-box">
             <ul className="flex">
-              <li>
+              {/* <li>
                 <Link to="/sortbydate">
                   <figure>
                     <img src="./app/images/sorting-icon.png" alt="" />
                   </figure>
                 </Link>
-              </li>
+              </li> */}
               <li>
-                <Link to="/featuredpopup">
+                <Link to="" onClick={(e) => setFilter(true)}>
                   <figure>
                     <img src="./app/images/filter-icon.png" alt="" />
                   </figure>
