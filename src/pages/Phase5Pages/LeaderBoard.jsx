@@ -111,24 +111,10 @@ const LeaderBoard = () => {
               {/* <!-- tabs start here  --> */}
               <ul className="connect-link flex">
                 <li>
-                  {/* <a
-                    href="#"
-                    className="tab active"
-                    data-toggle-target=".tab-content-1"
-                  >
-                    Weekly
-                    <figure>
-                      <img
-                        src="./app/images/down-icons.png"
-                        alt="Genaiguru down-icons"
-                        title="Genaiguru down-icons"
-                      />
-                    </figure>
-                  </a> */}
                   <select>
+                    <option>All</option>
                     <option>Weekly</option>
                     <option>Monthly</option>
-                    <option>Yearly</option>
                   </select>
                 </li>
                 <li>
@@ -171,7 +157,7 @@ const LeaderBoard = () => {
 
                               <div className="content">
                                 <h4>{user.name}</h4>
-                                <p>@Jmsmittan</p>
+                                {/* <p>@Jmsmittan</p> */}
                               </div>
                             </li>
                           </ul>
