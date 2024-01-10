@@ -84,6 +84,7 @@ const GuruGold = () => {
       console.error("Error fetching game-levels:", error.message);
     }
   };
+  const percentage = (userPoints / totalPoints) * 100;
 
   return (
     <div>
@@ -129,13 +130,25 @@ const GuruGold = () => {
                     </Link>
                   </ul>
                   <div className="rangeWrap">
-                    <input
+                    <div
                       className="range"
-                      type="range"
-                      // value="50"
-                      // min="0"
-                      // max="100"
-                    ></input>
+                      style={{
+                        width: `${100}%`,
+                        borderRadius: "10px",
+                        backgroundColor:"#808080"
+                      }}
+                    >
+                      <div
+                        className="range"
+                        style={{
+                          width: `${percentage}%`,
+                          background:
+                            "linear-gradient(to right, #8E44AD, #3498DB)",
+                          borderRadius: "10px",
+                          // height: "12px",
+                        }}
+                      ></div>
+                    </div>
                   </div>
                   <p className="profileBottomText">
                     Earn more {earnMorePoint} coins to go to next level

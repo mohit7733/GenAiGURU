@@ -50,14 +50,16 @@ const LeaderBoard = () => {
                     <h4>Top 3</h4>
                     <ul className="flex space-between ">
                       <li>
-                        <figure>
-                          <img
-                            src={allUsers[1]?.profile_image}
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
+                        <div className="profileImgFrame">
+                          <figure>
+                            <img
+                              src={allUsers[1]?.profile_image}
+                              alt="Genaiguru user-icon"
+                              title="Genaiguru user-icon"
+                            />
+                          </figure>
                           <div className="rankIcon">#2</div>
-                        </figure>
+                        </div>
                         <div className="content">
                           <p>
                             {allUsers[1]?.weekly} <span>points</span>
@@ -66,14 +68,16 @@ const LeaderBoard = () => {
                         </div>
                       </li>
                       <li>
-                        <figure>
-                          <img
-                            src={allUsers[0]?.profile_image}
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
+                        <div className="profileImgFrame">
+                          <figure>
+                            <img
+                              src={allUsers[0]?.profile_image}
+                              alt="Genaiguru user-icon"
+                              title="Genaiguru user-icon"
+                            />
+                          </figure>
                           <div className="rankIcon">#1</div>
-                        </figure>
+                        </div>
                         <div className="content">
                           <p>
                             {allUsers[0]?.weekly}
@@ -83,14 +87,16 @@ const LeaderBoard = () => {
                         </div>
                       </li>
                       <li>
-                        <figure>
-                          <img
-                            src={allUsers[2]?.profile_image}
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
+                        <div className="profileImgFrame">
+                          <figure>
+                            <img
+                              src={allUsers[2]?.profile_image}
+                              alt="Genaiguru user-icon"
+                              title="Genaiguru user-icon"
+                            />
+                          </figure>
                           <div className="rankIcon">#3</div>
-                        </figure>
+                        </div>
                         <div className="content">
                           <p>
                             {allUsers[2]?.weekly} <span>points</span>
@@ -105,12 +111,12 @@ const LeaderBoard = () => {
               {/* <!-- tabs start here  --> */}
               <ul className="connect-link flex">
                 <li>
-                  <a
+                  {/* <a
                     href="#"
                     className="tab active"
                     data-toggle-target=".tab-content-1"
                   >
-                    Weekly{" "}
+                    Weekly
                     <figure>
                       <img
                         src="./app/images/down-icons.png"
@@ -118,7 +124,12 @@ const LeaderBoard = () => {
                         title="Genaiguru down-icons"
                       />
                     </figure>
-                  </a>
+                  </a> */}
+                  <select>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                  </select>
                 </li>
                 <li>
                   <a
@@ -346,14 +357,17 @@ const LeaderBoard = () => {
                     <h4>Top 3</h4>
                     <ul className="flex space-between ">
                       <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
+                        <div className="profileImgFrame">
+                          <figure>
+                            <img
+                              src="./app/images/userIcon.png"
+                              alt="Genaiguru user-icon"
+                              title="Genaiguru user-icon"
+                            />
+                          </figure>
                           <div className="rankIcon">#2</div>
-                        </figure>
+                        </div>
+
                         <div className="content">
                           <p>
                             11,000 <span>points</span>
@@ -362,14 +376,16 @@ const LeaderBoard = () => {
                         </div>
                       </li>
                       <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
+                        <div className="profileImgFrame">
+                          <figure>
+                            <img
+                              src="./app/images/userIcon.png"
+                              alt="Genaiguru user-icon"
+                              title="Genaiguru user-icon"
+                            />
+                          </figure>
                           <div className="rankIcon">#1</div>
-                        </figure>
+                        </div>
                         <div className="content">
                           <p>
                             12,000 <span>points</span>
@@ -378,14 +394,16 @@ const LeaderBoard = () => {
                         </div>
                       </li>
                       <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru user-icon"
-                            title="Genaiguru user-icon"
-                          />
+                        <div className="profileImgFrame">
+                          <figure>
+                            <img
+                              src="./app/images/userIcon.png"
+                              alt="Genaiguru user-icon"
+                              title="Genaiguru user-icon"
+                            />
+                          </figure>
                           <div className="rankIcon">#3</div>
-                        </figure>
+                        </div>
                         <div className="content">
                           <p>
                             10,000 <span>points</span>

@@ -1378,3 +1378,74 @@ section.mainWrapper
 .rightSection .keeps-container .blog-details h3 {
   color: #cfd6db !important;
 }
+
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li .profileImgFrame {
+  width: 90px;
+  height: 90px;
+  background: rgba(198, 208, 225, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure:before{
+  display: none;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li .rankIcon {
+  width: 30px;
+  height: 30px;
+  background-image: url(../../app/images/profileImgRank.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.2em;
+  font-weight: 600;
+  font-family: 'PlusJakartaSansSemiBold';
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  z-index: 2;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure {
+  overflow: hidden;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.rightSection .guru-gold-silver .list-container .profile ul li .img-box a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.rightSection .guru-gold-silver .list-container .profile ul li .img-box a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.rightSection .guru-gold-silver .list-container .profile ul li .content h4 {
+  font-size: 20px;
+}
+.rightSection .guru-gold-silver .connect-link li select{
+  padding: 8px 12px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.13);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.24px;
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  background: linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%);
+  cursor: pointer;
+  outline: none;
+}
+.rightSection .guru-gold-silver .connect-link li select option {
+  color: #131f2c;
+}
