@@ -106,11 +106,11 @@ const GuruGold = () => {
                           alt="userIcon"
                           title="userIcon"
                         />
-                        <img
-                          className="profileImageTag"
-                          src="app/images/profileImageTag.png"
-                        />
                       </figure>
+                      <img
+                        className="profileImageTag"
+                        src="app/images/profileImageTag.png"
+                      />
                     </li>
                     <Link to="/silver">
                       <li>
@@ -135,7 +135,7 @@ const GuruGold = () => {
                       style={{
                         width: `${100}%`,
                         borderRadius: "10px",
-                        backgroundColor:"#808080"
+                        backgroundColor: "#808080",
                       }}
                     >
                       <div
