@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import ReactPlayer from "react-player";
-import { BASE_PATH } from "../../routes";
+import { BASE_PATH, PATH_FEATURED_VIDEO } from "../../routes";
 import { Link } from "react-router-dom";
 
 const VideoPlay = () => {
@@ -72,7 +72,7 @@ const VideoPlay = () => {
 
                 <ReactPlayer
                   url={videoPlay.youtube_link}
-                  playing={true}
+                  playing={false}
                   controls={true}
                   width="100%"
                   height="60%"
@@ -509,7 +509,7 @@ const VideoPlay = () => {
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
           <div className="backBtns">
-            <Link to="/" className="fa fa-angle-left" aria-hidden="true"></Link>
+            <Link to={PATH_FEATURED_VIDEO} className="fa fa-angle-left" aria-hidden="true"></Link>
           </div>
           <h2>Videos</h2>
         </div>
@@ -519,9 +519,9 @@ const VideoPlay = () => {
             <ReactPlayer
                   url={videoPlay.youtube_link}
                   // playing={true}
-                  controls={true}
+                  // controls={true}
                   width="100%"
-                  height="20%"
+                  height="30%"
                 />
               <ul className="flex space-between link">
               
