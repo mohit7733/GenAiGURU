@@ -28,7 +28,7 @@ import SpeakToText from "./pages/Phase2Pages/SpeakToText";
 import FeaturedVideo from "./pages/Phase6Pages/FeaturedVideo";
 import FeaturedArticles from "./pages/Phase6Pages/FeaturedArticles";
 import ArticlesDetails from "./pages/Phase6Pages/ArticlesDetails";
-import TermsServices from "./pages/Phase4Pages/TermsServices"
+import TermsServices from "./pages/Phase4Pages/TermsServices";
 
 export const BASE_PATH = "/";
 
@@ -57,9 +57,10 @@ export const PATH_FEATURED_VIDEO = "/featuredvideo";
 export const PATH_FEATURED_ARTICLES = "/featuredarticle";
 export const PATH_BLOG_DETAILS = "/blogdetails";
 export const PATH_ARTICLE_DETAILS = "/articledetails";
-export const PATH_TERMS_AND_SERVICES="/terms&services";
-export const PATH_SETTINGS="/settings";
-export const PATH_GURUGOLD="/gurugold";
+export const PATH_TERMS_AND_SERVICES = "/terms&services";
+export const PATH_SETTINGS = "/settings";
+export const PATH_GURUGOLD = "/gurugold";
+export const PATH_LEADERBOARD = "/leaderboard";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -177,8 +178,8 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "leaderboard",
-      name: "leaderboard",
+      path: PATH_LEADERBOARD,
+      name: "PATH_LEADERBOARD",
       element: <LeaderBoard />,
       exact: true,
     },

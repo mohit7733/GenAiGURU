@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import { PATH_LEADERBOARD } from "../../routes";
 
 const GuruGold = () => {
   const [userPoints, setUserPoints] = useState(null);
@@ -217,7 +218,7 @@ const GuruGold = () => {
                 <div className="reward-container">
                   <div className="reward-line ">
                     <div className="reward-box">
-                      <Link to="/leaderboard" className="flex">
+                      <Link to={PATH_LEADERBOARD} className="flex">
                         <figure>
                           <img
                             src="app/images/reward-1.png"
