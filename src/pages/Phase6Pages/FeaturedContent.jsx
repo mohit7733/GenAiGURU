@@ -700,7 +700,7 @@ const FeaturedContent = (props) => {
               <div className="keeps-container">
                 <div className="gurukeeps-wrapper">
                   {/* <!-- tab-link start here --> */}
-                  <ul className="connect-link flex">
+                  {/* <ul className="connect-link flex">
                     <li>
                       <a
                         href="#"
@@ -746,7 +746,61 @@ const FeaturedContent = (props) => {
                         Bitcoin
                       </a>
                     </li>
-                  </ul>
+                  </ul> */}
+                  <div className="connect-link flex align-center">
+                    {/* All Tab div */}
+                    <div style={{ width: "2%" }}>
+                      <li className={activeTab === 0 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(0)}
+                          className={activeTab === 0 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-0"
+                        >
+                          All
+                        </Link>
+                      </li>
+                    </div>
+                    {/* Slider Div */}
+                    <div
+                      style={{
+                        width: "85%",
+                        paddingLeft: "46px",
+                        paddingRight: "46px",
+                      }}
+                    >
+                      <Slider {...sliderSettings}>
+                        {mergedInterests?.map((interest, index) => (
+                          <li
+                            key={index}
+                            className={activeTab === index + 1 ? "active" : ""}
+                          >
+                            <div
+                              style={{
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Link
+                                onClick={() => {
+                                  handleTabClick(index + 1);
+                                  setIndexTab(index + 1);
+                                  onInterestClick(interest.id);
+                                }}
+                                className={
+                                  activeTab === index + 1 ? "tab active" : ""
+                                }
+                                data-toggle-target={`.tab-content-${index + 1}`}
+                              >
+                                {interest?.interestName}
+                              </Link>
+                            </div>
+                          </li>
+                        ))}
+                      </Slider>
+                    </div>
+                  </div>
                   {/* <!-- tab-link start here --> */}
                 </div>
                 {/* <!-- tab-content here --> */}

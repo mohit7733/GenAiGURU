@@ -1001,7 +1001,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src="./app/images/blog-img.png"
+                        src={articleDetail.profilePhoto}
                         alt="Genaiguru blog-img"
                         title="Genaiguru blog-img"
                       />

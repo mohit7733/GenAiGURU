@@ -46,16 +46,16 @@ const FeaturedContent = (props) => {
       )
       .then((response) => {
         setPopularVideos(response?.data?.videos);
-        console.log(response?.data,"shjgfd");
+        console.log(response?.data, "shjgfd");
         setFilter(false);
       })
       .catch(
         (err) => {
           console.log(err.message, " popular-latest-videos api error");
           toast.error("No data found.", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
           });
-          <ToastContainer autoClose={1000}/>
+          <ToastContainer autoClose={1000} />;
           setFilter(false);
         },
         [currentDate]
@@ -64,7 +64,7 @@ const FeaturedContent = (props) => {
 
   // Get API for Popular Videos
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/popular-latest-videos?user_id=${userId}`, {
         headers: {
@@ -83,6 +83,7 @@ const FeaturedContent = (props) => {
 
   // Get API for interests
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/interests`, {
         headers: {
@@ -289,7 +290,7 @@ const FeaturedContent = (props) => {
                           </Link>
                         </li> */}
                         <li>
-                        <Link to="" onClick={(e) => setFilter(true)}>
+                          <Link to="" onClick={(e) => setFilter(true)}>
                             <figure>
                               <img src="./app/images/filter-icon.png" alt="" />
                             </figure>
@@ -474,15 +475,15 @@ const FeaturedContent = (props) => {
           <h2>Featured video</h2>
           <div class="connect-box">
             <ul class="flex">
-              <li>
+              {/* <li>
                 <Link to="/sortbydate">
                   <figure>
                     <img src="./app/images/sorting-icon.png" alt="" />
                   </figure>
                 </Link>
-              </li>
+              </li> */}
               <li>
-                <Link to="/featuredpopup">
+                <Link to="" onClick={(e) => setFilter(true)}>
                   <figure>
                     <img src="./app/images/filter-icon.png" alt="" />
                   </figure>
@@ -497,7 +498,7 @@ const FeaturedContent = (props) => {
               <div class="keeps-container">
                 <div class="gurukeeps-wrapper">
                   {/* <!-- tab-link start here --> */}
-                  <ul class="connect-link flex">
+                  {/* <ul class="connect-link flex">
                     <li>
                       <a
                         href="#"
@@ -543,7 +544,60 @@ const FeaturedContent = (props) => {
                         Bitcoin
                       </a>
                     </li>
-                  </ul>
+                  </ul> */}
+                  <div className="connect-link flex align-center">
+                    {/* All Tab div */}
+                    <div style={{ width: "2%" }}>
+                      <li className={activeTab === 0 ? "active" : ""}>
+                        <Link
+                          onClick={() => handleTabClick(0)}
+                          className={activeTab === 0 ? "tab active" : ""}
+                          data-toggle-target=".tab-content-0"
+                        >
+                          All
+                        </Link>
+                      </li>
+                    </div>
+                    {/* Slider Div */}
+                    <div
+                      style={{
+                        width: "85%",
+                        paddingLeft: "46px",
+                        paddingRight: "46px",
+                      }}
+                    >
+                      <Slider {...sliderSettings}>
+                        {myInterests?.map((interest, index) => (
+                          <li
+                            key={index}
+                            className={activeTab === index + 1 ? "active" : ""}
+                          >
+                            <div
+                              style={{
+                                marginLeft: "5px",
+                                marginRight: "5px",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Link
+                                onClick={() => {
+                                  handleTabClick(index + 1);
+                                  setIndexTab(index + 1);
+                                }}
+                                className={
+                                  activeTab === index + 1 ? "tab active" : ""
+                                }
+                                data-toggle-target={`.tab-content-${index + 1}`}
+                              >
+                                {interest?.interestName}
+                              </Link>
+                            </div>
+                          </li>
+                        ))}
+                      </Slider>
+                    </div>
+                  </div>
                   {/* <!-- tab-link start here --> */}
                 </div>
                 {/* <!-- tab-content here --> */}
@@ -578,7 +632,9 @@ const FeaturedContent = (props) => {
                                   <p> {video.creation_date}</p>
                                 </div>
                               </div>
-                              <p>{video.title}</p>
+                              <p onClick={() => onVideoClick(video.id)}>
+                                {video.title}
+                              </p>
                               <ul class="flex">
                                 <li
                                   onClick={() => {
