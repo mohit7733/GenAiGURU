@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
@@ -6,16 +6,22 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import EditProfile from "../Phase3pages/EditProfile";
-import { PATH_EDIT_PROFILE, PATH_PROFILE, PATH_TERMS_AND_SERVICES } from "../../routes";
+import WithAuth from "../../pages/Authentication/WithAuth";
+
+import {
+  PATH_EDIT_PROFILE,
+  PATH_PROFILE,
+  PATH_TERMS_AND_SERVICES,
+} from "../../routes";
 
 const Settings = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(5);
   const [newPassword, setNewPassword] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [idea, setIdea] = useState("");
   const [errors, setErrors] = useState([]);
-  const [faq,setFaq]=useState([]);
+  const [faq, setFaq] = useState([]);
   const [isVisible, setIsVisible] = useState();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -25,28 +31,27 @@ const Settings = () => {
     description: "",
   });
 
-    // get API for FAQ.......
+  // get API for FAQ.......
 
-    useEffect(() => {
-      axios.get(`${getBaseURL()}/faq`)
-      .then(response => {
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/faq`)
+      .then((response) => {
         // Handle the successful response
         setFaq(response.data.data);
-        console.log(response.data.data)
+        console.log(response.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle errors
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
-    }, []);
+  }, []);
 
- // get API for Privacy Policy.......
+  // get API for Privacy Policy.......
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
-      .get(`${getBaseURL()}/privacy-policy`, {
-        
-      })
+      .get(`${getBaseURL()}/privacy-policy`, {})
       .then((response) => {
         setPrivacyPolicy({
           title: response?.data?.data?.title,
@@ -57,7 +62,7 @@ const Settings = () => {
         console.log(err.message);
       });
   }, []);
-  
+
   // validation for feedback
   const onSubmit = (event) => {
     event.preventDefault();
@@ -107,34 +112,37 @@ const Settings = () => {
     event.preventDefault();
     const errors = validate();
     // setErrors(errors);
-    console.log(errors)
-    if(errors.password==""&& errors.confirmPassword==""&&errors.newPassword==""){
-    let fd = new FormData();
-    fd.append("user_id", userId);
-    fd.append("old_password", password);
-    fd.append("new_password", newPassword);
+    console.log(errors);
+    if (
+      errors.password == "" &&
+      errors.confirmPassword == "" &&
+      errors.newPassword == ""
+    ) {
+      let fd = new FormData();
+      fd.append("user_id", userId);
+      fd.append("old_password", password);
+      fd.append("new_password", newPassword);
 
-    axios
-      .post(`${getBaseURL()}/change-password`, fd)
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success("Password Changed ", {
+      axios
+        .post(`${getBaseURL()}/change-password`, fd)
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success("Password Changed ", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            setPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.FormData);
+          // alert("Please enter correct old password");
+          toast.error("Enter Correct old password", {
             position: toast.POSITION.TOP_CENTER,
           });
-          setPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
-        }
-      })
-      .catch((error) => {
-        console.log(error.response.FormData);
-        // alert("Please enter correct old password");
-        toast.error("Enter Correct old password", {
-          position: toast.POSITION.TOP_CENTER,
         });
-      });
-    }
-    else{
+    } else {
       setErrors(errors);
     }
   };
@@ -271,71 +279,99 @@ const Settings = () => {
               <div className="setting-container">
                 <ul className="connect-link">
                   <li className={activeTab === 1 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(1)}
-                      className={activeTab === 1 ? "tab" : ""}
-                      data-toggle-target=".tab-content-2"
+                    <WithAuth
+                      callBack={(e) => {
+                        handleTabClick(1);
+                      }}
                     >
-                      <figure>
-                        <img
-                          src="./app/images/password.png"
-                          alt="Genaiguru password"
-                          title="Genaiguru password"
-                        />
-                      </figure>
-                      <span>Edit password</span>
-                    </Link>
+                      <Link
+                        // onClick={() => handleTabClick(1)}
+                        className={activeTab === 1 ? "tab" : ""}
+                        data-toggle-target=".tab-content-2"
+                      >
+                        <figure>
+                          <img
+                            src="./app/images/password.png"
+                            alt="Genaiguru password"
+                            title="Genaiguru password"
+                          />
+                        </figure>
+                        <span>Edit password</span>
+                      </Link>
+                    </WithAuth>
                   </li>
                   <li className={activeTab === 2 ? " active" : ""}>
-                    <Link
-                      to={PATH_PROFILE}
-                      onClick={() => {
+                    <WithAuth
+                      callBack={(e) => {
                         handleTabClick(2);
+                        navigate("/profile");
                       }}
-                      className={activeTab === 2 ? "tab" : ""}
-                      data-toggle-target=".tab-content-1"
                     >
-                      <figure>
-                        <img
-                          src="./app/images/profile.png"
-                          alt="Genaiguru profile"
-                          title="Genaiguru profile"
-                        />
-                      </figure>
-                      <span>Profile</span>
-                    </Link>
+                      <Link
+                        // to={PATH_PROFILE}
+                        // onClick={() => {
+                        //   handleTabClick(2);
+                        // }}
+                        className={activeTab === 2 ? "tab" : ""}
+                        data-toggle-target=".tab-content-1"
+                      >
+                        <figure>
+                          <img
+                            src="./app/images/profile.png"
+                            alt="Genaiguru profile"
+                            title="Genaiguru profile"
+                          />
+                        </figure>
+                        <span>Profile</span>
+                      </Link>
+                    </WithAuth>
                   </li>
                   <li className={activeTab === 3 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(3)}
-                      className={activeTab === 3 ? "tab" : ""}
-                      data-toggle-target=".tab-content-3"
+                    <WithAuth
+                      callBack={(e) => {
+                        handleTabClick(3);
+                        // navigate("/profile");
+                      }}
                     >
-                      <figure>
-                        <img
-                          src="./app/images/customize-intrest.png"
-                          alt="Genaiguru Customize"
-                          title="Genaiguru Customize"
-                        />
-                      </figure>
-                      <Link to={PATH_PROFILE}><span>Customize your interest</span></Link>
-                    </Link>
+                      <Link
+                        // onClick={() => handleTabClick(3)}
+                        className={activeTab === 3 ? "tab" : ""}
+                        data-toggle-target=".tab-content-3"
+                      >
+                        <figure>
+                          <img
+                            src="./app/images/customize-intrest.png"
+                            alt="Genaiguru Customize"
+                            title="Genaiguru Customize"
+                          />
+                        </figure>
+                        <Link>
+                          <span>Customize your interest</span>
+                        </Link>
+                      </Link>
+                    </WithAuth>
                   </li>
                   <li className={activeTab === 4 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(4)}
-                      className={activeTab === 4 ? "tab" : ""}
-                      data-toggle-target=".tab-content-4"
+                    <WithAuth
+                      callBack={(e) => {
+                        handleTabClick(4);
+                      }}
                     >
-                      <figure>
-                        <img
-                          src="./app/images/notification.png"
-                          alt="Genaiguru notification"
-                          title="Genaiguru notification"
-                        />
-                      </figure>
-                      <span>Notification settings</span>
-                    </Link>
+                      <Link
+                        // onClick={() => handleTabClick(4)}
+                        className={activeTab === 4 ? "tab" : ""}
+                        data-toggle-target=".tab-content-4"
+                      >
+                        <figure>
+                          <img
+                            src="./app/images/notification.png"
+                            alt="Genaiguru notification"
+                            title="Genaiguru notification"
+                          />
+                        </figure>
+                        <span>Notification settings</span>
+                      </Link>
+                    </WithAuth>
                   </li>
                   <li className={activeTab === 5 ? " active" : ""}>
                     <Link
@@ -367,7 +403,6 @@ const Settings = () => {
                         />
                       </figure>
                       <span>Q&A</span>
-                      
                     </Link>
                   </li>
                   <li className={activeTab === 7 ? " active" : ""}>
@@ -554,7 +589,11 @@ const Settings = () => {
                         </p> */}
                       </div>
                       <p>
-                      <p dangerouslySetInnerHTML={{ __html: privacyPolicy.description }} />
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: privacyPolicy.description,
+                          }}
+                        />
 
                         {/* Looking to upgrade your salary in the uk? Get the salary
                         you’re worth by learning to code. 98% employed within 12
@@ -568,7 +607,9 @@ const Settings = () => {
                     <div className="service-terms">
                       <ul>
                         <li>
-                          <Link to={PATH_TERMS_AND_SERVICES}>Terms of service</Link>
+                          <Link to={PATH_TERMS_AND_SERVICES}>
+                            Terms of service
+                          </Link>
                         </li>
                         {/* <li>
                           <a href="#">Privacy Policy</a>
@@ -662,12 +703,15 @@ const Settings = () => {
                   >
                     {/* <div className="tab-content tab-content-6"> */}
                     <h4>Q&A</h4>
-                    <br/>
-                    {faq.map((faqdata,index) => (
-                        <div class="faq-box">
-                        <div class="accordion" onClick={(e) =>
-                              setIsVisible(isVisible == index ? -1 : index)
-                            }>
+                    <br />
+                    {faq.map((faqdata, index) => (
+                      <div class="faq-box">
+                        <div
+                          class="accordion"
+                          onClick={(e) =>
+                            setIsVisible(isVisible == index ? -1 : index)
+                          }
+                        >
                           <h4>{faqdata.question}</h4>
                           <div class="leftArrow">
                             <img
@@ -677,16 +721,14 @@ const Settings = () => {
                             />
                           </div>
                         </div>
-                        <div class="panel" style={
-                              isVisible == index ? { display: "block" } : {}
-                            }>
-                          <p>
-                          {faqdata.answer}  
-                          </p>
-                          
+                        <div
+                          class="panel"
+                          style={isVisible == index ? { display: "block" } : {}}
+                        >
+                          <p>{faqdata.answer}</p>
                         </div>
                       </div>
-                        ))}
+                    ))}
                   </div>
                 )}
                 {/* <!-- notification --> */}
