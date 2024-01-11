@@ -150,9 +150,18 @@ const GuruGold = () => {
                       ></div>
                     </div>
                   </div>
-                  <p className="profileBottomText">
-                    Earn more {earnMorePoint} coins to go to next level
-                  </p>
+                  <div >
+                    <p className="profileBottomText">
+                      <figure style={{width:"20px"}}>
+                        <img
+                          src="./app/images/coins.png"
+                          alt="Genaiguru Coins"
+                          title="Genaiguru Coins"
+                        />
+                      </figure>
+                      Earn more {earnMorePoint} coins to go to next level
+                    </p>
+                  </div>
                 </div>
               </div>
               {/* <!-- silver user --> */}
