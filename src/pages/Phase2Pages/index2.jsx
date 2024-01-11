@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
-import LoginPopup from "../Authentication/LoginPopup";
 import Index3 from "./index3";
 
 const Index2 = ({ isLoggedIn }) => {
@@ -17,7 +16,6 @@ const Index2 = ({ isLoggedIn }) => {
       sender: "ChatGPT",
     },
   ]);
-  // const API_KEY = "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";
   const API_KEY = process.env.REACT_APP_CHAT_GPT_API_KEY;
   console.log(API_KEY);
   const navigate = useNavigate();

@@ -8,25 +8,28 @@ import { PATH_GURUGOLD } from "../../routes";
 
 const LeaderBoard = () => {
   const [allUsers, setAllUsers] = useState([]);
+  // const [dropDownValue, setDropDownValue] = useState("");
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
-  useEffect(() => {
-    const fetchUserPoints = async () => {
-      try {
-        const response = await axios.get(
-          `${getBaseURL()}/get-points?sort_by=weekly`
-        );
+  const fetchUserPoints = async (dropDownValue) => {
+    try {
+      const response = await axios.get(
+        `${getBaseURL()}/get-points?sort_by=${
+          dropDownValue ? dropDownValue : ""
+        }`
+      );
+      console.log(response?.data?.data);
+      setAllUsers(response?.data?.data);
+    } catch (error) {
+      console.error("Error fetching user points:", error.message);
+    }
+  };
 
-        console.log(response?.data?.data);
-        setAllUsers(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching user points:", error.message);
-      }
-    };
+  useEffect(() => {
     fetchUserPoints();
-  }, [userId]);
+  }, []);
 
   return (
     <>
@@ -62,7 +65,7 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
-                            {allUsers[1]?.weekly} <span>points</span>
+                            {allUsers[1]?.points} <span>points</span>
                           </p>
                           <h6>{allUsers[1]?.name}</h6>
                         </div>
@@ -80,7 +83,8 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
-                            {allUsers[0]?.weekly}
+                           
+                            {allUsers[0]?.points}
                             <span>points</span>
                           </p>
                           <h6>{allUsers[0]?.name}</h6>
@@ -99,7 +103,7 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
-                            {allUsers[2]?.weekly} <span>points</span>
+                            {allUsers[2]?.points} <span>points</span>
                           </p>
                           <h6>{allUsers[2]?.name}</h6>
                         </div>
@@ -109,15 +113,23 @@ const LeaderBoard = () => {
                 </div>
               </div>
               {/* <!-- tabs start here  --> */}
-              <ul className="connect-link flex">
+              <ul className="connect-link ">
                 <li>
-                  <select>
+                  <select
+                    onChange={(e) => {
+                      fetchUserPoints(
+                        e.target.value == "All"
+                          ? ""
+                          : e.target.value.toLowerCase()
+                      );
+                    }}
+                  >
                     <option>All</option>
                     <option>Weekly</option>
-                    <option>Monthly</option>
+                    <option>Daily</option>
                   </select>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href="#"
                     className="tab "
@@ -132,12 +144,12 @@ const LeaderBoard = () => {
                       />
                     </figure>
                   </a>
-                </li>
+                </li> */}
               </ul>
               {/* <!-- tab-link start here -->
                           <!-- tab-content here --> */}
               <div className="tab-content tab-content-1 active">
-                {allUsers.slice(2).map((user, index) => {
+                {allUsers.slice(3).map((user, index) => {
                   const originalIndex = index + 2;
                   return (
                     <div className="list-container" key={originalIndex}>
@@ -163,7 +175,16 @@ const LeaderBoard = () => {
                           </ul>
                         </div>
                         <div className="button">
-                          <a href="">PT-{user.weekly}</a>
+                          <span>
+                            <figure>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                                title="Genaiguru Coins"
+                              />
+                            </figure>
+                            <span>{user.points} points</span>
+                          </span>
                         </div>
                       </div>
                     </div>
