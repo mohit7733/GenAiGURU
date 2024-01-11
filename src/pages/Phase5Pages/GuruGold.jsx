@@ -150,9 +150,9 @@ const GuruGold = () => {
                       ></div>
                     </div>
                   </div>
-                  <div >
+                  <div>
                     <p className="profileBottomText">
-                      <figure style={{width:"20px"}}>
+                      <figure style={{ width: "20px" }}>
                         <img
                           src="./app/images/coins.png"
                           alt="Genaiguru Coins"
@@ -168,17 +168,33 @@ const GuruGold = () => {
               <div className="silver-user">
                 <ul className="flex">
                   <li>
-                    <a href="#">
+                    <div
+                      // style={{
+                      //   border: "2px solid",
+                      //   borderRadius: "100%",
+                      //   borderImage:
+                      //     "linear-gradient(to right, #8E44AD, #3498DB) 1",
+                      //   borderImageSlice: 1,
+                      // }}
+                    >
                       <figure>
                         <img
-                          src="./app/images/silver-user-1.png"
-                          alt="Genaiguru silver-user-1"
-                          title="Genaiguru silver-user-1"
+                          src={userDetails.profile_image}
+                          alt="userIcon"
+                          title="userIcon"
+                          style={{
+                            border: "2px solid",
+                            borderRadius: "100%",
+                            borderImage:
+                              "linear-gradient(to right, #8E44AD, #3498DB) 1",
+                            borderImageSlice: 1,
+                          }}
+                          
                         />
                       </figure>
-                    </a>
+                    </div>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="#">
                       <figure>
                         <img
@@ -232,7 +248,7 @@ const GuruGold = () => {
                         />
                       </figure>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               {/* <!-- reward start --> */}
