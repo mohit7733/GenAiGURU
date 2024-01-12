@@ -20,7 +20,7 @@ const Profile = () => {
 
   const [following, setFollowing] = useState("");
   const [follower, setFollower] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [userDetails, setUserDetails] = useState({
     bio: "",
     userName: "",
@@ -197,10 +197,9 @@ const Profile = () => {
           });
           setDisplayInterestPopup(false);
           getMyInterest();
+          setErrorMessage("")
         } else {
-          toast.error("Please Select Atleast One Interest", {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          setErrorMessage("Please select at least one interest."); 
         }
       })
       .catch((err) => {
@@ -1219,32 +1218,35 @@ const Profile = () => {
           </button>
         </div>
         <div className="mob_profile_inner">
+          <figure>
+            {userDetails.coverImage && <img src={userDetails.coverImage} />}
+          </figure>
           {/* <!-- banner start here --> */}
-          <div className="profile-banner"></div>
+          {/* <div className="profile-banner"></div> */}
           {/* <!-- banner end here --> */}
 
           {/* <!-- profile img start here --> */}
           <div className="row flex space-between">
             <div className="profile-img">
-              <figure>
-                <img
-                  src={profileImage}
-                  alt="Genaiguru user-icon"
-                  title="Genaiguru user-icon"
-                />
-              </figure>
+            <figure>
+                  {profileImage ? (
+                    <img src={profileImage} />
+                  ) : (
+                    <img src={userIcon} />
+                  )}
+                </figure>
               <h3>{userDetails.userName}</h3>
               <p>{userDetails.bio}</p>
               <div className="followers">
                 <ul className="flex space-between">
                   <li>
                     <a href="#">
-                      <span>118</span> Following
+                      <span>{following}</span> Following
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <span>23k</span> Followers
+                      <span>{follower}</span> Followers
                     </a>
                   </li>
                 </ul>
@@ -2159,8 +2161,9 @@ const Profile = () => {
                     className="loginBtn"
                     onClick={onChangeInterest}
                   >
-                    Save Changes <ToastContainer autoClose={2000} />
+                    Save Changes 
                   </button>
+                  <p className="errorMessage">{errorMessage}</p>
                 </form>
               </div>
             </div>
@@ -2213,6 +2216,7 @@ const Profile = () => {
                   >
                     Save Changes
                   </button>
+                  <p className="errorMessage">{errorMessage}</p>
                 </form>
               </div>
             </div>

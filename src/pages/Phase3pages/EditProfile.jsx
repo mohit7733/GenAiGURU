@@ -293,7 +293,7 @@ const EditProfile = ({ settingsPage }) => {
                       />
                     )}
                   </figure>
-                  <input type="file" />
+                  <input type="file"  onChange={handleCoverImageChange}/>
                 </div>
               </div>
             </div>
@@ -317,7 +317,7 @@ const EditProfile = ({ settingsPage }) => {
                       title="Genaiguru camera-icon"
                     />
                   </figure>
-                  <input type="file" />
+                  <input type="file"  onChange={handleProfileImageChange}/>
                 </div>
               </figure>
             </div>

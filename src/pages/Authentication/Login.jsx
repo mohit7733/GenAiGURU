@@ -103,9 +103,9 @@ const Login = () => {
         </figure>
         <div className="wrapper400 stars">
           <h1>
-            <span>Hello!</span> Join with us by your info
+            <span>Hello!</span> Join the GenAIGuru family now!
           </h1>
-          <p>Join with us by your social account or sign up with email</p>
+          <p>Get started on your GenAIGuru adventure today. Free, easy sign up with your social media or email</p>
           <ul>
             <li>
               <Link
