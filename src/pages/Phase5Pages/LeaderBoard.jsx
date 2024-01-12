@@ -65,6 +65,11 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />
                             {allUsers[1]?.points} <span>points</span>
                           </p>
                           <h6>{allUsers[1]?.name}</h6>
@@ -83,7 +88,11 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
-                           
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />{" "}
                             {allUsers[0]?.points}
                             <span>points</span>
                           </p>
@@ -103,6 +112,11 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />
                             {allUsers[2]?.points} <span>points</span>
                           </p>
                           <h6>{allUsers[2]?.name}</h6>

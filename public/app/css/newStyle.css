@@ -1,4 +1,5 @@
 /* new css */
+
 /* Alert Popup css */
 .custom-toast {
   background-color: #3498db;
@@ -311,21 +312,26 @@ button.activebtn {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  background: linear-gradient( 126.46deg, #2087ff -1.62%, rgba(129, 246, 239, 0.65) 48.02%, #ff45ec 99.78% );
+  background: linear-gradient(
+    126.46deg,
+    #2087ff -1.62%,
+    rgba(129, 246, 239, 0.65) 48.02%,
+    #ff45ec 99.78%
+  );
 }
 .review ul li .btnlike img {
-	margin-right: 15px;
+  margin-right: 15px;
 }
 
 .review ul li {
-	margin-bottom: 20px !important;
+  margin-bottom: 20px !important;
 }
 p.d_blck {
-	cursor: pointer;
-	margin-top: 15px;
-	color: #873DD0 !important;
-	font-weight: 600 !important;
-	margin-left: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  color: #873dd0 !important;
+  font-weight: 600 !important;
+  margin-left: 6px;
 }
 .review div img {
   width: 30px;
@@ -334,7 +340,6 @@ p.d_blck {
 }
 .innerbtn > img {
   margin-left: 0px !important;
-
 }
 .rightSection .keeps-container .blog-details li {
   color: #cfd6db;
@@ -347,7 +352,7 @@ p.d_blck {
 }
 .review li span {
   line-height: 1 !important;
-	font-size: 12px !important;
+  font-size: 12px !important;
 }
 .review ul li button > img {
   width: 20px;
@@ -357,12 +362,18 @@ p.d_blck {
 }
 small.pc {
   margin-left: 6px;
-	padding: 10px 0;
-	font-size: 16px;
-line-height: 1.3;
+  padding: 10px 0;
+  font-size: 16px;
+  line-height: 1.3;
 }
 .review small button {
-  background: linear-gradient( 87.97deg, #b03fcc 2.88%, #683fe4 25.56%, rgba(216, 63, 190, 0.94) 114.56% ), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+  background: linear-gradient(
+      87.97deg,
+      #b03fcc 2.88%,
+      #683fe4 25.56%,
+      rgba(216, 63, 190, 0.94) 114.56%
+    ),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
   outline: none;
   border: none;
   border-radius: 16px;
@@ -371,30 +382,30 @@ line-height: 1.3;
   margin-left: 10px;
 }
 .review ul li button {
-	background-color: transparent;
-	border: none;
-	outline: none;
-	cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 /* .review ul li a > figure {
 	background: linear-gradient( 126.46deg, #2087ff -1.62%, rgba(129, 246, 239, 0.65) 48.02%, #ff45ec 99.78% );
 	border-radius: 50%;
 } */
 .review ul li a span:first-child {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
-.review ul li .btnlike .fillImage{
+.review ul li .btnlike .fillImage {
   display: none;
   transition: all 0.1s ease;
 }
-.review ul li .btnlike .borderImage{
+.review ul li .btnlike .borderImage {
   display: block;
   transition: all 0.1s ease;
 }
-.review ul li .btnlike:hover .fillImage{
+.review ul li .btnlike:hover .fillImage {
   display: block;
 }
-.review ul li .btnlike:hover .borderImage{
+.review ul li .btnlike:hover .borderImage {
   display: none;
 }
 
@@ -403,7 +414,7 @@ line-height: 1.3;
   border-top: none;
   border-right: none;
 }
-.m-l{
+.m-l {
   margin-left: 0 !important;
 }
 .review input[type="text"]::placeholder {
@@ -1492,7 +1503,13 @@ section.mainWrapper
   color: #cfd6db !important;
 }
 
-.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li .profileImgFrame {
+.rightSection
+  .guru-gold-silver
+  .center-box
+  .topThreeBoxWrap
+  ul
+  li
+  .profileImgFrame {
   width: 90px;
   height: 90px;
   background: rgba(198, 208, 225, 0.1);
@@ -1501,7 +1518,13 @@ section.mainWrapper
   align-items: center;
   position: relative;
 }
-.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure:before{
+.rightSection
+  .guru-gold-silver
+  .center-box
+  .topThreeBoxWrap
+  ul
+  li
+  figure:before {
   display: none;
 }
 .rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li .rankIcon {
@@ -1516,7 +1539,7 @@ section.mainWrapper
   font-size: 12px;
   line-height: 1.2em;
   font-weight: 600;
-  font-family: 'PlusJakartaSansSemiBold';
+  font-family: "PlusJakartaSansSemiBold";
   display: flex;
   align-items: center;
   padding: 0 4px;
@@ -1525,7 +1548,7 @@ section.mainWrapper
 .rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure {
   overflow: hidden;
 }
-.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure img{
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1542,9 +1565,9 @@ section.mainWrapper
   border-radius: 50%;
 }
 .rightSection .guru-gold-silver .list-container .profile ul li .content h4 {
-  font-size: 20px;
+  font-size: 18px;
 }
-.rightSection .guru-gold-silver .connect-link li select{
+.rightSection .guru-gold-silver .connect-link li select {
   padding: 8px 12px;
   backdrop-filter: blur(20px);
   box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.13);
@@ -1555,7 +1578,12 @@ section.mainWrapper
   display: flex;
   align-items: center;
   border-radius: 24px;
-  background: linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%);
+  background: linear-gradient(
+    87.97deg,
+    #b03fcc 2.88%,
+    #683fe4 25.56%,
+    rgba(216, 63, 190, 0.94) 114.56%
+  );
   cursor: pointer;
   outline: none;
 }
@@ -1574,8 +1602,59 @@ section.mainWrapper
   bottom: -12px;
   width: auto;
 }
-.rightSection .guru-gold-silver .silver-coin-box .userPro figure img{
+.rightSection .guru-gold-silver .silver-coin-box .userPro figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.rightSection .guru-gold-silver .list-container .button > span {
+  display: flex;
+}
+.rightSection .guru-gold-silver .list-container .button span figure {
+  margin-right: 10px;
+}
+.rightSection .guru-gold-silver .list-container .button span figure {
+  margin-right: 10px;
+}
+.rightSection .guru-gold-silver .list-container .profile ul li .img-box {
+  display: flex;
+}
+.rightSection .guru-gold-silver .connect-link {
+  width: 125px;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li .content p {
+  display: flex;
+  align-items: center;
+}
+.rightSection
+  .guru-gold-silver
+  .center-box
+  .topThreeBoxWrap
+  ul
+  li
+  .content
+  p
+  img {
+  margin-right: 5px;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBoxWrap ul li .content h6 {
+  margin-top: 2px;
+}
+.rightSection .guru-gold-silver .list-container .button span {
+  color: white;
+}
+.rightSection
+  .guru-gold-silver
+  .silver-coin-box
+  .silverWrap
+  .profileBottomText {
+  display: flex;
+}
+.rightSection
+  .guru-gold-silver
+  .silver-coin-box
+  .silverWrap
+  .profileBottomText
+  figure {
+  margin-right: 10px;
 }
