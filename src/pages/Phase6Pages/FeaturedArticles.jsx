@@ -11,6 +11,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_ARTICLE_DETAILS } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import FeaturedContentPopup from "./FeaturedContentPopup";
+import Pagination from "./Pagination";
 
 const FeaturedArticles = (props) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -51,6 +52,35 @@ const FeaturedArticles = (props) => {
   const dateObject = new Date(data);
   const currentTime = dateObject.toISOString().split("T")[0];
 
+  //Pagination code Starts here
+  const articlesPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastArticle = currentPage * articlesPerPage;
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+  const currentArticles = articles.slice(
+    indexOfFirstArticle,
+    indexOfLastArticle
+  );
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  //Optional used only when mobile have different UI
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  //Pagination ends
+
   const Featuredpopup = (popularity, sortby, currentDate) => {
     console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
 
@@ -84,7 +114,7 @@ const FeaturedArticles = (props) => {
 
   // Get API for Interests
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/interests`, {
         headers: {
@@ -311,7 +341,7 @@ const FeaturedArticles = (props) => {
                   }
                 >
                   <div className="interest-guru ">
-                    {articles?.map((article, index) => {
+                    {currentArticles?.map((article, index) => {
                       return (
                         <div key={index}>
                           <div className="wrap flex">
@@ -394,6 +424,13 @@ const FeaturedArticles = (props) => {
                         </div>
                       );
                     })}
+                    <Pagination
+                      token="Articles"
+                      totalItems={articles.length}
+                      itemsPerPage={articlesPerPage}
+                      currentPage={currentPage}
+                      onPageChange={handlePageChange}
+                    />
                   </div>
                 </div>
               )}
@@ -705,7 +742,7 @@ const FeaturedArticles = (props) => {
                 <div className="tab-content tab-content-1 active">
                   <div className="interest-guru ">
                     <div className="interest-sliders">
-                      {articles?.map((article, index) => {
+                      {currentArticles?.map((article, index) => {
                         return (
                           <a className="wrap flex" key={index}>
                             <figure>
@@ -777,6 +814,15 @@ const FeaturedArticles = (props) => {
                           </a>
                         );
                       })}
+                      {isMobile && (
+                        <Pagination
+                          token="Articles"
+                          totalItems={articles.length}
+                          itemsPerPage={articlesPerPage}
+                          currentPage={currentPage}
+                          onPageChange={handlePageChange}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
