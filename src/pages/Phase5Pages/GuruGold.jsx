@@ -169,86 +169,21 @@ const GuruGold = () => {
                 <ul className="flex">
                   <li>
                     <div
-                      // style={{
-                      //   border: "2px solid",
-                      //   borderRadius: "100%",
-                      //   borderImage:
-                      //     "linear-gradient(to right, #8E44AD, #3498DB) 1",
-                      //   borderImageSlice: 1,
-                      // }}
+                      style={{
+                        border: "2px solid blue",
+                        borderRadius: "100%",
+                      }}
                     >
                       <figure>
                         <img
                           src={userDetails.profile_image}
                           alt="userIcon"
                           title="userIcon"
-                          style={{
-                            border: "2px solid",
-                            borderRadius: "100%",
-                            borderImage:
-                              "linear-gradient(to right, #8E44AD, #3498DB) 1",
-                            borderImageSlice: 1,
-                          }}
-                          
+                          style={{ borderRadius: "100%" }}
                         />
                       </figure>
                     </div>
                   </li>
-                  {/* <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-2.png"
-                          alt="Genaiguru silver-user-2"
-                          title="Genaiguru silver-user-2"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li> */}
                 </ul>
               </div>
               {/* <!-- reward start --> */}
