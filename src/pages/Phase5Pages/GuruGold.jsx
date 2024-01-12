@@ -183,6 +183,19 @@ const GuruGold = () => {
                         />
                       </figure>
                     </div>
+                    <div class="card">
+                      <div class="percent">
+                        <svg>
+                          <circle cx="105" cy="105" r="100"></circle>
+                          <circle
+                            cx="105"
+                            cy="105"
+                            r="100"
+                            style={{ "--percent": percentage }}
+                          ></circle>
+                        </svg>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>

@@ -40,8 +40,6 @@ const FeaturedContent = (props) => {
     setCurrentPage(page);
   };
   const Featuredpopup = (popularity, sortby, currentDate) => {
-    console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
-
     axios
       .get(
         `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
