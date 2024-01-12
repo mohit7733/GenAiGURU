@@ -11,6 +11,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_BLOG_DETAILS } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import FeaturedContentPopup from "./FeaturedContentPopup";
+import Pagination from "./Pagination";
 
 const FeaturedContent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -30,7 +31,14 @@ const FeaturedContent = (props) => {
   const data = date.setDate(date.getDate());
   const dateObject = new Date(data);
   const currentTime = dateObject.toISOString().split("T")[0];
-
+  const blogsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = latestBlog.slice(indexOfFirstBlog, indexOfLastBlog);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   const Featuredpopup = (popularity, sortby, currentDate) => {
     console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
 
@@ -378,7 +386,7 @@ const FeaturedContent = (props) => {
                   }
                 >
                   <div className="interest-guru ">
-                    {latestBlog.map((blog, index) => {
+                    {currentBlogs.map((blog, index) => {
                       return (
                         <div key={index}>
                           <div className="wrap flex">
@@ -462,6 +470,12 @@ const FeaturedContent = (props) => {
                         </div>
                       );
                     })}
+                    <Pagination
+                      totalItems={latestBlog.length}
+                      itemsPerPage={blogsPerPage}
+                      currentPage={currentPage}
+                      onPageChange={handlePageChange}
+                    />
                   </div>
                 </div>
               )}
@@ -807,7 +821,7 @@ const FeaturedContent = (props) => {
                 <div className="tab-content tab-content-1 active">
                   <div className="interest-guru ">
                     <div className="interest-sliders">
-                      {latestBlog.map((blog, index) => {
+                      {currentBlogs.map((blog, index) => {
                         return (
                           <div className="wrap flex" key={index}>
                             <figure>
@@ -883,6 +897,12 @@ const FeaturedContent = (props) => {
                       })}
                     </div>
                   </div>
+                  {/* <Pagination
+                    totalItems={latestBlog.length}
+                    itemsPerPage={blogsPerPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                  /> */}
                 </div>
                 {/* <!-- 2nd --> */}
                 <div className="tab-content tab-content-2 ">
