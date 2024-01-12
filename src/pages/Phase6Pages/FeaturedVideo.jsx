@@ -12,6 +12,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_VIDEO_PLAY } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import FeaturedContentPopup from "./FeaturedContentPopup";
+import Pagination from "./Pagination";
 
 const FeaturedContent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -30,6 +31,35 @@ const FeaturedContent = (props) => {
   const data = date.setDate(date.getDate());
   const dateObject = new Date(data);
   const currentTime = dateObject.toISOString().split("T")[0];
+
+  //Pagination code Starts here
+  const videosPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastVideo = currentPage * videosPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  const currentVideos = popularVideos.slice(
+    indexOfFirstVideo,
+    indexOfLastVideo
+  );
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  //Optional used only when mobile have different UI
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  //Pagination ends
 
   const Featuredpopup = (popularity, sortby, currentDate) => {
     console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
@@ -310,7 +340,7 @@ const FeaturedContent = (props) => {
                   }
                 >
                   <div class="interest-guru ">
-                    {popularVideos.map((video, index) => {
+                    {currentVideos.map((video, index) => {
                       return (
                         <div class="wrap flex" key={index}>
                           <a>
@@ -390,6 +420,13 @@ const FeaturedContent = (props) => {
                         </div>
                       );
                     })}
+                    <Pagination
+                      token="Videos"
+                      totalItems={popularVideos.length}
+                      itemsPerPage={videosPerPage}
+                      currentPage={currentPage}
+                      onPageChange={handlePageChange}
+                    />
                   </div>
                 </div>
               )}
@@ -604,7 +641,7 @@ const FeaturedContent = (props) => {
                 <div class="tab-content tab-content-1 active">
                   <div class="interest-guru ">
                     <div class="interest-sliders">
-                      {popularVideos.map((video, index) => {
+                      {currentVideos.map((video, index) => {
                         return (
                           <div class="wrap flex" key={index}>
                             <figure>
@@ -678,6 +715,15 @@ const FeaturedContent = (props) => {
                           </div>
                         );
                       })}
+                      {isMobile && (
+                        <Pagination
+                          token="Videos"
+                          totalItems={popularVideos.length}
+                          itemsPerPage={videosPerPage}
+                          currentPage={currentPage}
+                          onPageChange={handlePageChange}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

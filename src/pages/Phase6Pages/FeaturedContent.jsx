@@ -31,6 +31,7 @@ const FeaturedContent = (props) => {
   const data = date.setDate(date.getDate());
   const dateObject = new Date(data);
   const currentTime = dateObject.toISOString().split("T")[0];
+  //Pagination code Starts here
   const blogsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastBlog = currentPage * blogsPerPage;
@@ -39,6 +40,7 @@ const FeaturedContent = (props) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  //Optional used only when mobile have different UI
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 
   useEffect(() => {
@@ -52,6 +54,7 @@ const FeaturedContent = (props) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  //Pagination ends
   const Featuredpopup = (popularity, sortby, currentDate) => {
     console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
 
@@ -484,6 +487,7 @@ const FeaturedContent = (props) => {
                       );
                     })}
                     <Pagination
+                      token="blogs"
                       totalItems={latestBlog.length}
                       itemsPerPage={blogsPerPage}
                       currentPage={currentPage}
@@ -912,6 +916,7 @@ const FeaturedContent = (props) => {
                   </div>
                   {isMobile && (
                     <Pagination
+                      token="blogs"
                       totalItems={latestBlog.length}
                       itemsPerPage={blogsPerPage}
                       currentPage={currentPage}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const Pagination = ({
+  token,
   totalItems,
   itemsPerPage,
   currentPage: initialPage,
@@ -8,15 +9,16 @@ const Pagination = ({
 }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const maxPageNumbers = 3; // Adjust as needed
+  const localStorageKey = `currentPage_${token}`;
   const [currentPage, setCurrentPage] = useState(() => {
     // Retrieve the current page from localStorage, or default to 1
-    return parseInt(localStorage.getItem("currentPage")) || 1;
+    return parseInt(localStorage.getItem(localStorageKey)) || 1;
   });
-  const [inputPage, setInputPage] = useState(currentPage);
+  const [inputPage, setInputPage] = useState(initialPage);
 
   useEffect(() => {
     // Save the current page to localStorage whenever it changes
-    localStorage.setItem("currentPage", currentPage.toString());
+    localStorage.setItem(localStorageKey, currentPage.toString());
     onPageChange(currentPage);
   }, [currentPage, onPageChange]);
 
