@@ -16,6 +16,8 @@ const GuruGold = () => {
   const [userLevel, setUserLevel] = useState("");
   const [earnMorePoint, setEarnMorePoint] = useState("");
   const [totalPoints, setTotalPoints] = useState("");
+
+  
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 

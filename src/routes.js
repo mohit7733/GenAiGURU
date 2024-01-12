@@ -61,6 +61,7 @@ export const PATH_TERMS_AND_SERVICES = "/terms&services";
 export const PATH_SETTINGS = "/settings";
 export const PATH_GURUGOLD = "/gurugold";
 export const PATH_LEADERBOARD = "/leaderboard";
+export const PATH_MILESTONE = "/milestone";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -184,8 +185,8 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "milestone",
-      name: "milestone",
+      path: PATH_MILESTONE,
+      name: "PATH_MILESTONE",
       element: <Milestone />,
       exact: true,
     },
