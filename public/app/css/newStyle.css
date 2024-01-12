@@ -731,6 +731,28 @@ small.pc {
     justify-content: center;
     background: rgba(124, 141, 184, 0.1);
   }
+  .pagination button {
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 10px;
+} 
+
+.pagination button:last-child {
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 15px;
+}
+
+.pagination input {
+    width: 20%;
+    border-radius: 18px;
+    padding: 4px;
+    margin-right: 18px;
+    font-size: 14px;
+    line-height: 1.5em;
+}
 }
 /* new css @D */
 .mainBg figure.headerLogo {
