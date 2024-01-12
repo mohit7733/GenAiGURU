@@ -36,6 +36,9 @@ const FeaturedContent = (props) => {
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = latestBlog.slice(indexOfFirstBlog, indexOfLastBlog);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   const Featuredpopup = (popularity, sortby, currentDate) => {
     console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
 
@@ -274,10 +277,6 @@ const FeaturedContent = (props) => {
       .catch((errors) => {
         console.log(errors);
       });
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
   };
 
   return (
