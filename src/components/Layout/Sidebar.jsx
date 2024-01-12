@@ -75,13 +75,13 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <WithAuth
+            <WithAuth 
               callBack={(e) => {
                 navigate(PATH_GURUGOLD);
               }}
             >
-              <a>
-                <figure>
+              <a  style={{ cursor: "pointer" }}>
+                <figure >
                   <img
                     src="app/images/guruGoldIcon.png"
                     alt="Genaiguru guruGoldIcon"

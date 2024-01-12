@@ -9,6 +9,7 @@ import EditProfile from "../Phase3pages/EditProfile";
 import WithAuth from "../../pages/Authentication/WithAuth";
 
 import {
+  BASE_PATH,
   PATH_EDIT_PROFILE,
   PATH_PROFILE,
   PATH_TERMS_AND_SERVICES,
@@ -263,7 +264,9 @@ const Settings = () => {
       <div className="mob_profile commanMobHead heightAuto hideDes">
         <div className="mobileHead flex">
           <div className="hamburger">
-            <i className="fa fa-angle-left" aria-hidden="true"></i>
+          <Link to={BASE_PATH}>
+          <i className="fa fa-angle-left" aria-hidden="true"></i>
+          </Link>
           </div>
           <h2>Edit Profile</h2>
         </div>

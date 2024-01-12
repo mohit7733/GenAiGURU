@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import MobileHeader from "../../components/Layout/MobileHeader";
+import { BASE_PATH } from "../../routes";
 
 const Index5 = () => {
   const navigate = useNavigate();
@@ -103,7 +104,9 @@ const Index5 = () => {
         <div class="postHead flex">
           <div class="col_left flex">
             <div class="backBtns">
-              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <Link to={BASE_PATH}>
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              </Link>{" "}
             </div>
             <p>Write a post</p>
           </div>

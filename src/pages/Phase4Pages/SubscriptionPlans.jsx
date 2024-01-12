@@ -1,6 +1,8 @@
 import React from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import { Link } from "react-router-dom";
+import { BASE_PATH } from "../../routes";
 
 const SubscriptionPlans = () => {
   return (
@@ -176,7 +178,9 @@ const SubscriptionPlans = () => {
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
           <div class="hamburger">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+          <Link to={BASE_PATH}>
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+          </Link>
           </div>
           <h2>Subscription Plans</h2>
         </div>

@@ -5,15 +5,17 @@ import { getBaseURL } from "../../api/config";
 import userimageIcon from "../../assets/images/person.png";
 import WithAuth from "../../pages/Authentication/WithAuth";
 import { PATH_LOGIN, PATH_PROFILE } from "../../routes";
-
+import MobileSideBar from "./MobileSideBar";
 const Header = () => {
   const [profileImage, setProfileImage] = useState();
-
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
-
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
@@ -42,7 +44,7 @@ const Header = () => {
   return (
     <>
       <header className="flex">
-        <div className="hamburger">
+        <div className="hamburger" onClick={toggleMobileSidebar}>
           <img
             src="app/images/hamburgerIcon.png"
             alt="Genaiguru hamburger"
@@ -159,6 +161,7 @@ const Header = () => {
           </li>
         </ul>
       </header>
+      {isMobileSidebarOpen && <MobileSideBar />}
     </>
   );
 };

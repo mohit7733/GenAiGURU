@@ -1315,6 +1315,9 @@ section.mainWrapper.flex.hideMob {
   .mobileMenus {
     display: block;
   }
+  .edit-profile {
+    width: 100% !important;
+}
 }
 
 .video-slider .layer h5 {
