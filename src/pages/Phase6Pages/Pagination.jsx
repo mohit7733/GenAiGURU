@@ -12,7 +12,7 @@ const Pagination = ({
     // Retrieve the current page from localStorage, or default to 1
     return parseInt(localStorage.getItem("currentPage")) || 1;
   });
-  const [inputPage, setInputPage] = useState(initialPage);
+  const [inputPage, setInputPage] = useState(currentPage);
 
   useEffect(() => {
     // Save the current page to localStorage whenever it changes
@@ -62,63 +62,56 @@ const Pagination = ({
       ));
     }
 
-    const startPage = Math.max(1, currentPage - Math.floor(maxPageNumbers / 2));
-    const endPage = Math.min(totalPages, startPage + maxPageNumbers - 1);
+    let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbers / 2));
+    let endPage = Math.min(totalPages, startPage + maxPageNumbers - 1);
 
-    return pageNumbers.slice(startPage - 1, endPage).map((page) => (
-      <button
-        key={page}
-        onClick={() => handlePageClick(page)}
-        className={page === currentPage ? "active" : ""}
-      >
-        {page}
-      </button>
-    ));
+    if (currentPage === totalPages) {
+      // Adjust startPage and endPage when on the last page
+      startPage = Math.max(1, totalPages - maxPageNumbers + 1);
+      endPage = totalPages;
+    }
+    return pageNumbers
+      .slice(Math.max(0, startPage - 1), endPage)
+      .map((page) => (
+        <button
+          key={page}
+          onClick={() => handlePageClick(page)}
+          className={page === currentPage ? "active" : ""}
+        >
+          {page}
+        </button>
+      ));
   };
 
   return (
     <div className="pagination">
-      {currentPage >= 3 ? (
-        <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
-          First
-        </button>
-      ) : (
-        ""
-      )}
-      {currentPage != 1 ? (
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-      ) : (
-        ""
-      )}
+      <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
+        <i className="fa fa-angle-left" aria-hidden="true"></i>
+        <i className="fa fa-angle-left" aria-hidden="true"></i>
+      </button>
+      <button
+        onClick={() => goToPage(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        <i className="fa fa-angle-left" aria-hidden="true"></i>
+      </button>
       {/* {totalPages > 3 && currentPage >= 3 ? "..." : ""} */}
       {renderPageNumbers()}
       {/* {totalPages > 3 && currentPage != totalPages - 1 ? "..." : ""} */}
-      {currentPage != totalPages ? (
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      ) : (
-        ""
-      )}
-      {totalPages > 3 && currentPage <= totalPages - 2 ? (
-        <button
-          onClick={() => goToPage(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          Last Page
-        </button>
-      ) : (
-        ""
-      )}
-      <div>
+      <button
+        onClick={() => goToPage(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        <i className="fa fa-angle-right" aria-hidden="true"></i>
+      </button>
+      <button
+        onClick={() => goToPage(totalPages)}
+        disabled={currentPage === totalPages}
+      >
+        <i className="fa fa-angle-right" aria-hidden="true"></i>
+        <i className="fa fa-angle-right" aria-hidden="true"></i>
+      </button>
+      <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="number"
           value={inputPage}
@@ -127,7 +120,7 @@ const Pagination = ({
           max={totalPages}
         />
         <button onClick={handleGoToInputPage}>Go to Page</button>
-      </div>
+      </form>
     </div>
   );
 };

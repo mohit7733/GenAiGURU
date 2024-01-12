@@ -39,6 +39,19 @@ const FeaturedContent = (props) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const Featuredpopup = (popularity, sortby, currentDate) => {
     axios
       .get(
@@ -895,12 +908,14 @@ const FeaturedContent = (props) => {
                       })}
                     </div>
                   </div>
-                  {/* <Pagination
-                    totalItems={latestBlog.length}
-                    itemsPerPage={blogsPerPage}
-                    currentPage={currentPage}
-                    onPageChange={handlePageChange}
-                  /> */}
+                  {isMobile && (
+                    <Pagination
+                      totalItems={latestBlog.length}
+                      itemsPerPage={blogsPerPage}
+                      currentPage={currentPage}
+                      onPageChange={handlePageChange}
+                    />
+                  )}
                 </div>
                 {/* <!-- 2nd --> */}
                 <div className="tab-content tab-content-2 ">
