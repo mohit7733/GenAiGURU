@@ -684,10 +684,13 @@ line-height: 1.3;
 }
 .new_login_popup .popup {
   background-color: rgba(187, 191, 198, 0.5);
-  padding: 70px 50px 40px;
+  padding: 70px 45px 40px;
   max-width: 500px;
   border-radius: 32px;
   margin-top: 90px;
+}
+.blog-details button.kep-login-facebook.metro {
+  padding-right: 88px;
 }
 .new_login_popup.loginOption p {
   margin: 20px 0;
@@ -700,7 +703,7 @@ line-height: 1.3;
   background: linear-gradient(0deg, #243343, #243343),
     linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
 }
-.new_login_popup.loginOption .alreadyAccount a {
+.new_login_popup.loginOption .alreadyAccount a, .rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption .alreadyAccount a {
   background: none;
   box-shadow: none;
   border: none;
@@ -760,7 +763,59 @@ header .userIcon img {
 .kep-login-facebook.metro {
   display: flex;
   align-items: center;
-  padding: 15px 78px 15px 90px;
+  padding: 15px 80px 15px 90px; 
+} 
+.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption li:first-child a {
+  width: 100%;
+  padding: 0;
+  border-radius: 10px;
+  background: linear-gradient(0deg, #243343, #243343), linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+}
+.blogDetails .connect-box section.popup-background.new_login_popup .kep-login-facebook.metro{
+  padding: 15px 78px 15px 100px !important;
+}
+
+.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption li:last-child a {
+  padding: 17.5px 30px;
+  background: linear-gradient(
+    87.97deg,
+    #b03fcc 2.88%,
+    #683fe4 25.56%,
+    rgba(216, 63, 190, 0.94) 114.56%
+  ),
+  linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+  border-radius: 16px;
+  box-shadow: 0 10px 24px 0 rgba(58, 74, 99, 0.631372549);
+  border: 1px solid rgba(255, 255, 255, 0.2117647059);
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #f4f8ff;
+  width: 100%;
+  justify-content: center;
+  margin-top: 50px;
+  transition: all 0.25s ease;
+}
+.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption li:last-child a:hover {
+  background: #be41c0;
+}
+
+.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption p {
+  font-family: PlusJakartaSansRegular;
+  font-weight: 400;
+  color: #cfd6db;
+  font-size: 20px;
+  line-height: 1.34em;
+  margin-bottom: 30px;
+}
+
+.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption h1 span {
+  font-size: 32px;
+  margin-bottom: 7px;
+}
+
+.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption p.alreadyAccount {
+font-size: 16px;
 }
 .kep-login-facebook.metro img {
   margin-right: 15px;
@@ -781,8 +836,14 @@ header .userIcon img {
 .edit-profile .intrest-area .social-link ul li a figure {
   width: 26px;
 }
+.popup.wrapper400.stars ul li {
+  margin-right: 0px !important;
+}
 .fixedBtn {
   z-index: 9;
+}
+.errorMessage{
+  color: red;
 }
 .mob_profile .mob_profile_inner {
   height: 100%;

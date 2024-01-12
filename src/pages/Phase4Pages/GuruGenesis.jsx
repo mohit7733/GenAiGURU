@@ -403,69 +403,33 @@ const GuruGenesis = () => {
                   <div class="contact-wrapper flex">
                     <div class="faq-container">
                       <h5>FAQ</h5>
-                      <div class="faq-box">
-                        <div class="accordion">
-                          <h4>What impact have commons users had so far </h4>
-                          <div class="leftArrow">
-                            <img
-                              src="app/images/arrow-left.png"
-                              alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
-                            />
+                      {faq.map((faqdata, index) => (
+                        <div class="faq-box">
+                          <div
+                            class="accordion"
+                            onClick={(e) =>
+                              setIsVisible(isVisible == index ? -1 : index)
+                            }
+                          >
+                            <h4>{faqdata.question}</h4>
+                            <div class="leftArrow">
+                              <img
+                                src="app/images/arrow-left.png"
+                                alt="Genaiguru arrow-left"
+                                // title="Genaiguru arrow-left"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="panel"
+                            style={
+                              isVisible == index ? { display: "block" } : {}
+                            }
+                          >
+                            <p>{faqdata.answer}</p>
                           </div>
                         </div>
-                        <div class="panel">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="faq-box">
-                        <div class="accordion">
-                          <h4>What impact have commons users had so far </h4>
-                          <div class="leftArrow">
-                            <img
-                              src="app/images/arrow-left.png"
-                              alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
-                            />
-                          </div>
-                        </div>
-                        <div class="panel">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="faq-box">
-                        <div class="accordion">
-                          <h4>What impact have commons users had so far </h4>
-                          <div class="leftArrow">
-                            <img
-                              src="app/images/arrow-left.png"
-                              alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
-                            />
-                          </div>
-                        </div>
-                        <div class="panel">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                     <div class="contact-container">
                       <h4>Contact us</h4>
@@ -525,11 +489,15 @@ const GuruGenesis = () => {
                       Months Of Qualifying. 28% Of Students Are Hired While On
                       The Course. Change Career. Career Changing Skills. Spaces
                       Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
-                      {aboutus.description}
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: aboutus.description,
+                        }}
+                      />
                     </p>
                   </div>
                   <div class="about-content">
-                    <h4>Terms of service </h4>
+                    {/* <h4>Terms of service </h4>
                     <p>
                       Looking to upgrade your salary in the uk? Get the salary
                       you’re worth by learning to code. 98% employed within 12
@@ -541,7 +509,7 @@ const GuruGenesis = () => {
                       months of qualifying. 28% of students are hired while on
                       the course. Change career. Career changing skills. Spaces
                       filling up fast.{" "}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               )}

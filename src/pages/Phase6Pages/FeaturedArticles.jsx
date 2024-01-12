@@ -84,6 +84,7 @@ const FeaturedArticles = (props) => {
 
   // Get API for Interests
   useEffect(() => {
+    window.scrollTo(0,0)
     axios
       .get(`${getBaseURL()}/interests`, {
         headers: {
