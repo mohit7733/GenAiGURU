@@ -22,6 +22,8 @@ const FeaturedContent = (props) => {
 
   const [popularVideos, setPopularVideos] = useState([]);
   const [myInterests, setMyInterests] = useState();
+  const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
+  const [mergedInterests1, setMergedInterests] = useState([]);
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -33,7 +35,7 @@ const FeaturedContent = (props) => {
   const currentTime = dateObject.toISOString().split("T")[0];
 
   //Pagination code Starts here
-  const videosPerPage = 5;
+  const videosPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
@@ -112,8 +114,7 @@ const FeaturedContent = (props) => {
   }, [buttonClicked]);
 
   // Get API for interests
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  const getAllInterests = () => {
     axios
       .get(`${getBaseURL()}/interests`, {
         headers: {
@@ -126,7 +127,60 @@ const FeaturedContent = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
+  };
+
+  const getSelectedInterest = () => {
+    axios
+      .get(`${getBaseURL()}/auth/userinterests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserSelectedIneterests(response?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  useEffect(() => {
+    // Get API for ALL interests and User Selected Interset
+    getAllInterests();
+    getSelectedInterest();
   }, []);
+
+  // Function to merge and remove duplicates based on interest_id and id
+  const mergeAndRemoveDuplicates = (arr1, arr2, key1, key2) => {
+    const uniqueMap = new Map();
+
+    // Add items from arr1 to uniqueMap
+    arr1.forEach((item) => uniqueMap.set(item[key1], item));
+
+    // Add items from arr2 to uniqueMap, overwriting duplicates
+    arr2.forEach((item) => uniqueMap.set(item[key2], item));
+
+    // Convert uniqueMap values back to an array
+    const mergedInterests = Array.from(uniqueMap.values());
+
+    return mergedInterests;
+  };
+
+  // Specify the key names to use for comparison
+  const keyForUserSelected = "interest_id";
+  const keyForMyInterests = "id";
+  // ...
+  useEffect(() => {
+    if (myInterests?.length > 0 && userSelectedIneterests?.length > 0) {
+      const mergedInterests = mergeAndRemoveDuplicates(
+        userSelectedIneterests,
+        myInterests,
+        keyForUserSelected,
+        keyForMyInterests
+      );
+      setMergedInterests(mergedInterests);
+    }
+  }, [myInterests, userSelectedIneterests]);
+  console.log(mergedInterests1, "merge");
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -241,16 +295,16 @@ const FeaturedContent = (props) => {
       <ToastContainer autoClose={1000} pauseOnHover={false} />
 
       <MobileHeader />
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
-          <div class="">
-            <div class="keeps-container featuredConatiner">
-              <div class="gurukeeps-wrapper">
-                <div class="innerBreadcrumb">
+          <div className="">
+            <div className="keeps-container featuredConatiner">
+              <div className="gurukeeps-wrapper">
+                <div className="innerBreadcrumb">
                   <p>
                     <Link to={BASE_PATH}>Home</Link>{" "}
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>{" "}
+                    <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                     Featured Video
                   </p>
                 </div>
@@ -279,7 +333,7 @@ const FeaturedContent = (props) => {
                       }}
                     >
                       <Slider {...sliderSettings}>
-                        {myInterests?.map((interest, index) => (
+                        {mergedInterests1?.map((interest, index) => (
                           <li
                             key={index}
                             className={activeTab === index + 1 ? "active" : ""}
@@ -339,10 +393,10 @@ const FeaturedContent = (props) => {
                     activeTab === 0 && "tab-content tab-content-0 active"
                   }
                 >
-                  <div class="interest-guru ">
+                  <div className="interest-guru ">
                     {currentVideos.map((video, index) => {
                       return (
-                        <div class="wrap flex" key={index}>
+                        <div className="wrap flex" key={index}>
                           <a>
                             <figure>
                               <ReactPlayer
@@ -352,9 +406,9 @@ const FeaturedContent = (props) => {
                               />
                             </figure>
                           </a>
-                          <div class="content">
-                            <div class="flex space-between">
-                              <div class="wrapper flex">
+                          <div className="content">
+                            <div className="flex space-between">
+                              <div className="wrapper flex">
                                 <figure>
                                   <img
                                     src={video.author_profile_image}
@@ -362,7 +416,7 @@ const FeaturedContent = (props) => {
                                     title="Genaiguru user-icon"
                                   />
                                 </figure>
-                                <div class="innerContent">
+                                <div className="innerContent">
                                   <h6>{video.author}</h6>
                                   <p> {video.creation_date}</p>
                                 </div>
@@ -372,7 +426,7 @@ const FeaturedContent = (props) => {
                                   console.log("dd");
                                 }}
                               >
-                                <ul class="flex">
+                                <ul className="flex">
                                   <li
                                     onClick={() => {
                                       video.saved === "yes"
@@ -504,14 +558,14 @@ const FeaturedContent = (props) => {
       </section>
       {filter ? <FeaturedContentPopup Featuredpopup={Featuredpopup} /> : ""}
       {/* <!-- mobile section start here --> */}
-      <div class="mob_profile commanMobHead hideDes">
-        <div class="mobileHead flex">
-          <Link to={BASE_PATH} class="hamburger">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
+      <div className="mob_profile commanMobHead hideDes">
+        <div className="mobileHead flex">
+          <Link to={BASE_PATH} className="hamburger">
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
           </Link>
           <h2>Featured video</h2>
-          <div class="connect-box">
-            <ul class="flex">
+          <div className="connect-box">
+            <ul className="flex">
               {/* <li>
                 <Link to="/sortbydate">
                   <figure>
@@ -529,17 +583,17 @@ const FeaturedContent = (props) => {
             </ul>
           </div>
         </div>
-        <div class="innerCommanContent">
-          <div class="mob_tab_list">
-            <div class="rightSection">
-              <div class="keeps-container">
-                <div class="gurukeeps-wrapper">
+        <div className="innerCommanContent">
+          <div className="mob_tab_list">
+            <div className="rightSection">
+              <div className="keeps-container">
+                <div className="gurukeeps-wrapper">
                   {/* <!-- tab-link start here --> */}
-                  {/* <ul class="connect-link flex">
+                  {/* <ul className="connect-link flex">
                     <li>
                       <a
                         href="#"
-                        class="tab active"
+                        className="tab active"
                         data-toggle-target=".tab-content-1"
                       >
                         All
@@ -548,7 +602,7 @@ const FeaturedContent = (props) => {
                     <li>
                       <a
                         href="#"
-                        class="tab "
+                        className="tab "
                         data-toggle-target=".tab-content-2"
                       >
                         Ai in healthcare
@@ -557,7 +611,7 @@ const FeaturedContent = (props) => {
                     <li>
                       <a
                         href="#"
-                        class="tab "
+                        className="tab "
                         data-toggle-target=".tab-content-3"
                       >
                         ML in finance
@@ -566,7 +620,7 @@ const FeaturedContent = (props) => {
                     <li>
                       <a
                         href="#"
-                        class="tab "
+                        className="tab "
                         data-toggle-target=".tab-content-4"
                       >
                         Crypto
@@ -575,7 +629,7 @@ const FeaturedContent = (props) => {
                     <li>
                       <a
                         href="#"
-                        class="tab "
+                        className="tab "
                         data-toggle-target=".tab-content-5"
                       >
                         Bitcoin
@@ -604,7 +658,7 @@ const FeaturedContent = (props) => {
                       }}
                     >
                       <Slider {...sliderSettings}>
-                        {myInterests?.map((interest, index) => (
+                        {mergedInterests1?.map((interest, index) => (
                           <li
                             key={index}
                             className={activeTab === index + 1 ? "active" : ""}
@@ -638,12 +692,12 @@ const FeaturedContent = (props) => {
                   {/* <!-- tab-link start here --> */}
                 </div>
                 {/* <!-- tab-content here --> */}
-                <div class="tab-content tab-content-1 active">
-                  <div class="interest-guru ">
-                    <div class="interest-sliders">
+                <div className="tab-content tab-content-1 active">
+                  <div className="interest-guru ">
+                    <div className="interest-sliders">
                       {currentVideos.map((video, index) => {
                         return (
-                          <div class="wrap flex" key={index}>
+                          <div className="wrap flex" key={index}>
                             <figure>
                               <a>
                                 <figure>
@@ -655,8 +709,8 @@ const FeaturedContent = (props) => {
                                 </figure>
                               </a>
                             </figure>
-                            <div class="content">
-                              <div class="wrapper flex">
+                            <div className="content">
+                              <div className="wrapper flex">
                                 <figure>
                                   <img
                                     src={video.author_profile_image}
@@ -664,7 +718,7 @@ const FeaturedContent = (props) => {
                                     title="Genaiguru authorImg"
                                   />
                                 </figure>
-                                <div class="innerContent">
+                                <div className="innerContent">
                                   <h6>{video.author}</h6>
                                   <p> {video.creation_date}</p>
                                 </div>
@@ -672,7 +726,7 @@ const FeaturedContent = (props) => {
                               <p onClick={() => onVideoClick(video.id)}>
                                 {video.title}
                               </p>
-                              <ul class="flex">
+                              <ul className="flex">
                                 <li
                                   onClick={() => {
                                     video.saved === "yes"
@@ -728,10 +782,10 @@ const FeaturedContent = (props) => {
                   </div>
                 </div>
                 {/* <!-- 2nd --> */}
-                <div class="tab-content tab-content-2 ">
-                  <div class="interest-guru ">
-                    <div class="interest-sliders">
-                      <div class="wrap flex">
+                <div className="tab-content tab-content-2 ">
+                  <div className="interest-guru ">
+                    <div className="interest-sliders">
+                      <div className="wrap flex">
                         <figure>
                           <a href="#">
                             <img
@@ -741,8 +795,8 @@ const FeaturedContent = (props) => {
                             />
                           </a>
                         </figure>
-                        <div class="content">
-                          <div class="wrapper flex">
+                        <div className="content">
+                          <div className="wrapper flex">
                             <figure>
                               <img
                                 src="app/images/authorImg.png"
@@ -750,7 +804,7 @@ const FeaturedContent = (props) => {
                                 title="Genaiguru authorImg"
                               />
                             </figure>
-                            <div class="innerContent">
+                            <div className="innerContent">
                               <h6>Alex Smih</h6>
                               <p> Sep 15, 2023. 11:05 pm</p>
                             </div>
@@ -759,7 +813,7 @@ const FeaturedContent = (props) => {
                             Navigating the World of ChatGPT and Its Open-source
                             Adversaries
                           </p>
-                          <ul class="flex">
+                          <ul className="flex">
                             <li>
                               <a href="#">
                                 <img
