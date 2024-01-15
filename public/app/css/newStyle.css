@@ -499,15 +499,19 @@ small.pc {
 }
 .pagination button {
 	display: inline-block;
-	font-size: 18px;
-	height: 50px;
-	line-height: 50px;
+	font-size: 16px;
+	height: 30px;
+	line-height: 30px;
 	text-align: center;
 	border: solid 1px #d9d9d9;
 	border-radius: 50%;
-	padding: 0px 20px;
+	padding: 0px 10px;
 	margin: 0px 3px;
 	cursor: pointer;
+  background: linear-gradient( 87.97deg, #b03fcc 2.88%, #683fe4 25.56%, rgba(216, 63, 190, 0.94) 114.56% ),
+   linear-gradient(0deg,
+    rgba(255, 255, 255, 0.21),
+     rgba(255, 255, 255, 0.21));
 }
 .pagination button:last-child {
 	display: inline-block;
@@ -533,7 +537,7 @@ small.pc {
 .pagination button.active {
   background: rgba(198, 208, 225, 0.1);
   color: white;
-	border-color: #19a0dd;
+	border: solid 2px #b03fcc;
 }
 .pagination input{
     width: 8%;

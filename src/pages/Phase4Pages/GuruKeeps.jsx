@@ -11,6 +11,7 @@ import {
   PATH_BLOG_DETAILS,
   PATH_VIDEO_PLAY,
 } from "../../routes";
+import Pagination from "../Phase6Pages/Pagination";
 
 const GuruKeeps = () => {
   const [savedData, setSavedData] = useState([]);
@@ -100,6 +101,30 @@ const GuruKeeps = () => {
   const onVideoClick = (VideoId) => {
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
   };
+  //Pagination code Starts here
+  const keepsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastkeep = currentPage * keepsPerPage;
+  const indexOfFirstkeep = indexOfLastkeep - keepsPerPage;
+  const currentkeeps = savedData.slice(indexOfFirstkeep, indexOfLastkeep);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  //Optional used only when mobile have different UI
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  //Pagination ends
 
   return (
     <div>
@@ -116,7 +141,7 @@ const GuruKeeps = () => {
                 <span>{savedData.length} Saved</span>
               </div>
               <div className="interest-guru ">
-                {savedData.map((data, index) => {
+                {currentkeeps.map((data, index) => {
                   return (
                     <div className="wrap flex" key={index}>
                       {data.youtube_link ? (
@@ -205,6 +230,13 @@ const GuruKeeps = () => {
                     </div>
                   );
                 })}
+                <Pagination
+                  token="keeps"
+                  totalItems={savedData.length}
+                  itemsPerPage={keepsPerPage}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
               </div>
             </div>
           </div>
@@ -311,6 +343,17 @@ const GuruKeeps = () => {
                 </div>
               );
             })}
+            {isMobile ? (
+              <Pagination
+                token="keeps"
+                totalItems={savedData.length}
+                itemsPerPage={keepsPerPage}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
