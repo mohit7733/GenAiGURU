@@ -17,7 +17,6 @@ const GuruGold = () => {
   const [earnMorePoint, setEarnMorePoint] = useState("");
   const [totalPoints, setTotalPoints] = useState("");
 
-  
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -80,7 +79,6 @@ const GuruGold = () => {
   const fetchLevels = async () => {
     try {
       const response = await axios.get(`${getBaseURL()}/game-levels`);
-      // console.log(response?.data?.data);
       setLevelDetails(response?.data?.data);
     } catch (error) {
       console.error("Error fetching game-levels:", error.message);
@@ -154,14 +152,15 @@ const GuruGold = () => {
                   </div>
                   <div>
                     <p className="profileBottomText">
+                      Earn more{"  "}
                       <figure style={{ width: "20px" }}>
                         <img
                           src="./app/images/coins.png"
                           alt="Genaiguru Coins"
                           title="Genaiguru Coins"
                         />
-                      </figure>
-                      Earn more {earnMorePoint} coins to go to next level
+                      </figure>{" "}
+                      {earnMorePoint} coins to go to next level
                     </p>
                   </div>
                 </div>
