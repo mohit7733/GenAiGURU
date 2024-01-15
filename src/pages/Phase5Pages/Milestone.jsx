@@ -92,7 +92,6 @@ const Milestone = () => {
     }
   };
   const percentage = (userPoints / totalPoints) * 100;
-  console.log(completedIds.length);
   return (
     <div>
       <MobileHeader />
@@ -197,15 +196,15 @@ const Milestone = () => {
                             </div>
                             <div>
                               <p className="profileBottomText">
+                                Earn more  
                                 <figure style={{ width: "20px" }}>
                                   <img
                                     src="./app/images/coins.png"
                                     alt="Genaiguru Coins"
                                     title="Genaiguru Coins"
                                   />
-                                </figure>
-                                Earn more {earnMorePoint} coins to go to next
-                                level
+                                </figure>{" "}
+                                {earnMorePoint} coins to go to next level
                               </p>
                             </div>
                           </>
