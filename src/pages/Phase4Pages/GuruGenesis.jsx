@@ -6,6 +6,7 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
 
 const GuruGenesis = () => {
   const [fullname, setFullName] = useState("");
@@ -15,6 +16,7 @@ const GuruGenesis = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [faq, setFaq] = useState([]);
   const [isVisible, setIsVisible] = useState();
+  const[isMobileSidebarOpen,setIsMobileSidebarOpen]=useState(false)
   const [contactUsDetails, setContactUsDetails] = useState({
     fullName: "",
     email: "",
@@ -24,6 +26,10 @@ const GuruGenesis = () => {
     title: "",
     description: "",
   });
+
+  const toggleMobileSidebar = ()=>{
+    setIsMobileSidebarOpen(!isMobileSidebarOpen)
+  }
 
   // get API for About-us.......
   useEffect(() => {
@@ -361,7 +367,7 @@ const GuruGenesis = () => {
       {/* <!-- mobile section start here --> */}
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
-          <div class="hamburger">
+          <div class="hamburger" onClick={toggleMobileSidebar}>
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
@@ -518,6 +524,7 @@ const GuruGenesis = () => {
         </div>
       </div>
       {/* <!-- mobile section end here --> */}
+      {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}/>}
     </div>
   );
 };

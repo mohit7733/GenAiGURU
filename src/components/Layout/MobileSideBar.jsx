@@ -3,22 +3,29 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   PATH_FEATURED_CONTENT,
   PATH_GURUGOLD,
+  PATH_LOGIN,
   PATH_PROFILE,
 } from "../../routes";
 import WithAuth from "../../pages/Authentication/WithAuth";
 
 const MobileSideBar = (props) => {
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(true);
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
   const navigate = useNavigate();
-  const closeMobileSidebar = () => {
-    setIsMobileSidebarOpen(false);
+
+  const changeLoginStatus = () => {
+    if (userLoggedIn === "true") {
+      localStorage.setItem("userLoggedIn", "false");
+      localStorage.removeItem("token");
+      localStorage.removeItem("UserId");
+    }
   };
   return (
     <div>
-      {isMobileSidebarOpen && (
         <section class="mobileMenus">
           <div class="menuWrapper">
-            <div class="close" onClick={closeMobileSidebar}>
+            <div class="close" onClick={props.toggleMobileSidebar}>
               <img
                 src="app/images/menuCloseIcon.png"
                 alt="Genaiguru menu close icon"
@@ -54,7 +61,7 @@ const MobileSideBar = (props) => {
                       alt="Genaiguru write menu icon"
                       title="Genaiguru write menu icon"
                     />
-                    Write
+                    Write with AI
                   </a>
                 </WithAuth>
               </li>
@@ -96,11 +103,11 @@ const MobileSideBar = (props) => {
                       alt="Genaiguru Bookmarked post menu icon"
                       title="Genaiguru Bookmarked post menu icon"
                     />
-                    Bookmarked post
+                    Guru Keeps
                   </a>
                 </WithAuth>
               </li>
-              <li>
+              {/* <li>
                 <WithAuth
                   callBack={(e) => {
                     navigate(PATH_FEATURED_CONTENT);
@@ -115,7 +122,7 @@ const MobileSideBar = (props) => {
                     Blog page
                   </a>
                 </WithAuth>
-              </li>
+              </li> */}
               <li>
                 <WithAuth
                   callBack={(e) => {
@@ -133,11 +140,7 @@ const MobileSideBar = (props) => {
                 </WithAuth>
               </li>
               <li>
-                <WithAuth
-                  callBack={(e) => {
-                    navigate("/contact");
-                  }}
-                >
+                <Link to={"/contact"}>
                   <a target="_blank">
                     <img
                       src="app/images/mobileMenuIcon7.png"
@@ -146,7 +149,7 @@ const MobileSideBar = (props) => {
                     />
                     About & Contact
                   </a>
-                </WithAuth>
+                </Link>
               </li>
               <li>
                 <WithAuth
@@ -160,7 +163,7 @@ const MobileSideBar = (props) => {
                       alt="Genaiguru My subscription menu icon"
                       title="Genaiguru My subscription menu icon"
                     />
-                    My subscription
+                    My Subscription
                   </a>
                 </WithAuth>
               </li>
@@ -181,14 +184,16 @@ const MobileSideBar = (props) => {
                 </WithAuth>
               </li>
               <li>
-                <a href="#" target="_blank">
-                  <img
-                    src="app/images/mobileMenuIcon10.png"
-                    alt="Genaiguru Log out menu icon"
-                    title="Genaiguru Log out menu icon"
-                  />
-                  Log out
-                </a>
+                <Link to={PATH_LOGIN} onClick={changeLoginStatus}>
+                  <a target="_blank">
+                    <img
+                      src="app/images/mobileMenuIcon10.png"
+                      alt="Genaiguru Log out menu icon"
+                      title="Genaiguru Log out menu icon"
+                    />
+                    Log out
+                  </a>
+                </Link>
               </li>
             </ul>
             <ul class="mobileSocials flex">
@@ -221,8 +226,7 @@ const MobileSideBar = (props) => {
               </li>
             </ul>
           </div>
-        </section>
-      )}
+        </section> 
     </div>
   );
 };

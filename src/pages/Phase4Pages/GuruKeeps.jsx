@@ -12,12 +12,13 @@ import {
   PATH_VIDEO_PLAY,
 } from "../../routes";
 import Pagination from "../Phase6Pages/Pagination";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
 
 const GuruKeeps = () => {
   const [savedData, setSavedData] = useState([]);
 
   const navigate = useNavigate();
-
+  const[isMobileSidebarOpen,setIsMobileSidebarOpen]=useState(false)
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -56,6 +57,10 @@ const GuruKeeps = () => {
       .catch((errors) => {
         console.log(errors);
       });
+  };
+
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen)
   };
 
   const onArticleUnSave = (articleID) => {
@@ -245,7 +250,7 @@ const GuruKeeps = () => {
       {/* <!-- main section end here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
-          <div className="hamburger">
+          <div className="hamburger" onClick={toggleMobileSidebar}>
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
@@ -357,6 +362,7 @@ const GuruKeeps = () => {
           </div>
         </div>
       </div>
+     {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}/>} 
     </div>
   );
 };

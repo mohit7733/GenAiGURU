@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
 import userIcon from "../../assets/images/person.png";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -17,6 +18,7 @@ const Profile = () => {
   const [myInterests, setMyInterests] = useState();
   const [displayedInterests, setDisplayedInterests] = useState(7);
   const [displayView, setDisplayView] = useState(true);
+  const [isMobileSidebarOpen,setIsMobileSidebarOpen]=useState(false)
 
   const [following, setFollowing] = useState("");
   const [follower, setFollower] = useState("");
@@ -36,6 +38,9 @@ const Profile = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   const navigate = useNavigate();
+  const toggleMobileSidebar = ()=>{
+    setIsMobileSidebarOpen(!isMobileSidebarOpen)
+  }
 
   // User details GET-API------
   useEffect(() => {
@@ -1200,7 +1205,7 @@ const Profile = () => {
       {/* <!-- profile mobile section start here --> */}
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
-          <div className="hamburger">
+          <div className="hamburger" onClick={toggleMobileSidebar}>
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
@@ -2224,6 +2229,7 @@ const Profile = () => {
           {/* <!-- mobile popup end here -- */}
         </>
       )}
+      {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}/>}
     </>
   );
 };

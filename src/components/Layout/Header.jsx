@@ -161,7 +161,7 @@ const Header = () => {
           </li>
         </ul>
       </header>
-      {isMobileSidebarOpen && <MobileSideBar />}
+      {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}  />}
     </>
   );
 };
