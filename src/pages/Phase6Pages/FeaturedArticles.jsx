@@ -21,6 +21,8 @@ const FeaturedArticles = (props) => {
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const [myInterests, setMyInterests] = useState();
+  const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
+  const [mergedInterests1, setMergedInterests] = useState([]);
   const [articles, setArticles] = useState([]);
 
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const FeaturedArticles = (props) => {
   const currentTime = dateObject.toISOString().split("T")[0];
 
   //Pagination code Starts here
-  const articlesPerPage = 5;
+  const articlesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
@@ -112,6 +114,20 @@ const FeaturedArticles = (props) => {
       );
   };
 
+  const mergeAndRemoveDuplicates = (arr1, arr2, key1, key2) => {
+    const uniqueMap = new Map();
+
+    // Add items from arr1 to uniqueMap
+    arr1.forEach((item) => uniqueMap.set(item[key1], item));
+
+    // Add items from arr2 to uniqueMap, overwriting duplicates
+    arr2.forEach((item) => uniqueMap.set(item[key2], item));
+
+    // Convert uniqueMap values back to an array
+    const mergedInterests = Array.from(uniqueMap.values());
+
+    return mergedInterests;
+  };
   // Get API for Interests
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -128,6 +144,43 @@ const FeaturedArticles = (props) => {
         console.log(err.message);
       });
   }, []);
+  const getSelectedInterest = () => {
+    axios
+      .get(`${getBaseURL()}/auth/userinterests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserSelectedIneterests(response?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  // Get API for ALL interests and User Selected Interset
+  useEffect(() => {
+    getSelectedInterest();
+  }, []);
+
+  // Specify the key names to use for comparison
+  const keyForUserSelected = "interest_id";
+  const keyForMyInterests = "id";
+
+  // Merge and remove duplicates
+  useEffect(() => {
+    if (myInterests?.length > 0 && userSelectedIneterests?.length > 0) {
+      const mergedInterests = mergeAndRemoveDuplicates(
+        userSelectedIneterests,
+        myInterests,
+        keyForUserSelected,
+        keyForMyInterests
+      );
+      setMergedInterests(mergedInterests);
+    }
+  }, [myInterests, userSelectedIneterests]);
+  console.log(mergedInterests1, "merge");
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -280,7 +333,7 @@ const FeaturedArticles = (props) => {
                       }}
                     >
                       <Slider {...sliderSettings}>
-                        {myInterests?.map((interest, index) => (
+                        {mergedInterests1?.map((interest, index) => (
                           <li
                             key={index}
                             className={activeTab === index + 1 ? "active" : ""}
@@ -509,7 +562,7 @@ const FeaturedArticles = (props) => {
                       <h3>Categories</h3>
                     </div>
                     <ul className="flex">
-                      {myInterests?.map((interest, index) => {
+                      {mergedInterests1?.map((interest, index) => {
                         return (
                           <li key={index}>
                             <a href="#">
@@ -705,7 +758,7 @@ const FeaturedArticles = (props) => {
                       }}
                     >
                       <Slider {...sliderSettings}>
-                        {myInterests?.map((interest, index) => (
+                        {mergedInterests1?.map((interest, index) => (
                           <li
                             key={index}
                             className={activeTab === index + 1 ? "active" : ""}

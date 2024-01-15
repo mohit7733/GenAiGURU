@@ -32,7 +32,7 @@ const FeaturedContent = (props) => {
   const dateObject = new Date(data);
   const currentTime = dateObject.toISOString().split("T")[0];
   //Pagination code Starts here
-  const blogsPerPage = 5;
+  const blogsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;

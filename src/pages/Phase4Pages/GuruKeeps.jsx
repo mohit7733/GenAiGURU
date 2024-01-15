@@ -102,7 +102,7 @@ const GuruKeeps = () => {
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
   };
   //Pagination code Starts here
-  const keepsPerPage = 5;
+  const keepsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastkeep = currentPage * keepsPerPage;
   const indexOfFirstkeep = indexOfLastkeep - keepsPerPage;
