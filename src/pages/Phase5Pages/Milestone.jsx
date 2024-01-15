@@ -92,7 +92,7 @@ const Milestone = () => {
     }
   };
   const percentage = (userPoints / totalPoints) * 100;
-
+  console.log(completedIds.length);
   return (
     <div>
       <MobileHeader />
@@ -211,7 +211,7 @@ const Milestone = () => {
                           </>
                         )}
                       </div>
-                      {completedIds.map((id, index) => {
+                      {/* {completedIds.map((id, index, array) => {
                         if (id !== level.level) {
                           if (currentID !== level.level) {
                             return (
@@ -233,7 +233,25 @@ const Milestone = () => {
                         } else {
                           return null; // or an empty string or any other JSX you want for the else case
                         }
-                      })}
+                      })} */}
+
+                      {currentID !== level.level &&
+                        completedIds.filter((a) => a == level.level)?.length ==
+                          0 && (
+                          <div className="layer" key={index}>
+                            <figure>
+                              <img
+                                src="app/images/lockIcon.png"
+                                alt="Genaiguru lockIcon"
+                                title="Genaiguru lockIcon"
+                              />
+                            </figure>
+                            <p>
+                              Keep using to earn more points & unlock this
+                              reward label
+                            </p>
+                          </div>
+                        )}
                     </div>
                   );
                 })}

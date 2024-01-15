@@ -392,7 +392,7 @@ const Settings = () => {
                       <span>Privacy policy</span>
                     </Link>
                   </li>
-                  <li className={activeTab === 6 ? " active" : ""}>
+                  {/* <li className={activeTab === 6 ? " active" : ""}>
                     <Link
                       onClick={() => handleTabClick(6)}
                       className={activeTab === 6 ? "tab" : ""}
@@ -407,7 +407,7 @@ const Settings = () => {
                       </figure>
                       <span>Q&A</span>
                     </Link>
-                  </li>
+                  </li> */}
                   <li className={activeTab === 7 ? " active" : ""}>
                     <Link
                       onClick={() => handleTabClick(7)}
