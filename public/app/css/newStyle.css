@@ -1,16 +1,17 @@
 /* new css */
 
 .card {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   /* background-color: #ffffff; */
   margin: 0 20px;
-  width: 280px;
-  height: 350px;
+  width: 80px;
+  height: 80px;
   border-radius: 5px;
   box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .card .percent {
@@ -19,8 +20,8 @@
 
 .card svg {
   position: relative;
-  width: 210px;
-  height: 210px;
+  width: 80px;
+  height: 80px;
   transform: rotate(-90deg);
 }
 
@@ -29,18 +30,18 @@
   height: 100%;
   fill: none;
   stroke: #f0f0f0;
-  stroke-width: 10;
+  stroke-width: 4;
   stroke-linecap: round;
 }
 
 .card svg circle:last-of-type {
   stroke-dasharray: 625px;
   stroke-dashoffset: calc(625px - (625px * var(--percent)) / 100);
-  stroke: #3498db; 
+  stroke: #3498db;
 }
 
 .card:nth-child(1) svg circle:last-of-type {
-  stroke: linear-gradient(to right, #8E44AD, #3498DB);
+  stroke: linear-gradient(to right, #8e44ad, #3498db);
 }
 
 .card:nth-child(2) svg circle:last-of-type {
@@ -492,8 +493,8 @@ small.pc {
   padding-right: 20px;
 }
 .pagination {
-	text-align: center;
-	padding: 26px 0px 56px;
+  text-align: center;
+  padding: 26px 0px 56px;
   color: white;
   font-size: 30px;
 }
@@ -525,7 +526,7 @@ small.pc {
   cursor: pointer;
 }
 .pagination button.selected:hover {
-	background-color:rgba(198, 208, 225, 0.1);
+  background-color: rgba(198, 208, 225, 0.1);
   color: white;
 }
 
@@ -563,10 +564,9 @@ small.pc {
 .pagination input[type=number] {
   -moz-appearance: textfield;
 }
-.pagination form{
+.pagination form {
   margin: 15px;
 }
-
 
 @media (max-width: 1080px) {
   .rightSection .setting-wrapper .setting-container {
@@ -589,6 +589,15 @@ small.pc {
   }
 }
 @media (max-width: 992px) {
+  .edit-profile {
+    width: 100%;
+  }
+
+  .featuredArticle .boxWrap .box {
+    width: 100%;
+    margin: 0;
+  }
+
   .rightSection .guru-gold-silver h1,
   .rightSection .guru-gold-silver h1,
   .rightSection .keeps-container .gurukeeps-wrapper h1 {
@@ -748,9 +757,9 @@ small.pc {
     height: 30px;
     line-height: 30px;
     padding: 0px 10px;
-} 
+  }
 
-.pagination button:last-child {
+  .pagination button:last-child {
     font-size: 15px;
     height: 30px;
     line-height: 30px;
@@ -766,7 +775,7 @@ small.pc {
     margin-right: 18px;
     font-size: 14px;
     line-height: 1.5em;
-}
+  }
 }
 /* new css @D */
 .mainBg figure.headerLogo {
@@ -808,7 +817,14 @@ small.pc {
   background: linear-gradient(0deg, #243343, #243343),
     linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
 }
-.new_login_popup.loginOption .alreadyAccount a, .rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption .alreadyAccount a {
+.new_login_popup.loginOption .alreadyAccount a,
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  .alreadyAccount
+  a {
   background: none;
   box-shadow: none;
   border: none;
@@ -868,27 +884,43 @@ header .userIcon img {
 .kep-login-facebook.metro {
   display: flex;
   align-items: center;
-  padding: 15px 80px 15px 90px; 
-} 
-.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption li:first-child a {
+  padding: 15px 80px 15px 90px;
+}
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  li:first-child
+  a {
   width: 100%;
   padding: 0;
   border-radius: 10px;
-  background: linear-gradient(0deg, #243343, #243343), linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
+  background: linear-gradient(0deg, #243343, #243343),
+    linear-gradient(0deg, rgba(198, 208, 225, 0.02), rgba(198, 208, 225, 0.02));
 }
-.blogDetails .connect-box section.popup-background.new_login_popup .kep-login-facebook.metro{
+.blogDetails
+  .connect-box
+  section.popup-background.new_login_popup
+  .kep-login-facebook.metro {
   padding: 15px 78px 15px 100px !important;
 }
 
-.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption li:last-child a {
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  li:last-child
+  a {
   padding: 17.5px 30px;
   background: linear-gradient(
-    87.97deg,
-    #b03fcc 2.88%,
-    #683fe4 25.56%,
-    rgba(216, 63, 190, 0.94) 114.56%
-  ),
-  linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+      87.97deg,
+      #b03fcc 2.88%,
+      #683fe4 25.56%,
+      rgba(216, 63, 190, 0.94) 114.56%
+    ),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
   border-radius: 16px;
   box-shadow: 0 10px 24px 0 rgba(58, 74, 99, 0.631372549);
   border: 1px solid rgba(255, 255, 255, 0.2117647059);
@@ -901,11 +933,22 @@ header .userIcon img {
   margin-top: 50px;
   transition: all 0.25s ease;
 }
-.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption li:last-child a:hover {
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  li:last-child
+  a:hover {
   background: #be41c0;
 }
 
-.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption p {
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  p {
   font-family: PlusJakartaSansRegular;
   font-weight: 400;
   color: #cfd6db;
@@ -914,13 +957,24 @@ header .userIcon img {
   margin-bottom: 30px;
 }
 
-.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption h1 span {
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  h1
+  span {
   font-size: 32px;
   margin-bottom: 7px;
 }
 
-.rightSection .keeps-container .gurukeeps-wrapper .connect-box section.popup-background.new_login_popup.loginOption p.alreadyAccount {
-font-size: 16px;
+.rightSection
+  .keeps-container
+  .gurukeeps-wrapper
+  .connect-box
+  section.popup-background.new_login_popup.loginOption
+  p.alreadyAccount {
+  font-size: 16px;
 }
 .kep-login-facebook.metro img {
   margin-right: 15px;
@@ -947,7 +1001,7 @@ font-size: 16px;
 .fixedBtn {
   z-index: 9;
 }
-.errorMessage{
+.errorMessage {
   color: red;
 }
 .mob_profile .mob_profile_inner {
@@ -1356,7 +1410,7 @@ section.mainWrapper.flex.hideMob {
   }
   .edit-profile {
     width: 100% !important;
-}
+  }
 }
 
 .video-slider .layer h5 {
@@ -1757,4 +1811,24 @@ section.mainWrapper
   .profileBottomText
   figure {
   margin-right: 10px;
+}
+.rightSection .guru-gold-silver .silver-user ul li figure {
+  width: 70px;
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  height: 70px;
+}
+.rightSection .guru-gold-silver .silver-user ul li figure img {
+  width: 100%;
+  height: 100%;
+}
+.rightSection ul.connect-link figure img {
+  width: 30px !important;
+  height: 30px !important;
+  max-width: 30px;
+}
+
+.rightSection .setting-wrapper .setting-container .connect-link li a > a {
+  padding: 0px;
 }

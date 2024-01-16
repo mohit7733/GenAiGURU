@@ -20,6 +20,7 @@ const GuruGold = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
+  
   // get user details api..........
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -152,14 +153,14 @@ const GuruGold = () => {
                   </div>
                   <div>
                     <p className="profileBottomText">
-                      Earn more{"  "}
-                      <figure style={{ width: "20px" }}>
+                      Earn more
+                      <figure style={{ width: "20px", marginLeft: "5px" }}>
                         <img
                           src="./app/images/coins.png"
                           alt="Genaiguru Coins"
                           title="Genaiguru Coins"
                         />
-                      </figure>{" "}
+                      </figure>
                       {earnMorePoint} coins to go to next level
                     </p>
                   </div>
@@ -169,12 +170,7 @@ const GuruGold = () => {
               <div className="silver-user">
                 <ul className="flex">
                   <li>
-                    <div
-                      style={{
-                        border: "2px solid blue",
-                        borderRadius: "100%",
-                      }}
-                    >
+                    <div class="card">
                       <figure>
                         <img
                           src={userDetails.profile_image}
@@ -183,16 +179,14 @@ const GuruGold = () => {
                           style={{ borderRadius: "100%" }}
                         />
                       </figure>
-                    </div>
-                    <div class="card">
                       <div class="percent">
                         <svg>
-                          <circle cx="105" cy="105" r="100"></circle>
+                          <circle cx="40" cy="40" r="38"></circle>
                           <circle
-                            cx="105"
-                            cy="105"
-                            r="100"
-                            style={{ "--percent": percentage }}
+                            cx="40"
+                            cy="40"
+                            r="38"
+                            style={{ "--percent": 70 }}
                           ></circle>
                         </svg>
                       </div>

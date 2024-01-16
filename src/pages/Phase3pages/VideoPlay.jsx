@@ -14,22 +14,21 @@ const VideoPlay = () => {
     youtube_link: "",
     tags: [],
     author_profile_image: "",
-    time_difference:"",
+    time_difference: "",
     views: "",
-    author:"",
+    author: "",
   });
 
   const token = JSON.parse(localStorage.getItem("token"));
-
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // useLocation to get id from url
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
 
-
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/popular-latest-videos?id=${videoId}`, {
         headers: {
@@ -41,16 +40,36 @@ const VideoPlay = () => {
           title: response?.data?.video_details?.title,
           youtube_link: response?.data?.video_details?.youtube_link,
           tags: response?.data?.video_details?.tags,
-          author_profile_image:response?.data?.video_details?.author_profile_image,
-          time_difference:response?.data?.video_details?.time_difference,
-          views:response?.data?.video_details?.views,
-          author:response?.data?.video_details?.author
+          author_profile_image:
+            response?.data?.video_details?.author_profile_image,
+          time_difference: response?.data?.video_details?.time_difference,
+          views: response?.data?.video_details?.views,
+          author: response?.data?.video_details?.author,
         });
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
+  // WATCH VIDEO API
+  useEffect(() => {
+    setTimeout(() => {
+      videoWatched();
+    }, 30000);
+  }, []);
+
+  const videoWatched = async () => {
+    try {
+      await axios.post(
+        `${getBaseURL()}/watch-video?user_id=${userId}&video_id=${videoId}`
+      );
+    } catch (error) {
+      console.error("Error fetching watch-video:", error.message);
+    }
+  };
+  // //////////////////////////////////////////
+
   return (
     <div>
       <MobileHeader />
@@ -509,26 +528,31 @@ const VideoPlay = () => {
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
           <div className="backBtns">
-            <Link to={PATH_FEATURED_VIDEO} className="fa fa-angle-left" aria-hidden="true"></Link>
+            <Link
+              to={PATH_FEATURED_VIDEO}
+              className="fa fa-angle-left"
+              aria-hidden="true"
+            ></Link>
           </div>
           <h2>Videos</h2>
         </div>
         <div className="innerVideosection rightSection">
           <div className="video-wrapper flex">
             <div className="video-box">
-            <ReactPlayer
-                  url={videoPlay.youtube_link}
-                  // playing={true}
-                  // controls={true}
-                  width="100%"
-                  height="30%"
-                />
+              <ReactPlayer
+                url={videoPlay.youtube_link}
+                // playing={true}
+                // controls={true}
+                width="100%"
+                height="30%"
+              />
               <ul className="flex space-between link">
-              
                 <li>
-                  <a href="#">{videoPlay?.tags?.map((tag, index) => {
+                  <a href="#">
+                    {videoPlay?.tags?.map((tag, index) => {
                       return <a key={index}> #{tag}</a>;
-                    })}</a>
+                    })}
+                  </a>
                 </li>
                 <li className="download-btn">
                   <a href="#">
