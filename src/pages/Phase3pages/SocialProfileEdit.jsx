@@ -4,7 +4,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import { PATH_PROFILE } from "../../routes";
 
 const SocialProfileEdit = () => {
@@ -30,7 +30,7 @@ const SocialProfileEdit = () => {
 
   // User details GET-API------
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -84,7 +84,7 @@ const SocialProfileEdit = () => {
   const handleChangeLinks = (e) => {
     setLinksObj({ ...linksObj, [e.target.name]: e.target.value });
   };
-  
+
   const handleClearLinks = (platform) => {
     setLinksObj((prevLinksObj) => ({
       ...prevLinksObj,
@@ -190,11 +190,29 @@ const SocialProfileEdit = () => {
         if (response.status === 201) {
           // alert("Saved");
           toast.success("Social Links Saved", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+            closeButton: ({ closeToast }) => (
+              <button
+                className="custom-close-button"
+                onClick={closeToast}
+                style={{
+                  position: "relative",
+                  background: "transparent",
+                  // Add custom styles for the close button, such as fontSize
+                  fontSize: "14px",
+                  height: "10px",
+                  width: "10px", // Adjust the font size as needed
+                  // Add other styles as needed
+                }}
+              >
+                x
+              </button>
+            ),
           });
           setTimeout(() => {
             navigate(`${PATH_PROFILE}`);
-          }, 1000);
+          }, 3000);
         }
       })
       .catch((error) => {
@@ -371,7 +389,7 @@ const SocialProfileEdit = () => {
                 >
                   Save to change
                 </button>
-                <ToastContainer  autoClose={1000}/>
+                <ToastContainer autoClose={1000} />
               </form>
             </div>
             {/* <!-- edit-profile start here --> */}
