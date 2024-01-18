@@ -349,7 +349,7 @@ flex-flow: column wrap;
 .flex.space-between {
 -webkit-box-pack: justify;
 -ms-flex-pack: justify;
-/* justify-content: space-between; */
+justify-content: space-between;
 }
 
 .flex.space-center {
@@ -5683,14 +5683,8 @@ width: 100%;
 margin-top: 5px;
 display: flex;
 flex-direction: row;
+/* justify-content: space-between; */
 }
-.video-wrapper .video-box .link li:nth-child(2) { 
-  margin-left: 410px;
-  margin-right: 20px;
-  }
-  .video-wrapper .video-box .link li:nth-child(3) { 
-    margin-right: 20px;
-    }
 
 .video-wrapper .video-box .link li a {
 color: #5f82ff;

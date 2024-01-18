@@ -1867,3 +1867,7 @@ section.mainWrapper
   align-items: center;
   gap: 30px;
 } 
+.video-box ul.flex.space-between.link .download-btn {
+  display: flex;
+gap: 10px;
+}
