@@ -404,10 +404,11 @@ p.d_blck {
   font-size: 12px !important;
 }
 .review ul li button > img {
-  width: 20px;
-  height: 20px;
-  margin: 0 7px;
-  background: transparent;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 7px !important;
+  background: transparent !important;
+  padding: 0 !important; 
 }
 small.pc {
   margin-left: 6px;
@@ -444,18 +445,18 @@ small.pc {
   font-weight: bold !important;
 }
 .review ul li .btnlike .fillImage {
-  display: none;
+  display: none !important;
   transition: all 0.1s ease;
 }
 .review ul li .btnlike .borderImage {
-  display: block;
+  display: block !important;
   transition: all 0.1s ease;
 }
 .review ul li .btnlike:hover .fillImage {
-  display: block;
+  display: block !important;
 }
 .review ul li .btnlike:hover .borderImage {
-  display: none;
+  display: none !important;
 }
 
 .review input[type="text"] {
@@ -1821,6 +1822,7 @@ section.mainWrapper
   figure {
   margin-right: 10px;
 }
+
 .rightSection .guru-gold-silver .silver-user ul li figure {
   width: 70px;
   position: absolute;
@@ -1841,3 +1843,9 @@ section.mainWrapper
 .rightSection .setting-wrapper .setting-container .connect-link li a > a {
   padding: 0px;
 }
+
+.video-wrapper .video-box iframe#widget2 {
+  min-height: 400px;
+  object-fit: cover;
+}
+
