@@ -163,7 +163,7 @@ const Sidebar = () => {
           <li>
             <WithAuth
               callBack={(e) => {
-                navigate("/settings");
+                navigate(PATH_SETTINGS);
               }}
             >
               <Link>

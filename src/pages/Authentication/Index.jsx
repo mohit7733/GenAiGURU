@@ -14,14 +14,22 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES } from "../../routes";
 import { Link, useNavigate } from "react-router-dom";
+import SilverPopup from "../Phase5Pages/SilverPopup";
 
 const Index = () => {
-  const sliderRef = useRef();
-  const token = JSON.parse(localStorage.getItem("token"));
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [claimedBadges, setClaimedBadges] = useState([]);
+
   const [articles, setArticles] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
+
+  const sliderRef = useRef();
+
   const navigate = useNavigate();
+
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const token = JSON.parse(localStorage.getItem("token"));
+
   const MAX_DISPLAY_ARTICLES = 2;
   var settings2 = {
     dots: false,
@@ -78,7 +86,6 @@ const Index = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.articles, "drtj");
         setAllArticles(response?.data?.articles);
       })
       .catch((err) => {
@@ -90,8 +97,40 @@ const Index = () => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
   };
 
+  // const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  // fetchBadges API
+  useEffect(() => {
+    const fetchBadges = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/game-badges`, {
+          params: {
+            user_id: userId,
+            claimed: "no",
+          },
+        });
+        console.log(response?.data?.data);
+        setClaimedBadges(response?.data?.data);
+        if (response?.data?.data.length > 0) {
+          setShowPopUp(true);
+        }
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchBadges();
+  }, [userId]);
+
+  // console.log(claimedBadges);
+
   return (
     <>
+      {showPopUp && (
+        <SilverPopup
+          claimedBadges={claimedBadges}
+          onClose={() => setShowPopUp(false)}
+        />
+      )}
       <Header />
       <section className="mainWrapper flex">
         <Sidebar />
@@ -268,9 +307,7 @@ const Index = () => {
                           title="Genaiguru featured article image"
                         />
                       </figure>
-                      <h5
-                        onClick={() => onArticleClick(Article.id)}
-                      >
+                      <h5 onClick={() => onArticleClick(Article.id)}>
                         {Article.title}
                       </h5>
                       <ul>

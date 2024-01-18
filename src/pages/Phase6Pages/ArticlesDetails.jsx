@@ -8,6 +8,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
+import SilverPopup from "../Phase5Pages/SilverPopup";
 
 const ArticlesDetails = ({ likes, dislikes }) => {
   const [articleDetail, setArticleDetail] = useState({
@@ -43,6 +44,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
   const [displayRepliesCommentModel, setDisplayRepliesCommentModel] =
     useState(false);
   const [replyComment, setReplyComment] = useState("");
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [claimedBadges, setClaimedBadges] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -289,11 +293,38 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .catch((err) => {
         console.log(err.message);
       });
-    // console.log(userId, type, commentId, "fgfdgb");
   };
+
+  // fetchBadges API
+  useEffect(() => {
+    const fetchBadges = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/game-badges`, {
+          params: {
+            user_id: userId,
+            claimed: "no",
+          },
+        });
+        console.log(response?.data?.data);
+        setClaimedBadges(response?.data?.data);
+        if (response?.data?.data.length > 0) {
+          setShowPopUp(true);
+        }
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchBadges();
+  }, []);
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
+      {showPopUp && (
+        <SilverPopup
+          claimedBadges={claimedBadges}
+          onClose={() => setShowPopUp(false)}
+        />
+      )}
 
       <MobileHeader />
       {/* <!-- main section start here --> */}
