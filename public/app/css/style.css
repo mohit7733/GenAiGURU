@@ -5681,7 +5681,16 @@ width: 100%;
 
 .video-wrapper .video-box .link {
 margin-top: 5px;
+display: flex;
+flex-direction: row;
 }
+.video-wrapper .video-box .link li:nth-child(2) { 
+  margin-left: 430px;
+  margin-right: 20px;
+  }
+  .video-wrapper .video-box .link li:nth-child(3) { 
+    margin-right: 20px;
+    }
 
 .video-wrapper .video-box .link li a {
 color: #5f82ff;
