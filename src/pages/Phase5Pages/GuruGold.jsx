@@ -22,6 +22,7 @@ const GuruGold = () => {
   });
   const [levelDetails, setLevelDetails] = useState([]);
   const [userLevel, setUserLevel] = useState("");
+  const [rankImage, setRankImage] = useState(null);
   const [earnMorePoint, setEarnMorePoint] = useState("");
   const [totalPoints, setTotalPoints] = useState("");
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -82,6 +83,7 @@ const GuruGold = () => {
         userPoints <= levelData.upper_limit
       ) {
         setUserLevel(levelData.name);
+        setRankImage(levelData.rank_image);
         setEarnMorePoint(levelData.upper_limit - userPoints);
         setTotalPoints(levelData.upper_limit);
       }
@@ -98,13 +100,7 @@ const GuruGold = () => {
     }
   };
   const percentage = (userPoints / totalPoints) * 100;
-  // const gradient = `conic-gradient(
-  //   #4ca6e9 ${percentage - 0.1}%,
-  //   #85d6e4 ${percentage - 0.1}%,
-  //   #85d6e4 ${percentage + 0.1}%,
-  //   #4ca6e9 ${percentage + 0.1}%
-  // )`;
-  // const gradientId = "yourGradient";
+ 
 
   const gradientId = (
     <svg style={{ height: 0, width: 0, position: "absolute" }}>
@@ -137,10 +133,7 @@ const GuruGold = () => {
                           title="userIcon"
                         />
                       </figure>
-                      <img
-                        className="profileImageTag"
-                        src="app/images/profileImageTag.png"
-                      />
+                      <img className="profileImageTag" src={rankImage} />
                     </li>
                     {/* <Link to="/silver"> */}
                     <Link>
@@ -201,27 +194,6 @@ const GuruGold = () => {
               <div className="silver-user">
                 <ul className="flex">
                   <li>
-                    {/* <div class="card">
-                      <figure>
-                        <img
-                          src={userDetails.profile_image}
-                          alt="userIcon"
-                          title="userIcon"
-                          style={{ borderRadius: "100%" }}
-                        />
-                      </figure>
-                      <div class="percent">
-                        <svg>
-                          <circle cx="40" cy="40" r="38"></circle>
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="38"
-                            style={{ "--percent": 70 }}
-                          ></circle>
-                        </svg>
-                      </div>
-                    </div> */}
                     <svg style={{ height: 0, width: 0 }}>
                       <defs>
                         <linearGradient
@@ -258,7 +230,7 @@ const GuruGold = () => {
                             src={userDetails.profile_image}
                             alt="userIcon"
                             title="userIcon"
-                            style={{ borderRadius: "100%",marginTop:"1px"}}
+                            style={{ borderRadius: "100%", marginTop: "1px" }}
                           />
                         </figure>
                       </CircularProgressbarWithChildren>
