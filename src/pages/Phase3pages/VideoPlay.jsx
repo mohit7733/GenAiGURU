@@ -68,12 +68,14 @@ const VideoPlay = () => {
           video_id: response?.data?.video_details?.id,
           upvote: response?.data?.video_details?.upvote,
           downvote: response?.data?.video_details?.downvote,
+          like_details: response?.data?.video_details?.like_details,
         });
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, [buttonClicked]);
+
   console.log(videoPlay, "videoPlay");
 
   const getComments = () => {
@@ -204,7 +206,7 @@ const VideoPlay = () => {
   }, [buttonClicked]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -270,12 +272,12 @@ const VideoPlay = () => {
                     <a onClick={() => postVideoupdo("upvote")} href="#">
                       <img
                         className={
-                          videoPlay.upvote == "upvote"
+                          videoPlay?.like_details?.type == "upvote"
                             ? "borderImage"
                             : "fillImage"
                         }
                         src={
-                          videoPlay.upvote == "upvote"
+                          videoPlay?.like_details?.type == "upvote"
                             ? "/app/images/Group_1.png"
                             : "/app/images/thumbs-up.png"
                         }
@@ -658,7 +660,7 @@ const VideoPlay = () => {
                                         title="Genaiguru review"
                                       />
                                     </figure>
-                                    <span>
+                                    <span className="reply">
                                       <span className="m-l">
                                         {profileImage.name}
                                       </span>
