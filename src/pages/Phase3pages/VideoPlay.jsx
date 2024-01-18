@@ -287,7 +287,7 @@ const VideoPlay = () => {
                   width="100%"
                   height="60%"
                 />
-                <ul className="flex link">
+                <ul className="flex space-between link">
                   <li>
                     {videoPlay?.tags?.map((tag, index) => {
                       return <a key={index}> #{tag}</a>;
@@ -322,8 +322,6 @@ const VideoPlay = () => {
                         {videoPlay.upvote}
                       </span>
                     </a>
-                  </li>
-                  <li className="download-btn">
                     <a onClick={() => postVideoupdo("downvote")}>
                       <img
                         className={
@@ -352,23 +350,21 @@ const VideoPlay = () => {
                         {videoPlay.downvote}
                       </span>
                     </a>
-                  </li>
-                  <WithAuth
-                    callBack={(e) => {
-                      setDisplayCommentModel(!displayCommentModel);
-                    }}
-                  >
-                    <li className="download-btn">
-                      <a>
+                    <a>
+                      <WithAuth
+                        callBack={(e) => {
+                          setDisplayCommentModel(!displayCommentModel);
+                        }}
+                      >
                         <img
                           src="/app/images/comment-01.png"
                           alt="Genaiguru comment"
                           title="Genaiguru comment"
                         />
                         comment
-                      </a>
-                    </li>
-                  </WithAuth>
+                      </WithAuth>
+                    </a>
+                  </li>
                 </ul>
                 <h2>{videoPlay.title}</h2>
                 {/* <!-- view details here --> */}
@@ -1096,8 +1092,7 @@ const VideoPlay = () => {
                     />
                     {videoPlay.upvote}
                   </a>
-                </li>
-                <li className="download-btn">
+
                   <a onClick={() => postVideoupdo("downvote")} href="#">
                     <img
                       src="/app/images/thumbs-down.png"
@@ -1106,23 +1101,21 @@ const VideoPlay = () => {
                     />
                     {videoPlay.downvote}
                   </a>
-                </li>
-                <WithAuth
-                  callBack={(e) => {
-                    setDisplayCommentModel(!displayCommentModel);
-                  }}
-                >
-                  <li className="download-btn">
-                    <a>
+                  <a>
+                    <WithAuth
+                      callBack={(e) => {
+                        setDisplayCommentModel(!displayCommentModel);
+                      }}
+                    >
                       <img
                         src="/app/images/comment-01.png"
                         alt="Genaiguru comment"
                         title="Genaiguru comment"
                       />
                       comment
-                    </a>
-                  </li>
-                </WithAuth>
+                    </WithAuth>
+                  </a>
+                </li>
               </ul>
               <h3>{videoPlay.title}</h3>
               {/* <!-- view details here --> */}
