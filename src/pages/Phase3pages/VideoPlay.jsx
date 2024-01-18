@@ -49,7 +49,7 @@ const VideoPlay = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     axios
       .get(
         `${getBaseURL()}/popular-latest-videos?id=${videoId}&user_id=${userId}`,
@@ -353,12 +353,12 @@ const VideoPlay = () => {
                       </span>
                     </a>
                   </li>
-                  <li className="download-btn">
-                    <WithAuth
-                      callBack={(e) => {
-                        setDisplayCommentModel(!displayCommentModel);
-                      }}
-                    >
+                  <WithAuth
+                    callBack={(e) => {
+                      setDisplayCommentModel(!displayCommentModel);
+                    }}
+                  >
+                    <li className="download-btn">
                       <a>
                         <img
                           src="/app/images/comment-01.png"
@@ -367,8 +367,8 @@ const VideoPlay = () => {
                         />
                         comment
                       </a>
-                    </WithAuth>
-                  </li>
+                    </li>
+                  </WithAuth>
                 </ul>
                 <h2>{videoPlay.title}</h2>
                 {/* <!-- view details here --> */}
@@ -1096,7 +1096,8 @@ const VideoPlay = () => {
                     />
                     {videoPlay.upvote}
                   </a>
-
+                </li>
+                <li className="download-btn">
                   <a onClick={() => postVideoupdo("downvote")} href="#">
                     <img
                       src="/app/images/thumbs-down.png"
@@ -1105,11 +1106,13 @@ const VideoPlay = () => {
                     />
                     {videoPlay.downvote}
                   </a>
-                  <WithAuth
-                    callBack={(e) => {
-                      setDisplayCommentModel(!displayCommentModel);
-                    }}
-                  >
+                </li>
+                <WithAuth
+                  callBack={(e) => {
+                    setDisplayCommentModel(!displayCommentModel);
+                  }}
+                >
+                  <li className="download-btn">
                     <a>
                       <img
                         src="/app/images/comment-01.png"
@@ -1118,8 +1121,8 @@ const VideoPlay = () => {
                       />
                       comment
                     </a>
-                  </WithAuth>
-                </li>
+                  </li>
+                </WithAuth>
               </ul>
               <h3>{videoPlay.title}</h3>
               {/* <!-- view details here --> */}
@@ -1288,7 +1291,7 @@ const VideoPlay = () => {
                                     Reply
                                   </span>
                                 </div>
-                                {comment.is_any_reply && (
+                                {comment.is_any_reply == "yes" && (
                                   <p
                                     className="d_blck"
                                     style={{
@@ -1488,60 +1491,6 @@ const VideoPlay = () => {
                   })}
                 </>
               )}
-              {/* <div className="review">
-                <ul>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="/app/images/review-1.png"
-                          alt="Genaiguru review"
-                          title="Genaiguru review"
-                        />
-                      </figure>
-                      <span>
-                        <span>Prosing kingdom </span>
-                        <br />
-                        <small>
-                          This is great ksnifdni9dsrhngi9dsbngiyb
-                        </small>{" "}
-                        <br />
-                        <img src="/app/images/thumbs-up.png" alt="" />{" "}
-                        <img src="/app/images/thumbs-down.png" alt="" />
-                        Reply
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="/app/images/review-1.png"
-                          alt="Genaiguru review"
-                          title="Genaiguru review"
-                        />
-                      </figure>
-                      <span>
-                        Prosing kingdom <br />
-                        <small>
-                          This is great ksnifdni9dsrhngi9dsbngiyb
-                        </small>{" "}
-                        <br />
-                        <img
-                          src="/app/images/thumbs-up.png"
-                          alt="genaiguru-thumbs-up"
-                        />{" "}
-                        <img
-                          src="/app/images/thumbs-down.png"
-                          alt="genaiguru-thumbs-down"
-                        />
-                        Reply
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </div> */}
-
               {/* <!-- review end --> */}
             </div>
             <div className="video-list">
