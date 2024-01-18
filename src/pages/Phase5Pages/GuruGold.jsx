@@ -5,6 +5,13 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { PATH_LEADERBOARD } from "../../routes";
+import {
+  CircularProgressbar,
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 const GuruGold = () => {
   const [userPoints, setUserPoints] = useState(null);
@@ -85,7 +92,24 @@ const GuruGold = () => {
     }
   };
   const percentage = (userPoints / totalPoints) * 100;
+  // const gradient = `conic-gradient(
+  //   #4ca6e9 ${percentage - 0.1}%,
+  //   #85d6e4 ${percentage - 0.1}%,
+  //   #85d6e4 ${percentage + 0.1}%,
+  //   #4ca6e9 ${percentage + 0.1}%
+  // )`;
+  // const gradientId = "yourGradient";
 
+  const gradientId = (
+    <svg style={{ height: 0, width: 0, position: "absolute" }}>
+      <defs>
+        <linearGradient id={"gradientId"} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{ stopColor: "red", stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: "blue", stopOpacity: 1 }} />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
   return (
     <div>
       <MobileHeader />
@@ -112,7 +136,8 @@ const GuruGold = () => {
                         src="app/images/profileImageTag.png"
                       />
                     </li>
-                    <Link to="/silver">
+                    {/* <Link to="/silver"> */}
+                    <Link>
                       <li>
                         <h3>
                           {/* {levelDetails} */}
@@ -152,14 +177,14 @@ const GuruGold = () => {
                   </div>
                   <div>
                     <p className="profileBottomText">
-                      Earn more{"  "}
-                      <figure style={{ width: "20px" }}>
+                      Earn more
+                      <figure style={{ width: "20px", marginLeft: "5px" }}>
                         <img
                           src="./app/images/coins.png"
                           alt="Genaiguru Coins"
                           title="Genaiguru Coins"
                         />
-                      </figure>{" "}
+                      </figure>
                       {earnMorePoint} coins to go to next level
                     </p>
                   </div>
@@ -169,12 +194,7 @@ const GuruGold = () => {
               <div className="silver-user">
                 <ul className="flex">
                   <li>
-                    <div
-                      style={{
-                        border: "2px solid blue",
-                        borderRadius: "100%",
-                      }}
-                    >
+                    {/* <div class="card">
                       <figure>
                         <img
                           src={userDetails.profile_image}
@@ -183,20 +203,69 @@ const GuruGold = () => {
                           style={{ borderRadius: "100%" }}
                         />
                       </figure>
-                    </div>
-                    <div class="card">
                       <div class="percent">
                         <svg>
-                          <circle cx="105" cy="105" r="100"></circle>
+                          <circle cx="40" cy="40" r="38"></circle>
                           <circle
-                            cx="105"
-                            cy="105"
-                            r="100"
-                            style={{ "--percent": percentage }}
+                            cx="40"
+                            cy="40"
+                            r="38"
+                            style={{ "--percent": 70 }}
                           ></circle>
                         </svg>
                       </div>
+                    </div> */}
+                    <svg style={{ height: 0, width: 0 }}>
+                      <defs>
+                        <linearGradient
+                          id="gradientId"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="0%"
+                        >
+                          <stop
+                            offset="0%"
+                            style={{ stopColor: "#8E44AD", stopOpacity: 1 }}
+                          />
+                          <stop
+                            offset="100%"
+                            style={{ stopColor: "#3498DB", stopOpacity: 1 }}
+                          />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div style={{ width: 78, height: 78 }}>
+                      <CircularProgressbarWithChildren
+                        strokeWidth={3}
+                        value={percentage}
+                        styles={{
+                          path: {
+                            stroke: `url(#gradientId)`,
+                            height: "100%",
+                          },
+                        }}
+                      >
+                        <figure>
+                          <img
+                            src={userDetails.profile_image}
+                            alt="userIcon"
+                            title="userIcon"
+                            style={{ borderRadius: "100%",marginTop:"1px"}}
+                          />
+                        </figure>
+                      </CircularProgressbarWithChildren>
                     </div>
+                    {/* <ProgressBar
+                      percentage={percentage}
+                      image={userDetails.profile_image}
+                    /> */}
+                    {/* <ProgressBar
+                      startColor={"#8E44AD"}
+                      endColor={"#3498DB"}
+                      rotation={90}
+                      idCSS={"#idCSS"}
+                    /> */}
                   </li>
                 </ul>
               </div>

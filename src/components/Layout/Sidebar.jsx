@@ -1,14 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { getBaseURL } from "../../api/config";
 import WithAuth from "../../pages/Authentication/WithAuth";
 import {
-  PATH_TERMS_AND_SERVICES,
-  PATH_SETTINGS,
   PATH_GURUGOLD,
+  PATH_SETTINGS,
+  PATH_TERMS_AND_SERVICES,
 } from "../../routes";
-import axios from "axios";
-import { getBaseURL } from "../../api/config";
-import { ToastContainer, toast } from "react-toastify";
 
 const Sidebar = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +16,8 @@ const Sidebar = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [message, setmessage] = useState("");
   const [errormessage, seterromessage] = useState("");
+
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ const Sidebar = () => {
     setShowErrorMessage(!isValid);
     if (isValid) {
       axios
-        .post(`${getBaseURL()}/subscribe`, {
+        .post(`${getBaseURL()}/subscribe?user_id=${userId}`, {
           email: email,
         })
         .then((res) => {
@@ -75,13 +77,13 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <WithAuth 
+            <WithAuth
               callBack={(e) => {
                 navigate(PATH_GURUGOLD);
               }}
             >
-              <a  style={{ cursor: "pointer" }}>
-                <figure >
+              <a style={{ cursor: "pointer" }}>
+                <figure>
                   <img
                     src="app/images/guruGoldIcon.png"
                     alt="Genaiguru guruGoldIcon"
@@ -161,7 +163,7 @@ const Sidebar = () => {
           <li>
             <WithAuth
               callBack={(e) => {
-                navigate("/settings");
+                navigate(PATH_SETTINGS);
               }}
             >
               <Link>

@@ -19,9 +19,11 @@ const VideoPlay = () => {
     time_difference: "",
     views: "",
     author: "",
+
     video_id: "",
     upvote: "",
     downvote: "",
+
   });
   const [replyCommentModels, setReplyCommentModels] = useState([]);
   const [displayCommentModel, setDisplayCommentModel] = useState(false);
@@ -40,11 +42,14 @@ const VideoPlay = () => {
   });
   const token = JSON.parse(localStorage.getItem("token"));
 
+
   // useLocation to get id from url
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
+
   const userId = JSON.parse(localStorage.getItem("UserId"));
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -65,6 +70,7 @@ const VideoPlay = () => {
           time_difference: response?.data?.video_details?.time_difference,
           views: response?.data?.video_details?.views,
           author: response?.data?.video_details?.author,
+
           video_id: response?.data?.video_details?.id,
           upvote: response?.data?.video_details?.upvote,
           downvote: response?.data?.video_details?.downvote,
@@ -217,12 +223,33 @@ const VideoPlay = () => {
         setProfileImage({
           profile_image: response.data.profile_image,
           name: response.data.name,
+
         });
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
+
+  // WATCH VIDEO API
+  useEffect(() => {
+    setTimeout(() => {
+      videoWatched();
+    }, 30000);
+  }, []);
+
+  const videoWatched = async () => {
+    try {
+      await axios.post(
+        `${getBaseURL()}/watch-video?user_id=${userId}&video_id=${videoId}`
+      );
+    } catch (error) {
+      console.error("Error fetching watch-video:", error.message);
+    }
+  };
+  // //////////////////////////////////////////
+
 
   const toggleReplyCommentModel = (commentId) => {
     const updatedModels = [...replyCommentModels];
@@ -236,6 +263,7 @@ const VideoPlay = () => {
 
     setReplyCommentModels(updatedModels);
   };
+
   return (
     <div>
       <MobileHeader />
@@ -1028,15 +1056,21 @@ const VideoPlay = () => {
               <ReactPlayer
                 url={videoPlay.youtube_link}
                 // playing={true}
+
                 controls={true}
+
                 width="100%"
                 height="30%"
               />
               <ul className="flex space-between link">
                 <li>
-                  {videoPlay?.tags?.map((tag, index) => {
-                    return <a key={index}> #{tag}</a>;
-                  })}
+
+                  <a href="#">
+                    {videoPlay?.tags?.map((tag, index) => {
+                      return <a key={index}> #{tag}</a>;
+                    })}
+                  </a>
+
                 </li>
                 <li className="download-btn">
                   <a onClick={() => postVideoupdo("upvote")} href="#">

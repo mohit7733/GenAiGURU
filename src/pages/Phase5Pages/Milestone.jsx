@@ -197,7 +197,7 @@ const Milestone = () => {
                             <div>
                               <p className="profileBottomText">
                                 Earn more  
-                                <figure style={{ width: "20px" }}>
+                                <figure style={{ width: "20px",marginLeft:"5px" }}>
                                   <img
                                     src="./app/images/coins.png"
                                     alt="Genaiguru Coins"

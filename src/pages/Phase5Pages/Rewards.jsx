@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
-import Sidebar from "../../components/Layout/Sidebar";
-import MobileHeader from "../../components/Layout/MobileHeader";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
-import axios from "axios";
-import { useState } from "react";
+import MobileHeader from "../../components/Layout/MobileHeader";
+import Sidebar from "../../components/Layout/Sidebar";
 
 const Rewards = () => {
   const [rewards, setRewards] = useState([]);
   const [accessRewards, setAccessRewards] = useState([]);
+
+  const [userPoints, setUserPoints] = useState(null);
+
+  const [levelDetails, setLevelDetails] = useState([]);
+  const [userLevel, setUserLevel] = useState("");
+  const [earnMorePoint, setEarnMorePoint] = useState("");
+  const [totalPoints, setTotalPoints] = useState("");
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -25,10 +31,53 @@ const Rewards = () => {
       const response2 = await axios.post(
         `${getBaseURL()}/game-rewards?user_id=${userId}&access_type=${"unlocked"}`
       );
-      console.log(response1?.data[0]?.data);
       setRewards(response1?.data[0]?.data);
-      console.log(response2?.data[0]?.data);
       setAccessRewards(response2?.data[0]?.data);
+    } catch (error) {
+      console.error("Error fetching game-levels:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUserPoints = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/get-points`, {
+          params: {
+            user_id: userId,
+          },
+        });
+
+        setUserPoints(response?.data?.data?.total);
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchUserPoints();
+    fetchLevels();
+  }, [userId]);
+
+  useEffect(() => {
+    getUserLevel(userPoints, levelDetails);
+  }, [userPoints, levelDetails]);
+
+  async function getUserLevel(userPoints, apiData) {
+    for (const levelData of apiData) {
+      if (
+        userPoints >= levelData.lower_limit &&
+        userPoints <= levelData.upper_limit
+      ) {
+        setUserLevel(levelData.name);
+        setEarnMorePoint(levelData.upper_limit - userPoints);
+        setTotalPoints(levelData.upper_limit);
+      }
+    }
+    return "unknow level";
+  }
+
+  const fetchLevels = async () => {
+    try {
+      const response = await axios.get(`${getBaseURL()}/game-levels`);
+      setLevelDetails(response?.data?.data);
     } catch (error) {
       console.error("Error fetching game-levels:", error.message);
     }
@@ -45,14 +94,17 @@ const Rewards = () => {
               <div className="innerBreadcrumb">
                 <p>
                   <Link to="/gurugold">Gurugold</Link>{" "}
-                  <i className="fa fa-angle-right" aria-hidden="true"></i> Rewards
+                  <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
+                  Rewards
                 </p>
               </div>
               <h1>Rewards</h1>
               <div className="access-rewards">
                 <div className="content-box">
                   <h5>Access rewards </h5>
-                  <p>5000/20,000 coins</p>
+                  <p>
+                    {userPoints}/{totalPoints}
+                  </p>
                 </div>
                 {accessRewards.map((reward, index) => {
                   return (

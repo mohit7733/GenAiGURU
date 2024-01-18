@@ -10,6 +10,7 @@ import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 import userimageIcon from "../../assets/images/person.png";
+import SilverPopup from "../Phase5Pages/SilverPopup";
 
 const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
@@ -46,6 +47,9 @@ const BlogDetails = ({ likes, dislikes }) => {
   const [displayRepliesCommentModel, setDisplayRepliesCommentModel] = useState(
     {}
   );
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [claimedBadges, setClaimedBadges] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -292,11 +296,40 @@ const BlogDetails = ({ likes, dislikes }) => {
 
     setReplyCommentModels(updatedModels);
   };
-  // console.log(getReplyBlogComments.length);
+
+  // fetchBadges API
+  useEffect(() => {
+    const fetchBadges = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/game-badges`, {
+          params: {
+            user_id: userId,
+            claimed: "no",
+          },
+        });
+        console.log(response?.data?.data);
+        setClaimedBadges(response?.data?.data);
+        if (response?.data?.data.length > 0) {
+          setShowPopUp(true);
+        }
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchBadges();
+  }, []);
+
+  // console.log(claimedBadges, userId);
+
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
-
+      {showPopUp && (
+        <SilverPopup
+          claimedBadges={claimedBadges}
+          onClose={() => setShowPopUp(false)}
+        />
+      )}
       <MobileHeader />
       {/* <!-- main section start here --> */}
       <section className="mainWrapper flex hideMob">
@@ -316,16 +349,16 @@ const BlogDetails = ({ likes, dislikes }) => {
                     </div>
                   </div>
                   <div className="connect-box">
-                    <WithAuth
-                      callBack={(e) => {
-                        if (blogDetail.blogSaved == "yes") {
-                          onBlogUnSave(blogDetail.blog_id);
-                        } else {
-                          onBlogSave(blogDetail.blog_id);
-                        }
-                      }}
-                    >
-                      <ul className="flex">
+                    <ul className="flex">
+                      <WithAuth
+                        callBack={(e) => {
+                          if (blogDetail.blogSaved == "yes") {
+                            onBlogUnSave(blogDetail.blog_id);
+                          } else {
+                            onBlogSave(blogDetail.blog_id);
+                          }
+                        }}
+                      >
                         {blogDetail.blogSaved == "yes" ? (
                           <li>
                             <a>
@@ -349,7 +382,12 @@ const BlogDetails = ({ likes, dislikes }) => {
                             </a>
                           </li>
                         )}
-
+                      </WithAuth>
+                      <WithAuth
+                        callBack={(e) => {
+                          console.log("Empty function issue", e);
+                        }}
+                      >
                         <li>
                           <Sharebtn
                             title={blogDetail.title}
@@ -361,8 +399,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                             }
                           />
                         </li>
-                      </ul>
-                    </WithAuth>
+                      </WithAuth>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -587,37 +625,39 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             Reply
                                           </span>
                                         </div>
-                                        <p
-                                          className="d_blck"
-                                          style={{
-                                            cursor: "pointer",
-                                          }}
-                                          onClick={() => {
-                                            getReplyComments(comment.id);
-                                            setDisplayRepliesCommentModel(
-                                              (prevStatus) => ({
-                                                ...prevStatus,
-                                                [comment.id]:
-                                                  !prevStatus[comment.id],
-                                              })
-                                            );
-                                          }}
-                                        >
-                                          <i
-                                            style={{ marginRight: "5px" }}
-                                            class={
-                                              !displayRepliesCommentModel[
-                                                comment?.id
-                                              ] &&
-                                              getReplyBlogComments?.comment_id !==
-                                                comment?.id
-                                                ? "fa fa-caret-down"
-                                                : "fa fa-caret-up"
-                                            }
-                                            aria-hidden="true"
-                                          ></i>
-                                          Replies
-                                        </p>
+                                        {comment.is_any_reply == "yes" && (
+                                          <p
+                                            className="d_blck"
+                                            style={{
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={() => {
+                                              getReplyComments(comment.id);
+                                              setDisplayRepliesCommentModel(
+                                                (prevStatus) => ({
+                                                  ...prevStatus,
+                                                  [comment.id]:
+                                                    !prevStatus[comment.id],
+                                                })
+                                              );
+                                            }}
+                                          >
+                                            <i
+                                              style={{ marginRight: "5px" }}
+                                              class={
+                                                !displayRepliesCommentModel[
+                                                  comment?.id
+                                                ] &&
+                                                getReplyBlogComments?.comment_id !==
+                                                  comment?.id
+                                                  ? "fa fa-caret-down"
+                                                  : "fa fa-caret-up"
+                                              }
+                                              aria-hidden="true"
+                                            ></i>
+                                            Replies
+                                          </p>
+                                        )}
                                       </span>
                                     </a>
                                   </li>
