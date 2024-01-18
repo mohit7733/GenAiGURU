@@ -402,6 +402,7 @@ p.d_blck {
 .review li span {
   line-height: 1 !important;
   font-size: 12px !important;
+  color: #a4abaf;
 }
 .review ul li button > img {
   width: 20px !important;
