@@ -444,20 +444,21 @@ small.pc {
 .review ul li a span:first-child {
   font-weight: bold !important;
 }
-.review ul li .btnlike .fillImage {
+.review ul li .btnlike .fillImage, .download-btn a .fillImage {
   display: none !important;
   transition: all 0.1s ease;
 }
-.review ul li .btnlike .borderImage {
+.review ul li .btnlike .borderImage, .download-btn a .borderImage {
   display: block !important;
   transition: all 0.1s ease;
 }
-.review ul li .btnlike:hover .fillImage {
+.review ul li .btnlike:hover .fillImage, .download-btn:hover a .fillImage {
   display: block !important;
 }
-.review ul li .btnlike:hover .borderImage {
+.review ul li .btnlike:hover .borderImage, .download-btn:hover a .borderImage {
   display: none !important;
 }
+
 
 .review input[type="text"] {
   background: transparent;
@@ -1844,8 +1845,8 @@ section.mainWrapper
   padding: 0px;
 }
 
-.video-wrapper .video-box iframe#widget2 {
-  min-height: 400px;
+.video-wrapper .video-box iframe {
+  height: 400px !important;
   object-fit: cover;
 }
 

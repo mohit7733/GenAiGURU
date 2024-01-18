@@ -23,7 +23,6 @@ const VideoPlay = () => {
     video_id: "",
     upvote: "",
     downvote: "",
-
   });
   const [replyCommentModels, setReplyCommentModels] = useState([]);
   const [displayCommentModel, setDisplayCommentModel] = useState(false);
@@ -42,7 +41,6 @@ const VideoPlay = () => {
   });
   const token = JSON.parse(localStorage.getItem("token"));
 
-
   // useLocation to get id from url
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
@@ -50,15 +48,17 @@ const VideoPlay = () => {
 
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(`${getBaseURL()}/popular-latest-videos?id=${videoId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/popular-latest-videos?id=${videoId}&user_id=${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response, "res");
         setVideoPlay({
@@ -223,14 +223,12 @@ const VideoPlay = () => {
         setProfileImage({
           profile_image: response.data.profile_image,
           name: response.data.name,
-
         });
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-
 
   // WATCH VIDEO API
   useEffect(() => {
@@ -249,7 +247,6 @@ const VideoPlay = () => {
     }
   };
   // //////////////////////////////////////////
-
 
   const toggleReplyCommentModel = (commentId) => {
     const updatedModels = [...replyCommentModels];
@@ -290,7 +287,7 @@ const VideoPlay = () => {
                   width="100%"
                   height="60%"
                 />
-                <ul className="flex space-between link">
+                <ul className="flex link">
                   <li>
                     {videoPlay?.tags?.map((tag, index) => {
                       return <a key={index}> #{tag}</a>;
@@ -302,7 +299,7 @@ const VideoPlay = () => {
                         className={
                           videoPlay?.like_details?.type == "upvote"
                             ? "borderImage"
-                            : "fillImage"
+                            : "borderImage"
                         }
                         src={
                           videoPlay?.like_details?.type == "upvote"
@@ -311,20 +308,29 @@ const VideoPlay = () => {
                         }
                         style={{ float: "left" }}
                       />
-                      {/* <img
+                      <img
                         className="fillImage"
                         src="/app/images/Group_1.png"
                         style={{ float: "left" }}
-                      /> */}
-                      {videoPlay.upvote}
+                      />
+                      <span
+                        style={{
+                          marginLeft: "5px",
+                          // marginTop: "4px",
+                        }}
+                      >
+                        {videoPlay.upvote}
+                      </span>
                     </a>
-
-                    <a
-                      className="btn-like"
-                      onClick={() => postVideoupdo("downvote")}
-                    >
+                  </li>
+                  <li className="download-btn">
+                    <a onClick={() => postVideoupdo("downvote")}>
                       <img
-                        className="borderImage"
+                        className={
+                          videoPlay?.like_details?.type == "downvote"
+                            ? "borderImage"
+                            : "borderImage"
+                        }
                         src={
                           videoPlay.upvote == "downvote"
                             ? "/app/images/Group_2.png"
@@ -337,8 +343,17 @@ const VideoPlay = () => {
                         src="/app/images/Group_2.png"
                         style={{ float: "left" }}
                       />
-                      {videoPlay.downvote}
+                      <span
+                        style={{
+                          marginLeft: "5px",
+                          // marginTop: "4px",
+                        }}
+                      >
+                        {videoPlay.downvote}
+                      </span>
                     </a>
+                  </li>
+                  <li className="download-btn">
                     <WithAuth
                       callBack={(e) => {
                         setDisplayCommentModel(!displayCommentModel);
@@ -525,36 +540,39 @@ const VideoPlay = () => {
                                       Reply
                                     </span>
                                   </div>
-                                  <p
-                                    className="d_blck"
-                                    style={{
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={() => {
-                                      getReplyComments(comment.id);
-                                      setDisplayRepliesCommentModel(
-                                        (prevStatus) => ({
-                                          ...prevStatus,
-                                          [comment.id]: !prevStatus[comment.id],
-                                        })
-                                      );
-                                    }}
-                                  >
-                                    <i
-                                      style={{ marginRight: "5px" }}
-                                      class={
-                                        !displayRepliesCommentModel[
-                                          comment?.id
-                                        ] &&
-                                        getReplyVideoComments?.comment_id !==
-                                          comment?.id
-                                          ? "fa fa-caret-down"
-                                          : "fa fa-caret-up"
-                                      }
-                                      aria-hidden="true"
-                                    ></i>
-                                    Replies
-                                  </p>
+                                  {comment.is_any_reply == "yes" && (
+                                    <p
+                                      className="d_blck"
+                                      style={{
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        getReplyComments(comment.id);
+                                        setDisplayRepliesCommentModel(
+                                          (prevStatus) => ({
+                                            ...prevStatus,
+                                            [comment.id]:
+                                              !prevStatus[comment.id],
+                                          })
+                                        );
+                                      }}
+                                    >
+                                      <i
+                                        style={{ marginRight: "5px" }}
+                                        class={
+                                          !displayRepliesCommentModel[
+                                            comment?.id
+                                          ] &&
+                                          getReplyVideoComments?.comment_id !==
+                                            comment?.id
+                                            ? "fa fa-caret-down"
+                                            : "fa fa-caret-up"
+                                        }
+                                        aria-hidden="true"
+                                      ></i>
+                                      Replies
+                                    </p>
+                                  )}
                                 </span>
                               </a>
                             </li>
@@ -1058,19 +1076,16 @@ const VideoPlay = () => {
                 // playing={true}
 
                 controls={true}
-
                 width="100%"
                 height="30%"
               />
               <ul className="flex space-between link">
                 <li>
-
                   <a href="#">
                     {videoPlay?.tags?.map((tag, index) => {
                       return <a key={index}> #{tag}</a>;
                     })}
                   </a>
-
                 </li>
                 <li className="download-btn">
                   <a onClick={() => postVideoupdo("upvote")} href="#">
@@ -1273,36 +1288,38 @@ const VideoPlay = () => {
                                     Reply
                                   </span>
                                 </div>
-                                <p
-                                  className="d_blck"
-                                  style={{
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() => {
-                                    getReplyComments(comment.id);
-                                    setDisplayRepliesCommentModel(
-                                      (prevStatus) => ({
-                                        ...prevStatus,
-                                        [comment.id]: !prevStatus[comment.id],
-                                      })
-                                    );
-                                  }}
-                                >
-                                  <i
-                                    style={{ marginRight: "5px" }}
-                                    class={
-                                      !displayRepliesCommentModel[
-                                        comment?.id
-                                      ] &&
-                                      getReplyVideoComments?.comment_id !==
-                                        comment?.id
-                                        ? "fa fa-caret-down"
-                                        : "fa fa-caret-up"
-                                    }
-                                    aria-hidden="true"
-                                  ></i>
-                                  Replies
-                                </p>
+                                {comment.is_any_reply && (
+                                  <p
+                                    className="d_blck"
+                                    style={{
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() => {
+                                      getReplyComments(comment.id);
+                                      setDisplayRepliesCommentModel(
+                                        (prevStatus) => ({
+                                          ...prevStatus,
+                                          [comment.id]: !prevStatus[comment.id],
+                                        })
+                                      );
+                                    }}
+                                  >
+                                    <i
+                                      style={{ marginRight: "5px" }}
+                                      class={
+                                        !displayRepliesCommentModel[
+                                          comment?.id
+                                        ] &&
+                                        getReplyVideoComments?.comment_id !==
+                                          comment?.id
+                                          ? "fa fa-caret-down"
+                                          : "fa fa-caret-up"
+                                      }
+                                      aria-hidden="true"
+                                    ></i>
+                                    Replies
+                                  </p>
+                                )}
                               </span>
                             </a>
                           </li>
