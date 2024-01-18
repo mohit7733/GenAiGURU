@@ -312,27 +312,11 @@ const Index = () => {
                       </h5>
                       <ul>
                         <li>{Article.author}</li>
-                        <li>24 M Views</li>
-                        <li>3 months</li>
+                        <li>{Article.creation_date}</li>
+                        {/* <li>3 months</li> */}
                       </ul>
-                      <p className="tags">#finance #crypto #economy</p>
+                      {/* <p className="tags">#finance #crypto #economy</p> */}
                     </div>
-                    {/* <div className="box">
-                    <figure>
-                      <img
-                        src="app/images/featuredArticleImgMobile.jpg"
-                        alt="Genaiguru featured article image"
-                        title="Genaiguru featured article image"
-                      />
-                    </figure>
-                    <h5>It’s a catch-22 for young s: how do you ... </h5>
-                    <ul>
-                      <li>Alex Smith</li>
-                      <li>24 M Views</li>
-                      <li>3 months</li>
-                    </ul>
-                    <p className="tags">#finance #crypto #economy</p>
-                  </div> */}
                   </div>
                 );
               }

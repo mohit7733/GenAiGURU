@@ -11,6 +11,19 @@ import MobileSideBar from "../../components/Layout/MobileSideBar";
 import ProfileBadges from "../../components/ProfileBadges/ProfileBadges";
 
 const Profile = () => {
+  const [activeTab, setActiveTab] = useState(1);
+  const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
+  const [profileImage, setProfileImage] = useState();
+  const [interestData, setInterestData] = useState([]);
+  const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
+  const [myInterests, setMyInterests] = useState();
+  const [displayedInterests, setDisplayedInterests] = useState(7);
+  const [displayView, setDisplayView] = useState(true);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  const [following, setFollowing] = useState("");
+  const [follower, setFollower] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [userDetails, setUserDetails] = useState({
     bio: "",
     userName: "",
@@ -22,23 +35,7 @@ const Profile = () => {
     coverImage: "",
   });
 
-  const [activeTab, setActiveTab] = useState(1);
-  const [displayInterestPopup, setDisplayInterestPopup] = useState(false);
-  const [profileImage, setProfileImage] = useState();
 
-  const [interestData, setInterestData] = useState([]);
-  const [selectedInterestIndex, setSelectedInterestIndex] = useState([]);
-  const [myInterests, setMyInterests] = useState();
-  const [displayedInterests, setDisplayedInterests] = useState(7);
-
-  const [displayView, setDisplayView] = useState(true);
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-
-  const [following, setFollowing] = useState("");
-  const [follower, setFollower] = useState("");
-
-  const [errorMessage, setErrorMessage] = useState("");
-  
   const [claimedBadges, setClaimedBadges] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -764,13 +761,13 @@ const Profile = () => {
                   <div className="intrest-area">
                     <h5>My Interests</h5>
                     <ul className="flex link-button">
-                      {myInterests?.map((data, index) => {
-                        return (
+                      {myInterests
+                        ?.slice(0, displayedInterests)
+                        .map((data, index) => (
                           <li key={index}>
                             <a>{data.interest_name}</a>
                           </li>
-                        );
-                      })}
+                        ))}
                       <li>
                         <Link
                           onClick={() => {
@@ -782,6 +779,28 @@ const Profile = () => {
                         </Link>
                       </li>
                     </ul>
+                    {myInterests?.length > 7 && displayView && (
+                      <div className="btn-wrap">
+                        <button
+                          type="button"
+                          className="loginBtn"
+                          onClick={handleViewMoreClick}
+                        >
+                          View More
+                        </button>
+                      </div>
+                    )}
+                    {!displayView && (
+                      <div className="btn-wrap">
+                        <button
+                          type="button"
+                          className="loginBtn"
+                          onClick={handleViewLessClick}
+                        >
+                          View Less
+                        </button>
+                      </div>
+                    )}
                     <div className="social-link">
                       <h4>
                         My social link{" "}
@@ -1122,12 +1141,12 @@ const Profile = () => {
                       );
                     })}
                   </div>
-                  <button
+                  <button 
                     type="submit"
                     className="loginBtn"
                     onClick={onChangeInterest}
                   >
-                    Save Changes
+                    Save Changes 
                   </button>
                   <p className="errorMessage">{errorMessage}</p>
                 </form>

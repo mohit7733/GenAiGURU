@@ -29,7 +29,12 @@ import FeaturedVideo from "./pages/Phase6Pages/FeaturedVideo";
 import FeaturedArticles from "./pages/Phase6Pages/FeaturedArticles";
 import ArticlesDetails from "./pages/Phase6Pages/ArticlesDetails";
 import TermsServices from "./pages/Phase4Pages/TermsServices";
-
+import MobileSettings from "./components/Layout/MoblieSettings";
+import SendFeedback from "./components/SendFeedback/SendFeedback";
+import PrivacyPolicy from "./components/Privacy & Policy/Privacy&Policy";
+import NotificationSettings from "./components/NotificationSettings/Notification.jsx";
+import EditPassword from "./components/EditPassword/EditPassword.jsx";
+import CustomizeInterest from "./components/CustomizeInterest/CustomizeInterest.jsx";
 export const BASE_PATH = "/";
 
 // Public Routes
@@ -62,6 +67,12 @@ export const PATH_SETTINGS = "/settings";
 export const PATH_GURUGOLD = "/gurugold";
 export const PATH_LEADERBOARD = "/leaderboard";
 export const PATH_MILESTONE = "/milestone";
+export const PATH_MOBLIE_SETTINGS ="/mobliesettings"
+export const PATH_SEND_FEEDBACK ="/sendfeedback"
+export const PATH_PRIVACY_POLICY ="/Privacy&Policy"
+export const PATH_NOTIFICATION_SETTINGS ="/notification"
+export const PATH_EDIT_PASSWORD ="/editpassword"
+export const PATH_CUSTOMIZE_INTEREST ="/interest"
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -248,6 +259,42 @@ export function RouterElement() {
       path: "sortbydate",
       name: "sortbydate",
       element: <Sortbydate />,
+      exact: true,
+    },
+    {
+      path: PATH_MOBLIE_SETTINGS,
+      name: PATH_MOBLIE_SETTINGS,
+      element: <MobileSettings />,
+      exact: true,
+    },
+    {
+      path: PATH_SEND_FEEDBACK,
+      name:  PATH_SEND_FEEDBACK,
+      element: <SendFeedback />,
+      exact: true,
+    },
+    {
+      path: PATH_PRIVACY_POLICY,
+      name:  PATH_PRIVACY_POLICY,
+      element: <PrivacyPolicy/>,
+      exact: true,
+    },
+    {
+      path: PATH_NOTIFICATION_SETTINGS,
+      name:  PATH_NOTIFICATION_SETTINGS,
+      element: <NotificationSettings/>,
+      exact: true,
+    },
+    {
+      path: PATH_EDIT_PASSWORD,
+      name:  PATH_EDIT_PASSWORD,
+      element: <EditPassword/>,
+      exact: true,
+    },
+    {
+      path: PATH_CUSTOMIZE_INTEREST,
+      name: PATH_CUSTOMIZE_INTEREST,
+      element: <CustomizeInterest/>,
       exact: true,
     },
   ];

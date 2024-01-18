@@ -12,6 +12,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
 
 const GuruGold = () => {
   const [userPoints, setUserPoints] = useState(null);
@@ -23,9 +24,14 @@ const GuruGold = () => {
   const [userLevel, setUserLevel] = useState("");
   const [earnMorePoint, setEarnMorePoint] = useState("");
   const [totalPoints, setTotalPoints] = useState("");
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
 
   // get user details api..........
   useEffect(() => {
@@ -154,28 +160,29 @@ const GuruGold = () => {
                       </li>
                     </Link>
                   </ul>
-                  <div className="rangeWrap">
-                    <div
-                      className="range"
-                      style={{
-                        width: `${100}%`,
-                        borderRadius: "10px",
-                        backgroundColor: "#808080",
-                      }}
-                    >
+
+                  <div>
+                    <div className="rangeWrap">
                       <div
                         className="range"
                         style={{
-                          width: `${percentage}%`,
-                          background:
-                            "linear-gradient(to right, #8E44AD, #3498DB)",
+                          width: `${100}%`,
                           borderRadius: "10px",
-                          // height: "12px",
+                          backgroundColor: "#808080",
                         }}
-                      ></div>
+                      >
+                        <div
+                          className="range"
+                          style={{
+                            width: `${percentage}%`,
+                            background:
+                              "linear-gradient(to right, #8E44AD, #3498DB)",
+                            borderRadius: "10px",
+                            // height: "12px",
+                          }}
+                        ></div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
                     <p className="profileBottomText">
                       Earn more
                       <figure style={{ width: "20px", marginLeft: "5px" }}>
@@ -346,7 +353,7 @@ const GuruGold = () => {
       {/* <!-- mobile section start here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
-          <div className="hamburger">
+          <div className="hamburger" onClick={toggleMobileSidebar}>
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
@@ -364,7 +371,7 @@ const GuruGold = () => {
                     <li>
                       <figure>
                         <img
-                          src="./app/images/userIcon.png"
+                          src={userDetails.profile_image}
                           alt="Genaiguru userIcon"
                           title="Genaiguru userIcon"
                         />
@@ -374,29 +381,54 @@ const GuruGold = () => {
                         />
                       </figure>
                     </li>
-                    <li>
-                      <h3>
-                        Silver{" "}
-                        <img
-                          src="app/images/headingProfileIcons.png"
-                          alt="Genaiguru headingProfileIcons"
-                          title="Genaiguru headingProfileIcons"
-                        />
-                      </h3>{" "}
-                      <p>Coins: {userPoints}/50,000</p>
-                    </li>
+                    <Link to="/silver">
+                      <li>
+                        <h3>
+                          {/* {levelDetails} */}
+                          {userLevel}
+                          {/* <img
+                            src="app/images/headingProfileIcons.png"
+                            alt="Genaiguru headingProfileIcons"
+                            title="Genaiguru headingProfileIcons"
+                          /> */}
+                        </h3>{" "}
+                        <p>
+                          Coins: {userPoints}/{totalPoints}
+                        </p>
+                      </li>
+                    </Link>
                   </ul>
                   <div className="rangeWrap">
-                    <input
+                    <div
                       className="range"
-                      type="range"
-                      // value="50"
-                      min="0"
-                      max="100"
-                    ></input>
+                      style={{
+                        width: `${100}%`,
+                        borderRadius: "10px",
+                        backgroundColor: "#808080",
+                      }}
+                    >
+                      <div
+                        className="range"
+                        style={{
+                          width: `${percentage}%`,
+                          background:
+                            "linear-gradient(to right, #8E44AD, #3498DB)",
+                          borderRadius: "10px",
+                          // height: "12px",
+                        }}
+                      ></div>
+                    </div>
                   </div>
                   <p className="profileBottomText">
-                    Earn more 47000 coins to ge next label
+                    Earn more{""}
+                    <figure style={{ width: "20px" }}>
+                      <img
+                        src="./app/images/coins.png"
+                        alt="Genaiguru Coins"
+                        title="Genaiguru Coins"
+                      />
+                    </figure>{" "}
+                    {earnMorePoint} coins to go to next level
                   </p>
                 </div>
               </div>
@@ -404,70 +436,78 @@ const GuruGold = () => {
               <div className="silver-user">
                 <ul className="flex">
                   <li>
-                    <a href="#">
+                    {/* <div class="card">
                       <figure>
                         <img
-                          src="./app/images/silver-user-1.png"
-                          alt="Genaiguru silver-user-1"
-                          title="Genaiguru silver-user-1"
+                          src={userDetails.profile_image}
+                          alt="userIcon"
+                          title="userIcon"
+                          style={{ borderRadius: "100%" }}
                         />
                       </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-2.png"
-                          alt="Genaiguru silver-user-2"
-                          title="Genaiguru silver-user-2"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="./app/images/silver-user-3.png"
-                          alt="Genaiguru silver-user-3"
-                          title="Genaiguru silver-user-3"
-                        />
-                      </figure>
-                    </a>
+                      <div class="percent">
+                        <svg>
+                          <circle cx="40" cy="40" r="38"></circle>
+                          <circle
+                            cx="40"
+                            cy="40"
+                            r="38"
+                            style={{ "--percent": 70 }}
+                          ></circle>
+                        </svg>
+                      </div>
+                    </div> */}
+                    <svg style={{ height: 0, width: 0 }}>
+                      <defs>
+                        <linearGradient
+                          id="gradientId"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="0%"
+                        >
+                          <stop
+                            offset="0%"
+                            style={{ stopColor: "#8E44AD", stopOpacity: 1 }}
+                          />
+                          <stop
+                            offset="100%"
+                            style={{ stopColor: "#3498DB", stopOpacity: 1 }}
+                          />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div style={{ width: 78, height: 78 }}>
+                      <CircularProgressbarWithChildren
+                        strokeWidth={3}
+                        value={percentage}
+                        styles={{
+                          path: {
+                            stroke: `url(#gradientId)`,
+                            height: "100%",
+                          },
+                        }}
+                      >
+                        <figure>
+                          <img
+                            src={userDetails.profile_image}
+                            alt="userIcon"
+                            title="userIcon"
+                            style={{ borderRadius: "100%",marginTop:"1px"}}
+                          />
+                        </figure>
+                      </CircularProgressbarWithChildren>
+                    </div>
+                    {/* <ProgressBar
+                      percentage={percentage}
+                      image={userDetails.profile_image}
+                    /> */}
+                    {/* <ProgressBar
+                      startColor={"#8E44AD"}
+                      endColor={"#3498DB"}
+                      rotation={90}
+                      idCSS={"#idCSS"}
+                    /> */}
                   </li>
                 </ul>
               </div>
@@ -544,6 +584,9 @@ const GuruGold = () => {
         </div>
       </div>
       {/* <!-- mobile section end here --> */}
+      {isMobileSidebarOpen && (
+        <MobileSideBar toggleMobileSidebar={toggleMobileSidebar} />
+      )}
     </div>
   );
 };

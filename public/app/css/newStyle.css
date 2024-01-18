@@ -1849,3 +1849,19 @@ section.mainWrapper
   object-fit: cover;
 }
 
+.Setting-sidebar{ 
+  background-color:#131f2c;
+  padding: 40px;
+}
+.Setting-sidebar ul li img{ 
+  max-width: 30px;
+  width: 100%;
+}
+.Setting-sidebar ul li a, .Setting-sidebar ul li a i{
+  color: #fff;
+}
+.Setting-sidebar ul.connect-link li a {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+} 
