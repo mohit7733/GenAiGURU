@@ -274,318 +274,151 @@ const Milestone = () => {
           <div className="rightSection">
             <div className="guru-gold-silver milestoneWrap">
               <div className="row flex ">
-                <div className="silver-coin-box">
-                  <div className="silverWrap">
-                    <ul className="flex userPro">
-                      <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru userIcon"
-                            title="Genaiguru userIcon"
-                          />
-                          <img
-                            className="profileImageTag"
-                            src="app/images/profileImageTag.png"
-                          />
-                        </figure>
-                      </li>
-                      <li>
-                        <h3>
-                          Silver{" "}
-                          <img
-                            src="app/images/headingProfileIcons.png"
-                            alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
-                          />
-                        </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
-                      </li>
-                    </ul>
-                    <div className="rangeWrap">
-                      <input
-                        className="range"
-                        type="range"
-                        // value="50"
-                        // min="0"
-                        // max="100"
-                      ></input>
+              {levelDetails.map((level, index) => {
+                  return (
+                    <div className="silver-coin-box" key={index}>
+                      <div className="silverWrap">
+                        <ul className="flex userPro">
+                          <li>
+                            <figure>
+                              <img
+                                src={userDetails.profile_image}
+                                alt="Genaiguru userIcon"
+                                title="Genaiguru userIcon"
+                              />
+                              <img
+                                className="profileImageTag"
+                                src="app/images/profileImageTag.png"
+                              />
+                            </figure>
+                          </li>
+                          <li>
+                            <h3>
+                              {level.name}
+                              <img
+                                src="app/images/headingProfileIcons.png"
+                                alt="Genaiguru headingProfileIcons"
+                                title="Genaiguru headingProfileIcons"
+                              />
+                            </h3>{" "}
+                            {currentID !== level.level ? (
+                              <p>
+                                Coins: {level.upper_limit}/{level.upper_limit}
+                              </p>
+                            ) : (
+                              <p>
+                                Coins: {userPoints}/{level.upper_limit}
+                              </p>
+                            )}
+                          </li>
+                        </ul>
+                        {currentID !== level.level ? (
+                          <>
+                            <div className="rangeWrap">
+                              <div
+                                className="range"
+                                style={{
+                                  width: `${100}%`,
+                                  borderRadius: "10px",
+                                  backgroundColor: "#808080",
+                                }}
+                              >
+                                <div
+                                  className="range"
+                                  style={{
+                                    width: `${100}%`,
+                                    background:
+                                      "linear-gradient(to right, #8E44AD, #3498DB)",
+                                    borderRadius: "10px",
+                                    // height: "12px",
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="rangeWrap">
+                              <div
+                                className="range"
+                                style={{
+                                  width: `${100}%`,
+                                  borderRadius: "10px",
+                                  backgroundColor: "#808080",
+                                }}
+                              >
+                                <div
+                                  className="range"
+                                  style={{
+                                    width: `${percentage}%`,
+                                    background:
+                                      "linear-gradient(to right, #8E44AD, #3498DB)",
+                                    borderRadius: "10px",
+                                    // height: "12px",
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
+                            <div>
+                              <p className="profileBottomText">
+                                Earn more  
+                                <figure style={{ width: "20px" }}>
+                                  <img
+                                    src="./app/images/coins.png"
+                                    alt="Genaiguru Coins"
+                                    title="Genaiguru Coins"
+                                  />
+                                </figure>{" "}
+                                {earnMorePoint} coins to go to next level
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      {/* {completedIds.map((id, index, array) => {
+                        if (id !== level.level) {
+                          if (currentID !== level.level) {
+                            return (
+                              <div className="layer" key={index}>
+                                <figure>
+                                  <img
+                                    src="app/images/lockIcon.png"
+                                    alt="Genaiguru lockIcon"
+                                    title="Genaiguru lockIcon"
+                                  />
+                                </figure>
+                                <p>
+                                  Keep using to earn more points & unlock this
+                                  reward label
+                                </p>
+                              </div>
+                            );
+                          }
+                        } else {
+                          return null; // or an empty string or any other JSX you want for the else case
+                        }
+                      })} */}
+
+                      {currentID !== level.level &&
+                        completedIds.filter((a) => a == level.level)?.length ==
+                          0 && (
+                          <div className="layer" key={index}>
+                            <figure>
+                              <img
+                                src="app/images/lockIcon.png"
+                                alt="Genaiguru lockIcon"
+                                title="Genaiguru lockIcon"
+                              />
+                            </figure>
+                            <p>
+                              Keep using to earn more points & unlock this
+                              reward label
+                            </p>
+                          </div>
+                        )}
                     </div>
-                    <p className="profileBottomText">
-                      Earn more 47000 coins to ge next label
-                    </p>
-                  </div>
-                </div>
-                <div className="silver-coin-box">
-                  <div className="silverWrap">
-                    <ul className="flex userPro">
-                      <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru userIcon"
-                            title="Genaiguru userIcon"
-                          />
-                          <img
-                            className="profileImageTag"
-                            src="app/images/profileImageTag.png"
-                          />
-                        </figure>
-                      </li>
-                      <li>
-                        <h3>
-                          Silver{" "}
-                          <img
-                            src="app/images/headingProfileIcons.png"
-                            alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
-                          />
-                        </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
-                      </li>
-                    </ul>
-                    <div className="rangeWrap">
-                      <input
-                        className="range"
-                        type="range"
-                        value="50"
-                        min="0"
-                        max="100"
-                      ></input>
-                    </div>
-                    <p className="profileBottomText">
-                      Earn more 47000 coins to ge next label
-                    </p>
-                  </div>
-                  <div className="layer">
-                    <figure>
-                      <img
-                        src="app/images/lockIcon.png"
-                        alt="Genaiguru lockIcon"
-                        title="Genaiguru lockIcon"
-                      />
-                    </figure>
-                    <p>
-                      Keep using to earn more points & unlock this reward label
-                    </p>
-                  </div>
-                </div>
-                <div className="silver-coin-box">
-                  <div className="silverWrap">
-                    <ul className="flex userPro">
-                      <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru userIcon"
-                            title="Genaiguru userIcon"
-                          />
-                          <img
-                            className="profileImageTag"
-                            src="app/images/profileImageTag.png"
-                          />
-                        </figure>
-                      </li>
-                      <li>
-                        <h3>
-                          Silver{" "}
-                          <img
-                            src="app/images/headingProfileIcons.png"
-                            alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
-                          />
-                        </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
-                      </li>
-                    </ul>
-                    <div className="rangeWrap">
-                      <input
-                        className="range"
-                        type="range"
-                        value="50"
-                        min="0"
-                        max="100"
-                      ></input>
-                    </div>
-                    <p className="profileBottomText">
-                      Earn more 47000 coins to ge next label
-                    </p>
-                  </div>
-                  <div className="layer">
-                    <figure>
-                      <img
-                        src="app/images/lockIcon.png"
-                        alt="Genaiguru lockIcon"
-                        title="Genaiguru lockIcon"
-                      />
-                    </figure>
-                    <p>
-                      Keep using to earn more points & unlock this reward label
-                    </p>
-                  </div>
-                </div>
-                <div className="silver-coin-box">
-                  <div className="silverWrap">
-                    <ul className="flex userPro">
-                      <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru userIcon"
-                            title="Genaiguru userIcon"
-                          />
-                          <img
-                            className="profileImageTag"
-                            src="app/images/profileImageTag.png"
-                          />
-                        </figure>
-                      </li>
-                      <li>
-                        <h3>
-                          Silver{" "}
-                          <img
-                            src="app/images/headingProfileIcons.png"
-                            alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
-                          />
-                        </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
-                      </li>
-                    </ul>
-                    <div className="rangeWrap">
-                      <input
-                        className="range"
-                        type="range"
-                        value="50"
-                        min="0"
-                        max="100"
-                      ></input>
-                    </div>
-                    <p className="profileBottomText">
-                      Earn more 47000 coins to ge next label
-                    </p>
-                  </div>
-                  <div className="layer">
-                    <figure>
-                      <img
-                        src="app/images/lockIcon.png"
-                        alt="Genaiguru lockIcon"
-                        title="Genaiguru lockIcon"
-                      />
-                    </figure>
-                    <p>
-                      Keep using to earn more points & unlock this reward label
-                    </p>
-                  </div>
-                </div>
-                <div className="silver-coin-box">
-                  <div className="silverWrap">
-                    <ul className="flex userPro">
-                      <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru userIcon"
-                            title="Genaiguru userIcon"
-                          />
-                          <img
-                            className="profileImageTag"
-                            src="app/images/profileImageTag.png"
-                          />
-                        </figure>
-                      </li>
-                      <li>
-                        <h3>
-                          Silver{" "}
-                          <img
-                            src="app/images/headingProfileIcons.png"
-                            alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
-                          />
-                        </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
-                      </li>
-                    </ul>
-                    <div className="rangeWrap">
-                      <input
-                        className="range"
-                        type="range"
-                        value="50"
-                        min="0"
-                        max="100"
-                      ></input>
-                    </div>
-                    <p className="profileBottomText">
-                      Earn more 47000 coins to ge next label
-                    </p>
-                  </div>
-                  <div className="layer">
-                    <figure>
-                      <img
-                        src="app/images/lockIcon.png"
-                        alt="Genaiguru lockIcon"
-                        title="Genaiguru lockIcon"
-                      />
-                    </figure>
-                    <p>
-                      Keep using to earn more points & unlock this reward label
-                    </p>
-                  </div>
-                </div>
-                <div className="silver-coin-box">
-                  <div className="silverWrap">
-                    <ul className="flex userPro">
-                      <li>
-                        <figure>
-                          <img
-                            src="./app/images/userIcon.png"
-                            alt="Genaiguru userIcon"
-                            title="Genaiguru userIcon"
-                          />
-                          <img
-                            className="profileImageTag"
-                            src="app/images/profileImageTag.png"
-                          />
-                        </figure>
-                      </li>
-                      <li>
-                        <h3>
-                          Silver{" "}
-                          <img
-                            src="app/images/headingProfileIcons.png"
-                            alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
-                          />
-                        </h3>{" "}
-                        <p>Coins: 20,000/50,000</p>
-                      </li>
-                    </ul>
-                    <div className="rangeWrap">
-                      <input
-                        className="range"
-                        type="range"
-                        value="50"
-                        min="0"
-                        max="100"
-                      ></input>
-                    </div>
-                    <p className="profileBottomText">
-                      Earn more 47000 coins to ge next label
-                    </p>
-                  </div>
-                  <div className="layer">
-                    <figure>
-                      <img
-                        src="app/images/lockIcon.png"
-                        alt="Genaiguru lockIcon"
-                        title="Genaiguru lockIcon"
-                      />
-                    </figure>
-                    <p>
-                      Keep using to earn more points & unlock this reward label
-                    </p>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>

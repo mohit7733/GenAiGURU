@@ -381,7 +381,7 @@ const LeaderBoard = () => {
                         <div className="profileImgFrame">
                           <figure>
                             <img
-                              src="./app/images/userIcon.png"
+                              src={allUsers[1]?.profile_image}
                               alt="Genaiguru user-icon"
                               title="Genaiguru user-icon"
                             />
@@ -391,16 +391,21 @@ const LeaderBoard = () => {
 
                         <div className="content">
                           <p>
-                            11,000 <span>points</span>
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />
+                            {allUsers[1]?.points} <span>points</span>
                           </p>
-                          <h6>jakob</h6>
+                          <h6>{allUsers[1]?.name}</h6>
                         </div>
                       </li>
                       <li>
                         <div className="profileImgFrame">
                           <figure>
                             <img
-                              src="./app/images/userIcon.png"
+                              src={allUsers[0]?.profile_image}
                               alt="Genaiguru user-icon"
                               title="Genaiguru user-icon"
                             />
@@ -409,16 +414,22 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
-                            12,000 <span>points</span>
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />{" "}
+                            {allUsers[0]?.points}
+                            <span>points</span>
                           </p>
-                          <h6>johon Filim</h6>
+                          <h6>{allUsers[0]?.name}</h6>
                         </div>
                       </li>
                       <li>
                         <div className="profileImgFrame">
                           <figure>
                             <img
-                              src="./app/images/userIcon.png"
+                              src={allUsers[2]?.profile_image}
                               alt="Genaiguru user-icon"
                               title="Genaiguru user-icon"
                             />
@@ -427,9 +438,14 @@ const LeaderBoard = () => {
                         </div>
                         <div className="content">
                           <p>
-                            10,000 <span>points</span>
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />
+                            {allUsers[2]?.points} <span>points</span>
                           </p>
-                          <h6>Rakob</h6>
+                          <h6>{allUsers[2]?.name}</h6>
                         </div>
                       </li>
                     </ul>
@@ -439,22 +455,21 @@ const LeaderBoard = () => {
               {/* <!-- tabs start here  --> */}
               <ul className="connect-link flex">
                 <li>
-                  <a
-                    href="#"
-                    className="tab active"
-                    data-toggle-target=".tab-content-1"
+                  <select
+                    onChange={(e) => {
+                      fetchUserPoints(
+                        e.target.value == "All"
+                          ? ""
+                          : e.target.value.toLowerCase()
+                      );
+                    }}
                   >
-                    Weekly{" "}
-                    <figure>
-                      <img
-                        src="./app/images/down-icons.png"
-                        alt="Genaiguru down-icons"
-                        title="Genaiguru down-icons"
-                      />
-                    </figure>
-                  </a>
+                    <option>All</option>
+                    <option>Weekly</option>
+                    <option>Daily</option>
+                  </select>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href="#"
                     className="tab "
@@ -469,151 +484,52 @@ const LeaderBoard = () => {
                       />
                     </figure>
                   </a>
-                </li>
+                </li> */}
               </ul>
               {/* <!-- tab-link start here -->
       <!-- tab-content here --> */}
               <div className="tab-content tab-content-1 active">
-                <div className="list-container">
-                  <div className="row flex space-between">
-                    <div className="profile">
-                      <ul>
-                        <li>
-                          <div className="img-box">
-                            <span>4</span>
-                            <a href="">
-                              <img
-                                src="./app/images/leader-user-4.png"
-                                alt="Genaiguru leader-user-4"
-                                title="Genaiguru leader-user-5"
-                              />
-                            </a>
-                          </div>
+              {allUsers.slice(3).map((user, index) => {
+                  const originalIndex = index + 2;
+                  return (
+                    <div className="list-container" key={originalIndex}>
+                      <div className="row flex space-between">
+                        <div className="profile">
+                          <ul>
+                            <li>
+                              <div className="img-box">
+                                <span>{originalIndex + 2}</span>
+                                <a href="">
+                                  <img
+                                    src={user.profile_image}
+                                    title="profile"
+                                  />
+                                </a>
+                              </div>
 
-                          <div className="content">
-                            <h4>Jekob link</h4>
-                            <p>@Jmsmittan</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="button">
-                      <a href="">PT-4550</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="list-container">
-                  <div className="row flex space-between">
-                    <div className="profile">
-                      <ul>
-                        <li>
-                          <div className="img-box">
-                            <span>5</span>
-                            <a href="">
+                              <div className="content">
+                                <h4>{user.name}</h4>
+                                {/* <p>@Jmsmittan</p> */}
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="button">
+                          <span>
+                            <figure>
                               <img
-                                src="./app/images/leader-user-5.png"
-                                alt="Genaiguru leader-user-4"
-                                title="Genaiguru leader-user-5"
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                                title="Genaiguru Coins"
                               />
-                            </a>
-                          </div>
-
-                          <div className="content">
-                            <h4>Rakob</h4>
-                            <p>@Jmsmittan</p>
-                          </div>
-                        </li>
-                      </ul>
+                            </figure>
+                            <span>{user.points} points</span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="button">
-                      <a href="">PT-4550</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="list-container">
-                  <div className="row flex space-between">
-                    <div className="profile">
-                      <ul>
-                        <li>
-                          <div className="img-box">
-                            <span>6</span>
-                            <a href="">
-                              <img
-                                src="./app/images/leader-use-6.png"
-                                alt="Genaiguru leader-user-6"
-                                title="Genaiguru leader-user-6"
-                              />
-                            </a>
-                          </div>
-
-                          <div className="content">
-                            <h4>Alex . smith</h4>
-                            <p>@Jmsmittan</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="button">
-                      <a href="">PT-4550</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="list-container">
-                  <div className="row flex space-between">
-                    <div className="profile">
-                      <ul>
-                        <li>
-                          <div className="img-box">
-                            <span>7</span>
-                            <a href="">
-                              <img
-                                src="./app/images/leader-use-7.png"
-                                alt="Genaiguru leader-user-7"
-                                title="Genaiguru leader-user-7"
-                              />
-                            </a>
-                          </div>
-
-                          <div className="content">
-                            <h4>Jekob link</h4>
-                            <p>@Jmsmittan</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="button">
-                      <a href="">PT-4550</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="list-container">
-                  <div className="row flex space-between">
-                    <div className="profile">
-                      <ul>
-                        <li>
-                          <div className="img-box">
-                            <span>7</span>
-                            <a href="">
-                              <img
-                                src="./app/images/leader-user-5.png"
-                                alt="Genaiguru leader-user-5"
-                                title="Genaiguru leader-user-5"
-                              />
-                            </a>
-                          </div>
-
-                          <div className="content">
-                            <h4>Jekob link</h4>
-                            <p>@Jmsmittan</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="button">
-                      <a href="">PT-4550</a>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
               {/* <!-- 2nd --> */}
               <div className="tab-content tab-content-2 ">

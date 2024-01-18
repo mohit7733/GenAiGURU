@@ -178,7 +178,27 @@ const Rewards = () => {
                   <h5>Access rewards </h5>
                   <p>5000/20,000 coins</p>
                 </div>
-                <div className="reward-container flex space-between">
+                {accessRewards.map((reward, index) => {
+                  return (
+                    <div
+                      className="reward-container flex space-between"
+                      key={index}
+                    >
+                      <h6>{reward.name}</h6>
+                      <span>
+                        <figure>
+                          <img
+                            src="./app/images/coins.png"
+                            alt="Genaiguru Coins"
+                            title="Genaiguru Coins"
+                          />
+                        </figure>
+                        {reward.points} Coins
+                      </span>
+                    </div>
+                  );
+                })}
+                {/* <div className="reward-container flex space-between">
                   <h6>First sign-up</h6>
                   <span>
                     <figure>
@@ -203,80 +223,35 @@ const Rewards = () => {
                     </figure>
                     2050 Coins
                   </span>
-                </div>
+                </div> */}
               </div>
               {/* <!-- reach 120 minuts in 10days --> */}
               <div className="reach-days">
                 <div className="access-rewards">
                   <div className="content-box">
                     <h5>Rewards </h5>
-                    <p>Reach 120 min in 10 Days</p>
+                    {/* <p>Reach 120 min in 10 Days</p> */}
                   </div>
-                  <div className="reward-container flex space-between">
-                    <h6>After complete an article</h6>
-                    <span>
-                      <figure>
-                        <img
-                          src="./app/images/coins.png"
-                          alt="Genaiguru Coins"
-                          title="Genaiguru Coins"
-                        />
-                      </figure>
-                      2050 Coins
-                    </span>
-                  </div>
-                  <div className="reward-container flex space-between">
-                    <h6>Leaving comments</h6>
-                    <span>
-                      <figure>
-                        <img
-                          src="./app/images/coins.png"
-                          alt="Genaiguru Coins"
-                          title="Genaiguru Coins"
-                        />
-                      </figure>
-                      2050 Coins
-                    </span>
-                  </div>
-                  <div className="reward-container flex space-between">
-                    <h6>Sharing content</h6>
-                    <span>
-                      <figure>
-                        <img
-                          src="./app/images/coins.png"
-                          alt="Genaiguru Coins"
-                          title="Genaiguru Coins"
-                        />
-                      </figure>
-                      2050 Coins
-                    </span>
-                  </div>
-                  <div className="reward-container flex space-between">
-                    <h6>Watching youtube videos</h6>
-                    <span>
-                      <figure>
-                        <img
-                          src="./app/images/coins.png"
-                          alt="Genaiguru Coins"
-                          title="Genaiguru Coins"
-                        />
-                      </figure>
-                      2050 Coins
-                    </span>
-                  </div>
-                  <div className="reward-container flex space-between">
-                    <h6>Interacting with chatbot</h6>
-                    <span>
-                      <figure>
-                        <img
-                          src="./app/images/coins.png"
-                          alt="Genaiguru Coins"
-                          title="Genaiguru Coins"
-                        />
-                      </figure>
-                      2050 Coins
-                    </span>
-                  </div>
+                  {rewards.map((reward, index) => {
+                    return (
+                      <div
+                        className="reward-container flex space-between"
+                        key={index}
+                      >
+                        <h6>{reward.name}</h6>
+                        <span>
+                          <figure>
+                            <img
+                              src="./app/images/coins.png"
+                              alt="Genaiguru Coins"
+                              title="Genaiguru Coins"
+                            />
+                          </figure>
+                          {reward.points} Coins
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
