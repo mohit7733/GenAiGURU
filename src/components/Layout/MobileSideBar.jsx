@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  PATH_FEATURED_CONTENT,
   PATH_GURUGOLD,
   PATH_LOGIN,
+  PATH_MOBLIE_SETTINGS,
   PATH_PROFILE,
 } from "../../routes";
 import WithAuth from "../../pages/Authentication/WithAuth";
 
 const MobileSideBar = (props) => {
-  const token = JSON.parse(localStorage.getItem("token"));
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
   const navigate = useNavigate();
@@ -170,7 +169,7 @@ const MobileSideBar = (props) => {
               <li>
                 <WithAuth
                   callBack={(e) => {
-                    navigate("/settings");
+                    navigate(PATH_MOBLIE_SETTINGS);
                   }}
                 >
                   <a target="_blank">
