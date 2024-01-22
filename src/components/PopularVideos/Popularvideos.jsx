@@ -18,6 +18,8 @@ const Popularvideos = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   const MAX_DISPLAY_ARTICLES = 2;
+  const MAX_DISPLAY_VIDEOS = 2;
+  const MAX_DISPLAY = 1;
   const navigate = useNavigate();
 
   // Get API for Popular Videos
@@ -81,13 +83,15 @@ const Popularvideos = () => {
         </div>
         <div className="mobileVideoSection">
           <div className="wrap">
-            <Slider
+            {/* <Slider */}
+            {/* <Slider
               ref={sliderRef}
               // {...settings2}
               id="Slider-4"
               className="slider_test"
-            >
+            > */}
               {popularVideos.map((video, index) => {
+                if (index < MAX_DISPLAY) {
                 return (
                   <div
                     className="wrap"
@@ -152,11 +156,12 @@ const Popularvideos = () => {
                     </a>
                   </div>
                 );
+                }
               })}
-            </Slider>
+            {/* </Slider> */}
           </div>
           {popularVideos.map((video, index) => {
-            if (index < MAX_DISPLAY_ARTICLES) {
+            if (index < MAX_DISPLAY_VIDEOS) {
               return (
                 <div
                   className="videoBoxes flex"
@@ -194,7 +199,6 @@ const Popularvideos = () => {
                     </p>
                     <ul>
                       <li>{video.author}</li>
-                      {/* <li>24 M Views</li> */}
                       <li>{video.creation_date}</li>
                     </ul>
                     {/* <p className="tags">{video.tags}</p> */}
@@ -206,39 +210,6 @@ const Popularvideos = () => {
               );
             }
           })}
-          {/* <div className="videoBoxes flex">
-            <figure>
-              <a href="#">
-                <img
-                  src="app/images/interestSliderImg.png"
-                  alt="Genaiguru video image"
-                  title="Genaiguru video image"
-                />
-                <div className="timing flex">
-                  <img
-                    src="app/images/videoIcon.png"
-                    alt="Genaiguru videoIcon"
-                    title="Genaiguru videoIcon"
-                  />
-                  3:38
-                </div>
-              </a>
-            </figure>
-            <div className="content">
-              <p>
-                <a href="#">
-                  It’s a catch-22 for young startups: how do you attract
-                  investors?{" "}
-                </a>
-              </p>
-              <ul>
-                <li>Alex Smith</li>
-                <li>24 M Views</li>
-                <li>3 months</li>
-              </ul>
-              <p className="tags">#finance #crypto #economy</p>
-            </div>
-          </div> */}
           <Link to={PATH_FEATURED_VIDEO} className="viewAll">
             View all
           </Link>
@@ -294,7 +265,6 @@ const Popularvideos = () => {
                             </figure>
                             <div className="content">
                               <h6>{video.author}</h6>
-                              {/* <p>24 M view . 3 month ago</p> */}
                             </div>
                           </div>
                           <ul className="flex">
@@ -303,14 +273,6 @@ const Popularvideos = () => {
                             })}
                           </ul>
                         </div>
-                        {/* <div className="col_right flex">
-                                <img
-                                  src="app/images/videoIcon.png"
-                                  alt="Genaiguru videoIcon"
-                                  title="Genaiguru videoIcon"
-                                />
-                                3:38
-                              </div> */}
                       </div>
                     </div>
                   </a>

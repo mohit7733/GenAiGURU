@@ -82,7 +82,7 @@ const Sidebar = () => {
                 navigate(PATH_GURUGOLD);
               }}
             >
-              <a style={{ cursor: "pointer" }}>
+              <Link style={{ cursor: "pointer" }}>
                 <figure>
                   <img
                     src="app/images/guruGoldIcon.png"
@@ -91,7 +91,7 @@ const Sidebar = () => {
                   />
                 </figure>
                 Guru Gold
-              </a>
+              </Link>
             </WithAuth>
           </li>
           <li>

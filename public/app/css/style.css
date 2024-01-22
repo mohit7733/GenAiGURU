@@ -2538,13 +2538,11 @@ border-radius: 12px;
 padding: 14px 12px 7px;
 }
 
-.article-slider .layer .price,
-.mobileVideoSection .layer .price,
-.video-slider .layer .price {
-border: 1px solid rgba(255, 255, 255, 0.21);
-box-shadow: 0 10px 24px 0 rgba(58, 74, 99, 0.63);
-width: 62px;
-font-size: 14px;
+.article-slider .layer .price, .mobileVideoSection .layer .price, .video-slider .layer .price {
+  border: 1px solid rgba(255, 255, 255, 0.21);
+  box-shadow: 0 10px 24px 0 rgba(58, 74, 99, 0.63);
+  width: 70px;
+  font-size: 14px;
 }
 
 .mobileVideoSection .layer .price {

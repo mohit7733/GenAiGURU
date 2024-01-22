@@ -44,26 +44,13 @@ const PrivacyPolicy = () => {
           />
         </div>
         <div className="privacy-vats commanContent">
-          {/* <h3>{privacyPolicy.title}</h3> */}
-          <div className="date">
-            {/* <p>
-                          Effactive date: <span> March 24, 2023</span>
-                        </p> */}
-          </div>
+          <div className="date"></div>
           <p>
             <p
               dangerouslySetInnerHTML={{
                 __html: privacyPolicy.description,
               }}
             />
-
-            {/* Looking to upgrade your salary in the uk? Get the salary
-                        you’re worth by learning to code. 98% employed within 12
-                        months of qualifying. 28% of students are hired while on
-                        the course. Change career. Career changing skills.
-                        Spaces filling up fast. Looking to upgrade your salary
-                        in{" "} */}
-            {/* {privacyPolicy.description} */}
           </p>
         </div>
         <div className="service-terms">
@@ -71,24 +58,7 @@ const PrivacyPolicy = () => {
             <li>
               <Link to={PATH_TERMS_AND_SERVICES}>Terms of service</Link>
             </li>
-            {/* <li>
-                          <a href="#">Privacy Policy</a>
-                        </li> */}
           </ul>
-
-          {/* <h5>Terms of service</h5>
-                      <p>
-                        Looking to upgrade your salary in the uk? Get the salary
-                        you’re worth by learning to code. 98% employed within 12
-                        months of qualifying. 28% of students are hired while on
-                        the course. Change career. Career changing skills.
-                        Spaces filling up fast. Looking to upgrade your salary
-                        in the uk? Looking to upgrade your salary in the uk? Get
-                        the salary you’re worth by learning to code. 98%
-                        employed within 12 months of qualifying. 28% of students
-                        are hired while on the course. Change career. Career
-                        changing skills. Spaces filling up fast.
-                      </p> */}
         </div>
       </div>
     </div>

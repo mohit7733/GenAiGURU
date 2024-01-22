@@ -126,10 +126,44 @@ const Login6 = () => {
       },
     ],
   };
+  var sliderSettings1 = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <div>
-      <section className="interestSection second mainBg">
+      <section className="interestSection second mainBg hideMob">
         <div className="wrapper">
           <div className="cancelBtn">
             <Link to={PATH_ADDINTERESTS}>
@@ -185,6 +219,64 @@ const Login6 = () => {
           </div>
         </div>
       </section>
+      <div className="mob_terms hideDes">
+        <section className="interestSection second mainBg">
+          <div className="wrapper">
+            <div className="cancelBtn">
+              <Link to={PATH_ADDINTERESTS}>
+                <i className="fa fa-times" aria-hidden="true"></i>
+              </Link>
+              Cancel
+            </div>
+            <h1>You can follow expert writer!</h1>
+            <p>
+              You will find the best posts in the feed according <br /> to your
+              following authors.
+            </p>
+
+            <div className="profileList followexperts">
+              <Slider {...sliderSettings1}>
+                {expertData.map((Writer, index) => {
+                  return (
+                    <li key={Writer.id}>
+                      <figure>
+                        <img
+                          src={Writer.profile_image}
+                          alt="Genaiguru user img"
+                          title="Genaiguru user image"
+                        />
+                      </figure>
+                      <div className="names">
+                        <h5>{Writer.name}</h5>
+                        <p>{Writer.title}</p>
+                      </div>
+                      <div className="btnWrap">
+                        <Link
+                          className={
+                            selectedExpertsIndex.includes(Writer.id)
+                              ? "selectedExperts"
+                              : "btnSecond"
+                          }
+                          onClick={() => handleFollowClick(Writer.id)}
+                        >
+                          {Writer.isFollowing ? "Following" : "Follow"}
+                        </Link>
+                      </div>
+                    </li>
+                  );
+                })}
+              </Slider>
+            </div>
+
+            <div className="buttonText">
+              <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
+                Continue
+              </Link>
+              <ToastContainer autoClose={1000} />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

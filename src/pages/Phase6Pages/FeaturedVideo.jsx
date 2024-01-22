@@ -192,9 +192,9 @@ const FeaturedContent = (props) => {
     dots: false,
     infinite: true,
     slidesToShow: 6,
-    arrows: false,
+    arrows: true,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 1000,
     pauseOnHover: true,
     responsive: [
@@ -657,7 +657,7 @@ const FeaturedContent = (props) => {
                         paddingRight: "46px",
                       }}
                     >
-                      <Slider {...sliderSettings}>
+                      <Slider {...settings2}>
                         {mergedInterests1?.map((interest, index) => (
                           <li
                             key={index}
