@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Layout/Sidebar";
-import MobileHeader from "../../components/Layout/MobileHeader";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
+import MobileHeader from "../../components/Layout/MobileHeader";
+import Sidebar from "../../components/Layout/Sidebar";
 
 const Milestone = () => {
   const [userPoints, setUserPoints] = useState(null);
@@ -196,8 +196,10 @@ const Milestone = () => {
                             </div>
                             <div>
                               <p className="profileBottomText">
-                                Earn more  
-                                <figure style={{ width: "20px",marginLeft:"5px" }}>
+                                Earn more
+                                <figure
+                                  style={{ width: "20px", marginLeft: "5px" }}
+                                >
                                   <img
                                     src="./app/images/coins.png"
                                     alt="Genaiguru Coins"
@@ -210,29 +212,6 @@ const Milestone = () => {
                           </>
                         )}
                       </div>
-                      {/* {completedIds.map((id, index, array) => {
-                        if (id !== level.level) {
-                          if (currentID !== level.level) {
-                            return (
-                              <div className="layer" key={index}>
-                                <figure>
-                                  <img
-                                    src="app/images/lockIcon.png"
-                                    alt="Genaiguru lockIcon"
-                                    title="Genaiguru lockIcon"
-                                  />
-                                </figure>
-                                <p>
-                                  Keep using to earn more points & unlock this
-                                  reward label
-                                </p>
-                              </div>
-                            );
-                          }
-                        } else {
-                          return null; // or an empty string or any other JSX you want for the else case
-                        }
-                      })} */}
 
                       {currentID !== level.level &&
                         completedIds.filter((a) => a == level.level)?.length ==
@@ -274,7 +253,7 @@ const Milestone = () => {
           <div className="rightSection">
             <div className="guru-gold-silver milestoneWrap">
               <div className="row flex ">
-              {levelDetails.map((level, index) => {
+                {levelDetails.map((level, index) => {
                   return (
                     <div className="silver-coin-box" key={index}>
                       <div className="silverWrap">
@@ -361,7 +340,7 @@ const Milestone = () => {
                             </div>
                             <div>
                               <p className="profileBottomText">
-                                Earn more  
+                                Earn more
                                 <figure style={{ width: "20px" }}>
                                   <img
                                     src="./app/images/coins.png"

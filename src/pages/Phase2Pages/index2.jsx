@@ -17,7 +17,6 @@ const Index2 = ({ isLoggedIn }) => {
     },
   ]);
   const API_KEY = process.env.REACT_APP_CHAT_GPT_API_KEY;
-  console.log(API_KEY);
   const navigate = useNavigate();
 
   const handleSendRequest = async (e) => {
@@ -55,7 +54,7 @@ const Index2 = ({ isLoggedIn }) => {
 
       return { role, content: content };
     });
-    console.log(apiMessages);
+    // console.log(apiMessages);
 
     const apiRequestBody = {
       model: "gpt-4",
