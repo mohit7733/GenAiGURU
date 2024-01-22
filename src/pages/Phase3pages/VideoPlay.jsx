@@ -9,6 +9,7 @@ import { BASE_PATH, PATH_FEATURED_VIDEO } from "../../routes";
 import { Link } from "react-router-dom";
 import WithAuth from "../Authentication/WithAuth";
 import userimageIcon from "../../assets/images/person.png";
+import { toast, ToastContainer } from "react-toastify";
 
 const VideoPlay = () => {
   const [videoPlay, setVideoPlay] = useState({
@@ -123,6 +124,13 @@ const VideoPlay = () => {
       });
   };
   const postVideoComment = () => {
+    if (!comment) {
+      // Show a toast error if the content is empty
+      toast.error("Comment content cannot be empty", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     axios
       .post(`${getBaseURL()}/video-comment`, {
         user_id: userId,
@@ -140,6 +148,13 @@ const VideoPlay = () => {
   };
 
   const postVideoReplyComment = (commentId, replyCommentt) => {
+    if (!replyCommentt) {
+      // Show a toast error if the content is empty
+      toast.error("Reply content cannot be empty", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     axios
       .post(`${getBaseURL()}/video-comment-reply`, {
         user_id: userId,
@@ -148,8 +163,10 @@ const VideoPlay = () => {
       })
       .then((res) => {
         console.log(res.data);
+        getReplyComments(commentId);
         setReplyComment("");
-        setButtonClicked(!buttonClicked);
+        getComments();
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -172,7 +189,7 @@ const VideoPlay = () => {
       });
   };
 
-  const postVideoReplyLike = (type, commentId) => {
+  const postVideoReplyLike = (type, commentId, com) => {
     axios
       .post(`${getBaseURL()}/video-like-reply`, {
         user_id: userId,
@@ -180,8 +197,9 @@ const VideoPlay = () => {
         reply_id: commentId,
       })
       .then((res) => {
+        getReplyComments(com);
         // setVideoCommentLikeReply(res?.data);
-        setButtonClicked(!buttonClicked);
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -259,6 +277,22 @@ const VideoPlay = () => {
     }
 
     setReplyCommentModels(updatedModels);
+  };
+
+  const displayReplies = (com) => {
+    setDisplayRepliesCommentModel((prevStatus) => {
+      const updatedStatus = {};
+
+      // Set all comment IDs to false
+      Object.keys(prevStatus).forEach((id) => {
+        updatedStatus[id] = false;
+      });
+
+      // Toggle the value for the target comment ID
+      updatedStatus[com] = !prevStatus[com];
+
+      return updatedStatus;
+    });
   };
 
   return (
@@ -529,9 +563,12 @@ const VideoPlay = () => {
                                     </button>
                                     <span
                                       style={{ cursor: "pointer" }}
-                                      onClick={() =>
-                                        toggleReplyCommentModel(comment.id)
-                                      }
+                                      onClick={() => {
+                                        comment.is_any_reply == "no" &&
+                                          displayReplies(comment.id);
+                                        getReplyComments(comment.id);
+                                        toggleReplyCommentModel(comment.id);
+                                      }}
                                     >
                                       Reply
                                     </span>
@@ -544,13 +581,7 @@ const VideoPlay = () => {
                                       }}
                                       onClick={() => {
                                         getReplyComments(comment.id);
-                                        setDisplayRepliesCommentModel(
-                                          (prevStatus) => ({
-                                            ...prevStatus,
-                                            [comment.id]:
-                                              !prevStatus[comment.id],
-                                          })
-                                        );
+                                        displayReplies(comment.id);
                                       }}
                                     >
                                       <i
@@ -605,12 +636,13 @@ const VideoPlay = () => {
                                           >
                                             <button
                                               className="btnlike"
-                                              onClick={() =>
+                                              onClick={() => {
                                                 postVideoReplyLike(
                                                   "like",
-                                                  reply.id
-                                                )
-                                              }
+                                                  reply.id,
+                                                  comment.id
+                                                );
+                                              }}
                                             >
                                               <img
                                                 className="borderImage"
@@ -647,7 +679,8 @@ const VideoPlay = () => {
                                               onClick={() =>
                                                 postVideoReplyLike(
                                                   "dislike",
-                                                  reply.id
+                                                  reply.id,
+                                                  comment.id
                                                 )
                                               }
                                             >
@@ -722,6 +755,10 @@ const VideoPlay = () => {
                                               comment.id,
                                               replyComment
                                             );
+                                            displayRepliesCommentModel[
+                                              comment.id
+                                            ] == false &&
+                                              displayReplies(comment.id);
                                             toggleReplyCommentModel(comment.id);
                                           }}
                                         >
@@ -1277,9 +1314,12 @@ const VideoPlay = () => {
                                   </button>
                                   <span
                                     style={{ cursor: "pointer" }}
-                                    onClick={() =>
-                                      toggleReplyCommentModel(comment.id)
-                                    }
+                                    onClick={() => {
+                                      comment.is_any_reply == "no" &&
+                                        displayReplies(comment.id);
+                                      getReplyComments(comment.id);
+                                      toggleReplyCommentModel(comment.id);
+                                    }}
                                   >
                                     Reply
                                   </span>
@@ -1292,12 +1332,7 @@ const VideoPlay = () => {
                                     }}
                                     onClick={() => {
                                       getReplyComments(comment.id);
-                                      setDisplayRepliesCommentModel(
-                                        (prevStatus) => ({
-                                          ...prevStatus,
-                                          [comment.id]: !prevStatus[comment.id],
-                                        })
-                                      );
+                                      displayReplies(comment.id);
                                     }}
                                   >
                                     <i
@@ -1352,7 +1387,8 @@ const VideoPlay = () => {
                                             onClick={() =>
                                               postVideoReplyLike(
                                                 "like",
-                                                reply.id
+                                                reply.id,
+                                                comment.id
                                               )
                                             }
                                           >
@@ -1391,7 +1427,8 @@ const VideoPlay = () => {
                                             onClick={() =>
                                               postVideoReplyLike(
                                                 "dislike",
-                                                reply.id
+                                                reply.id,
+                                                comment.id
                                               )
                                             }
                                           >
@@ -1466,6 +1503,10 @@ const VideoPlay = () => {
                                             comment.id,
                                             replyComment
                                           );
+                                          displayRepliesCommentModel[
+                                            comment.id
+                                          ] == false &&
+                                            displayReplies(comment.id);
                                           toggleReplyCommentModel(comment.id);
                                         }}
                                       >

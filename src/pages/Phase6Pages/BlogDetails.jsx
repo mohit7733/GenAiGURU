@@ -214,6 +214,13 @@ const BlogDetails = ({ likes, dislikes }) => {
   }, [buttonClicked]);
 
   const postBlogComment = () => {
+    if (!comment) {
+      // Show a toast error if the content is empty
+      toast.error("Comment content cannot be empty", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     axios
       .post(`${getBaseURL()}/blog-comment`, {
         user_id: userId,
@@ -231,6 +238,13 @@ const BlogDetails = ({ likes, dislikes }) => {
   };
 
   const postBlogReplyComment = (commentId, replyCommentt) => {
+    if (!replyCommentt) {
+      // Show a toast error if the content is empty
+      toast.error("Reply content cannot be empty", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     axios
       .post(`${getBaseURL()}/blog-comment-reply`, {
         user_id: userId,
@@ -239,8 +253,10 @@ const BlogDetails = ({ likes, dislikes }) => {
       })
       .then((res) => {
         console.log(res.data);
+        getReplyComments(commentId);
         setReplyComment("");
-        setButtonClicked(!buttonClicked);
+        getComments();
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -258,7 +274,7 @@ const BlogDetails = ({ likes, dislikes }) => {
       })
       .then((res) => {
         setBlogCommentLike(res.data);
-        setButtonClicked(!buttonClicked);
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -267,7 +283,7 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   //  Post BlogComment Like reply api ......
 
-  const postBlogReplyLike = (type, commentId) => {
+  const postBlogReplyLike = (type, commentId, com) => {
     axios
       .post(`${getBaseURL()}/blog-like-reply`, {
         user_id: userId,
@@ -275,8 +291,9 @@ const BlogDetails = ({ likes, dislikes }) => {
         reply_id: commentId,
       })
       .then((res) => {
+        getReplyComments(com);
         setBlogCommentLikeReply(res?.data);
-        setButtonClicked(!buttonClicked);
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -318,6 +335,22 @@ const BlogDetails = ({ likes, dislikes }) => {
     };
     fetchBadges();
   }, []);
+
+  const displayReplies = (com) => {
+    setDisplayRepliesCommentModel((prevStatus) => {
+      const updatedStatus = {};
+
+      // Set all comment IDs to false
+      Object.keys(prevStatus).forEach((id) => {
+        updatedStatus[id] = false;
+      });
+
+      // Toggle the value for the target comment ID
+      updatedStatus[com] = !prevStatus[com];
+
+      return updatedStatus;
+    });
+  };
 
   // console.log(claimedBadges, userId);
 
@@ -616,11 +649,14 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           </button>
                                           <span
                                             style={{ cursor: "pointer" }}
-                                            onClick={() =>
+                                            onClick={() => {
+                                              comment.is_any_reply == "no" &&
+                                                displayReplies(comment.id);
+                                              getReplyComments(comment.id);
                                               toggleReplyCommentModel(
                                                 comment.id
-                                              )
-                                            }
+                                              );
+                                            }}
                                           >
                                             Reply
                                           </span>
@@ -633,13 +669,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             }}
                                             onClick={() => {
                                               getReplyComments(comment.id);
-                                              setDisplayRepliesCommentModel(
-                                                (prevStatus) => ({
-                                                  ...prevStatus,
-                                                  [comment.id]:
-                                                    !prevStatus[comment.id],
-                                                })
-                                              );
+                                              displayReplies(comment.id);
                                             }}
                                           >
                                             <i
@@ -699,7 +729,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postBlogReplyLike(
                                                           "like",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -738,7 +769,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postBlogReplyLike(
                                                           "dislike",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -811,12 +843,19 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
-                                                onClick={() =>
+                                                onClick={() => {
                                                   postBlogReplyComment(
                                                     comment.id,
                                                     replyComment
-                                                  )
-                                                }
+                                                  );
+                                                  displayRepliesCommentModel[
+                                                    comment.id
+                                                  ] == false &&
+                                                    displayReplies(comment.id);
+                                                  toggleReplyCommentModel(
+                                                    comment.id
+                                                  );
+                                                }}
                                               >
                                                 Post
                                               </button>
@@ -1195,11 +1234,14 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           </button>
                                           <span
                                             style={{ cursor: "pointer" }}
-                                            onClick={() =>
+                                            onClick={() => {
+                                              comment.is_any_reply == "no" &&
+                                                displayReplies(comment.id);
+                                              getReplyComments(comment.id);
                                               toggleReplyCommentModel(
                                                 comment.id
-                                              )
-                                            }
+                                              );
+                                            }}
                                           >
                                             Reply
                                           </span>
@@ -1211,13 +1253,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           }}
                                           onClick={() => {
                                             getReplyComments(comment.id);
-                                            setDisplayRepliesCommentModel(
-                                              (prevStatus) => ({
-                                                ...prevStatus,
-                                                [comment.id]:
-                                                  !prevStatus[comment.id],
-                                              })
-                                            );
+                                            displayReplies(comment.id);
                                           }}
                                         >
                                           <i
@@ -1276,7 +1312,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postBlogReplyLike(
                                                           "like",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -1315,7 +1352,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postBlogReplyLike(
                                                           "dislike",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -1388,12 +1426,19 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
-                                                onClick={() =>
+                                                onClick={() => {
                                                   postBlogReplyComment(
                                                     comment.id,
                                                     replyComment
-                                                  )
-                                                }
+                                                  );
+                                                  displayRepliesCommentModel[
+                                                    comment.id
+                                                  ] == false &&
+                                                    displayReplies(comment.id);
+                                                  toggleReplyCommentModel(
+                                                    comment.id
+                                                  );
+                                                }}
                                               >
                                                 Post
                                               </button>
