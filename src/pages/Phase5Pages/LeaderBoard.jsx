@@ -8,10 +8,14 @@ import { PATH_GURUGOLD } from "../../routes";
 
 const LeaderBoard = () => {
   const [allUsers, setAllUsers] = useState([]);
-  // const [dropDownValue, setDropDownValue] = useState("");
+  const [selectedOption, setSelectedOption] = useState("All");
 
-  const token = JSON.parse(localStorage.getItem("token"));
-  const userId = JSON.parse(localStorage.getItem("UserId"));
+  // const token = JSON.parse(localStorage.getItem("token"));
+  // const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  const capitalizeFirstLetter = (value) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  };
 
   const fetchUserPoints = async (dropDownValue) => {
     try {
@@ -22,6 +26,7 @@ const LeaderBoard = () => {
       );
       console.log(response?.data?.data);
       setAllUsers(response?.data?.data);
+      setSelectedOption(capitalizeFirstLetter(dropDownValue));
     } catch (error) {
       console.error("Error fetching user points:", error.message);
     }
@@ -70,7 +75,8 @@ const LeaderBoard = () => {
                               alt="Genaiguru Coins"
                               title="Genaiguru Coins"
                             />
-                            {allUsers[1]?.points}<span>coins</span>
+                            {allUsers[1]?.points}
+                            <span>coins</span>
                           </p>
                           <h6>{allUsers[1]?.name}</h6>
                         </div>
@@ -127,9 +133,12 @@ const LeaderBoard = () => {
                 </div>
               </div>
               {/* <!-- tabs start here  --> */}
-              <ul className="connect-link ">
+              <ul
+              // className="leaderboard-dropdown"
+              // style={{ marginBottom: "5px" }}
+              >
                 <li>
-                  <select
+                  {/* <select
                     onChange={(e) => {
                       fetchUserPoints(
                         e.target.value == "All"
@@ -141,8 +150,41 @@ const LeaderBoard = () => {
                     <option>All</option>
                     <option>Weekly</option>
                     <option>Daily</option>
-                  </select>
+                  </select> */}
+                  <div
+                    className="dropdown"
+                    style={{ marginBottom: "5px", marginTop: "8px" }}
+                  >
+                    <button className="dropbtn">
+                      {selectedOption ? selectedOption : "All"}
+                      <p>ICON </p>
+                    </button>
+                    <div className="dropdown-content">
+                      <a
+                        onClick={() => {
+                          fetchUserPoints("");
+                        }}
+                      >
+                        All
+                      </a>
+                      <a
+                        onClick={() => {
+                          fetchUserPoints("weekly");
+                        }}
+                      >
+                        Weekly
+                      </a>
+                      <a
+                        onClick={() => {
+                          fetchUserPoints("daily");
+                        }}
+                      >
+                        Daily
+                      </a>
+                    </div>
+                  </div>
                 </li>
+
                 {/* <li>
                   <a
                     href="#"
@@ -489,7 +531,7 @@ const LeaderBoard = () => {
               {/* <!-- tab-link start here -->
       <!-- tab-content here --> */}
               <div className="tab-content tab-content-1 active">
-              {allUsers.slice(3).map((user, index) => {
+                {allUsers.slice(3).map((user, index) => {
                   const originalIndex = index + 2;
                   return (
                     <div className="list-container" key={originalIndex}>

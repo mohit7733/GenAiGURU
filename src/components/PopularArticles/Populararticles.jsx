@@ -15,28 +15,31 @@ import {
 const Populararticles = () => {
   const [articles, setArticles] = useState([]);
   const sliderRef = useRef();
+  const [articlePoints, setArticlePoints] = useState("");
 
   const navigate = useNavigate();
 
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // Get API for Popular Articles
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/articles`, {
+      .get(`${getBaseURL()}/articles?user_id=${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        // console.log(response?.data?.articles);
+        console.log(response?.data?.articles);
         setArticles(response?.data?.articles);
+        setArticlePoints(response?.data?.article_points);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [userId]);
 
   const onArticleClick = (AricleID) => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
@@ -71,6 +74,7 @@ const Populararticles = () => {
       },
     ],
   };
+  console.log(userId, "Popular_Articles");
 
   return (
     <>
@@ -104,14 +108,16 @@ const Populararticles = () => {
                       />
                     </figure>
                     <div className="layer">
-                      <div className="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
+                      {article.read == "no" && (
+                        <div className="price flex">
+                          <img
+                            src="app/images/orangeStrike.png"
+                            alt="Genaiguru orangeStrike"
+                            title="Genaiguru orangeStrike"
+                          />
+                          {articlePoints}
+                        </div>
+                      )}
                       <h5>{article.title}</h5>
                       <div className="author-tag flex">
                         <div className="col_left">

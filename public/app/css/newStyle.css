@@ -1,4 +1,60 @@
 /* new css */
+/* DropdownCSS By Akshay */
+
+.dropbtn {
+  background: linear-gradient(to bottom, #b03fcc, #683fe4);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropbtn a:hover {
+  background: "red"
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 160px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  /* width: 20%; */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background: linear-gradient(to bottom, #b03fcc, #683fe4);
+  color: white;
+  font-size: 16px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+/*  */
 .CircularProgressbar .CircularProgressbar-path {
   stroke: url(#idCSS);
 }
@@ -49,6 +105,7 @@
 .card:nth-child(2) svg circle:last-of-type {
   stroke: #2ecc71;
 }
+/* ///////////////////////////////////////////////////////////////////////////////////////////////// */
 /* Alert Popup css */
 .custom-toast {
   background-color: #3498db;
@@ -409,7 +466,7 @@ p.d_blck {
   height: 20px !important;
   margin: 0 7px !important;
   background: transparent !important;
-  padding: 0 !important; 
+  padding: 0 !important;
 }
 small.pc {
   margin-left: 6px;
@@ -445,21 +502,24 @@ small.pc {
 .review ul li a span:first-child {
   font-weight: bold !important;
 }
-.review ul li .btnlike .fillImage, .download-btn a .fillImage {
+.review ul li .btnlike .fillImage,
+.download-btn a .fillImage {
   display: none !important;
   transition: all 0.1s ease;
 }
-.review ul li .btnlike .borderImage, .download-btn a .borderImage {
+.review ul li .btnlike .borderImage,
+.download-btn a .borderImage {
   display: block !important;
   transition: all 0.1s ease;
 }
-.review ul li .btnlike:hover .fillImage, .download-btn:hover a .fillImage {
+.review ul li .btnlike:hover .fillImage,
+.download-btn:hover a .fillImage {
   display: block !important;
 }
-.review ul li .btnlike:hover .borderImage, .download-btn:hover a .borderImage {
+.review ul li .btnlike:hover .borderImage,
+.download-btn:hover a .borderImage {
   display: none !important;
 }
-
 
 .review input[type="text"] {
   background: transparent;
@@ -1851,23 +1911,24 @@ section.mainWrapper
   object-fit: cover;
 }
 
-.Setting-sidebar{ 
-  background-color:#131f2c;
+.Setting-sidebar {
+  background-color: #131f2c;
   padding: 40px;
 }
-.Setting-sidebar ul li img{ 
+.Setting-sidebar ul li img {
   max-width: 30px;
   width: 100%;
 }
-.Setting-sidebar ul li a, .Setting-sidebar ul li a i{
+.Setting-sidebar ul li a,
+.Setting-sidebar ul li a i {
   color: #fff;
 }
 .Setting-sidebar ul.connect-link li a {
   display: flex;
   align-items: center;
   gap: 30px;
-} 
+}
 .video-box ul.flex.space-between.link .download-btn {
   display: flex;
-gap: 10px;
+  gap: 10px;
 }

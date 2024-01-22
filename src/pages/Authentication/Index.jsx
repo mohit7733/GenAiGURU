@@ -109,7 +109,7 @@ const Index = () => {
             claimed: "no",
           },
         });
-        console.log(response?.data?.data);
+        // console.log(response?.data?.data);
         setClaimedBadges(response?.data?.data);
         if (response?.data?.data.length > 0) {
           setShowPopUp(true);
@@ -121,7 +121,7 @@ const Index = () => {
     fetchBadges();
   }, [userId]);
 
-  // console.log(claimedBadges);
+  console.log(userId);
 
   return (
     <>

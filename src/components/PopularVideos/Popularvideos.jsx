@@ -12,29 +12,37 @@ import { PATH_FEATURED_VIDEO, PATH_VIDEO_PLAY } from "../../routes";
 const Popularvideos = () => {
   const sliderRef = useRef();
   const [popularVideos, setPopularVideos] = useState([]);
+  const [videoPoints, setVideoPoints] = useState();
+
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
   const MAX_DISPLAY_ARTICLES = 2;
   const navigate = useNavigate();
+
   // Get API for Popular Videos
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/popular-latest-videos`, {
+      .get(`${getBaseURL()}/popular-latest-videos?user_id=${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        // console.log(response.data.videos);
-        setPopularVideos(response.data.videos);
+        console.log(response?.data?.videos);
+        setPopularVideos(response?.data?.videos);
+        setVideoPoints(response?.data?.videos_points);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [userId]);
+
+  console.log(userId, "Popular_Videos");
 
   var settings2 = {
     dots: false,
-    infinite: false,
+    infinite: true,
     slidesToShow: 3,
     arrows: false,
     slidesToScroll: 1,
@@ -73,54 +81,6 @@ const Popularvideos = () => {
         </div>
         <div className="mobileVideoSection">
           <div className="wrap">
-            {/* <a href="#">
-              <figure>
-                <img
-                  src="app/images/videoImg.png"
-                  alt="Genaiguru video image"
-                  title="Genaiguru video image"
-                />
-              </figure>
-              <div className="layer">
-                <div className="price flex">
-                  <img
-                    src="app/images/orangeStrike.png"
-                    alt="Genaiguru orangeStrike"
-                    title="Genaiguru orangeStrike"
-                  />
-                  17
-                </div>
-                <h5>
-                  It’s a catch-22 for young startups: How do you attract
-                  investors?{" "}
-                </h5>
-                <div className="author-tag flex">
-                  <div className="col_left">
-                    <div className="wrapper flex">
-                      <figure>
-                        <img
-                          src="app/images/authorImg.png"
-                          alt="Genaiguru author image"
-                          title="Genaiguru author image"
-                        />
-                      </figure>
-                      <div className="content">
-                        <h6>Alex Smih</h6>
-                        <p>24 M view . 3 month ago</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col_right flex">
-                    <img
-                      src="app/images/videoIcon.png"
-                      alt="Genaiguru video button"
-                      title="Genaiguru video button"
-                    />
-                    3:38
-                  </div>
-                </div>
-              </div>
-            </a> */}
             <Slider
               ref={sliderRef}
               // {...settings2}
@@ -155,7 +115,7 @@ const Popularvideos = () => {
                             alt="Genaiguru orangeStrike"
                             title="Genaiguru orangeStrike"
                           />
-                          17
+                          {videoPoints}
                         </div>
                         <h5>{video.title}</h5>
                         <div className="author-tag flex">
@@ -311,14 +271,16 @@ const Popularvideos = () => {
                       />
                     </figure>
                     <div className="layer">
-                      <div className="price flex">
-                        <img
-                          src="app/images/orangeStrike.png"
-                          alt="Genaiguru orangeStrike"
-                          title="Genaiguru orangeStrike"
-                        />
-                        17
-                      </div>
+                      {video.watched == "no" && (
+                        <div className="price flex">
+                          <img
+                            src="app/images/orangeStrike.png"
+                            alt="Genaiguru orangeStrike"
+                            title="Genaiguru orangeStrike"
+                          />
+                          {videoPoints}
+                        </div>
+                      )}
                       <h5>{video.title}</h5>
                       <div className="author-tag flex">
                         <div className="col_left">
