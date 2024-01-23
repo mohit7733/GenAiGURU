@@ -83,8 +83,9 @@ const Login = () => {
   });
 
   // Login with Facebook Function
-  const responseFacebook = (response) => {
-    console.log(response);
+  const responseFacebook = async (response) => {
+    const res = await response;
+    console.log(res, "token");
   };
 
   return (
@@ -105,7 +106,10 @@ const Login = () => {
           <h1>
             <span>Hello!</span> Join the GenAIGuru family now!
           </h1>
-          <p>Get started on your GenAIGuru adventure today. Free, easy sign up with your social media or email</p>
+          <p>
+            Get started on your GenAIGuru adventure today. Free, easy sign up
+            with your social media or email
+          </p>
           <ul>
             <li>
               <Link
@@ -125,7 +129,7 @@ const Login = () => {
             <li>
               <div>
                 <FacebookLogin
-                  appId="1394023161194162"
+                  appId="979240030290574  "
                   autoLoad={false}
                   fields="name,email,picture"
                   callback={responseFacebook}

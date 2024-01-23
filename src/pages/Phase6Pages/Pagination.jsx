@@ -86,44 +86,46 @@ const Pagination = ({
   };
 
   return (
-    <div className="pagination">
-      <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
-        <i className="fa fa-angle-left" aria-hidden="true"></i>
-        <i className="fa fa-angle-left" aria-hidden="true"></i>
-      </button>
-      <button
-        onClick={() => goToPage(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        <i className="fa fa-angle-left" aria-hidden="true"></i>
-      </button>
-      {/* {totalPages > 3 && currentPage >= 3 ? "..." : ""} */}
-      {renderPageNumbers()}
-      {/* {totalPages > 3 && currentPage != totalPages - 1 ? "..." : ""} */}
-      <button
-        onClick={() => goToPage(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        <i className="fa fa-angle-right" aria-hidden="true"></i>
-      </button>
-      <button
-        onClick={() => goToPage(totalPages)}
-        disabled={currentPage === totalPages}
-      >
-        <i className="fa fa-angle-right" aria-hidden="true"></i>
-        <i className="fa fa-angle-right" aria-hidden="true"></i>
-      </button>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="number"
-          value={inputPage}
-          onChange={handleInputChange}
-          min="1"
-          max={totalPages}
-        />
-        <button onClick={handleGoToInputPage}>Go to Page</button>
-      </form>
-    </div>
+    totalItems > 10 && (
+      <div className="pagination">
+        <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
+          <i className="fa fa-angle-left" aria-hidden="true"></i>
+          <i className="fa fa-angle-left" aria-hidden="true"></i>
+        </button>
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <i className="fa fa-angle-left" aria-hidden="true"></i>
+        </button>
+        {/* {totalPages > 3 && currentPage >= 3 ? "..." : ""} */}
+        {renderPageNumbers()}
+        {/* {totalPages > 3 && currentPage != totalPages - 1 ? "..." : ""} */}
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          <i className="fa fa-angle-right" aria-hidden="true"></i>
+        </button>
+        <button
+          onClick={() => goToPage(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          <i className="fa fa-angle-right" aria-hidden="true"></i>
+          <i className="fa fa-angle-right" aria-hidden="true"></i>
+        </button>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <input
+            type="number"
+            value={inputPage}
+            onChange={handleInputChange}
+            min="1"
+            max={totalPages}
+          />
+          <button onClick={handleGoToInputPage}>Go to Page</button>
+        </form>
+      </div>
+    )
   );
 };
 

@@ -226,6 +226,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       });
   }, []);
   const postArticleComment = () => {
+    if (!comment) {
+      // Show a toast error if the content is empty
+      toast.error("Comment content cannot be empty", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     axios
       .post(`${getBaseURL()}/article-comment`, {
         user_id: userId,
@@ -242,6 +249,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       });
   };
   const postArticleReplyComment = (commentId, replyCommentt) => {
+    if (!replyCommentt) {
+      // Show a toast error if the content is empty
+      toast.error("Reply content cannot be empty", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     axios
       .post(`${getBaseURL()}/article-comment-reply`, {
         user_id: userId,
@@ -249,9 +263,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         content: replyCommentt,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        getReplyComments(commentId);
         setReplyComment("");
-        setButtonClicked(!buttonClicked);
+        getComments();
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -279,7 +295,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   //  Post Article Comment Like reply api ......
 
-  const postArticleReplyLike = (type, commentId) => {
+  const postArticleReplyLike = (type, commentId, com) => {
     axios
       .post(`${getBaseURL()}/article-like-reply`, {
         user_id: userId,
@@ -287,8 +303,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         reply_id: commentId,
       })
       .then((res) => {
+        getReplyComments(com);
         setArticleCommentLikeReply(res.data);
-        setButtonClicked(!buttonClicked);
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
@@ -316,6 +333,21 @@ const ArticlesDetails = ({ likes, dislikes }) => {
     };
     fetchBadges();
   }, []);
+  const displayReplies = (com) => {
+    setDisplayRepliesCommentModel((prevStatus) => {
+      const updatedStatus = {};
+
+      // Set all comment IDs to false
+      Object.keys(prevStatus).forEach((id) => {
+        updatedStatus[id] = false;
+      });
+
+      // Toggle the value for the target comment ID
+      updatedStatus[com] = !prevStatus[com];
+
+      return updatedStatus;
+    });
+  };
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -627,46 +659,51 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           </button>
                                           <span
                                             style={{ cursor: "pointer" }}
-                                            onClick={() =>
+                                            onClick={() => {
+                                              comment.is_any_reply == "no" &&
+                                                displayReplies(comment.id);
+                                              getReplyComments(comment.id);
                                               toggleReplyCommentModel(
                                                 comment.id
-                                              )
-                                            }
+                                              );
+                                            }}
                                           >
                                             Reply
                                           </span>
                                         </div>
-                                        <p
-                                          className="d_blck"
-                                          style={{
-                                            cursor: "pointer",
-                                          }}
-                                          onClick={() => {
-                                            getReplyComments(comment.id);
-                                            setDisplayRepliesCommentModel(
-                                              (prevStatus) => ({
-                                                ...prevStatus,
-                                                [comment.id]:
-                                                  !prevStatus[comment.id],
-                                              })
-                                            );
-                                          }}
-                                        >
-                                          <i
-                                            style={{ marginRight: "5px" }}
-                                            class={
-                                              !displayRepliesCommentModel[
-                                                comment?.id
-                                              ] &&
-                                              getReplyArticleComments?.comment_id !==
-                                                comment?.id
-                                                ? "fa fa-caret-down"
-                                                : "fa fa-caret-up"
-                                            }
-                                            aria-hidden="true"
-                                          ></i>
-                                          Replies
-                                        </p>
+                                        {comment.is_any_reply == "yes" && (
+                                          <p
+                                            className="d_blck"
+                                            style={{
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={() => {
+                                              getReplyComments(comment.id);
+                                              setDisplayRepliesCommentModel(
+                                                (prevStatus) => ({
+                                                  ...prevStatus,
+                                                  [comment.id]:
+                                                    !prevStatus[comment.id],
+                                                })
+                                              );
+                                            }}
+                                          >
+                                            <i
+                                              style={{ marginRight: "5px" }}
+                                              class={
+                                                !displayRepliesCommentModel[
+                                                  comment?.id
+                                                ] &&
+                                                getReplyArticleComments?.comment_id !==
+                                                  comment?.id
+                                                  ? "fa fa-caret-down"
+                                                  : "fa fa-caret-up"
+                                              }
+                                              aria-hidden="true"
+                                            ></i>
+                                            Replies
+                                          </p>
+                                        )}
                                       </span>
                                     </a>
                                   </li>
@@ -712,7 +749,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postArticleReplyLike(
                                                           "like",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -756,7 +794,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postArticleReplyLike(
                                                           "dislike",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -831,12 +870,19 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
-                                                onClick={() =>
+                                                onClick={() => {
                                                   postArticleReplyComment(
                                                     comment.id,
                                                     replyComment
-                                                  )
-                                                }
+                                                  );
+                                                  displayRepliesCommentModel[
+                                                    comment.id
+                                                  ] == false &&
+                                                    displayReplies(comment.id);
+                                                  toggleReplyCommentModel(
+                                                    comment.id
+                                                  );
+                                                }}
                                               >
                                                 Post
                                               </button>
@@ -1250,11 +1296,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           </button>
                                           <span
                                             style={{ cursor: "pointer" }}
-                                            onClick={() =>
+                                            onClick={() => {
+                                              comment.is_any_reply == "no" &&
+                                                displayReplies(comment.id);
+                                              getReplyComments(comment.id);
                                               toggleReplyCommentModel(
                                                 comment.id
-                                              )
-                                            }
+                                              );
+                                            }}
                                           >
                                             Reply
                                           </span>
@@ -1266,13 +1315,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           }}
                                           onClick={() => {
                                             getReplyComments(comment.id);
-                                            setDisplayRepliesCommentModel(
-                                              (prevStatus) => ({
-                                                ...prevStatus,
-                                                [comment.id]:
-                                                  !prevStatus[comment.id],
-                                              })
-                                            );
+                                            displayReplies(comment.id);
                                           }}
                                         >
                                           <i
@@ -1335,7 +1378,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postArticleReplyLike(
                                                           "like",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -1379,7 +1423,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                       onClick={() =>
                                                         postArticleReplyLike(
                                                           "dislike",
-                                                          reply.id
+                                                          reply.id,
+                                                          comment.id
                                                         )
                                                       }
                                                     >
@@ -1454,12 +1499,19 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
-                                                onClick={() =>
+                                                onClick={() => {
                                                   postArticleReplyComment(
                                                     comment.id,
                                                     replyComment
-                                                  )
-                                                }
+                                                  );
+                                                  displayRepliesCommentModel[
+                                                    comment.id
+                                                  ] == false &&
+                                                    displayReplies(comment.id);
+                                                  toggleReplyCommentModel(
+                                                    comment.id
+                                                  );
+                                                }}
                                               >
                                                 Post
                                               </button>
