@@ -50,7 +50,6 @@ const VideoPlay = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
     axios
       .get(
         `${getBaseURL()}/popular-latest-videos?id=${videoId}&user_id=${userId}`,
@@ -182,7 +181,8 @@ const VideoPlay = () => {
       })
       .then((res) => {
         // setVideoCommentLike(res.data);
-        setButtonClicked(!buttonClicked);
+        // setButtonClicked(!buttonClicked);
+        getComments();
       })
       .catch((err) => {
         console.log(err.message);
@@ -206,7 +206,7 @@ const VideoPlay = () => {
       });
   };
 
-  const postVideoupdo = (type) => {
+  const postVideoupdo = (type, e) => {
     axios
       .post(`${getBaseURL()}/video-upvote`, {
         video_id: videoId,
@@ -221,6 +221,7 @@ const VideoPlay = () => {
       .catch((err) => {
         console.log(err.message);
       });
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -328,7 +329,7 @@ const VideoPlay = () => {
                     })}
                   </li>
                   <li className="download-btn">
-                    <a onClick={() => postVideoupdo("upvote")} href="#">
+                    <a onClick={(e) => postVideoupdo("upvote", e)} href="#">
                       <img
                         className={
                           videoPlay?.like_details?.type == "upvote"
@@ -356,7 +357,8 @@ const VideoPlay = () => {
                         {videoPlay.upvote}
                       </span>
                     </a>
-                    <a onClick={() => postVideoupdo("downvote")}>
+
+                    <a onClick={(e) => postVideoupdo("downvote", e)}>
                       <img
                         className={
                           videoPlay?.like_details?.type == "downvote"
@@ -1121,7 +1123,7 @@ const VideoPlay = () => {
                   </a>
                 </li>
                 <li className="download-btn">
-                  <a onClick={() => postVideoupdo("upvote")} href="#">
+                  <a onClick={(e) => postVideoupdo("upvote", e)} href="#">
                     <img
                       src="/app/images/thumbs-up.png"
                       alt="Genaiguru thumbs-up"
@@ -1130,7 +1132,7 @@ const VideoPlay = () => {
                     {videoPlay.upvote}
                   </a>
 
-                  <a onClick={() => postVideoupdo("downvote")} href="#">
+                  <a onClick={(e) => postVideoupdo("downvote", e)} href="#">
                     <img
                       src="/app/images/thumbs-down.png"
                       alt="Genaiguru thumbs-down"
