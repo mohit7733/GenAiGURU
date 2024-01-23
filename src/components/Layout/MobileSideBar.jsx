@@ -76,7 +76,7 @@ const MobileSideBar = (props) => {
                       alt="Genaiguru Gamification menu icon"
                       title="Genaiguru Gamification menu icon"
                     />
-                    Gamification
+                    Guru Gold
                   </a>
                 </WithAuth>
               </li>
@@ -162,7 +162,7 @@ const MobileSideBar = (props) => {
                       alt="Genaiguru My subscription menu icon"
                       title="Genaiguru My subscription menu icon"
                     />
-                    My Subscription
+                    Team Guru
                   </a>
                 </WithAuth>
               </li>

@@ -125,7 +125,7 @@ const Header = () => {
                 alt="Genaiguru mobile padIcon"
                 title="Genaiguru mobile padIcon"
               />{" "}
-              Write
+              Write with AI
             </Link>
           </li>
           <li className="userIcon">
@@ -161,7 +161,9 @@ const Header = () => {
           </li>
         </ul>
       </header>
-      {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}  />}
+      {isMobileSidebarOpen && (
+        <MobileSideBar toggleMobileSidebar={toggleMobileSidebar} />
+      )}
     </>
   );
 };

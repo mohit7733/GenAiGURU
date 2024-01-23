@@ -37,7 +37,7 @@ const Index = () => {
     slidesToShow: 3,
     arrows: false,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     pauseOnHover: true,
     responsive: [

@@ -11,6 +11,7 @@
   width: -webkit-fill-available;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .dropbtn a:hover {
@@ -1911,9 +1912,30 @@ section.mainWrapper
   object-fit: cover;
 }
 
+.Setting-sidebar ul.connect-link .d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Setting-sidebar ul.connect-link i {
+  color: #fff;
+}
+.Setting-sidebar ul.connect-link li:nth-of-type(5), .Setting-sidebar ul.connect-link li:nth-of-type(6) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+ul.connect-link li {
+  padding: 10px 0;
+}
 .Setting-sidebar {
   background-color: #131f2c;
   padding: 40px;
+  max-width: 420px;
+}
+.Setting-sidebar h2 {
+  padding: 10px 0;
 }
 .Setting-sidebar ul li img {
   max-width: 30px;

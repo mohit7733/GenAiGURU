@@ -157,7 +157,13 @@ const LeaderBoard = () => {
                   >
                     <button className="dropbtn">
                       {selectedOption ? selectedOption : "All"}
-                      <p>ICON </p>
+                      <p>
+                        <img
+                          src="app/images/arrow-left.png"
+                          alt="Genaiguru arrow-left"
+                          style={{ transform: "rotate(90deg)" }}
+                        />
+                      </p>
                     </button>
                     <div className="dropdown-content">
                       <a
@@ -409,7 +415,7 @@ const LeaderBoard = () => {
             <div className="guru-gold-silver">
               <div className="innerBreadcrumb">
                 <p>
-                  <a href="#">Gurugold</a>{" "}
+                  <Link to={PATH_GURUGOLD}>Gurugold</Link>{" "}
                   <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                   Leaderboard
                 </p>
@@ -438,7 +444,7 @@ const LeaderBoard = () => {
                               alt="Genaiguru Coins"
                               title="Genaiguru Coins"
                             />
-                            {allUsers[1]?.points} <span>points</span>
+                            {allUsers[1]?.points} <span>coins</span>
                           </p>
                           <h6>{allUsers[1]?.name}</h6>
                         </div>
@@ -462,7 +468,7 @@ const LeaderBoard = () => {
                               title="Genaiguru Coins"
                             />{" "}
                             {allUsers[0]?.points}
-                            <span>points</span>
+                            <span>coins</span>
                           </p>
                           <h6>{allUsers[0]?.name}</h6>
                         </div>
@@ -485,7 +491,7 @@ const LeaderBoard = () => {
                               alt="Genaiguru Coins"
                               title="Genaiguru Coins"
                             />
-                            {allUsers[2]?.points} <span>points</span>
+                            {allUsers[2]?.points} <span>coins</span>
                           </p>
                           <h6>{allUsers[2]?.name}</h6>
                         </div>
@@ -565,7 +571,7 @@ const LeaderBoard = () => {
                                 title="Genaiguru Coins"
                               />
                             </figure>
-                            <span>{user.points} points</span>
+                            <span>{user.points} coins</span>
                           </span>
                         </div>
                       </div>

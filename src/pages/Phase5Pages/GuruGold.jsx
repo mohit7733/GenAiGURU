@@ -414,27 +414,6 @@ const GuruGold = () => {
               <div className="silver-user">
                 <ul className="flex">
                   <li>
-                    {/* <div class="card">
-                      <figure>
-                        <img
-                          src={userDetails.profile_image}
-                          alt="userIcon"
-                          title="userIcon"
-                          style={{ borderRadius: "100%" }}
-                        />
-                      </figure>
-                      <div class="percent">
-                        <svg>
-                          <circle cx="40" cy="40" r="38"></circle>
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="38"
-                            style={{ "--percent": 70 }}
-                          ></circle>
-                        </svg>
-                      </div>
-                    </div> */}
                     <svg style={{ height: 0, width: 0 }}>
                       <defs>
                         <linearGradient
