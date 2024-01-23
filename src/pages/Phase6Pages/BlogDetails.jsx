@@ -274,6 +274,7 @@ const BlogDetails = ({ likes, dislikes }) => {
       })
       .then((res) => {
         setBlogCommentLike(res.data);
+        getComments();
         // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {

@@ -286,7 +286,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .then((res) => {
         console.log(res.data, "fdggh");
         setArticleCommentLike(res.data);
-        setButtonClicked(!buttonClicked);
+        getComments();
+        // setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
         console.log(err.message);
