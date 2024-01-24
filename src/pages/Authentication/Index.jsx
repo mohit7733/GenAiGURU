@@ -27,8 +27,9 @@ const Index = () => {
 
   const navigate = useNavigate();
 
-  const userId = JSON.parse(localStorage.getItem("UserId"));
-  const token = JSON.parse(localStorage.getItem("token"));
+  const userId = localStorage.getItem("UserId");
+
+  const token = localStorage.getItem("token");
 
   const MAX_DISPLAY_ARTICLES = 2;
   var settings2 = {
@@ -121,7 +122,7 @@ const Index = () => {
     fetchBadges();
   }, [userId]);
 
-  console.log(userId);
+  console.log(typeof userId);
 
   return (
     <>
