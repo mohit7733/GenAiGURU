@@ -129,7 +129,7 @@ const Login = () => {
             <li>
               <div>
                 <FacebookLogin
-                  appId="979240030290574  "
+                  appId="979240030290574"
                   autoLoad={false}
                   fields="name,email,picture"
                   callback={responseFacebook}
