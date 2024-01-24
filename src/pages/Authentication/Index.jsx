@@ -26,10 +26,12 @@ const Index = () => {
   const sliderRef = useRef();
 
   const navigate = useNavigate();
-
-  const userId = localStorage.getItem("UserId");
-
-  const token = localStorage.getItem("token");
+  const [userId, setuserId] = useState(
+    localStorage.getItem("UserId") ? localStorage.getItem("UserId") : ""
+  );
+  const [token, settoken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  );
 
   const MAX_DISPLAY_ARTICLES = 2;
   var settings2 = {
@@ -63,35 +65,39 @@ const Index = () => {
   // Get API for Popular Articles
 
   useEffect(() => {
-    axios
-      .get(`${getBaseURL()}/articles`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        // console.log(response?.data?.articles);
-        setArticles(response?.data?.articles);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    if (token != "") {
+      axios
+        .get(`${getBaseURL()}/articles`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          // console.log(response?.data?.articles);
+          setArticles(response?.data?.articles);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   }, []);
 
   // Get API for Popular articles View ALL
   useEffect(() => {
-    axios
-      .get(`${getBaseURL()}/articles?user_id=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setAllArticles(response?.data?.articles);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    if (token != "") {
+      axios
+        .get(`${getBaseURL()}/articles?user_id=${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setAllArticles(response?.data?.articles);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   }, []);
 
   const onArticleClick = (AricleID) => {
@@ -102,27 +108,27 @@ const Index = () => {
 
   // fetchBadges API
   useEffect(() => {
-    const fetchBadges = async () => {
-      try {
-        const response = await axios.get(`${getBaseURL()}/game-badges`, {
-          params: {
-            user_id: userId,
-            claimed: "no",
-          },
-        });
-        // console.log(response?.data?.data);
-        setClaimedBadges(response?.data?.data);
-        if (response?.data?.data.length > 0) {
-          setShowPopUp(true);
+    if (token != "") {
+      const fetchBadges = async () => {
+        try {
+          const response = await axios.get(`${getBaseURL()}/game-badges`, {
+            params: {
+              user_id: userId,
+              claimed: "no",
+            },
+          });
+          // console.log(response?.data?.data);
+          setClaimedBadges(response?.data?.data);
+          if (response?.data?.data.length > 0) {
+            setShowPopUp(true);
+          }
+        } catch (error) {
+          console.error("Error fetching user points:", error.message);
         }
-      } catch (error) {
-        console.error("Error fetching user points:", error.message);
-      }
-    };
-    fetchBadges();
+      };
+      fetchBadges();
+    }
   }, [userId]);
-
-  console.log(typeof userId);
 
   return (
     <>
@@ -326,7 +332,7 @@ const Index = () => {
               View all
             </Link>
           </div>
-          {token && <Categories />}
+          {token != "" && <Categories />}
           {/* {token && <ArticleBasedInterest />} */}
         </div>
       </section>
