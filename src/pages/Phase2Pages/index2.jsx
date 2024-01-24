@@ -3,79 +3,110 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import Index3 from "./index3";
+import { getBaseURL } from "../../api/config";
+import axios from "axios";
 
 const Index2 = ({ isLoggedIn }) => {
   const [chatInputText, setChatInputText] = useState("");
+
+  const token = JSON.parse(localStorage.getItem("token"));
+
   const [chatResponseText, setChatResponseText] = useState("");
   const [displayRespone, setDisplayRespone] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      // message: "Hello, I'm ChatGPT! Ask me anything!",
-      message: "",
-      sentTime: "just now",
-      sender: "ChatGPT",
-    },
-  ]);
-  const API_KEY = process.env.REACT_APP_CHAT_GPT_API_KEY;
-  const navigate = useNavigate();
+  // const [messages, setMessages] = useState([
+  //   {
+  //     // message: "Hello, I'm ChatGPT! Ask me anything!",
+  //     message: "",
+  //     sentTime: "just now",
+  //     sender: "ChatGPT",
+  //   },
+  // ]);
+  // const API_KEY = process.env.REACT_APP_CHAT_GPT_API_KEY;
+  // const navigate = useNavigate();
 
-  const handleSendRequest = async (e) => {
-    e.preventDefault();
-    const newMessage = {
-      chatInputText,
-      direction: "outgoing",
-      sender: "user",
-    };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  // const handleSendRequest = async (e) => {
+  //   e.preventDefault();
+  //   const newMessage = {
+  //     chatInputText,
+  //     direction: "outgoing",
+  //     sender: "user",
+  //   };
+  //   setMessages((prevMessages) => [...prevMessages, newMessage]);
+  //   try {
+  //     const response = await processMessageToChatGPT([...messages, newMessage]);
+  //     console.log(response);
+  //     const content = response.choices[0]?.message?.content;
+  //     setChatResponseText(content);
+  //     if (content) {
+  //       const chatGPTResponse = {
+  //         message: content,
+  //         sender: "ChatGPT",
+  //       };
+  //       setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
+  //       setDisplayRespone(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error processing message:", error);
+  //   } finally {
+  //     console.log("API RUNNING AT FINALLY");
+  //   }
+  // };
+
+  // async function processMessageToChatGPT(chatMessages) {
+  //   const apiMessages = chatMessages.map((messageObject) => {
+  //     const role = messageObject.sender === "ChatGPT" ? "assistant" : "user";
+  //     const content = messageObject.chatInputText || ""; // Ensure content is not undefined or null
+
+  //     return { role, content: content };
+  //   });
+  //   // console.log(apiMessages);
+
+  //   const apiRequestBody = {
+  //     model: "gpt-4",
+  //     messages: [
+  //       { role: "system", content: "I'm a Student using ChatGPT for learning" },
+  //       ...apiMessages,
+  //     ],
+  //   };
+
+  //   const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: "Bearer " + API_KEY,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(apiRequestBody),
+  //   });
+
+  //   return response.json();
+  // }
+
+  const chatGPTApi = async (chatInputText) => {
     try {
-      const response = await processMessageToChatGPT([...messages, newMessage]);
-      console.log(response);
-      const content = response.choices[0]?.message?.content;
-      setChatResponseText(content);
-      if (content) {
-        const chatGPTResponse = {
-          message: content,
-          sender: "ChatGPT",
-        };
-        setMessages((prevMessages) => [...prevMessages, chatGPTResponse]);
-        setDisplayRespone(true);
-      }
+      const response = await axios.post(
+        `${getBaseURL()}/auth/send-chat-message`,
+        {
+          message: chatInputText,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response?.data?.[0]?.choices?.[0]?.message?.content);
+      setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
+      setDisplayRespone(true);
+      // setChatInputText("");
     } catch (error) {
-      console.error("Error processing message:", error);
-    } finally {
-      console.log("API RUNNING AT FINALLY");
+      if (!chatInputText) {
+        alert("Please Type Antything...");
+        setDisplayRespone(false);
+      }
+      console.error("Error chatGPTApi:", error.message);
     }
   };
-
-  async function processMessageToChatGPT(chatMessages) {
-    const apiMessages = chatMessages.map((messageObject) => {
-      const role = messageObject.sender === "ChatGPT" ? "assistant" : "user";
-      const content = messageObject.chatInputText || ""; // Ensure content is not undefined or null
-
-      return { role, content: content };
-    });
-    // console.log(apiMessages);
-
-    const apiRequestBody = {
-      model: "gpt-4",
-      messages: [
-        { role: "system", content: "I'm a Student using ChatGPT for learning" },
-        ...apiMessages,
-      ],
-    };
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    });
-
-    return response.json();
-  }
-
   return (
     <>
       <Header />
@@ -111,7 +142,7 @@ const Index2 = ({ isLoggedIn }) => {
                         title="Genaiguru search icon image"
                       />
                     </figure>
-                    <form action="" className="flex searchFormLong">
+                    <div className="flex searchFormLong">
                       <div className="form_group">
                         <input
                           type="text"
@@ -129,14 +160,14 @@ const Index2 = ({ isLoggedIn }) => {
                         </button>
                       </div>
                       <div className="form_group">
-                        <button type="submit" onClick={handleSendRequest}>
+                        <button onClick={() => chatGPTApi(chatInputText)}>
                           <img
                             src="app/images/sendButtonIcon.png"
                             alt="Genaiguru sendButtonIcon"
                           />
                         </button>
                       </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
                 {displayRespone ? (
@@ -149,19 +180,38 @@ const Index2 = ({ isLoggedIn }) => {
                     </p>
                     <div className="textBox">
                       <p>
-                        <a href="#">
+                        <a
+                          onClick={() =>
+                            chatGPTApi(
+                              "I need your help to finding some best articles about trendy technology."
+                            )
+                          }
+                          style={{ cursor: "pointer" }}
+                        >
                           I need your help to finding some best articles about{" "}
                           <br /> trendy technology.
                         </a>
                       </p>
                       <p>
-                        <a href="#">
-                          Suggest me some youtube videos about <br /> AI current
+                        <a
+                          onClick={() =>
+                            chatGPTApi(
+                              "Suggest me some youtube videos about  AI current situation."
+                            )
+                          }
+                          style={{ cursor: "pointer" }}
+                        >
+                          Suggest me some youtube videos about AI current
                           situation.
                         </a>
                       </p>
                       <p>
-                        <a href="#">Give me career solution.</a>
+                        <a
+                          onClick={() => chatGPTApi("Give me career solution.")}
+                          style={{ cursor: "pointer" }}
+                        >
+                          Give me career solution.
+                        </a>
                       </p>
                     </div>
                   </>
@@ -255,7 +305,8 @@ const Index2 = ({ isLoggedIn }) => {
                         type="submit"
                         onClick={(e) => {
                           e.preventDefault();
-                          navigate("/index3");
+                          // navigate("/index3");
+                          alert("Mobville ");
                         }}
                       >
                         <img

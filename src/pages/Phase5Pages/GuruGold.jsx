@@ -1,18 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { Link } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
 import Sidebar from "../../components/Layout/Sidebar";
 import { PATH_LEADERBOARD } from "../../routes";
-import {
-  CircularProgressbar,
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import MobileSideBar from "../../components/Layout/MobileSideBar";
+import LockImage from "../../assets/images/lock.png";
 
 const GuruGold = () => {
   const [userPoints, setUserPoints] = useState(null);
@@ -244,11 +240,15 @@ const GuruGold = () => {
                             </figure>
                           </CircularProgressbarWithChildren>
                         </div>
+                        {completedIds.filter((a) => a == level.level)?.length ==
+                          0 && (
+                          <div>
+                            <img src={LockImage} />
+                          </div>
+                        )}
                         {currentID !== level.level &&
                           completedIds.filter((a) => a == level.level)
-                            ?.length == 0 && (
-                            <div style={{ backgroundColor: "red" }}>blur</div>
-                          )}
+                            ?.length == 0 && <div className="blursImgs"></div>}
                       </li>
                     );
                   })}
