@@ -171,7 +171,7 @@ const Index2 = ({ isLoggedIn }) => {
                   </div>
                 </div>
                 {displayRespone ? (
-                  <Index3 responseMessage={chatResponseText} />
+                  <Index3 responseMessage={chatResponseText} userSearchedText={chatInputText}/>
                 ) : (
                   <>
                     <p className="lightText">

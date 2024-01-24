@@ -1964,3 +1964,8 @@ ul.connect-link li {
 .rightSection .guru-gold-silver .silver-user li{
   position: relative;
 }
+.blurImgIcons{
+	position: absolute;
+    bottom: 10px;
+    right: 0;
+}

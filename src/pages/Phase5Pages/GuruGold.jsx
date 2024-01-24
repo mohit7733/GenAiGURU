@@ -242,7 +242,7 @@ const GuruGold = () => {
                         </div>
                         {completedIds.filter((a) => a == level.level)?.length ==
                           0 && (
-                          <div>
+                          <div className="blurImgIcons">
                             <img src={LockImage} />
                           </div>
                         )}
