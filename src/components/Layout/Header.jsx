@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import userimageIcon from "../../assets/images/person.png";
 import WithAuth from "../../pages/Authentication/WithAuth";
-import { PATH_LOGIN, PATH_PROFILE } from "../../routes";
+import { PATH_LOGIN } from "../../routes";
 import MobileSideBar from "./MobileSideBar";
 const Header = () => {
   const [profileImage, setProfileImage] = useState();

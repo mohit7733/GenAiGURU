@@ -1,25 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getBaseURL } from "../../api/config";
+import userimageIcon from "../../assets/images/person.png";
 
-const Index3 = ({ responseMessage }) => {
-  console.log(responseMessage);
+import axios from "axios";
+
+const Index3 = ({ responseMessage, userSearchedText }) => {
+  const [profileImage, setProfileImage] = useState();
+  const token = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token"))
+    : "";
+  const [userText, setUserText] = useState(userSearchedText);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setProfileImage(response.data.profile_image);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <div>
       <section className="">
-        <div className="">
-          <div className="help-section flex">
-            <div className="left_col">
+        
               <div className="wrap">
                 <div className="userSearch flex">
                   <figure>
-                    <img
-                      src="app/images/userIcon.png"
-                      alt="Genaiguru userIcon"
-                      title="Genaiguru userIcon"
-                    />
+                    <img src={profileImage ? profileImage : userimageIcon} />
                   </figure>
-                  <p>Suggest me some articles about blockchain</p>
+                  <p>
+                    {userText
+                      ? userText
+                      : "Suggest Me Some Articles On Blockchain"}
+                  </p>
                 </div>
                 <div className="searchResults">
                   <div className="headings flex">
@@ -47,9 +68,7 @@ const Index3 = ({ responseMessage }) => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+           
       </section>
 
       <div className="mobileHelp">
