@@ -85,7 +85,47 @@ const Login = () => {
   // Login with Facebook Function
   const responseFacebook = async (response) => {
     const res = await response;
-    console.log(res, "token");
+    axios
+      .post("https://genaiadmindev.sdsstaging.co.uk/api/auth/facebook-login", {
+        fb_response: JSON.stringify(res),
+      })
+      .then((res) => {
+        localStorage.setItem("token", JSON.stringify(res?.data?.accessToken));
+        localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+        axios
+          .get(`${getBaseURL()}/auth/user/email-verification-status`, {
+            headers: {
+              Authorization: `Bearer ${res.data.accessToken}`,
+            },
+          })
+          .then((res) => {
+            toast.success("Logged in Successfully", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            setTimeout(() => {
+              if (
+                res?.data?.email_verified == "yes" &&
+                res?.data?.post_follwed == "yes"
+              ) {
+                navigate("/");
+              } else {
+                navigate(`${PATH_WELCOME}`);
+              }
+            }, [2000]);
+          });
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   return (
@@ -129,7 +169,7 @@ const Login = () => {
             <li>
               <div>
                 <FacebookLogin
-                  appId="979240030290574  "
+                  appId="979240030290574"
                   autoLoad={false}
                   fields="name,email,picture"
                   callback={responseFacebook}
