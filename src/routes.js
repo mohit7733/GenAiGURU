@@ -295,7 +295,7 @@ export function RouterElement() {
       path: PATH_CUSTOMIZE_INTEREST,
       name: PATH_CUSTOMIZE_INTEREST,
       element: <CustomizeInterest/>,
-      exact: true,
+      exact: true, 
     },
   ];
 
