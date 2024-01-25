@@ -11,6 +11,7 @@ import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 import userimageIcon from "../../assets/images/person.png";
 import SilverPopup from "../Phase5Pages/SilverPopup";
+import LevelPopup from "../../components/LevelPopup/LevelPopup";
 
 const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
@@ -49,7 +50,9 @@ const BlogDetails = ({ likes, dislikes }) => {
   );
 
   const [showPopUp, setShowPopUp] = useState(false);
+  const [showLevelPopUp, setShowLevelPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
+  const [claimedLevels, setclaimedLevels] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -179,7 +182,6 @@ const BlogDetails = ({ likes, dislikes }) => {
         },
       })
       .then((res) => {
-        console.log(res?.data);
         setGetBlogComments(res?.data?.comments);
       })
       .catch((err) => {
@@ -198,8 +200,6 @@ const BlogDetails = ({ likes, dislikes }) => {
         }
       )
       .then((res) => {
-        console.log(res?.data);
-        // console.log(res?.data?.replies);
         setGetReplyBlogComments(res?.data?.replies);
       })
       .catch((err) => {
@@ -314,29 +314,6 @@ const BlogDetails = ({ likes, dislikes }) => {
 
     setReplyCommentModels(updatedModels);
   };
-
-  // fetchBadges API
-  useEffect(() => {
-    const fetchBadges = async () => {
-      try {
-        const response = await axios.get(`${getBaseURL()}/game-badges`, {
-          params: {
-            user_id: userId,
-            claimed: "no",
-          },
-        });
-        console.log(response?.data?.data);
-        setClaimedBadges(response?.data?.data);
-        if (response?.data?.data.length > 0) {
-          setShowPopUp(true);
-        }
-      } catch (error) {
-        console.error("Error fetching user points:", error.message);
-      }
-    };
-    fetchBadges();
-  }, []);
-
   const displayReplies = (com) => {
     setDisplayRepliesCommentModel((prevStatus) => {
       const updatedStatus = {};
@@ -352,9 +329,61 @@ const BlogDetails = ({ likes, dislikes }) => {
       return updatedStatus;
     });
   };
+  // fetchBadges API
+  useEffect(() => {
+    const fetchBadges = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/game-badges`, {
+          params: {
+            user_id: userId,
+            claimed: "no",
+          },
+        });
+        // console.log(response?.data?.data);
+        setClaimedBadges(response?.data?.data);
+        if (response?.data?.data.length > 0) {
+          setShowPopUp(true);
+        }
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    fetchBadges();
+    fetchGameLevelsforPopupdisplay();
+  }, []);
 
-  // console.log(claimedBadges, userId);
+  const fetchGameLevelsforPopupdisplay = async () => {
+    try {
+      const response = await axios.get(`${getBaseURL()}/game-levels`, {
+        params: {
+          user_id: userId,
+        },
+      });
+      // console.log(response?.data);
+      if (response?.data?.new_level == "yes") {
+        axios
+          .get(`${getBaseURL()}/game-levels`, {
+            params: {
+              level_id: response?.data?.new_level_id,
+            },
+          })
+          .then((res) => {
+            setclaimedLevels(res?.data?.data);
+            // console.log(res?.data?.data);
+            // if (res?.data?.data > 0) {
+            setShowLevelPopUp(true);
+            // }
+          })
+          .catch((err) => {
+            console.log("Error fetching user levels:", err.message);
+          });
+      }
+    } catch (error) {
+      console.error("Error fetching user points:", error.message);
+    }
+  };
 
+  console.log(claimedLevels, showLevelPopUp);
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -362,6 +391,12 @@ const BlogDetails = ({ likes, dislikes }) => {
         <SilverPopup
           claimedBadges={claimedBadges}
           onClose={() => setShowPopUp(false)}
+        />
+      )}
+      {showLevelPopUp && (
+        <LevelPopup
+          claimedLevels={claimedLevels}
+          onClose={() => setShowLevelPopUp(false)}
         />
       )}
       <MobileHeader />

@@ -20,7 +20,7 @@ const SilverPopup = ({ claimedBadges, onClose }) => {
   return (
     <div>
       {/* <!-- login popup start here --> */}
-      {claimedBadges.map((badges, index) => {
+      {claimedBadges?.map((badges, index) => {
         return (
           <section class="loginPopup silverPopup" key={index}>
             <div class="wrapper">
