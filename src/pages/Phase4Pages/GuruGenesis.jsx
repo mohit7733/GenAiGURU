@@ -200,7 +200,6 @@ const GuruGenesis = () => {
                               <img
                                 src="app/images/arrow-left.png"
                                 alt="Genaiguru arrow-left"
-                                // title="Genaiguru arrow-left"
                               />
                             </div>
                           </div>
@@ -229,7 +228,7 @@ const GuruGenesis = () => {
                             <img
                               src="app/images/arrow-left.png"
                               alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
+                            
                             />
                           </div> */}
                         {/* </div> */}
@@ -244,24 +243,9 @@ const GuruGenesis = () => {
                         </div>
                       </div>
                       <div class="faq-box">
-                        {/* <div class="accordion"> */}
-                        {/* <h4>What impact have commons users had so far </h4> */}
-                        {/* <div class="leftArrow">
-                            <img
-                              src="app/images/arrow-left.png"
-                              alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
-                            />
-                          </div> */}
-                        {/* </div> */}
+                       
                         <div class="panel">
-                          {/* <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p> */}
+                        
                         </div>
                       </div>
                     </div>
@@ -327,14 +311,9 @@ const GuruGenesis = () => {
                   }
                 >
                   <div class="about-content commanContent">
-                    {/* <h4>{aboutus.title}</h4> */}
+                    <h4>{aboutus.title}</h4>
                     <p>
-                      {/* Looking To Upgrade Your Salary In The UK? Get The Salary
-                      You’re Worth By Learning To Code. 98% Employed Within 12
-                      Months Of Qualifying. 28% Of Students Are Hired While On
-                      The Course. Change Career. Career Changing Skills. Spaces
-                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
-                      {/* {aboutus.description} */}
+                     
                       <p
                         dangerouslySetInnerHTML={{
                           __html: aboutus.description,
@@ -371,7 +350,7 @@ const GuruGenesis = () => {
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
-              title="Genaiguru hamburger "
+            
             />
           </div>
           <h2>Contact & About us</h2>
@@ -422,7 +401,7 @@ const GuruGenesis = () => {
                               <img
                                 src="app/images/arrow-left.png"
                                 alt="Genaiguru arrow-left"
-                                // title="Genaiguru arrow-left"
+                               
                               />
                             </div>
                           </div>

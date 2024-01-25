@@ -64,11 +64,7 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
                 <div key={index}>
                   <div className="wrap flex">
                     <figure>
-                      <img
-                        src={aricles.banner_image}
-                        alt="interestSliderImg"
-                        title="interestSliderImg"
-                      />
+                      <img src={aricles.banner_image} alt="interestSliderImg" />
                     </figure>
                     <div className="content">
                       <div className="wrapper flex">
@@ -76,7 +72,6 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
                           <img
                             src={aricles.author_profile_image}
                             alt="author"
-                            title="authorImage"
                           />
                         </figure>
                         <div className="innerContent">
@@ -98,7 +93,6 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
                             <img
                               src="app/images/bookmarkIcon.png"
                               alt="Genaiguru bookmarkIcon"
-                              title="Genaiguru bookmarkIcon"
                             />
                           </a>
                         </li>
@@ -107,7 +101,6 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
                             <img
                               src="app/images/dotsIcons.png"
                               alt="Genaiguru dotsIcons"
-                              title="Genaiguru dotsIcons"
                             />
                           </a>
                         </li>

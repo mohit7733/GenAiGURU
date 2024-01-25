@@ -26,7 +26,6 @@ const LoginPopup = ({ onClosePopup }) => {
                 <img
                   src="app/images/googleIcon.png"
                   alt="Genaiguru google icon"
-                  title="Genaiguru on google"
                 />{" "}
                 Continue with Google
               </a>
@@ -42,7 +41,6 @@ const LoginPopup = ({ onClosePopup }) => {
                     <i><img
                       src="app/images/facebookIcon.png"
                       alt="Genaiguru facebook icon"
-                      title="Genaiguru on facebook"
                     /></i>Continue with Facebook
                   </button>
                   <style>

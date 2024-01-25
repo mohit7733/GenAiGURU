@@ -163,7 +163,6 @@ const Login2 = () => {
               <img
                 src="app/images/headerLogo.png"
                 alt="Genaiguru header logo"
-                title="Genaiguru"
               />
             </Link>
           </figure>

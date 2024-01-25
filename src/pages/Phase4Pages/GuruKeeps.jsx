@@ -162,7 +162,7 @@ const GuruKeeps = () => {
                           <img
                             src={data.photo}
                             alt="Genaiguru Guru-keeps"
-                            title="Genaiguru Guru-keeps"
+                           
                           />
                         </figure>
                       )}
@@ -174,7 +174,7 @@ const GuruKeeps = () => {
                               <img
                                 src={data.author_profile_image}
                                 alt="Genaiguru user-icon"
-                                title="Genaiguru user-icon"
+                               
                               />
                             </figure>
                             <div className="innerContent">
@@ -199,7 +199,7 @@ const GuruKeeps = () => {
                                 <img
                                   src="app/images/color-bookmarks.png"
                                   alt=" coloredbookmarkIcon"
-                                  title=" coloredbookmarkIcon"
+                                 
                                 />
                               </a>
                             </li>
@@ -209,7 +209,7 @@ const GuruKeeps = () => {
                                 <img
                                   src="app/images/dotsIcons.png"
                                   alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
+                                 
                                 />
                               </a>
                             </li>
@@ -254,7 +254,7 @@ const GuruKeeps = () => {
             <img
               src="app/images/hamburgerIcon.png"
               alt="Genaiguru hamburger"
-              title="Genaiguru hamburger "
+             
             />
           </div>
           <h2>Guru keeps</h2>
@@ -281,7 +281,7 @@ const GuruKeeps = () => {
                         <img
                           src={data.photo}
                           alt="Genaiguru Guru-keeps"
-                          title="Genaiguru Guru-keeps"
+                         
                         />
                       </a>
                     </figure>
@@ -292,7 +292,7 @@ const GuruKeeps = () => {
                         <img
                           src={data.author_profile_image}
                           alt="Genaiguru authorImg"
-                          title="Genaiguru authorImg"
+                         
                         />
                       </figure>
                       <div className="innerContent">
@@ -330,7 +330,7 @@ const GuruKeeps = () => {
                           <img
                             src="app/images/color-bookmarks.png"
                             alt="Genaiguru bookmarkIcon"
-                            title="Genaiguru bookmarkIcon"
+                           
                           />
                         </a>
                       </li>
@@ -339,7 +339,7 @@ const GuruKeeps = () => {
                           <img
                             src="app/images/dotsIcons.png"
                             alt="Genaiguru dotsIcons"
-                            title="Genaiguru dotsIcons"
+                           
                           />
                         </a>
                       </li>

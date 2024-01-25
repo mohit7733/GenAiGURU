@@ -119,7 +119,6 @@ const Milestone = () => {
                               <img
                                 src={userDetails.profile_image}
                                 alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
                               />
                               <img
                                 className="profileImageTag"
@@ -133,7 +132,6 @@ const Milestone = () => {
                               <img
                                 src="app/images/headingProfileIcons.png"
                                 alt="Genaiguru headingProfileIcons"
-                                title="Genaiguru headingProfileIcons"
                               />
                             </h3>{" "}
                             {currentID !== level.level ? (
@@ -203,7 +201,6 @@ const Milestone = () => {
                                   <img
                                     src="./app/images/coins.png"
                                     alt="Genaiguru Coins"
-                                    title="Genaiguru Coins"
                                   />
                                 </figure>{" "}
                                 {earnMorePoint} coins to go to next level
@@ -221,7 +218,6 @@ const Milestone = () => {
                               <img
                                 src="app/images/lockIcon.png"
                                 alt="Genaiguru lockIcon"
-                                title="Genaiguru lockIcon"
                               />
                             </figure>
                             <p>
@@ -263,7 +259,6 @@ const Milestone = () => {
                               <img
                                 src={userDetails.profile_image}
                                 alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
                               />
                               <img
                                 className="profileImageTag"
@@ -277,7 +272,6 @@ const Milestone = () => {
                               <img
                                 src="app/images/headingProfileIcons.png"
                                 alt="Genaiguru headingProfileIcons"
-                                title="Genaiguru headingProfileIcons"
                               />
                             </h3>{" "}
                             {currentID !== level.level ? (
@@ -345,7 +339,6 @@ const Milestone = () => {
                                   <img
                                     src="./app/images/coins.png"
                                     alt="Genaiguru Coins"
-                                    title="Genaiguru Coins"
                                   />
                                 </figure>{" "}
                                 {earnMorePoint} coins to go to next level
@@ -363,7 +356,7 @@ const Milestone = () => {
                                   <img
                                     src="app/images/lockIcon.png"
                                     alt="Genaiguru lockIcon"
-                                    title="Genaiguru lockIcon"
+                                 
                                   />
                                 </figure>
                                 <p>
@@ -386,7 +379,6 @@ const Milestone = () => {
                               <img
                                 src="app/images/lockIcon.png"
                                 alt="Genaiguru lockIcon"
-                                title="Genaiguru lockIcon"
                               />
                             </figure>
                             <p>

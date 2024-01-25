@@ -481,7 +481,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                       <img
                         src={blogDetail.profilePhoto}
                         alt="Genaiguru blog-img"
-                        title="Genaiguru blog-img"
                       />
                     </figure>
                   </div>
@@ -496,7 +495,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                       <img
                         src={blogDetail.banner_image}
                         alt="Genaiguru web-deigner-learn-book"
-                        title="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
                   </div>
@@ -518,7 +516,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 <img
                                   src="./app/images/comment-01.png"
                                   alt="Genaiguru comment-01"
-                                  title="Genaiguru comment-01"
                                 />
                               </figure>
                               <span>Comment</span>
@@ -531,7 +528,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                               <img
                                 src="./app/images/help-circle.png"
                                 alt="Genaiguru help-circle"
-                                title="Genaiguru help-circle"
                               />
                             </figure>{" "}
                             <Link to="/contact">
@@ -550,7 +546,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                     <img
                                       src={profileImage.profile_image}
                                       alt="profile_image"
-                                      title="profile_image"
                                     />
                                   </figure>
                                   <span>
@@ -746,7 +741,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                           : userimageIcon
                                                       }
                                                       alt="repliedUserIcon"
-                                                      title="repliedUserIcon"
                                                     />
                                                   </figure>
                                                   <span>
@@ -859,7 +853,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             <img
                                               src={profileImage.profile_image}
                                               alt="Genaiguru review"
-                                              title="Genaiguru review"
                                             />
                                           </figure>
                                           <span>
@@ -923,7 +916,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 <img
                                   src={blogdata.banner_image}
                                   alt="Genaiguru interestSliderImg"
-                                  title="Genaiguru interestSliderImg"
                                 />
                               </figure>
                               <div className="content">
@@ -932,7 +924,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                     <img
                                       src={blogdata.author_profile_image}
                                       alt="Genaiguru authorImg"
-                                      title="Genaiguru authorImg"
                                     />
                                   </figure>
                                   <div className="innerContent">
@@ -973,11 +964,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                               ? "coloredbookmarkIcon"
                                               : "bookmarkIcon"
                                           }
-                                          title={
-                                            blogdata.saved === "yes"
-                                              ? "coloredbookmarkIcon"
-                                              : "bookmarkIcon"
-                                          }
+                                          // title={
+                                          //   blogdata.saved === "yes"
+                                          //     ? "coloredbookmarkIcon"
+                                          //     : "bookmarkIcon"
+                                          // }
                                         />
                                       </a>
                                     </li>
@@ -986,7 +977,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         <img
                                           src="app/images/dotsIcons.png"
                                           alt="Genaiguru dotsIcons"
-                                          title="Genaiguru dotsIcons"
                                         />
                                       </a>
                                     </li>
@@ -1066,7 +1056,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                       <img
                         src={blogDetail.profilePhoto}
                         alt="Genaiguru blog-img"
-                        title="Genaiguru blog-img"
                       />
                     </figure>
                   </div>
@@ -1081,7 +1070,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                       <img
                         src={blogDetail.banner_image}
                         alt="Genaiguru web-deigner-learn-book"
-                        title="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
                   </div>
@@ -1104,7 +1092,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                               <img
                                 src="./app/images/comment-01.png"
                                 alt="Genaiguru comment-01"
-                                title="Genaiguru comment-01"
                               />
                             </figure>
                             <span>Comment</span>
@@ -1116,7 +1103,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                               <img
                                 src="./app/images/help-circle.png"
                                 alt="Genaiguru help-circle"
-                                title="Genaiguru help-circle"
                               />
                             </figure>{" "}
                             <Link to="/contact">
@@ -1135,7 +1121,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                     <img
                                       src={profileImage.profile_image}
                                       alt="profile_image"
-                                      title="profile_image"
                                     />
                                   </figure>
                                   <span>
@@ -1329,7 +1314,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                           : userimageIcon
                                                       }
                                                       alt="repliedUserIcon"
-                                                      title="repliedUserIcon"
                                                     />
                                                   </figure>
                                                   <span>
@@ -1442,7 +1426,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                             <img
                                               src={profileImage.profile_image}
                                               alt="Genaiguru review"
-                                              title="Genaiguru review"
                                             />
                                           </figure>
                                           <span>
@@ -1506,7 +1489,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 <img
                                   src={blogdata.banner_image}
                                   alt="Genaiguru interestSliderImg"
-                                  title="Genaiguru interestSliderImg"
                                 />
                               </figure>
                               <div className="content">
@@ -1515,7 +1497,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                     <img
                                       src={blogdata.author_profile_image}
                                       alt="Genaiguru authorImg"
-                                      title="Genaiguru authorImg"
                                     />
                                   </figure>
                                   <div className="innerContent">
@@ -1556,11 +1537,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                               ? "coloredbookmarkIcon"
                                               : "bookmarkIcon"
                                           }
-                                          title={
-                                            blogdata.saved === "yes"
-                                              ? "coloredbookmarkIcon"
-                                              : "bookmarkIcon"
-                                          }
+                                          // title={
+                                          //   blogdata.saved === "yes"
+                                          //     ? "coloredbookmarkIcon"
+                                          //     : "bookmarkIcon"
+                                          // }
                                         />
                                       </a>
                                     </li>
@@ -1569,7 +1550,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         <img
                                           src="app/images/dotsIcons.png"
                                           alt="Genaiguru dotsIcons"
-                                          title="Genaiguru dotsIcons"
                                         />
                                       </a>
                                     </li>

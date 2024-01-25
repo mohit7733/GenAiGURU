@@ -152,7 +152,6 @@ const SendFeedback = () => {
                   <img
                     src="app/images/addIconsImg.png"
                     alt="Genaiguru addIconsImg"
-                    title="Genaiguru addIconsImg"
                   />
                   <FileInput onFilesChange={handleFilesChange} />
                 </div>

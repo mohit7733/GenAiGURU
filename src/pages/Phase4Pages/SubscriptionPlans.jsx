@@ -59,7 +59,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-1.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -70,7 +69,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-2.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -81,7 +79,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-3.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -92,7 +89,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/paymennt-card-4.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -124,7 +120,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-1.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -135,7 +130,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-2.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -146,7 +140,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-3.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -157,7 +150,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/paymennt-card-4.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -230,7 +222,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-1.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -241,7 +232,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-2.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -252,7 +242,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-3.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -263,7 +252,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/paymennt-card-4.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -295,7 +283,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-1.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -306,7 +293,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-2.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -317,7 +303,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/payment-card-3.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
                               />
                             </figure>
                           </a>
@@ -328,7 +313,7 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/paymennt-card-4.svg"
                                 alt="Genaiguru payment"
-                                title="Genaiguru payment"
+                                
                               />
                             </figure>
                           </a>

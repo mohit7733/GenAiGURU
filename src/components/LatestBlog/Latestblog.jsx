@@ -88,11 +88,7 @@ const Latestblog = () => {
                     onClick={() => onBlogClick(blog.id)}
                   >
                     <figure>
-                      <img
-                        src={blog.photo}
-                        alt="Genaiguru blog image"
-                        title="Genaiguru blog image"
-                      />
+                      <img src={blog.photo} alt="Genaiguru blog image" />
                     </figure>
                     <div className="layer">
                       <h5>
@@ -104,7 +100,6 @@ const Latestblog = () => {
                         <img
                           src="app/images/blogArrowBtnImg.png"
                           alt="Genaiguru arrow button"
-                          title="Genaiguru arrow button"
                         />
                       </button>
                     </div>
