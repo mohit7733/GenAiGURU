@@ -24,6 +24,7 @@ const FeaturedArticles = (props) => {
   const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
   const [mergedInterests1, setMergedInterests] = useState([]);
   const [articles, setArticles] = useState([]);
+  const [interestArticles,setInterestArticles] = useState([]);
 
   const navigate = useNavigate();
   const sliderRef = useRef();
@@ -289,6 +290,22 @@ const FeaturedArticles = (props) => {
       });
   };
 
+    // API for Articles on Clinking Interest in Slider
+    const onInterestClick = (interestid, e) => {
+      const array = [interestid];
+      axios
+        .post(`${getBaseURL()}/articles-by-interests`, {
+          interest_id: array,
+        })
+        .then((response) => {
+          console.log(response?.data, "dsfghjg");
+          setInterestArticles(response?.data?.articles);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    };
+
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -350,6 +367,7 @@ const FeaturedArticles = (props) => {
                                 onClick={() => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
+                                  onInterestClick(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""

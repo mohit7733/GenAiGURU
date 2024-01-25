@@ -1173,6 +1173,10 @@ header .userIcon img {
   display: flex;
   flex-direction: column;
 }
+.author-tag.flex {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;}
 .video-slider .layer .author-tag {
   margin-top: auto;
 }

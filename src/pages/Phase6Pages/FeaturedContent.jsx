@@ -833,7 +833,12 @@ const FeaturedContent = (props) => {
                   {/* <!-- tab-link start here --> */}
                 </div>
                 {/* <!-- tab-content here --> */}
-                <div className="tab-content tab-content-1 active">
+                {activeTab === 0 && (
+                <div
+                  className={
+                    activeTab === 0 && "tab-content tab-content-0 active"
+                  }
+                  >
                   <div className="interest-guru ">
                     <div className="interest-sliders">
                       {currentBlogs.map((blog, index) => {
@@ -922,8 +927,9 @@ const FeaturedContent = (props) => {
                     />
                   )}
                 </div>
+                )}
                 {/* <!-- 2nd --> */}
-                <div className="tab-content tab-content-2 ">
+                {/* <div className="tab-content tab-content-2 ">
                   <div className="interest-guru ">
                     <div className="interest-sliders">
                       <div className="wrap flex">
@@ -975,7 +981,75 @@ const FeaturedContent = (props) => {
                       </div>
                     </div>
                   </div>
+                </div> */}
+                {activeTab === indexTab && (
+                <div
+                  className={
+                    activeTab === indexTab &&
+                    `tab-content tab-content-${indexTab} active`
+                  }
+                >
+                  {interestBlog.length < 1 ? (
+                    <h1>Data Not Found</h1>
+                  ) : (
+                    <div className="interest-guru ">
+                      {interestBlog.map((interest, index) => {
+                        return (
+                          <div className="wrap flex">
+                            <figure>
+                              <img src={interest.banner_image} />
+                            </figure>
+                            <div className="content">
+                              <div className="flex space-between">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                      src={interest.author_profile_image}
+                                      alt="Genaiguru userIcon"
+                                      title="Genaiguru userIcon"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{interest.author}</h6>
+                                    <p>{interest.creation_date}</p>
+                                  </div>
+                                </div>
+                                <ul className="flex">
+                                  <li>
+                                    <a>
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru color-bookmarks"
+                                        title="Genaiguru color-bookmarks"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a>
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <p
+                                onClick={() => onBlogClick(interest.id)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                {interest.title}
+                              </p>
+                              {/* <p>{interest.short_description}</p> */}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
+              )}
               </div>
             </div>
           </div>
