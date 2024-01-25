@@ -121,7 +121,6 @@ const Index2 = ({ isLoggedIn }) => {
                 <img
                   src="app/images/genaiguruSelectImg.png"
                   alt="Genaiguru logo"
-                  title="Genaiguru logo"
                 />
               </figure>
               <select name="genaiguruSelect">
@@ -139,7 +138,6 @@ const Index2 = ({ isLoggedIn }) => {
                       <img
                         src="app/images/searchIconLogoInner.png"
                         alt="Genaiguru search icon image"
-                        title="Genaiguru search icon image"
                       />
                     </figure>
                     <div className="flex searchFormLong">
@@ -171,7 +169,10 @@ const Index2 = ({ isLoggedIn }) => {
                   </div>
                 </div>
                 {displayRespone ? (
-                  <Index3 responseMessage={chatResponseText} userSearchedText={chatInputText}/>
+                  <Index3
+                    responseMessage={chatResponseText}
+                    userSearchedText={chatInputText}
+                  />
                 ) : (
                   <>
                     <p className="lightText">
@@ -237,7 +238,6 @@ const Index2 = ({ isLoggedIn }) => {
               <img
                 src="app/images/genaiguruSelectImg.png"
                 alt="Genaiguru genaiguruSelectImg"
-                title="Genaiguru genaiguruSelectImg"
               />
             </figure>
             <select name="genaiguruSelect">
@@ -254,7 +254,6 @@ const Index2 = ({ isLoggedIn }) => {
                   <img
                     src="app/images/genaiguruSelectImg.png"
                     alt="Genaiguru small logo"
-                    title="Genaiguru small logo"
                   />
                 </figure>
                 <p>
@@ -284,7 +283,6 @@ const Index2 = ({ isLoggedIn }) => {
                     <img
                       src="app/images/searchIconLogoInner.png"
                       alt="Genaiguru search icon logo"
-                      title="Genaiguru search icon logo"
                     />
                   </figure>
                   <div className="flex searchFormLong">
@@ -296,7 +294,6 @@ const Index2 = ({ isLoggedIn }) => {
                         <img
                           src="app/images/micIcon.png"
                           alt="Genaiguru micIcon"
-                          title="Genaiguru micIcon"
                         />
                       </button>
                     </div>
@@ -312,7 +309,6 @@ const Index2 = ({ isLoggedIn }) => {
                         <img
                           src="app/images/sendButtonIcon.png"
                           alt="Genaiguru sendButtonIcon"
-                          title="Genaiguru sendButtonIcon"
                         />
                       </button>
                     </div>

@@ -9,7 +9,6 @@ import axios from "axios";
 import {
   PATH_ARTICLE_DETAILS,
   PATH_FEATURED_ARTICLES,
-  PATH_FEATURED_CONTENT,
 } from "../../routes";
 
 const Populararticles = () => {
@@ -101,11 +100,7 @@ const Populararticles = () => {
                     }}
                   >
                     <figure>
-                      <img
-                        src={article.photo}
-                        alt="Genaiguru video image"
-                        title="Genaiguru video image"
-                      />
+                      <img src={article.photo} alt="Genaiguru video image" />
                     </figure>
                     <div className="layer">
                       {article.read == "no" && (
@@ -113,7 +108,6 @@ const Populararticles = () => {
                           <img
                             src="app/images/orangeStrike.png"
                             alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
                           />
                           {articlePoints}
                         </div>
@@ -126,19 +120,12 @@ const Populararticles = () => {
                               <img
                                 src={article.author_profile_image}
                                 alt="authorImg"
-                                title="authorImg"
                               />
                             </figure>
                             <div className="content">
                               <h6>{article.author}</h6>
-                              {/* <p>24 M view . 3 month ago</p> */}
                             </div>
                           </div>
-                          {/* <ul className="flex">
-                            <li>#finance</li>
-                            <li>#crypto</li>
-                            <li>#economy</li>
-                          </ul> */}
                         </div>
                       </div>
                     </div>

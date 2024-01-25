@@ -38,7 +38,6 @@ const Index5 = () => {
                           <img
                             src="app/images/micIcon.png"
                             alt="Genaiguru micIcon"
-                            title="Speak Now"
                           />
                         </button>
                       </div>
@@ -46,7 +45,7 @@ const Index5 = () => {
                         <button type="submit">
                           <img
                             src="app/images/sendButtonIcon.png"
-                            title="Send"
+                            alt="Send"
                           />
                         </button>
                       </div>

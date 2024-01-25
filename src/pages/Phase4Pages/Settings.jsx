@@ -79,7 +79,6 @@ const Settings = () => {
                           <img
                             src="./app/images/password.png"
                             alt="Genaiguru password"
-                            title="Genaiguru password"
                           />
                         </figure>
                         <span>Edit password</span>
@@ -105,7 +104,6 @@ const Settings = () => {
                           <img
                             src="./app/images/profile.png"
                             alt="Genaiguru profile"
-                            title="Genaiguru profile"
                           />
                         </figure>
                         <span>Profile</span>
@@ -128,7 +126,6 @@ const Settings = () => {
                           <img
                             src="./app/images/customize-intrest.png"
                             alt="Genaiguru Customize"
-                            title="Genaiguru Customize"
                           />
                         </figure>
                         <Link>
@@ -152,7 +149,6 @@ const Settings = () => {
                           <img
                             src="./app/images/notification.png"
                             alt="Genaiguru notification"
-                            title="Genaiguru notification"
                           />
                         </figure>
                         <span>Notification settings</span>
@@ -169,7 +165,6 @@ const Settings = () => {
                         <img
                           src="./app/images/privacy-policy.png"
                           alt="Genaiguru Privacy"
-                          title="Genaiguru Privacy"
                         />
                       </figure>
                       <span>Privacy policy</span>
@@ -185,7 +180,6 @@ const Settings = () => {
                         <img
                           src="./app/images/Q&a.png"
                           alt="Genaiguru Q&A"
-                          title="Genaiguru Q&A"
                         />
                       </figure>
                       <span>Q&A</span>
@@ -201,7 +195,6 @@ const Settings = () => {
                         <img
                           src="./app/images/feedd-back-admin.png"
                           alt="Genaiguru feedd-back-admin"
-                          title="Genaiguru feedd-back-admin"
                         />
                       </figure>
                       <span>Send feedback</span>
@@ -293,7 +286,6 @@ const Settings = () => {
                             <img
                               src="app/images/arrow-left.png"
                               alt="Genaiguru arrow-left"
-                              title="Genaiguru arrow-left"
                             />
                           </div>
                         </div>

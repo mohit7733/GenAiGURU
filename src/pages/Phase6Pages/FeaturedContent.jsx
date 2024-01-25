@@ -408,7 +408,6 @@ const FeaturedContent = (props) => {
                               <img
                                 src={blog.photo}
                                 alt="Genaiguru gureu-keeps-1"
-                                title="Genaiguru gureu-keeps-1"
                               />
                             </figure>
                             <div className="content">
@@ -451,11 +450,11 @@ const FeaturedContent = (props) => {
                                               ? "coloredbookmarkIcon"
                                               : "bookmarkIcon"
                                           }
-                                          title={
-                                            blog.saved === "yes"
-                                              ? "coloredbookmarkIcon"
-                                              : "bookmarkIcon"
-                                          }
+                                          // title={
+                                          //   blog.saved === "yes"
+                                          //     ? "coloredbookmarkIcon"
+                                          //     : "bookmarkIcon"
+                                          // }
                                         />
                                       </a>
                                     </li>
@@ -464,7 +463,6 @@ const FeaturedContent = (props) => {
                                         <img
                                           src="app/images/dotsIcons.png"
                                           alt="Genaiguru dots-icon"
-                                          title="Genaiguru dots-icon"
                                         />
                                       </a>
                                     </li>
@@ -519,7 +517,6 @@ const FeaturedContent = (props) => {
                                     <img
                                       src={interest.author_profile_image}
                                       alt="Genaiguru userIcon"
-                                      title="Genaiguru userIcon"
                                     />
                                   </figure>
                                   <div className="innerContent">
@@ -533,7 +530,6 @@ const FeaturedContent = (props) => {
                                       <img
                                         src="app/images/color-bookmarks.png"
                                         alt="Genaiguru color-bookmarks"
-                                        title="Genaiguru color-bookmarks"
                                       />
                                     </a>
                                   </li>
@@ -542,7 +538,6 @@ const FeaturedContent = (props) => {
                                       <img
                                         src="app/images/dotsIcons.png"
                                         alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
                                       />
                                     </a>
                                   </li>
@@ -578,12 +573,10 @@ const FeaturedContent = (props) => {
                               <img
                                 src="app/images/paint-board.png"
                                 alt="Genaiguru paint-board"
-                                title="Genaiguru paint-board"
                               />
                               <img
                                 src="app/images/colorPaintBoard.png"
                                 alt="Genaiguru colorPaintBoard"
-                                title="Genaiguru colorPaintBoard"
                                 className="hoverImg"
                               />{" "}
                               {interest.interest_name}
@@ -640,7 +633,6 @@ const FeaturedContent = (props) => {
                                 <img
                                   src="./app/images/channel-1.png"
                                   alt="Genaiguru channel-1"
-                                  title="Genaiguru channel-1"
                                 />
                               </figure>
                             </a>
@@ -658,7 +650,6 @@ const FeaturedContent = (props) => {
                                 <img
                                   src="./app/images/channel-1.png"
                                   alt="Genaiguru channel-1"
-                                  title="Genaiguru channel-1"
                                 />
                               </figure>
                             </a>
@@ -676,7 +667,6 @@ const FeaturedContent = (props) => {
                                 <img
                                   src="./app/images/channel-1.png"
                                   alt="Genaiguru channel-1"
-                                  title="Genaiguru channel-1"
                                 />
                               </figure>
                             </a>
@@ -834,99 +824,97 @@ const FeaturedContent = (props) => {
                 </div>
                 {/* <!-- tab-content here --> */}
                 {activeTab === 0 && (
-                <div
-                  className={
-                    activeTab === 0 && "tab-content tab-content-0 active"
-                  }
+                  <div
+                    className={
+                      activeTab === 0 && "tab-content tab-content-0 active"
+                    }
                   >
-                  <div className="interest-guru ">
-                    <div className="interest-sliders">
-                      {currentBlogs.map((blog, index) => {
-                        return (
-                          <div className="wrap flex" key={index}>
-                            <figure>
-                              <Link>
-                                <img
-                                  src={blog.photo}
-                                  alt="Genaiguru Guru-keeps"
-                                  title="Genaiguru Guru-keeps"
-                                />
-                              </Link>
-                            </figure>
-                            <div className="content">
-                              <div className="wrapper flex">
-                                <figure>
+                    <div className="interest-guru ">
+                      <div className="interest-sliders">
+                        {currentBlogs.map((blog, index) => {
+                          return (
+                            <div className="wrap flex" key={index}>
+                              <figure>
+                                <Link>
                                   <img
-                                    src={blog.author_profile_image}
-                                    alt="user_icon"
+                                    src={blog.photo}
+                                    alt="Genaiguru Guru-keeps"
                                   />
-                                </figure>
-                                <div className="innerContent">
-                                  <h6>{blog.author}</h6>
-                                  <p>{blog.creation_date}</p>
+                                </Link>
+                              </figure>
+                              <div className="content">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                      src={blog.author_profile_image}
+                                      alt="user_icon"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{blog.author}</h6>
+                                    <p>{blog.creation_date}</p>
+                                  </div>
                                 </div>
-                              </div>
-                              <p
-                                onClick={() => onBlogClick(blog.id)}
-                                style={{ cursor: "pointer" }}
-                              >
-                                {blog.title}
-                              </p>
-                              <ul className="flex">
-                                <li
-                                  onClick={() => {
-                                    blog.saved === "yes"
-                                      ? onBlogUnSave(blog.id)
-                                      : onBlogSave(blog.id);
-                                    setButtonClicked(!buttonClicked);
-                                  }}
+                                <p
+                                  onClick={() => onBlogClick(blog.id)}
+                                  style={{ cursor: "pointer" }}
                                 >
-                                  <a>
-                                    <img
-                                      src={
-                                        blog.saved === "yes"
-                                          ? "app/images/color-bookmarks.png"
-                                          : "./app/images/bookmarkIcon.png"
-                                      }
-                                      alt={
-                                        blog.saved === "yes"
-                                          ? "coloredbookmarkIcon"
-                                          : "bookmarkIcon"
-                                      }
-                                      title={
-                                        blog.saved === "yes"
-                                          ? "coloredbookmarkIcon"
-                                          : "bookmarkIcon"
-                                      }
-                                    />
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#">
-                                    <img
-                                      src="app/images/dotsIcons.png"
-                                      alt="Genaiguru dotsIcons"
-                                      title="Genaiguru dotsIcons"
-                                    />
-                                  </a>
-                                </li>
-                              </ul>
+                                  {blog.title}
+                                </p>
+                                <ul className="flex">
+                                  <li
+                                    onClick={() => {
+                                      blog.saved === "yes"
+                                        ? onBlogUnSave(blog.id)
+                                        : onBlogSave(blog.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
+                                      <img
+                                        src={
+                                          blog.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          blog.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        // title={
+                                        //   blog.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
+                    {isMobile && (
+                      <Pagination
+                        token="blogs"
+                        totalItems={latestBlog.length}
+                        itemsPerPage={blogsPerPage}
+                        currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                      />
+                    )}
                   </div>
-                  {isMobile && (
-                    <Pagination
-                      token="blogs"
-                      totalItems={latestBlog.length}
-                      itemsPerPage={blogsPerPage}
-                      currentPage={currentPage}
-                      onPageChange={handlePageChange}
-                    />
-                  )}
-                </div>
                 )}
                 {/* <!-- 2nd --> */}
                 {/* <div className="tab-content tab-content-2 ">
@@ -938,7 +926,6 @@ const FeaturedContent = (props) => {
                             <img
                               src=""
                               alt="Genaiguru Guru-keeps"
-                              title="Genaiguru Guru-keeps"
                             />
                           </a>
                         </figure>
@@ -948,7 +935,6 @@ const FeaturedContent = (props) => {
                               <img
                                 src=""
                                 alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
                               />
                             </figure>
                             <div className="innerContent">
@@ -963,7 +949,7 @@ const FeaturedContent = (props) => {
                                 <img
                                   src={"app/images/color-bookmarks.png"}
                                   alt={"coloredbookmarkIcon"}
-                                  title={"coloredbookmarkIcon"}
+                                 
                                 />
                               </a>
                             </li>
@@ -972,7 +958,6 @@ const FeaturedContent = (props) => {
                                 <img
                                   src="app/images/dotsIcons.png"
                                   alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
                                 />
                               </a>
                             </li>
@@ -983,73 +968,70 @@ const FeaturedContent = (props) => {
                   </div>
                 </div> */}
                 {activeTab === indexTab && (
-                <div
-                  className={
-                    activeTab === indexTab &&
-                    `tab-content tab-content-${indexTab} active`
-                  }
-                >
-                  {interestBlog.length < 1 ? (
-                    <h1>Data Not Found</h1>
-                  ) : (
-                    <div className="interest-guru ">
-                      {interestBlog.map((interest, index) => {
-                        return (
-                          <div className="wrap flex">
-                            <figure>
-                              <img src={interest.banner_image} />
-                            </figure>
-                            <div className="content">
-                              <div className="flex space-between">
-                                <div className="wrapper flex">
-                                  <figure>
-                                    <img
-                                      src={interest.author_profile_image}
-                                      alt="Genaiguru userIcon"
-                                      title="Genaiguru userIcon"
-                                    />
-                                  </figure>
-                                  <div className="innerContent">
-                                    <h6>{interest.author}</h6>
-                                    <p>{interest.creation_date}</p>
+                  <div
+                    className={
+                      activeTab === indexTab &&
+                      `tab-content tab-content-${indexTab} active`
+                    }
+                  >
+                    {interestBlog.length < 1 ? (
+                      <h1>Data Not Found</h1>
+                    ) : (
+                      <div className="interest-guru ">
+                        {interestBlog.map((interest, index) => {
+                          return (
+                            <div className="wrap flex">
+                              <figure>
+                                <img src={interest.banner_image} />
+                              </figure>
+                              <div className="content">
+                                <div className="flex space-between">
+                                  <div className="wrapper flex">
+                                    <figure>
+                                      <img
+                                        src={interest.author_profile_image}
+                                        alt="Genaiguru userIcon"
+                                      />
+                                    </figure>
+                                    <div className="innerContent">
+                                      <h6>{interest.author}</h6>
+                                      <p>{interest.creation_date}</p>
+                                    </div>
                                   </div>
+                                  <ul className="flex">
+                                    <li>
+                                      <a>
+                                        <img
+                                          src="app/images/color-bookmarks.png"
+                                          alt="Genaiguru color-bookmarks"
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a>
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dotsIcons"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
                                 </div>
-                                <ul className="flex">
-                                  <li>
-                                    <a>
-                                      <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
-                                        title="Genaiguru color-bookmarks"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a>
-                                      <img
-                                        src="app/images/dotsIcons.png"
-                                        alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
+                                <p
+                                  onClick={() => onBlogClick(interest.id)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  {interest.title}
+                                </p>
+                                {/* <p>{interest.short_description}</p> */}
                               </div>
-                              <p
-                                onClick={() => onBlogClick(interest.id)}
-                                style={{ cursor: "pointer" }}
-                              >
-                                {interest.title}
-                              </p>
-                              {/* <p>{interest.short_description}</p> */}
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              )}
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

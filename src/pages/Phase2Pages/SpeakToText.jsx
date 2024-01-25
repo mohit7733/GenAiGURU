@@ -62,7 +62,6 @@ const SpeakToText = () => {
                 <img
                   src="app/images/genaiguruSelectImg.png"
                   alt="Genaiguru logo"
-                  title="Genaiguru logo"
                 />
               </figure>
               <select name="genaiguruSelect">
@@ -80,7 +79,6 @@ const SpeakToText = () => {
                       <img
                         src="app/images/searchIconLogoInner.png"
                         alt="Genaiguru search icon image"
-                        title="Genaiguru search icon image"
                       />
                     </figure>
                     <form action="" class="flex searchFormLong">

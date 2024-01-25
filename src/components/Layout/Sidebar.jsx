@@ -67,11 +67,7 @@ const Sidebar = () => {
           <li>
             <Link to={"/"}>
               <figure>
-                <img
-                  src="app/images/homeIcon.png"
-                  alt="Genaiguru home icon"
-                  title="Genaiguru home icon"
-                />
+                <img src="app/images/homeIcon.png" alt="Genaiguru home icon" />
               </figure>
               Home
             </Link>
@@ -87,7 +83,6 @@ const Sidebar = () => {
                   <img
                     src="app/images/guruGoldIcon.png"
                     alt="Genaiguru guruGoldIcon"
-                    title="Genaiguru guruGoldIcon"
                   />
                 </figure>
                 Guru Gold
@@ -105,7 +100,6 @@ const Sidebar = () => {
                   <img
                     src="app/images/guruKeepsIcon.png"
                     alt="Genaiguru guruKeepsIcon"
-                    title="Genaiguru guruKeepsIcon"
                   />
                 </figure>
                 Guru Keeps
@@ -123,7 +117,6 @@ const Sidebar = () => {
                   <img
                     src="app/images/guruJournalIcon.png"
                     alt="Genaiguru guruJournalIcon"
-                    title="Genaiguru guruJournalIcon"
                   />
                 </figure>
                 Guru Journal
@@ -141,7 +134,6 @@ const Sidebar = () => {
                   <img
                     src="app/images/teamGuruIcon.png"
                     alt="Genaiguru teamGuruIcon"
-                    title="Genaiguru teamGuruIcon"
                   />
                 </figure>
                 Team Guru
@@ -154,7 +146,6 @@ const Sidebar = () => {
                 <img
                   src="app/images/contactToGuruIcon.png"
                   alt="Genaiguru contactToGuruIcon"
-                  title="Genaiguru contactToGuruIcon"
                 />
               </figure>
               Contact
@@ -171,7 +162,6 @@ const Sidebar = () => {
                   <img
                     src="app/images/settingIcon.png"
                     alt="Genaiguru settingIcon"
-                    title="Genaiguru settingIcon"
                   />
                 </figure>
                 Settings
@@ -221,7 +211,6 @@ const Sidebar = () => {
               <img
                 src="app/images/facebookIconNew.png"
                 alt="Genaiguru facebook icon"
-                title="Genaiguru on facebook"
               />
             </a>
           </li>
@@ -230,17 +219,12 @@ const Sidebar = () => {
               <img
                 src="app/images/youtubeIcon.png"
                 alt="Genaiguru youtube icon"
-                title="Genaiguru on youtube"
               />
             </a>
           </li>
           <li>
             <a href="#" target="_blank">
-              <img
-                src="app/images/twitter.png"
-                alt="Genaiguru twitter icon"
-                title="Genaiguru on twitter"
-              />
+              <img src="app/images/twitter.png" alt="Genaiguru twitter icon" />
             </a>
           </li>
         </ul>

@@ -40,7 +40,6 @@ const PrivacyPolicy = () => {
           <img
             src="app/images/privacy-banner.png"
             alt="Genaiguru privacy-banner"
-            title="Genaiguru privacy-banner"
           />
         </div>
         <div className="privacy-vats commanContent">

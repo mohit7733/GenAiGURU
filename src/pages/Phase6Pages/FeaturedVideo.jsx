@@ -105,7 +105,7 @@ const FeaturedContent = (props) => {
         },
       })
       .then((response) => {
-         console.log(response.data,"fghgfh");
+        console.log(response.data, "fghgfh");
         setPopularVideos(response?.data?.videos);
       })
       .catch((err) => {
@@ -430,7 +430,6 @@ const FeaturedContent = (props) => {
                                   <img
                                     src={video.author_profile_image}
                                     alt="Genaiguru user-icon"
-                                    title="Genaiguru user-icon"
                                   />
                                 </figure>
                                 <div className="innerContent">
@@ -464,11 +463,11 @@ const FeaturedContent = (props) => {
                                             ? "coloredbookmarkIcon"
                                             : "bookmarkIcon"
                                         }
-                                        title={
-                                          video.saved === "yes"
-                                            ? "coloredbookmarkIcon"
-                                            : "bookmarkIcon"
-                                        }
+                                        // title={
+                                        //   video.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                       />
                                     </a>
                                   </li>
@@ -477,7 +476,6 @@ const FeaturedContent = (props) => {
                                       <img
                                         src="app/images/dotsIcons.png"
                                         alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
                                       />
                                     </a>
                                   </li>
@@ -516,7 +514,7 @@ const FeaturedContent = (props) => {
                       {interestVideos.map((interest, index) => {
                         return (
                           <div className="wrap flex">
-                          <figure>
+                            <figure>
                               <ReactPlayer
                                 url={interest.youtube_link}
                                 width="100%"
@@ -528,9 +526,8 @@ const FeaturedContent = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                     src={interest.author_profile_image}
+                                      src={interest.author_profile_image}
                                       alt="Genaiguru userIcon"
-                                      title="Genaiguru userIcon"
                                     />
                                   </figure>
                                   <div className="innerContent">
@@ -544,7 +541,6 @@ const FeaturedContent = (props) => {
                                       <img
                                         src="app/images/color-bookmarks.png"
                                         alt="Genaiguru color-bookmarks"
-                                        title="Genaiguru color-bookmarks"
                                       />
                                     </a>
                                   </li>
@@ -553,22 +549,17 @@ const FeaturedContent = (props) => {
                                       <img
                                         src="app/images/dotsIcons.png"
                                         alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
                                       />
                                     </a>
                                   </li>
                                 </ul>
                               </div>
                               <h5
-                              onClick={() => onVideoClick(interest.id)}
-                                style={{ cursor: "pointer" }}>
-                               {interest.title}
+                                onClick={() => onVideoClick(interest.id)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                {interest.title}
                               </h5>
-                              {/* <p>
-                                Looking to upgrade your salary in the uk? Get
-                                the salary you’re worth by learning to code. 98%
-                                employed within 12 months of qualifying....
-                              </p> */}
                             </div>
                           </div>
                         );
@@ -614,53 +605,7 @@ const FeaturedContent = (props) => {
               <div className="keeps-container">
                 <div className="gurukeeps-wrapper">
                   {/* <!-- tab-link start here --> */}
-                  {/* <ul className="connect-link flex">
-                    <li>
-                      <a
-                        href="#"
-                        className="tab active"
-                        data-toggle-target=".tab-content-1"
-                      >
-                        All
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="tab "
-                        data-toggle-target=".tab-content-2"
-                      >
-                        Ai in healthcare
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="tab "
-                        data-toggle-target=".tab-content-3"
-                      >
-                        ML in finance
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="tab "
-                        data-toggle-target=".tab-content-4"
-                      >
-                        Crypto
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="tab "
-                        data-toggle-target=".tab-content-5"
-                      >
-                        Bitcoin
-                      </a>
-                    </li>
-                  </ul> */}
+
                   <div className="connect-link flex align-center">
                     {/* All Tab div */}
                     <div style={{ width: "2%" }}>
@@ -719,144 +664,69 @@ const FeaturedContent = (props) => {
                 </div>
                 {/* <!-- tab-content here --> */}
                 {activeTab === 0 && (
-                <div
-                  className={
-                    activeTab === 0 && "tab-content tab-content-0 active"
-                  }
-                >
-                  <div className="interest-guru ">
-                    <div className="interest-sliders">
-                      {currentVideos.map((video, index) => {
-                        return (
-                          <div className="wrap flex" key={index}>
-                            <figure>
-                              <a>
-                                <figure>
-                                  <ReactPlayer
-                                    url={video.youtube_link}
-                                    width="100%"
-                                    height="100%"
-                                  />
-                                </figure>
-                              </a>
-                            </figure>
-                            <div className="content">
-                              <div className="wrapper flex">
-                                <figure>
-                                  <img
-                                    src={video.author_profile_image}
-                                    alt="Genaiguru authorImg"
-                                    title="Genaiguru authorImg"
-                                  />
-                                </figure>
-                                <div className="innerContent">
-                                  <h6>{video.author}</h6>
-                                  <p> {video.creation_date}</p>
-                                </div>
-                              </div>
-                              <p onClick={() => onVideoClick(video.id)}>
-                                {video.title}
-                              </p>
-                              <ul className="flex">
-                                <li
-                                  onClick={() => {
-                                    video.saved === "yes"
-                                      ? onVideoUnSave(video.id)
-                                      : onVideoSave(video.id);
-                                    setButtonClicked(!buttonClicked);
-                                  }}
-                                >
-                                  <a>
-                                    <img
-                                      src={
-                                        video.saved === "yes"
-                                          ? "app/images/color-bookmarks.png"
-                                          : "./app/images/bookmarkIcon.png"
-                                      }
-                                      alt={
-                                        video.saved === "yes"
-                                          ? "coloredbookmarkIcon"
-                                          : "bookmarkIcon"
-                                      }
-                                      title={
-                                        video.saved === "yes"
-                                          ? "coloredbookmarkIcon"
-                                          : "bookmarkIcon"
-                                      }
-                                    />
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#">
-                                    <img
-                                      src="app/images/dotsIcons.png"
-                                      alt="Genaiguru dotsIcons"
-                                      title="Genaiguru dotsIcons"
-                                    />
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        );
-                      })}
-                      {isMobile && (
-                        <Pagination
-                          token="Videos"
-                          totalItems={popularVideos.length}
-                          itemsPerPage={videosPerPage}
-                          currentPage={currentPage}
-                          onPageChange={handlePageChange}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                )}
-                {/* <!-- 2nd --> */}
-                {activeTab === indexTab && (
-                <div
-                  className={
-                    activeTab === indexTab &&
-                    `tab-content tab-content-${indexTab} active`
-                  }
-                >
-                  {interestVideos.length < 1 ? (
-                    <h1>Data Not Found</h1>
-                  ) : (
+                  <div
+                    className={
+                      activeTab === 0 && "tab-content tab-content-0 active"
+                    }
+                  >
                     <div className="interest-guru ">
-                      {interestVideos.map((interest, index) => {
-                        return (
-                          <div className="wrap flex">
-                          <figure>
-                              <ReactPlayer
-                                url={interest.youtube_link}
-                                width="100%"
-                                height="100%"
-                              />
-                            </figure>
-                            <div className="content">
-                              <div className="flex space-between">
+                      <div className="interest-sliders">
+                        {currentVideos.map((video, index) => {
+                          return (
+                            <div className="wrap flex" key={index}>
+                              <figure>
+                                <a>
+                                  <figure>
+                                    <ReactPlayer
+                                      url={video.youtube_link}
+                                      width="100%"
+                                      height="100%"
+                                    />
+                                  </figure>
+                                </a>
+                              </figure>
+                              <div className="content">
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                     src={interest.author_profile_image}
-                                      alt="Genaiguru userIcon"
-                                      title="Genaiguru userIcon"
+                                      src={video.author_profile_image}
+                                      alt="Genaiguru authorImg"
                                     />
                                   </figure>
                                   <div className="innerContent">
-                                    <h6>{interest.author}</h6>
-                                    <p>{interest.creation_date}</p>
+                                    <h6>{video.author}</h6>
+                                    <p> {video.creation_date}</p>
                                   </div>
                                 </div>
+                                <p onClick={() => onVideoClick(video.id)}>
+                                  {video.title}
+                                </p>
                                 <ul className="flex">
-                                  <li>
-                                    <a href="#">
+                                  <li
+                                    onClick={() => {
+                                      video.saved === "yes"
+                                        ? onVideoUnSave(video.id)
+                                        : onVideoSave(video.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
-                                        title="Genaiguru color-bookmarks"
+                                        src={
+                                          video.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          video.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        // title={
+                                        //   video.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                       />
                                     </a>
                                   </li>
@@ -865,30 +735,96 @@ const FeaturedContent = (props) => {
                                       <img
                                         src="app/images/dotsIcons.png"
                                         alt="Genaiguru dotsIcons"
-                                        title="Genaiguru dotsIcons"
                                       />
                                     </a>
                                   </li>
                                 </ul>
                               </div>
-                              <p
-                              onClick={() => onVideoClick(interest.id)}
-                                style={{ cursor: "pointer" }}>
-                               {interest.title}
-                              </p>
-                              {/* <p>
-                                Looking to upgrade your salary in the uk? Get
-                                the salary you’re worth by learning to code. 98%
-                                employed within 12 months of qualifying....
-                              </p> */}
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                        {isMobile && (
+                          <Pagination
+                            token="Videos"
+                            totalItems={popularVideos.length}
+                            itemsPerPage={videosPerPage}
+                            currentPage={currentPage}
+                            onPageChange={handlePageChange}
+                          />
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                )}
+                {/* <!-- 2nd --> */}
+                {activeTab === indexTab && (
+                  <div
+                    className={
+                      activeTab === indexTab &&
+                      `tab-content tab-content-${indexTab} active`
+                    }
+                  >
+                    {interestVideos.length < 1 ? (
+                      <h1>Data Not Found</h1>
+                    ) : (
+                      <div className="interest-guru ">
+                        {interestVideos.map((interest, index) => {
+                          return (
+                            <div className="wrap flex">
+                              <figure>
+                                <ReactPlayer
+                                  url={interest.youtube_link}
+                                  width="100%"
+                                  height="100%"
+                                />
+                              </figure>
+                              <div className="content">
+                                <div className="flex space-between">
+                                  <div className="wrapper flex">
+                                    <figure>
+                                      <img
+                                        src={interest.author_profile_image}
+                                        alt="Genaiguru userIcon"
+                                      />
+                                    </figure>
+                                    <div className="innerContent">
+                                      <h6>{interest.author}</h6>
+                                      <p>{interest.creation_date}</p>
+                                    </div>
+                                  </div>
+                                  <ul className="flex">
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/color-bookmarks.png"
+                                          alt="Genaiguru color-bookmarks"
+                                        />
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <img
+                                          src="app/images/dotsIcons.png"
+                                          alt="Genaiguru dotsIcons"
+                                        />
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <p
+                                  onClick={() => onVideoClick(interest.id)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  {interest.title}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
