@@ -24,6 +24,7 @@ const FeaturedContent = (props) => {
   const [myInterests, setMyInterests] = useState();
   const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
   const [mergedInterests1, setMergedInterests] = useState([]);
+  const [interestVideos, setInterestVideos] = useState([]);
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -104,7 +105,7 @@ const FeaturedContent = (props) => {
         },
       })
       .then((response) => {
-        // console.log(response.data.videos);
+         console.log(response.data,"fghgfh");
         setPopularVideos(response?.data?.videos);
       })
       .catch((err) => {
@@ -187,6 +188,21 @@ const FeaturedContent = (props) => {
     setActiveTab(tabNumber);
   };
 
+  // API for Videos on Clinking Interest in Slider
+  const onInterestClick = (interestid, e) => {
+    const array = [interestid];
+    axios
+      .post(`${getBaseURL()}/videos-by-interests`, {
+        interest_id: array,
+      })
+      .then((response) => {
+        console.log(response?.data, "dsfghjg");
+        setInterestVideos(response?.data?.videos);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   // Slider Code
   var settings2 = {
     dots: false,
@@ -350,6 +366,7 @@ const FeaturedContent = (props) => {
                                 onClick={() => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
+                                  onInterestClick(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
@@ -492,64 +509,72 @@ const FeaturedContent = (props) => {
                     `tab-content tab-content-${indexTab} active`
                   }
                 >
-                  {" "}
-                  <div className="interest-guru ">
-                    <div className="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                          title="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div className="content">
-                        <div className="flex space-between">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                                title="Genaiguru userIcon"
+                  {interestVideos.length < 1 ? (
+                    <h1>Data Not Found</h1>
+                  ) : (
+                    <div className="interest-guru ">
+                      {interestVideos.map((interest, index) => {
+                        return (
+                          <div className="wrap flex">
+                          <figure>
+                              <ReactPlayer
+                                url={interest.youtube_link}
+                                width="100%"
+                                height="100%"
                               />
                             </figure>
-                            <div className="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
+                            <div className="content">
+                              <div className="flex space-between">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                     src={interest.author_profile_image}
+                                      alt="Genaiguru userIcon"
+                                      title="Genaiguru userIcon"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{interest.author}</h6>
+                                    <p>{interest.creation_date}</p>
+                                  </div>
+                                </div>
+                                <ul className="flex">
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru color-bookmarks"
+                                        title="Genaiguru color-bookmarks"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <h5
+                              onClick={() => onVideoClick(interest.id)}
+                                style={{ cursor: "pointer" }}>
+                               {interest.title}
+                              </h5>
+                              {/* <p>
+                                Looking to upgrade your salary in the uk? Get
+                                the salary you’re worth by learning to code. 98%
+                                employed within 12 months of qualifying....
+                              </p> */}
                             </div>
                           </div>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                  title="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
+                        );
+                      })}
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
@@ -675,6 +700,7 @@ const FeaturedContent = (props) => {
                                 onClick={() => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
+                                  onInterestClick(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
@@ -692,7 +718,12 @@ const FeaturedContent = (props) => {
                   {/* <!-- tab-link start here --> */}
                 </div>
                 {/* <!-- tab-content here --> */}
-                <div className="tab-content tab-content-1 active">
+                {activeTab === 0 && (
+                <div
+                  className={
+                    activeTab === 0 && "tab-content tab-content-0 active"
+                  }
+                >
                   <div className="interest-guru ">
                     <div className="interest-sliders">
                       {currentVideos.map((video, index) => {
@@ -781,63 +812,83 @@ const FeaturedContent = (props) => {
                     </div>
                   </div>
                 </div>
+                )}
                 {/* <!-- 2nd --> */}
-                <div className="tab-content tab-content-2 ">
-                  <div className="interest-guru ">
-                    <div className="interest-sliders">
-                      <div className="wrap flex">
-                        <figure>
-                          <a href="#">
-                            <img
-                              src="app/images/gureu-keeps-1.png"
-                              alt="Genaiguru Guru-keeps"
-                              title="Genaiguru Guru-keeps"
-                            />
-                          </a>
-                        </figure>
-                        <div className="content">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
+                {activeTab === indexTab && (
+                <div
+                  className={
+                    activeTab === indexTab &&
+                    `tab-content tab-content-${indexTab} active`
+                  }
+                >
+                  {interestVideos.length < 1 ? (
+                    <h1>Data Not Found</h1>
+                  ) : (
+                    <div className="interest-guru ">
+                      {interestVideos.map((interest, index) => {
+                        return (
+                          <div className="wrap flex">
+                          <figure>
+                              <ReactPlayer
+                                url={interest.youtube_link}
+                                width="100%"
+                                height="100%"
                               />
                             </figure>
-                            <div className="innerContent">
-                              <h6>Alex Smih</h6>
-                              <p> Sep 15, 2023. 11:05 pm</p>
+                            <div className="content">
+                              <div className="flex space-between">
+                                <div className="wrapper flex">
+                                  <figure>
+                                    <img
+                                     src={interest.author_profile_image}
+                                      alt="Genaiguru userIcon"
+                                      title="Genaiguru userIcon"
+                                    />
+                                  </figure>
+                                  <div className="innerContent">
+                                    <h6>{interest.author}</h6>
+                                    <p>{interest.creation_date}</p>
+                                  </div>
+                                </div>
+                                <ul className="flex">
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/color-bookmarks.png"
+                                        alt="Genaiguru color-bookmarks"
+                                        title="Genaiguru color-bookmarks"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <img
+                                        src="app/images/dotsIcons.png"
+                                        alt="Genaiguru dotsIcons"
+                                        title="Genaiguru dotsIcons"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <p
+                              onClick={() => onVideoClick(interest.id)}
+                                style={{ cursor: "pointer" }}>
+                               {interest.title}
+                              </p>
+                              {/* <p>
+                                Looking to upgrade your salary in the uk? Get
+                                the salary you’re worth by learning to code. 98%
+                                employed within 12 months of qualifying....
+                              </p> */}
                             </div>
                           </div>
-                          <p>
-                            Navigating the World of ChatGPT and Its Open-source
-                            Adversaries
-                          </p>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru bookmarkIcon"
-                                  title="Genaiguru bookmarkIcon"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                        );
+                      })}
                     </div>
-                  </div>
+                  )}
                 </div>
+              )}
               </div>
             </div>
           </div>
