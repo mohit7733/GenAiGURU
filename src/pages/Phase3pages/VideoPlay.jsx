@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { useLocation } from "react-router";
@@ -26,7 +27,7 @@ const VideoPlay = () => {
     downvote: "",
   });
   const [replyCommentModels, setReplyCommentModels] = useState([]);
-  const [displayCommentModel, setDisplayCommentModel] = useState(false);
+  const [displayCommentModel, setDisplayCommentModel] = useState(true);
   const [displayRepliesCommentModel, setDisplayRepliesCommentModel] = useState(
     {}
   );
@@ -46,8 +47,24 @@ const VideoPlay = () => {
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
+  console.log(videoId, "id");
 
   const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/popular-latest-videos?id=${videoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data, "res");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   useEffect(() => {
     axios
@@ -329,67 +346,70 @@ const VideoPlay = () => {
                     })}
                   </li>
                   <li className="download-btn">
-                    <a onClick={(e) => postVideoupdo("upvote", e)} href="#">
-                      <img
-                        className={
-                          videoPlay?.like_details?.type == "upvote"
-                            ? "borderImage"
-                            : "borderImage"
-                        }
-                        src={
-                          videoPlay?.like_details?.type == "upvote"
-                            ? "/app/images/Group_1.png"
-                            : "/app/images/thumbs-up.png"
-                        }
-                        style={{ float: "left" }}
-                      />
-                      <img
-                        className="fillImage"
-                        src="/app/images/Group_1.png"
-                        style={{ float: "left" }}
-                      />
-                      <span
-                        style={{
-                          marginLeft: "5px",
-                          // marginTop: "4px",
-                        }}
-                      >
-                        {videoPlay.upvote}
-                      </span>
-                    </a>
-
-                    <a onClick={(e) => postVideoupdo("downvote", e)}>
-                      <img
-                        className={
-                          videoPlay?.like_details?.type == "downvote"
-                            ? "borderImage"
-                            : "borderImage"
-                        }
-                        src={
-                          videoPlay.upvote == "downvote"
-                            ? "/app/images/Group_2.png"
-                            : "/app/images/thumbs-down.png"
-                        }
-                        style={{ float: "left" }}
-                      />
-                      <img
-                        className="fillImage"
-                        src="/app/images/Group_2.png"
-                        style={{ float: "left" }}
-                      />
-                      <span
-                        style={{
-                          marginLeft: "5px",
-                          // marginTop: "4px",
-                        }}
-                      >
-                        {videoPlay.downvote}
-                      </span>
-                    </a>
+                    <div>
+                      <a onClick={(e) => postVideoupdo("upvote", e)} href="#">
+                        <img
+                          className={
+                            videoPlay?.like_details?.type == "upvote"
+                              ? "borderImage"
+                              : "borderImage"
+                          }
+                          src={
+                            videoPlay?.like_details?.type == "upvote"
+                              ? "/app/images/Group_1.png"
+                              : "/app/images/thumbs-up.png"
+                          }
+                          style={{ float: "left" }}
+                        />
+                        <img
+                          className="fillImage"
+                          src="/app/images/Group_1.png"
+                          style={{ float: "left" }}
+                        />
+                        <span
+                          style={{
+                            marginLeft: "5px",
+                            // marginTop: "4px",
+                          }}
+                        >
+                          {videoPlay.upvote}
+                        </span>
+                      </a>
+                    </div>
+                    <div>
+                      <a onClick={(e) => postVideoupdo("downvote", e)}>
+                        <img
+                          className={
+                            videoPlay?.like_details?.type == "downvote"
+                              ? "borderImage"
+                              : "borderImage"
+                          }
+                          src={
+                            videoPlay.upvote == "downvote"
+                              ? "/app/images/Group_2.png"
+                              : "/app/images/thumbs-down.png"
+                          }
+                          style={{ float: "left" }}
+                        />
+                        <img
+                          className="fillImage"
+                          src="/app/images/Group_2.png"
+                          style={{ float: "left" }}
+                        />
+                        <span
+                          style={{
+                            marginLeft: "5px",
+                            // marginTop: "4px",
+                          }}
+                        >
+                          {videoPlay.downvote}
+                        </span>
+                      </a>
+                    </div>
                     <a>
                       <WithAuth
                         callBack={(e) => {
-                          setDisplayCommentModel(!displayCommentModel);
+                          // setDisplayCommentModel(!displayCommentModel);
                         }}
                       >
                         <img
@@ -585,7 +605,7 @@ const VideoPlay = () => {
                                     >
                                       <i
                                         style={{ marginRight: "5px" }}
-                                        class={
+                                        className={
                                           !displayRepliesCommentModel[
                                             comment?.id
                                           ] &&
@@ -1116,7 +1136,7 @@ const VideoPlay = () => {
                   <a>
                     <WithAuth
                       callBack={(e) => {
-                        setDisplayCommentModel(!displayCommentModel);
+                        // setDisplayCommentModel(!displayCommentModel);
                       }}
                     >
                       <img
@@ -1309,7 +1329,7 @@ const VideoPlay = () => {
                                   >
                                     <i
                                       style={{ marginRight: "5px" }}
-                                      class={
+                                      className={
                                         !displayRepliesCommentModel[
                                           comment?.id
                                         ] &&

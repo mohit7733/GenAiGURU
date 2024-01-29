@@ -454,6 +454,11 @@ line-height: 1.25em;
   font-size: 14px;
   margin-bottom: 8px;
 }
+.home-category li, .home-category li:last-of-type {
+  width: 100%;
+  margin-right: 15px;
+  margin-bottom: 13px;
+}
 }
 
 .accountCreate input {
@@ -492,8 +497,8 @@ margin-top: 30px;
 }
 
 @media (max-width: 576px) {
-.accountCreate .loginBtn {
-  margin-top: 225px;
+  .accountCreate .loginBtn {
+    margin-top: 70px;
 }
 }
 
@@ -1540,8 +1545,8 @@ transition: all 0.25s ease;
 }
 
 @media (max-width: 576px) {
-.loginOption li:last-of-type a {
-  margin-top: 200px;
+  .loginOption li:last-of-type a {
+    margin-top: 75px;
 }
 }
 
@@ -1963,8 +1968,8 @@ background: #873dd0;
 }
 
 @media (max-width: 576px) {
-.interestSection {
-  padding: 40px 16px 35px;
+  .interestSection {
+    padding: 40px 45px 35px;
 }
 
 .interestSection .cancelBtn {
@@ -5768,9 +5773,9 @@ padding: 5px;
 }
 
 .video-wrapper .video-box .review ul li a small {
-color: #a4abaf;
-font-size: 12px;
-font-weight: 400;
+  color: #a4abaf;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 h3 {
