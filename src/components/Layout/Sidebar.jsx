@@ -95,7 +95,7 @@ const Sidebar = () => {
     }
   };
 
-  console.log(claimedLevels, showLevelPopUp);
+  // console.log(claimedLevels, showLevelPopUp);
   return (
     <>
       <ToastContainer autoClose={1000} pauseOnHover={false} />

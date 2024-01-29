@@ -12,7 +12,7 @@ const Index2 = ({ isLoggedIn }) => {
 
   const [chatResponseText, setChatResponseText] = useState("");
   const [displayRespone, setDisplayRespone] = useState(false);
-  const [loadingText, setLoadingText] = useState("");
+  const [loadingStatus, setLoadingStatus] = useState(false);
   // const [messages, setMessages] = useState([
   //   {
   //     // message: "Hello, I'm ChatGPT! Ask me anything!",
@@ -82,7 +82,7 @@ const Index2 = ({ isLoggedIn }) => {
   // }
 
   const chatGPTApi = async (chatInputText) => {
-    setLoadingText("AI is Typing.....");
+    setLoadingStatus(true);
     try {
       const response = await axios.post(
         `${getBaseURL()}/auth/send-chat-message`,
@@ -95,8 +95,7 @@ const Index2 = ({ isLoggedIn }) => {
           },
         }
       );
-      setLoadingText("");
-
+      setLoadingStatus(false);
       console.log(response?.data?.[0]?.choices?.[0]?.message?.content);
       setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
       setDisplayRespone(true);
@@ -169,10 +168,19 @@ const Index2 = ({ isLoggedIn }) => {
                     </div>
                   </div>
                 </div>
-                <p style={{ color: "white", marginBottom: "5px" }}>
+                {/* <p style={{ color: "white", marginBottom: "5px" }}>
                   {loadingText}
-                </p>
+                </p> */}
 
+                {loadingStatus && (
+                  <div class="chat-bubble" style={{marginBottom:"8px"}}>
+                    <div class="typing">
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                    </div>
+                  </div>
+                )}
                 {displayRespone ? (
                   <Index3
                     responseMessage={chatResponseText}
