@@ -296,9 +296,10 @@ const FeaturedArticles = (props) => {
     axios
       .post(`${getBaseURL()}/interestsarticles`, {
         interest_id: array,
+        user_id: userId,
       })
       .then((response) => {
-        console.log(response?.data, "dsfghjg");
+        console.log(response?.data, "test");
         setInterestArticles(response?.data?.articles);
       })
       .catch((err) => {
@@ -539,11 +540,31 @@ const FeaturedArticles = (props) => {
                                   </div>
                                 </div>
                                 <ul className="flex">
-                                  <li>
-                                    <a href="#">
+                                  <li
+                                    onClick={() => {
+                                      interest.saved === "yes"
+                                        ? onArticleUnSave(interest.id)
+                                        : onArticleSave(interest.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
+                                        src={
+                                          interest.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          interest.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        // title={
+                                        //   article.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                       />
                                     </a>
                                   </li>
@@ -884,11 +905,31 @@ const FeaturedArticles = (props) => {
                                     </div>
                                   </div>
                                   <ul className="flex">
-                                    <li>
-                                      <a href="#">
+                                    <li
+                                      onClick={() => {
+                                        interest.saved === "yes"
+                                          ? onArticleUnSave(interest.id)
+                                          : onArticleSave(interest.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
                                         <img
-                                          src="app/images/color-bookmarks.png"
-                                          alt="Genaiguru color-bookmarks"
+                                          src={
+                                            interest.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            interest.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          // title={
+                                          //   article.saved === "yes"
+                                          //     ? "coloredbookmarkIcon"
+                                          //     : "bookmarkIcon"
+                                          // }
                                         />
                                       </a>
                                     </li>
