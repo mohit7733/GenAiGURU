@@ -167,7 +167,7 @@ const FeaturedContent = (props) => {
     keyForMyInterests
   );
 
-  console.log(mergedInterests);
+  // console.log(mergedInterests);
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -184,9 +184,10 @@ const FeaturedContent = (props) => {
     axios
       .post(`${getBaseURL()}/blogs-by-interests`, {
         interest_id: array,
+        user_id: userId,
       })
       .then((response) => {
-        console.log(response?.data);
+        console.log(response?.data, "gfhgfhg");
         setInterestBlogs(response?.data?.blogs);
       })
       .catch((err) => {
@@ -292,7 +293,8 @@ const FeaturedContent = (props) => {
         console.log(errors);
       });
   };
-
+  console.log(interestBlog, "fgfdg");
+  console.log(currentBlogs);
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -525,11 +527,31 @@ const FeaturedContent = (props) => {
                                   </div>
                                 </div>
                                 <ul className="flex">
-                                  <li>
+                                  <li
+                                    onClick={() => {
+                                      interest.saved === "yes"
+                                        ? onBlogUnSave(interest.id)
+                                        : onBlogSave(interest.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
                                     <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
+                                        src={
+                                          interest.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          interest.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        // title={
+                                        //   interest.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                       />
                                     </a>
                                   </li>
@@ -999,11 +1021,31 @@ const FeaturedContent = (props) => {
                                     </div>
                                   </div>
                                   <ul className="flex">
-                                    <li>
+                                    <li
+                                      onClick={() => {
+                                        interest.saved === "yes"
+                                          ? onBlogUnSave(interest.id)
+                                          : onBlogSave(interest.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
                                       <a>
                                         <img
-                                          src="app/images/color-bookmarks.png"
-                                          alt="Genaiguru color-bookmarks"
+                                          src={
+                                            interest.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            interest.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          // title={
+                                          //   interest.saved === "yes"
+                                          //     ? "coloredbookmarkIcon"
+                                          //     : "bookmarkIcon"
+                                          // }
                                         />
                                       </a>
                                     </li>

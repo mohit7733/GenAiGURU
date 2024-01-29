@@ -118,7 +118,7 @@ const Sidebar = () => {
           <li>
             <WithAuth
               callBack={(e) => {
-                navigate(PATH_GURUGOLD);
+                navigate(PATH_GURUGOLD,'_blank');
               }}
             >
               <Link style={{ cursor: "pointer" }}>

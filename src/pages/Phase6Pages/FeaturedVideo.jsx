@@ -194,14 +194,16 @@ const FeaturedContent = (props) => {
     axios
       .post(`${getBaseURL()}/videos-by-interests`, {
         interest_id: array,
+        user_id: userId,
       })
       .then((response) => {
-        console.log(response?.data, "dsfghjg");
+        console.log(response?.data, "test");
         setInterestVideos(response?.data?.videos);
       })
       .catch((err) => {
         console.log(err.message);
       });
+    setButtonClicked(false);
   };
   // Slider Code
   var settings2 = {
@@ -536,11 +538,31 @@ const FeaturedContent = (props) => {
                                   </div>
                                 </div>
                                 <ul className="flex">
-                                  <li>
-                                    <a href="#">
+                                  <li
+                                    onClick={() => {
+                                      interest.saved === "yes"
+                                        ? onVideoUnSave(interest.id)
+                                        : onVideoSave(interest.id);
+                                      setButtonClicked(!buttonClicked);
+                                    }}
+                                  >
+                                    <a>
                                       <img
-                                        src="app/images/color-bookmarks.png"
-                                        alt="Genaiguru color-bookmarks"
+                                        src={
+                                          interest.saved === "yes"
+                                            ? "app/images/color-bookmarks.png"
+                                            : "./app/images/bookmarkIcon.png"
+                                        }
+                                        alt={
+                                          interest.saved === "yes"
+                                            ? "coloredbookmarkIcon"
+                                            : "bookmarkIcon"
+                                        }
+                                        // title={
+                                        //   video.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                       />
                                     </a>
                                   </li>
@@ -793,11 +815,31 @@ const FeaturedContent = (props) => {
                                     </div>
                                   </div>
                                   <ul className="flex">
-                                    <li>
-                                      <a href="#">
+                                    <li
+                                      onClick={() => {
+                                        interest.saved === "yes"
+                                          ? onVideoUnSave(interest.id)
+                                          : onVideoSave(interest.id);
+                                        setButtonClicked(!buttonClicked);
+                                      }}
+                                    >
+                                      <a>
                                         <img
-                                          src="app/images/color-bookmarks.png"
-                                          alt="Genaiguru color-bookmarks"
+                                          src={
+                                            interest.saved === "yes"
+                                              ? "app/images/color-bookmarks.png"
+                                              : "./app/images/bookmarkIcon.png"
+                                          }
+                                          alt={
+                                            interest.saved === "yes"
+                                              ? "coloredbookmarkIcon"
+                                              : "bookmarkIcon"
+                                          }
+                                          // title={
+                                          //   video.saved === "yes"
+                                          //     ? "coloredbookmarkIcon"
+                                          //     : "bookmarkIcon"
+                                          // }
                                         />
                                       </a>
                                     </li>
