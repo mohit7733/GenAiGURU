@@ -53,6 +53,7 @@ const BlogDetails = ({ likes, dislikes }) => {
   const [showLevelPopUp, setShowLevelPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
   const [claimedLevels, setclaimedLevels] = useState([]);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -228,6 +229,7 @@ const BlogDetails = ({ likes, dislikes }) => {
         content: comment,
       })
       .then((res) => {
+        setLoadingStatus(false);
         console.log(res.data);
         setComment("");
         setButtonClicked(!buttonClicked);
@@ -252,6 +254,7 @@ const BlogDetails = ({ likes, dislikes }) => {
         content: replyCommentt,
       })
       .then((res) => {
+        setLoadingStatus(false);
         console.log(res.data);
         getReplyComments(commentId);
         setReplyComment("");
@@ -563,7 +566,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         }
                                       />
                                       <button
-                                        onClick={postBlogComment}
+                                        disabled={loadingStatus}
+                                        onClick={() => {
+                                          postBlogComment();
+                                          setLoadingStatus(true);
+                                        }}
                                         style={{ cursor: "pointer" }}
                                       >
                                         Post
@@ -872,7 +879,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
+                                                disabled={loadingStatus}
                                                 onClick={() => {
+                                                  setLoadingStatus(true);
                                                   postBlogReplyComment(
                                                     comment.id,
                                                     replyComment
@@ -1138,7 +1147,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         }
                                       />
                                       <button
-                                        onClick={postBlogComment}
+                                        disabled={loadingStatus}
+                                        onClick={() => {
+                                          postBlogComment();
+                                          setLoadingStatus(true);
+                                        }}
                                         style={{ cursor: "pointer" }}
                                       >
                                         Post
@@ -1445,7 +1458,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
+                                                disabled={loadingStatus}
                                                 onClick={() => {
+                                                  setLoadingStatus(true);
                                                   postBlogReplyComment(
                                                     comment.id,
                                                     replyComment

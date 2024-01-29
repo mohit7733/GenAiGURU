@@ -47,6 +47,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   const [showPopUp, setShowPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -242,6 +243,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .then((res) => {
         console.log(res.data);
         setComment("");
+        setLoadingStatus(false);
         setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
@@ -263,6 +265,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         content: replyCommentt,
       })
       .then((res) => {
+        setLoadingStatus(false);
         // console.log(res.data);
         getReplyComments(commentId);
         setReplyComment("");
@@ -528,7 +531,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           setComment(e.target.value)
                                         }
                                       />
-                                      <button onClick={postArticleComment}>
+                                      <button
+                                        disabled={loadingStatus}
+                                        onClick={() => {
+                                          postArticleComment();
+                                          setLoadingStatus(true);
+                                        }}
+                                      >
                                         Post
                                       </button>
                                     </small>
@@ -863,7 +872,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
+                                                disabled={loadingStatus}
                                                 onClick={() => {
+                                                  setLoadingStatus(true);
                                                   postArticleReplyComment(
                                                     comment.id,
                                                     replyComment
@@ -1154,7 +1165,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           setComment(e.target.value)
                                         }
                                       />
-                                      <button onClick={postArticleComment}>
+                                      <button
+                                        disabled={loadingStatus}
+                                        onClick={() => {
+                                          postArticleComment();
+                                          setLoadingStatus(true);
+                                        }}
+                                      >
                                         Post
                                       </button>
                                     </small>
@@ -1481,7 +1498,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                 }
                                               />
                                               <button
+                                                disabled={loadingStatus}
                                                 onClick={() => {
+                                                  setLoadingStatus(true);
                                                   postArticleReplyComment(
                                                     comment.id,
                                                     replyComment

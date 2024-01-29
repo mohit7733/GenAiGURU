@@ -26,12 +26,13 @@ const VideoPlay = () => {
     upvote: "",
     downvote: "",
   });
+  const [loadingStatus, setLoadingStatus] = useState(false);
   const [replyCommentModels, setReplyCommentModels] = useState([]);
   const [displayCommentModel, setDisplayCommentModel] = useState(true);
   const [displayRepliesCommentModel, setDisplayRepliesCommentModel] = useState(
     {}
   );
-
+  const [relatedVideo, setRelatedVideo] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [getVideoComments, setGetVideoComments] = useState([]);
   const [getReplyVideoComments, setGetReplyVideoComments] = useState([null]);
@@ -47,24 +48,7 @@ const VideoPlay = () => {
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
-  console.log(videoId, "id");
-
   const userId = JSON.parse(localStorage.getItem("UserId"));
-
-  useEffect(() => {
-    axios
-      .get(`${getBaseURL()}/popular-latest-videos?id=${videoId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data, "res");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
 
   useEffect(() => {
     axios
@@ -93,13 +77,12 @@ const VideoPlay = () => {
           downvote: response?.data?.video_details?.downvote,
           like_details: response?.data?.video_details?.like_details,
         });
+        setRelatedVideo(response?.data?.related_videos);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, [buttonClicked]);
-
-  console.log(videoPlay, "videoPlay");
 
   const getComments = () => {
     axios
@@ -156,6 +139,7 @@ const VideoPlay = () => {
       .then((res) => {
         console.log(res.data, "post");
         setComment("");
+        setLoadingStatus(false);
         setButtonClicked(!buttonClicked);
       })
       .catch((err) => {
@@ -178,6 +162,7 @@ const VideoPlay = () => {
         content: replyCommentt,
       })
       .then((res) => {
+        setLoadingStatus(false);
         console.log(res.data);
         getReplyComments(commentId);
         setReplyComment("");
@@ -472,7 +457,11 @@ const VideoPlay = () => {
                                   onChange={(e) => setComment(e.target.value)}
                                 />
                                 <button
-                                  onClick={postVideoComment}
+                                  disabled={loadingStatus}
+                                  onClick={() => {
+                                    postVideoComment();
+                                    setLoadingStatus(true);
+                                  }}
                                   style={{ cursor: "pointer" }}
                                 >
                                   Post
@@ -767,7 +756,9 @@ const VideoPlay = () => {
                                           }
                                         />
                                         <button
+                                          disabled={loadingStatus}
                                           onClick={() => {
+                                            setLoadingStatus(true);
                                             postVideoReplyComment(
                                               comment.id,
                                               replyComment
@@ -799,285 +790,68 @@ const VideoPlay = () => {
                 <h1>More Videos</h1>
                 <div className="tab-content">
                   <div className="interest-box flex space-between">
-                    <div className="wrap flex">
-                      <figure>
-                        <a href="#">
-                          <video
-                            src=""
-                            poster="/app/images/videoTabvideoImage.png"
-                          ></video>
-                        </a>
-                        <div className="videoTime flex">
+                    {relatedVideo.map((data) => {
+                      return (
+                        <div className="wrap flex">
+                          <figure>
+                            <a href={data?.youtube_link}>
+                              <video
+                                style={{
+                                  maxWidth: "110px",
+                                  maxHeight: "140px",
+                                }}
+                                src={data?.youtube_link}
+                                poster={data?.author_profile_image}
+                              ></video>
+                            </a>
+                            {/* <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
-                        </div>
-                      </figure>
-                      <div className="content">
-                        <div className="wrapper flex">
-                          <figure>
-                            <img
-                              src="app/images/authorImg.png"
-                              alt="Genaiguru authorImg"
-                            />
+                        </div> */}
                           </figure>
-                          <div className="innerContent">
-                            <h6>Alex Smih</h6>
-                            <p>24 M view . 3 month ago</p>
+                          <div className="content">
+                            <div className="wrapper flex">
+                              <figure>
+                                <img
+                                  src={data?.author_profile_image}
+                                  alt={userimageIcon}
+                                />
+                              </figure>
+                              <div className="innerContent">
+                                <h6>{data.author}</h6>
+                                <p>
+                                  {data.views} view . {data.time_difference}
+                                </p>
+                              </div>
+                            </div>
+                            <p>
+                              <a href={data.youtube_link}>{data.title}</a>
+                            </p>
+                            <ul className="flex">
+                              <li>
+                                <a href="#">
+                                  <img
+                                    src="app/images/bookmarkIcon.png"
+                                    alt="Genaiguru bookmarkIcon"
+                                  />
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <img
+                                    src="app/images/dotsIcons.png"
+                                    alt="Genaiguru dotsIcons"
+                                  />
+                                </a>
+                              </li>
+                            </ul>
                           </div>
                         </div>
-                        <p>
-                          <a href="#">
-                            Navigating the World of ChatGPT and Its Open-source
-                            Adversaries
-                          </a>
-                        </p>
-                        <ul className="flex">
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/bookmarkIcon.png"
-                                alt="Genaiguru bookmarkIcon"
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/dotsIcons.png"
-                                alt="Genaiguru dotsIcons"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="wrap flex">
-                      <figure>
-                        <a href="#">
-                          <video
-                            src=""
-                            poster="/app/images/interestSliderImg.png"
-                          ></video>
-                        </a>
-                        <div className="videoTime flex">
-                          <img
-                            src="app/images/videoIconBlack.png"
-                            alt="Genaiguru videoIconBlack"
-                          />
-                          <span>3:38</span>
-                        </div>
-                      </figure>
-                      <div className="content">
-                        <div className="wrapper flex">
-                          <figure>
-                            <img
-                              src="app/images/authorImg.png"
-                              alt="Genaiguru authorImg"
-                            />
-                          </figure>
-                          <div className="innerContent">
-                            <h6>Alex Smih</h6>
-                            <p>24 M view . 3 month ago</p>
-                          </div>
-                        </div>
-                        <p>
-                          <a href="#">
-                            Navigating the World of ChatGPT and Its Open-source
-                            Adversaries
-                          </a>
-                        </p>
-                        <ul className="flex">
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/bookmarkIcon.png"
-                                alt="Genaiguru bookmarkIcon"
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/dotsIcons.png"
-                                alt="Genaiguru dotsIcons"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="wrap flex">
-                      <figure>
-                        <a href="#">
-                          <video
-                            src=""
-                            poster="/app/images/interestSliderImg.png"
-                          ></video>
-                        </a>
-                        <div className="videoTime flex">
-                          <img
-                            src="app/images/videoIconBlack.png"
-                            alt="Genaiguru videoIconBlack"
-                          />
-                          <span>3:38</span>
-                        </div>
-                      </figure>
-                      <div className="content">
-                        <div className="wrapper flex">
-                          <figure>
-                            <img
-                              src="app/images/authorImg.png"
-                              alt="Genaiguru authorImg"
-                            />
-                          </figure>
-                          <div className="innerContent">
-                            <h6>Alex Smih</h6>
-                            <p>24 M view . 3 month ago</p>
-                          </div>
-                        </div>
-                        <p>
-                          <a href="#">
-                            Navigating the World of ChatGPT and Its Open-source
-                            Adversaries
-                          </a>
-                        </p>
-                        <ul className="flex">
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/bookmarkIcon.png"
-                                alt="Genaiguru bookmarkIcon"
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/dotsIcons.png"
-                                alt="Genaiguru dotsIcons"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="wrap flex">
-                      <figure>
-                        <a href="#">
-                          <video
-                            src=""
-                            poster="/app/images/videoTabvideoImage.png"
-                          ></video>
-                        </a>
-                        <div className="videoTime flex">
-                          <img
-                            src="app/images/videoIconBlack.png"
-                            alt="Genaiguru videoIconBlack"
-                          />
-                          <span>3:38</span>
-                        </div>
-                      </figure>
-                      <div className="content">
-                        <div className="wrapper flex">
-                          <figure>
-                            <img
-                              src="app/images/authorImg.png"
-                              alt="Genaiguru authorImg"
-                            />
-                          </figure>
-                          <div className="innerContent">
-                            <h6>Alex Smih</h6>
-                            <p>24 M view . 3 month ago</p>
-                          </div>
-                        </div>
-                        <p>
-                          <a href="#">
-                            Navigating the World of ChatGPT and Its Open-source
-                            Adversaries
-                          </a>
-                        </p>
-                        <ul className="flex">
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/bookmarkIcon.png"
-                                alt="Genaiguru bookmarkIcon"
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/dotsIcons.png"
-                                alt="Genaiguru dotsIcons"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="wrap flex">
-                      <figure>
-                        <a href="#">
-                          <video
-                            src=""
-                            poster="/app/images/interestSliderImg.png"
-                          ></video>
-                        </a>
-                        <div className="videoTime flex">
-                          <img
-                            src="app/images/videoIconBlack.png"
-                            alt="Genaiguru videoIconBlack"
-                          />
-                          <span>3:38</span>
-                        </div>
-                      </figure>
-                      <div className="content">
-                        <div className="wrapper flex">
-                          <figure>
-                            <img
-                              src="app/images/authorImg.png"
-                              alt="Genaiguru authorImg"
-                            />
-                          </figure>
-                          <div className="innerContent">
-                            <h6>Alex Smih</h6>
-                            <p>24 M view . 3 month ago</p>
-                          </div>
-                        </div>
-                        <p>
-                          <a href="#">
-                            Navigating the World of ChatGPT and Its Open-source
-                            Adversaries
-                          </a>
-                        </p>
-                        <ul className="flex">
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/bookmarkIcon.png"
-                                alt="Genaiguru bookmarkIcon"
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <img
-                                src="app/images/dotsIcons.png"
-                                alt="Genaiguru dotsIcons"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -1199,7 +973,11 @@ const VideoPlay = () => {
                                 onChange={(e) => setComment(e.target.value)}
                               />
                               <button
-                                onClick={postVideoComment}
+                                disabled={loadingStatus}
+                                onClick={() => {
+                                  postVideoComment();
+                                  setLoadingStatus(true);
+                                }}
                                 style={{ cursor: "pointer" }}
                               >
                                 Post
@@ -1488,7 +1266,9 @@ const VideoPlay = () => {
                                         }
                                       />
                                       <button
+                                        disabled={loadingStatus}
                                         onClick={() => {
+                                          setLoadingStatus(true);
                                           postVideoReplyComment(
                                             comment.id,
                                             replyComment
@@ -1521,285 +1301,68 @@ const VideoPlay = () => {
               <h1>More Videos</h1>
               <div className="tab-content">
                 <div className="interest-box flex space-between">
-                  <div className="wrap flex">
-                    <figure>
-                      <a href="#">
-                        <video
-                          src=""
-                          poster="/app/images/videoTabvideoImage.png"
-                        ></video>
-                      </a>
-                      <div className="videoTime flex">
-                        <img
-                          src="app/images/videoIconBlack.png"
-                          alt="Genaiguru videoIconBlack"
-                        />
-                        <span>3:38</span>
-                      </div>
-                    </figure>
-                    <div className="content">
-                      <div className="wrapper flex">
+                  {relatedVideo.map((data) => {
+                    return (
+                      <div className="wrap flex">
                         <figure>
+                          <a href={data?.youtube_link}>
+                            <video
+                              style={{
+                                maxWidth: "110px",
+                                maxHeight: "140px",
+                              }}
+                              src={data?.youtube_link}
+                              poster={data?.author_profile_image}
+                            ></video>
+                          </a>
+                          {/* <div className="videoTime flex">
                           <img
-                            src="app/images/authorImg.png"
-                            alt="Genaiguru authorImg"
+                            src="app/images/videoIconBlack.png"
+                            alt="Genaiguru videoIconBlack"
                           />
+                          <span>3:38</span>
+                        </div> */}
                         </figure>
-                        <div className="innerContent">
-                          <h6>Alex Smih</h6>
-                          <p>24 M view . 3 month ago</p>
+                        <div className="content">
+                          <div className="wrapper flex">
+                            <figure>
+                              <img
+                                src={data?.author_profile_image}
+                                alt={userimageIcon}
+                              />
+                            </figure>
+                            <div className="innerContent">
+                              <h6>{data.author}</h6>
+                              <p>
+                                {data.views} view . {data.time_difference}
+                              </p>
+                            </div>
+                          </div>
+                          <p>
+                            <a href={data.youtube_link}>{data.title}</a>
+                          </p>
+                          <ul className="flex">
+                            <li>
+                              <a href="#">
+                                <img
+                                  src="app/images/bookmarkIcon.png"
+                                  alt="Genaiguru bookmarkIcon"
+                                />
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <img
+                                  src="app/images/dotsIcons.png"
+                                  alt="Genaiguru dotsIcons"
+                                />
+                              </a>
+                            </li>
+                          </ul>
                         </div>
                       </div>
-                      <p>
-                        <a href="#">
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </a>
-                      </p>
-                      <ul className="flex">
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/bookmarkIcon.png"
-                              alt="Genaiguru bookmarkIcon"
-                            />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/dotsIcons.png"
-                              alt="Genaiguru dotsIcons"
-                            />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="wrap flex">
-                    <figure>
-                      <a href="#">
-                        <video
-                          src=""
-                          poster="/app/images/interestSliderImg.png"
-                        ></video>
-                      </a>
-                      <div className="videoTime flex">
-                        <img
-                          src="app/images/videoIconBlack.png"
-                          alt="Genaiguru videoIconBlack"
-                        />
-                        <span>3:38</span>
-                      </div>
-                    </figure>
-                    <div className="content">
-                      <div className="wrapper flex">
-                        <figure>
-                          <img
-                            src="app/images/authorImg.png"
-                            alt="Genaiguru authorImg"
-                          />
-                        </figure>
-                        <div className="innerContent">
-                          <h6>Alex Smih</h6>
-                          <p>24 M view . 3 month ago</p>
-                        </div>
-                      </div>
-                      <p>
-                        <a href="#">
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </a>
-                      </p>
-                      <ul className="flex">
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/bookmarkIcon.png"
-                              alt="Genaiguru bookmarkIcon"
-                            />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/dotsIcons.png"
-                              alt="Genaiguru dotsIcons"
-                            />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="wrap flex">
-                    <figure>
-                      <a href="#">
-                        <video
-                          src=""
-                          poster="/app/images/interestSliderImg.png"
-                        ></video>
-                      </a>
-                      <div className="videoTime flex">
-                        <img
-                          src="app/images/videoIconBlack.png"
-                          alt="Genaiguru videoIconBlack"
-                        />
-                        <span>3:38</span>
-                      </div>
-                    </figure>
-                    <div className="content">
-                      <div className="wrapper flex">
-                        <figure>
-                          <img
-                            src="app/images/authorImg.png"
-                            alt="Genaiguru authorImg"
-                          />
-                        </figure>
-                        <div className="innerContent">
-                          <h6>Alex Smih</h6>
-                          <p>24 M view . 3 month ago</p>
-                        </div>
-                      </div>
-                      <p>
-                        <a href="#">
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </a>
-                      </p>
-                      <ul className="flex">
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/bookmarkIcon.png"
-                              alt="Genaiguru bookmarkIcon"
-                            />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/dotsIcons.png"
-                              alt="Genaiguru dotsIcons"
-                            />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="wrap flex">
-                    <figure>
-                      <a href="#">
-                        <video
-                          src=""
-                          poster="/app/images/videoTabvideoImage.png"
-                        ></video>
-                      </a>
-                      <div className="videoTime flex">
-                        <img
-                          src="app/images/videoIconBlack.png"
-                          alt="Genaiguru videoIconBlack"
-                        />
-                        <span>3:38</span>
-                      </div>
-                    </figure>
-                    <div className="content">
-                      <div className="wrapper flex">
-                        <figure>
-                          <img
-                            src="app/images/authorImg.png"
-                            alt="Genaiguru authorImg"
-                          />
-                        </figure>
-                        <div className="innerContent">
-                          <h6>Alex Smih</h6>
-                          <p>24 M view . 3 month ago</p>
-                        </div>
-                      </div>
-                      <p>
-                        <a href="#">
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </a>
-                      </p>
-                      <ul className="flex">
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/bookmarkIcon.png"
-                              alt="Genaiguru bookmarkIcon"
-                            />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/dotsIcons.png"
-                              alt="Genaiguru dotsIcons"
-                            />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="wrap flex">
-                    <figure>
-                      <a href="#">
-                        <video
-                          src=""
-                          poster="/app/images/interestSliderImg.png"
-                        ></video>
-                      </a>
-                      <div className="videoTime flex">
-                        <img
-                          src="app/images/videoIconBlack.png"
-                          alt="Genaiguru videoIconBlack"
-                        />
-                        <span>3:38</span>
-                      </div>
-                    </figure>
-                    <div className="content">
-                      <div className="wrapper flex">
-                        <figure>
-                          <img
-                            src="app/images/authorImg.png"
-                            alt="Genaiguru authorImg"
-                          />
-                        </figure>
-                        <div className="innerContent">
-                          <h6>Alex Smih</h6>
-                          <p>24 M view . 3 month ago</p>
-                        </div>
-                      </div>
-                      <p>
-                        <a href="#">
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </a>
-                      </p>
-                      <ul className="flex">
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/bookmarkIcon.png"
-                              alt="Genaiguru bookmarkIcon"
-                            />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <img
-                              src="app/images/dotsIcons.png"
-                              alt="Genaiguru dotsIcons"
-                            />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
