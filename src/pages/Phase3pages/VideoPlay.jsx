@@ -6,8 +6,8 @@ import { useLocation } from "react-router";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import ReactPlayer from "react-player";
-import { BASE_PATH, PATH_FEATURED_VIDEO } from "../../routes";
-import { Link } from "react-router-dom";
+import { BASE_PATH, PATH_FEATURED_VIDEO, PATH_VIDEO_PLAY } from "../../routes";
+import { Link, useNavigate } from "react-router-dom";
 import WithAuth from "../Authentication/WithAuth";
 import userimageIcon from "../../assets/images/person.png";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,6 +26,7 @@ const VideoPlay = () => {
     upvote: "",
     downvote: "",
   });
+  const navigate = useNavigate();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [replyCommentModels, setReplyCommentModels] = useState([]);
   const [displayCommentModel, setDisplayCommentModel] = useState(true);
@@ -42,6 +43,7 @@ const VideoPlay = () => {
     profile_image: "",
     name: "",
   });
+  const [relatedVideoId, setRelatedVideoId] = useState();
   const token = JSON.parse(localStorage.getItem("token"));
 
   // useLocation to get id from url
@@ -53,7 +55,9 @@ const VideoPlay = () => {
   useEffect(() => {
     axios
       .get(
-        `${getBaseURL()}/popular-latest-videos?id=${videoId}&user_id=${userId}`,
+        `${getBaseURL()}/popular-latest-videos?id=${
+          videoId ? videoId : relatedVideoId
+        }&user_id=${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -82,12 +86,14 @@ const VideoPlay = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [buttonClicked]);
+  }, [relatedVideoId, buttonClicked]);
 
   const getComments = () => {
     axios
       .get(
-        `${getBaseURL()}/video-comment?user_id=${userId}&video_id=${videoId}`,
+        `${getBaseURL()}/video-comment?user_id=${userId}&video_id=${
+          videoId ? videoId : relatedVideoId
+        }`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -230,7 +236,7 @@ const VideoPlay = () => {
     getComments();
     getReplyComments();
     setButtonClicked(false);
-  }, [buttonClicked]);
+  }, [relatedVideoId, buttonClicked]);
 
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -297,7 +303,13 @@ const VideoPlay = () => {
       return updatedStatus;
     });
   };
-
+  const onVideoClick = (id) => {
+    navigate(`${PATH_VIDEO_PLAY}?id=${id}`);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1000);
+    setRelatedVideoId(id);
+  };
   return (
     <div>
       <MobileHeader />
@@ -401,7 +413,11 @@ const VideoPlay = () => {
                           src="/app/images/comment-01.png"
                           alt="Genaiguru comment"
                         />
-                        comment
+                        {` ${
+                          getVideoComments?.length > 1
+                            ? getVideoComments?.length + " comments"
+                            : getVideoComments?.length + " comment"
+                        }`}
                       </WithAuth>
                     </a>
                   </li>
@@ -792,18 +808,27 @@ const VideoPlay = () => {
                   <div className="interest-box flex space-between">
                     {relatedVideo.map((data) => {
                       return (
-                        <div className="wrap flex">
+                        <div
+                          onClick={() => onVideoClick(data.id)}
+                          className="wrap flex"
+                        >
                           <figure>
-                            <a href={data?.youtube_link}>
-                              <video
-                                style={{
-                                  maxWidth: "110px",
-                                  maxHeight: "140px",
-                                }}
-                                src={data?.youtube_link}
-                                poster={data?.author_profile_image}
-                              ></video>
-                            </a>
+                            <Link onClick={() => onVideoClick(data.id)}>
+                              <a>
+                                <video
+                                  style={{
+                                    maxWidth: "110px",
+                                    height: "110px",
+                                    objectFit: "cover",
+                                    borderRadius: "10px",
+                                  }}
+                                  // src={data?.youtube_link}
+                                  poster={`https://img.youtube.com/vi/${data?.youtube_link.slice(
+                                    -11
+                                  )}/sddefault.jpg`}
+                                ></video>
+                              </a>
+                            </Link>
                             {/* <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
@@ -828,7 +853,11 @@ const VideoPlay = () => {
                               </div>
                             </div>
                             <p>
-                              <a href={data.youtube_link}>{data.title}</a>
+                              <a>
+                                <Link onClick={() => onVideoClick(data.id)}>
+                                  {data.title}
+                                </Link>
+                              </a>
                             </p>
                             <ul className="flex">
                               <li>
@@ -1303,16 +1332,23 @@ const VideoPlay = () => {
                 <div className="interest-box flex space-between">
                   {relatedVideo.map((data) => {
                     return (
-                      <div className="wrap flex">
+                      <div
+                        onClick={() => onVideoClick(data.id)}
+                        className="wrap flex"
+                      >
                         <figure>
                           <a href={data?.youtube_link}>
                             <video
                               style={{
                                 maxWidth: "110px",
-                                maxHeight: "140px",
+                                height: "110px",
+                                objectFit: "cover",
+                                borderRadius: "10px",
                               }}
                               src={data?.youtube_link}
-                              poster={data?.author_profile_image}
+                              poster={`https://img.youtube.com/vi/${data?.youtube_link.slice(
+                                -11
+                              )}/sddefault.jpg`}
                             ></video>
                           </a>
                           {/* <div className="videoTime flex">
