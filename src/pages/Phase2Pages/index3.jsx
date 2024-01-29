@@ -10,10 +10,11 @@ const Index3 = ({ responseMessage, userSearchedText }) => {
   const token = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token"))
     : "";
-  const [userText, setUserText] = useState(userSearchedText);
+  const [userText, setUserText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    setUserText(userSearchedText);
     axios
       .get(`${getBaseURL()}/auth/user`, {
         headers: {
@@ -26,49 +27,46 @@ const Index3 = ({ responseMessage, userSearchedText }) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [userSearchedText]);
+  console.log(userSearchedText);
   return (
     <div>
       <section className="">
-        
-              <div className="wrap">
-                <div className="userSearch flex">
-                  <figure>
-                    <img src={profileImage ? profileImage : userimageIcon} />
-                  </figure>
-                  <p>
-                    {userText
-                      ? userText
-                      : "Suggest Me Some Articles On Blockchain"}
-                  </p>
-                </div>
-                <div className="searchResults">
-                  <div className="headings flex">
-                    <figure>
-                      <img
-                        src="app/images/searchIconLogoInner.png"
-                        alt="Genaiguru search logo icon"
-                        title="Genaiguru search logo icon"
-                      />
-                    </figure>
-                    <h5>Below we suggest you best articles</h5>
-                  </div>
-                  <div className="boxes">
-                    <a href="#">
-                      {/* <h6>
+        <div className="wrap">
+          <div className="userSearch flex">
+            <figure>
+              <img src={profileImage ? profileImage : userimageIcon} />
+            </figure>
+            <p>
+              {userText ? userText : "Suggest Me Some Articles On Blockchain"}
+            </p>
+          </div>
+          <div className="searchResults">
+            <div className="headings flex">
+              <figure>
+                <img
+                  src="app/images/searchIconLogoInner.png"
+                  alt="Genaiguru search logo icon"
+                  title="Genaiguru search logo icon"
+                />
+              </figure>
+              <h5>Below we suggest you best articles</h5>
+            </div>
+            <div className="boxes">
+              <a href="#">
+                {/* <h6>
                         By <span>Wade Warren</span>
                       </h6>
                       <ul className="dateTime flex">
                         <li>Sep 15, 2023</li>
                         <li>. 5 min read</li>
                       </ul> */}
-                      {/* <p>{responseMessage.map((message) => message.message)}</p> */}
-                      <p>{responseMessage}</p>
-                    </a>
-                  </div>
-                </div>
-              </div>
-           
+                {/* <p>{responseMessage.map((message) => message.message)}</p> */}
+                <p>{responseMessage}</p>
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
 
       <div className="mobileHelp">

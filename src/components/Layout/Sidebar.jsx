@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { getBaseURL } from "../../api/config";
@@ -9,6 +9,7 @@ import {
   PATH_SETTINGS,
   PATH_TERMS_AND_SERVICES,
 } from "../../routes";
+import LevelPopup from "../LevelPopup/LevelPopup";
 
 const Sidebar = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,9 @@ const Sidebar = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [message, setmessage] = useState("");
   const [errormessage, seterromessage] = useState("");
+
+  const [claimedLevels, setclaimedLevels] = useState([]);
+  const [showLevelPopUp, setShowLevelPopUp] = useState(false);
 
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -41,7 +45,6 @@ const Sidebar = () => {
           email: email,
         })
         .then((res) => {
-          console.log(res?.data);
           setmessage(res?.data?.message);
           setEmail("");
           setTimeout(() => {
@@ -58,10 +61,50 @@ const Sidebar = () => {
     }
   };
 
+  useEffect(() => {
+    if (userId != "") {
+      fetchGameLevelsforPopupdisplay();
+    }
+  }, []);
+
+  const fetchGameLevelsforPopupdisplay = async () => {
+    try {
+      const response = await axios.get(`${getBaseURL()}/game-levels`, {
+        params: {
+          user_id: userId,
+        },
+      });
+      // console.log(response?.data);
+      if (response?.data?.new_level == "yes") {
+        axios
+          .get(`${getBaseURL()}/game-levels`, {
+            params: {
+              level_id: response?.data?.new_level_id,
+            },
+          })
+          .then((res) => {
+            setclaimedLevels(res?.data?.data);
+            setShowLevelPopUp(true);
+          })
+          .catch((err) => {
+            console.log("Error fetching user levels:", err.message);
+          });
+      }
+    } catch (error) {
+      console.error("Error fetching user points:", error.message);
+    }
+  };
+
+  // console.log(claimedLevels, showLevelPopUp);
   return (
     <>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
-
+      {showLevelPopUp && (
+        <LevelPopup
+          claimedLevels={claimedLevels}
+          onClose={() => setShowLevelPopUp(false)}
+        />
+      )}
       <div className="leftSidebar">
         <ul className="menu">
           <li>

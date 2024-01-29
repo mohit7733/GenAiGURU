@@ -4,14 +4,13 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
+import userimageIcon from "../../assets/images/person.png";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
-import Sharebtn from "./sharebtn";
-import userimageIcon from "../../assets/images/person.png";
 import SilverPopup from "../Phase5Pages/SilverPopup";
-import LevelPopup from "../../components/LevelPopup/LevelPopup";
+import Sharebtn from "./sharebtn";
 
 const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
@@ -50,9 +49,7 @@ const BlogDetails = ({ likes, dislikes }) => {
   );
 
   const [showPopUp, setShowPopUp] = useState(false);
-  const [showLevelPopUp, setShowLevelPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
-  const [claimedLevels, setclaimedLevels] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -352,41 +349,8 @@ const BlogDetails = ({ likes, dislikes }) => {
       }
     };
     fetchBadges();
-    fetchGameLevelsforPopupdisplay();
   }, []);
 
-  const fetchGameLevelsforPopupdisplay = async () => {
-    try {
-      const response = await axios.get(`${getBaseURL()}/game-levels`, {
-        params: {
-          user_id: userId,
-        },
-      });
-      // console.log(response?.data);
-      if (response?.data?.new_level == "yes") {
-        axios
-          .get(`${getBaseURL()}/game-levels`, {
-            params: {
-              level_id: response?.data?.new_level_id,
-            },
-          })
-          .then((res) => {
-            setclaimedLevels(res?.data?.data);
-            // console.log(res?.data?.data);
-            // if (res?.data?.data > 0) {
-            setShowLevelPopUp(true);
-            // }
-          })
-          .catch((err) => {
-            console.log("Error fetching user levels:", err.message);
-          });
-      }
-    } catch (error) {
-      console.error("Error fetching user points:", error.message);
-    }
-  };
-
-  console.log(claimedLevels, showLevelPopUp);
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -396,12 +360,7 @@ const BlogDetails = ({ likes, dislikes }) => {
           onClose={() => setShowPopUp(false)}
         />
       )}
-      {showLevelPopUp && (
-        <LevelPopup
-          claimedLevels={claimedLevels}
-          onClose={() => setShowLevelPopUp(false)}
-        />
-      )}
+
       <MobileHeader />
       {/* <!-- main section start here --> */}
       <section className="mainWrapper flex hideMob">

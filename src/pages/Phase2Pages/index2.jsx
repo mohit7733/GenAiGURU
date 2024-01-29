@@ -1,10 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { getBaseURL } from "../../api/config";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import Index3 from "./index3";
-import { getBaseURL } from "../../api/config";
-import axios from "axios";
 
 const Index2 = ({ isLoggedIn }) => {
   const [chatInputText, setChatInputText] = useState("");
@@ -13,6 +12,7 @@ const Index2 = ({ isLoggedIn }) => {
 
   const [chatResponseText, setChatResponseText] = useState("");
   const [displayRespone, setDisplayRespone] = useState(false);
+  const [loadingStatus, setLoadingStatus] = useState(false);
   // const [messages, setMessages] = useState([
   //   {
   //     // message: "Hello, I'm ChatGPT! Ask me anything!",
@@ -82,6 +82,7 @@ const Index2 = ({ isLoggedIn }) => {
   // }
 
   const chatGPTApi = async (chatInputText) => {
+    setLoadingStatus(true);
     try {
       const response = await axios.post(
         `${getBaseURL()}/auth/send-chat-message`,
@@ -94,11 +95,10 @@ const Index2 = ({ isLoggedIn }) => {
           },
         }
       );
-
+      setLoadingStatus(false);
       console.log(response?.data?.[0]?.choices?.[0]?.message?.content);
       setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
       setDisplayRespone(true);
-      // setChatInputText("");
     } catch (error) {
       if (!chatInputText) {
         alert("Please Type Antything...");
@@ -168,6 +168,19 @@ const Index2 = ({ isLoggedIn }) => {
                     </div>
                   </div>
                 </div>
+                {/* <p style={{ color: "white", marginBottom: "5px" }}>
+                  {loadingText}
+                </p> */}
+
+                {loadingStatus && (
+                  <div class="chat-bubble" style={{marginBottom:"8px"}}>
+                    <div class="typing">
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                    </div>
+                  </div>
+                )}
                 {displayRespone ? (
                   <Index3
                     responseMessage={chatResponseText}

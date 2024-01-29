@@ -18,22 +18,14 @@ const LevelPopup = ({ claimedLevels, onClose }) => {
   return (
     <div>
       {/* <!-- login popup start here --> */}
-      {/* {claimedLevels?.map((badges, index) => { */}
       return (
       <section class="loginPopup silverPopup">
         <div class="wrapper">
           <figure>
-            <img
-              src={claimedLevels.rank_image}
-              alt="Genaiguru medal-second-place.png"
-              title="Genaiguru medal-second-place.png"
-            />
-            {/* <div class="dotsImg">
-              <span></span>
-              <span></span>
-            </div> */}
+            <img src={claimedLevels.rank_image} />
           </figure>
           <div class="labelInner">
+            <h6 style={{ color: "white" }}>Level-{claimedLevels.level} </h6>
             <h6>{claimedLevels.name} </h6>
           </div>
           <h2>You’ve Achieved New Level</h2>
@@ -49,8 +41,6 @@ const LevelPopup = ({ claimedLevels, onClose }) => {
         </div>
       </section>
       );
-      {/* })} */}
-      {/* <!-- login popup end here -->   */}
     </div>
   );
 };

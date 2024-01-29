@@ -31,7 +31,6 @@ const Popularvideos = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.videos);
         setPopularVideos(response?.data?.videos);
         setVideoPoints(response?.data?.videos_points);
       })
@@ -40,7 +39,6 @@ const Popularvideos = () => {
       });
   }, [userId]);
 
-  console.log(userId, "Popular_Videos");
 
   var settings2 = {
     dots: false,
