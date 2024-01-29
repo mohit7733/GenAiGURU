@@ -48,16 +48,12 @@ const Header = () => {
           <img
             src="app/images/hamburgerIcon.png"
             alt="Genaiguru hamburger"
-            title="Genaiguru hamburger "
+          
           />
         </div>
         <figure className="headerLogo">
           <a href="/">
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-              title="Genaiguru"
-            />
+            <img src="app/images/headerLogo.png" alt="Genaiguru header logo" />
           </a>
         </figure>
         <WithAuth
@@ -70,7 +66,6 @@ const Header = () => {
               <img
                 src="app/images/searchIconHeader.png"
                 alt="Genaiguru small logo"
-                title="Genaiguru small logo"
               />
             </figure>
 
@@ -88,7 +83,6 @@ const Header = () => {
               <img
                 src="app/images/notificationIcon.png"
                 alt="Genaiguru notificationIcon"
-                title="Genaiguru notificationIcon"
               />
             </a>
           </li>
@@ -97,7 +91,6 @@ const Header = () => {
               <img
                 src="app/images/elementsIcon.png"
                 alt="Genaiguru elementsIcon"
-                title="Genaiguru elementsIcon"
               />{" "}
               <span className="count">22</span>
             </a>
@@ -109,11 +102,7 @@ const Header = () => {
               }}
             >
               <Link>
-                <img
-                  src="app/images/padIcon.png"
-                  alt="Genaiguru padIcon"
-                  title="Genaiguru padIcon"
-                />{" "}
+                <img src="app/images/padIcon.png" alt="Genaiguru padIcon" />{" "}
                 Write with AI
               </Link>
             </WithAuth>
@@ -123,7 +112,6 @@ const Header = () => {
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru mobile padIcon"
-                title="Genaiguru mobile padIcon"
               />{" "}
               Write with AI
             </Link>

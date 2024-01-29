@@ -90,8 +90,8 @@ const Popularvideos = () => {
               id="Slider-4"
               className="slider_test"
             > */}
-              {popularVideos.map((video, index) => {
-                if (index < MAX_DISPLAY) {
+            {popularVideos.map((video, index) => {
+              if (index < MAX_DISPLAY) {
                 return (
                   <div
                     className="wrap"
@@ -117,7 +117,6 @@ const Popularvideos = () => {
                           <img
                             src="app/images/orangeStrike.png"
                             alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
                           />
                           {videoPoints}
                         </div>
@@ -129,12 +128,10 @@ const Popularvideos = () => {
                                 <img
                                   src={video.author_profile_image}
                                   alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
                                 />
                               </figure>
                               <div className="content">
                                 <h6>{video.author}</h6>
-                                {/* <p>24 M view . 3 month ago</p> */}
                               </div>
                             </div>
                             <ul className="flex">
@@ -143,21 +140,13 @@ const Popularvideos = () => {
                               })}
                             </ul>
                           </div>
-                          {/* <div className="col_right flex">
-                                <img
-                                  src="app/images/videoIcon.png"
-                                  alt="Genaiguru videoIcon"
-                                  title="Genaiguru videoIcon"
-                                />
-                                3:38
-                              </div> */}
                         </div>
                       </div>
                     </a>
                   </div>
                 );
-                }
-              })}
+              }
+            })}
             {/* </Slider> */}
           </div>
           {popularVideos.map((video, index) => {
@@ -183,14 +172,6 @@ const Popularvideos = () => {
                           height="100%"
                         />
                       </figure>
-                      {/* <div className="timing flex">
-                  <img
-                    src="app/images/videoIcon.png"
-                    alt="Genaiguru videoIcon"
-                    title="Genaiguru videoIcon"
-                  />
-                  3:38
-                </div> */}
                     </a>
                   </figure>
                   <div className="content">
@@ -201,10 +182,6 @@ const Popularvideos = () => {
                       <li>{video.author}</li>
                       <li>{video.creation_date}</li>
                     </ul>
-                    {/* <p className="tags">{video.tags}</p> */}
-                    {/* {video?.tags?.map((tag, index) => {
-                    return <p className="tags" key={index}>#{tag}</p>;
-                  })} */}
                   </div>
                 </div>
               );
@@ -247,7 +224,6 @@ const Popularvideos = () => {
                           <img
                             src="app/images/orangeStrike.png"
                             alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
                           />
                           {videoPoints}
                         </div>
@@ -260,7 +236,6 @@ const Popularvideos = () => {
                               <img
                                 src={video.author_profile_image}
                                 alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
                               />
                             </figure>
                             <div className="content">

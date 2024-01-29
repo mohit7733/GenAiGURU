@@ -63,7 +63,6 @@ const LeaderBoard = () => {
                             <img
                               src={allUsers[1]?.profile_image}
                               alt="Genaiguru user-icon"
-                              title="Genaiguru user-icon"
                             />
                           </figure>
                           <div className="rankIcon">#2</div>
@@ -73,7 +72,6 @@ const LeaderBoard = () => {
                             <img
                               src="./app/images/coins.png"
                               alt="Genaiguru Coins"
-                              title="Genaiguru Coins"
                             />
                             {allUsers[1]?.points}
                             <span>coins</span>
@@ -87,7 +85,6 @@ const LeaderBoard = () => {
                             <img
                               src={allUsers[0]?.profile_image}
                               alt="Genaiguru user-icon"
-                              title="Genaiguru user-icon"
                             />
                           </figure>
                           <div className="rankIcon">#1</div>
@@ -97,7 +94,6 @@ const LeaderBoard = () => {
                             <img
                               src="./app/images/coins.png"
                               alt="Genaiguru Coins"
-                              title="Genaiguru Coins"
                             />{" "}
                             {allUsers[0]?.points}
                             <span>coins</span>
@@ -111,7 +107,6 @@ const LeaderBoard = () => {
                             <img
                               src={allUsers[2]?.profile_image}
                               alt="Genaiguru user-icon"
-                              title="Genaiguru user-icon"
                             />
                           </figure>
                           <div className="rankIcon">#3</div>
@@ -121,7 +116,6 @@ const LeaderBoard = () => {
                             <img
                               src="./app/images/coins.png"
                               alt="Genaiguru Coins"
-                              title="Genaiguru Coins"
                             />
                             {allUsers[2]?.points} <span>coins</span>
                           </p>
@@ -202,7 +196,7 @@ const LeaderBoard = () => {
                       <img
                         src="./app/images/down-icons.png"
                         alt="Genaiguru down-icons"
-                        title="Genaiguru down-icons"
+                      
                       />
                     </figure>
                   </a>
@@ -222,16 +216,12 @@ const LeaderBoard = () => {
                               <div className="img-box">
                                 <span>{originalIndex + 2}</span>
                                 <a href="">
-                                  <img
-                                    src={user.profile_image}
-                                    title="profile"
-                                  />
+                                  <img src={user.profile_image} />
                                 </a>
                               </div>
 
                               <div className="content">
                                 <h4>{user.name}</h4>
-                                {/* <p>@Jmsmittan</p> */}
                               </div>
                             </li>
                           </ul>
@@ -242,7 +232,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/coins.png"
                                 alt="Genaiguru Coins"
-                                title="Genaiguru Coins"
                               />
                             </figure>
                             <span>{user.points} coins</span>
@@ -266,7 +255,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-user-4.png"
                                 alt="Genaiguru leader-user-4"
-                                title="Genaiguru leader-user-5"
                               />
                             </a>
                           </div>
@@ -294,7 +282,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-user-5.png"
                                 alt="Genaiguru leader-user-4"
-                                title="Genaiguru leader-user-5"
                               />
                             </a>
                           </div>
@@ -322,7 +309,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-use-6.png"
                                 alt="Genaiguru leader-user-6"
-                                title="Genaiguru leader-user-6"
                               />
                             </a>
                           </div>
@@ -350,7 +336,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-use-7.png"
                                 alt="Genaiguru leader-user-7"
-                                title="Genaiguru leader-user-7"
                               />
                             </a>
                           </div>
@@ -378,7 +363,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-user-5.png"
                                 alt="Genaiguru leader-user-5"
-                                title="Genaiguru leader-user-5"
                               />
                             </a>
                           </div>
@@ -431,7 +415,6 @@ const LeaderBoard = () => {
                             <img
                               src={allUsers[1]?.profile_image}
                               alt="Genaiguru user-icon"
-                              title="Genaiguru user-icon"
                             />
                           </figure>
                           <div className="rankIcon">#2</div>
@@ -442,7 +425,6 @@ const LeaderBoard = () => {
                             <img
                               src="./app/images/coins.png"
                               alt="Genaiguru Coins"
-                              title="Genaiguru Coins"
                             />
                             {allUsers[1]?.points} <span>coins</span>
                           </p>
@@ -455,7 +437,6 @@ const LeaderBoard = () => {
                             <img
                               src={allUsers[0]?.profile_image}
                               alt="Genaiguru user-icon"
-                              title="Genaiguru user-icon"
                             />
                           </figure>
                           <div className="rankIcon">#1</div>
@@ -465,7 +446,6 @@ const LeaderBoard = () => {
                             <img
                               src="./app/images/coins.png"
                               alt="Genaiguru Coins"
-                              title="Genaiguru Coins"
                             />{" "}
                             {allUsers[0]?.points}
                             <span>coins</span>
@@ -479,7 +459,6 @@ const LeaderBoard = () => {
                             <img
                               src={allUsers[2]?.profile_image}
                               alt="Genaiguru user-icon"
-                              title="Genaiguru user-icon"
                             />
                           </figure>
                           <div className="rankIcon">#3</div>
@@ -489,7 +468,6 @@ const LeaderBoard = () => {
                             <img
                               src="./app/images/coins.png"
                               alt="Genaiguru Coins"
-                              title="Genaiguru Coins"
                             />
                             {allUsers[2]?.points} <span>coins</span>
                           </p>
@@ -528,7 +506,7 @@ const LeaderBoard = () => {
                       <img
                         src="./app/images/down-icons.png"
                         alt="Genaiguru down-icons"
-                        title="Genaiguru down-icons"
+                        
                       />
                     </figure>
                   </a>
@@ -548,16 +526,12 @@ const LeaderBoard = () => {
                               <div className="img-box">
                                 <span>{originalIndex + 2}</span>
                                 <a href="">
-                                  <img
-                                    src={user.profile_image}
-                                    title="profile"
-                                  />
+                                  <img src={user.profile_image} />
                                 </a>
                               </div>
 
                               <div className="content">
                                 <h4>{user.name}</h4>
-                                {/* <p>@Jmsmittan</p> */}
                               </div>
                             </li>
                           </ul>
@@ -568,7 +542,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/coins.png"
                                 alt="Genaiguru Coins"
-                                title="Genaiguru Coins"
                               />
                             </figure>
                             <span>{user.points} coins</span>
@@ -592,7 +565,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-user-4.png"
                                 alt="Genaiguru leader-user-4"
-                                title="Genaiguru leader-user-5"
                               />
                             </a>
                           </div>
@@ -620,7 +592,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-user-5.png"
                                 alt="Genaiguru leader-user-4"
-                                title="Genaiguru leader-user-5"
                               />
                             </a>
                           </div>
@@ -648,7 +619,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-use-6.png"
                                 alt="Genaiguru leader-user-6"
-                                title="Genaiguru leader-user-6"
                               />
                             </a>
                           </div>
@@ -676,7 +646,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-use-7.png"
                                 alt="Genaiguru leader-user-7"
-                                title="Genaiguru leader-user-7"
                               />
                             </a>
                           </div>
@@ -704,7 +673,6 @@ const LeaderBoard = () => {
                               <img
                                 src="./app/images/leader-user-5.png"
                                 alt="Genaiguru leader-user-5"
-                                title="Genaiguru leader-user-5"
                               />
                             </a>
                           </div>

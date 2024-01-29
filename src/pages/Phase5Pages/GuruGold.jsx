@@ -127,11 +127,7 @@ const GuruGold = () => {
                   <ul className="flex userPro">
                     <li>
                       <figure>
-                        <img
-                          src={userDetails.profile_image}
-                          alt="userIcon"
-                          title="userIcon"
-                        />
+                        <img src={userDetails.profile_image} alt="userIcon" />
                       </figure>
                       <img className="profileImageTag" src={rankImage} />
                     </li>
@@ -144,7 +140,7 @@ const GuruGold = () => {
                           {/* <img
                             src="app/images/headingProfileIcons.png"
                             alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
+                           
                           /> */}
                         </h3>{" "}
                         <p>
@@ -182,7 +178,6 @@ const GuruGold = () => {
                         <img
                           src="./app/images/coins.png"
                           alt="Genaiguru Coins"
-                          title="Genaiguru Coins"
                         />
                       </figure>
                       {earnMorePoint} coins to go to next level
@@ -231,7 +226,6 @@ const GuruGold = () => {
                               <img
                                 src={userDetails.profile_image}
                                 alt="userIcon"
-                                title="userIcon"
                                 style={{
                                   borderRadius: "100%",
                                   marginTop: "1px",
@@ -264,7 +258,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/reward-1.png"
                             alt="Genaiguru reward-1"
-                            title="Genaiguru reward-1"
                           />
                         </figure>
                         <h6>Leaderboards</h6>
@@ -272,7 +265,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
                           />
                         </figure>
                       </Link>
@@ -285,7 +277,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/reward-2.png"
                             alt="Genaiguru reward-2"
-                            title="Genaiguru reward-2"
                           />
                         </figure>
                         <h6>Rewards</h6>
@@ -293,7 +284,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
                           />
                         </figure>
                       </Link>
@@ -306,7 +296,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/reward-2.png"
                             alt="Genaiguru reward-2"
-                            title="Genaiguru reward-2"
                           />
                         </figure>
                         <h6>Milestone</h6>
@@ -314,7 +303,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
                           />
                         </figure>
                       </Link>
@@ -332,11 +320,7 @@ const GuruGold = () => {
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
           <div className="hamburger" onClick={toggleMobileSidebar}>
-            <img
-              src="app/images/hamburgerIcon.png"
-              alt="Genaiguru hamburger"
-              title="Genaiguru hamburger "
-            />
+            <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
           </div>
           <h2>Gurugold</h2>
         </div>
@@ -351,7 +335,6 @@ const GuruGold = () => {
                         <img
                           src={userDetails.profile_image}
                           alt="Genaiguru userIcon"
-                          title="Genaiguru userIcon"
                         />
                         <img
                           className="profileImageTag"
@@ -367,7 +350,7 @@ const GuruGold = () => {
                           {/* <img
                             src="app/images/headingProfileIcons.png"
                             alt="Genaiguru headingProfileIcons"
-                            title="Genaiguru headingProfileIcons"
+                           
                           /> */}
                         </h3>{" "}
                         <p>
@@ -400,11 +383,7 @@ const GuruGold = () => {
                   <p className="profileBottomText">
                     Earn more{""}
                     <figure style={{ width: "20px" }}>
-                      <img
-                        src="./app/images/coins.png"
-                        alt="Genaiguru Coins"
-                        title="Genaiguru Coins"
-                      />
+                      <img src="./app/images/coins.png" alt="Genaiguru Coins" />
                     </figure>{" "}
                     {earnMorePoint} coins to go to next level
                   </p>
@@ -449,7 +428,6 @@ const GuruGold = () => {
                           <img
                             src={userDetails.profile_image}
                             alt="userIcon"
-                            title="userIcon"
                             style={{ borderRadius: "100%", marginTop: "1px" }}
                           />
                         </figure>
@@ -478,7 +456,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/reward-1.png"
                             alt="Genaiguru reward-1"
-                            title="Genaiguru reward-1"
                           />
                         </figure>
                         <h6>Leaderboards</h6>
@@ -486,7 +463,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
                           />
                         </figure>
                       </Link>
@@ -499,7 +475,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/reward-2.png"
                             alt="Genaiguru reward-2"
-                            title="Genaiguru reward-2"
                           />
                         </figure>
                         <h6>Rewards</h6>
@@ -507,7 +482,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
                           />
                         </figure>
                       </Link>
@@ -520,7 +494,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/reward-2.png"
                             alt="Genaiguru reward-2"
-                            title="Genaiguru reward-2"
                           />
                         </figure>
                         <h6>Milestone</h6>
@@ -528,7 +501,6 @@ const GuruGold = () => {
                           <img
                             src="app/images/arrow-left.png"
                             alt="Genaiguru arrow-left"
-                            title="Genaiguru arrow-left"
                           />
                         </figure>
                       </Link>

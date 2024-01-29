@@ -186,7 +186,6 @@ const Login6 = () => {
                       <img
                         src={Writer.profile_image}
                         alt="Genaiguru user img"
-                        title="Genaiguru user image"
                       />
                     </figure>
                     <div className="names">
@@ -243,7 +242,6 @@ const Login6 = () => {
                         <img
                           src={Writer.profile_image}
                           alt="Genaiguru user img"
-                          title="Genaiguru user image"
                         />
                       </figure>
                       <div className="names">

@@ -415,7 +415,6 @@ const VideoPlay = () => {
                         <img
                           src="/app/images/comment-01.png"
                           alt="Genaiguru comment"
-                          title="Genaiguru comment"
                         />
                         comment
                       </WithAuth>
@@ -437,7 +436,6 @@ const VideoPlay = () => {
                       <img
                         src={videoPlay.author_profile_image}
                         alt="Genaiguru userIcon"
-                        title="Genaiguru userIcon"
                       />
                     </a>
                   </li>
@@ -461,7 +459,6 @@ const VideoPlay = () => {
                               <img
                                 src={profileImage.profile_image}
                                 alt="profile_image"
-                                title="profile_image"
                               />
                             </figure>
                             <span>
@@ -642,7 +639,6 @@ const VideoPlay = () => {
                                                   : userimageIcon
                                               }
                                               alt="repliedUserIcon"
-                                              title="repliedUserIcon"
                                             />
                                           </figure>
                                           <span>
@@ -754,7 +750,6 @@ const VideoPlay = () => {
                                       <img
                                         src={profileImage.profile_image}
                                         alt="Genaiguru review"
-                                        title="Genaiguru review"
                                       />
                                     </figure>
                                     <span className="reply">
@@ -816,7 +811,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
-                            title="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
                         </div>
@@ -827,7 +821,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/authorImg.png"
                               alt="Genaiguru authorImg"
-                              title="Genaiguru authorImg"
                             />
                           </figure>
                           <div className="innerContent">
@@ -847,7 +840,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/bookmarkIcon.png"
                                 alt="Genaiguru bookmarkIcon"
-                                title="Genaiguru bookmarkIcon"
                               />
                             </a>
                           </li>
@@ -856,7 +848,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/dotsIcons.png"
                                 alt="Genaiguru dotsIcons"
-                                title="Genaiguru dotsIcons"
                               />
                             </a>
                           </li>
@@ -876,7 +867,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
-                            title="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
                         </div>
@@ -887,7 +877,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/authorImg.png"
                               alt="Genaiguru authorImg"
-                              title="Genaiguru authorImg"
                             />
                           </figure>
                           <div className="innerContent">
@@ -907,7 +896,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/bookmarkIcon.png"
                                 alt="Genaiguru bookmarkIcon"
-                                title="Genaiguru bookmarkIcon"
                               />
                             </a>
                           </li>
@@ -916,7 +904,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/dotsIcons.png"
                                 alt="Genaiguru dotsIcons"
-                                title="Genaiguru dotsIcons"
                               />
                             </a>
                           </li>
@@ -936,7 +923,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
-                            title="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
                         </div>
@@ -947,7 +933,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/authorImg.png"
                               alt="Genaiguru authorImg"
-                              title="Genaiguru authorImg"
                             />
                           </figure>
                           <div className="innerContent">
@@ -967,7 +952,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/bookmarkIcon.png"
                                 alt="Genaiguru bookmarkIcon"
-                                title="Genaiguru bookmarkIcon"
                               />
                             </a>
                           </li>
@@ -976,7 +960,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/dotsIcons.png"
                                 alt="Genaiguru dotsIcons"
-                                title="Genaiguru dotsIcons"
                               />
                             </a>
                           </li>
@@ -996,7 +979,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
-                            title="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
                         </div>
@@ -1007,7 +989,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/authorImg.png"
                               alt="Genaiguru authorImg"
-                              title="Genaiguru authorImg"
                             />
                           </figure>
                           <div className="innerContent">
@@ -1027,7 +1008,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/bookmarkIcon.png"
                                 alt="Genaiguru bookmarkIcon"
-                                title="Genaiguru bookmarkIcon"
                               />
                             </a>
                           </li>
@@ -1036,7 +1016,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/dotsIcons.png"
                                 alt="Genaiguru dotsIcons"
-                                title="Genaiguru dotsIcons"
                               />
                             </a>
                           </li>
@@ -1056,7 +1035,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
-                            title="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
                         </div>
@@ -1067,7 +1045,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/authorImg.png"
                               alt="Genaiguru authorImg"
-                              title="Genaiguru authorImg"
                             />
                           </figure>
                           <div className="innerContent">
@@ -1087,7 +1064,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/bookmarkIcon.png"
                                 alt="Genaiguru bookmarkIcon"
-                                title="Genaiguru bookmarkIcon"
                               />
                             </a>
                           </li>
@@ -1096,7 +1072,6 @@ const VideoPlay = () => {
                               <img
                                 src="app/images/dotsIcons.png"
                                 alt="Genaiguru dotsIcons"
-                                title="Genaiguru dotsIcons"
                               />
                             </a>
                           </li>
@@ -1147,7 +1122,6 @@ const VideoPlay = () => {
                     <img
                       src="/app/images/thumbs-up.png"
                       alt="Genaiguru thumbs-up"
-                      title="Genaiguru thumbs-up"
                     />
                     {videoPlay.upvote}
                   </a>
@@ -1156,7 +1130,6 @@ const VideoPlay = () => {
                     <img
                       src="/app/images/thumbs-down.png"
                       alt="Genaiguru thumbs-down"
-                      title="Genaiguru thumbs-down"
                     />
                     {videoPlay.downvote}
                   </a>
@@ -1169,7 +1142,6 @@ const VideoPlay = () => {
                       <img
                         src="/app/images/comment-01.png"
                         alt="Genaiguru comment"
-                        title="Genaiguru comment"
                       />
                       comment
                     </WithAuth>
@@ -1191,7 +1163,6 @@ const VideoPlay = () => {
                     <img
                       src={videoPlay.author_profile_image}
                       alt="Genaiguru userIcon"
-                      title="Genaiguru userIcon"
                     />
                   </a>
                 </li>
@@ -1215,7 +1186,6 @@ const VideoPlay = () => {
                             <img
                               src={profileImage.profile_image}
                               alt="profile_image"
-                              title="profile_image"
                             />
                           </figure>
                           <span>
@@ -1392,7 +1362,6 @@ const VideoPlay = () => {
                                                 : userimageIcon
                                             }
                                             alt="repliedUserIcon"
-                                            title="repliedUserIcon"
                                           />
                                         </figure>
                                         <span>{reply?.user_details?.name}</span>
@@ -1502,7 +1471,6 @@ const VideoPlay = () => {
                                     <img
                                       src={profileImage.profile_image}
                                       alt="Genaiguru review"
-                                      title="Genaiguru review"
                                     />
                                   </figure>
                                   <span>
@@ -1565,7 +1533,6 @@ const VideoPlay = () => {
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
-                          title="Genaiguru videoIconBlack"
                         />
                         <span>3:38</span>
                       </div>
@@ -1576,7 +1543,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/authorImg.png"
                             alt="Genaiguru authorImg"
-                            title="Genaiguru authorImg"
                           />
                         </figure>
                         <div className="innerContent">
@@ -1596,7 +1562,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/bookmarkIcon.png"
                               alt="Genaiguru bookmarkIcon"
-                              title="Genaiguru bookmarkIcon"
                             />
                           </a>
                         </li>
@@ -1605,7 +1570,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/dotsIcons.png"
                               alt="Genaiguru dotsIcons"
-                              title="Genaiguru dotsIcons"
                             />
                           </a>
                         </li>
@@ -1625,7 +1589,6 @@ const VideoPlay = () => {
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
-                          title="Genaiguru videoIconBlack"
                         />
                         <span>3:38</span>
                       </div>
@@ -1636,7 +1599,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/authorImg.png"
                             alt="Genaiguru authorImg"
-                            title="Genaiguru authorImg"
                           />
                         </figure>
                         <div className="innerContent">
@@ -1656,7 +1618,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/bookmarkIcon.png"
                               alt="Genaiguru bookmarkIcon"
-                              title="Genaiguru bookmarkIcon"
                             />
                           </a>
                         </li>
@@ -1665,7 +1626,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/dotsIcons.png"
                               alt="Genaiguru dotsIcons"
-                              title="Genaiguru dotsIcons"
                             />
                           </a>
                         </li>
@@ -1685,7 +1645,6 @@ const VideoPlay = () => {
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
-                          title="Genaiguru videoIconBlack"
                         />
                         <span>3:38</span>
                       </div>
@@ -1696,7 +1655,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/authorImg.png"
                             alt="Genaiguru authorImg"
-                            title="Genaiguru authorImg"
                           />
                         </figure>
                         <div className="innerContent">
@@ -1716,7 +1674,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/bookmarkIcon.png"
                               alt="Genaiguru bookmarkIcon"
-                              title="Genaiguru bookmarkIcon"
                             />
                           </a>
                         </li>
@@ -1725,7 +1682,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/dotsIcons.png"
                               alt="Genaiguru dotsIcons"
-                              title="Genaiguru dotsIcons"
                             />
                           </a>
                         </li>
@@ -1745,7 +1701,6 @@ const VideoPlay = () => {
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
-                          title="Genaiguru videoIconBlack"
                         />
                         <span>3:38</span>
                       </div>
@@ -1756,7 +1711,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/authorImg.png"
                             alt="Genaiguru authorImg"
-                            title="Genaiguru authorImg"
                           />
                         </figure>
                         <div className="innerContent">
@@ -1776,7 +1730,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/bookmarkIcon.png"
                               alt="Genaiguru bookmarkIcon"
-                              title="Genaiguru bookmarkIcon"
                             />
                           </a>
                         </li>
@@ -1785,7 +1738,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/dotsIcons.png"
                               alt="Genaiguru dotsIcons"
-                              title="Genaiguru dotsIcons"
                             />
                           </a>
                         </li>
@@ -1805,7 +1757,6 @@ const VideoPlay = () => {
                         <img
                           src="app/images/videoIconBlack.png"
                           alt="Genaiguru videoIconBlack"
-                          title="Genaiguru videoIconBlack"
                         />
                         <span>3:38</span>
                       </div>
@@ -1816,7 +1767,6 @@ const VideoPlay = () => {
                           <img
                             src="app/images/authorImg.png"
                             alt="Genaiguru authorImg"
-                            title="Genaiguru authorImg"
                           />
                         </figure>
                         <div className="innerContent">
@@ -1836,7 +1786,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/bookmarkIcon.png"
                               alt="Genaiguru bookmarkIcon"
-                              title="Genaiguru bookmarkIcon"
                             />
                           </a>
                         </li>
@@ -1845,7 +1794,6 @@ const VideoPlay = () => {
                             <img
                               src="app/images/dotsIcons.png"
                               alt="Genaiguru dotsIcons"
-                              title="Genaiguru dotsIcons"
                             />
                           </a>
                         </li>

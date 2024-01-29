@@ -135,11 +135,7 @@ const Login = () => {
       <section className="loginOption mainBg">
         <figure className="headerLogo">
           <Link to="/">
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-              title="Genaiguru"
-            />
+            <img src="app/images/headerLogo.png" alt="Genaiguru header logo" />
           </Link>
         </figure>
         <div className="wrapper400 stars">
@@ -161,7 +157,6 @@ const Login = () => {
                 <img
                   src="app/images/googleIcon.png"
                   alt="Genaiguru google icon"
-                  title="Genaiguru on google"
                 />
                 Continue with Google
               </Link>
@@ -177,7 +172,6 @@ const Login = () => {
                     <img
                       src="app/images/facebookIcon.png"
                       alt="Genaiguru facebook icon"
-                      title="Genaiguru on facebook"
                     />
                   }
                   textButton="Continue with Facebook"

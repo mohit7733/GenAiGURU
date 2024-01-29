@@ -35,7 +35,6 @@ const Profile = () => {
     coverImage: "",
   });
 
-
   const [claimedBadges, setClaimedBadges] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -405,7 +404,6 @@ const Profile = () => {
                             <img
                               src="/app/images/edit-icon.png"
                               alt="Genaiguru edit-icon"
-                              title="Genaiguru edit-icon"
                             />
                             Edit
                           </Link>
@@ -420,7 +418,6 @@ const Profile = () => {
                                   <img
                                     src="/app/images/twitter.png"
                                     alt="Genaiguru twitter"
-                                    title="Genaiguru Genaiguru twitter"
                                   />
                                 </figure>
                                 <span>Twitter</span>
@@ -439,7 +436,6 @@ const Profile = () => {
                                   <img
                                     src="/app/images/facebookIcon.png"
                                     alt="Genaiguru facebookIcon"
-                                    title="Genaiguru facebookIcon"
                                   />
                                 </figure>
                                 <span>Facebook</span>
@@ -455,7 +451,6 @@ const Profile = () => {
                                   <img
                                     src="/app/images/youtubeIcon.png"
                                     alt="Genaiguru youtube"
-                                    title="Genaiguru Youtube"
                                   />
                                 </figure>
                                 <span>Youtube</span>
@@ -474,7 +469,6 @@ const Profile = () => {
                                   <img
                                     src="/app/images/linkdin-icon.png"
                                     alt="Genaiguru linkdin-icon"
-                                    title="Genaiguru linkdin-icon"
                                   />
                                 </figure>
                                 <span>LinkedIn</span>
@@ -493,7 +487,6 @@ const Profile = () => {
                                   <img
                                     src="/app/images/insta-icon.png"
                                     alt="Genaiguru insta-icon"
-                                    title="Genaiguru insta-icon"
                                   />
                                 </figure>
                                 <span>Instagram</span>
@@ -521,7 +514,6 @@ const Profile = () => {
                               <img
                                 src="app/images/interestSliderImg.png"
                                 alt="Genaiguru intrest"
-                                title="Genaiguru intrest"
                               />
                             </a>
                           </figure>
@@ -531,7 +523,6 @@ const Profile = () => {
                                 <img
                                   src="app/images/authorImg.png"
                                   alt="Genaiguru authorImg"
-                                  title="Genaiguru  authorImg"
                                 />
                               </figure>
                               <div className="innerContent">
@@ -551,7 +542,6 @@ const Profile = () => {
                                   <img
                                     src="app/images/bookmarkIcon.png"
                                     alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
                                   />
                                 </a>
                               </li>
@@ -560,7 +550,6 @@ const Profile = () => {
                                   <img
                                     src="app/images/dotsIcons.png"
                                     alt="Genaiguru dots-icon"
-                                    title="Genaiguru dots-icon"
                                   />
                                 </a>
                               </li>
@@ -594,7 +583,6 @@ const Profile = () => {
                               <img
                                 src="app/images/videoIconBlack.png"
                                 alt="Genaiguru videoIconBlack"
-                                title="Genaiguru videoIconBlack"
                               />
                               <span>3:38</span>
                             </div>
@@ -605,7 +593,6 @@ const Profile = () => {
                                 <img
                                   src="app/images/authorImg.png"
                                   alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
                                 />
                               </figure>
                               <div className="innerContent">
@@ -625,7 +612,6 @@ const Profile = () => {
                                   <img
                                     src="app/images/bookmarkIcon.png"
                                     alt="Genaiguru bookmarkIcon"
-                                    title="Genaiguru bookmarkIcon"
                                   />
                                 </a>
                               </li>
@@ -634,7 +620,6 @@ const Profile = () => {
                                   <img
                                     src="app/images/dotsIcons.png"
                                     alt="Genaiguru dotsIcons"
-                                    title="Genaiguru dotsIcons"
                                   />
                                 </a>
                               </li>
@@ -665,11 +650,7 @@ const Profile = () => {
       <div className="mob_profile hideDes">
         <div className="mobileHead flex">
           <div className="hamburger" onClick={toggleMobileSidebar}>
-            <img
-              src="app/images/hamburgerIcon.png"
-              alt="Genaiguru hamburger"
-              title="Genaiguru hamburger "
-            />
+            <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
           </div>
           <h2>My Profile</h2>
           <button
@@ -808,7 +789,6 @@ const Profile = () => {
                           <img
                             src="/app/images/edit-icon.png"
                             alt="Genaiguru edit-icon"
-                            title="Genaiguru edit-icon"
                           />
                           Edit
                         </Link>
@@ -823,7 +803,6 @@ const Profile = () => {
                                 <img
                                   src="/app/images/twitter.png"
                                   alt="Genaiguru twitter"
-                                  title="Genaiguru Genaiguru twitter"
                                 />
                               </figure>
                               <span>Twitter</span>
@@ -839,7 +818,6 @@ const Profile = () => {
                                 <img
                                   src="/app/images/facebookIcon.png"
                                   alt="Genaiguru facebookIcon"
-                                  title="Genaiguru facebookIcon"
                                 />
                               </figure>
                               <span>Facebook</span>
@@ -855,7 +833,6 @@ const Profile = () => {
                                 <img
                                   src="/app/images/youtubeIcon.png"
                                   alt="Genaiguru youtube"
-                                  title="Genaiguru Youtube"
                                 />
                               </figure>
                               <span>Youtube</span>
@@ -871,7 +848,6 @@ const Profile = () => {
                                 <img
                                   src="/app/images/linkdin-icon.png"
                                   alt="Genaiguru linkdin-icon"
-                                  title="Genaiguru linkdin-icon"
                                 />
                               </figure>
                               <span>LinkedIn</span>
@@ -887,7 +863,6 @@ const Profile = () => {
                                 <img
                                   src="/app/images/insta-icon.png"
                                   alt="Genaiguru insta-icon"
-                                  title="Genaiguru insta-icon"
                                 />
                               </figure>
                               <span>Instagram</span>
@@ -911,7 +886,6 @@ const Profile = () => {
                             <img
                               src="app/images/interestSliderImg.png"
                               alt="Genaiguru intrest"
-                              title="Genaiguru intrest"
                             />
                           </a>
                         </figure>
@@ -921,7 +895,6 @@ const Profile = () => {
                               <img
                                 src="app/images/authorImg.png"
                                 alt="Genaiguru authorImg"
-                                title="Genaiguru  authorImg"
                               />
                             </figure>
                             <div className="innerContent">
@@ -941,7 +914,6 @@ const Profile = () => {
                                 <img
                                   src="app/images/bookmarkIcon.png"
                                   alt="Genaiguru bookmarkIcon"
-                                  title="Genaiguru bookmarkIcon"
                                 />
                               </a>
                             </li>
@@ -950,7 +922,6 @@ const Profile = () => {
                                 <img
                                   src="app/images/dotsIcons.png"
                                   alt="Genaiguru dots-icon"
-                                  title="Genaiguru dots-icon"
                                 />
                               </a>
                             </li>
@@ -979,7 +950,6 @@ const Profile = () => {
                             <img
                               src="app/images/videoIconBlack.png"
                               alt="Genaiguru videoIconBlack"
-                              title="Genaiguru videoIconBlack"
                             />
                             <span>3:38</span>
                           </div>
@@ -990,7 +960,6 @@ const Profile = () => {
                               <img
                                 src="app/images/authorImg.png"
                                 alt="Genaiguru authorImg"
-                                title="Genaiguru authorImg"
                               />
                             </figure>
                             <div className="innerContent">
@@ -1010,7 +979,6 @@ const Profile = () => {
                                 <img
                                   src="app/images/bookmarkIcon.png"
                                   alt="Genaiguru bookmarkIcon"
-                                  title="Genaiguru bookmarkIcon"
                                 />
                               </a>
                             </li>
@@ -1019,7 +987,6 @@ const Profile = () => {
                                 <img
                                   src="app/images/dotsIcons.png"
                                   alt="Genaiguru dotsIcons"
-                                  title="Genaiguru dotsIcons"
                                 />
                               </a>
                             </li>
@@ -1061,7 +1028,6 @@ const Profile = () => {
                   <img
                     src="app/images/cancelButtonIcon.png"
                     alt="Genaiguru cross-icon"
-                    title="Genaiguru cross-icon"
                   />
                 </Link>
               </div>
@@ -1141,12 +1107,12 @@ const Profile = () => {
                       );
                     })}
                   </div>
-                  <button 
+                  <button
                     type="submit"
                     className="loginBtn"
                     onClick={onChangeInterest}
                   >
-                    Save Changes 
+                    Save Changes
                   </button>
                   <p className="errorMessage">{errorMessage}</p>
                 </form>

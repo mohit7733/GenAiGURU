@@ -43,19 +43,11 @@ const MobileHeader = ({ isLogged }) => {
     <>
       <header className="flex hideMob">
         <div className="hamburger">
-          <img
-            src="app/images/hamburgerIcon.png"
-            alt="Genaiguru hamburger"
-            title="Genaiguru hamburger "
-          />
+          <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
         </div>
         <figure className="headerLogo">
           <a href={BASE_PATH}>
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-              title="Genaiguru"
-            />
+            <img src="app/images/headerLogo.png" alt="Genaiguru header logo" />
           </a>
         </figure>
         <div className="searchbar flex">
@@ -63,7 +55,6 @@ const MobileHeader = ({ isLogged }) => {
             <img
               src="app/images/searchIconHeader.png"
               alt="Genaiguru small logo"
-              title="Genaiguru small logo"
             />
           </figure>
           <form action="">
@@ -86,7 +77,6 @@ const MobileHeader = ({ isLogged }) => {
               <img
                 src="app/images/notificationIcon.png"
                 alt="Genaiguru notificationIcon"
-                title="Genaiguru notificationIcon"
               />
             </a>
           </li>
@@ -95,19 +85,14 @@ const MobileHeader = ({ isLogged }) => {
               <img
                 src="app/images/elementsIcon.png"
                 alt="Genaiguru elementsIcon"
-                title="Genaiguru elementsIcon"
               />{" "}
               <span className="count">22</span>
             </a>
           </li>
           <li className="secondaryBtn">
             <Link to={"/index5"}>
-              <img
-                src="app/images/padIcon.png"
-                alt="Genaiguru padIcon"
-                title="Genaiguru padIcon"
-              />{" "}
-              Write with AI
+              <img src="app/images/padIcon.png" alt="Genaiguru padIcon" /> Write
+              with AI
             </Link>
           </li>
           <li className="secondaryBtn mobile">
@@ -115,7 +100,6 @@ const MobileHeader = ({ isLogged }) => {
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru mobile padIcon"
-                title="Genaiguru mobile padIcon"
               />{" "}
               Write
             </Link>
@@ -125,11 +109,11 @@ const MobileHeader = ({ isLogged }) => {
 
             {userLoggedIn ? (
               <Link>
-                <img src={profileImage} alt="" title="Profile image" />
+                <img src={profileImage} alt="Profile image" />
               </Link>
             ) : (
               <Link to={PATH_LOGIN}>
-                <img src={userimageIcon} alt="" title="Genaiguru user image" />
+                <img src={userimageIcon} alt="Genaiguru user image" />
               </Link>
             )}
             <ul className="userNav">

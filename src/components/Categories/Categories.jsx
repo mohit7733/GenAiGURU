@@ -88,19 +88,16 @@ const Categories = () => {
                     <img
                       src="app/images/colorPaintBoard.png"
                       alt="Genaiguru colorPaintBoard"
-                      title="Genaiguru colorPaintBoard"
                     />
                   ) : (
                     <>
                       <img
                         src="app/images/paint-board.png"
                         alt="Genaiguru paint-board"
-                        title="Genaiguru paint-board"
                       />
                       <img
                         src="app/images/colorPaintBoard.png"
                         alt="Genaiguru colorPaintBoard"
-                        title="Genaiguru colorPaintBoard"
                         className="hoverImg"
                       />
                     </>
