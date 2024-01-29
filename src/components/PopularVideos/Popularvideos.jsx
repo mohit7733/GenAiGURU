@@ -104,13 +104,24 @@ const Popularvideos = () => {
                       }}
                       target="_blank"
                     >
-                      <figure>
-                        <ReactPlayer
+                      <figure
+                        src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                          -11
+                        )}/sddefault.jpg`}
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                            -11
+                          )}/sddefault.jpg`}
+                          alt={""}
+                        />
+
+                        {/* <ReactPlayer
                           url={video.youtube_link}
                           playing={false}
                           width="100%"
                           height="100%"
-                        />
+                        /> */}
                       </figure>
                       <div className="layer">
                         <div className="price flex">
@@ -164,13 +175,23 @@ const Popularvideos = () => {
                       }}
                       target="_blank"
                     >
-                      <figure>
-                        <ReactPlayer
+                      <figure
+                        src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                          -11
+                        )}/sddefault.jpg`}
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                            -11
+                          )}/sddefault.jpg`}
+                          alt={""}
+                        />
+                        {/* <ReactPlayer
                           url={video.youtube_link}
                           playing={false}
                           width="100%"
                           height="100%"
-                        />
+                        /> */}
                       </figure>
                     </a>
                   </figure>
@@ -211,12 +232,23 @@ const Popularvideos = () => {
                     }}
                     target="_blank"
                   >
-                    <figure>
-                      <ReactPlayer
+                    <figure
+                      src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                        -11
+                      )}/sddefault.jpg`}
+                    >
+                      <img
+                        src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                          -11
+                        )}/sddefault.jpg`}
+                        alt={""}
+                      />
+
+                      {/* <ReactPlayer
                         url={video.youtube_link}
                         width="100%"
                         height="100%"
-                      />
+                      /> */}
                     </figure>
                     <div className="layer">
                       {video.watched == "no" && (
