@@ -39,7 +39,6 @@ const Popularvideos = () => {
       });
   }, [userId]);
 
-
   var settings2 = {
     dots: false,
     infinite: true,
@@ -102,25 +101,26 @@ const Popularvideos = () => {
                       }}
                       target="_blank"
                     >
-                      <figure
-                        src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
-                          -11
-                        )}/sddefault.jpg`}
-                      >
-                        <img
+                      <div className="youtube-icon">
+                        <figure
                           src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
                             -11
                           )}/sddefault.jpg`}
-                          alt={""}
-                        />
-
-                        {/* <ReactPlayer
-                          url={video.youtube_link}
-                          playing={false}
-                          width="100%"
-                          height="100%"
-                        /> */}
-                      </figure>
+                        >
+                          <img
+                            src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                              -11
+                            )}/sddefault.jpg`}
+                            alt={""}
+                          />
+                          {/* <ReactPlayer
+                        url={video.youtube_link}
+                        width="100%"
+                        height="100%"
+                      /> */}
+                        </figure>
+                        <img src="app/images/youtube.png" alt={""} />
+                      </div>
                       <div className="layer">
                         <div className="price flex">
                           <img
@@ -173,24 +173,26 @@ const Popularvideos = () => {
                       }}
                       target="_blank"
                     >
-                      <figure
-                        src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
-                          -11
-                        )}/sddefault.jpg`}
-                      >
-                        <img
+                      <div className="youtube-icon">
+                        <figure
                           src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
                             -11
                           )}/sddefault.jpg`}
-                          alt={""}
-                        />
-                        {/* <ReactPlayer
-                          url={video.youtube_link}
-                          playing={false}
-                          width="100%"
-                          height="100%"
-                        /> */}
-                      </figure>
+                        >
+                          <img
+                            src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                              -11
+                            )}/sddefault.jpg`}
+                            alt={""}
+                          />
+                          {/* <ReactPlayer
+                        url={video.youtube_link}
+                        width="100%"
+                        height="100%"
+                      /> */}
+                        </figure>
+                        <img src="app/images/youtube.png" alt={""} />
+                      </div>
                     </a>
                   </figure>
                   <div className="content">
@@ -230,24 +232,26 @@ const Popularvideos = () => {
                     }}
                     target="_blank"
                   >
-                    <figure
-                      src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
-                        -11
-                      )}/sddefault.jpg`}
-                    >
-                      <img
+                    <div className="youtube-icon">
+                      <figure
                         src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
                           -11
                         )}/sddefault.jpg`}
-                        alt={""}
-                      />
-
-                      {/* <ReactPlayer
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                            -11
+                          )}/sddefault.jpg`}
+                          alt={""}
+                        />
+                        {/* <ReactPlayer
                         url={video.youtube_link}
                         width="100%"
                         height="100%"
                       /> */}
-                    </figure>
+                      </figure>
+                      <img src="app/images/youtube.png" alt={""} />
+                    </div>
                     <div className="layer">
                       {video.watched == "no" && (
                         <div className="price flex">

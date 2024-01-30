@@ -105,7 +105,6 @@ const FeaturedContent = (props) => {
         },
       })
       .then((response) => {
-        console.log(response.data, "fghgfh");
         setPopularVideos(response?.data?.videos);
       })
       .catch((err) => {
@@ -171,7 +170,7 @@ const FeaturedContent = (props) => {
   const keyForMyInterests = "id";
   // ...
   useEffect(() => {
-    if (myInterests?.length > 0 && userSelectedIneterests?.length > 0) {
+    if (myInterests?.length > 0 || userSelectedIneterests?.length > 0) {
       const mergedInterests = mergeAndRemoveDuplicates(
         userSelectedIneterests,
         myInterests,
@@ -181,7 +180,6 @@ const FeaturedContent = (props) => {
       setMergedInterests(mergedInterests);
     }
   }, [myInterests, userSelectedIneterests]);
-  console.log(mergedInterests1, "merge");
 
   // Function to handle tab click
   const handleTabClick = (tabNumber) => {
@@ -416,11 +414,17 @@ const FeaturedContent = (props) => {
                         <div className="wrap flex" key={index}>
                           <a>
                             <figure>
-                              <ReactPlayer
+                              <img
+                                src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                                  -11
+                                )}/sddefault.jpg`}
+                                alt={""}
+                              />
+                              {/* <ReactPlayer
                                 url={video.youtube_link}
                                 width="100%"
                                 height="100%"
-                              />
+                              /> */}
                             </figure>
                           </a>
                           <div className="content">
@@ -515,10 +519,11 @@ const FeaturedContent = (props) => {
                         return (
                           <div className="wrap flex">
                             <figure>
-                              <ReactPlayer
-                                url={interest.youtube_link}
-                                width="100%"
-                                height="100%"
+                              <img
+                                src={`https://img.youtube.com/vi/${interest?.youtube_link.slice(
+                                  -11
+                                )}/sddefault.jpg`}
+                                alt={""}
                               />
                             </figure>
                             <div className="content">
@@ -677,10 +682,11 @@ const FeaturedContent = (props) => {
                               <figure>
                                 <a>
                                   <figure>
-                                    <ReactPlayer
-                                      url={video.youtube_link}
-                                      width="100%"
-                                      height="100%"
+                                    <img
+                                      src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                                        -11
+                                      )}/sddefault.jpg`}
+                                      alt={""}
                                     />
                                   </figure>
                                 </a>
@@ -772,10 +778,11 @@ const FeaturedContent = (props) => {
                           return (
                             <div className="wrap flex">
                               <figure>
-                                <ReactPlayer
-                                  url={interest.youtube_link}
-                                  width="100%"
-                                  height="100%"
+                                <img
+                                  src={`https://img.youtube.com/vi/${interest?.youtube_link.slice(
+                                    -11
+                                  )}/sddefault.jpg`}
+                                  alt={""}
                                 />
                               </figure>
                               <div className="content">
