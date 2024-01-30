@@ -175,7 +175,7 @@ const FeaturedContent = (props) => {
   const keyForMyInterests = "id";
   // ...
   useEffect(() => {
-    if (myInterests?.length > 0 || userSelectedIneterests?.length > 0) {
+    if (myInterests?.length > 0) {
       const mergedInterests = mergeAndRemoveDuplicates(
         userSelectedIneterests,
         myInterests,
