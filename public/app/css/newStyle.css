@@ -38,6 +38,14 @@
 .typing .dot:last-child {
   margin-right: 0;
 }
+.youtube-icon img {
+  width: 70px;
+  height: 70px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+}
 
 @keyframes mercuryTypingAnimation {
   0% {
