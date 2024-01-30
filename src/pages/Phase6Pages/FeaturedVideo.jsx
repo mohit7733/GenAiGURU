@@ -25,6 +25,7 @@ const FeaturedContent = (props) => {
   const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
   const [mergedInterests1, setMergedInterests] = useState([]);
   const [interestVideos, setInterestVideos] = useState([]);
+  const [interestid, setInterestid] = useState("");
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -65,7 +66,7 @@ const FeaturedContent = (props) => {
   //Pagination ends
 
   const Featuredpopup = (popularity, sortby, currentDate) => {
-    console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
+    console.log(popularity, sortby, currentDate, currentTime);
 
     axios
       .get(
@@ -105,12 +106,16 @@ const FeaturedContent = (props) => {
         },
       })
       .then((response) => {
+        // console.log(response.data);
         setPopularVideos(response?.data?.videos);
+        setButtonClicked(false);
+        if (interestid != "") {
+          onInterestClick(interestid);
+        }
       })
       .catch((err) => {
         console.log(err.message);
       });
-    setButtonClicked(false);
   }, [buttonClicked]);
 
   // Get API for interests
@@ -367,6 +372,7 @@ const FeaturedContent = (props) => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
                                   onInterestClick(interest.id);
+                                  setInterestid(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
@@ -673,6 +679,7 @@ const FeaturedContent = (props) => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
                                   onInterestClick(interest.id);
+                                  setInterestid(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""

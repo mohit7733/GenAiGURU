@@ -112,13 +112,13 @@ const Sidebar = () => {
               <figure>
                 <img src="app/images/homeIcon.png" alt="Genaiguru home icon" />
               </figure>
-              Home
+              <a href="/">Home</a>
             </Link>
           </li>
           <li>
             <WithAuth
               callBack={(e) => {
-                navigate(PATH_GURUGOLD,'_blank');
+                navigate(PATH_GURUGOLD);
               }}
             >
               <Link style={{ cursor: "pointer" }}>
@@ -128,7 +128,7 @@ const Sidebar = () => {
                     alt="Genaiguru guruGoldIcon"
                   />
                 </figure>
-                Guru Gold
+               <a href={PATH_GURUGOLD}>Guru Gold</a> 
               </Link>
             </WithAuth>
           </li>
@@ -145,7 +145,7 @@ const Sidebar = () => {
                     alt="Genaiguru guruKeepsIcon"
                   />
                 </figure>
-                Guru Keeps
+                <a href="/gurukeeps">Guru Keeps</a>
               </Link>
             </WithAuth>
           </li>
@@ -162,7 +162,7 @@ const Sidebar = () => {
                     alt="Genaiguru guruJournalIcon"
                   />
                 </figure>
-                Guru Journal
+                <a href="/gurujournal">Guru Journal</a>
               </Link>
             </WithAuth>
           </li>
@@ -179,7 +179,7 @@ const Sidebar = () => {
                     alt="Genaiguru teamGuruIcon"
                   />
                 </figure>
-                Team Guru
+                <a href="/subscriptions">Team Guru</a>
               </Link>
             </WithAuth>
           </li>
@@ -191,7 +191,7 @@ const Sidebar = () => {
                   alt="Genaiguru contactToGuruIcon"
                 />
               </figure>
-              Contact
+              <a href="/contact">Contact</a>
             </Link>
           </li>
           <li>
@@ -207,7 +207,7 @@ const Sidebar = () => {
                     alt="Genaiguru settingIcon"
                   />
                 </figure>
-                Settings
+                <a href={PATH_SETTINGS}>Settings</a>
               </Link>
             </WithAuth>
           </li>

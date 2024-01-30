@@ -24,6 +24,7 @@ const FeaturedContent = (props) => {
 
   const [latestBlog, setLatestBlog] = useState([]);
   const [interestBlog, setInterestBlogs] = useState([]);
+  const [interestid, setInterestid] = useState("");
 
   const navigate = useNavigate();
   const sliderRef = useRef();
@@ -96,11 +97,14 @@ const FeaturedContent = (props) => {
       })
       .then((response) => {
         setLatestBlog(response?.data?.blogs);
+        setButtonClicked(false);
+        if (interestid != "") {
+          onInterestClick(interestid);
+        }
       })
       .catch((err) => {
         console.log(err.message);
       });
-    setButtonClicked(false);
   }, [buttonClicked]);
 
   const getAllInterests = () => {
@@ -187,7 +191,7 @@ const FeaturedContent = (props) => {
         user_id: userId,
       })
       .then((response) => {
-        console.log(response?.data, "gfhgfhg");
+        // console.log(response?.data, "test");
         setInterestBlogs(response?.data?.blogs);
       })
       .catch((err) => {
@@ -293,8 +297,6 @@ const FeaturedContent = (props) => {
         console.log(errors);
       });
   };
-  console.log(interestBlog, "fgfdg");
-  console.log(currentBlogs);
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -356,6 +358,7 @@ const FeaturedContent = (props) => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
                                   onInterestClick(interest.id);
+                                  setInterestid(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
@@ -828,6 +831,7 @@ const FeaturedContent = (props) => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
                                   onInterestClick(interest.id);
+                                  setInterestid(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
