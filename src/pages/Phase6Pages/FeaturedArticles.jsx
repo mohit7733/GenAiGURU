@@ -25,6 +25,7 @@ const FeaturedArticles = (props) => {
   const [mergedInterests1, setMergedInterests] = useState([]);
   const [articles, setArticles] = useState([]);
   const [interestArticles, setInterestArticles] = useState([]);
+  const [interestid, setInterestid] = useState("");
 
   const navigate = useNavigate();
   const sliderRef = useRef();
@@ -43,11 +44,14 @@ const FeaturedArticles = (props) => {
       .then((response) => {
         // console.log(response?.data?.articles);
         setArticles(response?.data?.articles);
+        setButtonClicked(false);
+        if (interestid != "") {
+          onInterestClick(interestid);
+        }
       })
       .catch((err) => {
         console.log(err.message);
       });
-    setButtonClicked(false);
   }, [buttonClicked]);
 
   const date = new Date();
@@ -369,6 +373,7 @@ const FeaturedArticles = (props) => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
                                   onInterestClick(interest.id);
+                                  setInterestid(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
@@ -761,6 +766,7 @@ const FeaturedArticles = (props) => {
                                   handleTabClick(index + 1);
                                   setIndexTab(index + 1);
                                   onInterestClick(interest.id);
+                                  setInterestid(interest.id);
                                 }}
                                 className={
                                   activeTab === index + 1 ? "tab active" : ""
