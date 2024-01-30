@@ -4,7 +4,13 @@ import userimageIcon from "../../assets/images/person.png";
 import { useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import { BASE_PATH, PATH_LOGIN, PATH_PROFILE } from "../../routes";
+import {
+  BASE_PATH,
+  PATH_LOGIN,
+  PATH_NOTIFICATION,
+  PATH_PROFILE,
+} from "../../routes";
+import WithAuth from "../../pages/Authentication/WithAuth";
 
 const MobileHeader = ({ isLogged }) => {
   const [loginPopupVisible, setLoginPopupVisible] = useState(false);
@@ -72,14 +78,20 @@ const MobileHeader = ({ isLogged }) => {
           </form>
         </div>
         <ul className="leftSide flex">
-          <li className="headerIcon">
-            <a href="#">
-              <img
-                src="app/images/notificationIcon.png"
-                alt="Genaiguru notificationIcon"
-              />
-            </a>
-          </li>
+          <WithAuth
+            callBack={(e) => {
+              navigate(PATH_NOTIFICATION);
+            }}
+          >
+            <li className="headerIcon">
+              <a>
+                <img
+                  src="app/images/notificationIcon.png"
+                  alt="Genaiguru notificationIcon"
+                />
+              </a>
+            </li>
+          </WithAuth>
           <li className="headerIcon">
             <a href="#">
               <img

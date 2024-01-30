@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import userimageIcon from "../../assets/images/person.png";
 import WithAuth from "../../pages/Authentication/WithAuth";
-import { PATH_LOGIN } from "../../routes";
+import { PATH_LOGIN, PATH_NOTIFICATION } from "../../routes";
 import MobileSideBar from "./MobileSideBar";
 const Header = () => {
   const [profileImage, setProfileImage] = useState();
@@ -13,24 +13,27 @@ const Header = () => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
+
   const toggleMobileSidebar = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-    axios
-      .get(`${getBaseURL()}/auth/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        localStorage.setItem("UserId", JSON.stringify(response.data?.id));
-        setProfileImage(response.data.profile_image);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    if (token != "") {
+      axios
+        .get(`${getBaseURL()}/auth/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          localStorage.setItem("UserId", JSON.stringify(response.data?.id));
+          setProfileImage(response.data.profile_image);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   }, []);
 
   const changeLoginStatus = () => {
@@ -45,11 +48,7 @@ const Header = () => {
     <>
       <header className="flex">
         <div className="hamburger" onClick={toggleMobileSidebar}>
-          <img
-            src="app/images/hamburgerIcon.png"
-            alt="Genaiguru hamburger"
-          
-          />
+          <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
         </div>
         <figure className="headerLogo">
           <a href="/">
@@ -78,14 +77,20 @@ const Header = () => {
         </WithAuth>
 
         <ul className="leftSide flex">
-          <li className="headerIcon">
-            <a href="#">
-              <img
-                src="app/images/notificationIcon.png"
-                alt="Genaiguru notificationIcon"
-              />
-            </a>
-          </li>
+          <WithAuth
+            callBack={(e) => {
+              navigate(PATH_NOTIFICATION);
+            }}
+          >
+            <li className="headerIcon">
+              <a>
+                <img
+                  src="app/images/notificationIcon.png"
+                  alt="Genaiguru notificationIcon"
+                />
+              </a>
+            </li>
+          </WithAuth>
           <li className="headerIcon">
             <a href="#">
               <img

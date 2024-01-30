@@ -22,11 +22,11 @@ const LevelPopup = ({ claimedLevels, onClose }) => {
       <section class="loginPopup silverPopup">
         <div class="wrapper">
           <figure>
-            <img src={claimedLevels.rank_image} />
+            <img src={claimedLevels.popup_image} />
           </figure>
           <div class="labelInner">
-            <h6 style={{ color: "white" }}>Level-{claimedLevels.level} </h6>
-            <h6>{claimedLevels.name} </h6>
+            <h4 style={{ color: "white" }}>Level-{claimedLevels.level} </h4>
+            <h4>{claimedLevels.name} </h4>
           </div>
           <h2>You’ve Achieved New Level</h2>
           <a

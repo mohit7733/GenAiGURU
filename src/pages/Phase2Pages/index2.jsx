@@ -96,7 +96,7 @@ const Index2 = ({ isLoggedIn }) => {
         }
       );
       setLoadingStatus(false);
-      console.log(response?.data?.[0]?.choices?.[0]?.message?.content);
+      // console.log(response?.data?.[0]?.choices?.[0]?.message?.content);
       setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
       setDisplayRespone(true);
     } catch (error) {
@@ -173,7 +173,7 @@ const Index2 = ({ isLoggedIn }) => {
                 </p> */}
 
                 {loadingStatus && (
-                  <div class="chat-bubble" style={{marginBottom:"8px"}}>
+                  <div class="chat-bubble" style={{ marginBottom: "8px" }}>
                     <div class="typing">
                       <div class="dot"></div>
                       <div class="dot"></div>
