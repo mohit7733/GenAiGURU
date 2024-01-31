@@ -50,7 +50,9 @@ const VideoPlay = () => {
   let location = useLocation();
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
+
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 
   useEffect(() => {
     axios
@@ -344,7 +346,7 @@ const VideoPlay = () => {
                   </li>
                   <li className="download-btn">
                     <div>
-                      <a onClick={(e) => postVideoupdo("upvote", e)} href="#">
+                      <a onClick={(e) => postVideoupdo("upvote", e)}>
                         <img
                           className={
                             videoPlay?.like_details?.type == "upvote"
@@ -453,41 +455,43 @@ const VideoPlay = () => {
                 {displayCommentModel && (
                   <>
                     <div className="review">
-                      <ul>
-                        <li>
-                          <a>
-                            <figure>
-                              <img
-                                src={profileImage.profile_image}
-                                alt="profile_image"
-                              />
-                            </figure>
-                            <span>
-                              <span className="m-l">{videoPlay.name} </span>
-                              <br />
-                              <small>
-                                <input
-                                  type="text"
-                                  placeholder="Comment Here......"
-                                  value={comment}
-                                  onChange={(e) => setComment(e.target.value)}
+                      {userLoggedIn && (
+                        <ul>
+                          <li>
+                            <a>
+                              <figure>
+                                <img
+                                  src={profileImage.profile_image}
+                                  alt="profile_image"
                                 />
-                                <button
-                                  disabled={loadingStatus}
-                                  onClick={() => {
-                                    postVideoComment();
-                                    setLoadingStatus(true);
-                                  }}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  Post
-                                </button>
-                              </small>
-                              <br />
-                            </span>
-                          </a>
-                        </li>
-                      </ul>
+                              </figure>
+                              <span>
+                                <span className="m-l">{videoPlay.name} </span>
+                                <br />
+                                <small>
+                                  <input
+                                    type="text"
+                                    placeholder="Comment Here......"
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                  />
+                                  <button
+                                    disabled={loadingStatus}
+                                    onClick={() => {
+                                      postVideoComment();
+                                      setLoadingStatus(true);
+                                    }}
+                                    style={{ cursor: "pointer" }}
+                                  >
+                                    Post
+                                  </button>
+                                </small>
+                                <br />
+                              </span>
+                            </a>
+                          </li>
+                        </ul>
+                      )}
                     </div>
                     {getVideoComments.map((comment, index) => {
                       const isReplyBoxOpen = replyCommentModels.includes(
@@ -521,81 +525,97 @@ const VideoPlay = () => {
                                       margin: "0px",
                                     }}
                                   >
-                                    <button
-                                      className="btnlike"
-                                      onClick={() =>
-                                        postVideoCommentLike("like", comment.id)
-                                      }
-                                    >
-                                      <img
-                                        className="borderImage"
-                                        src={
-                                          comment?.like_details?.type == "like"
-                                            ? "/app/images/Group_1.png"
-                                            : "/app/images/thumbs-up.png"
-                                        }
-                                        style={{ float: "left" }}
-                                      />
-                                      <img
-                                        className="fillImage"
-                                        src="/app/images/Group_1.png"
-                                        style={{ float: "left" }}
-                                      />
-                                      <span
-                                        style={{
-                                          marginLeft: "-5px",
-                                          marginTop: "4px",
-                                        }}
-                                      >
-                                        {comment.likes > 0 ? comment.likes : ""}
-                                      </span>
-                                    </button>
-                                    <button
-                                      className="btnlike"
-                                      onClick={() =>
-                                        postVideoCommentLike(
-                                          "dislike",
-                                          comment.id
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        className="borderImage"
-                                        src={
-                                          comment?.like_details?.type ==
-                                          "dislike"
-                                            ? "/app/images/Group_2.png"
-                                            : "/app/images/thumbs-down.png"
-                                        }
-                                        style={{ float: "left" }}
-                                      />
-                                      <img
-                                        className="fillImage"
-                                        src="/app/images/Group_2.png"
-                                        style={{ float: "left" }}
-                                      />
-                                      <span
-                                        style={{
-                                          marginLeft: "-5px",
-                                          marginTop: "4px",
-                                        }}
-                                      >
-                                        {comment.dislikes > 0
-                                          ? comment.dislikes
-                                          : ""}
-                                      </span>
-                                    </button>
-                                    <span
-                                      style={{ cursor: "pointer" }}
-                                      onClick={() => {
-                                        comment.is_any_reply == "no" &&
-                                          displayReplies(comment.id);
-                                        getReplyComments(comment.id);
-                                        toggleReplyCommentModel(comment.id);
+                                    {/* Comments Like and Dislike Buttons Bellow */}
+                                    <WithAuth
+                                      callBack={(e) => {
+                                        // setDisplayCommentModel(!displayCommentModel);
                                       }}
                                     >
-                                      Reply
-                                    </span>
+                                      <button
+                                        className="btnlike"
+                                        onClick={() =>
+                                          postVideoCommentLike(
+                                            "like",
+                                            comment.id
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          className="borderImage"
+                                          src={
+                                            comment?.like_details?.type ==
+                                            "like"
+                                              ? "/app/images/Group_1.png"
+                                              : "/app/images/thumbs-up.png"
+                                          }
+                                          style={{ float: "left" }}
+                                        />
+                                        <img
+                                          className="fillImage"
+                                          src="/app/images/Group_1.png"
+                                          style={{ float: "left" }}
+                                        />
+                                        <span
+                                          style={{
+                                            marginLeft: "-5px",
+                                            marginTop: "4px",
+                                          }}
+                                        >
+                                          {comment.likes > 0
+                                            ? comment.likes
+                                            : ""}
+                                        </span>
+                                      </button>
+                                      <button
+                                        className="btnlike"
+                                        onClick={() =>
+                                          postVideoCommentLike(
+                                            "dislike",
+                                            comment.id
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          className="borderImage"
+                                          src={
+                                            comment?.like_details?.type ==
+                                            "dislike"
+                                              ? "/app/images/Group_2.png"
+                                              : "/app/images/thumbs-down.png"
+                                          }
+                                          style={{ float: "left" }}
+                                        />
+                                        <img
+                                          className="fillImage"
+                                          src="/app/images/Group_2.png"
+                                          style={{ float: "left" }}
+                                        />
+                                        <span
+                                          style={{
+                                            marginLeft: "-5px",
+                                            marginTop: "4px",
+                                          }}
+                                        >
+                                          {comment.dislikes > 0
+                                            ? comment.dislikes
+                                            : ""}
+                                        </span>
+                                      </button>
+                                    </WithAuth>
+                                    {/* Comments REPLY SECTION */}
+                                    {userLoggedIn && (
+                                      <span
+                                        style={{ cursor: "pointer" }}
+                                        onClick={() => {
+                                          comment.is_any_reply == "no" &&
+                                            displayReplies(comment.id);
+                                          getReplyComments(comment.id);
+                                          toggleReplyCommentModel(comment.id);
+                                        }}
+                                      >
+                                        Reply
+                                      </span>
+                                    )}
                                   </div>
                                   {comment.is_any_reply == "yes" && (
                                     <p
@@ -657,86 +677,93 @@ const VideoPlay = () => {
                                               margin: "0px",
                                             }}
                                           >
-                                            <button
-                                              className="btnlike"
-                                              onClick={() => {
-                                                postVideoReplyLike(
-                                                  "like",
-                                                  reply.id,
-                                                  comment.id
-                                                );
+                                            {/*Reply Comments Like and Dislike Buttons Bellow */}
+                                            <WithAuth
+                                              callBack={(e) => {
+                                                // setDisplayCommentModel(!displayCommentModel);
                                               }}
                                             >
-                                              <img
-                                                className="borderImage"
-                                                src={
-                                                  reply?.like_details?.type ==
-                                                  "like"
-                                                    ? "/app/images/Group_1.png"
-                                                    : "/app/images/thumbs-up.png"
-                                                }
-                                                style={{
-                                                  float: "left",
-                                                }}
-                                              />
-                                              <img
-                                                className="fillImage"
-                                                src="/app/images/Group_1.png"
-                                                style={{
-                                                  float: "left",
-                                                }}
-                                              />
-                                              <span
-                                                style={{
-                                                  marginLeft: "-5px",
-                                                  marginTop: "4px",
+                                              <button
+                                                className="btnlike"
+                                                onClick={() => {
+                                                  postVideoReplyLike(
+                                                    "like",
+                                                    reply.id,
+                                                    comment.id
+                                                  );
                                                 }}
                                               >
-                                                {reply.likes > 0
-                                                  ? reply.likes
-                                                  : ""}
-                                              </span>
-                                            </button>
-                                            <button
-                                              className="btnlike"
-                                              onClick={() =>
-                                                postVideoReplyLike(
-                                                  "dislike",
-                                                  reply.id,
-                                                  comment.id
-                                                )
-                                              }
-                                            >
-                                              <img
-                                                className="borderImage"
-                                                src={
-                                                  reply?.like_details?.type ==
-                                                  "dislike"
-                                                    ? "/app/images/Group_2.png"
-                                                    : "/app/images/thumbs-down.png"
+                                                <img
+                                                  className="borderImage"
+                                                  src={
+                                                    reply?.like_details?.type ==
+                                                    "like"
+                                                      ? "/app/images/Group_1.png"
+                                                      : "/app/images/thumbs-up.png"
+                                                  }
+                                                  style={{
+                                                    float: "left",
+                                                  }}
+                                                />
+                                                <img
+                                                  className="fillImage"
+                                                  src="/app/images/Group_1.png"
+                                                  style={{
+                                                    float: "left",
+                                                  }}
+                                                />
+                                                <span
+                                                  style={{
+                                                    marginLeft: "-5px",
+                                                    marginTop: "4px",
+                                                  }}
+                                                >
+                                                  {reply.likes > 0
+                                                    ? reply.likes
+                                                    : ""}
+                                                </span>
+                                              </button>
+                                              <button
+                                                className="btnlike"
+                                                onClick={() =>
+                                                  postVideoReplyLike(
+                                                    "dislike",
+                                                    reply.id,
+                                                    comment.id
+                                                  )
                                                 }
-                                                style={{
-                                                  float: "left",
-                                                }}
-                                              />
-                                              <img
-                                                className="fillImage"
-                                                src="/app/images/Group_2.png"
-                                                style={{
-                                                  float: "left",
-                                                }}
-                                              />
-                                              <span
-                                                style={{
-                                                  marginLeft: "-5px",
-                                                  marginTop: "4px",
-                                                }}
                                               >
-                                                {reply.dislikes > 0
-                                                  ? reply.dislikes
-                                                  : ""}
-                                              </span>
-                                            </button>
+                                                <img
+                                                  className="borderImage"
+                                                  src={
+                                                    reply?.like_details?.type ==
+                                                    "dislike"
+                                                      ? "/app/images/Group_2.png"
+                                                      : "/app/images/thumbs-down.png"
+                                                  }
+                                                  style={{
+                                                    float: "left",
+                                                  }}
+                                                />
+                                                <img
+                                                  className="fillImage"
+                                                  src="/app/images/Group_2.png"
+                                                  style={{
+                                                    float: "left",
+                                                  }}
+                                                />
+                                                <span
+                                                  style={{
+                                                    marginLeft: "-5px",
+                                                    marginTop: "4px",
+                                                  }}
+                                                >
+                                                  {reply.dislikes > 0
+                                                    ? reply.dislikes
+                                                    : ""}
+                                                </span>
+                                              </button>
+                                            </WithAuth>
                                           </div>
                                         </>
                                       )}
@@ -802,88 +829,90 @@ const VideoPlay = () => {
                   </>
                 )}
               </div>
-              <div className="video-list">
-                <h1>More Videos</h1>
-                <div className="tab-content">
-                  <div className="interest-box flex space-between">
-                    {relatedVideo.map((data) => {
-                      return (
-                        <div
-                          onClick={() => onVideoClick(data.id)}
-                          className="wrap flex"
-                        >
-                          <figure>
-                            <Link onClick={() => onVideoClick(data.id)}>
-                              <a>
-                                <video
-                                  style={{
-                                    maxWidth: "110px",
-                                    height: "110px",
-                                    objectFit: "cover",
-                                    borderRadius: "10px",
-                                  }}
-                                  // src={data?.youtube_link}
-                                  poster={`https://img.youtube.com/vi/${data?.youtube_link.slice(
-                                    -11
-                                  )}/sddefault.jpg`}
-                                ></video>
-                              </a>
-                            </Link>
-                            {/* <div className="videoTime flex">
+              {relatedVideo?.length > 0 && (
+                <div className="video-list">
+                  <h1>More Videos</h1>
+                  <div className="tab-content">
+                    <div className="interest-box flex space-between">
+                      {relatedVideo?.map((data) => {
+                        return (
+                          <div
+                            onClick={() => onVideoClick(data.id)}
+                            className="wrap flex"
+                          >
+                            <figure>
+                              <Link onClick={() => onVideoClick(data.id)}>
+                                <a>
+                                  <video
+                                    style={{
+                                      maxWidth: "110px",
+                                      height: "110px",
+                                      objectFit: "cover",
+                                      borderRadius: "10px",
+                                    }}
+                                    // src={data?.youtube_link}
+                                    poster={`https://img.youtube.com/vi/${data?.youtube_link.slice(
+                                      -11
+                                    )}/sddefault.jpg`}
+                                  ></video>
+                                </a>
+                              </Link>
+                              {/* <div className="videoTime flex">
                           <img
                             src="app/images/videoIconBlack.png"
                             alt="Genaiguru videoIconBlack"
                           />
                           <span>3:38</span>
                         </div> */}
-                          </figure>
-                          <div className="content">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src={data?.author_profile_image}
-                                  alt={userimageIcon}
-                                />
-                              </figure>
-                              <div className="innerContent">
-                                <h6>{data.author}</h6>
-                                <p>
-                                  {data.views} view . {data.time_difference}
-                                </p>
+                            </figure>
+                            <div className="content">
+                              <div className="wrapper flex">
+                                <figure>
+                                  <img
+                                    src={data?.author_profile_image}
+                                    alt={userimageIcon}
+                                  />
+                                </figure>
+                                <div className="innerContent">
+                                  <h6>{data.author}</h6>
+                                  <p>
+                                    {data.views} view . {data.time_difference}
+                                  </p>
+                                </div>
                               </div>
+                              <p>
+                                <a>
+                                  <Link onClick={() => onVideoClick(data.id)}>
+                                    {data.title}
+                                  </Link>
+                                </a>
+                              </p>
+                              <ul className="flex">
+                                <li>
+                                  <a href="#">
+                                    <img
+                                      src="app/images/bookmarkIcon.png"
+                                      alt="Genaiguru bookmarkIcon"
+                                    />
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <img
+                                      src="app/images/dotsIcons.png"
+                                      alt="Genaiguru dotsIcons"
+                                    />
+                                  </a>
+                                </li>
+                              </ul>
                             </div>
-                            <p>
-                              <a>
-                                <Link onClick={() => onVideoClick(data.id)}>
-                                  {data.title}
-                                </Link>
-                              </a>
-                            </p>
-                            <ul className="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/bookmarkIcon.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
             {/* <!-- edit-profile start here --> */}
           </div>

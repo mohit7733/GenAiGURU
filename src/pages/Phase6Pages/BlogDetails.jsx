@@ -873,10 +873,12 @@ const BlogDetails = ({ likes, dislikes }) => {
 
                     {/* <!-- home interest section start here --> */}
                     <div className="home-interest">
-                      <div className="heading-link flex">
-                        <h3>Related posts</h3>
-                      </div>
-                      {relatedBlogs.map((blogdata, Index) => {
+                      {relatedBlogs?.length > 0 && (
+                        <div className="heading-link flex">
+                          <h3>Related posts</h3>
+                        </div>
+                      )}
+                      {relatedBlogs?.map((blogdata, Index) => {
                         return (
                           <div className="interest-sliders" key={Index}>
                             <div className="wrap flex">
