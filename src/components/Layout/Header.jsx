@@ -8,9 +8,13 @@ import { PATH_LOGIN, PATH_NOTIFICATION } from "../../routes";
 import MobileSideBar from "./MobileSideBar";
 const Header = () => {
   const [profileImage, setProfileImage] = useState();
+  const [notificationCount, setNotificationCount] = useState("");
+
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token"))
+    : "";
 
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 
@@ -33,8 +37,25 @@ const Header = () => {
         .catch((err) => {
           console.log(err.message);
         });
+      getNotificationFunction();
     }
   }, []);
+
+  const getNotificationFunction = () => {
+    axios
+      .get(`${getBaseURL()}/auth/get-user-notifications`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response?.data?.newNotificationsCount);
+        setNotificationCount(response?.data?.newNotificationsCount);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   const changeLoginStatus = () => {
     if (userLoggedIn === "true") {
@@ -82,12 +103,15 @@ const Header = () => {
               navigate(PATH_NOTIFICATION);
             }}
           >
-            <li className="headerIcon">
+            <li className="headerIcon" style={{ cursor: "pointer" }}>
               <a>
                 <img
                   src="app/images/notificationIcon.png"
                   alt="Genaiguru notificationIcon"
                 />
+                {notificationCount && (
+                  <span className="count">{notificationCount}</span>
+                )}{" "}
               </a>
             </li>
           </WithAuth>

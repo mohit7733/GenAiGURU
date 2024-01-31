@@ -105,14 +105,16 @@ const NotificationComponent = () => {
             <div className="keeps-container">
               <div className="gurukeeps-wrapper flex space-between">
                 <h1>Notifications</h1>
-                <h5 onClick={cleaALlNotications}>Clear All</h5>
+                <h5 onClick={cleaALlNotications} style={{ cursor: "pointer" }}>
+                  Clear All
+                </h5>
               </div>
               <div>
                 <div className="interest-guru ">
                   {userNotifications.length > 0 ? (
                     userNotifications.map((notif, index) => {
                       return (
-                        <div className="wrap flex">
+                        <div className="wrap flex" key={index}>
                           <div className="content">
                             <div className="flex space-between">
                               <div className="wrapper flex">
@@ -130,7 +132,10 @@ const NotificationComponent = () => {
                                       deleteNotications(notif?.id);
                                     }}
                                   >
-                                    <img src={deleteIcon} />
+                                    <img
+                                      src={deleteIcon}
+                                      style={{ cursor: "pointer" }}
+                                    />
                                   </a>
                                 </li>
                               </ul>

@@ -1,8 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import ArticleBasedInterest from "../../components/ArticlesBasedInterest/ArticleBasedInterest";
+import { getBaseURL } from "../../api/config";
 import Categories from "../../components/Categories/Categories";
 import Latestblog from "../../components/LatestBlog/Latestblog";
 import Footer from "../../components/Layout/Footer";
@@ -10,10 +12,7 @@ import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import Populararticles from "../../components/PopularArticles/Populararticles";
 import Popularvideos from "../../components/PopularVideos/Popularvideos";
-import { getBaseURL } from "../../api/config";
-import axios from "axios";
 import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES } from "../../routes";
-import { Link, useNavigate } from "react-router-dom";
 import SilverPopup from "../Phase5Pages/SilverPopup";
 
 const Index = () => {
@@ -104,11 +103,9 @@ const Index = () => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
   };
 
-  // const userId = JSON.parse(localStorage.getItem("UserId"));
-
   // fetchBadges API
   useEffect(() => {
-    if (token != "") {
+    if (token != "" && userId != "") {
       const fetchBadges = async () => {
         try {
           const response = await axios.get(`${getBaseURL()}/game-badges`, {
@@ -117,7 +114,6 @@ const Index = () => {
               claimed: "no",
             },
           });
-          // console.log(response?.data?.data);
           setClaimedBadges(response?.data?.data);
           if (response?.data?.data.length > 0) {
             setShowPopUp(true);
@@ -302,7 +298,7 @@ const Index = () => {
                 </div> */}
               </Slider>
             </div>
-            {allArticles.map((Article, index) => {
+            {allArticles?.map((Article, index) => {
               if (index < MAX_DISPLAY_ARTICLES) {
                 return (
                   <div key={index} className="boxWrap flex">

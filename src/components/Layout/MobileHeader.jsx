@@ -1,41 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import userimageIcon from "../../assets/images/person.png";
-import { useNavigate } from "react-router-dom";
-import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import {
-  BASE_PATH,
-  PATH_LOGIN,
-  PATH_NOTIFICATION,
-  PATH_PROFILE,
-} from "../../routes";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getBaseURL } from "../../api/config";
+import userimageIcon from "../../assets/images/person.png";
 import WithAuth from "../../pages/Authentication/WithAuth";
+import { BASE_PATH, PATH_LOGIN, PATH_NOTIFICATION } from "../../routes";
 
 const MobileHeader = ({ isLogged }) => {
   const [loginPopupVisible, setLoginPopupVisible] = useState(false);
+  const [notificationCount, setNotificationCount] = useState("");
+
   const [profileImage, setProfileImage] = useState();
 
   const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
-
+  const token = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token"))
+    : "";
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
   // console.log(userLoggedIn, "--=-User LoggedIn");
 
   useEffect(() => {
+    if (token != "") {
+      axios
+        .get(`${getBaseURL()}/auth/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setProfileImage(response.data.profile_image);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      getNotificationFunction();
+    }
+  }, []);
+
+  const getNotificationFunction = () => {
     axios
-      .get(`${getBaseURL()}/auth/user`, {
+      .get(`${getBaseURL()}/auth/get-user-notifications`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setProfileImage(response.data.profile_image);
+        console.log(response?.data?.newNotificationsCount);
+        setNotificationCount(response?.data?.newNotificationsCount);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  };
 
   const changeLoginStatus = () => {
     if (userLoggedIn === "true") {
@@ -83,12 +99,15 @@ const MobileHeader = ({ isLogged }) => {
               navigate(PATH_NOTIFICATION);
             }}
           >
-            <li className="headerIcon">
+            <li className="headerIcon" style={{ cursor: "pointer" }}>
               <a>
                 <img
                   src="app/images/notificationIcon.png"
                   alt="Genaiguru notificationIcon"
                 />
+                {notificationCount && (
+                  <span className="count">{notificationCount}</span>
+                )}
               </a>
             </li>
           </WithAuth>
