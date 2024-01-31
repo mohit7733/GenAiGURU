@@ -380,16 +380,16 @@ const BlogDetails = ({ likes, dislikes }) => {
                     </div>
                   </div>
                   <div className="connect-box">
-                    <ul className="flex">
-                      <WithAuth
-                        callBack={(e) => {
-                          if (blogDetail.blogSaved == "yes") {
-                            onBlogUnSave(blogDetail.blog_id);
-                          } else {
-                            onBlogSave(blogDetail.blog_id);
-                          }
-                        }}
-                      >
+                    <WithAuth
+                      callBack={(e) => {
+                        if (blogDetail.blogSaved == "yes") {
+                          onBlogUnSave(blogDetail.blog_id);
+                        } else {
+                          onBlogSave(blogDetail.blog_id);
+                        }
+                      }}
+                    >
+                      <ul className="flex">
                         {blogDetail.blogSaved == "yes" ? (
                           <li>
                             <a>
@@ -413,12 +413,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                             </a>
                           </li>
                         )}
-                      </WithAuth>
-                      <WithAuth
-                        callBack={(e) => {
-                          console.log("Empty function issue", e);
-                        }}
-                      >
                         <li>
                           <Sharebtn
                             title={blogDetail.title}
@@ -430,8 +424,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                             }
                           />
                         </li>
-                      </WithAuth>
-                    </ul>
+                      </ul>
+                    </WithAuth>
                   </div>
                 </div>
               </div>
@@ -976,12 +970,12 @@ const BlogDetails = ({ likes, dislikes }) => {
           </Link>
           <h2>Blog Details</h2>
           <div className="connect-box">
-            <WithAuth
-              callBack={(e) => {
-                console.log("dd");
-              }}
-            >
-              <ul className="flex">
+            <ul className="flex">
+              <WithAuth
+                callBack={(e) => {
+                  console.log("dd");
+                }}
+              >
                 {blogDetail.blogSaved == "yes" ? (
                   <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
                     <a>
@@ -999,19 +993,19 @@ const BlogDetails = ({ likes, dislikes }) => {
                     </a>
                   </li>
                 )}
-                <li>
-                  <Sharebtn
-                    title={blogDetail.title}
-                    id={blogDetail.blog_id}
-                    url={
-                      window.location.origin +
-                      "/blogdetails?id=" +
-                      blogDetail.blog_id
-                    }
-                  />
-                </li>
-              </ul>
-            </WithAuth>
+              </WithAuth>
+              <li>
+                <Sharebtn
+                  title={blogDetail.title}
+                  id={blogDetail.blog_id}
+                  url={
+                    window.location.origin +
+                    "/blogdetails?id=" +
+                    blogDetail.blog_id
+                  }
+                />
+              </li>
+            </ul>
           </div>
         </div>
         <div className="innerCommanContent">
