@@ -16,9 +16,8 @@ const Header = () => {
     ? JSON.parse(localStorage.getItem("token"))
     : "";
 
-  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn")); 
+  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 
-  
   const toggleMobileSidebar = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
@@ -110,7 +109,7 @@ const Header = () => {
                   src="app/images/notificationIcon.png"
                   alt="Genaiguru notificationIcon"
                 />
-                {notificationCount && (
+                {notificationCount > 0 && (
                   <span className="count">{notificationCount}</span>
                 )}{" "}
               </a>

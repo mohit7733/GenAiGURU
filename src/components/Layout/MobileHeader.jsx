@@ -105,7 +105,7 @@ const MobileHeader = ({ isLogged }) => {
                   src="app/images/notificationIcon.png"
                   alt="Genaiguru notificationIcon"
                 />
-                {notificationCount && (
+                {notificationCount > 0 && (
                   <span className="count">{notificationCount}</span>
                 )}
               </a>
