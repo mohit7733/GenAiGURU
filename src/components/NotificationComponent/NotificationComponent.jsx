@@ -15,6 +15,18 @@ const NotificationComponent = () => {
       userDetailsFunction();
       getNotificationFunction();
     }
+    axios
+      .post(`${getBaseURL()}/auth/read-user-notifications`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response?.message);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }, []);
 
   const userDetailsFunction = () => {
@@ -145,7 +157,7 @@ const NotificationComponent = () => {
                       );
                     })
                   ) : (
-                    <h3>You have Not Received Any Notification!</h3>
+                    <h3>You have no notifications !</h3>
                   )}
                 </div>
               </div>
