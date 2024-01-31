@@ -16,8 +16,9 @@ const Header = () => {
     ? JSON.parse(localStorage.getItem("token"))
     : "";
 
-  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
+  const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn")); 
 
+  
   const toggleMobileSidebar = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
