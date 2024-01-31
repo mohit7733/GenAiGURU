@@ -345,66 +345,78 @@ const VideoPlay = () => {
                     })}
                   </li>
                   <li className="download-btn">
-                    <div>
-                      <a onClick={(e) => postVideoupdo("upvote", e)}>
-                        <img
-                          className={
-                            videoPlay?.like_details?.type == "upvote"
-                              ? "borderImage"
-                              : "borderImage"
-                          }
-                          src={
-                            videoPlay?.like_details?.type == "upvote"
-                              ? "/app/images/Group_1.png"
-                              : "/app/images/thumbs-up.png"
-                          }
-                          style={{ float: "left" }}
-                        />
-                        <img
-                          className="fillImage"
-                          src="/app/images/Group_1.png"
-                          style={{ float: "left" }}
-                        />
-                        <span
-                          style={{
-                            marginLeft: "5px",
-                            // marginTop: "4px",
-                          }}
-                        >
-                          {videoPlay.upvote}
-                        </span>
-                      </a>
-                    </div>
-                    <div>
-                      <a onClick={(e) => postVideoupdo("downvote", e)}>
-                        <img
-                          className={
-                            videoPlay?.like_details?.type == "downvote"
-                              ? "borderImage"
-                              : "borderImage"
-                          }
-                          src={
-                            videoPlay.upvote == "downvote"
-                              ? "/app/images/Group_2.png"
-                              : "/app/images/thumbs-down.png"
-                          }
-                          style={{ float: "left" }}
-                        />
-                        <img
-                          className="fillImage"
-                          src="/app/images/Group_2.png"
-                          style={{ float: "left" }}
-                        />
-                        <span
-                          style={{
-                            marginLeft: "5px",
-                            // marginTop: "4px",
-                          }}
-                        >
-                          {videoPlay.downvote}
-                        </span>
-                      </a>
-                    </div>
+                    <WithAuth
+                      callBack={(e) => {
+                        postVideoupdo("upvote", e);
+                      }}
+                    >
+                      <div className="bt-like">
+                        <a>
+                          <img
+                            className={
+                              videoPlay?.like_details?.type == "upvote"
+                                ? "borderImage"
+                                : "borderImage"
+                            }
+                            src={
+                              videoPlay?.like_details?.type == "upvote"
+                                ? "/app/images/Group_1.png"
+                                : "/app/images/thumbs-up.png"
+                            }
+                            style={{ float: "left" }}
+                          />
+                          <img
+                            className="fillImage"
+                            src="/app/images/Group_1.png"
+                            style={{ float: "left" }}
+                          />
+                          <span
+                            style={{
+                              marginLeft: "5px",
+                              // marginTop: "4px",
+                            }}
+                          >
+                            {videoPlay.upvote}
+                          </span>
+                        </a>
+                      </div>
+                    </WithAuth>
+                    <WithAuth
+                      callBack={(e) => {
+                        postVideoupdo("downvote", e);
+                      }}
+                    >
+                      <div className="ds-like">
+                        <a>
+                          <img
+                            className={
+                              videoPlay?.like_details?.type == "downvote"
+                                ? "borderImage"
+                                : "borderImage"
+                            }
+                            src={
+                              videoPlay.upvote == "downvote"
+                                ? "/app/images/Group_2.png"
+                                : "/app/images/thumbs-down.png"
+                            }
+                            style={{ float: "left" }}
+                          />
+                          <img
+                            className="fillImage"
+                            src="/app/images/Group_2.png"
+                            style={{ float: "left" }}
+                          />
+                          <span
+                            style={{
+                              marginLeft: "5px",
+                              // marginTop: "4px",
+                            }}
+                          >
+                            {videoPlay.downvote}
+                          </span>
+                        </a>
+                      </div>
+                    </WithAuth>
                     <a>
                       <WithAuth
                         callBack={(e) => {
@@ -528,18 +540,13 @@ const VideoPlay = () => {
                                     {/* Comments Like and Dislike Buttons Bellow */}
                                     <WithAuth
                                       callBack={(e) => {
-                                        // setDisplayCommentModel(!displayCommentModel);
+                                        postVideoCommentLike(
+                                          "like",
+                                          comment.id
+                                        );
                                       }}
                                     >
-                                      <button
-                                        className="btnlike"
-                                        onClick={() =>
-                                          postVideoCommentLike(
-                                            "like",
-                                            comment.id
-                                          )
-                                        }
-                                      >
+                                      <button className="btnlike">
                                         <img
                                           className="borderImage"
                                           src={
@@ -566,15 +573,16 @@ const VideoPlay = () => {
                                             : ""}
                                         </span>
                                       </button>
-                                      <button
-                                        className="btnlike"
-                                        onClick={() =>
-                                          postVideoCommentLike(
-                                            "dislike",
-                                            comment.id
-                                          )
-                                        }
-                                      >
+                                    </WithAuth>
+                                    <WithAuth
+                                      callBack={(e) => {
+                                        postVideoCommentLike(
+                                          "dislike",
+                                          comment.id
+                                        );
+                                      }}
+                                    >
+                                      <button className="btnlike">
                                         <img
                                           className="borderImage"
                                           src={
