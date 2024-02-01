@@ -20,13 +20,21 @@ export default function Sharebtn(props) {
       style={{ display: "flex", flexDirection: "column" }}
     >
       <img
-        style={share[props.id] ? { marginTop: "110px" } : { marginTop: "0px" }}
+        style={{ position: "absolute" }}
+        // {share[props.id] ? { marginTop: "110px" } : { marginTop: "0px" }}
         src={"./app/images/share-icon.png"}
         title=""
         alt=""
       />
-      <ul style={share[props.id] ? { display: "block" } : { display: "none" }}>
-        <li style={{ marginTop: "20px", textAlign: "center" }}>
+      <ul
+        style={
+          share[props.id] &&
+          JSON.parse(localStorage.getItem("userLoggedIn")) == "true"
+            ? { display: "block" }
+            : { display: "none" }
+        }
+      >
+        <li style={{ marginTop: "150px", textAlign: "center" }}>
           <FacebookShareButton quote={props.title} url={props.url}>
             <FacebookIcon
               size="40px"

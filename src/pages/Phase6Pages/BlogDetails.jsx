@@ -414,12 +414,10 @@ const BlogDetails = ({ likes, dislikes }) => {
                           </li>
                         )}
                       </WithAuth>
-                      <WithAuth
-                        callBack={(e) => {
-                          console.log("Empty function issue", e);
-                        }}
-                      >
-                        <li>
+                      <li style={{ marginLeft: "10px" }}>
+                        <WithAuth callBack={(e) => e?.preventDefault()}>
+                          {/* {JSON.parse(localStorage.getItem("userLoggedIn")) ==
+                            "true" && ( */}
                           <Sharebtn
                             title={blogDetail.title}
                             id={blogDetail.blog_id}
@@ -429,8 +427,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                               blogDetail.blog_id
                             }
                           />
-                        </li>
-                      </WithAuth>
+                          {/* )} */}
+                        </WithAuth>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -976,12 +975,12 @@ const BlogDetails = ({ likes, dislikes }) => {
           </Link>
           <h2>Blog Details</h2>
           <div className="connect-box">
-            <WithAuth
-              callBack={(e) => {
-                console.log("dd");
-              }}
-            >
-              <ul className="flex">
+            <ul className="flex">
+              <WithAuth
+                callBack={(e) => {
+                  console.log("dd");
+                }}
+              >
                 {blogDetail.blogSaved == "yes" ? (
                   <li onClick={() => onBlogUnSave(blogDetail.blog_id)}>
                     <a>
@@ -999,6 +998,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                     </a>
                   </li>
                 )}
+              </WithAuth>
+              <WithAuth>
                 <li>
                   <Sharebtn
                     title={blogDetail.title}
@@ -1010,8 +1011,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                     }
                   />
                 </li>
-              </ul>
-            </WithAuth>
+              </WithAuth>
+            </ul>
           </div>
         </div>
         <div className="innerCommanContent">

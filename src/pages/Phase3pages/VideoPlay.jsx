@@ -217,6 +217,7 @@ const VideoPlay = () => {
   };
 
   const postVideoupdo = (type, e) => {
+    e?.preventDefault();
     axios
       .post(`${getBaseURL()}/video-upvote`, {
         video_id: videoId,
@@ -231,7 +232,6 @@ const VideoPlay = () => {
       .catch((err) => {
         console.log(err.message);
       });
-    e.preventDefault();
   };
 
   useEffect(() => {
@@ -344,7 +344,7 @@ const VideoPlay = () => {
                       return <a key={index}> #{tag}</a>;
                     })}
                   </li>
-                  <li className="download-btn">
+                  <li className="comment-btn">
                     <WithAuth
                       callBack={(e) => {
                         postVideoupdo("upvote", e);
@@ -353,11 +353,7 @@ const VideoPlay = () => {
                       <div className="bt-like">
                         <a>
                           <img
-                            className={
-                              videoPlay?.like_details?.type == "upvote"
-                                ? "borderImage"
-                                : "borderImage"
-                            }
+                            className="borderImage"
                             src={
                               videoPlay?.like_details?.type == "upvote"
                                 ? "/app/images/Group_1.png"
@@ -389,13 +385,9 @@ const VideoPlay = () => {
                       <div className="ds-like">
                         <a>
                           <img
-                            className={
-                              videoPlay?.like_details?.type == "downvote"
-                                ? "borderImage"
-                                : "borderImage"
-                            }
+                            className="borderImage"
                             src={
-                              videoPlay.upvote == "downvote"
+                              videoPlay.like_details?.type == "downvote"
                                 ? "/app/images/Group_2.png"
                                 : "/app/images/thumbs-down.png"
                             }
@@ -878,7 +870,7 @@ const VideoPlay = () => {
                                 <figure>
                                   <img
                                     src={data?.author_profile_image}
-                                    alt={userimageIcon}
+                                    // alt={userimageIcon}
                                   />
                                 </figure>
                                 <div className="innerContent">
@@ -943,8 +935,7 @@ const VideoPlay = () => {
             <div className="video-box">
               <ReactPlayer
                 url={videoPlay.youtube_link}
-                // playing={true}
-
+                playing={false}
                 controls={true}
                 width="100%"
                 height="30%"
@@ -957,22 +948,71 @@ const VideoPlay = () => {
                     })}
                   </a>
                 </li>
-                <li className="download-btn">
-                  <a onClick={(e) => postVideoupdo("upvote", e)} href="#">
-                    <img
-                      src="/app/images/thumbs-up.png"
-                      alt="Genaiguru thumbs-up"
-                    />
-                    {videoPlay.upvote}
-                  </a>
-
-                  <a onClick={(e) => postVideoupdo("downvote", e)} href="#">
-                    <img
-                      src="/app/images/thumbs-down.png"
-                      alt="Genaiguru thumbs-down"
-                    />
-                    {videoPlay.downvote}
-                  </a>
+                <li className="comment-btn">
+                  <WithAuth
+                    callBack={(e) => {
+                      postVideoupdo("upvote", e);
+                    }}
+                  >
+                    <div className="bt-like">
+                      <a>
+                        <img
+                          className="borderImage"
+                          src={
+                            videoPlay?.like_details?.type == "upvote"
+                              ? "/app/images/Group_1.png"
+                              : "/app/images/thumbs-up.png"
+                          }
+                          style={{ float: "left" }}
+                        />
+                        <img
+                          className="fillImage"
+                          src="/app/images/Group_1.png"
+                          style={{ float: "left" }}
+                        />
+                        <span
+                          style={{
+                            marginLeft: "5px",
+                            // marginTop: "4px",
+                          }}
+                        >
+                          {videoPlay.upvote}
+                        </span>
+                      </a>
+                    </div>
+                  </WithAuth>
+                  <WithAuth
+                    callBack={(e) => {
+                      postVideoupdo("downvote", e);
+                    }}
+                  >
+                    <div className="ds-like">
+                      <a>
+                        <img
+                          className="borderImage"
+                          src={
+                            videoPlay.like_details?.type == "downvote"
+                              ? "/app/images/Group_2.png"
+                              : "/app/images/thumbs-down.png"
+                          }
+                          style={{ float: "left" }}
+                        />
+                        <img
+                          className="fillImage"
+                          src="/app/images/Group_2.png"
+                          style={{ float: "left" }}
+                        />
+                        <span
+                          style={{
+                            marginLeft: "5px",
+                            // marginTop: "4px",
+                          }}
+                        >
+                          {videoPlay.downvote}
+                        </span>
+                      </a>
+                    </div>
+                  </WithAuth>
                   <a>
                     <WithAuth
                       callBack={(e) => {
@@ -983,7 +1023,11 @@ const VideoPlay = () => {
                         src="/app/images/comment-01.png"
                         alt="Genaiguru comment"
                       />
-                      comment
+                      {` ${
+                        getVideoComments?.length > 1
+                          ? getVideoComments?.length + " comments"
+                          : getVideoComments?.length + " comment"
+                      }`}
                     </WithAuth>
                   </a>
                 </li>
@@ -1401,7 +1445,7 @@ const VideoPlay = () => {
                             <figure>
                               <img
                                 src={data?.author_profile_image}
-                                alt={userimageIcon}
+                                // alt={userimageIcon}
                               />
                             </figure>
                             <div className="innerContent">

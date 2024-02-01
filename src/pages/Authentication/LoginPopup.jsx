@@ -8,7 +8,7 @@ const LoginPopup = ({ onClosePopup }) => {
 
   return (
     <div>
-      <section className="popup-background new_login_popup loginOption">
+      <section className="comment_popup popup-background new_login_popup loginOption">
         <div className=" popup wrapper400 stars">
           <div className="cross-icon">
             <div onClick={(e) => handleButtonClick(e)}>
@@ -19,7 +19,10 @@ const LoginPopup = ({ onClosePopup }) => {
           <h1>
             <span>Hello!</span>Join the GenAIGuru family now!
           </h1>
-          <p>Get started on your GenAIGuru adventure today. Free, easy sign up with your social media or email</p>
+          <p>
+            Get started on your GenAIGuru adventure today. Free, easy sign up
+            with your social media or email
+          </p>
           <ul>
             <li>
               <a className="flex" href="/login">
@@ -38,10 +41,13 @@ const LoginPopup = ({ onClosePopup }) => {
                     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
                   />
                   <button type="button" className="kep-login-facebook metro">
-                    <i><img
-                      src="app/images/facebookIcon.png"
-                      alt="Genaiguru facebook icon"
-                    /></i>Continue with Facebook
+                    <i>
+                      <img
+                        src="app/images/facebookIcon.png"
+                        alt="Genaiguru facebook icon"
+                      />
+                    </i>
+                    Continue with Facebook
                   </button>
                   <style>
                     {`

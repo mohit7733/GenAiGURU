@@ -610,6 +610,30 @@ small.pc {
   display: none !important;
 }
 
+li.comment-btn a {
+  background: rgba(198, 208, 225, 0.1215686275);
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #cfd6db !important;
+  font-size: 12px;
+} 
+li.comment-btn {
+  display: flex;
+  gap: 10px;
+}
+li.comment-btn img.fillImage {
+  display: none;
+  cursor: pointer;
+}
+.ds-like a:hover .fillImage, .bt-like a:hover .fillImage {
+  display: block !important;
+  cursor: pointer;
+}
+.ds-like a:hover .borderImage, .bt-like a:hover .borderImage {
+  display: none;
+  transition: 0.2s;
+  cursor: pointer;
+}
 .review input[type="text"] {
   background: transparent;
   border-top: none;
