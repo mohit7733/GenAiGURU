@@ -870,7 +870,7 @@ const VideoPlay = () => {
                                 <figure>
                                   <img
                                     src={data?.author_profile_image}
-                                    alt={userimageIcon}
+                                    // alt={userimageIcon}
                                   />
                                 </figure>
                                 <div className="innerContent">
@@ -1445,7 +1445,7 @@ const VideoPlay = () => {
                             <figure>
                               <img
                                 src={data?.author_profile_image}
-                                alt={userimageIcon}
+                                // alt={userimageIcon}
                               />
                             </figure>
                             <div className="innerContent">

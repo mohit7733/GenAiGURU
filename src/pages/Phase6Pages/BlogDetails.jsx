@@ -380,16 +380,16 @@ const BlogDetails = ({ likes, dislikes }) => {
                     </div>
                   </div>
                   <div className="connect-box">
-                    <WithAuth
-                      callBack={(e) => {
-                        if (blogDetail.blogSaved == "yes") {
-                          onBlogUnSave(blogDetail.blog_id);
-                        } else {
-                          onBlogSave(blogDetail.blog_id);
-                        }
-                      }}
-                    >
-                      <ul className="flex">
+                    <ul className="flex">
+                      <WithAuth
+                        callBack={(e) => {
+                          if (blogDetail.blogSaved == "yes") {
+                            onBlogUnSave(blogDetail.blog_id);
+                          } else {
+                            onBlogSave(blogDetail.blog_id);
+                          }
+                        }}
+                      >
                         {blogDetail.blogSaved == "yes" ? (
                           <li>
                             <a>
@@ -413,7 +413,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                             </a>
                           </li>
                         )}
-                        <li>
+                      </WithAuth>
+                      <li style={{ marginLeft: "10px" }}>
+                        <WithAuth callBack={(e) => e?.preventDefault()}>
+                          {/* {JSON.parse(localStorage.getItem("userLoggedIn")) ==
+                            "true" && ( */}
                           <Sharebtn
                             title={blogDetail.title}
                             id={blogDetail.blog_id}
@@ -423,9 +427,10 @@ const BlogDetails = ({ likes, dislikes }) => {
                               blogDetail.blog_id
                             }
                           />
-                        </li>
-                      </ul>
-                    </WithAuth>
+                          {/* )} */}
+                        </WithAuth>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -994,17 +999,19 @@ const BlogDetails = ({ likes, dislikes }) => {
                   </li>
                 )}
               </WithAuth>
-              <li>
-                <Sharebtn
-                  title={blogDetail.title}
-                  id={blogDetail.blog_id}
-                  url={
-                    window.location.origin +
-                    "/blogdetails?id=" +
-                    blogDetail.blog_id
-                  }
-                />
-              </li>
+              <WithAuth>
+                <li>
+                  <Sharebtn
+                    title={blogDetail.title}
+                    id={blogDetail.blog_id}
+                    url={
+                      window.location.origin +
+                      "/blogdetails?id=" +
+                      blogDetail.blog_id
+                    }
+                  />
+                </li>
+              </WithAuth>
             </ul>
           </div>
         </div>

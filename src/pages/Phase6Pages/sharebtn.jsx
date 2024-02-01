@@ -4,7 +4,6 @@ import { FacebookShareButton } from "react-share";
 import { TwitterShareButton } from "react-share";
 import { FacebookIcon } from "react-share";
 import { XIcon } from "react-share";
-import WithAuth from "../Authentication/WithAuth";
 
 export default function Sharebtn(props) {
   const [share, setShare] = useState({});
@@ -21,21 +20,21 @@ export default function Sharebtn(props) {
       style={{ display: "flex", flexDirection: "column" }}
     >
       <img
-        style={share[props.id] ? { marginTop: "110px" } : { marginTop: "0px" }}
+        style={{ position: "absolute" }}
+        // {share[props.id] ? { marginTop: "110px" } : { marginTop: "0px" }}
         src={"./app/images/share-icon.png"}
         title=""
         alt=""
       />
-      {/* <WithAuth
-        callBack={(e) => {
-          console.log("Empty function issue", e);
-        }}
-      > */}
-      {/* {(auth) =>
-          auth && ( */}
-      {/* <> */}
-      <ul style={share[props.id] ? { display: "block" } : { display: "none" }}>
-        <li style={{ marginTop: "20px", textAlign: "center" }}>
+      <ul
+        style={
+          share[props.id] &&
+          JSON.parse(localStorage.getItem("userLoggedIn")) == "true"
+            ? { display: "block" }
+            : { display: "none" }
+        }
+      >
+        <li style={{ marginTop: "150px", textAlign: "center" }}>
           <FacebookShareButton quote={props.title} url={props.url}>
             <FacebookIcon
               size="40px"
@@ -48,10 +47,6 @@ export default function Sharebtn(props) {
           </TwitterShareButton>
         </li>
       </ul>
-      {/* </>
-          )
-        } */}
-      {/* </WithAuth> */}
     </Link>
   );
 }
