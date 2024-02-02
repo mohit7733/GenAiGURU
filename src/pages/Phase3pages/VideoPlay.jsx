@@ -511,9 +511,9 @@ const VideoPlay = () => {
                                     src={
                                       comment?.user_details?.profile_image
                                         ? comment?.user_details?.profile_image
-                                        : userimageIcon
+                                        : ""
                                     }
-                                    alt={userimageIcon}
+                                    // alt={userimageIcon}
                                   />
                                 </figure>
                                 <span>
@@ -1113,9 +1113,9 @@ const VideoPlay = () => {
                                   src={
                                     comment?.user_details?.profile_image
                                       ? comment?.user_details?.profile_image
-                                      : userimageIcon
+                                      : ""
                                   }
-                                  alt={userimageIcon}
+                                  // alt={userimageIcon}
                                 />
                               </figure>
                               <span>
