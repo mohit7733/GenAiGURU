@@ -55,6 +55,26 @@ const VideoPlay = () => {
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 
   useEffect(() => {
+    if (
+      localStorage.getItem("userloggedin") == (false || undefined) &&
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          axios
+            .post(`${getBaseURL()}/watch-video`, {
+              video_id: videoId,
+            })
+            .then((res) => {
+              res.data.message == "success" &&
+                console.log("ip sent successfull");
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error))
+    );
+  }, []);
+
+  useEffect(() => {
     axios
       .get(
         `${getBaseURL()}/popular-latest-videos?id=${
