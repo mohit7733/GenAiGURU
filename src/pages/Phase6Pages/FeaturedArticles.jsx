@@ -17,8 +17,10 @@ const FeaturedArticles = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [indexTab, setIndexTab] = useState();
   const [filter, setFilter] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [totalArticles, setTotalArticles] = useState("");
 
   const [myInterests, setMyInterests] = useState();
   const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
@@ -36,12 +38,17 @@ const FeaturedArticles = (props) => {
   // Get API for Popular articles View ALL
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/articles?user_id=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/articles?user_id=${userId}&page_number=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
+        window.scrollTo(0, 0);
+        setTotalArticles(response.data.total_count);
         // console.log(response?.data?.articles);
         setArticles(response?.data?.articles);
         setButtonClicked(false);
@@ -52,7 +59,7 @@ const FeaturedArticles = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [buttonClicked]);
+  }, [buttonClicked, currentPage]);
 
   const date = new Date();
   const data = date.setDate(date.getDate());
@@ -61,13 +68,9 @@ const FeaturedArticles = (props) => {
 
   //Pagination code Starts here
   const articlesPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = articles.slice(
-    indexOfFirstArticle,
-    indexOfLastArticle
-  );
+  const currentArticles = articles;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -175,7 +178,7 @@ const FeaturedArticles = (props) => {
 
   // Merge and remove duplicates
   useEffect(() => {
-    if (myInterests?.length > 0 && userSelectedIneterests?.length > 0) {
+    if (myInterests?.length > 0) {
       const mergedInterests = mergeAndRemoveDuplicates(
         userSelectedIneterests,
         myInterests,
@@ -501,7 +504,7 @@ const FeaturedArticles = (props) => {
                     })}
                     <Pagination
                       token="Articles"
-                      totalItems={articles.length}
+                      totalItems={totalArticles}
                       itemsPerPage={articlesPerPage}
                       currentPage={currentPage}
                       onPageChange={handlePageChange}
@@ -865,7 +868,7 @@ const FeaturedArticles = (props) => {
                         {isMobile && (
                           <Pagination
                             token="Articles"
-                            totalItems={articles.length}
+                            totalItems={totalArticles}
                             itemsPerPage={articlesPerPage}
                             currentPage={currentPage}
                             onPageChange={handlePageChange}

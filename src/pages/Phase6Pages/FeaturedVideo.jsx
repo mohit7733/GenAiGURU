@@ -40,8 +40,8 @@ const FeaturedContent = (props) => {
   //Pagination code Starts here
   const videosPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const indexOfLastVideo = currentPage * videosPerPage;
-  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  // const indexOfLastVideo = currentPage * videosPerPage;
+  // const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
   const currentVideos = popularVideos;
 
   const handlePageChange = (page) => {

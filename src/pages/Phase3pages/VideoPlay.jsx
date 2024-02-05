@@ -48,15 +48,15 @@ const VideoPlay = () => {
 
   // useLocation to get id from url
   let location = useLocation();
+  const my_element = location.hash.slice(1);
   const queryParam = new URLSearchParams(location.search);
   const videoId = queryParam.get("id");
-
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 
   useEffect(() => {
     if (
-      localStorage.getItem("userloggedin") == (false || undefined) &&
+      localStorage.getItem("userLoggedIn") == (false || undefined) &&
       fetch("https://api.ipify.org?format=json")
         .then((response) => response.json())
         .then((data) => {
@@ -95,7 +95,7 @@ const VideoPlay = () => {
           author_profile_image:
             response?.data?.video_details?.author_profile_image,
           time_difference: response?.data?.video_details?.time_difference,
-          views: response?.data?.video_details?.views,
+          views: response?.data?.video_details?.total_views,
           author: response?.data?.video_details?.author,
 
           video_id: response?.data?.video_details?.id,
@@ -125,6 +125,14 @@ const VideoPlay = () => {
       .then((res) => {
         console.log(res?.data, "comments");
         setGetVideoComments(res?.data?.comments);
+        setTimeout(() => {
+          var myelement1 = document.getElementById(my_element);
+          myelement1?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+          });
+        }, 1000);
       })
       .catch((err) => {
         console.log(err.message);
@@ -356,7 +364,7 @@ const VideoPlay = () => {
                   playing={false}
                   controls={true}
                   width="100%"
-                  height="60%"
+                  height="440px"
                 />
                 <ul className="flex space-between link">
                   <li>
@@ -522,7 +530,7 @@ const VideoPlay = () => {
                         comment.id
                       );
                       return (
-                        <div className="review" key={index}>
+                        <div className="review" key={index} id={comment?.id}>
                           <ul>
                             <li>
                               <a>

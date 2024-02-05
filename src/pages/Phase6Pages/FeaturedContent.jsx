@@ -18,6 +18,7 @@ const FeaturedContent = (props) => {
   const [indexTab, setIndexTab] = useState();
   const [filter, setFilter] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [totalBlogs, setTotalBlogs] = useState("");
 
   const [myInterests, setMyInterests] = useState([]);
   const [userSelectedIneterests, setUserSelectedIneterests] = useState([]);
@@ -37,7 +38,7 @@ const FeaturedContent = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
-  const currentBlogs = latestBlog.slice(indexOfFirstBlog, indexOfLastBlog);
+  const currentBlogs = latestBlog;
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -90,12 +91,17 @@ const FeaturedContent = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/latest-blogs?user_id=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/latest-blogs?user_id=${userId}&page_number=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
+        window.scrollTo(0, 0);
+        setTotalBlogs(response.data.total_count);
         setLatestBlog(response?.data?.blogs);
         setButtonClicked(false);
         if (interestid != "") {
@@ -105,7 +111,7 @@ const FeaturedContent = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [buttonClicked]);
+  }, [buttonClicked, currentPage]);
 
   const getAllInterests = () => {
     axios
@@ -489,7 +495,7 @@ const FeaturedContent = (props) => {
                     })}
                     <Pagination
                       token="blogs"
-                      totalItems={latestBlog.length}
+                      totalItems={totalBlogs}
                       itemsPerPage={blogsPerPage}
                       currentPage={currentPage}
                       onPageChange={handlePageChange}
@@ -934,7 +940,7 @@ const FeaturedContent = (props) => {
                     {isMobile && (
                       <Pagination
                         token="blogs"
-                        totalItems={latestBlog.length}
+                        totalItems={totalBlogs}
                         itemsPerPage={blogsPerPage}
                         currentPage={currentPage}
                         onPageChange={handlePageChange}
