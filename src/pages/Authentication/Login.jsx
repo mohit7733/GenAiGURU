@@ -21,14 +21,14 @@ const Login = () => {
           },
         })
         .then((res) => res.data);
-      console.log(userInfo);
+      // console.log(userInfo);
 
       axios
         .post("https://genaiadmindev.sdsstaging.co.uk/api/auth/google-login", {
           google_response: JSON.stringify(userInfo),
         })
         .then((response) => {
-          console.log(response?.data);
+          // console.log(response?.data);
           localStorage.setItem(
             "token",
             JSON.stringify(response?.data?.accessToken)
@@ -43,7 +43,7 @@ const Login = () => {
               },
             })
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               toast.success("Logged in Successfully", {
                 position: toast.POSITION.TOP_CENTER,
               });
