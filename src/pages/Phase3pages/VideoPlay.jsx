@@ -123,7 +123,6 @@ const VideoPlay = () => {
         }
       )
       .then((res) => {
-        console.log(res?.data, "comments");
         setGetVideoComments(res?.data?.comments);
         setTimeout(() => {
           var myelement1 = document.getElementById(my_element);
@@ -1132,7 +1131,7 @@ const VideoPlay = () => {
                       comment.id
                     );
                     return (
-                      <div className="review" key={index}>
+                      <div id={comment?.id} className="review" key={index}>
                         <ul>
                           <li>
                             <a>

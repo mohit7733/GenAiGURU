@@ -109,11 +109,11 @@ const NotificationComponent = () => {
 
   const navigatepost = (type, id, comment_id) => {
     if (type == "video") {
-      navigate(`/videoplay?id= ${id}#${comment_id}`);
+      navigate(`/videoplay?id=${id}#${comment_id}`);
     } else if (type == "blog") {
-      navigate("/blogdetails?id=" + id);
+      navigate(`/blogdetails?id=${id}#${comment_id}`);
     } else if (type == "article") {
-      navigate("/articledetails?id=" + id);
+      navigate(`/articledetails?id=${id}#${comment_id}`);
     }
   };
 
