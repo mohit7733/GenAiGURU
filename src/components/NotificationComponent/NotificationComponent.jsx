@@ -153,7 +153,7 @@ const NotificationComponent = () => {
                                     src={
                                       notif?.sender_id != null
                                         ? notif?.sender_profile_image
-                                        : ""
+                                        : profileImage
                                     }
                                   />
                                 </figure>
