@@ -26,6 +26,7 @@ const FeaturedContent = (props) => {
   const [mergedInterests1, setMergedInterests] = useState([]);
   const [interestVideos, setInterestVideos] = useState([]);
   const [interestid, setInterestid] = useState("");
+  const [totalVideos, setTotalVideos] = useState("");
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -41,10 +42,7 @@ const FeaturedContent = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-  const currentVideos = popularVideos.slice(
-    indexOfFirstVideo,
-    indexOfLastVideo
-  );
+  const currentVideos = popularVideos;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -98,15 +96,19 @@ const FeaturedContent = (props) => {
 
   // Get API for Popular Videos
   useEffect(() => {
-    // window.scrollTo(0, 0);
     axios
-      .get(`${getBaseURL()}/popular-latest-videos?user_id=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${getBaseURL()}/popular-latest-videos?user_id=${userId}&page_number=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
+        window.scrollTo(0, 0);
         // console.log(response.data);
+        setTotalVideos(response.data.total_count);
         setPopularVideos(response?.data?.videos);
         setButtonClicked(false);
         if (interestid != "") {
@@ -116,7 +118,7 @@ const FeaturedContent = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [buttonClicked]);
+  }, [buttonClicked, currentPage]);
 
   // Get API for interests
   const getAllInterests = () => {
@@ -503,7 +505,7 @@ const FeaturedContent = (props) => {
                     })}
                     <Pagination
                       token="Videos"
-                      totalItems={popularVideos.length}
+                      totalItems={totalVideos}
                       itemsPerPage={videosPerPage}
                       currentPage={currentPage}
                       onPageChange={handlePageChange}
@@ -781,7 +783,7 @@ const FeaturedContent = (props) => {
                         {isMobile && (
                           <Pagination
                             token="Videos"
-                            totalItems={popularVideos.length}
+                            totalItems={totalVideos}
                             itemsPerPage={videosPerPage}
                             currentPage={currentPage}
                             onPageChange={handlePageChange}
