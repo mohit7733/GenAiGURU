@@ -783,7 +783,7 @@ const FeaturedContent = (props) => {
                         {isMobile && (
                           <Pagination
                             token="Videos"
-                            totalItems={popularVideos.length}
+                            totalItems={totalVideos}
                             itemsPerPage={videosPerPage}
                             currentPage={currentPage}
                             onPageChange={handlePageChange}
