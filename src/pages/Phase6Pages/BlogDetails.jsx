@@ -57,6 +57,7 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   // useLocation to get id from url
   let location = useLocation();
+  const my_element = location.hash.slice(1);
   const queryParam = new URLSearchParams(location.search);
   const blogId = queryParam.get("id");
 
@@ -181,6 +182,14 @@ const BlogDetails = ({ likes, dislikes }) => {
       })
       .then((res) => {
         setGetBlogComments(res?.data?.comments);
+        setTimeout(() => {
+          var myelement1 = document.getElementById(my_element);
+          myelement1?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+          });
+        }, 1000);
       })
       .catch((err) => {
         console.log(err.message);
@@ -547,7 +556,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                             );
 
                             return (
-                              <div className="review" key={index}>
+                              <div
+                                id={comment?.id}
+                                className="review"
+                                key={index}
+                              >
                                 <ul>
                                   <li>
                                     <a>
@@ -1132,7 +1145,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                             );
 
                             return (
-                              <div className="review" key={index}>
+                              <div
+                                id={comment?.id}
+                                className="review"
+                                key={index}
+                              >
                                 <ul>
                                   <li>
                                     <a>

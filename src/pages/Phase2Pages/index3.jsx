@@ -28,7 +28,6 @@ const Index3 = ({ responseMessage, userSearchedText }) => {
         console.log(err.message);
       });
   }, [userSearchedText]);
-  console.log(userSearchedText);
   return (
     <div>
       <section className="">

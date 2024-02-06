@@ -54,6 +54,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   // useLocation to get id from url
   let location = useLocation();
+  const my_element = location.hash.slice(1);
   const queryParam = new URLSearchParams(location.search);
   const articleId = queryParam.get("id");
 
@@ -176,8 +177,15 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         }
       )
       .then((res) => {
-        //  console.log(res?.data);
         setGetarticleComments(res?.data?.comments);
+        setTimeout(() => {
+          var myelement1 = document.getElementById(my_element);
+          myelement1?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+          });
+        }, 1000);
       })
       .catch((err) => {
         console.log(err.message);
@@ -554,7 +562,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                             );
 
                             return (
-                              <div className="review" key={index}>
+                              <div
+                                id={comment?.id}
+                                className="review"
+                                key={index}
+                              >
                                 <ul>
                                   <li>
                                     <a>
@@ -1188,7 +1200,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                             );
 
                             return (
-                              <div className="review" key={index}>
+                              <div
+                                id={comment?.id}
+                                className="review"
+                                key={index}
+                              >
                                 <ul>
                                   <li>
                                     <a>

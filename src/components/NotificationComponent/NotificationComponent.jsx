@@ -107,13 +107,13 @@ const NotificationComponent = () => {
       });
   };
 
-  const navigatepost = (type, id) => {
+  const navigatepost = (type, id, comment_id) => {
     if (type == "video") {
-      navigate("/videoplay?id=" + id);
+      navigate(`/videoplay?id=${id}#${comment_id}`);
     } else if (type == "blog") {
-      navigate("/blogdetails?id=" + id);
+      navigate(`/blogdetails?id=${id}#${comment_id}`);
     } else if (type == "article") {
-      navigate("/articledetails?id=" + id);
+      navigate(`/articledetails?id=${id}#${comment_id}`);
     }
   };
 
@@ -139,7 +139,11 @@ const NotificationComponent = () => {
                       return (
                         <div
                           onClick={() =>
-                            navigatepost(notif?.post_type, notif?.post_id)
+                            navigatepost(
+                              notif?.post_type,
+                              notif?.post_id,
+                              notif?.comment_id
+                            )
                           }
                           className="wrap flex"
                           key={index}

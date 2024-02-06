@@ -82,6 +82,7 @@ const Index2 = ({ isLoggedIn }) => {
   // }
 
   const chatGPTApi = async (chatInputText) => {
+    setChatInputText(chatInputText);
     setLoadingStatus(true);
     try {
       const response = await axios.post(

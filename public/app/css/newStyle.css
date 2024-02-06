@@ -103,25 +103,25 @@
   display: block;
   font-size: 16px;
 }
-/* .dropdown-content a:hover:first-child {
+.dropdown-content a:hover:first-child {
   background: #be41c0;
   font-size: 16px;
   cursor: pointer;
   border-radius: 15px 15px 0 0;
-} */
+}
 .dropdown-content a:hover {
   background: #be41c0;
   color: rgb(7, 7, 7);
   font-size: 16px;
   cursor: pointer;
 }
-/* .dropdown-content a:hover:last-child {
+.dropdown-content a:hover:last-child {
   background: linear-gradient(to bottom, #b03fcc, #683fe4);
   color: rgb(7, 7, 7);
   font-size: 16px;
   cursor: pointer;
   border-radius: 0 0 15px 15px;
-} */
+}
 
 .dropdown:hover .dropdown-content {
   display: block;

@@ -5,10 +5,13 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { PATH_GURUGOLD } from "../../routes";
+import Pagination from "../Phase6Pages/Pagination";
 
 const LeaderBoard = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [selectedOption, setSelectedOption] = useState("All");
+  const [totalUsers, setTotalUsers] = useState("");
+  const [drop, setDrop] = useState("");
 
   // const token = JSON.parse(localStorage.getItem("token"));
   // const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -18,23 +21,52 @@ const LeaderBoard = () => {
   };
 
   const fetchUserPoints = async (dropDownValue) => {
+    console.log(dropDownValue, "drop");
     try {
       const response = await axios.get(
         `${getBaseURL()}/get-points?sort_by=${
           dropDownValue ? dropDownValue : ""
-        }`
+        }&page_number=${currentPage}`
       );
-      console.log(response?.data?.data);
+      setTotalUsers(response?.data?.total_count);
       setAllUsers(response?.data?.data);
       setSelectedOption(capitalizeFirstLetter(dropDownValue));
+      setDrop(dropDownValue);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
     } catch (error) {
       console.error("Error fetching user points:", error.message);
     }
   };
 
+  const usersPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  //Optional used only when mobile have different UI
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
   useEffect(() => {
-    fetchUserPoints();
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+  //Pagination ends
+  useEffect(() => {
+    fetchUserPoints(drop);
+  }, [currentPage]);
 
   return (
     <>
@@ -52,80 +84,82 @@ const LeaderBoard = () => {
                 </p>
               </div>
               <h1>Leaderboard</h1>
-              <div className="center-box">
-                <div className="topThreeBox">
-                  <div className="topThreeBoxWrap">
-                    <h4>Top 3</h4>
-                    <ul className="flex space-between ">
-                      <li>
-                        <div className="profileImgFrame">
-                          <figure>
-                            <img
-                              src={allUsers[1]?.profile_image}
-                              alt="Genaiguru user-icon"
-                            />
-                          </figure>
-                          <div className="rankIcon">#2</div>
-                        </div>
-                        <div className="content">
-                          <p>
-                            <img
-                              src="./app/images/coins.png"
-                              alt="Genaiguru Coins"
-                            />
-                            {allUsers[1]?.points}
-                            <span>coins</span>
-                          </p>
-                          <h6>{allUsers[1]?.name}</h6>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="profileImgFrame">
-                          <figure>
-                            <img
-                              src={allUsers[0]?.profile_image}
-                              alt="Genaiguru user-icon"
-                            />
-                          </figure>
-                          <div className="rankIcon">#1</div>
-                        </div>
-                        <div className="content">
-                          <p>
-                            <img
-                              src="./app/images/coins.png"
-                              alt="Genaiguru Coins"
-                            />{" "}
-                            {allUsers[0]?.points}
-                            <span>coins</span>
-                          </p>
-                          <h6>{allUsers[0]?.name}</h6>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="profileImgFrame">
-                          <figure>
-                            <img
-                              src={allUsers[2]?.profile_image}
-                              alt="Genaiguru user-icon"
-                            />
-                          </figure>
-                          <div className="rankIcon">#3</div>
-                        </div>
-                        <div className="content">
-                          <p>
-                            <img
-                              src="./app/images/coins.png"
-                              alt="Genaiguru Coins"
-                            />
-                            {allUsers[2]?.points} <span>coins</span>
-                          </p>
-                          <h6>{allUsers[2]?.name}</h6>
-                        </div>
-                      </li>
-                    </ul>
+              {currentPage == 1 && (
+                <div className="center-box">
+                  <div className="topThreeBox">
+                    <div className="topThreeBoxWrap">
+                      <h4>Top 3</h4>
+                      <ul className="flex space-between ">
+                        <li>
+                          <div className="profileImgFrame">
+                            <figure>
+                              <img
+                                src={allUsers[1]?.profile_image}
+                                alt="Genaiguru user-icon"
+                              />
+                            </figure>
+                            <div className="rankIcon">#2</div>
+                          </div>
+                          <div className="content">
+                            <p>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                              />
+                              {allUsers[1]?.points}
+                              <span>coins</span>
+                            </p>
+                            <h6>{allUsers[1]?.name}</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="profileImgFrame">
+                            <figure>
+                              <img
+                                src={allUsers[0]?.profile_image}
+                                alt="Genaiguru user-icon"
+                              />
+                            </figure>
+                            <div className="rankIcon">#1</div>
+                          </div>
+                          <div className="content">
+                            <p>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                              />{" "}
+                              {allUsers[0]?.points}
+                              <span>coins</span>
+                            </p>
+                            <h6>{allUsers[0]?.name}</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="profileImgFrame">
+                            <figure>
+                              <img
+                                src={allUsers[2]?.profile_image}
+                                alt="Genaiguru user-icon"
+                              />
+                            </figure>
+                            <div className="rankIcon">#3</div>
+                          </div>
+                          <div className="content">
+                            <p>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                              />
+                              {allUsers[2]?.points} <span>coins</span>
+                            </p>
+                            <h6>{allUsers[2]?.name}</h6>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
               {/* <!-- tabs start here  --> */}
               <ul
               // className="leaderboard-dropdown"
@@ -205,42 +239,86 @@ const LeaderBoard = () => {
               {/* <!-- tab-link start here -->
                           <!-- tab-content here --> */}
               <div className="tab-content tab-content-1 active">
-                {allUsers.slice(3).map((user, index) => {
-                  const originalIndex = index + 2;
-                  return (
-                    <div className="list-container" key={originalIndex}>
-                      <div className="row flex space-between">
-                        <div className="profile">
-                          <ul>
-                            <li>
-                              <div className="img-box">
-                                <span>{originalIndex + 2}</span>
-                                <a href="">
-                                  <img src={user.profile_image} />
-                                </a>
-                              </div>
+                {currentPage == 1
+                  ? allUsers.slice(3).map((user, index) => {
+                      const originalIndex = index + 2;
+                      return (
+                        <div className="list-container" key={originalIndex}>
+                          <div className="row flex space-between">
+                            <div className="profile">
+                              <ul>
+                                <li>
+                                  <div className="img-box">
+                                    <span>{originalIndex + 2}</span>
+                                    <a href="">
+                                      <img src={user.profile_image} />
+                                    </a>
+                                  </div>
 
-                              <div className="content">
-                                <h4>{user.name}</h4>
-                              </div>
-                            </li>
-                          </ul>
+                                  <div className="content">
+                                    <h4>{user.name}</h4>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="button">
+                              <span>
+                                <figure>
+                                  <img
+                                    src="./app/images/coins.png"
+                                    alt="Genaiguru Coins"
+                                  />
+                                </figure>
+                                <span>{user.points} coins</span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="button">
-                          <span>
-                            <figure>
-                              <img
-                                src="./app/images/coins.png"
-                                alt="Genaiguru Coins"
-                              />
-                            </figure>
-                            <span>{user.points} coins</span>
-                          </span>
+                      );
+                    })
+                  : allUsers.map((user, index) => {
+                      const originalIndex = currentPage * 10 - 10 + index;
+                      return (
+                        <div className="list-container" key={originalIndex}>
+                          <div className="row flex space-between">
+                            <div className="profile">
+                              <ul>
+                                <li>
+                                  <div className="img-box">
+                                    <span>{originalIndex + 1}</span>
+                                    <a href="">
+                                      <img src={user.profile_image} />
+                                    </a>
+                                  </div>
+
+                                  <div className="content">
+                                    <h4>{user.name}</h4>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="button">
+                              <span>
+                                <figure>
+                                  <img
+                                    src="./app/images/coins.png"
+                                    alt="Genaiguru Coins"
+                                  />
+                                </figure>
+                                <span>{user.points} coins</span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                      );
+                    })}
+                <Pagination
+                  token="leaderboard"
+                  totalItems={totalUsers}
+                  itemsPerPage={usersPerPage}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
               </div>
               {/* <!-- 2nd --> */}
               <div className="tab-content tab-content-2 ">
@@ -404,80 +482,82 @@ const LeaderBoard = () => {
                   Leaderboard
                 </p>
               </div>
-              <div className="center-box">
-                <div className="topThreeBox">
-                  <div className="topThreeBoxWrap">
-                    <h4>Top 3</h4>
-                    <ul className="flex space-between ">
-                      <li>
-                        <div className="profileImgFrame">
-                          <figure>
-                            <img
-                              src={allUsers[1]?.profile_image}
-                              alt="Genaiguru user-icon"
-                            />
-                          </figure>
-                          <div className="rankIcon">#2</div>
-                        </div>
+              {currentPage == 1 && (
+                <div className="center-box">
+                  <div className="topThreeBox">
+                    <div className="topThreeBoxWrap">
+                      <h4>Top 3</h4>
+                      <ul className="flex space-between ">
+                        <li>
+                          <div className="profileImgFrame">
+                            <figure>
+                              <img
+                                src={allUsers[1]?.profile_image}
+                                alt="Genaiguru user-icon"
+                              />
+                            </figure>
+                            <div className="rankIcon">#2</div>
+                          </div>
 
-                        <div className="content">
-                          <p>
-                            <img
-                              src="./app/images/coins.png"
-                              alt="Genaiguru Coins"
-                            />
-                            {allUsers[1]?.points} <span>coins</span>
-                          </p>
-                          <h6>{allUsers[1]?.name}</h6>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="profileImgFrame">
-                          <figure>
-                            <img
-                              src={allUsers[0]?.profile_image}
-                              alt="Genaiguru user-icon"
-                            />
-                          </figure>
-                          <div className="rankIcon">#1</div>
-                        </div>
-                        <div className="content">
-                          <p>
-                            <img
-                              src="./app/images/coins.png"
-                              alt="Genaiguru Coins"
-                            />{" "}
-                            {allUsers[0]?.points}
-                            <span>coins</span>
-                          </p>
-                          <h6>{allUsers[0]?.name}</h6>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="profileImgFrame">
-                          <figure>
-                            <img
-                              src={allUsers[2]?.profile_image}
-                              alt="Genaiguru user-icon"
-                            />
-                          </figure>
-                          <div className="rankIcon">#3</div>
-                        </div>
-                        <div className="content">
-                          <p>
-                            <img
-                              src="./app/images/coins.png"
-                              alt="Genaiguru Coins"
-                            />
-                            {allUsers[2]?.points} <span>coins</span>
-                          </p>
-                          <h6>{allUsers[2]?.name}</h6>
-                        </div>
-                      </li>
-                    </ul>
+                          <div className="content">
+                            <p>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                              />
+                              {allUsers[1]?.points} <span>coins</span>
+                            </p>
+                            <h6>{allUsers[1]?.name}</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="profileImgFrame">
+                            <figure>
+                              <img
+                                src={allUsers[0]?.profile_image}
+                                alt="Genaiguru user-icon"
+                              />
+                            </figure>
+                            <div className="rankIcon">#1</div>
+                          </div>
+                          <div className="content">
+                            <p>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                              />{" "}
+                              {allUsers[0]?.points}
+                              <span>coins</span>
+                            </p>
+                            <h6>{allUsers[0]?.name}</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="profileImgFrame">
+                            <figure>
+                              <img
+                                src={allUsers[2]?.profile_image}
+                                alt="Genaiguru user-icon"
+                              />
+                            </figure>
+                            <div className="rankIcon">#3</div>
+                          </div>
+                          <div className="content">
+                            <p>
+                              <img
+                                src="./app/images/coins.png"
+                                alt="Genaiguru Coins"
+                              />
+                              {allUsers[2]?.points} <span>coins</span>
+                            </p>
+                            <h6>{allUsers[2]?.name}</h6>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
               {/* <!-- tabs start here  --> */}
               <ul className="connect-link flex">
                 <li>
@@ -515,42 +595,86 @@ const LeaderBoard = () => {
               {/* <!-- tab-link start here -->
       <!-- tab-content here --> */}
               <div className="tab-content tab-content-1 active">
-                {allUsers.slice(3).map((user, index) => {
-                  const originalIndex = index + 2;
-                  return (
-                    <div className="list-container" key={originalIndex}>
-                      <div className="row flex space-between">
-                        <div className="profile">
-                          <ul>
-                            <li>
-                              <div className="img-box">
-                                <span>{originalIndex + 2}</span>
-                                <a href="">
-                                  <img src={user.profile_image} />
-                                </a>
-                              </div>
+                {currentPage == 1
+                  ? allUsers.slice(3).map((user, index) => {
+                      const originalIndex = index + 2;
+                      return (
+                        <div className="list-container" key={originalIndex}>
+                          <div className="row flex space-between">
+                            <div className="profile">
+                              <ul>
+                                <li>
+                                  <div className="img-box">
+                                    <span>{originalIndex + 2}</span>
+                                    <a href="">
+                                      <img src={user.profile_image} />
+                                    </a>
+                                  </div>
 
-                              <div className="content">
-                                <h4>{user.name}</h4>
-                              </div>
-                            </li>
-                          </ul>
+                                  <div className="content">
+                                    <h4>{user.name}</h4>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="button">
+                              <span>
+                                <figure>
+                                  <img
+                                    src="./app/images/coins.png"
+                                    alt="Genaiguru Coins"
+                                  />
+                                </figure>
+                                <span>{user.points} coins</span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="button">
-                          <span>
-                            <figure>
-                              <img
-                                src="./app/images/coins.png"
-                                alt="Genaiguru Coins"
-                              />
-                            </figure>
-                            <span>{user.points} coins</span>
-                          </span>
+                      );
+                    })
+                  : allUsers.map((user, index) => {
+                      const originalIndex = currentPage * 10 - 10 + index;
+                      return (
+                        <div className="list-container" key={originalIndex}>
+                          <div className="row flex space-between">
+                            <div className="profile">
+                              <ul>
+                                <li>
+                                  <div className="img-box">
+                                    <span>{originalIndex + 1}</span>
+                                    <a href="">
+                                      <img src={user.profile_image} />
+                                    </a>
+                                  </div>
+
+                                  <div className="content">
+                                    <h4>{user.name}</h4>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="button">
+                              <span>
+                                <figure>
+                                  <img
+                                    src="./app/images/coins.png"
+                                    alt="Genaiguru Coins"
+                                  />
+                                </figure>
+                                <span>{user.points} coins</span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                      );
+                    })}
+                <Pagination
+                  token="leaderboard"
+                  totalItems={totalUsers}
+                  itemsPerPage={usersPerPage}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
               </div>
               {/* <!-- 2nd --> */}
               <div className="tab-content tab-content-2 ">
