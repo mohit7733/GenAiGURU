@@ -30,19 +30,25 @@ const MobileSideBar = (props) => {
             />
           </div>
           <div class="topSearch">
-            <div class="searchbar flex">
-              <figure class="icon">
-                <img
-                  src="app/images/searchIconHeader.png"
-                  alt="Genaiguru small logo"
-                />
-              </figure>
-              <form action="">
-                <div class="form_group">
-                  <input type="search" placeholder="Search AI" />
-                </div>
-              </form>
-            </div>
+            <WithAuth
+              callBack={(e) => {
+                navigate("/index2");
+              }}
+            >
+              <div class="searchbar flex">
+                <fig ure class="icon">
+                  <img
+                    src="app/images/searchIconHeader.png"
+                    alt="Genaiguru small logo"
+                  />
+                </fig>
+                <form action="">
+                  <div class="form_group">
+                    <input type="search" placeholder="Search AI" />
+                  </div>
+                </form>
+              </div>
+            </WithAuth>
           </div>
           <ul class="menuLists">
             <li>
@@ -168,6 +174,21 @@ const MobileSideBar = (props) => {
                     alt="Genaiguru Settings menu icon"
                   />
                   Settings
+                </a>
+              </WithAuth>
+            </li>
+            <li>
+              <WithAuth
+                callBack={(e) => {
+                  navigate("/");
+                }}
+              >
+                <a target="_blank">
+                  <img
+                    src="app/images/mobileMenuIcon1.png"
+                    alt="Genaiguru Settings menu icon"
+                  />
+                  Home
                 </a>
               </WithAuth>
             </li>
