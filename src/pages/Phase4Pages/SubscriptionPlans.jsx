@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Link } from "react-router-dom";
 import { BASE_PATH } from "../../routes";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
+  const [subscription, setSubscription] = useState("");
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const getsubscription = () => {
+    axios
+      .get(`${getBaseURL()}/get-subscription-plans`)
+      .then((res) => {
+        console.log(res?.data?.data, "sub");
+        setSubscription(res?.data?.data);
+      })
+      .catch((err) => console.log(err, "error"));
+  };
+  useEffect(() => {
+    getsubscription();
+  }, []);
+
   return (
     <div>
       <MobileHeader />
@@ -37,10 +55,24 @@ const SubscriptionPlans = () => {
                 <div class="plans-wrapper  flex">
                   <div class="monthly-plans">
                     <div class="sceam">
-                      <h6>Monthly</h6>
-                      <p>$50 $40 USD/year</p>
+                      <h6>{subscription[0]?.name}</h6>
+                      <p>
+                        {"$" +
+                          subscription[0]?.price.slice(
+                            0,
+                            subscription[0].price.length - 3
+                          ) +
+                          " " +
+                          "USD/year"}
+                      </p>
                     </div>
                     <ul>
+                      <li
+                        dangerouslySetInnerHTML={{
+                          __html: subscription[0]?.description,
+                        }}
+                      />
+
                       <li>No ads</li>
                       <li>Listen to any story</li>
                       <li>Support quality writing</li>
@@ -98,10 +130,23 @@ const SubscriptionPlans = () => {
                   </div>
                   <div class="monthly-plans">
                     <div class="sceam">
-                      <h6>Annual</h6>
-                      <p>$50 $40 USD/year</p>
+                      <h6>{subscription[1]?.name}</h6>
+                      <p>
+                        {"$" +
+                          subscription[1]?.price.slice(
+                            0,
+                            subscription[1].price.length - 3
+                          ) +
+                          " " +
+                          "USD/year"}{" "}
+                      </p>
                     </div>
                     <ul>
+                      <li
+                        dangerouslySetInnerHTML={{
+                          __html: subscription[1]?.description,
+                        }}
+                      />
                       <li>No ads</li>
                       <li>Listen to any story</li>
                       <li>Support quality writing</li>
@@ -170,9 +215,9 @@ const SubscriptionPlans = () => {
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
           <div class="hamburger">
-          <Link to={BASE_PATH}>
-          <i class="fa fa-angle-left" aria-hidden="true"></i>
-          </Link>
+            <Link to={BASE_PATH}>
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </Link>
           </div>
           <h2>Subscription Plans</h2>
         </div>
@@ -313,7 +358,6 @@ const SubscriptionPlans = () => {
                               <img
                                 src="./app/images/paymennt-card-4.svg"
                                 alt="Genaiguru payment"
-                                
                               />
                             </figure>
                           </a>
