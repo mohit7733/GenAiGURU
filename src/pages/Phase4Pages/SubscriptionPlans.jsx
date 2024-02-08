@@ -72,12 +72,12 @@ const SubscriptionPlans = () => {
                           __html: subscription[0]?.description,
                         }}
                       />
-
+                      {/* 
                       <li>No ads</li>
                       <li>Listen to any story</li>
                       <li>Support quality writing</li>
                       <li>Access on any device</li>
-                      <li>Create your own publications</li>
+                      <li>Create your own publications</li> */}
                     </ul>
                     <button type="submit" class="planSelectBtn">
                       Select
@@ -147,11 +147,11 @@ const SubscriptionPlans = () => {
                           __html: subscription[1]?.description,
                         }}
                       />
-                      <li>No ads</li>
+                      {/* <li>No ads</li>
                       <li>Listen to any story</li>
                       <li>Support quality writing</li>
                       <li>Access on any device</li>
-                      <li>Create your own publications</li>
+                      <li>Create your own publications</li> */}
                     </ul>
                     <button type="submit" class="planSelectBtn">
                       Select
@@ -245,15 +245,28 @@ const SubscriptionPlans = () => {
                 <div class="plans-wrapper  flex">
                   <div class="monthly-plans">
                     <div class="sceam">
-                      <h6>Monthly</h6>
-                      <p>$50 $40 USD/year</p>
+                      <h6>{subscription[0]?.name}</h6>
+                      <p>
+                        {"$" +
+                          subscription[0]?.price.slice(
+                            0,
+                            subscription[0].price.length - 3
+                          ) +
+                          " " +
+                          "USD/year"}
+                      </p>
                     </div>
                     <ul>
-                      <li>No ads</li>
+                      <li
+                        dangerouslySetInnerHTML={{
+                          __html: subscription[0]?.description,
+                        }}
+                      />
+                      {/* <li>No ads</li>
                       <li>Listen to any story</li>
                       <li>Support quality writing</li>
                       <li>Access on any device</li>
-                      <li>Create your own publications</li>
+                      <li>Create your own publications</li> */}
                     </ul>
                     <button type="submit" class="planSelectBtn">
                       Select
@@ -306,15 +319,28 @@ const SubscriptionPlans = () => {
                   </div>
                   <div class="monthly-plans">
                     <div class="sceam">
-                      <h6>Annual</h6>
-                      <p>$50 $40 USD/year</p>
+                      <h6>{subscription[1]?.name}</h6>
+                      <p>
+                        {"$" +
+                          subscription[1]?.price.slice(
+                            0,
+                            subscription[1].price.length - 3
+                          ) +
+                          " " +
+                          "USD/year"}{" "}
+                      </p>
                     </div>
                     <ul>
-                      <li>No ads</li>
+                      <li
+                        dangerouslySetInnerHTML={{
+                          __html: subscription[1]?.description,
+                        }}
+                      />
+                      {/* <li>No ads</li>
                       <li>Listen to any story</li>
                       <li>Support quality writing</li>
                       <li>Access on any device</li>
-                      <li>Create your own publications</li>
+                      <li>Create your own publications</li> */}
                     </ul>
                     <button type="submit" class="planSelectBtn">
                       Select

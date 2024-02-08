@@ -58,9 +58,10 @@ const BlogDetails = ({ likes, dislikes }) => {
   // useLocation to get id from url
   let location = useLocation();
   const my_element = location.hash.slice(1);
+
   const queryParam = new URLSearchParams(location.search);
   const blogId = queryParam.get("id");
-
+  console.log(displayCommentModel, "comment");
   // Useeffect for API of blogOpened Points
   useEffect(() => {
     axios
@@ -358,6 +359,8 @@ const BlogDetails = ({ likes, dislikes }) => {
       }
     };
     fetchBadges();
+    getComments();
+    my_element && setDisplayCommentModel(true);
   }, []);
 
   return (
