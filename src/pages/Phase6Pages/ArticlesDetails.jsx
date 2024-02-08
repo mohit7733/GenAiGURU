@@ -73,6 +73,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .catch((errors) => {
         console.log(errors.message);
       });
+    getComments();
+    my_element && setDisplayCommentModel(true);
   }, []);
 
   useEffect(() => {

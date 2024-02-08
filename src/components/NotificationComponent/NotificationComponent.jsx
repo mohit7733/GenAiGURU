@@ -138,20 +138,22 @@ const NotificationComponent = () => {
                     userNotifications.map((notif, index) => {
                       return (
                         <div
-                          onClick={() =>
-                            navigatepost(
-                              notif?.post_type,
-                              notif?.post_id,
-                              notif?.comment_id
-                            )
-                          }
                           className="wrap flex"
                           key={index}
                           style={{ cursor: "pointer" }}
                         >
                           <div className="content">
                             <div className="flex space-between">
-                              <div className="wrapper flex">
+                              <div
+                                onClick={() =>
+                                  navigatepost(
+                                    notif?.post_type,
+                                    notif?.post_id,
+                                    notif?.comment_id
+                                  )
+                                }
+                                className="wrapper flex"
+                              >
                                 <figure>
                                   <img
                                     src={
