@@ -49,7 +49,6 @@ const Header = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.newNotificationsCount);
         setNotificationCount(response?.data?.newNotificationsCount);
       })
       .catch((err) => {

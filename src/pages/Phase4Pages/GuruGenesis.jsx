@@ -16,7 +16,7 @@ const GuruGenesis = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [faq, setFaq] = useState([]);
   const [isVisible, setIsVisible] = useState();
-  const[isMobileSidebarOpen,setIsMobileSidebarOpen]=useState(false)
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [contactUsDetails, setContactUsDetails] = useState({
     fullName: "",
     email: "",
@@ -27,9 +27,9 @@ const GuruGenesis = () => {
     description: "",
   });
 
-  const toggleMobileSidebar = ()=>{
-    setIsMobileSidebarOpen(!isMobileSidebarOpen)
-  }
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
 
   // get API for About-us.......
   useEffect(() => {
@@ -55,7 +55,6 @@ const GuruGenesis = () => {
       .then((response) => {
         // Handle the successful response
         setFaq(response.data.data);
-        console.log(response.data.data);
       })
       .catch((error) => {
         // Handle errors
@@ -243,10 +242,7 @@ const GuruGenesis = () => {
                         </div>
                       </div>
                       <div class="faq-box">
-                       
-                        <div class="panel">
-                        
-                        </div>
+                        <div class="panel"></div>
                       </div>
                     </div>
                     <div class="contact-container">
@@ -313,7 +309,6 @@ const GuruGenesis = () => {
                   <div class="about-content commanContent">
                     <h4>{aboutus.title}</h4>
                     <p>
-                     
                       <p
                         dangerouslySetInnerHTML={{
                           __html: aboutus.description,
@@ -347,11 +342,7 @@ const GuruGenesis = () => {
       <div class="mob_profile commanMobHead hideDes">
         <div class="mobileHead flex">
           <div class="hamburger" onClick={toggleMobileSidebar}>
-            <img
-              src="app/images/hamburgerIcon.png"
-              alt="Genaiguru hamburger"
-            
-            />
+            <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
           </div>
           <h2>Contact & About us</h2>
         </div>
@@ -401,7 +392,6 @@ const GuruGenesis = () => {
                               <img
                                 src="app/images/arrow-left.png"
                                 alt="Genaiguru arrow-left"
-                               
                               />
                             </div>
                           </div>
@@ -503,7 +493,9 @@ const GuruGenesis = () => {
         </div>
       </div>
       {/* <!-- mobile section end here --> */}
-      {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}/>}
+      {isMobileSidebarOpen && (
+        <MobileSideBar toggleMobileSidebar={toggleMobileSidebar} />
+      )}
     </div>
   );
 };

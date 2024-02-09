@@ -45,7 +45,6 @@ const MobileHeader = ({ isLogged }) => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.newNotificationsCount);
         setNotificationCount(response?.data?.newNotificationsCount);
       })
       .catch((err) => {
