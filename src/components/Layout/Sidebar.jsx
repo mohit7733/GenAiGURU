@@ -52,8 +52,8 @@ const Sidebar = () => {
           }, 5000);
         })
         .catch((errors) => {
-          console.log(errors);
-          seterromessage("Please Enter Email");
+          console.log(errors.response.data.message);
+          seterromessage(errors.response.data.message);
           setTimeout(() => {
             seterromessage("");
           }, 5000);
@@ -128,7 +128,7 @@ const Sidebar = () => {
                     alt="Genaiguru guruGoldIcon"
                   />
                 </figure>
-               <a href={PATH_GURUGOLD}>Guru Gold</a> 
+                <a href={PATH_GURUGOLD}>Guru Gold</a>
               </Link>
             </WithAuth>
           </li>

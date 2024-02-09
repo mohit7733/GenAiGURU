@@ -14,7 +14,6 @@ const SubscriptionPlans = () => {
     axios
       .get(`${getBaseURL()}/get-subscription-plans`)
       .then((res) => {
-        console.log(res?.data?.data, "sub");
         setSubscription(res?.data?.data);
       })
       .catch((err) => console.log(err, "error"));
@@ -66,19 +65,13 @@ const SubscriptionPlans = () => {
                           "USD/year"}
                       </p>
                     </div>
-                    <ul>
-                      <li
-                        dangerouslySetInnerHTML={{
-                          __html: subscription[0]?.description,
-                        }}
-                      />
-                      {/* 
-                      <li>No ads</li>
-                      <li>Listen to any story</li>
-                      <li>Support quality writing</li>
-                      <li>Access on any device</li>
-                      <li>Create your own publications</li> */}
-                    </ul>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: subscription[0]?.description,
+                      }}
+                    />
+
                     <button type="submit" class="planSelectBtn">
                       Select
                     </button>
@@ -141,18 +134,13 @@ const SubscriptionPlans = () => {
                           "USD/year"}{" "}
                       </p>
                     </div>
-                    <ul>
-                      <li
-                        dangerouslySetInnerHTML={{
-                          __html: subscription[1]?.description,
-                        }}
-                      />
-                      {/* <li>No ads</li>
-                      <li>Listen to any story</li>
-                      <li>Support quality writing</li>
-                      <li>Access on any device</li>
-                      <li>Create your own publications</li> */}
-                    </ul>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: subscription[1]?.description,
+                      }}
+                    />
+
                     <button type="submit" class="planSelectBtn">
                       Select
                     </button>
@@ -256,18 +244,12 @@ const SubscriptionPlans = () => {
                           "USD/year"}
                       </p>
                     </div>
-                    <ul>
-                      <li
-                        dangerouslySetInnerHTML={{
-                          __html: subscription[0]?.description,
-                        }}
-                      />
-                      {/* <li>No ads</li>
-                      <li>Listen to any story</li>
-                      <li>Support quality writing</li>
-                      <li>Access on any device</li>
-                      <li>Create your own publications</li> */}
-                    </ul>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: subscription[0]?.description,
+                      }}
+                    />
                     <button type="submit" class="planSelectBtn">
                       Select
                     </button>
@@ -330,18 +312,11 @@ const SubscriptionPlans = () => {
                           "USD/year"}{" "}
                       </p>
                     </div>
-                    <ul>
-                      <li
-                        dangerouslySetInnerHTML={{
-                          __html: subscription[1]?.description,
-                        }}
-                      />
-                      {/* <li>No ads</li>
-                      <li>Listen to any story</li>
-                      <li>Support quality writing</li>
-                      <li>Access on any device</li>
-                      <li>Create your own publications</li> */}
-                    </ul>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: subscription[1]?.description,
+                      }}
+                    />
                     <button type="submit" class="planSelectBtn">
                       Select
                     </button>

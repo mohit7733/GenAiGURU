@@ -458,7 +458,7 @@ const VideoPlay = () => {
                 <h2>{videoPlay.title}</h2>
                 {/* <!-- view details here --> */}
                 <div className="view-details">
-                  <a href="#">{videoPlay.views} views | </a>
+                  <a href="#">{`${videoPlay.views} views | `} </a>{" "}
                   <a href="#">{videoPlay.time_difference} </a>
                   {/* <a href="#">Details</a> */}
                 </div>

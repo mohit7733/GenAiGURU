@@ -87,6 +87,11 @@ const GuruGold = () => {
         setRankImage(levelData.rank_image);
         setEarnMorePoint(levelData.upper_limit - userPoints);
         setTotalPoints(levelData.upper_limit);
+      } else if (userPoints > levelData.upper_limit) {
+        setUserLevel(levelData.name);
+        setRankImage(levelData.rank_image);
+        setEarnMorePoint(0);
+        setTotalPoints(levelData.upper_limit);
       }
     }
     return "unknow level";
@@ -100,7 +105,7 @@ const GuruGold = () => {
       console.error("Error fetching game-levels:", error.message);
     }
   };
-  const percentage = (userPoints / totalPoints) * 100;
+  const percentage = Math.min((userPoints / totalPoints) * 100, 100);
 
   // const gradientId = (
   //   <svg style={{ height: 0, width: 0, position: "absolute" }}>
@@ -190,7 +195,7 @@ const GuruGold = () => {
                 <ul className="flex">
                   {levelDetails.map((level, index) => {
                     return (
-                      <li key={index}>
+                      <li style={{ margin: "5px" }} key={index}>
                         <svg style={{ height: 0, width: 0 }}>
                           <defs>
                             <linearGradient
@@ -214,7 +219,9 @@ const GuruGold = () => {
                         <div style={{ width: 78, height: 78, margin: "5px" }}>
                           <CircularProgressbarWithChildren
                             strokeWidth={3}
-                            value={currentID !== level.level ? 100 : percentage}
+                            value={
+                              currentID !== level?.level ? 100 : percentage
+                            }
                             styles={{
                               path: {
                                 stroke: `url(#gradientId)`,
@@ -234,6 +241,9 @@ const GuruGold = () => {
                             </figure>
                           </CircularProgressbarWithChildren>
                         </div>
+                        <p style={{ textAlign: "center", color: "white" }}>
+                          {level.name}
+                        </p>
                         {completedIds.filter((a) => a == level.level)?.length ==
                           0 && (
                           <div className="blurImgIcons">

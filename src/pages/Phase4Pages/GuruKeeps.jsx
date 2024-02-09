@@ -18,7 +18,7 @@ const GuruKeeps = () => {
   const [savedData, setSavedData] = useState([]);
 
   const navigate = useNavigate();
-  const[isMobileSidebarOpen,setIsMobileSidebarOpen]=useState(false)
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -33,7 +33,6 @@ const GuruKeeps = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.data);
         setSavedData(response?.data?.data);
       })
       .catch((err) => {
@@ -60,7 +59,7 @@ const GuruKeeps = () => {
   };
 
   const toggleMobileSidebar = () => {
-    setIsMobileSidebarOpen(!isMobileSidebarOpen)
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
 
   const onArticleUnSave = (articleID) => {
@@ -159,11 +158,7 @@ const GuruKeeps = () => {
                         </figure>
                       ) : (
                         <figure>
-                          <img
-                            src={data.photo}
-                            alt="Genaiguru Guru-keeps"
-                           
-                          />
+                          <img src={data.photo} alt="Genaiguru Guru-keeps" />
                         </figure>
                       )}
 
@@ -174,7 +169,6 @@ const GuruKeeps = () => {
                               <img
                                 src={data.author_profile_image}
                                 alt="Genaiguru user-icon"
-                               
                               />
                             </figure>
                             <div className="innerContent">
@@ -199,7 +193,6 @@ const GuruKeeps = () => {
                                 <img
                                   src="app/images/color-bookmarks.png"
                                   alt=" coloredbookmarkIcon"
-                                 
                                 />
                               </a>
                             </li>
@@ -209,7 +202,6 @@ const GuruKeeps = () => {
                                 <img
                                   src="app/images/dotsIcons.png"
                                   alt="Genaiguru dotsIcons"
-                                 
                                 />
                               </a>
                             </li>
@@ -251,11 +243,7 @@ const GuruKeeps = () => {
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
           <div className="hamburger" onClick={toggleMobileSidebar}>
-            <img
-              src="app/images/hamburgerIcon.png"
-              alt="Genaiguru hamburger"
-             
-            />
+            <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
           </div>
           <h2>Guru keeps</h2>
           <p>{savedData.length} Saved</p>
@@ -278,11 +266,7 @@ const GuruKeeps = () => {
                   ) : (
                     <figure>
                       <a href="#">
-                        <img
-                          src={data.photo}
-                          alt="Genaiguru Guru-keeps"
-                         
-                        />
+                        <img src={data.photo} alt="Genaiguru Guru-keeps" />
                       </a>
                     </figure>
                   )}
@@ -292,7 +276,6 @@ const GuruKeeps = () => {
                         <img
                           src={data.author_profile_image}
                           alt="Genaiguru authorImg"
-                         
                         />
                       </figure>
                       <div className="innerContent">
@@ -330,7 +313,6 @@ const GuruKeeps = () => {
                           <img
                             src="app/images/color-bookmarks.png"
                             alt="Genaiguru bookmarkIcon"
-                           
                           />
                         </a>
                       </li>
@@ -339,7 +321,6 @@ const GuruKeeps = () => {
                           <img
                             src="app/images/dotsIcons.png"
                             alt="Genaiguru dotsIcons"
-                           
                           />
                         </a>
                       </li>
@@ -362,7 +343,9 @@ const GuruKeeps = () => {
           </div>
         </div>
       </div>
-     {isMobileSidebarOpen && <MobileSideBar toggleMobileSidebar={toggleMobileSidebar}/>} 
+      {isMobileSidebarOpen && (
+        <MobileSideBar toggleMobileSidebar={toggleMobileSidebar} />
+      )}
     </div>
   );
 };

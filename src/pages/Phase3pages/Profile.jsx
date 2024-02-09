@@ -55,7 +55,6 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setProfileImage(response.data.profile_image);
         setUserDetails({
           userName:
@@ -251,7 +250,6 @@ const Profile = () => {
             claimed: "yes",
           },
         });
-        console.log(response?.data);
         setClaimedBadges(response?.data?.data);
       } catch (error) {
         console.error("Error fetching user points:", error.message);

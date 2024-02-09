@@ -22,9 +22,6 @@ const NotificationComponent = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        console.log(response?.message);
-      })
       .catch((err) => {
         console.log(err.message);
       });
@@ -53,7 +50,6 @@ const NotificationComponent = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data?.notifications);
         setUserNotifications(response?.data?.notifications);
       })
       .catch((err) => {
