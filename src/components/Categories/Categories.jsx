@@ -11,6 +11,8 @@ const Categories = () => {
   const [displayView, setDisplayView] = useState(true);
   const [defaultCategoryId, setDefaultCategoryId] = useState();
   const [selectedInterest, setSelectedInterest] = useState(null);
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
   // Get API for Categories
   useEffect(() => {
     axios
@@ -37,6 +39,7 @@ const Categories = () => {
     setSelectedInterest(categoryId);
     axios
       .post(`${getBaseURL()}/interestsarticles`, {
+        user_id: userId,
         interest_id: array,
       })
       .then((res) => {
@@ -131,7 +134,10 @@ const Categories = () => {
           </div>
         )}
       </div>
-      <ArticleBasedInterest articlesOnInterest={articlesOnInterest} />
+      <ArticleBasedInterest
+        reloadParent={onCategoryClick}
+        articlesOnInterest={articlesOnInterest}
+      />
     </div>
   );
 };
