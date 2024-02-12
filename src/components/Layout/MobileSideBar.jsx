@@ -5,6 +5,7 @@ import {
   PATH_LOGIN,
   PATH_MOBLIE_SETTINGS,
   PATH_PROFILE,
+  PATH_NOTIFICATION,
 } from "../../routes";
 import WithAuth from "../../pages/Authentication/WithAuth";
 
@@ -52,6 +53,17 @@ const MobileSideBar = (props) => {
           </div>
           <ul class="menuLists">
             <li>
+              <Link onClick={props.toggleMobileSidebar} to="/">
+                <a target="_blank">
+                  <img
+                    src="app/images/mobileMenuIcon1.png"
+                    alt="Genaiguru Settings menu icon"
+                  />
+                  Home
+                </a>
+              </Link>
+            </li>
+            <li>
               <WithAuth
                 callBack={(e) => {
                   navigate("/index5");
@@ -82,13 +94,19 @@ const MobileSideBar = (props) => {
               </WithAuth>
             </li>
             <li>
-              <a href="#" target="_blank">
-                <img
-                  src="app/images/mobileMenuIcon3.png"
-                  alt="Genaiguru Notifications menu icon"
-                />
-                Notifications
-              </a>
+              <WithAuth
+                callBack={(e) => {
+                  navigate(PATH_NOTIFICATION);
+                }}
+              >
+                <a href="#">
+                  <img
+                    src="app/images/mobileMenuIcon3.png"
+                    alt="Genaiguru Notifications menu icon"
+                  />
+                  Notifications
+                </a>
+              </WithAuth>
             </li>
             <li>
               <WithAuth
@@ -177,21 +195,7 @@ const MobileSideBar = (props) => {
                 </a>
               </WithAuth>
             </li>
-            <li>
-              <WithAuth
-                callBack={(e) => {
-                  navigate("/");
-                }}
-              >
-                <a target="_blank">
-                  <img
-                    src="app/images/mobileMenuIcon1.png"
-                    alt="Genaiguru Settings menu icon"
-                  />
-                  Home
-                </a>
-              </WithAuth>
-            </li>
+
             <li>
               <Link to={PATH_LOGIN} onClick={changeLoginStatus}>
                 <a target="_blank">

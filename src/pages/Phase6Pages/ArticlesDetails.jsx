@@ -140,7 +140,6 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         article_id: articleID,
       })
       .then((res) => {
-        console.log(res?.data);
         setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
         toast.success("Article Saved", {
           position: toast.POSITION.TOP_CENTER,
@@ -158,7 +157,6 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         article_id: articleID,
       })
       .then((res) => {
-        console.log(res?.data);
         setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
         toast.success("Article Unsaved", {
           position: toast.POSITION.TOP_CENTER,
