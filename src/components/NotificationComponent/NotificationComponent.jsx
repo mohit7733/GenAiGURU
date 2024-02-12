@@ -5,10 +5,15 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 import deleteIcon from "../../assets/images/trash-2.png";
 import { useNavigate } from "react-router-dom";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
+
 const NotificationComponent = () => {
   const [profileImage, setProfileImage] = useState();
   const [userNotifications, setUserNotifications] = useState([]);
-
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
   const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
   useEffect(() => {
@@ -191,6 +196,92 @@ const NotificationComponent = () => {
           </div>
         </div>
       </section>
+
+      <div className="mob_profile commanMobHead hideDes">
+        <div className="mobileHead flex">
+          <div className="hamburger" onClick={toggleMobileSidebar}>
+            <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
+          </div>
+          <h2>Notifications</h2>
+        </div>
+        <div className="innerCommanContent mobGuruGold">
+          <div className="rightSection">
+            <div className="full-width">
+              <div className="keeps-container">
+                <div className="gurukeeps-wrapper flex space-between">
+                  <h5
+                    onClick={cleaALlNotications}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Clear All
+                  </h5>
+                  <div className="interest-guru ">
+                    {userNotifications.length > 0 ? (
+                      userNotifications.map((notif, index) => {
+                        return (
+                          <div
+                            className="wrap flex"
+                            key={index}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <div className="content">
+                              <div className="flex space-between">
+                                <div
+                                  onClick={() =>
+                                    navigatepost(
+                                      notif?.post_type,
+                                      notif?.post_id,
+                                      notif?.comment_id
+                                    )
+                                  }
+                                  className="wrapper flex"
+                                >
+                                  <figure>
+                                    <img
+                                      src={
+                                        notif?.sender_id != null
+                                          ? notif?.sender_profile_image
+                                          : profileImage
+                                      }
+                                    />
+                                  </figure>
+                                  <p style={{ marginLeft: "10px" }}>
+                                    {notif?.message}
+                                  </p>
+                                </div>
+                                <ul className="flex">
+                                  <li>
+                                    <a
+                                      onClick={() => {
+                                        deleteNotications(notif?.id);
+                                      }}
+                                    >
+                                      <img
+                                        src={deleteIcon}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <h3>You have no notifications !</h3>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <!-- mobile section end here --> */}
+      {isMobileSidebarOpen && (
+        <MobileSideBar toggleMobileSidebar={toggleMobileSidebar} />
+      )}
     </div>
   );
 };

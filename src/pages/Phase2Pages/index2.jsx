@@ -4,6 +4,7 @@ import { getBaseURL } from "../../api/config";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import Index3 from "./index3";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Index2 = ({ isLoggedIn }) => {
   const [chatInputText, setChatInputText] = useState("");
@@ -11,8 +12,10 @@ const Index2 = ({ isLoggedIn }) => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const [chatResponseText, setChatResponseText] = useState("");
+  const [chatText, setChatText] = useState("");
   const [displayRespone, setDisplayRespone] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const navigate = useNavigate();
   // const [messages, setMessages] = useState([
   //   {
   //     // message: "Hello, I'm ChatGPT! Ask me anything!",
@@ -82,7 +85,8 @@ const Index2 = ({ isLoggedIn }) => {
   // }
 
   const chatGPTApi = async (chatInputText) => {
-    setChatInputText(chatInputText);
+    setChatText(chatInputText);
+    setChatInputText("");
     setLoadingStatus(true);
     try {
       const response = await axios.post(
@@ -185,7 +189,7 @@ const Index2 = ({ isLoggedIn }) => {
                 {displayRespone ? (
                   <Index3
                     responseMessage={chatResponseText}
-                    userSearchedText={chatInputText}
+                    userSearchedText={chatText}
                   />
                 ) : (
                   <>
@@ -239,7 +243,13 @@ const Index2 = ({ isLoggedIn }) => {
 
       <div className="mobileHelp">
         <div className="mobileClose">
-          <figure>
+          <figure
+            style={{ cursor: "pointerM" }}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
+          >
             <img
               src="app/images/mobileCloseIconImg.png"
               alt="mobile close icon"

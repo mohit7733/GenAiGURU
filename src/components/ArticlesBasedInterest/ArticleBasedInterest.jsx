@@ -6,12 +6,52 @@ import "slick-carousel/slick/slick-theme.css";
 import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES } from "../../routes";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { getBaseURL } from "../../api/config";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 const ArticleBasedInterest = ({ articlesOnInterest }) => {
   const sliderRef = useRef();
 
   const navigate = useNavigate();
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
+  const onArticleSaveUnSave = (e, type, articleID) => {
+    e.preventDefault();
+    if (type == "unsave") {
+      axios
+        .post(`${getBaseURL()}/unsave-article`, {
+          user_id: userId,
+          article_id: articleID,
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log(articlesOnInterest, "art");
+          toast.success("Article Unsaved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    } else if (type == "save") {
+      axios
+        .post(`${getBaseURL()}/save-article`, {
+          user_id: userId,
+          article_id: articleID,
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log(articlesOnInterest, "art");
+          toast.success("Article Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    }
+  };
   const onArticleClick = (AricleID) => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
   };
@@ -83,17 +123,30 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
                         onClick={() => {
                           onArticleClick(aricles.id);
                         }}
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "  pointer" }}
                       >
                         {aricles.title}
                       </p>
                       <ul className="flex">
                         <li>
                           <a href="#">
-                            <img
-                              src="app/images/bookmarkIcon.png"
-                              alt="Genaiguru bookmarkIcon"
-                            />
+                            {aricles.saved == "no" ? (
+                              <img
+                                onClick={(e) =>
+                                  onArticleSaveUnSave(e, "save", aricles?.id)
+                                }
+                                src="app/images/bookmarkIcon.png"
+                                alt="Genaiguru bookmarkIcon"
+                              />
+                            ) : (
+                              <img
+                                onClick={(e) =>
+                                  onArticleSaveUnSave(e, "unsave", aricles?.id)
+                                }
+                                src="app/images/color-bookmarks.png"
+                                alt=""
+                              />
+                            )}
                           </a>
                         </li>
                         <li>

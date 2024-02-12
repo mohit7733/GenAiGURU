@@ -129,10 +129,10 @@ const Milestone = () => {
                           <li>
                             <h3>
                               {level.name}
-                              <img
+                              {/* <img
                                 src="app/images/headingProfileIcons.png"
                                 alt="Genaiguru headingProfileIcons"
-                              />
+                              /> */}
                             </h3>{" "}
                             {currentID !== level.level ? (
                               <p>
