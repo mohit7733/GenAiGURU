@@ -61,7 +61,6 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   const queryParam = new URLSearchParams(location.search);
   const blogId = queryParam.get("id");
-  console.log(displayCommentModel, "comment");
   // Useeffect for API of blogOpened Points
   useEffect(() => {
     axios
@@ -77,7 +76,30 @@ const BlogDetails = ({ likes, dislikes }) => {
         console.log(errors);
       });
   }, []);
-
+  const followUnfollow = (newtype, id) => {
+    if (token != "") {
+    }
+    axios
+      .post(
+        `${getBaseURL()}/auth/follow-user`,
+        {
+          follow_id: id,
+          type: newtype,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res, "res");
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   useEffect(() => {
     // window.scrollTo(0, 0);
     axios
@@ -92,6 +114,7 @@ const BlogDetails = ({ likes, dislikes }) => {
         }
       )
       .then((response) => {
+        console.log(response?.data);
         setBlogDetail({
           author: response?.data?.blog_details?.author,
           profilePhoto: response?.data?.blog_details?.author_profile_image,
@@ -101,6 +124,8 @@ const BlogDetails = ({ likes, dislikes }) => {
           creation_date: response?.data?.blog_details?.creation_date,
           blog_id: response?.data?.blog_details?.id,
           blogSaved: response?.data?.blog_details?.saved,
+          follow: response?.data?.blog_details?.following_author,
+          author_id: response?.data?.blog_details?.user_id,
         });
         setRelatedBlogs(response?.data?.related_blogs);
       })
@@ -462,6 +487,20 @@ const BlogDetails = ({ likes, dislikes }) => {
                       By <a>{blogDetail.author}</a>
                     </p>
                     <p>{blogDetail.creation_date}</p>
+                  </div>
+                  <div className="content-box">
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        followUnfollow(
+                          blogDetail?.follow == "yes" ? "unfollow" : "follow",
+                          blogDetail?.author_id
+                        );
+                      }}
+                      style={{ cursor: "pointer", color: "#be41c0" }}
+                    >
+                      {blogDetail?.follow == "yes" ? "Unfollow" : "Follow"}
+                    </a>
                   </div>
                   <div className="blog-img">
                     <figure>
@@ -1051,6 +1090,20 @@ const BlogDetails = ({ likes, dislikes }) => {
                       By <a href="#">{blogDetail.author}</a>
                     </p>
                     <p>{blogDetail.creation_date}</p>
+                  </div>
+                  <div className="content-box">
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        followUnfollow(
+                          blogDetail?.follow == "yes" ? "unfollow" : "follow",
+                          blogDetail?.author_id
+                        );
+                      }}
+                      style={{ color: "#be41c0" }}
+                    >
+                      {blogDetail?.follow == "yes" ? "Unfollow" : "Follow"}
+                    </a>
                   </div>
                   <div className="blog-img">
                     <figure>

@@ -65,15 +65,37 @@ const VideoPlay = () => {
               video_id: videoId,
             })
             .then((res) => {
-              res.data.message == "success" &&
-                console.log("ip sent successfull");
+              // res.data.message == "success" &&
+              //   console.log("ip sent successfull");
             })
             .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error))
     );
   }, []);
-
+  const followUnfollow = (newtype, id) => {
+    if (token != "") {
+    }
+    axios
+      .post(
+        `${getBaseURL()}/auth/follow-user`,
+        {
+          follow_id: id,
+          type: newtype,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   useEffect(() => {
     axios
       .get(
@@ -87,7 +109,6 @@ const VideoPlay = () => {
         }
       )
       .then((response) => {
-        console.log(response, "res");
         setVideoPlay({
           title: response?.data?.video_details?.title,
           youtube_link: response?.data?.video_details?.youtube_link,
@@ -102,6 +123,8 @@ const VideoPlay = () => {
           upvote: response?.data?.video_details?.upvote,
           downvote: response?.data?.video_details?.downvote,
           like_details: response?.data?.video_details?.like_details,
+          author_id: response?.data?.video_details?.author_id,
+          follow: response?.data?.video_details?.following_author,
         });
         setRelatedVideo(response?.data?.related_videos);
       })
@@ -149,7 +172,6 @@ const VideoPlay = () => {
         }
       )
       .then((res) => {
-        console.log(res?.data);
         // console.log(res?.data?.replies);
         setGetReplyVideoComments(res?.data?.replies);
       })
@@ -172,7 +194,6 @@ const VideoPlay = () => {
         content: comment,
       })
       .then((res) => {
-        console.log(res.data, "post");
         setComment("");
         setLoadingStatus(false);
         setButtonClicked(!buttonClicked);
@@ -198,7 +219,6 @@ const VideoPlay = () => {
       })
       .then((res) => {
         setLoadingStatus(false);
-        console.log(res.data);
         getReplyComments(commentId);
         setReplyComment("");
         getComments();
@@ -252,7 +272,6 @@ const VideoPlay = () => {
         type: type,
       })
       .then((res) => {
-        console.log(res, "updo");
         // setVideoCommentLike(res.data);
         setButtonClicked(!buttonClicked);
       })
@@ -476,8 +495,22 @@ const VideoPlay = () => {
                   <li>
                     <a href="">
                       <span>{videoPlay.author}</span>
-                      <br />
-                      {/* <small>alexsmih@</small> */}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        followUnfollow(
+                          videoPlay?.follow == "yes" ? "unfollow" : "follow",
+                          videoPlay?.author_id
+                        );
+                      }}
+                      style={{ cursor: "pointer", color: "#be41c0" }}
+                    >
+                      <span>
+                        {videoPlay?.follow == "yes" ? "Unfollow" : "Follow"}
+                      </span>
                     </a>
                   </li>
                 </ul>
@@ -1082,6 +1115,22 @@ const VideoPlay = () => {
                     <span>{videoPlay.author}</span>
                     <br />
                     {/* <small>alexsmih@</small> */}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      followUnfollow(
+                        videoPlay?.follow == "yes" ? "unfollow" : "follow",
+                        videoPlay?.author_id
+                      );
+                    }}
+                    style={{ cursor: "pointer", color: "#be41c0" }}
+                  >
+                    <span>
+                      {videoPlay?.follow == "yes" ? "Unfollow" : "Follow"}
+                    </span>
                   </a>
                 </li>
               </ul>

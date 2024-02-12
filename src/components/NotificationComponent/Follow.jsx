@@ -29,7 +29,30 @@ const Follow = () => {
       .get(`${getBaseURL()}/get-user-follow?user_id=${userId}&follow=${type}`)
       .then((res) => {
         setFollowing(res?.data);
-        console.log(res?.data, "Res");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const followUnfollow = (newtype, id) => {
+    if (token != "") {
+    }
+    axios
+      .post(
+        `${getBaseURL()}/auth/follow-user`,
+        {
+          follow_id: id,
+          type: newtype,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        followType(type);
       })
       .catch((err) => {
         console.log(err.message);
@@ -45,21 +68,34 @@ const Follow = () => {
           <div className="full-width">
             <div className="keeps-container">
               <div className="gurukeeps-wrapper flex space-between">
-                <figure>
-                  <select
-                    className="dropdown"
-                    onChange={(e) => setType(e.target.value)}
-                    defaultValue={type}
-                  >
-                    <option value="following" className="dropbtn">
-                      <button>Following</button>
-                    </option>
-                    <option value="followers" className="dropbtn">
-                      <button>Followers</button>
-                    </option>
-                  </select>
-                  <a>({following?.[type]?.length})</a>
-                </figure>
+                <div className="follow-wrapper">
+                  <ul className="flex">
+                    <li>
+                      <a
+                        onClick={() => setType("following")}
+                        className={type == "following" && "active"}
+                      >
+                        Following{" "}
+                        {following?.following?.length > 0
+                          ? `(${following?.following?.length})`
+                          : ""}
+                      </a>
+                    </li>
+                    <li>
+                      {" "}
+                      <a
+                        onClick={() => setType("followers")}
+                        className={type == "followers" && "active"}
+                      >
+                        {" "}
+                        Followers{" "}
+                        {following?.followers?.length > 0
+                          ? `(${following?.followers?.length})`
+                          : ""}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div>
                 <div className="interest-guru ">
@@ -72,7 +108,10 @@ const Follow = () => {
                       >
                         <div className="content">
                           <div className="flex space-between">
-                            <div className="wrapper flex">
+                            <div
+                              style={{ marginBottom: "0px" }}
+                              className="wrapper flex"
+                            >
                               <figure>
                                 <img
                                   src={data?.profile_image}
@@ -80,11 +119,28 @@ const Follow = () => {
                                   alt="profile"
                                 />
                               </figure>
-                              <p style={{ marginLeft: "10px" }}>{data?.name}</p>
+                              <p
+                                style={{ marginLeft: "10px", fontSize: "20px" }}
+                              >
+                                {data?.name}
+                              </p>
                             </div>
                             <ul>
                               <li>
-                                <a>Follow</a>
+                                <a
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    followUnfollow("unfollow", data?.id);
+                                  }}
+                                  className="loginBtn"
+                                >
+                                  {type == "following"
+                                    ? "Unfollow"
+                                    : type == "followers" &&
+                                      data?.following == "yes"
+                                    ? "unfollow"
+                                    : "follow"}
+                                </a>
                               </li>
                             </ul>
                           </div>
@@ -111,54 +167,97 @@ const Follow = () => {
             <div className="full-width">
               <div className="keeps-container">
                 <div className="gurukeeps-wrapper flex space-between">
-                  <figure>
-                    <select
-                      className="dropdown"
-                      onChange={(e) => setType(e.target.value)}
-                    >
-                      <option value="following" className="dropbtn">
-                        <button>Following</button>
-                      </option>
-                      <option value="followers" className="dropbtn">
-                        <button>Followers</button>
-                      </option>
-                    </select>
-                  </figure>
-
-                  <div>
-                    <div className="interest-guru ">
-                      {following?.[type]?.map((data) => {
-                        return (
-                          <div
-                            id={data?.id}
-                            className="wrap flex"
-                            style={{ cursor: "pointer" }}
-                          >
-                            <div className="content">
-                              <div className="flex space-between">
-                                <div className="wrapper flex">
-                                  <figure>
-                                    <img
-                                      src={data?.profile_image}
-                                      title="profile"
-                                      alt="profile"
-                                    />
-                                  </figure>
-                                  <p style={{ marginLeft: "10px" }}>
-                                    {data?.name}
-                                  </p>
-                                </div>
-                                <ul>
-                                  <li>
-                                    <a>Follow</a>
-                                  </li>
-                                </ul>
+                  <div className="follow-wrapper">
+                    <ul className="flex">
+                      <li>
+                        <a
+                          onClick={() => setType("following")}
+                          className={type == "following" && "active"}
+                        >
+                          Following{" "}
+                          {following?.following?.length > 0
+                            ? `(${following?.following?.length})`
+                            : ""}
+                        </a>
+                      </li>
+                      <li>
+                        {" "}
+                        <a
+                          onClick={() => setType("followers")}
+                          className={type == "followers" && "active"}
+                        >
+                          {" "}
+                          Followers{" "}
+                          {following?.followers?.length > 0
+                            ? `(${following?.followers?.length})`
+                            : ""}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <div className="interest-guru ">
+                    {following?.[type]?.map((data) => {
+                      return (
+                        <div
+                          id={data?.id}
+                          className="wrap flex"
+                          style={{ cursor: "pointer" }}
+                        >
+                          <div className="content">
+                            <div className="flex space-between">
+                              <div
+                                style={{ marginBottom: "0px" }}
+                                className="wrapper flex"
+                              >
+                                <figure>
+                                  <img
+                                    src={data?.profile_image}
+                                    title="profile"
+                                    alt="profile"
+                                  />
+                                </figure>
+                                <p
+                                  style={{
+                                    marginLeft: "10px",
+                                    fontSize: "20px",
+                                  }}
+                                >
+                                  {data?.name}
+                                </p>
                               </div>
+                              <ul>
+                                <li>
+                                  <a
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      followUnfollow(
+                                        type == "following"
+                                          ? "unfollow"
+                                          : type == "followers" &&
+                                            data?.following == "yes"
+                                          ? "unfollow"
+                                          : "follow",
+                                        data?.id
+                                      );
+                                    }}
+                                    className="loginBtn"
+                                  >
+                                    {type == "following"
+                                      ? "Unfollow"
+                                      : type == "followers" &&
+                                        data?.following == "yes"
+                                      ? "unfollow"
+                                      : "follow"}
+                                  </a>
+                                </li>
+                              </ul>
                             </div>
                           </div>
-                        );
-                      })}
-                    </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

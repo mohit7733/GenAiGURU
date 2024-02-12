@@ -67,15 +67,36 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         post_id: articleId,
         post_type: "article",
       })
-      .then((res) => {
-        console.log(res?.data);
-      })
+      .then((res) => {})
       .catch((errors) => {
         console.log(errors.message);
       });
     getComments();
     my_element && setDisplayCommentModel(true);
   }, []);
+  const followUnfollow = (newtype, id) => {
+    if (token != "") {
+    }
+    axios
+      .post(
+        `${getBaseURL()}/auth/follow-user`,
+        {
+          follow_id: id,
+          type: newtype,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setButtonClicked(!buttonClicked);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -91,6 +112,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         }
       )
       .then((response) => {
+        console.log(response, "Res");
         setArticleDetail({
           author: response?.data?.article_details?.author,
           author_profile_image:
@@ -101,10 +123,10 @@ const ArticlesDetails = ({ likes, dislikes }) => {
           creation_date: response?.data?.article_details?.creation_date,
           article_id: response?.data?.article_details?.id,
           articleSaved: response?.data?.article_details?.saved,
+          follow: response?.data?.article_details?.following_author,
+          author_id: response?.data?.article_details?.user_id,
         });
-        // console.log(response?.data?.article_details);
         setRelatedArticle(response?.data?.related_articles);
-        console.log(relatedArticle);
       })
       .catch((err) => {
         console.log(err.message);
@@ -202,7 +224,6 @@ const ArticlesDetails = ({ likes, dislikes }) => {
         }
       )
       .then((res) => {
-        console.log(res?.data?.replies);
         setGetReplyArticleComments(res?.data?.replies);
       })
       .catch((err) => {
@@ -334,7 +355,6 @@ const ArticlesDetails = ({ likes, dislikes }) => {
             claimed: "no",
           },
         });
-        console.log(response?.data?.data);
         setClaimedBadges(response?.data?.data);
         if (response?.data?.data.length > 0) {
           setShowPopUp(true);
@@ -464,6 +484,22 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                       By <a>{articleDetail.author}</a>
                     </p>
                     <p>{articleDetail.creation_date}</p>
+                  </div>
+                  <div className="content-box">
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        followUnfollow(
+                          articleDetail?.follow == "yes"
+                            ? "unfollow"
+                            : "follow",
+                          articleDetail?.author_id
+                        );
+                      }}
+                      style={{ cursor: "pointer", color: "#be41c0" }}
+                    >
+                      {articleDetail?.follow == "yes" ? "Unfollow" : "Follow"}
+                    </a>
                   </div>
                   <div className="blog-img">
                     <figure>

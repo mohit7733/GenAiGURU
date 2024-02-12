@@ -116,6 +116,25 @@
   cursor: pointer;
   border-radius: 10px;
 }
+.follow-wrapper{
+  width: 35% !important;
+}
+.follow-wrapper ul{
+justify-content: space-between;
+}
+
+.follow-wrapper ul li .active{
+  content: "";
+  /* top: 30px; */
+  left: 0;
+  width: 100%;
+  position: relative;
+  border-bottom: solid 4px #be41c0;
+} 
+.follow-wrapper ul li a{
+ color:#fff;
+ padding-bottom: 10px;
+}
 .dropdown-content a:hover:last-child {
   background: linear-gradient(to bottom, #b03fcc, #683fe4);
   color: rgb(7, 7, 7);
