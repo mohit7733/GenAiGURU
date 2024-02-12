@@ -10,9 +10,8 @@ import { getBaseURL } from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
-const ArticleBasedInterest = ({ articlesOnInterest }) => {
+const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
   const sliderRef = useRef();
-
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
@@ -25,8 +24,7 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
           article_id: articleID,
         })
         .then((res) => {
-          console.log(res.data);
-          console.log(articlesOnInterest, "art");
+          reloadParent(true);
           toast.success("Article Unsaved", {
             position: toast.POSITION.TOP_CENTER,
           });
@@ -41,8 +39,7 @@ const ArticleBasedInterest = ({ articlesOnInterest }) => {
           article_id: articleID,
         })
         .then((res) => {
-          console.log(res.data);
-          console.log(articlesOnInterest, "art");
+          reloadParent(true);
           toast.success("Article Saved", {
             position: toast.POSITION.TOP_CENTER,
           });

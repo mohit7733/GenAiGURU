@@ -5,7 +5,11 @@ import Sidebar from "../../components/Layout/Sidebar";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { getBaseURL } from "../../api/config";
-import { PATH_EDIT_PROFILE, PATH_SOCIAL_EDIT_PROFILE } from "../../routes";
+import {
+  PATH_EDIT_PROFILE,
+  PATH_SOCIAL_EDIT_PROFILE,
+  PATH_FOLLOW,
+} from "../../routes";
 import userIcon from "../../assets/images/person.png";
 import MobileSideBar from "../../components/Layout/MobileSideBar";
 import ProfileBadges from "../../components/ProfileBadges/ProfileBadges";
@@ -288,12 +292,24 @@ const Profile = () => {
                 <div className="followers">
                   <ul className="flex space-between">
                     <li>
-                      <a href="#">
+                      <a
+                        onClick={() => {
+                          navigate(PATH_FOLLOW, {
+                            state: { follow: "following" },
+                          });
+                        }}
+                      >
                         <span>{following}</span> Following
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a
+                        onClick={() => {
+                          navigate(PATH_FOLLOW, {
+                            state: { follow: "followers" },
+                          });
+                        }}
+                      >
                         <span>{follower}</span> Followers
                       </a>
                     </li>

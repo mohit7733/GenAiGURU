@@ -36,6 +36,7 @@ import NotificationSettings from "./components/NotificationSettings/Notification
 import EditPassword from "./components/EditPassword/EditPassword.jsx";
 import CustomizeInterest from "./components/CustomizeInterest/CustomizeInterest.jsx";
 import NotificationComponent from "./components/NotificationComponent/NotificationComponent.jsx";
+import Follow from "./components/NotificationComponent/Follow.jsx";
 export const BASE_PATH = "/";
 
 // Public Routes
@@ -75,6 +76,7 @@ export const PATH_NOTIFICATION_SETTINGS = "/notification";
 export const PATH_EDIT_PASSWORD = "/editpassword";
 export const PATH_CUSTOMIZE_INTEREST = "/interest";
 export const PATH_NOTIFICATION = "/notification-alerts";
+export const PATH_FOLLOW = "/follow";
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -303,6 +305,12 @@ export function RouterElement() {
       path: PATH_NOTIFICATION,
       name: PATH_NOTIFICATION,
       element: <NotificationComponent />,
+      exact: true,
+    },
+    {
+      path: PATH_FOLLOW,
+      name: PATH_FOLLOW,
+      element: <Follow />,
       exact: true,
     },
   ];
