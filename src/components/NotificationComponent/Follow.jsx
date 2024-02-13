@@ -28,6 +28,7 @@ const Follow = () => {
     axios
       .get(`${getBaseURL()}/get-user-follow?user_id=${userId}&follow=${type}`)
       .then((res) => {
+        console.log(res, "Res");
         setFollowing(res?.data);
       })
       .catch((err) => {
@@ -76,10 +77,7 @@ const Follow = () => {
                         onClick={() => setType("following")}
                         className={type == "following" ? "active" : ""}
                       >
-                        Following{" "}
-                        {following?.following?.length >= 0
-                          ? `(${following?.following?.length})`
-                          : ""}
+                        Following {`(${following?.following_count})`}
                       </a>
                     </li>
                     <li>
@@ -90,10 +88,7 @@ const Follow = () => {
                         className={type == "followers" ? "active" : ""}
                       >
                         {" "}
-                        Followers{" "}
-                        {following?.followers?.length >= 0
-                          ? `(${following?.followers?.length})`
-                          : ""}
+                        Followers {`(${following?.followers_count})`}
                       </a>
                     </li>
                   </ul>
@@ -185,10 +180,7 @@ const Follow = () => {
                           onClick={() => setType("following")}
                           className={type == "following" ? "active" : ""}
                         >
-                          Following{" "}
-                          {following?.following?.length > 0
-                            ? `(${following?.following?.length})`
-                            : ""}
+                          Following {`(${following?.following_count})`}
                         </a>
                       </li>
                       <li>
@@ -198,10 +190,7 @@ const Follow = () => {
                           className={type == "followers" ? "active" : ""}
                         >
                           {" "}
-                          Followers{" "}
-                          {following?.followers?.length > 0
-                            ? `(${following?.followers?.length})`
-                            : ""}
+                          Followers {`(${following?.followers_count})`}
                         </a>
                       </li>
                     </ul>
