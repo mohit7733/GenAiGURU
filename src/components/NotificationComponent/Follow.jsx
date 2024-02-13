@@ -72,6 +72,7 @@ const Follow = () => {
                   <ul className="flex">
                     <li>
                       <a
+                        style={{ cursor: "pointer" }}
                         onClick={() => setType("following")}
                         className={type == "following" ? "active" : ""}
                       >
@@ -84,6 +85,7 @@ const Follow = () => {
                     <li>
                       {" "}
                       <a
+                        style={{ cursor: "pointer" }}
                         onClick={() => setType("followers")}
                         className={type == "followers" ? "active" : ""}
                       >
@@ -131,7 +133,15 @@ const Follow = () => {
                                 <a
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    followUnfollow("unfollow", data?.id);
+                                    followUnfollow(
+                                      type == "following"
+                                        ? "unfollow"
+                                        : type == "followers" &&
+                                          data?.following == "yes"
+                                        ? "unfollow"
+                                        : "follow",
+                                      data?.id
+                                    );
                                   }}
                                   className="loginBtn"
                                 >
@@ -139,8 +149,8 @@ const Follow = () => {
                                     ? "Unfollow"
                                     : type == "followers" &&
                                       data?.following == "yes"
-                                    ? "unfollow"
-                                    : "follow"}
+                                    ? "Unfollow"
+                                    : "Follow"}
                                 </a>
                               </li>
                             </ul>

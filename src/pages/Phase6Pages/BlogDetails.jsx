@@ -497,9 +497,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                           blogDetail?.author_id
                         );
                       }}
-                      style={{ cursor: "pointer", color: "#be41c0" }}
+                      style={{ cursor: "pointer", color: "#b969ff" }}
                     >
-                      {blogDetail?.follow == "yes" ? "Unfollow" : "Follow"}
+                      {blogDetail?.follow == "yes" ? "Following" : "Follow"}
                     </a>
                   </div>
                   <div className="blog-img">
@@ -1100,9 +1100,9 @@ const BlogDetails = ({ likes, dislikes }) => {
                           blogDetail?.author_id
                         );
                       }}
-                      style={{ color: "#be41c0" }}
+                      style={{ cursor: "pointer", color: "#b969ff" }}
                     >
-                      {blogDetail?.follow == "yes" ? "Unfollow" : "Follow"}
+                      {blogDetail?.follow == "yes" ? "Following" : "Follow"}
                     </a>
                   </div>
                   <div className="blog-img">

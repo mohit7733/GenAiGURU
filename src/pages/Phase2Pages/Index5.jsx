@@ -1,13 +1,156 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import { BASE_PATH } from "../../routes";
+import { toast, ToastContainer } from "react-toastify";
+import { getBaseURL } from "../../api/config";
+import axios from "axios";
+const token = JSON.parse(localStorage.getItem("token"));
 
 const Index5 = () => {
   const navigate = useNavigate();
   const [displaySeePost, setDisplaySeePost] = useState(false);
+  const [search, toSearch] = useState("");
+  const [data, setData] = useState({
+    title: "",
+    descriptions: "",
+    shortdesc: "",
+    interests: "",
+    thumbnail: null,
+    banner: null,
+  });
+  const [loadingStatus, setLoadingStatus] = useState(true);
+  const [interestData, setInterestData] = useState([]);
+  const [selectOptions, setSelectOptions] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/interests`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setInterestData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  let interested = [];
+  interestData?.map((item) => {
+    interested.push({
+      value: item?.interestName,
+      label: item?.interestName,
+      id: item.id,
+    });
+  });
+
+  const dataChange = (key, value) => {
+    switch (key) {
+      case "title":
+        setData({ ...data, title: value });
+        break;
+      case "desc":
+        setData({ ...data, descriptions: value });
+        break;
+      case "short":
+        setData({ ...data, shortdesc: value });
+        break;
+      case "thumb":
+        if (value) {
+          const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+          if (allowedImageTypes.includes(value.type)) {
+            setData({ ...data, thumbnail: value });
+          } else {
+            toast.warn("Please select JPEG, PNG, GIF.", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            <ToastContainer autoClose={1000} />;
+          }
+        }
+        break;
+      case "banner":
+        if (value) {
+          const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+          if (allowedImageTypes.includes(value.type)) {
+            setData({ ...data, banner: value });
+          } else {
+            toast.warn("Please select JPEG, PNG, GIF.", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            <ToastContainer autoClose={1000} />;
+          }
+        }
+        break;
+      case "interests":
+        setData({ ...data, interests: value });
+      default:
+        break;
+    }
+  };
+  const chatGPTApi = (input) => {
+    toSearch("");
+    setLoadingStatus(true);
+    axios
+      .post(
+        `${getBaseURL()}/auth/send-chat-message`,
+        {
+          message: input,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setData({
+          ...data,
+          descriptions: response?.data?.[0]?.choices?.[0]?.message?.content,
+        });
+        setLoadingStatus(false);
+      })
+      .catch((error) => {
+        if (!input) {
+          alert("Please Type Antything...");
+        }
+        console.error("Error chatGPTApi:", error.message);
+      });
+  };
+  const sendPost = () => {
+    if (token != "") {
+      axios
+        .post(
+          `${getBaseURL()}/auth/blog-create`,
+          {
+            title: data?.title,
+            description: data?.descriptions,
+            short_description: data?.shortdesc,
+            interest_ids: data?.interests,
+            banner_image: data?.banner,
+            thumbnail_image: data?.thumbnail,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res?.data?.success == true) {
+            console.log(res?.data);
+          } else {
+            console.log(res.data.error, "error");
+          }
+        })
+        .catch((err) => console.log(err, "Err"));
+    }
+  };
+
   return (
     <div>
       <MobileHeader />
@@ -30,47 +173,104 @@ const Index5 = () => {
                 <div className="profile-edit">
                   <label htmlFor="name">Blog Title</label>
                   <input
+                    value={data?.title}
+                    onChange={(e) => {
+                      dataChange("title", e.target.value);
+                    }}
                     type="text"
                     placeholder="Type here"
                     name="name"
-                    value=""
                   />
                 </div>
                 <div className="profile-edit">
                   <label htmlFor="name">Upload Thumbnail Image</label>
-                  <input type="file" placeholder="" name="" value="" />
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      dataChange("thumb", e?.target?.files[0]);
+                    }}
+                  />
                 </div>
                 <div className="profile-edit input-group custom-file-button">
                   <label className="input-group-text" htmlFor="inputGroupFile">
                     Upload Banner Image
                   </label>
-                  <input type="file" className="form-control" style={{}} />
+                  <input
+                    type="file"
+                    className="form-control"
+                    onChange={(e) => {
+                      dataChange("banner", e?.target?.files[0]);
+                    }}
+                  />
                 </div>
                 <p
                   style={{
                     color: "#fff",
-                    padding: "0px 10px",
                     margin: "12px 0 8px",
                     fontSize: "18px",
                   }}
                 >
                   Select Interest
                 </p>
-                <div className="genaiguruSelect flex">
-                  <select name="genaiguruSelect">
-                    <option value="genaiguru">Select here</option>
-                    <option value="genaiguru2">genaiguru2</option>
-                    <option value="genaiguru3">genaiguru3</option>
-                  </select>
-                </div>
+                {selectOptions.length == 3 && <p
+                style={{
+                  color: "#fff",
+                  margin: "12px 0 8px",
+                  fontSize: "18px",
+                }}
+                >Maximun 3 Interests only</p>}
+                <Select
+                  isObject={false}
+                  isMulti
+                  isOptionDisabled={() => selectOptions?.length >= 3}
+                  options={interested}
+                  value={selectOptions}
+                  placeholder="Interests"
+                  onChange={(Option) => {
+                    if (selectOptions.length <= 3) {
+                      setSelectOptions(Option);
+                      dataChange(
+                        "interests",
+                        Option.map((option) => option.id)
+                      );
+                    }
+                  }}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      background: "transparent",
+                      border: "none",
+                      boxShadow: state.isFocused
+                        ? "transparent"
+                        : "transparent",
+                      width: "100%",
+                    }),
+
+                    option: (baseStyles, state) => ({
+                      ...baseStyles,
+                      background: state.isFocused ? "purple" : "none",
+                      border: "none",
+                      color: "black",
+                      boxShadow: state.isFocused
+                        ? "transparent"
+                        : "transparent",
+                    }),
+                  }}
+                  className="genaiguruSelect flex"
+                />
                 <div className="profile-edit">
                   <label htmlFor="name">Short Description</label>
                   <textarea
+                    value={data?.shortdesc}
+                    onChange={(e) => {
+                      dataChange("short", e?.target?.value);
+                    }}
                     name="bio"
                     id=""
                     cols="3"
                     rows="6"
-                    placeholder="Text here... "
+                    maxLength={200}
+                    placeholder="Maximum 200 letters... "
                   ></textarea>
                 </div>
                 <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
@@ -83,11 +283,33 @@ const Index5 = () => {
                     </figure>
                     <div className="flex searchFormLong">
                       <div className="form_group">
-                        <input type="text" placeholder="Search here" value="" />
+                        <input
+                          type="text"
+                          placeholder="Search here"
+                          value={search}
+                          onChange={(e) => toSearch(e?.target?.value)}
+                        />
                       </div>
-                      <div className="form_group buttonGroup">
-                        <button>
+                      <div
+                        onClick={(e) => {
+                          e.preventDefault();
+                          chatGPTApi(search);
+                        }}
+                        className="form_group buttonGroup"
+                      >
+                        <button
+                          style={{
+                            width: "75%",
+                            margin: "0",
+                            background: "none",
+                            cursor: "pointer",
+                          }}
+                        >
                           <img
+                            style={{
+                              height: "20px",
+                              width: "40px",
+                            }}
                             src="app/images/sendButtonIcon.png"
                             alt="Genaiguru sendButtonIcon"
                           />
@@ -96,9 +318,20 @@ const Index5 = () => {
                     </div>
                   </div>
                 </div>
+                {loadingStatus && (
+                  <div class="typing">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                  </div>
+                )}
                 <div className="profile-edit">
                   <label htmlFor="name">Description</label>
                   <textarea
+                    value={data?.descriptions}
+                    onChange={(e) => {
+                      dataChange("desc", e?.target?.value);
+                    }}
                     name="bio"
                     id=""
                     cols="6"
@@ -106,7 +339,28 @@ const Index5 = () => {
                     placeholder="Text here... "
                   ></textarea>
                 </div>
-                <button type="submit" style={{ padding: "20px !important" }}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (
+                      data?.title != "" &&
+                      data?.descriptions != "" &&
+                      data?.shortdesc != "" &&
+                      data?.banner != "" &&
+                      data?.thumbnail != "" &&
+                      data?.interests != ""
+                    ) {
+                      sendPost();
+                    } else {
+                      toast.error("Please Fill all required fields!", {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 1000,
+                      });
+                    }
+                  }}
+                  type="submit"
+                  style={{ padding: "20px !important" }}
+                >
                   Post
                 </button>
                 <div className="Toastify"></div>
