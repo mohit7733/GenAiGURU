@@ -22,7 +22,7 @@ const Index5 = () => {
     thumbnail: null,
     banner: null,
   });
-  const [loadingStatus, setLoadingStatus] = useState(true);
+  const [loadingStatus, setLoadingStatus] = useState(false);
   const [interestData, setInterestData] = useState([]);
   const [selectOptions, setSelectOptions] = useState([]);
   useEffect(() => {
@@ -212,13 +212,17 @@ const Index5 = () => {
                 >
                   Select Interest
                 </p>
-                {selectOptions.length == 3 && <p
-                style={{
-                  color: "#fff",
-                  margin: "12px 0 8px",
-                  fontSize: "18px",
-                }}
-                >Maximun 3 Interests only</p>}
+                {selectOptions.length == 3 && (
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "12px 0 8px",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Maximun 3 Interests only
+                  </p>
+                )}
                 <Select
                   isObject={false}
                   isMulti
