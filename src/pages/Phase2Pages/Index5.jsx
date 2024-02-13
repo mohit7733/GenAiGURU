@@ -142,7 +142,7 @@ const Index5 = () => {
         )
         .then((res) => {
           if (res?.data?.success == true) {
-            console.log(res?.data);
+            setDisplaySeePost(true);
           } else {
             console.log(res.data.error, "error");
           }
@@ -464,7 +464,7 @@ const Index5 = () => {
               <img src="app/images/tickIcon.png" alt="" />
             </figure>
             <h2>Post successful</h2>
-            <a href="#">See your post</a>
+            <Link to={"/"}>See your post</Link>
           </div>
         </section>
       )}
