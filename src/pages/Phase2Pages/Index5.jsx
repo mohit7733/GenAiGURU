@@ -18,7 +18,7 @@ const Index5 = () => {
     title: "",
     descriptions: "",
     shortdesc: "",
-    interests: "",
+    interests: [],
     thumbnail: null,
     banner: null,
   });
@@ -123,23 +123,22 @@ const Index5 = () => {
   };
   const sendPost = () => {
     if (token != "") {
+      let fd = new FormData();
+      fd.append("title", data?.title);
+      fd.append("description", data?.descriptions);
+      fd.append("short_description", data?.shortdesc);
+      data?.interests.forEach((interestId) => {
+        fd.append("interest_ids[]", interestId);
+      });
+      // fd.append("interest_ids", [data?.interests]);
+      fd.append("banner_image", data?.banner);
+      fd.append("thumbnail_image", data?.thumbnail);
       axios
-        .post(
-          `${getBaseURL()}/auth/blog-create`,
-          {
-            title: data?.title,
-            description: data?.descriptions,
-            short_description: data?.shortdesc,
-            interest_ids: data?.interests,
-            banner_image: data?.banner,
-            thumbnail_image: data?.thumbnail,
+        .post(`${getBaseURL()}/auth/blog-create`, fd, {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+        })
         .then((res) => {
           if (res?.data?.success == true) {
             setDisplaySeePost(true);
@@ -150,7 +149,6 @@ const Index5 = () => {
         .catch((err) => console.log(err, "Err"));
     }
   };
-
   return (
     <div>
       <MobileHeader />
