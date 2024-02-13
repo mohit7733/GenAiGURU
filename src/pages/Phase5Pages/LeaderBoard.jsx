@@ -668,13 +668,15 @@ const LeaderBoard = () => {
                         </div>
                       );
                     })}
-                <Pagination
-                  token="leaderboard"
-                  totalItems={totalUsers}
-                  itemsPerPage={usersPerPage}
-                  currentPage={currentPage}
-                  onPageChange={handlePageChange}
-                />
+                {isMobile && (
+                  <Pagination
+                    token="leaderboard"
+                    totalItems={totalUsers}
+                    itemsPerPage={usersPerPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                  />
+                )}
               </div>
               {/* <!-- 2nd --> */}
               <div className="tab-content tab-content-2 ">
