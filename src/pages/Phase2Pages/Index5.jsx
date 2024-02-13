@@ -159,14 +159,14 @@ const Index5 = () => {
             <div className="profile-edit socialLinkEdit flex">
               <p>
                 <a href="#">Home</a>{" "}
-                <i className="fa fa-angle-right" aria-hidden="true"></i>Write a
-                post{" "}
+                <i className="fa fa-angle-right" aria-hidden="true"></i>Write
+                with AI{" "}
               </p>
             </div>
             <div className="profile-img-box postWrapper_inner">
-              <p>
+              {/* <p>
                 <a href="#">Write with AI</a>
-              </p>
+              </p> */}
               <form className="help-section">
                 <div className="profile-edit">
                   <label htmlFor="name">Blog Title</label>
@@ -274,6 +274,14 @@ const Index5 = () => {
                     maxLength={200}
                     placeholder="Maximum 200 letters... "
                   ></textarea>
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >{`${
+                    data?.shortdesc ? data?.shortdesc.length : "0"
+                  } of 200 Letters`}</p>
                 </div>
                 <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
                   <div className="innerSearchForm flex">
