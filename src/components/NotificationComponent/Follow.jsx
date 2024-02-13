@@ -73,10 +73,10 @@ const Follow = () => {
                     <li>
                       <a
                         onClick={() => setType("following")}
-                        className={type == "following" && "active"}
+                        className={type == "following" ? "active" : ""}
                       >
                         Following{" "}
-                        {following?.following?.length > 0
+                        {following?.following?.length >= 0
                           ? `(${following?.following?.length})`
                           : ""}
                       </a>
@@ -85,11 +85,11 @@ const Follow = () => {
                       {" "}
                       <a
                         onClick={() => setType("followers")}
-                        className={type == "followers" && "active"}
+                        className={type == "followers" ? "active" : ""}
                       >
                         {" "}
                         Followers{" "}
-                        {following?.followers?.length > 0
+                        {following?.followers?.length >= 0
                           ? `(${following?.followers?.length})`
                           : ""}
                       </a>
@@ -99,9 +99,10 @@ const Follow = () => {
               </div>
               <div>
                 <div className="interest-guru ">
-                  {following?.[type]?.map((data) => {
+                  {following?.[type]?.map((data, index) => {
                     return (
                       <div
+                        key={index}
                         id={data?.id}
                         className="wrap flex"
                         style={{ cursor: "pointer" }}
@@ -172,7 +173,7 @@ const Follow = () => {
                       <li>
                         <a
                           onClick={() => setType("following")}
-                          className={type == "following" && "active"}
+                          className={type == "following" ? "active" : ""}
                         >
                           Following{" "}
                           {following?.following?.length > 0
@@ -184,7 +185,7 @@ const Follow = () => {
                         {" "}
                         <a
                           onClick={() => setType("followers")}
-                          className={type == "followers" && "active"}
+                          className={type == "followers" ? "active" : ""}
                         >
                           {" "}
                           Followers{" "}
@@ -198,9 +199,10 @@ const Follow = () => {
                 </div>
                 <div>
                   <div className="interest-guru ">
-                    {following?.[type]?.map((data) => {
+                    {following?.[type]?.map((data, index) => {
                       return (
                         <div
+                          key={index}
                           id={data?.id}
                           className="wrap flex"
                           style={{ cursor: "pointer" }}
