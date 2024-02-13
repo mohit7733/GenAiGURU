@@ -498,20 +498,22 @@ const VideoPlay = () => {
                     </a>
                   </li>
                   <li>
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        followUnfollow(
-                          videoPlay?.follow == "yes" ? "unfollow" : "follow",
-                          videoPlay?.author_id
-                        );
-                      }}
-                      style={{ cursor: "pointer", color: "#b969ff" }}
-                    >
-                      <span>
-                        {videoPlay?.follow == "yes" ? "Following" : "Follow"}
-                      </span>
-                    </a>
+                    {userId != videoPlay?.author_id && (
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          followUnfollow(
+                            videoPlay?.follow == "yes" ? "unfollow" : "follow",
+                            videoPlay?.author_id
+                          );
+                        }}
+                        style={{ cursor: "pointer", color: "#b969ff" }}
+                      >
+                        <span>
+                          {videoPlay?.follow == "yes" ? "Following" : "Follow"}
+                        </span>
+                      </a>
+                    )}
                   </li>
                 </ul>
                 {/* <!--profile -end -->
@@ -1118,20 +1120,22 @@ const VideoPlay = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    onClick={(e) => {
-                      e.preventDefault();
-                      followUnfollow(
-                        videoPlay?.follow == "yes" ? "unfollow" : "follow",
-                        videoPlay?.author_id
-                      );
-                    }}
-                    style={{ cursor: "pointer", color: "#b969ff" }}
-                  >
-                    <span>
-                      {videoPlay?.follow == "yes" ? "Following" : "Follow"}
-                    </span>
-                  </a>
+                  {userId != videoPlay?.author_id && (
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        followUnfollow(
+                          videoPlay?.follow == "yes" ? "unfollow" : "follow",
+                          videoPlay?.author_id
+                        );
+                      }}
+                      style={{ cursor: "pointer", color: "#b969ff" }}
+                    >
+                      <span>
+                        {videoPlay?.follow == "yes" ? "Following" : "Follow"}
+                      </span>
+                    </a>
+                  )}
                 </li>
               </ul>
               {/* <!--profile -end -->

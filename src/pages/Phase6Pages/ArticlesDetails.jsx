@@ -486,20 +486,24 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <p>{articleDetail.creation_date}</p>
                   </div>
                   <div className="content-box">
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        followUnfollow(
-                          articleDetail?.follow == "yes"
-                            ? "unfollow"
-                            : "follow",
-                          articleDetail?.author_id
-                        );
-                      }}
-                      style={{ cursor: "pointer", color: "#b969ff" }}
-                    >
-                      {articleDetail?.follow == "yes" ? "Following" : "Follow"}
-                    </a>
+                    {userId != articleDetail?.author_id && (
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          followUnfollow(
+                            articleDetail?.follow == "yes"
+                              ? "unfollow"
+                              : "follow",
+                            articleDetail?.author_id
+                          );
+                        }}
+                        style={{ cursor: "pointer", color: "#b969ff" }}
+                      >
+                        {articleDetail?.follow == "yes"
+                          ? "Following"
+                          : "Follow"}
+                      </a>
+                    )}
                   </div>
                   <div className="blog-img">
                     <figure>
@@ -1139,20 +1143,24 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <p>{articleDetail.creation_date}</p>
                   </div>
                   <div className="content-box">
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        followUnfollow(
-                          articleDetail?.follow == "yes"
-                            ? "unfollow"
-                            : "follow",
-                          articleDetail?.author_id
-                        );
-                      }}
-                      style={{ cursor: "pointer", color: "#b969ff" }}
-                    >
-                      {articleDetail?.follow == "yes" ? "Following" : "Follow"}
-                    </a>
+                    {userId != articleDetail?.author_id && (
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          followUnfollow(
+                            articleDetail?.follow == "yes"
+                              ? "unfollow"
+                              : "follow",
+                            articleDetail?.author_id
+                          );
+                        }}
+                        style={{ cursor: "pointer", color: "#b969ff" }}
+                      >
+                        {articleDetail?.follow == "yes"
+                          ? "Following"
+                          : "Follow"}
+                      </a>
+                    )}
                   </div>
                   <div className="blog-img">
                     <figure>

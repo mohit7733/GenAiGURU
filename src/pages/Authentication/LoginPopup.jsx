@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPopup = ({ onClosePopup }) => {
+  const navigate = useNavigate();
   const handleButtonClick = (e) => {
     console.log(onClosePopup(e));
   };
@@ -25,7 +26,13 @@ const LoginPopup = ({ onClosePopup }) => {
           </p>
           <ul>
             <li>
-              <a className="flex" href="/login">
+              <a
+                className="flex"
+                onClick={() =>
+                  navigate("/login", { state: { type: "google" } })
+                }
+                // href="/login"
+              >
                 <img
                   src="app/images/googleIcon.png"
                   alt="Genaiguru google icon"
@@ -34,7 +41,9 @@ const LoginPopup = ({ onClosePopup }) => {
               </a>
             </li>
             <li>
-              <div>
+              <div
+                onClick={() => navigate("/login", { state: { type: "fb" } })}
+              >
                 <span style={{ transition: "opacity 0.5s ease 0s" }}>
                   <link
                     rel="stylesheet"
