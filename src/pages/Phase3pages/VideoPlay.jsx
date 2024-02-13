@@ -506,10 +506,10 @@ const VideoPlay = () => {
                           videoPlay?.author_id
                         );
                       }}
-                      style={{ cursor: "pointer", color: "#be41c0" }}
+                      style={{ cursor: "pointer", color: "#b969ff" }}
                     >
                       <span>
-                        {videoPlay?.follow == "yes" ? "Unfollow" : "Follow"}
+                        {videoPlay?.follow == "yes" ? "Following" : "Follow"}
                       </span>
                     </a>
                   </li>
@@ -1126,10 +1126,10 @@ const VideoPlay = () => {
                         videoPlay?.author_id
                       );
                     }}
-                    style={{ cursor: "pointer", color: "#be41c0" }}
+                    style={{ cursor: "pointer", color: "#b969ff" }}
                   >
                     <span>
-                      {videoPlay?.follow == "yes" ? "Unfollow" : "Follow"}
+                      {videoPlay?.follow == "yes" ? "Following" : "Follow"}
                     </span>
                   </a>
                 </li>

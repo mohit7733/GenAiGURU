@@ -163,7 +163,12 @@ const Index2 = ({ isLoggedIn }) => {
                         </button>
                       </div>
                       <div className="form_group">
-                        <button onClick={() => chatGPTApi(chatInputText)}>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            chatGPTApi(chatInputText);
+                          }}
+                        >
                           <img
                             src="app/images/sendButtonIcon.png"
                             alt="Genaiguru sendButtonIcon"

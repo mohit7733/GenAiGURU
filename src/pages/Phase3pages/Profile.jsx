@@ -293,6 +293,7 @@ const Profile = () => {
                   <ul className="flex space-between">
                     <li>
                       <a
+                        style={{ cursor: "pointer" }}
                         onClick={() => {
                           navigate(PATH_FOLLOW, {
                             state: { follow: "following" },
@@ -304,6 +305,7 @@ const Profile = () => {
                     </li>
                     <li>
                       <a
+                        style={{ cursor: "pointer" }}
                         onClick={() => {
                           navigate(PATH_FOLLOW, {
                             state: { follow: "followers" },

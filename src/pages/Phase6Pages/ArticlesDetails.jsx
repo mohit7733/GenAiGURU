@@ -496,9 +496,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                           articleDetail?.author_id
                         );
                       }}
-                      style={{ cursor: "pointer", color: "#be41c0" }}
+                      style={{ cursor: "pointer", color: "#b969ff" }}
                     >
-                      {articleDetail?.follow == "yes" ? "Unfollow" : "Follow"}
+                      {articleDetail?.follow == "yes" ? "Following" : "Follow"}
                     </a>
                   </div>
                   <div className="blog-img">
@@ -1137,6 +1137,22 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                       By <a href="#">{articleDetail.author}</a>
                     </p>
                     <p>{articleDetail.creation_date}</p>
+                  </div>
+                  <div className="content-box">
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        followUnfollow(
+                          articleDetail?.follow == "yes"
+                            ? "unfollow"
+                            : "follow",
+                          articleDetail?.author_id
+                        );
+                      }}
+                      style={{ cursor: "pointer", color: "#b969ff" }}
+                    >
+                      {articleDetail?.follow == "yes" ? "Following" : "Follow"}
+                    </a>
                   </div>
                   <div className="blog-img">
                     <figure>
