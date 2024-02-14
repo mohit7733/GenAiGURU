@@ -54,7 +54,6 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
-
   // useLocation to get id from url
   let location = useLocation();
   const my_element = location.hash.slice(1);
@@ -489,18 +488,28 @@ const BlogDetails = ({ likes, dislikes }) => {
                     <p>{blogDetail.creation_date}</p>
                   </div>
                   <div className="content-box">
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        followUnfollow(
-                          blogDetail?.follow == "yes" ? "unfollow" : "follow",
-                          blogDetail?.author_id
-                        );
+                    <WithAuth
+                      callBack={(e) => {
+                        e?.preventDefault();
                       }}
-                      style={{ cursor: "pointer", color: "#b969ff" }}
                     >
-                      {blogDetail?.follow == "yes" ? "Following" : "Follow"}
-                    </a>
+                      {userId != blogDetail?.author_id && (
+                        <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                            followUnfollow(
+                              blogDetail?.follow == "yes"
+                                ? "unfollow"
+                                : "follow",
+                              blogDetail?.author_id
+                            );
+                          }}
+                          style={{ cursor: "pointer", color: "#b969ff" }}
+                        >
+                          {blogDetail?.follow == "yes" ? "Following" : "Follow"}
+                        </a>
+                      )}
+                    </WithAuth>
                   </div>
                   <div className="blog-img">
                     <figure>
@@ -1092,18 +1101,28 @@ const BlogDetails = ({ likes, dislikes }) => {
                     <p>{blogDetail.creation_date}</p>
                   </div>
                   <div className="content-box">
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        followUnfollow(
-                          blogDetail?.follow == "yes" ? "unfollow" : "follow",
-                          blogDetail?.author_id
-                        );
+                    <WithAuth
+                      callBack={(e) => {
+                        e?.preventDefault();
                       }}
-                      style={{ cursor: "pointer", color: "#b969ff" }}
                     >
-                      {blogDetail?.follow == "yes" ? "Following" : "Follow"}
-                    </a>
+                      {userId != blogDetail?.author_id && (
+                        <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                            followUnfollow(
+                              blogDetail?.follow == "yes"
+                                ? "unfollow"
+                                : "follow",
+                              blogDetail?.author_id
+                            );
+                          }}
+                          style={{ cursor: "pointer", color: "#b969ff" }}
+                        >
+                          {blogDetail?.follow == "yes" ? "Following" : "Follow"}
+                        </a>
+                      )}
+                    </WithAuth>
                   </div>
                   <div className="blog-img">
                     <figure>

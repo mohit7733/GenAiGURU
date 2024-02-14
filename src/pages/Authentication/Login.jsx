@@ -2,14 +2,18 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import React from "react";
 import FacebookLogin from "react-facebook-login";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { PATH_SIGNIN, PATH_SIGNUP, PATH_WELCOME } from "../../routes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getBaseURL } from "../../api/config";
+import { Location } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const Location = useLocation();
+
   // Login with Google Function
   const onGoogleLogin = useGoogleLogin({
     onSuccess: async (credentialResponse) => {
@@ -128,6 +132,11 @@ const Login = () => {
       });
   };
 
+  useEffect(() => {
+    if (Location?.state?.type == "google") {
+      onGoogleLogin();
+    }
+  }, []);
   return (
     <div>
       <ToastContainer autoClose={1000} />
@@ -165,7 +174,7 @@ const Login = () => {
               <div>
                 <FacebookLogin
                   appId="979240030290574"
-                  autoLoad={false}
+                  autoLoad={Location?.state?.type == "fb" ? true : false}
                   fields="name,email,picture"
                   callback={responseFacebook}
                   icon={

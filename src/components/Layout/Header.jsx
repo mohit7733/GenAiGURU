@@ -136,7 +136,7 @@ const Header = () => {
             </WithAuth>
           </li>
           <li className="secondaryBtn mobile">
-            <Link to={"/index2"}>
+            <Link to={"/index5"}>
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru mobile padIcon"
