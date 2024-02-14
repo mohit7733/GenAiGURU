@@ -24,7 +24,6 @@ const Profile = () => {
   const [displayedInterests, setDisplayedInterests] = useState(7);
   const [displayView, setDisplayView] = useState(true);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-
   const [following, setFollowing] = useState("");
   const [follower, setFollower] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -38,17 +37,26 @@ const Profile = () => {
     linkedinLink: "",
     coverImage: "",
   });
-
+  const [savedData, setSavedData] = useState([]);
   const [claimedBadges, setClaimedBadges] = useState([]);
-
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
-
   const navigate = useNavigate();
   const toggleMobileSidebar = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
 
+  const getData = () => {
+    axios
+      .get(`${getBaseURL()}/get-user-created-blogs?user_id=${userId}`)
+      .then((response) => {
+        console.log(response, "Res");
+        setSavedData(response?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   // User details GET-API------
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -117,18 +125,7 @@ const Profile = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
 
-  function redirectToSocialMedia(url) {
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-      url = "https://" + url;
-      return url;
-    }
-    return url;
-  }
-
-  // GET ALL-INTERESTS API------------
-  useEffect(() => {
     axios
       .get(`${getBaseURL()}/interests`, {
         headers: {
@@ -141,10 +138,7 @@ const Profile = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
 
-  // GET API FOR Following ------------
-  useEffect(() => {
     axios
       .get(
         `${getBaseURL()}/get-user-follow?user_id=${localStorage.getItem(
@@ -158,12 +152,31 @@ const Profile = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
-
-  // GET SELECTED INTEREST API+++++++++++++++++
-  useEffect(() => {
+    const fetchBadges = async () => {
+      try {
+        const response = await axios.get(`${getBaseURL()}/game-badges`, {
+          params: {
+            user_id: userId,
+            claimed: "yes",
+          },
+        });
+        setClaimedBadges(response?.data?.data);
+      } catch (error) {
+        console.error("Error fetching user points:", error.message);
+      }
+    };
+    getData();
+    fetchBadges();
     getMyInterest();
   }, []);
+
+  function redirectToSocialMedia(url) {
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://" + url;
+      return url;
+    }
+    return url;
+  }
 
   const getMyInterest = () => {
     axios
@@ -227,40 +240,19 @@ const Profile = () => {
     );
   };
 
-  // Function to handle tab click-------
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
 
   const handleViewMoreClick = () => {
-    // Increment the number of displayed interests by 10
     setDisplayedInterests((prevCount) => prevCount + 10);
     setDisplayView(false);
   };
 
   const handleViewLessClick = () => {
-    // Reset the number of displayed interests to the initial state
     setDisplayedInterests(7);
     setDisplayView(true);
   };
-
-  // fetchBadges API
-  useEffect(() => {
-    const fetchBadges = async () => {
-      try {
-        const response = await axios.get(`${getBaseURL()}/game-badges`, {
-          params: {
-            user_id: userId,
-            claimed: "yes",
-          },
-        });
-        setClaimedBadges(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching user points:", error.message);
-      }
-    };
-    fetchBadges();
-  }, []);
 
   return (
     <>
@@ -525,6 +517,42 @@ const Profile = () => {
                       <div className="heading-link flex"></div>
                       <div className="interest-box flex space-between">
                         <div className="wrap flex">
+                          {savedData?.blogs?.map((data) => {
+                            return (
+                              <>
+                                <figure>
+                                  <a href="#">
+                                    <img
+                                      style={{ height: "115px" }}
+                                      src={data?.photo}
+                                      alt="Genaiguru intrest"
+                                    />
+                                  </a>
+                                </figure>
+                                <div className="content">
+                                  <div className="wrapper flex">
+                                    <figure>
+                                      <img
+                                        src={savedData?.user.profile_image}
+                                        alt="Genaiguru authorImg"
+                                      />
+                                    </figure>
+                                    <div className="innerContent">
+                                      <h6>{savedData?.user.name}</h6>
+                                      <p>{data.creation_date}</p>
+                                    </div>
+                                  </div>
+                                  <p>
+                                    <a href={`/blogdetails?id=${data?.id}`}>
+                                      {data.short_description}
+                                    </a>
+                                  </p>
+                                </div>
+                              </>
+                            );
+                          })}
+                        </div>
+                        {/* <div className="wrap flex">
                           <figure>
                             <a href="#">
                               <img
@@ -571,7 +599,7 @@ const Profile = () => {
                               </li>
                             </ul>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
