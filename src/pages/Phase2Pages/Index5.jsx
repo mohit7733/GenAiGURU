@@ -76,8 +76,15 @@ const Index5 = () => {
       case "banner":
         if (value) {
           const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+          const maxImageSizeMB = 2
           if (allowedImageTypes.includes(value.type)) {
-            setData({ ...data, banner: value });
+            if (value.size <= maxImageSizeMB * 1024 * 1024){
+              setData({ ...data, banner: value });
+            } else{
+              toast.warn("Img size should not be more than 2MB", {
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
           } else {
             toast.warn("Please select JPEG, PNG, GIF.", {
               position: toast.POSITION.TOP_CENTER,
@@ -92,6 +99,7 @@ const Index5 = () => {
         break;
     }
   };
+  console.log(data.banner,"test")
   const chatGPTApi = (input) => {
     toSearch("");
     setLoadingStatus(true);
@@ -152,6 +160,15 @@ const Index5 = () => {
         .catch((err) => console.log(err, "Err"));
     }
   };
+  useEffect(()=>{
+    if(displaySeePost==true){
+      setTimeout(()=>{
+        setDisplaySeePost(false)
+        navigate("/")
+      },3000)
+    }
+
+  },[displaySeePost])
   return (
     <div>
       <MobileHeader />
@@ -184,7 +201,7 @@ const Index5 = () => {
                   />
                 </div>
                 <div className="profile-edit custom-file-button">
-                  <label htmlFor="name">Upload Thumbnail Image</label>
+                  <label htmlFor="name">Upload Thumbnail Image (Recommended Size: 350*184px)</label>
                   <input
                     type="file"
                     onChange={(e) => {
@@ -195,7 +212,7 @@ const Index5 = () => {
                 </div>
                 <div className="profile-edit input-group custom-file-button">
                   <label className="input-group-text" htmlFor="inputGroupFile">
-                    Upload Banner Image
+                    Upload Banner Image (Recommended Size: 568*295px)
                   </label>
                   <input
                     type="file"
@@ -286,7 +303,7 @@ const Index5 = () => {
                     }}
                   >{`${
                     data?.shortdesc ? data?.shortdesc.length : "0"
-                  } of 200 Charachters`}</p>
+                  } of 200 Characters`}</p>
                 </div>
                 <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
                   <div className="innerSearchForm flex">
