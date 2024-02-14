@@ -90,7 +90,7 @@ const SubscriptionPlans = () => {
                             subscription[0].price.length - 3
                           ) +
                           " " +
-                          "USD/year"}
+                          "USD/month"}
                       </p>
                     </div>
 
@@ -293,7 +293,7 @@ const SubscriptionPlans = () => {
                             subscription[0].price.length - 3
                           ) +
                           " " +
-                          "USD/year"}
+                          "USD/month"}
                       </p>
                     </div>
 

@@ -115,18 +115,18 @@ const Header = () => {
             </li>
           </WithAuth>
           <li className="headerIcon">
-            <a href="#">
+            <Link to="/subscriptions">
               <img
                 src="app/images/elementsIcon.png"
                 alt="Genaiguru elementsIcon"
               />{" "}
-              <span className="count">22</span>
-            </a>
+              {/* <span className="count">22</span> */}
+            </Link>
           </li>
           <li className="secondaryBtn">
             <WithAuth
               callBack={(e) => {
-                navigate("/index5");
+                navigate("/write-with-ai");
               }}
             >
               <Link>
@@ -136,7 +136,7 @@ const Header = () => {
             </WithAuth>
           </li>
           <li className="secondaryBtn mobile">
-            <Link to={"/index5"}>
+            <Link to="/write-with-ai">
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru mobile padIcon"

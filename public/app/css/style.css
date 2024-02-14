@@ -3417,7 +3417,7 @@ margin-right: 18px;
 }
 
 .help-section {
-padding-top: 90px;
+padding-top: 40px;
 justify-content: space-between;
 }
 
@@ -3451,7 +3451,7 @@ outline: 0;
 background: 0 0;
 cursor: pointer;
 margin-top: -3px;
-width: 100%;
+width: 75%;
 }
 
 
@@ -5499,6 +5499,7 @@ border: none;
 outline: 0;
 border: 2px solid rgba(229, 241, 249, 0.3607843137);
 border-radius: 10px;
+font-family: PlusJakartaSansSemiBold;
 }
 
 .rightSection .profile-img-box form .profile-edit textarea::placeholder {
@@ -6361,6 +6362,7 @@ color: #f8fcff;
 background-color: transparent;
 letter-spacing: 0;
 margin-bottom: 7px;
+min-height: 40px;
 }
 
 .subscriptionPlan .change-plan .plans-wrapper .monthly-plans .sceam p {

@@ -95,7 +95,7 @@ const Follow = () => {
                 </div>
               </div>
               <div>
-                <div className="interest-guru ">
+                <div className="interest-guru follow-wrap ">
                   {following?.[type]?.map((data, index) => {
                     return (
                       <div
