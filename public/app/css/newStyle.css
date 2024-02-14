@@ -343,6 +343,38 @@ input[type="file"]::file-selector-button {
   border: 1.5px solid rgba(84, 90, 107, 1);
   border-radius: 26px;
 }
+.custom-file-button {
+  position: relative;
+}
+a.btn.btn-file {
+  position: absolute;
+  top: 30px;
+  right: 0px;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(
+      87.97deg,
+      #b03fcc 2.88%,
+      #683fe4 25.56%,
+      rgba(216, 63, 190, 0.94) 114.56%
+    ),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+  font-weight: 400;
+  padding: 15px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  cursor: pointer;
+}
+.rightSection .keeps-container .interest-guru.notification-wrap .content,
+.rightSection .keeps-container .interest-guru.follow-wrap .content {
+  width: calc(100% - 20px);
+  padding-left: 32px;
+}
+.rightSection .keeps-container .interest-guru.follow-wrap ul li .loginBtn {
+  padding: 10px 30px;
+}
 .mob_tab_list
   .rightSection
   .keeps-container
@@ -360,6 +392,13 @@ input[type="file"]::file-selector-button {
     ),
     linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
   border: 1px solid rgba(255, 255, 255, 0.21);
+}
+.rightSection.PostWrapper .help-section .genaiguruSelect {
+  background: #25313f;
+  border-radius: 10px;
+}
+.subscriptionPlan .change-plan .plans-wrapper .monthly-plans ul li:last-child {
+  min-height: 37px;
 }
 .mob_tab_list
   .rightSection
@@ -2275,5 +2314,4 @@ body {
   border-radius: 16px;
   padding: 25px;
   box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.1294117647);
-  
 }

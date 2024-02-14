@@ -134,7 +134,7 @@ const NotificationComponent = () => {
                 </h5>
               </div>
               <div>
-                <div className="interest-guru ">
+                <div className="interest-guru notification-wrap">
                   {userNotifications.length > 0 ? (
                     userNotifications.map((notif, index) => {
                       return (

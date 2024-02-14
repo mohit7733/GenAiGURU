@@ -76,8 +76,15 @@ const Index5 = () => {
       case "banner":
         if (value) {
           const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+          const maxImageSizeMB = 2
           if (allowedImageTypes.includes(value.type)) {
-            setData({ ...data, banner: value });
+            if (value.size <= maxImageSizeMB * 1024 * 1024){
+              setData({ ...data, banner: value });
+            } else{
+              toast.warn("Img size should not be more than 2MB", {
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
           } else {
             toast.warn("Please select JPEG, PNG, GIF.", {
               position: toast.POSITION.TOP_CENTER,
@@ -92,6 +99,7 @@ const Index5 = () => {
         break;
     }
   };
+  console.log(data.banner,"test")
   const chatGPTApi = (input) => {
     toSearch("");
     setLoadingStatus(true);
@@ -116,7 +124,10 @@ const Index5 = () => {
       })
       .catch((error) => {
         if (!input) {
-          alert("Please Type Antything...");
+          // alert("Please Type Antything...");
+          toast.error("Please Type Antything...", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
         console.error("Error chatGPTApi:", error.message);
       });
@@ -149,6 +160,15 @@ const Index5 = () => {
         .catch((err) => console.log(err, "Err"));
     }
   };
+  useEffect(()=>{
+    if(displaySeePost==true){
+      setTimeout(()=>{
+        setDisplaySeePost(false)
+        navigate("/")
+      },3000)
+    }
+
+  },[displaySeePost])
   return (
     <div>
       <MobileHeader />
@@ -158,7 +178,7 @@ const Index5 = () => {
           <div className="full-width">
             <div className="profile-edit socialLinkEdit flex">
               <p>
-                <a href="#">Home</a>{" "}
+                <Link to={BASE_PATH}>Home</Link>{" "}
                 <i className="fa fa-angle-right" aria-hidden="true"></i>Write
                 with AI{" "}
               </p>
@@ -168,7 +188,7 @@ const Index5 = () => {
                 <a href="#">Write with AI</a>
               </p> */}
               <form className="help-section">
-                <div className="profile-edit">
+                <div className="profile-edit ">
                   <label htmlFor="name">Blog Title</label>
                   <input
                     value={data?.title}
@@ -180,18 +200,19 @@ const Index5 = () => {
                     name="name"
                   />
                 </div>
-                <div className="profile-edit">
-                  <label htmlFor="name">Upload Thumbnail Image</label>
+                <div className="profile-edit custom-file-button">
+                  <label htmlFor="name">Upload Thumbnail Image (Recommended Size: 350*184px)</label>
                   <input
                     type="file"
                     onChange={(e) => {
                       dataChange("thumb", e?.target?.files[0]);
                     }}
                   />
+                  {/* <a class="btn btn-file" type="file">Choose File</a> */}
                 </div>
                 <div className="profile-edit input-group custom-file-button">
                   <label className="input-group-text" htmlFor="inputGroupFile">
-                    Upload Banner Image
+                    Upload Banner Image (Recommended Size: 568*295px)
                   </label>
                   <input
                     type="file"
@@ -200,6 +221,7 @@ const Index5 = () => {
                       dataChange("banner", e?.target?.files[0]);
                     }}
                   />
+                  {/* <a class="btn btn-file" type="file">Choose File</a> */}
                 </div>
                 <p
                   style={{
@@ -272,7 +294,7 @@ const Index5 = () => {
                     cols="3"
                     rows="6"
                     maxLength={200}
-                    placeholder="Maximum 200 letters... "
+                    placeholder="Text here..."
                   ></textarea>
                   <p
                     style={{
@@ -281,7 +303,7 @@ const Index5 = () => {
                     }}
                   >{`${
                     data?.shortdesc ? data?.shortdesc.length : "0"
-                  } of 200 Letters`}</p>
+                  } of 200 Characters`}</p>
                 </div>
                 <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
                   <div className="innerSearchForm flex">
@@ -309,7 +331,7 @@ const Index5 = () => {
                       >
                         <button
                           style={{
-                            width: "75%",
+                            padding:"0",
                             margin: "0",
                             background: "none",
                             cursor: "pointer",
@@ -529,7 +551,7 @@ const Index5 = () => {
                     }}
                   >{`${
                     data?.shortdesc ? data?.shortdesc.length : "0"
-                  } of 200 Letters`}</p>
+                  } of 200 Charachters`}</p>
                 </div>
                 <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
                   <div className="innerSearchForm flex">
@@ -687,8 +709,8 @@ const Index5 = () => {
         </div> */}
       </div>
       {displaySeePost && (
-        <section class="loginPopup postPopup">
-          <div class="wrapper">
+        <section className="loginPopup postPopup">
+          <div className="wrapper">
             <figure>
               <img src="app/images/tickIcon.png" alt="" />
             </figure>
@@ -709,7 +731,7 @@ const Index5 = () => {
             >
               Sent to Admin for Approval
             </h6>
-            <Link to={"/"}>See your post</Link>
+            {/* <Link to={"/"}>See your post</Link> */}
           </div>
         </section>
       )}

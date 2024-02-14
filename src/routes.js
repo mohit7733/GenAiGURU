@@ -116,7 +116,7 @@ export function RouterElement() {
       exact: true,
     },
     {
-      path: "index5",
+      path: "write-with-ai",
       name: "index5",
       element: <Index5 />,
       exact: true,

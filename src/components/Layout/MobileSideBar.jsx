@@ -66,7 +66,7 @@ const MobileSideBar = (props) => {
             <li>
               <WithAuth
                 callBack={(e) => {
-                  navigate("/index5");
+                  navigate("/write-with-ai");
                 }}
               >
                 <a target="_blank">
