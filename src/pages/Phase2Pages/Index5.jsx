@@ -402,7 +402,230 @@ const Index5 = () => {
             </button>
           </div>
         </div>
-        <div class="help-section writePost flex">
+        <div className="rightSection PostWrapper">
+          <div className="full-width">
+            {/* <div className="profile-edit socialLinkEdit flex">
+              <p>
+                <a href="#">Home</a>{" "}
+                <i className="fa fa-angle-right" aria-hidden="true"></i>Write
+                with AI{" "}
+              </p>
+            </div> */}
+            <div className="profile-img-box postWrapper_inner">
+              {/* <p>
+                <a href="#">Write with AI</a>
+              </p> */}
+              <form className="help-section">
+                <div className="profile-edit">
+                  <label htmlFor="name">Blog Title</label>
+                  <input
+                    value={data?.title}
+                    onChange={(e) => {
+                      dataChange("title", e.target.value);
+                    }}
+                    type="text"
+                    placeholder="Type here"
+                    name="name"
+                  />
+                </div>
+                <div className="profile-edit">
+                  <label htmlFor="name">Upload Thumbnail Image</label>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      dataChange("thumb", e?.target?.files[0]);
+                    }}
+                  />
+                </div>
+                <div className="profile-edit input-group custom-file-button">
+                  <label className="input-group-text" htmlFor="inputGroupFile">
+                    Upload Banner Image
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    onChange={(e) => {
+                      dataChange("banner", e?.target?.files[0]);
+                    }}
+                  />
+                </div>
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "12px 0 8px",
+                    fontSize: "18px",
+                  }}
+                >
+                  Select Interest
+                </p>
+                {selectOptions.length == 3 && (
+                  <p
+                    style={{
+                      color: "#fff",
+                      margin: "12px 0 8px",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Maximun 3 Interests only
+                  </p>
+                )}
+                <Select
+                  isObject={false}
+                  isMulti
+                  isOptionDisabled={() => selectOptions?.length >= 3}
+                  options={interested}
+                  value={selectOptions}
+                  placeholder="Interests"
+                  onChange={(Option) => {
+                    if (selectOptions.length <= 3) {
+                      setSelectOptions(Option);
+                      dataChange(
+                        "interests",
+                        Option.map((option) => option.id)
+                      );
+                    }
+                  }}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      background: "transparent",
+                      border: "none",
+                      boxShadow: state.isFocused
+                        ? "transparent"
+                        : "transparent",
+                      width: "100%",
+                    }),
+
+                    option: (baseStyles, state) => ({
+                      ...baseStyles,
+                      background: state.isFocused ? "purple" : "none",
+                      border: "none",
+                      color: "black",
+                      boxShadow: state.isFocused
+                        ? "transparent"
+                        : "transparent",
+                    }),
+                  }}
+                  className="genaiguruSelect flex"
+                />
+                <div className="profile-edit">
+                  <label htmlFor="name">Short Description</label>
+                  <textarea
+                    value={data?.shortdesc}
+                    onChange={(e) => {
+                      dataChange("short", e?.target?.value);
+                    }}
+                    name="bio"
+                    id=""
+                    cols="3"
+                    rows="6"
+                    maxLength={200}
+                    placeholder="Maximum 200 letters... "
+                  ></textarea>
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >{`${
+                    data?.shortdesc ? data?.shortdesc.length : "0"
+                  } of 200 Letters`}</p>
+                </div>
+                <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
+                  <div className="innerSearchForm flex">
+                    <figure className="logoIcon">
+                      <img
+                        src="app/images/searchIconLogoInner.png"
+                        alt="Genaiguru search icon image"
+                      />
+                    </figure>
+                    <div className="flex searchFormLong">
+                      <div className="form_group">
+                        <input
+                          type="text"
+                          placeholder="Search here"
+                          value={search}
+                          onChange={(e) => toSearch(e?.target?.value)}
+                        />
+                      </div>
+                      <div
+                        onClick={(e) => {
+                          e.preventDefault();
+                          chatGPTApi(search);
+                        }}
+                        className="form_group buttonGroup"
+                      >
+                        <button
+                          style={{
+                            width: "75%",
+                            margin: "0",
+                            background: "none",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <img
+                            style={{
+                              height: "20px",
+                              width: "40px",
+                            }}
+                            src="app/images/sendButtonIcon.png"
+                            alt="Genaiguru sendButtonIcon"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {loadingStatus && (
+                  <div class="typing">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                  </div>
+                )}
+                <div className="profile-edit">
+                  <label htmlFor="name">Description</label>
+                  <textarea
+                    value={data?.descriptions}
+                    onChange={(e) => {
+                      dataChange("desc", e?.target?.value);
+                    }}
+                    name="bio"
+                    id=""
+                    cols="6"
+                    rows="12"
+                    placeholder="Text here... "
+                  ></textarea>
+                </div>
+                {/* <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (
+                      data?.title != "" &&
+                      data?.descriptions != "" &&
+                      data?.shortdesc != "" &&
+                      data?.banner != "" &&
+                      data?.thumbnail != "" &&
+                      data?.interests != ""
+                    ) {
+                      sendPost();
+                    } else {
+                      toast.error("Please Fill all required fields!", {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 1000,
+                      });
+                    }
+                  }}
+                  type="submit"
+                  style={{ padding: "20px !important" }}
+                >
+                  Post
+                </button> */}
+              </form>
+            </div>
+          </div>
+        </div>
+        {/* <div class="help-section writePost flex">
           <div class="wrap">
             <h1>What would you like to write a blog article about</h1>
             <div class="createPostForm">
@@ -461,7 +684,7 @@ const Index5 = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {displaySeePost && (
         <section class="loginPopup postPopup">
@@ -469,7 +692,23 @@ const Index5 = () => {
             <figure>
               <img src="app/images/tickIcon.png" alt="" />
             </figure>
-            <h2>Post successful</h2>
+            <h2
+              style={{
+                marginBottom: "22px",
+              }}
+            >
+              Post successful
+            </h2>
+            <h6
+              style={{
+                width: "320px",
+                display: "flex",
+                textAlign: "center",
+                marginBottom: "22px",
+              }}
+            >
+              Sent to Admin for Approval
+            </h6>
             <Link to={"/"}>See your post</Link>
           </div>
         </section>
