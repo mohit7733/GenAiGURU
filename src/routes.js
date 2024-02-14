@@ -37,6 +37,7 @@ import EditPassword from "./components/EditPassword/EditPassword.jsx";
 import CustomizeInterest from "./components/CustomizeInterest/CustomizeInterest.jsx";
 import NotificationComponent from "./components/NotificationComponent/NotificationComponent.jsx";
 import Follow from "./components/NotificationComponent/Follow.jsx";
+import Payment from "./components/Payment/Payment.jsx";
 export const BASE_PATH = "/";
 
 // Public Routes
@@ -77,6 +78,7 @@ export const PATH_EDIT_PASSWORD = "/editpassword";
 export const PATH_CUSTOMIZE_INTEREST = "/interest";
 export const PATH_NOTIFICATION = "/notification-alerts";
 export const PATH_FOLLOW = "/follow";
+export const PATH_PAYMENT ="/payment"
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
 
@@ -311,6 +313,12 @@ export function RouterElement() {
       path: PATH_FOLLOW,
       name: PATH_FOLLOW,
       element: <Follow />,
+      exact: true,
+    },
+    {
+      path: PATH_PAYMENT,
+      name: PATH_PAYMENT,
+      element: <Payment />,
       exact: true,
     },
   ];

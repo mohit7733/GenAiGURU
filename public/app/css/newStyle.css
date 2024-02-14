@@ -116,24 +116,24 @@
   cursor: pointer;
   border-radius: 10px;
 }
-.follow-wrapper{
+.follow-wrapper {
   width: 35% !important;
 }
-.follow-wrapper ul{
-justify-content: space-between;
+.follow-wrapper ul {
+  justify-content: space-between;
 }
 
-.follow-wrapper ul li .active{
+.follow-wrapper ul li .active {
   content: "";
   /* top: 30px; */
   left: 0;
   width: 100%;
   position: relative;
   border-bottom: solid 4px #be41c0;
-} 
-.follow-wrapper ul li a{
- color:#fff;
- padding-bottom: 10px;
+}
+.follow-wrapper ul li a {
+  color: #fff;
+  padding-bottom: 10px;
 }
 .dropdown-content a:hover:last-child {
   background: linear-gradient(to bottom, #b03fcc, #683fe4);
@@ -292,9 +292,9 @@ input[type="file"]::file-selector-button {
   background-color: #131f2c;
   min-height: 100vh;
 }
-.full-width .interest-guru .content {
+/* .full-width .interest-guru .content {
   width: calc(100% - 25px) !important;
-}
+} */
 .loginOption figure.headerLogo,
 .createAccount figure.headerLogo {
   padding-bottom: 80px;
@@ -644,7 +644,7 @@ li.comment-btn a {
   border-radius: 20px;
   color: #cfd6db !important;
   font-size: 12px;
-} 
+}
 li.comment-btn {
   display: flex;
   gap: 10px;
@@ -654,11 +654,13 @@ li.comment-btn img.fillImage {
   display: none;
   cursor: pointer;
 }
-.ds-like a:hover .fillImage, .bt-like a:hover .fillImage {
+.ds-like a:hover .fillImage,
+.bt-like a:hover .fillImage {
   display: block !important;
   cursor: pointer;
 }
-.ds-like a:hover .borderImage, .bt-like a:hover .borderImage {
+.ds-like a:hover .borderImage,
+.bt-like a:hover .borderImage {
   display: none;
   transition: 0.2s;
   cursor: pointer;
@@ -1390,7 +1392,7 @@ header .userIcon img {
   .rightSection .keeps-container .blog-details {
     max-width: 100%;
     padding: 0 0px 0 0;
-}
+  }
 }
 .rightSection .guru-gold-silver .access-rewards .reward-container h6 {
   width: 160px;
@@ -2167,4 +2169,111 @@ ul.connect-link li {
 
 .video-wrapper .video-box .bt-like a:hover .fillImage {
   display: block !important;
+}
+/* Payment Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.mainpage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.Payment_form_Wrapper {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumbs ul {
+  list-style: none;
+  padding: 10px 0;
+}
+
+.breadcrumbs li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.breadcrumbs li a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.payment_form_wrap {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  margin-top: 30px;
+  text-align: center;
+  margin-right: 25px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: green;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.carddetail {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.paddCss {
+  color: white;
+  padding: 6px 10px 0px;
+}
+.radio_btn {
+  color: white;
+  margin-bottom: 15px;
+}
+.mainWrapper .rightSection1 {
+  width: calc(100% - 270px);
+  background: #131f2c;
+  padding: 12px 0 22px 350px;
+}
+.active.router-body {
+  width: 460px;
+  background: rgba(198, 208, 225, 0.1019607843);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.1294117647);
+  
 }
