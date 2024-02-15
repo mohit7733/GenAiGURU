@@ -25,13 +25,13 @@ const Popularvideos = () => {
   // Get API for Popular Videos
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/popular-latest-videos?user_id=${userId}`, {
+      .get(`${getBaseURL()}/featured-post?type=video&user_id=${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setPopularVideos(response?.data?.videos);
+        setPopularVideos(response?.data?.data);
         setVideoPoints(response?.data?.videos_points);
       })
       .catch((err) => {
