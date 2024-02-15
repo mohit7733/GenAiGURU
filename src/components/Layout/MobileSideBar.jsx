@@ -56,7 +56,7 @@ const MobileSideBar = (props) => {
               <Link onClick={props.toggleMobileSidebar} to="/">
                 <a target="_blank">
                   <img
-                    src="app/images/mobileMenuIcon1.png"
+                    src="app/images/mobileMenuIcon11.png"
                     alt="Genaiguru Settings menu icon"
                   />
                   Home

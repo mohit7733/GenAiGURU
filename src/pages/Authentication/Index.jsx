@@ -54,7 +54,7 @@ const Index = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1.03,
+          slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 1,
         },
