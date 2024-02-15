@@ -1,280 +1,170 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
+import {
+  PATH_ARTICLE_DETAILS,
+  PATH_BLOG_DETAILS,
+  PATH_VIDEO_PLAY,
+} from "../../routes";
+import Pagination from "../Phase6Pages/Pagination";
+import MobileSideBar from "../../components/Layout/MobileSideBar";
 
 const GuruJournal = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [savedData, setSavedData] = useState([]);
 
-  // Function to handle tab click
-  const handleTabClick = (tabNumber) => {
-    setActiveTab(tabNumber);
+  const navigate = useNavigate();
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+
+  // Get API
+  const getData = () => {
+    axios
+      .get(`${getBaseURL()}/get-user-created-blogs?user_id=${userId}`)
+      .then((response) => {
+        console.log(response, "Res");
+        setSavedData(response?.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    setButtonClicked(false);
   };
+
+  const onBlogSave = (blogID) => {
+    axios
+      .post(`${getBaseURL()}/save-blog`, {
+        user_id: userId,
+        blog_id: blogID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        toast.success("Blog Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  const onBlogUnSave = (blogID) => {
+    axios
+      .post(`${getBaseURL()}/unsave-blog`, {
+        user_id: userId,
+        blog_id: blogID,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        toast.success("Blog Unsaved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
+
+  const onBlogClick = (BlogId) => {
+    navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  };
+  //Pagination code Starts here
+  const keepsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastkeep = currentPage * keepsPerPage;
+  const indexOfFirstkeep = indexOfLastkeep - keepsPerPage;
+  const currentJournal = savedData?.blogs?.slice(
+    indexOfFirstkeep,
+    indexOfLastkeep
+  );
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  //Optional used only when mobile have different UI
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+  useEffect(() => {
+    getData();
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  //Pagination ends
   return (
     <div>
+      <ToastContainer autoClose={1000} pauseOnHover={false} />
+
       <MobileHeader />
-      {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
-          <div class="full-width">
-            <div class="keeps-container">
-              <div class="gurukeeps-wrapper">
+          <div className="full-width">
+            <div className="keeps-container">
+              <div className="gurukeeps-wrapper flex align-center space-between">
                 <h1>Guru Journal</h1>
-                {/* <!-- tab-link start here --> */}
-                <ul class="connect-link flex">
-                  <li className={activeTab === 1 ? "active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(1)}
-                      className={activeTab === 1 ? "tab active" : ""}
-                      data-toggle-target=".tab-content-1"
-                    >
-                      All
-                    </Link>
-                  </li>
-                  <li className={activeTab === 2 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(2)}
-                      className={activeTab === 2 ? "tab active" : ""}
-                      data-toggle-target=".tab-content-2"
-                    >
-                      Ai in healthcare
-                    </Link>
-                  </li>
-                  <li className={activeTab === 3 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(3)}
-                      className={activeTab === 3 ? "tab active" : ""}
-                      data-toggle-target=".tab-content-3"
-                    >
-                      ML in finance
-                    </Link>
-                  </li>
-                  <li className={activeTab === 4 ? "active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(4)}
-                      className={activeTab === 4 ? "tab active" : ""}
-                      data-toggle-target=".tab-content-4"
-                    >
-                      Crypto
-                    </Link>
-                  </li>
-                  <li className={activeTab === 5 ? " active" : ""}>
-                    <Link
-                      onClick={() => handleTabClick(5)}
-                      className={activeTab === 5 ? "tab active" : ""}
-                      data-toggle-target=".tab-content-5"
-                    >
-                      Bitcoin
-                    </Link>
-                  </li>
-                </ul>
-                {/* <!-- tab-link start here --> */}
               </div>
-              {/* <!-- tab-content here --> */}
-              {activeTab === 1 && (
-                <div
-                  className={
-                    activeTab === 1 && "tab-content tab-content-1 active"
-                  }
-                >
-                  <div class="interest-guru ">
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dots-icon"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
+              <div className="interest-guru ">
+                {currentJournal?.map((data, index) => {
+                  return (
+                    <div className="wrap flex" key={index}>
+                      {data.youtube_link ? (
+                        <figure>
+                          <ReactPlayer
+                            url={data.youtube_link}
+                            width="100%"
+                            height="100%"
+                          />
+                        </figure>
+                      ) : (
+                        <figure>
+                          <img src={data.photo} alt="Genaiguru Guru-keeps" />
+                        </figure>
+                      )}
 
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3 "
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
+                      <div className="content">
+                        <div className="flex space-between">
+                          <div className="wrapper flex">
                             <figure>
                               <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
+                                src={savedData?.user?.profile_image}
                                 alt="Genaiguru user-icon"
                               />
                             </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
+                            <div className="innerContent">
+                              <h6>{savedData?.user?.name}</h6>
+                              <p>{data.creation_date}</p>
                             </div>
                           </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
+                          {/* <ul className="flex">
+                            <li
+                              onClick={() => {
+                                onBlogUnSave(data.id);
+                                setButtonClicked(!buttonClicked);
+                              }}
+                            >
+                              <a>
                                 <img
                                   src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
+                                  alt=" coloredbookmarkIcon"
                                 />
                               </a>
                             </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dots-icon"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <!-- 2nd --> */}
-              {activeTab === 2 && (
-                <div
-                  className={
-                    activeTab === 2 && "tab-content tab-content-2 active"
-                  }
-                >
-                  {" "}
-                  <div class="interest-guru ">
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt=" Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>AEsther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
+
                             <li>
                               <a href="#">
                                 <img
@@ -283,2110 +173,128 @@ const GuruJournal = () => {
                                 />
                               </a>
                             </li>
-                          </ul>
+                          </ul> */}
                         </div>
                         <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
+                          <a
+                            onClick={() => {
+                              onBlogClick(data.id);
+                            }}
+                          >
+                            {data.title}
+                          </a>
                         </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
+                        <p>{data.short_description}</p>
                       </div>
                     </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <!-- 3rd --> */}
-              {activeTab === 3 && (
-                <div
-                  className={
-                    activeTab === 3 && "tab-content tab-content-3 active"
-                  }
-                >
-                  <div class="interest-guru ">
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dots-icon"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <!-- 4th --> */}
-              {activeTab === 4 && (
-                <div
-                  className={
-                    activeTab === 4 && "tab-content tab-content-4 active"
-                  }
-                >
-                  <div class="interest-guru ">
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru  dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru usericon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>AEsther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru user-icon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks "
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* <!-- 5th --> */}
-              {activeTab === 5 && (
-                <div
-                  className={
-                    activeTab === 5 && "tab-content tab-content-5 active"
-                  }
-                >
-                  <div class="interest-guru ">
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-2.png"
-                          alt="Genaiguru guru-keeps-2"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru user-icon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>AEsther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/guru-keeps-3.png"
-                          alt="Genaiguru guru-keeps-3"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru usericon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons "
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                    <div class="wrap flex">
-                      <figure>
-                        <img
-                          src="app/images/gureu-keeps-1.png"
-                          alt="Genaiguru gureu-keeps-1"
-                        />
-                      </figure>
-                      <div class="content">
-                        <div class="flex space-between">
-                          <div class="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/userIcon.png"
-                                alt="Genaiguru userIcon"
-                              />
-                            </figure>
-                            <div class="innerContent">
-                              <h6>Esther Howard</h6>
-                              <p>Sep 15, 2023. 11:05 pm</p>
-                            </div>
-                          </div>
-                          <ul class="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/color-bookmarks.png"
-                                  alt="Genaiguru color-bookmarks"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dotsIcons"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <h5>
-                          Navigating the World of ChatGPT and Its Open-source
-                          Adversaries
-                        </h5>
-                        <p>
-                          Looking to upgrade your salary in the uk? Get the
-                          salary you’re worth by learning to code. 98% employed
-                          within 12 months of qualifying....
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+                  );
+                })}
+                <Pagination
+                  token="journal"
+                  totalItems={savedData?.Blogs?.length}
+                  itemsPerPage={keepsPerPage}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
       {/* <!-- main section end here --> */}
-      {/* <!-- mobile section start here --> */}
-      <div class="mob_profile commanMobHead hideDes">
-        <div class="mobileHead flex">
-          <div class="hamburger">
+      <div className="mob_profile commanMobHead hideDes">
+        <div className="mobileHead flex">
+          <div className="hamburger" onClick={toggleMobileSidebar}>
             <img src="app/images/hamburgerIcon.png" alt="Genaiguru hamburger" />
           </div>
-          <h2>Guru journal</h2>
+          <h2>Guru keeps</h2>
         </div>
-        <div class="innerCommanContent">
-          <header>
-            <div class="searchbar flex">
-              <figure class="icon">
-                <img
-                  src="app/images/searchIconHeader.png"
-                  alt="Genaiguru small logo"
-                />
-              </figure>
-              <form action="">
-                <div class="form_group">
-                  <input type="search" placeholder="Search genaiguru" />
+        <div className="innerCommanContent">
+          <div className="interest-sliders">
+            {currentJournal?.map((data, index) => {
+              return (
+                <div className="wrap flex" key={index}>
+                  {data.youtube_link ? (
+                    <a>
+                      <figure>
+                        <ReactPlayer
+                          url={data.youtube_link}
+                          width="100%"
+                          height="100%"
+                        />
+                      </figure>
+                    </a>
+                  ) : (
+                    <figure>
+                      <a href="#">
+                        <img src={data.photo} alt="Genaiguru Guru-keeps" />
+                      </a>
+                    </figure>
+                  )}
+                  <div className="content">
+                    <div className="wrapper flex">
+                      <figure>
+                        <img
+                          src={savedData?.user?.profile_image}
+                          alt="Genaiguru authorImg"
+                        />
+                      </figure>
+                      <div className="innerContent">
+                        <h6>{data.author}</h6>
+                        <p> {data.creation_date}</p>
+                      </div>
+                    </div>
+                    <p
+                      onClick={() => {
+                        onBlogClick(data.id);
+                      }}
+                    >
+                      {data.title}
+                    </p>
+                    {/* <ul className="flex">
+                      <li
+                        onClick={() => {
+                          onBlogUnSave(data?.id);
+                          setButtonClicked(!buttonClicked);
+                        }}
+                      >
+                        <a>
+                          <img
+                            src="app/images/color-bookmarks.png"
+                            alt="Genaiguru bookmarkIcon"
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <img
+                            src="app/images/dotsIcons.png"
+                            alt="Genaiguru dotsIcons"
+                          />
+                        </a>
+                      </li>
+                    </ul> */}
+                  </div>
                 </div>
-              </form>
-            </div>
-          </header>
-          <div class="mob_tab_list">
-            <div class="rightSection">
-              <div class="keeps-container">
-                <div class="gurukeeps-wrapper">
-                  {/* <!-- tab-link start here --> */}
-                  <ul class="connect-link flex">
-                    <li className={activeTab === 1 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(1)}
-                        className={activeTab === 1 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-1"
-                      >
-                        All
-                      </Link>
-                    </li>
-                    <li className={activeTab === 2 ? " active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(2)}
-                        className={activeTab === 2 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-2"
-                      >
-                        Ai in healthcare
-                      </Link>
-                    </li>
-                    <li className={activeTab === 3 ? " active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(3)}
-                        className={activeTab === 3 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-3"
-                      >
-                        ML in finance
-                      </Link>
-                    </li>
-                    <li className={activeTab === 4 ? "active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(4)}
-                        className={activeTab === 4 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-4"
-                      >
-                        Crypto
-                      </Link>
-                    </li>
-                    <li className={activeTab === 5 ? " active" : ""}>
-                      <Link
-                        onClick={() => handleTabClick(5)}
-                        className={activeTab === 5 ? "tab active" : ""}
-                        data-toggle-target=".tab-content-5"
-                      >
-                        Bitcoin
-                      </Link>
-                    </li>
-                  </ul>
-                  {/* <!-- tab-link start here --> */}
-                </div>
-                {/* <!-- tab-content here --> */}
-                {activeTab === 1 && (
-                  <div class="tab-content tab-content-1 active">
-                    <div class="interest-guru ">
-                      <div class="interest-sliders">
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {/* <!-- 2nd --> */}
-                {activeTab === 2 && (
-                  <div class="tab-content tab-content-2 active">
-                    <div class="interest-guru ">
-                      <div class="interest-sliders">
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {/* <!-- 3rd --> */}
-                {activeTab === 3 && (
-                  <div class="tab-content tab-content-3 active">
-                    <div class="interest-guru ">
-                      <div class="interest-sliders">
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {/* <!-- 4th --> */}
-                {activeTab === 4 && (
-                  <div class="tab-content tab-content-4 active">
-                    <div class="interest-guru ">
-                      <div class="interest-sliders">
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {/* <!-- 5th --> */}
-                {activeTab === 5 && (
-                  <div class="tab-content tab-content-5 active">
-                    <div class="interest-guru ">
-                      <div class="interest-sliders">
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/gureu-keeps-1.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <a href="#">
-                              <img
-                                src="app/images/guru-keeps-2.png"
-                                alt="Genaiguru Guru-keeps"
-                              />
-                            </a>
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p> Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="wrap flex">
-                          <figure>
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru interestSliderImg"
-                            />
-                          </figure>
-                          <div class="content">
-                            <div class="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div class="innerContent">
-                                <h6>Alex Smih</h6>
-                                <p>Sep 15, 2023. 11:05 pm</p>
-                              </div>
-                            </div>
-                            <p>
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </p>
-                            <ul class="flex">
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/color-bookmarks.png"
-                                    alt="Genaiguru bookmarkIcon"
-                                  />
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src="app/images/dotsIcons.png"
-                                    alt="Genaiguru dotsIcons"
-                                  />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+              );
+            })}
+            {isMobile ? (
+              <Pagination
+                token="journal"
+                totalItems={savedData?.Blogs?.length}
+                itemsPerPage={keepsPerPage}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
-      {/* <!-- mobile section end here --> */}
+      {isMobileSidebarOpen && (
+        <MobileSideBar toggleMobileSidebar={toggleMobileSidebar} />
+      )}
     </div>
   );
 };
