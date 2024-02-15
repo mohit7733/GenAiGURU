@@ -15,17 +15,14 @@ const Latestblog = () => {
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
 
   // Get API for Popular Blogs
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/latest-blogs`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${getBaseURL()}/featured-post?type=blog&user_id=${userId}`)
       .then((response) => {
-        setLatestBlog(response.data.blogs);
+        setLatestBlog(response.data.data);
       })
       .catch((err) => {
         console.log(err.message);

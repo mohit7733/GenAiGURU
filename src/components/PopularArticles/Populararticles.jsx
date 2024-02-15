@@ -6,10 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
-import {
-  PATH_ARTICLE_DETAILS,
-  PATH_FEATURED_ARTICLES,
-} from "../../routes";
+import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES } from "../../routes";
 
 const Populararticles = () => {
   const [articles, setArticles] = useState([]);
@@ -25,13 +22,14 @@ const Populararticles = () => {
 
   useEffect(() => {
     axios
-      .get(`${getBaseURL()}/articles?user_id=${userId}`, {
+      .get(`${getBaseURL()}/featured-post?type=article&user_id=${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setArticles(response?.data?.articles);
+        console.log(response);
+        setArticles(response?.data?.data);
         setArticlePoints(response?.data?.article_points);
       })
       .catch((err) => {

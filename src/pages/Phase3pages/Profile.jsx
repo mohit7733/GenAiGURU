@@ -335,7 +335,7 @@ const Profile = () => {
                       Posts
                     </Link>
                   </li>
-                  <li className={activeTab === 3 ? "active" : ""}>
+                  {/* <li className={activeTab === 3 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(3)}
                       className={activeTab === 3 ? "tab" : ""}
@@ -343,7 +343,7 @@ const Profile = () => {
                     >
                       Videos
                     </Link>
-                  </li>
+                  </li> */}
                   <li className={activeTab === 4 ? "active" : ""}>
                     <Link
                       onClick={() => handleTabClick(4)}
@@ -516,10 +516,10 @@ const Profile = () => {
                     <div className="home-interest">
                       <div className="heading-link flex"></div>
                       <div className="interest-box flex space-between">
-                        <div className="wrap flex">
-                          {savedData?.blogs?.map((data) => {
-                            return (
-                              <>
+                        {savedData?.blogs?.map((data) => {
+                          return (
+                            <>
+                              <div className="wrap flex">
                                 <figure>
                                   <a href="#">
                                     <img
@@ -548,10 +548,10 @@ const Profile = () => {
                                     </a>
                                   </p>
                                 </div>
-                              </>
-                            );
-                          })}
-                        </div>
+                              </div>
+                            </>
+                          );
+                        })}
                         {/* <div className="wrap flex">
                           <figure>
                             <a href="#">
