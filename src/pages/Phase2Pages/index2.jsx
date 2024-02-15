@@ -1,16 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getBaseURL } from "../../api/config";
 import Header from "../../components/Layout/Header";
 import Sidebar from "../../components/Layout/Sidebar";
 import Index3 from "./index3";
 import { Navigate, useNavigate } from "react-router-dom";
+import userimageIcon from "../../assets/images/person.png";
 
 const Index2 = ({ isLoggedIn }) => {
   const [chatInputText, setChatInputText] = useState("");
 
   const token = JSON.parse(localStorage.getItem("token"));
-
+  const [profileImage, setProfileImage] = useState();
   const [chatResponseText, setChatResponseText] = useState("");
   const [chatText, setChatText] = useState("");
   const [displayRespone, setDisplayRespone] = useState(false);
@@ -112,6 +113,20 @@ const Index2 = ({ isLoggedIn }) => {
       console.error("Error chatGPTApi:", error.message);
     }
   };
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setProfileImage(response.data.profile_image);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <>
       <Header />
@@ -278,35 +293,92 @@ const Index2 = ({ isLoggedIn }) => {
           <div className="left_col">
             <div className="wrap">
               <h1>Hi there! how can I help you</h1>
-              <div className="lightText flex">
-                <figure>
-                  <img
-                    src="app/images/genaiguruSelectImg.png"
-                    alt="Genaiguru small logo"
-                  />
-                </figure>
-                <p>
-                  What can I help you with today? Please select the closest
-                  reply that applies to your need.
-                </p>
-              </div>
-              <div className="textBox">
-                <p>
-                  <a href="#">
-                    I need your help to finding some best articles about trendy
-                    technology.
-                  </a>
-                </p>
-                <p>
-                  <a href="#">
-                    Suggest me some youtube videos about AI current situation.
-                  </a>
-                </p>
-                <p>
-                  <a href="#">Give me career solution.</a>
-                </p>
-              </div>
-              <div className="wrapperSearchs">
+              {loadingStatus && (
+                <div class="chat-bubble" style={{ marginBottom: "8px" }}>
+                  <div class="typing">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                  </div>
+                </div>
+              )}
+              {displayRespone ? (
+                <>
+                  <div className="wrap">
+                    <div className="userSearch flex">
+                      <figure>
+                        <img
+                          src={profileImage ? profileImage : userimageIcon}
+                        />
+                      </figure>
+                      <p>{chatText}</p>
+                    </div>
+                    <div className="searchResults innerSearchResult">
+                      <div className="headings flex">
+                        <figure>
+                          <img
+                            src="app/images/searchIconLogoInner.png"
+                            alt="Genaiguru search logo icon"
+                            title="Genaiguru search logo icon"
+                          />
+                        </figure>
+                        <h5>Below we suggest you best articles</h5>
+                      </div>
+                      <div className="boxes">
+                        <a href="#">
+                          <div style={{maxHeight:'135px', overflowY:'auto'}}>
+                            <p>{chatResponseText}</p>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="lightText">
+                    What can I help you with today? Please select the closest
+                    reply <br /> that applies to your need.
+                  </p>
+                  <div className="textBox">
+                    <p>
+                      <a
+                        onClick={() =>
+                          chatGPTApi(
+                            "I need your help to finding some best articles about trendy technology."
+                          )
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        I need your help to finding some best articles about{" "}
+                        <br /> trendy technology.
+                      </a>
+                    </p>
+                    <p>
+                      <a
+                        onClick={() =>
+                          chatGPTApi(
+                            "Suggest me some youtube videos about  AI current situation."
+                          )
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        Suggest me some youtube videos about AI current
+                        situation.
+                      </a>
+                    </p>
+                    <p>
+                      <a
+                        onClick={() => chatGPTApi("Give me career solution.")}
+                        style={{ cursor: "pointer" }}
+                      >
+                        Give me career solution.
+                      </a>
+                    </p>
+                  </div>
+                </>
+              )}
+              {/* <div className="wrapperSearchs">
                 <div className="innerSearchForm flex">
                   <figure className="logoIcon">
                     <img
@@ -333,6 +405,47 @@ const Index2 = ({ isLoggedIn }) => {
                           e.preventDefault();
                           // navigate("/index3");
                           alert("Mobville ");
+                        }}
+                      >
+                        <img
+                          src="app/images/sendButtonIcon.png"
+                          alt="Genaiguru sendButtonIcon"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+              <div className="wrapperSearchs">
+                <div className="innerSearchForm flex">
+                  <figure className="logoIcon">
+                    <img
+                      src="app/images/searchIconLogoInner.png"
+                      alt="Genaiguru search icon image"
+                    />
+                  </figure>
+                  <div className="flex searchFormLong">
+                    <div className="form_group">
+                      <input
+                        type="text"
+                        placeholder="Ask me anything..."
+                        value={chatInputText}
+                        onChange={(e) => setChatInputText(e.target.value)}
+                      />
+                    </div>
+                    <div className="form_group micBtns">
+                      <button type="button">
+                        <img
+                          src="app/images/micIcon.png"
+                          alt="Genaiguru micIcon"
+                        />
+                      </button>
+                    </div>
+                    <div className="form_group">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          chatGPTApi(chatInputText);
                         }}
                       >
                         <img

@@ -115,13 +115,19 @@ const Header = () => {
             </li>
           </WithAuth>
           <li className="headerIcon">
-            <Link to="/subscriptions">
-              <img
-                src="app/images/elementsIcon.png"
-                alt="Genaiguru elementsIcon"
-              />{" "}
-              {/* <span className="count">22</span> */}
-            </Link>
+            <WithAuth
+              callBack={(e) => {
+                navigate("/subscriptions");
+              }}
+            >
+              <Link>
+                <img
+                  src="app/images/elementsIcon.png"
+                  alt="Genaiguru elementsIcon"
+                />{" "}
+                {/* <span className="count">22</span> */}
+              </Link>
+            </WithAuth>
           </li>
           <li className="secondaryBtn">
             <WithAuth

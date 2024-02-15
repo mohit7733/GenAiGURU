@@ -351,6 +351,7 @@ const GuruGold = () => {
                           src="app/images/profileImageTag.png"
                         />
                       </figure>
+                      <img className="profileImageTag" src={rankImage} />
                     </li>
                     <Link to="/silver">
                       <li>
@@ -402,58 +403,69 @@ const GuruGold = () => {
               {/* <!-- silver user --> */}
               <div className="silver-user">
                 <ul className="flex">
-                  <li>
-                    <svg style={{ height: 0, width: 0 }}>
-                      <defs>
-                        <linearGradient
-                          id="gradientId"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="0%"
-                        >
-                          <stop
-                            offset="0%"
-                            style={{ stopColor: "#8E44AD", stopOpacity: 1 }}
-                          />
-                          <stop
-                            offset="100%"
-                            style={{ stopColor: "#3498DB", stopOpacity: 1 }}
-                          />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div style={{ width: 78, height: 78 }}>
-                      <CircularProgressbarWithChildren
-                        strokeWidth={3}
-                        value={percentage}
-                        styles={{
-                          path: {
-                            stroke: `url(#gradientId)`,
-                            height: "100%",
-                          },
-                        }}
-                      >
-                        <figure>
-                          <img
-                            src={userDetails.profile_image}
-                            alt="userIcon"
-                            style={{ borderRadius: "100%", marginTop: "1px" }}
-                          />
-                        </figure>
-                      </CircularProgressbarWithChildren>
-                    </div>
-                    {/* <ProgressBar
-                      percentage={percentage}
-                      image={userDetails.profile_image}
-                    /> */}
-                    {/* <ProgressBar
-                      startColor={"#8E44AD"}
-                      endColor={"#3498DB"}
-                      rotation={90}
-                      idCSS={"#idCSS"}
-                    /> */}
-                  </li>
+                  {levelDetails.map((level, index) => {
+                    return (
+                      <li style={{ margin: "5px" }} key={index}>
+                        <svg style={{ height: 0, width: 0 }}>
+                        <defs>
+                            <linearGradient
+                              id="gradientId"
+                              x1="0%"
+                              y1="0%"
+                              x2="100%"
+                              y2="0%"
+                            >
+                              <stop
+                                offset="0%"
+                                style={{ stopColor: "#8E44AD", stopOpacity: 10 }}
+                              />
+                              <stop
+                                offset="100%"
+                                style={{ stopColor: "#3498DB", stopOpacity: 10 }}
+                              />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        <div style={{ width: 78, height: 78, margin: "5px" }}>
+                          <CircularProgressbarWithChildren
+                            strokeWidth={3}
+                            value={
+                              currentID !== level?.level ? 100 : percentage
+                            }
+                            // styles={{
+                            //   path: {
+                            //     stroke: `url(#gradientId)`,
+                            //     height: "100%",
+                            //   },
+                            // }}
+                          >
+                            <figure>
+                              <img
+                                src={userDetails.profile_image}
+                                alt="userIcon"
+                                style={{
+                                  borderRadius: "100%",
+                                  marginTop: "1px",
+                                }}
+                              />
+                            </figure>
+                          </CircularProgressbarWithChildren>
+                        </div>
+                        <p style={{ textAlign: "center", color: "white" }}>
+                          {level.name}
+                        </p>
+                        {completedIds.filter((a) => a == level.level)?.length ==
+                          0 && (
+                          <div className="blurImgIcons">
+                            <img src={LockImage} />
+                          </div>
+                        )}
+                        {currentID !== level.level &&
+                          completedIds.filter((a) => a == level.level)
+                            ?.length == 0 && <div className="blursImgs"></div>}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               {/* <!-- reward start --> */}
