@@ -28,7 +28,6 @@ const Populararticles = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setArticles(response?.data?.data);
         setArticlePoints(response?.data?.article_points);
       })
