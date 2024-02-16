@@ -51,6 +51,22 @@ const GuruGold = () => {
       .catch((err) => {
         console.log(err.message);
       });
+    document.title = "Genaiguru-Gurugold";
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", "Gurugold description");
+    document
+      .querySelector('meta[property="og:description"]')
+      .setAttribute("content", "Gurugold description 2");
+    document
+      .querySelector('meta[property="og:title"]')
+      .setAttribute("content", "Gurugold description 2");
+    // document
+    //   .querySelector('meta[property="og:image"]')
+    //   .setAttribute(
+    //     "content",
+    //     "https://images.pexels.com/photos/19790846/pexels-photo-19790846/free-photo-of-a-red-moped-parked-in-front-of-a-building.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    //   );
   }, []);
 
   useEffect(() => {
@@ -407,7 +423,7 @@ const GuruGold = () => {
                     return (
                       <li style={{ margin: "5px" }} key={index}>
                         <svg style={{ height: 0, width: 0 }}>
-                        <defs>
+                          <defs>
                             <linearGradient
                               id="gradientId"
                               x1="0%"
@@ -417,11 +433,17 @@ const GuruGold = () => {
                             >
                               <stop
                                 offset="0%"
-                                style={{ stopColor: "#8E44AD", stopOpacity: 10 }}
+                                style={{
+                                  stopColor: "#8E44AD",
+                                  stopOpacity: 10,
+                                }}
                               />
                               <stop
                                 offset="100%"
-                                style={{ stopColor: "#3498DB", stopOpacity: 10 }}
+                                style={{
+                                  stopColor: "#3498DB",
+                                  stopOpacity: 10,
+                                }}
                               />
                             </linearGradient>
                           </defs>
