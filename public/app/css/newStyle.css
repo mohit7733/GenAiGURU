@@ -2315,3 +2315,25 @@ body {
   padding: 25px;
   box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.1294117647);
 }
+
+form.help-section.payment-wrapper .profile-edit.flex.space-between .profile-edit {
+  width: 48%;
+}
+form.help-section.payment-wrapper .button-wrapper button {
+  width: 48% !important;
+  padding: 12px;
+  border-radius: 10px;
+}
+select#countryCode {
+  width: 100%;
+  padding: 14px 10px;
+  border-radius: 10px;
+  background-color: #25313f;
+  color: #fff;
+  font-size: 15px;
+  border: 2px solid rgba(229, 241, 249, 0.3607843137);
+  outline: none;
+}
+form.help-section.payment-wrapper > h2 {
+  margin-bottom: 25px;
+}

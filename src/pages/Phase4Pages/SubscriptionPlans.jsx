@@ -7,7 +7,7 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
-  const [subscription, setSubscription] = useState("");
+  const [subscription, setSubscription] = useState({price:"",});
   const token = JSON.parse(localStorage.getItem("token"));
   const [details, setDetails] = useState({
     username: "",
@@ -108,6 +108,7 @@ const SubscriptionPlans = () => {
                           state: {
                             name: details.username,
                             email: details.email,
+                            price:subscription[0].price
                           },
                         });
                       }}
@@ -189,6 +190,7 @@ const SubscriptionPlans = () => {
                           state: {
                             name: details.username,
                             email: details.email,
+                            price:subscription[1].price
                           },
                         });
                       }}
