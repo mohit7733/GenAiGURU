@@ -38,6 +38,7 @@ import CustomizeInterest from "./components/CustomizeInterest/CustomizeInterest.
 import NotificationComponent from "./components/NotificationComponent/NotificationComponent.jsx";
 import Follow from "./components/NotificationComponent/Follow.jsx";
 import Payment from "./components/Payment/Payment.jsx";
+import Login from "./pages/Authentication/Login";
 export const BASE_PATH = "/";
 
 // Public Routes
@@ -94,7 +95,7 @@ export function RouterElement() {
     {
       path: "index2",
       name: "index2",
-      element:logged !== "true"?<IndexPage/>: <Index2 />,
+      element:logged !== "true"?<Login/>: <Index2 />,
       exact: true,
     },
     {
@@ -106,7 +107,7 @@ export function RouterElement() {
     {
       path: PATH_SPEAK_TO_TEXT,
       name: "speakToText",
-      element:logged !== "true"?<IndexPage/>: <SpeakToText />,
+      element:logged !== "true"?<Login/>: <SpeakToText />,
       exact: true,
     },
     {
@@ -118,7 +119,7 @@ export function RouterElement() {
     {
       path: "write-with-ai",
       name: "index5",
-      element:logged !== "true"?<IndexPage/>: <Index5 />,
+      element:logged !== "true"?<Login/>: <Index5 />,
       exact: true,
     },
     {
@@ -131,20 +132,20 @@ export function RouterElement() {
     {
       path: PATH_PROFILE,
       name: "profile",
-      element:logged !== "true"?<IndexPage/>: <Profile />,
+      element:logged !== "true"?<Login/>: <Profile />,
       exact: true,
     },
     {
       path: PATH_EDIT_PROFILE,
       name: "PATH_EDIT_PROFILE",
-      element:logged !== "true"?<IndexPage/>: <EditProfile />,
+      element:logged !== "true"?<Login/>: <EditProfile />,
       exact: true,
     },
 
     {
       path: PATH_SOCIAL_EDIT_PROFILE,
       name: "PATH_SOCIAL_EDIT_PROFILE",
-      element:logged !== "true"?<IndexPage/>: <SocialProfileEdit />,
+      element:logged !== "true"?<Login/>: <SocialProfileEdit />,
       exact: true,
     },
     {
@@ -168,13 +169,13 @@ export function RouterElement() {
     {
       path: "gurujournal",
       name: "gurujournal",
-      element: logged !== "true"?<IndexPage/>:<GuruJournal />,
+      element: logged !== "true"?<Login/>:<GuruJournal />,
       exact: true,
     },
     {
       path: "gurukeeps",
       name: "gurukeeps",
-      element: logged !== "true"?<IndexPage/>:<GuruKeeps />,
+      element: logged !== "true"?<Login/>:<GuruKeeps />,
       exact: true,
     },
     {
@@ -186,31 +187,31 @@ export function RouterElement() {
     {
       path: PATH_SETTINGS,
       name: "PATH_SETTINGS",
-      element: logged !== "true"?<IndexPage/>:<Settings />,
+      element: logged !== "true"?<Login/>:<Settings />,
       exact: true,
     },
     {
       path: PATH_GURUGOLD,
       name: "PATH_GURUGOLD",
-      element: logged !== "true"?<IndexPage/>:<GuruGold />,
+      element: logged !== "true"?<Login/>:<GuruGold />,
       exact: true,
     },
     {
       path: PATH_LEADERBOARD,
       name: "PATH_LEADERBOARD",
-      element: logged !== "true"?<IndexPage/>:<LeaderBoard />,
+      element: logged !== "true"?<Login/>:<LeaderBoard />,
       exact: true,
     },
     {
       path: PATH_MILESTONE,
       name: "PATH_MILESTONE",
-      element: logged !== "true"?<IndexPage/>:<Milestone />,
+      element: logged !== "true"?<Login/>:<Milestone />,
       exact: true,
     },
     {
       path: "reward",
       name: "reward",
-      element: logged !== "true"?<IndexPage/>:<Rewards />,
+      element: logged !== "true"?<Login/>:<Rewards />,
       exact: true,
     },
     {
@@ -270,13 +271,13 @@ export function RouterElement() {
     {
       path: PATH_MOBLIE_SETTINGS,
       name: PATH_MOBLIE_SETTINGS,
-      element: logged !== "true"?<IndexPage/>:<MobileSettings />,
+      element: logged !== "true"?<Login/>:<MobileSettings />,
       exact: true,
     },
     {
       path: PATH_SEND_FEEDBACK,
       name: PATH_SEND_FEEDBACK,
-      element:logged !== "true"?<IndexPage/>: <SendFeedback />,
+      element:logged !== "true"?<Login/>: <SendFeedback />,
       exact: true,
     },
     {
@@ -288,37 +289,37 @@ export function RouterElement() {
     {
       path: PATH_NOTIFICATION_SETTINGS,
       name: PATH_NOTIFICATION_SETTINGS,
-      element: logged !== "true"?<IndexPage/>:<NotificationSettings />,
+      element: logged !== "true"?<Login/>:<NotificationSettings />,
       exact: true,
     },
     {
       path: PATH_EDIT_PASSWORD,
       name: PATH_EDIT_PASSWORD,
-      element: logged !== "true"?<IndexPage/>:<EditPassword />,
+      element: logged !== "true"?<Login/>:<EditPassword />,
       exact: true,
     },
     {
       path: PATH_CUSTOMIZE_INTEREST,
       name: PATH_CUSTOMIZE_INTEREST,
-      element: logged !== "true"?<IndexPage/>:<CustomizeInterest />,
+      element: logged !== "true"?<Login/>:<CustomizeInterest />,
       exact: true,
     },
     {
       path: PATH_NOTIFICATION,
       name: PATH_NOTIFICATION,
-      element: logged !== "true"?<IndexPage/>:<NotificationComponent />,
+      element: logged !== "true"?<Login/>:<NotificationComponent />,
       exact: true,
     },
     {
       path: PATH_FOLLOW,
       name: PATH_FOLLOW,
-      element:logged !== "true"?<IndexPage/>: <Follow />,
+      element:logged !== "true"?<Login/>: <Follow />,
       exact: true,
     },
     {
       path: PATH_PAYMENT,
       name: PATH_PAYMENT,
-      element:logged !== "true"?<IndexPage/>: <Payment />,
+      element:logged !== "true"?<Login/>: <Payment />,
       exact: true,
     },
   ];
