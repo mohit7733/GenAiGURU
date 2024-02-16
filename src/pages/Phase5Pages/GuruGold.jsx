@@ -61,12 +61,12 @@ const GuruGold = () => {
     document
       .querySelector('meta[property="og:title"]')
       .setAttribute("content", "Gurugold description 2");
-    document
-      .querySelector('meta[property="og:image"]')
-      .setAttribute(
-        "content",
-        "https://images.pexels.com/photos/19790846/pexels-photo-19790846/free-photo-of-a-red-moped-parked-in-front-of-a-building.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-      );
+    // document
+    //   .querySelector('meta[property="og:image"]')
+    //   .setAttribute(
+    //     "content",
+    //     "https://images.pexels.com/photos/19790846/pexels-photo-19790846/free-photo-of-a-red-moped-parked-in-front-of-a-building.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    //   );
   }, []);
 
   useEffect(() => {
