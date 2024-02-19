@@ -22,6 +22,7 @@ const Index5 = () => {
     thumbnail: null,
     banner: null,
   });
+  const [checked, setChecked] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [interestData, setInterestData] = useState([]);
   const [selectOptions, setSelectOptions] = useState([]);
@@ -63,8 +64,15 @@ const Index5 = () => {
       case "thumb":
         if (value) {
           const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+          const maxImageSizeMB = 2;
           if (allowedImageTypes.includes(value.type)) {
-            setData({ ...data, thumbnail: value });
+            if (value.size <= maxImageSizeMB * 1024 * 1024) {
+              setData({ ...data, thumbnail: value });
+            } else {
+              toast.warn("Image size should not be more than 2MB", {
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
           } else {
             toast.warn("Please select JPEG, PNG, GIF.", {
               position: toast.POSITION.TOP_CENTER,
@@ -76,12 +84,12 @@ const Index5 = () => {
       case "banner":
         if (value) {
           const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
-          const maxImageSizeMB = 2
+          const maxImageSizeMB = 2;
           if (allowedImageTypes.includes(value.type)) {
-            if (value.size <= maxImageSizeMB * 1024 * 1024){
+            if (value.size <= maxImageSizeMB * 1024 * 1024) {
               setData({ ...data, banner: value });
-            } else{
-              toast.warn("Img size should not be more than 2MB", {
+            } else {
+              toast.warn("Image size should not be more than 2MB", {
                 position: toast.POSITION.TOP_CENTER,
               });
             }
@@ -95,11 +103,11 @@ const Index5 = () => {
         break;
       case "interests":
         setData({ ...data, interests: value });
+        break;
       default:
         break;
     }
   };
-  console.log(data.banner,"test")
   const chatGPTApi = (input) => {
     toSearch("");
     setLoadingStatus(true);
@@ -160,15 +168,84 @@ const Index5 = () => {
         .catch((err) => console.log(err, "Err"));
     }
   };
-  useEffect(()=>{
-    if(displaySeePost==true){
-      setTimeout(()=>{
-        setDisplaySeePost(false)
-        navigate("/")
-      },3000)
+  useEffect(() => {
+    if (displaySeePost == true) {
+      setTimeout(() => {
+        setDisplaySeePost(false);
+        navigate("/");
+      }, 3000);
     }
+  }, [displaySeePost]);
 
-  },[displaySeePost])
+  let string = selectOptions.map((data) => data.value);
+
+  useEffect(() => {
+    if (checked === true) {
+      chatGPTApi2();
+    } else {
+      return;
+    }
+  }, [string.length, checked]);
+  const chatGPTApi2 = () => {
+    if (string.length == 0) {
+      setData({ ...data, title: "", shortdesc: "", descriptions: "" });
+      return;
+    } else {
+      setData({ ...data, title: "", shortdesc: "", descriptions: "" });
+      let searching = `Give me a Title, Short Description, Description(800 words) based on  ${string
+        .slice(0, 3)
+        .join(", ")} without double quote in array`;
+      axios
+        .post(
+          `${getBaseURL()}/auth/send-chat-message`,
+          {
+            message: searching,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          const titleRegex = /Title:\s*(.*)/i;
+          const shortDescRegex = /Short Description:\s*(.*)/i;
+          const descRegex = /Description:\s*([\s\S]*)/i;
+          const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
+          const titleMatch = resdata.match(titleRegex)[1];
+          const shortMatch = resdata.match(shortDescRegex)[1];
+          const descMatch = resdata.match(descRegex)[1];
+          setData({
+            ...data,
+            title: titleMatch,
+            shortdesc: shortMatch,
+            descriptions: descMatch,
+          });
+        })
+        .catch((error) => {
+          console.error("Error chatGPTApi:", error.message);
+        });
+    }
+  };
+
+  function navigateToNextPage() {
+    const input = document.getElementById("banner");
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageData = event.target.result;
+        navigate("/preview", {
+          state: {
+            data: data,
+            desc: `<div>${data.descriptions}</div>`,
+            imageData: imageData,
+          },
+        });
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   return (
     <div>
       <MobileHeader />
@@ -201,8 +278,11 @@ const Index5 = () => {
                   />
                 </div>
                 <div className="profile-edit custom-file-button">
-                  <label htmlFor="name">Upload Thumbnail Image (Recommended Size: 350*184px)</label>
+                  <label htmlFor="name">
+                    Upload Thumbnail Image (Recommended Size: 350*184px)
+                  </label>
                   <input
+                    id="banner"
                     type="file"
                     onChange={(e) => {
                       dataChange("thumb", e?.target?.files[0]);
@@ -225,13 +305,23 @@ const Index5 = () => {
                 </div>
                 <p
                   style={{
+                    display: "flex",
                     color: "#fff",
                     margin: "12px 0 8px",
                     fontSize: "18px",
                   }}
                 >
                   Select Interest
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setChecked(e.target.checked)}
+                      checked={checked}
+                    />
+                    <span className="slider round"></span>
+                  </label>
                 </p>
+
                 {selectOptions.length == 3 && (
                   <p
                     style={{
@@ -331,7 +421,7 @@ const Index5 = () => {
                       >
                         <button
                           style={{
-                            padding:"0",
+                            padding: "0",
                             margin: "0",
                             background: "none",
                             cursor: "pointer",
@@ -371,30 +461,61 @@ const Index5 = () => {
                     placeholder="Text here... "
                   ></textarea>
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      data?.title != "" &&
-                      data?.descriptions != "" &&
-                      data?.shortdesc != "" &&
-                      data?.banner != "" &&
-                      data?.thumbnail != "" &&
-                      data?.interests != ""
-                    ) {
-                      sendPost();
-                    } else {
-                      toast.error("Please Fill all required fields!", {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: 1000,
-                      });
-                    }
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
-                  type="submit"
-                  style={{ padding: "20px !important" }}
                 >
-                  Post
-                </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        data?.title != "" &&
+                        data?.descriptions != "" &&
+                        data?.shortdesc != "" &&
+                        data?.banner != null &&
+                        data?.thumbnail != null &&
+                        data?.interests != ""
+                      ) {
+                        sendPost();
+                      } else {
+                        toast.error("Please Fill all required fields!", {
+                          position: toast.POSITION.TOP_CENTER,
+                          autoClose: 1000,
+                        });
+                      }
+                    }}
+                    type="submit"
+                    style={{ padding: "20px !important" }}
+                  >
+                    Post
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        data?.title != "" &&
+                        data?.descriptions != "" &&
+                        data?.shortdesc != "" &&
+                        data?.banner != null &&
+                        data?.thumbnail != null &&
+                        data?.interests != ""
+                      ) {
+                        navigateToNextPage();
+                      } else {
+                        toast.error("Please Fill all required fields!", {
+                          position: toast.POSITION.TOP_CENTER,
+                          autoClose: 1000,
+                        });
+                      }
+                    }}
+                    style={{ padding: "20px !important" }}
+                  >
+                    Preview
+                  </button>
+                </div>
                 <div className="Toastify"></div>
               </form>
             </div>
