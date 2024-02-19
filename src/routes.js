@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useRoutes } from "react-router-dom";
 import Index2 from "./pages/Phase2Pages/index2";
 import Index3 from "./pages/Phase2Pages/index3";
@@ -84,8 +85,9 @@ export const PATH_FOLLOW = "/follow";
 export const PATH_PAYMENT ="/payment"
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
-const logged =JSON.parse(localStorage.getItem("userLoggedIn"))
 export function RouterElement() {
+  const [logged,setLogged]=useState(JSON.parse(localStorage.getItem("userLoggedIn"))||false)
+
   const routes = [
     {
       path: "/",
