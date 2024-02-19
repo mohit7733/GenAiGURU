@@ -21,6 +21,7 @@ const Index = () => {
 
   const [articles, setArticles] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
+  const [articlePoints, setArticlePoints] = useState("");
 
   const sliderRef = useRef();
 
@@ -61,7 +62,7 @@ const Index = () => {
       },
     ],
   };
-  // Get API for Popular Articles
+  // Get API for Popular Articles View ALL
 
   useEffect(() => {
     if (token != "") {
@@ -73,24 +74,6 @@ const Index = () => {
         })
         .then((response) => {
           // console.log(response?.data?.articles);
-          setArticles(response?.data?.articles);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-  }, []);
-
-  // Get API for Popular articles View ALL
-  useEffect(() => {
-    if (token != "") {
-      axios
-        .get(`${getBaseURL()}/articles?user_id=${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
           setAllArticles(response?.data?.articles);
         })
         .catch((err) => {
@@ -98,6 +81,23 @@ const Index = () => {
         });
     }
   }, []);
+
+  // Get API for Popular articles 
+  useEffect(() => {
+    axios
+      .get(`${getBaseURL()}/featured-post?type=article&user_id=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setArticles(response?.data?.data);
+        setArticlePoints(response?.data?.article_points);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [userId]);
 
   const onArticleClick = (AricleID) => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
@@ -174,14 +174,15 @@ const Index = () => {
                           />
                         </figure>
                         <div className="layer">
-                          <div className="price flex">
-                            <img
-                              src="app/images/orangeStrike.png"
-                              alt="Genaiguru orangeStrike"
-                              title="Genaiguru orangeStrike"
-                            />
-                            17
-                          </div>
+                          {article.read == "no" && (
+                            <div className="price flex">
+                              <img
+                                src="app/images/orangeStrike.png"
+                                alt="Genaiguru orangeStrike"
+                              />
+                              {articlePoints}
+                            </div>
+                          )}
                           <h5>{article.title}</h5>
                           <div className="author-tag flex">
                             <div className="col_left">
@@ -209,93 +210,6 @@ const Index = () => {
                       </div>
                     )
                 )}
-                {/* <div>
-                  <div className="wrap">
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="app/images/videoImg.png"
-                          alt="Genaiguru video image"
-                          title="Genaiguru video image"
-                        />
-                      </figure>
-                      <div className="layer">
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
-                          />
-                          17
-                        </div>
-                        <h5>
-                          It’s a catch-22 for young startups: How do you attract
-                          investors?{" "}
-                        </h5>
-                        <div className="author-tag flex">
-                          <div className="col_left">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="content">
-                                <h6>Alex Smih</h6>
-                                <p>24 M view . 3 month ago</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div> */}
-                {/* <div>
-                  <div className="wrap">
-                    <a href="#">
-                      <figure>
-                        <img
-                          src="app/images/videoImg.png"
-                          alt="Genaiguru video image"
-                          title="Genaiguru video image"
-                        />
-                      </figure>
-                      <div className="layer">
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                            title="Genaiguru orangeStrike"
-                          />
-                          17
-                        </div>
-                        <h5>
-                          It’s a catch-22 for young startups: How do you attract
-                          investors?{" "}
-                        </h5>
-                        <div className="author-tag flex">
-                          <div className="col_left">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src="app/images/authorImg.png"
-                                  alt="Genaiguru authorImg"
-                                  title="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="content">
-                                <h6>Alex Smih</h6>
-                                <p>24 M view . 3 month ago</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div> */}
               </Slider>
             </div>
             {allArticles?.map((Article, index) => {
