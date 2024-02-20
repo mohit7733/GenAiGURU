@@ -7,7 +7,7 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
-  const [subscription, setSubscription] = useState({price:"",});
+  const [subscription, setSubscription] = useState({ price: "" });
   const token = JSON.parse(localStorage.getItem("token"));
   const [details, setDetails] = useState({
     username: "",
@@ -42,7 +42,7 @@ const SubscriptionPlans = () => {
       .get(`${getBaseURL()}/get-subscription-plans`)
       .then((res) => {
         setSubscription(res?.data?.data);
-        console.log(res?.data?.data,"dertyuj")
+        console.log(res?.data?.data, "dertyuj");
       })
       .catch((err) => console.log(err, "error"));
   };
@@ -108,7 +108,7 @@ const SubscriptionPlans = () => {
                           state: {
                             name: details.username,
                             email: details.email,
-                            price:subscription[0].price
+                            price: subscription[1].price,
                           },
                         });
                       }}
@@ -190,7 +190,7 @@ const SubscriptionPlans = () => {
                           state: {
                             name: details.username,
                             email: details.email,
-                            price:subscription[1].price
+                            price: subscription[1].price,
                           },
                         });
                       }}
@@ -304,7 +304,19 @@ const SubscriptionPlans = () => {
                         __html: subscription[0]?.description,
                       }}
                     />
-                    <button type="submit" class="planSelectBtn">
+                    <button
+                      type="submit"
+                      class="planSelectBtn"
+                      onClick={() => {
+                        Navigate(PATH_PAYMENT, {
+                          state: {
+                            name: details.username,
+                            email: details.email,
+                            price: subscription[0].price,
+                          },
+                        });
+                      }}
+                    >
                       Select
                     </button>
                     <div class="payment-mode">
@@ -371,7 +383,19 @@ const SubscriptionPlans = () => {
                         __html: subscription[1]?.description,
                       }}
                     />
-                    <button type="submit" class="planSelectBtn">
+                    <button
+                      type="submit"
+                      class="planSelectBtn"
+                      onClick={() => {
+                        Navigate(PATH_PAYMENT, {
+                          state: {
+                            name: details.username,
+                            email: details.email,
+                            price: subscription[1].price,
+                          },
+                        });
+                      }}
+                    >
                       Select
                     </button>
                     <div class="payment-mode">
