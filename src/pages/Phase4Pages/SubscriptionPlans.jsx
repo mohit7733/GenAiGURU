@@ -7,7 +7,7 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
-  const [subscription, setSubscription] = useState({price:"",});
+  const [subscription, setSubscription] = useState({ price: "", });
   const token = JSON.parse(localStorage.getItem("token"));
   const [details, setDetails] = useState({
     username: "",
@@ -42,7 +42,7 @@ const SubscriptionPlans = () => {
       .get(`${getBaseURL()}/get-subscription-plans`)
       .then((res) => {
         setSubscription(res?.data?.data);
-        console.log(res?.data?.data,"dertyuj")
+        console.log(res?.data?.data, "dertyuj")
       })
       .catch((err) => console.log(err, "error"));
   };
@@ -85,12 +85,13 @@ const SubscriptionPlans = () => {
                       <h6>{subscription[0]?.name}</h6>
                       <p>
                         {"$" +
-                          subscription[0]?.price.slice(
-                            0,
-                            subscription[0].price.length - 3
-                          ) +
-                          " " +
-                          "USD/month"}
+                          // subscription[0]?.price?.slice(
+                          //   0,
+                          //   subscription[0]?.price?.length - 3
+                          // ) +
+                          // " " +
+                          subscription[0]?.price +
+                          " USD/month"}
                       </p>
                     </div>
 
@@ -108,7 +109,7 @@ const SubscriptionPlans = () => {
                           state: {
                             name: details.username,
                             email: details.email,
-                            price:subscription[0].price
+                            price: subscription[0].price
                           },
                         });
                       }}
@@ -167,12 +168,13 @@ const SubscriptionPlans = () => {
                       <h6>{subscription[1]?.name}</h6>
                       <p>
                         {"$" +
-                          subscription[1]?.price.slice(
-                            0,
-                            subscription[1].price.length - 3
-                          ) +
-                          " " +
-                          "USD/year"}{" "}
+                          // subscription[1]?.price.slice(
+                          //   0,
+                          //   subscription[1]?.price.length - 3
+                          // ) +
+                          // " " +
+                          subscription[1]?.price +
+                          " USD/year"}{" "}
                       </p>
                     </div>
 
@@ -190,7 +192,7 @@ const SubscriptionPlans = () => {
                           state: {
                             name: details.username,
                             email: details.email,
-                            price:subscription[1].price
+                            price: subscription[1].price
                           },
                         });
                       }}
@@ -290,12 +292,13 @@ const SubscriptionPlans = () => {
                       <h6>{subscription[0]?.name}</h6>
                       <p>
                         {"$" +
-                          subscription[0]?.price.slice(
-                            0,
-                            subscription[0].price.length - 3
-                          ) +
-                          " " +
-                          "USD/month"}
+                          // subscription[0]?.price.slice(
+                          //   0,
+                          //   subscription[0]?.price.length - 3
+                          // ) +
+                          // " " +
+                          subscription[0]?.price +
+                          " USD/month"}
                       </p>
                     </div>
 
@@ -358,12 +361,13 @@ const SubscriptionPlans = () => {
                       <h6>{subscription[1]?.name}</h6>
                       <p>
                         {"$" +
-                          subscription[1]?.price.slice(
-                            0,
-                            subscription[1].price.length - 3
-                          ) +
-                          " " +
-                          "USD/year"}{" "}
+                          // subscription[1]?.price.slice(
+                          //   0,
+                          //   subscription[1].price.length - 3
+                          // ) +
+                          // " " +
+                          subscription[1]?.price +
+                          " USD/year"}{" "}
                       </p>
                     </div>
                     <div
