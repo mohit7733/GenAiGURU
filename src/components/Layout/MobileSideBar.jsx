@@ -203,7 +203,7 @@ const MobileSideBar = (props) => {
                     src="app/images/mobileMenuIcon10.png"
                     alt="Genaiguru Log out menu icon"
                   />
-                  Log out
+                 {userLoggedIn ? "Logout" : "SignUp / Login"}
                 </a>
               </Link>
             </li>

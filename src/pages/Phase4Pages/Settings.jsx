@@ -10,6 +10,7 @@ import PrivacyPolicy from "../../components/Privacy & Policy/Privacy&Policy";
 import NotificationSettings from "../../components/NotificationSettings/Notification";
 import EditPassword from "../../components/EditPassword/EditPassword";
 import CustomizeInterest from "../../components/CustomizeInterest/CustomizeInterest";
+import { PATH_PROFILE } from "../../routes";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState(5);
@@ -128,7 +129,7 @@ const Settings = () => {
                             alt="Genaiguru Customize"
                           />
                         </figure>
-                        <Link>
+                        <Link to = {PATH_PROFILE}>
                           <span>Customize your interest</span>
                         </Link>
                       </Link>

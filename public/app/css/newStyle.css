@@ -1301,8 +1301,9 @@ header .userIcon img {
     margin-top: auto;
   }
   .mobileVideoSection .layer h5 {
-    margin: auto 0 12px;
-  }
+    position: absolute;
+    top: 30%;
+} 
   .mobileVideoSection .layer .price {
     width: 95px;
     padding: 0 10px;
@@ -1317,8 +1318,8 @@ header .userIcon img {
     align-self: flex-end;
   }
   .mobileVideoSection .wrapper {
-    margin-bottom: 0;
-  }
+    margin-bottom: 10px;
+}
   .mob_profile .mob_profile_inner {
     padding-top: 80px;
   }
@@ -1562,7 +1563,8 @@ section.mainWrapper.flex.hideMob {
   }
   .loginOption ul li span button.kep-login-facebook.metro {
     width: 100%;
-  }
+    justify-content: center;
+}
 }
 
 @media (max-width: 600px) {
@@ -2336,6 +2338,58 @@ select#countryCode {
 }
 form.help-section.payment-wrapper > h2 {
   margin-bottom: 25px;
+}
+
+@media (max-width: 767px){
+  .loginOption li a {
+    justify-content: center;
+}
+.wrapper400 {
+    max-width: 100%;
+    padding: 20px;
+}
+.rightSection .guru-gold-silver .center-box .topThreeBox {
+    max-width: 100%;
+    width: 100%;
+}
+.blog-slider, .featuredArticle, .home-interest {
+    padding-right: 16px;
+} 
+.featuredArticle .boxWrap:last-child {
+	padding-right: 0px;
+}
+.featuredArticle .boxWrap {
+    margin-top: 12px;
+    padding-right: 16px;
+    width: 50%;
+    float: left;
+}
+.mobileHelp .searchResults.innerSearchResult .boxes {
+  padding: 12px 10px 12px 16px;
+} 
+
+.mobileVideoSection ul.flex li {
+  margin-right: 5px;
+  color: #325fff !important;
+  font-size: 12px;
+  line-height: 1.3em;
+  font-weight: 500;
+  font-family: Inter, sans-serif;
+  transition: all 0.5s ease-in-out;
+}
+
+.featuredArticle .layer .price {
+  min-width: 95px;
+}
+.featuredArticle .layer h5 {
+  margin: 15px 0 0px;
+}
+.rightSection .keeps-container .interest-guru .wrap, .rightSection .keeps-container .gurukeeps-wrapper {
+ width: 100%;
+}
+.rightSection .keeps-container .gurukeeps-wrapper p {
+ width: calc(100% - 50px);
+}
 }
 
 .switch {
