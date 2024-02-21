@@ -290,14 +290,6 @@ const Index5 = () => {
                     }}
                   >
                     Choose a topic for your post
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        onChange={(e) => setChecked(e.target.checked)}
-                        checked={checked}
-                      />
-                      <span className="slider round"></span>
-                    </label>
                   </p>
 
                   {selectOptions.length == 3 && (
