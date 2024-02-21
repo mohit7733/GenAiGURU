@@ -160,7 +160,7 @@ const MobileHeader = ({ isLogged }) => {
               )}
               <li>
                 <Link onClick={changeLoginStatus} to={PATH_LOGIN}>
-                  {userLoggedIn ? "Logout" : "SignUp/Login"}
+                  {userLoggedIn ? "Logout" : "SignUp / Login"}
                 </Link>
               </li>
             </ul>
