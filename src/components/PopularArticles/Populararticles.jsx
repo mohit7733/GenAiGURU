@@ -36,8 +36,12 @@ const Populararticles = () => {
       });
   }, [userId]);
 
-  const onArticleClick = (AricleID) => {
-    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  const onArticleClick = (AricleID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
 
   // Slide code
@@ -91,7 +95,7 @@ const Populararticles = () => {
                     className="wrap"
                     key={index}
                     onClick={() => {
-                      onArticleClick(article.id);
+                      onArticleClick(article.id,article.title);
                     }}
                   >
                     <figure>
