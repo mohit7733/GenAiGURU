@@ -31,7 +31,13 @@ const Index5 = () => {
   const [selectOptions, setSelectOptions] = useState(
     JSON.parse(localStorage.getItem("Interests")) || []
   );
-  const [selectTopic, setSelectTopic] = useState("");
+  const [selectTopic, setSelectTopic] = useState([
+    {
+      value: "blogstyle",
+      label: "blogstyle",
+      id: "1",
+    },
+  ]);
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/interests`, {
@@ -303,6 +309,7 @@ const Index5 = () => {
                       Maximun 3 Interests only
                     </p>
                   )}
+
                   <Select
                     isObject={false}
                     isMulti
@@ -342,34 +349,66 @@ const Index5 = () => {
                     }}
                     className="genaiguruSelect flex"
                   />
-                  <div
-                    className="dropdown"
-                    style={{ marginBottom: "5px", marginTop: "8px" }}
-                  >
-                    <button
-                      onClick={(e) => e.preventDefault()}
-                      className="dropbtn"
-                    >
-                      <p>
-                        <img
-                          src="app/images/arrow-left.png"
-                          alt="Genaiguru arrow-left"
-                          style={{ transform: "rotate(90deg)" }}
-                        />
-                      </p>
-                    </button>
-                    <div
-                      onClick={() => {
-                        return selectTopic == ""
-                          ? setSelectTopic("Case Study")
-                          : setSelectTopic("");
+                  <div style={{ marginTop: "30px" }}>
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
                       }}
-                      className="dropdown-content"
                     >
-                      <a>Case Study</a>
-                    </div>
+                      Chose a Blog Article Content Style
+                    </p>
+                    <Select
+                      isObject={false}
+                      isMulti
+                      // isOptionDisabled={() => selectOptions?.length >= 3}
+                      options={selectTopic}
+                      // value={selectOptions}
+                      placeholder="Blog Styles"
+                      // onChange={(Option) => {
+                      //   if (selectOptions.length <= 3) {
+                      //     setSelectOptions(Option);
+                      //     dataChange(
+                      //       "interests",
+                      //       Option.map((option) => option.id)
+                      //     );
+                      //   }
+                      // }}
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          background: "transparent",
+                          border: "none",
+                          boxShadow: state.isFocused
+                            ? "transparent"
+                            : "transparent",
+                          width: "100%",
+                        }),
+
+                        option: (baseStyles, state) => ({
+                          ...baseStyles,
+                          background: state.isFocused ? "purple" : "none",
+                          border: "none",
+                          color: "black",
+                          boxShadow: state.isFocused
+                            ? "transparent"
+                            : "transparent",
+                        }),
+                      }}
+                      className="genaiguruSelect flex"
+                    />
                   </div>
-                  <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
+                  <div style={{ marginTop: "30px" }}>
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Give GenaiGuru a creative prompt to write about the topic
+                    </p>
                     <div className="innerSearchForm flex">
                       <figure className="logoIcon">
                         <img
@@ -381,39 +420,47 @@ const Index5 = () => {
                         <div className="form_group">
                           <input
                             type="text"
-                            placeholder="Search here"
+                            placeholder="Type here"
                             value={search}
                             onChange={(e) => toSearch(e?.target?.value)}
                           />
                         </div>
-                        <div
-                          onClick={(e) => {
-                            e.preventDefault();
-                            chatGPTApi();
-                          }}
-                          className="form_group buttonGroup"
-                        >
-                          <button
-                            style={{
-                              padding: "0",
-                              margin: "0",
-                              background: "none",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <img
-                              style={{
-                                height: "20px",
-                                width: "40px",
-                              }}
-                              src="app/images/sendButtonIcon.png"
-                              alt="Genaiguru sendButtonIcon"
-                            />
-                          </button>
-                        </div>
                       </div>
                     </div>
                   </div>
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      chatGPTApi();
+                    }}
+                    // className="form_group buttonGroup"
+                  >
+                    <button
+                      // style={{
+                      //   padding: "0",
+                      //   margin: "0",
+                      //   background: "none",
+                      //   cursor: "pointer",
+                      // }}
+                      className="loginBtn"
+                    >
+                      {/* <img
+                        style={{
+                          height: "20px",
+                          width: "40px",
+                        }}
+                        src="app/images/sendButtonIcon.png"
+                        alt="Genaiguru sendButtonIcon"
+                      /> */}
+                      Send
+                    </button>
+                  </div>
+                  <p style={{ marginTop: "30px", color: "white" }}>
+                    How to: Choose a topic, pick a blog style, and give a
+                    creative prompt, Genaiguru will generate a title, blog
+                    article, banner image and thumbnail ready for publication to
+                    your page on the site
+                  </p>
                   {loadingStatus && (
                     <div className="typing">
                       <div className="dot"></div>
@@ -464,7 +511,7 @@ const Index5 = () => {
                     <input
                       type="file"
                       className="form-control"
-                      value={data.banner}
+                      defaultValue={data.banner}
                       onChange={(e) => {
                         dataChange("banner", e?.target?.files[0]);
                       }}
@@ -518,6 +565,29 @@ const Index5 = () => {
                     }}
                   >
                     <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (
+                          data?.title != "" &&
+                          data?.descriptions != "" &&
+                          data?.shortdesc != "" &&
+                          data?.banner != null &&
+                          data?.thumbnail != null &&
+                          data?.interests != ""
+                        ) {
+                          navigateToNextPage();
+                        } else {
+                          toast.error("Please Fill all required fields!", {
+                            position: toast.POSITION.TOP_CENTER,
+                            autoClose: 1000,
+                          });
+                        }
+                      }}
+                      style={{ padding: "20px !important", maxWidth: "200px" }}
+                    >
+                      Preview
+                    </button>
+                    <button
                       // onClick={(e) => {
                       //   e.preventDefault();
                       //   if (
@@ -541,34 +611,10 @@ const Index5 = () => {
                         localStorage.removeItem("Data");
                         localStorage.removeItem("banner");
                         localStorage.removeItem("Interests");
-                        setSelectTopic(!selectTopic);
                       }}
-                      style={{ padding: "20px !important" }}
+                      style={{ padding: "20px !important", maxWidth: "200px" }}
                     >
                       Try Again
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (
-                          data?.title != "" &&
-                          data?.descriptions != "" &&
-                          data?.shortdesc != "" &&
-                          data?.banner != null &&
-                          data?.thumbnail != null &&
-                          data?.interests != ""
-                        ) {
-                          navigateToNextPage();
-                        } else {
-                          toast.error("Please Fill all required fields!", {
-                            position: toast.POSITION.TOP_CENTER,
-                            autoClose: 1000,
-                          });
-                        }
-                      }}
-                      style={{ padding: "20px !important" }}
-                    >
-                      Preview
                     </button>
                   </div>
                 </div>
