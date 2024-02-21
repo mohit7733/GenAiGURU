@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useRoutes } from "react-router-dom";
 import Index2 from "./pages/Phase2Pages/index2";
 import Index3 from "./pages/Phase2Pages/index3";
@@ -39,6 +40,7 @@ import NotificationComponent from "./components/NotificationComponent/Notificati
 import Follow from "./components/NotificationComponent/Follow.jsx";
 import Payment from "./components/Payment/Payment.jsx";
 import Login from "./pages/Authentication/Login";
+import Preview from "./pages/Phase2Pages/preview.jsx";
 export const BASE_PATH = "/";
 
 // Public Routes
@@ -56,6 +58,7 @@ export const PATH_CREATE_NEW_PASSWORD = "/createnewpassword";
 export const PATH_OTP_SCREEN = "/otpscreen";
 
 // Private Routes
+export const PREVIEW ="/preview"
 export const PATH_PROFILE = "/profile";
 export const PATH_SPEAK_TO_TEXT = "/speaktotext";
 export const PATH_EDIT_PROFILE = "/editprofile";
@@ -82,8 +85,9 @@ export const PATH_FOLLOW = "/follow";
 export const PATH_PAYMENT ="/payment"
 
 const IndexPage = React.lazy(() => import("./pages/Authentication/Index"));
-const logged =JSON.parse(localStorage.getItem("userLoggedIn"))
 export function RouterElement() {
+  const [logged,setLogged]=useState(JSON.parse(localStorage.getItem("userLoggedIn"))||false)
+
   const routes = [
     {
       path: "/",
@@ -320,6 +324,12 @@ export function RouterElement() {
       path: PATH_PAYMENT,
       name: PATH_PAYMENT,
       element:logged != "true"?<Login/>: <Payment />,
+      exact: true,
+    },
+    {
+      path: PREVIEW,
+      name: PREVIEW,
+      element:logged != "true"?<Login/>: <Preview />,
       exact: true,
     },
   ];
