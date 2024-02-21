@@ -195,8 +195,12 @@ const FeaturedArticles = (props) => {
     setActiveTab(tabNumber);
   };
 
-  const onArticleClick = (AricleID) => {
-    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  const onArticleClick = (AricleID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
 
   // Slider Code
@@ -491,7 +495,7 @@ const FeaturedArticles = (props) => {
                                 </WithAuth>
                               </div>
                               <h5
-                                onClick={() => onArticleClick(article.id)}
+                                onClick={() => onArticleClick(article.id,article.title)}
                                 style={{ cursor: "pointer" }}
                               >
                                 {article.title}
@@ -587,7 +591,7 @@ const FeaturedArticles = (props) => {
                                 </ul>
                               </div>
                               <h5
-                                onClick={() => onArticleClick(interest.id)}
+                                onClick={() => onArticleClick(interest.id,interest.title)}
                                 style={{ cursor: "pointer" }}
                               >
                                 {interest.title}
@@ -819,7 +823,7 @@ const FeaturedArticles = (props) => {
                                     <p>{article.creation_date}</p>
                                   </div>
                                 </div>
-                                <p onClick={() => onArticleClick(article.id)}>
+                                <p onClick={() => onArticleClick(article.id,article.title)}>
                                   {article.title}
                                 </p>
                                 <ul className="flex">
@@ -953,7 +957,7 @@ const FeaturedArticles = (props) => {
                                   </ul>
                                 </div>
                                 <p
-                                  onClick={() => onArticleClick(interest.id)}
+                                  onClick={() => onArticleClick(interest.id,articles.title)}
                                   style={{ cursor: "pointer" }}
                                 >
                                   {interest.title}

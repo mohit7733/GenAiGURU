@@ -83,15 +83,7 @@ const SubscriptionPlans = () => {
                   <div class="monthly-plans">
                     <div class="sceam">
                       <h6>{subscription[0]?.name}</h6>
-                      <p>
-                        {"$" +
-                          subscription[0]?.price.slice(
-                            0,
-                            subscription[0].price.length - 3
-                          ) +
-                          " " +
-                          "USD/month"}
-                      </p>
+                      <p>{"$" + subscription[0]?.price + "USD/month"}</p>
                     </div>
 
                     <div
@@ -165,15 +157,7 @@ const SubscriptionPlans = () => {
                   <div class="monthly-plans">
                     <div class="sceam">
                       <h6>{subscription[1]?.name}</h6>
-                      <p>
-                        {"$" +
-                          subscription[1]?.price.slice(
-                            0,
-                            subscription[1].price.length - 3
-                          ) +
-                          " " +
-                          "USD/year"}{" "}
-                      </p>
+                      <p>{"$" + subscription[1]?.price + "USD/year"} </p>
                     </div>
 
                     <div
@@ -288,15 +272,7 @@ const SubscriptionPlans = () => {
                   <div class="monthly-plans">
                     <div class="sceam">
                       <h6>{subscription[0]?.name}</h6>
-                      <p>
-                        {"$" +
-                          subscription[0]?.price.slice(
-                            0,
-                            subscription[0].price.length - 3
-                          ) +
-                          " " +
-                          "USD/month"}
-                      </p>
+                      <p>{"$" + subscription[0]?.price + "USD/month"}</p>
                     </div>
 
                     <div
@@ -368,15 +344,7 @@ const SubscriptionPlans = () => {
                   <div class="monthly-plans">
                     <div class="sceam">
                       <h6>{subscription[1]?.name}</h6>
-                      <p>
-                        {"$" +
-                          subscription[1]?.price.slice(
-                            0,
-                            subscription[1].price.length - 3
-                          ) +
-                          " " +
-                          "USD/year"}{" "}
-                      </p>
+                      <p>{"$" + subscription[1]?.price + "USD/year"} </p>
                     </div>
                     <div
                       dangerouslySetInnerHTML={{
