@@ -7,8 +7,6 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
-
-
   const [subscription, setSubscription] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -45,7 +43,6 @@ const SubscriptionPlans = () => {
       .then((res) => {
         setSubscription(res?.data?.data);
         console.log(res?.data?.data, "dertyuj");
-
       })
       .catch((err) => console.log(err, "error"));
   };
@@ -83,95 +80,102 @@ const SubscriptionPlans = () => {
               <div class="change-plan">
                 <h6>CHANGE YOUR PLAN</h6>
                 <div class="plans-wrapper  flex">
-
                   {subscription &&
-                    subscription?.map((sub) => {
-                      return (
-                        <div class="monthly-plans">
-                          <div class="sceam">
-                            <h6>{sub?.name}</h6>
-                            <p>
-                              {sub.price > 0 &&
-                                "$" + sub.price + " " + "USD/month"}
-                            </p>
+                    subscription
+                      ?.sort((a, b) => b.id - a.id)
+                      .map((sub) => {
+                        return (
+                          <div class="monthly-plans">
+                            <div class="sceam">
+                              <h6>{sub?.name}</h6>
+                              <p>
+                                {sub.price > 0 &&
+                                  "$" + sub.price + " " + "USD/month"}
+                              </p>
+                            </div>
+
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: sub?.description,
+                              }}
+                            />
+
+                            <button
+                              type="submit"
+                              class="planSelectBtn"
+                              onClick={() => {
+                                Navigate(PATH_PAYMENT, {
+                                  state: {
+                                    name: details.username,
+                                    email: details.email,
+                                    price: sub.price,
+                                  },
+                                });
+                              }}
+                              style={
+                                sub?.price == 0
+                                  ? { display: "none" }
+                                  : { display: "block" }
+                              }
+                            >
+                              Select
+                            </button>
+
+                            <div
+                              style={
+                                sub?.price == 0
+                                  ? { display: "none" }
+                                  : { display: "block" }
+                              }
+                              class="payment-mode"
+                            >
+                              <p>Available payment method</p>
+                              <ul class="flex space-center payemtList">
+                                <li>
+                                  <a href="">
+                                    <figure>
+                                      <img
+                                        src="./app/images/payment-card-1.svg"
+                                        alt="Genaiguru payment"
+                                      />
+                                    </figure>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="">
+                                    <figure>
+                                      <img
+                                        src="./app/images/payment-card-2.svg"
+                                        alt="Genaiguru payment"
+                                      />
+                                    </figure>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="">
+                                    <figure>
+                                      <img
+                                        src="./app/images/payment-card-3.svg"
+                                        alt="Genaiguru payment"
+                                      />
+                                    </figure>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="">
+                                    <figure>
+                                      <img
+                                        src="./app/images/paymennt-card-4.svg"
+                                        alt="Genaiguru payment"
+                                      />
+                                    </figure>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
-
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: sub?.description,
-                            }}
-                          />
-
-                          <button
-                            type="submit"
-                            class="planSelectBtn"
-                            onClick={() => {
-                              Navigate(PATH_PAYMENT, {
-                                state: {
-                                  name: details.username,
-                                  email: details.email,
-                                  price: sub.price,
-                                },
-                              });
-                            }}
-                            style={
-                              sub?.price == 0
-                                ? { display: "none" }
-                                : { display: "block" }
-                            }
-                          >
-                            Select
-                          </button>
-
-                          <div class="payment-mode">
-                            <p>Available payment method</p>
-                            <ul class="flex space-center payemtList">
-                              <li>
-                                <a href="">
-                                  <figure>
-                                    <img
-                                      src="./app/images/payment-card-1.svg"
-                                      alt="Genaiguru payment"
-                                    />
-                                  </figure>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="">
-                                  <figure>
-                                    <img
-                                      src="./app/images/payment-card-2.svg"
-                                      alt="Genaiguru payment"
-                                    />
-                                  </figure>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="">
-                                  <figure>
-                                    <img
-                                      src="./app/images/payment-card-3.svg"
-                                      alt="Genaiguru payment"
-                                    />
-                                  </figure>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="">
-                                  <figure>
-                                    <img
-                                      src="./app/images/paymennt-card-4.svg"
-                                      alt="Genaiguru payment"
-                                    />
-                                  </figure>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      );
-                    })}
-
+                        );
+                      })}
                 </div>
               </div>
 
@@ -213,7 +217,6 @@ const SubscriptionPlans = () => {
               <div class="change-plan">
                 <h6>CHANGE YOUR PLAN</h6>
                 <div class="plans-wrapper  flex">
-
                   {subscription &&
                     subscription?.map((sub) => {
                       return (
@@ -296,7 +299,6 @@ const SubscriptionPlans = () => {
                         </div>
                       );
                     })}
-
                 </div>
               </div>
 

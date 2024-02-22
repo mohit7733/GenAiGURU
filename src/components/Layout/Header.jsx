@@ -131,9 +131,11 @@ const Header = () => {
           </li>
           <li className="secondaryBtn">
             <WithAuth
-              // callBack={(e) => {
-              //   navigate("/write-with-ai");
-              // }}
+
+              callBack={(e) => {
+                navigate("/");
+              }}
+
             >
               <Link>
                 <img src="app/images/padIcon.png" alt="Genaiguru padIcon" />{" "}
@@ -142,9 +144,9 @@ const Header = () => {
             </WithAuth>
           </li>
           <li className="secondaryBtn mobile">
-            <Link 
-            // to="/write-with-ai"
-            >
+
+            <Link to="/">
+
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru mobile padIcon"
