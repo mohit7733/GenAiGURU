@@ -8,6 +8,7 @@ import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
   const [subscription, setSubscription] = useState([]);
+
   const token = JSON.parse(localStorage.getItem("token"));
   const [details, setDetails] = useState({
     username: "",
