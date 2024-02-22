@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_ARTICLES } from "../../routes";
+import { BASE_PATH, PATH_FEATURED_ARTICLES,PATH_ARTICLE_DETAILS } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 import SilverPopup from "../Phase5Pages/SilverPopup";
@@ -48,6 +48,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const navigate = useNavigate();
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -148,7 +149,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
     setReplyCommentModels(updatedModels);
   };
 
-  const onArticleClick = (articleId) => {
+
+  const onArticleClick = (articleId,titles) => {
+    console.log (articleId,titles,"fghgj")
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${articleId}&title=${replacedTitle}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1000);
@@ -987,7 +995,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 </div>
                                 <p>
                                   <Link
-                                    onClick={() => onArticleClick(article.id)}
+                                    onClick={() => onArticleClick(article.id,article.title)}
                                   >
                                     {article.title}
                                   </Link>
@@ -1637,7 +1645,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 </div>
                                 <p>
                                   <Link
-                                    onClick={() => onArticleClick(article.id)}
+                                    onClick={() => onArticleClick(article.id,article.title)}
                                   >
                                     {article.title}
                                   </Link>

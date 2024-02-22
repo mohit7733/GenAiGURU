@@ -12,7 +12,9 @@ const token = JSON.parse(localStorage.getItem("token"));
 
 const Index5 = () => {
   const navigate = useNavigate();
-  const [displaySeePost, setDisplaySeePost] = useState(false);
+  const [displaySeePost, setDisplaySeePost] = useState(
+    JSON.parse(localStorage.getItem("Data")) != null ? true : false
+  );
   const [search, toSearch] = useState("");
   const [data, setData] = useState({
     title: "",
@@ -22,9 +24,20 @@ const Index5 = () => {
     thumbnail: null,
     banner: null,
   });
+  // console.log(data, "Data");
+  const [checked, setChecked] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [interestData, setInterestData] = useState([]);
-  const [selectOptions, setSelectOptions] = useState([]);
+  const [selectOptions, setSelectOptions] = useState(
+    JSON.parse(localStorage.getItem("Interests")) || []
+  );
+  const [selectTopic, setSelectTopic] = useState([
+    {
+      value: "blogstyle",
+      label: "blogstyle",
+      id: "1",
+    },
+  ]);
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/interests`, {
@@ -63,8 +76,15 @@ const Index5 = () => {
       case "thumb":
         if (value) {
           const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+          const maxImageSizeMB = 2;
           if (allowedImageTypes.includes(value.type)) {
-            setData({ ...data, thumbnail: value });
+            if (value.size <= maxImageSizeMB * 1024 * 1024) {
+              setData({ ...data, thumbnail: value });
+            } else {
+              toast.warn("Image size should not be more than 2MB", {
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
           } else {
             toast.warn("Please select JPEG, PNG, GIF.", {
               position: toast.POSITION.TOP_CENTER,
@@ -76,12 +96,12 @@ const Index5 = () => {
       case "banner":
         if (value) {
           const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
-          const maxImageSizeMB = 2
+          const maxImageSizeMB = 2;
           if (allowedImageTypes.includes(value.type)) {
-            if (value.size <= maxImageSizeMB * 1024 * 1024){
+            if (value.size <= maxImageSizeMB * 1024 * 1024) {
               setData({ ...data, banner: value });
-            } else{
-              toast.warn("Img size should not be more than 2MB", {
+            } else {
+              toast.warn("Image size should not be more than 2MB", {
                 position: toast.POSITION.TOP_CENTER,
               });
             }
@@ -95,19 +115,21 @@ const Index5 = () => {
         break;
       case "interests":
         setData({ ...data, interests: value });
+        break;
       default:
         break;
     }
   };
-  console.log(data.banner,"test")
-  const chatGPTApi = (input) => {
+  let string = selectOptions.map((data) => data.value);
+
+  const chatGPTApi = () => {
     toSearch("");
     setLoadingStatus(true);
     axios
       .post(
         `${getBaseURL()}/auth/send-chat-message`,
         {
-          message: input,
+          message: search,
         },
         {
           headers: {
@@ -116,6 +138,7 @@ const Index5 = () => {
         }
       )
       .then((response) => {
+        setDisplaySeePost(true);
         setData({
           ...data,
           descriptions: response?.data?.[0]?.choices?.[0]?.message?.content,
@@ -123,12 +146,12 @@ const Index5 = () => {
         setLoadingStatus(false);
       })
       .catch((error) => {
-        if (!input) {
-          // alert("Please Type Antything...");
-          toast.error("Please Type Antything...", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
+        // if (!search) {
+        //   // alert("Please Type Antything...");
+        //   toast.error("Please Type Antything...", {
+        //     position: toast.POSITION.TOP_CENTER,
+        //   });
+        // }
         console.error("Error chatGPTApi:", error.message);
       });
   };
@@ -152,7 +175,6 @@ const Index5 = () => {
         })
         .then((res) => {
           if (res?.data?.success == true) {
-            setDisplaySeePost(true);
           } else {
             console.log(res.data.error, "error");
           }
@@ -160,19 +182,89 @@ const Index5 = () => {
         .catch((err) => console.log(err, "Err"));
     }
   };
-  useEffect(()=>{
-    if(displaySeePost==true){
-      setTimeout(()=>{
-        setDisplaySeePost(false)
-        navigate("/")
-      },3000)
-    }
+  // useEffect(() => {
+  //   if (displaySeePost == true) {
+  //     setTimeout(() => {
+  //       setDisplaySeePost(false);
+  //       navigate("/");
+  //     }, 3000);
+  //   }
+  // }, [displaySeePost]);
 
-  },[displaySeePost])
+  // useEffect(() => {
+  //   if (checked === true) {
+  //     chatGPTApi2();
+  //   } else {
+  //     return;
+  //   }
+  // }, [string.length, checked]);
+  // const chatGPTApi2 = () => {
+  //   if (string.length == 0) {
+  //     setData({ ...data, title: "", shortdesc: "", descriptions: "" });
+  //     return;
+  //   } else {
+  //     setData({ ...data, title: "", shortdesc: "", descriptions: "" });
+  //     let searching = `Give me a Title, Short Description, Description(800 words) based on  ${string
+  //       .slice(0, 3)
+  //       .join(", ")} without double quote in array`;
+  //     axios
+  //       .post(
+  //         `${getBaseURL()}/auth/send-chat-message`,
+  //         {
+  //           message: searching,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       )
+  //       .then((response) => {
+  //         const titleRegex = /Title:\s*(.*)/i;
+  //         const shortDescRegex = /Short Description:\s*(.*)/i;
+  //         const descRegex = /Description:\s*([\s\S]*)/i;
+  //         const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
+  //         const titleMatch = resdata.match(titleRegex)[1];
+  //         const shortMatch = resdata.match(shortDescRegex)[1];
+  //         const descMatch = resdata.match(descRegex)[1];
+  //         setData({
+  //           ...data,
+  //           title: titleMatch,
+  //           shortdesc: shortMatch,
+  //           descriptions: descMatch,
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error chatGPTApi:", error.message);
+  //       });
+  //   }
+  // };
+
+  function navigateToNextPage() {
+    const input = document.getElementById("banner");
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageData = event.target.result;
+        navigate("/preview", {
+          state: {
+            data: data,
+            desc: `<div>${data.descriptions}</div>`,
+            imageData: imageData,
+          },
+        });
+        localStorage.setItem("banner", imageData);
+      };
+      reader.readAsDataURL(input.files[0]);
+      localStorage.setItem("Data", JSON.stringify(data));
+      localStorage.setItem("Interests", JSON.stringify(selectOptions));
+    }
+  }
+
   return (
     <div>
       <MobileHeader />
-      <section class="mainWrapper mobileMainWrap flex desktopPostCreate">
+      <section className="mainWrapper mobileMainWrap flex desktopPostCreate">
         <Sidebar />
         <div className="rightSection PostWrapper">
           <div className="full-width">
@@ -188,213 +280,345 @@ const Index5 = () => {
                 <a href="#">Write with AI</a>
               </p> */}
               <form className="help-section">
-                <div className="profile-edit ">
-                  <label htmlFor="name">Blog Title</label>
-                  <input
-                    value={data?.title}
-                    onChange={(e) => {
-                      dataChange("title", e.target.value);
-                    }}
-                    type="text"
-                    placeholder="Type here"
-                    name="name"
-                  />
-                </div>
-                <div className="profile-edit custom-file-button">
-                  <label htmlFor="name">Upload Thumbnail Image (Recommended Size: 350*184px)</label>
-                  <input
-                    type="file"
-                    onChange={(e) => {
-                      dataChange("thumb", e?.target?.files[0]);
-                    }}
-                  />
-                  {/* <a class="btn btn-file" type="file">Choose File</a> */}
-                </div>
-                <div className="profile-edit input-group custom-file-button">
-                  <label className="input-group-text" htmlFor="inputGroupFile">
-                    Upload Banner Image (Recommended Size: 568*295px)
-                  </label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    onChange={(e) => {
-                      dataChange("banner", e?.target?.files[0]);
-                    }}
-                  />
-                  {/* <a class="btn btn-file" type="file">Choose File</a> */}
-                </div>
-                <p
-                  style={{
-                    color: "#fff",
-                    margin: "12px 0 8px",
-                    fontSize: "18px",
-                  }}
+                <div
+                  style={
+                    displaySeePost == false
+                      ? { display: "block" }
+                      : { display: "none" }
+                  }
                 >
-                  Select Interest
-                </p>
-                {selectOptions.length == 3 && (
                   <p
                     style={{
+                      display: "flex",
                       color: "#fff",
                       margin: "12px 0 8px",
                       fontSize: "18px",
                     }}
                   >
-                    Maximun 3 Interests only
+                    Choose a topic for your post
                   </p>
-                )}
-                <Select
-                  isObject={false}
-                  isMulti
-                  isOptionDisabled={() => selectOptions?.length >= 3}
-                  options={interested}
-                  value={selectOptions}
-                  placeholder="Interests"
-                  onChange={(Option) => {
-                    if (selectOptions.length <= 3) {
-                      setSelectOptions(Option);
-                      dataChange(
-                        "interests",
-                        Option.map((option) => option.id)
-                      );
-                    }
-                  }}
-                  styles={{
-                    control: (baseStyles, state) => ({
-                      ...baseStyles,
-                      background: "transparent",
-                      border: "none",
-                      boxShadow: state.isFocused
-                        ? "transparent"
-                        : "transparent",
-                      width: "100%",
-                    }),
 
-                    option: (baseStyles, state) => ({
-                      ...baseStyles,
-                      background: state.isFocused ? "purple" : "none",
-                      border: "none",
-                      color: "black",
-                      boxShadow: state.isFocused
-                        ? "transparent"
-                        : "transparent",
-                    }),
-                  }}
-                  className="genaiguruSelect flex"
-                />
-                <div className="profile-edit">
-                  <label htmlFor="name">Short Description</label>
-                  <textarea
-                    value={data?.shortdesc}
-                    onChange={(e) => {
-                      dataChange("short", e?.target?.value);
+                  {selectOptions.length == 3 && (
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Maximun 3 Interests only
+                    </p>
+                  )}
+
+                  <Select
+                    isObject={false}
+                    isMulti
+                    isOptionDisabled={() => selectOptions?.length >= 3}
+                    options={interested}
+                    value={selectOptions}
+                    placeholder="Interests"
+                    onChange={(Option) => {
+                      if (selectOptions.length <= 3) {
+                        setSelectOptions(Option);
+                        dataChange(
+                          "interests",
+                          Option.map((option) => option.id)
+                        );
+                      }
                     }}
-                    name="bio"
-                    id=""
-                    cols="3"
-                    rows="6"
-                    maxLength={200}
-                    placeholder="Text here..."
-                  ></textarea>
-                  <p
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
+                    styles={{
+                      control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        background: "transparent",
+                        border: "none",
+                        boxShadow: state.isFocused
+                          ? "transparent"
+                          : "transparent",
+                        width: "100%",
+                      }),
+
+                      option: (baseStyles, state) => ({
+                        ...baseStyles,
+                        background: state.isFocused ? "purple" : "none",
+                        border: "none",
+                        color: "black",
+                        boxShadow: state.isFocused
+                          ? "transparent"
+                          : "transparent",
+                      }),
                     }}
-                  >{`${
-                    data?.shortdesc ? data?.shortdesc.length : "0"
-                  } of 200 Characters`}</p>
-                </div>
-                <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
-                  <div className="innerSearchForm flex">
-                    <figure className="logoIcon">
-                      <img
-                        src="app/images/searchIconLogoInner.png"
-                        alt="Genaiguru search icon image"
-                      />
-                    </figure>
-                    <div className="flex searchFormLong">
-                      <div className="form_group">
-                        <input
-                          type="text"
-                          placeholder="Search here"
-                          value={search}
-                          onChange={(e) => toSearch(e?.target?.value)}
+                    className="genaiguruSelect flex"
+                  />
+                  <div style={{ marginTop: "30px" }}>
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Chose a Blog Article Content Style
+                    </p>
+                    <Select
+                      isObject={false}
+                      isMulti
+                      // isOptionDisabled={() => selectOptions?.length >= 3}
+                      options={selectTopic}
+                      // value={selectOptions}
+                      placeholder="Blog Styles"
+                      // onChange={(Option) => {
+                      //   if (selectOptions.length <= 3) {
+                      //     setSelectOptions(Option);
+                      //     dataChange(
+                      //       "interests",
+                      //       Option.map((option) => option.id)
+                      //     );
+                      //   }
+                      // }}
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          background: "transparent",
+                          border: "none",
+                          boxShadow: state.isFocused
+                            ? "transparent"
+                            : "transparent",
+                          width: "100%",
+                        }),
+
+                        option: (baseStyles, state) => ({
+                          ...baseStyles,
+                          background: state.isFocused ? "purple" : "none",
+                          border: "none",
+                          color: "black",
+                          boxShadow: state.isFocused
+                            ? "transparent"
+                            : "transparent",
+                        }),
+                      }}
+                      className="genaiguruSelect flex"
+                    />
+                  </div>
+                  <div style={{ marginTop: "30px" }}>
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Give GenaiGuru a creative prompt to write about the topic
+                    </p>
+                    <div className="innerSearchForm flex">
+                      <figure className="logoIcon">
+                        <img
+                          src="app/images/searchIconLogoInner.png"
+                          alt="Genaiguru search icon image"
                         />
-                      </div>
-                      <div
-                        onClick={(e) => {
-                          e.preventDefault();
-                          chatGPTApi(search);
-                        }}
-                        className="form_group buttonGroup"
-                      >
-                        <button
-                          style={{
-                            padding:"0",
-                            margin: "0",
-                            background: "none",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <img
-                            style={{
-                              height: "20px",
-                              width: "40px",
-                            }}
-                            src="app/images/sendButtonIcon.png"
-                            alt="Genaiguru sendButtonIcon"
+                      </figure>
+                      <div className="flex searchFormLong">
+                        <div className="form_group">
+                          <input
+                            type="text"
+                            placeholder="Type here"
+                            value={search}
+                            onChange={(e) => toSearch(e?.target?.value)}
                           />
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {loadingStatus && (
-                  <div class="typing">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                  </div>
-                )}
-                <div className="profile-edit">
-                  <label htmlFor="name">Description</label>
-                  <textarea
-                    value={data?.descriptions}
-                    onChange={(e) => {
-                      dataChange("desc", e?.target?.value);
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      chatGPTApi();
                     }}
-                    name="bio"
-                    id=""
-                    cols="6"
-                    rows="12"
-                    placeholder="Text here... "
-                  ></textarea>
+                    // className="form_group buttonGroup"
+                  >
+                    <button
+                      // style={{
+                      //   padding: "0",
+                      //   margin: "0",
+                      //   background: "none",
+                      //   cursor: "pointer",
+                      // }}
+                      className="loginBtn"
+                    >
+                      {/* <img
+                        style={{
+                          height: "20px",
+                          width: "40px",
+                        }}
+                        src="app/images/sendButtonIcon.png"
+                        alt="Genaiguru sendButtonIcon"
+                      /> */}
+                      Send
+                    </button>
+                  </div>
+                  <p style={{ marginTop: "30px", color: "white" }}>
+                    How to: Choose a topic, pick a blog style, and give a
+                    creative prompt, Genaiguru will generate a title, blog
+                    article, banner image and thumbnail ready for publication to
+                    your page on the site
+                  </p>
+                  {loadingStatus && (
+                    <div className="typing">
+                      <div className="dot"></div>
+                      <div className="dot"></div>
+                      <div className="dot"></div>
+                    </div>
+                  )}
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      data?.title != "" &&
-                      data?.descriptions != "" &&
-                      data?.shortdesc != "" &&
-                      data?.banner != "" &&
-                      data?.thumbnail != "" &&
-                      data?.interests != ""
-                    ) {
-                      sendPost();
-                    } else {
-                      toast.error("Please Fill all required fields!", {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: 1000,
-                      });
-                    }
-                  }}
-                  type="submit"
-                  style={{ padding: "20px !important" }}
+                <div
+                  style={
+                    displaySeePost == true
+                      ? { display: "block" }
+                      : { display: "none" }
+                  }
                 >
-                  Post
-                </button>
+                  <div className="profile-edit ">
+                    <label htmlFor="name">Blog Title</label>
+                    <input
+                      value={data?.title}
+                      onChange={(e) => {
+                        dataChange("title", e.target.value);
+                      }}
+                      type="text"
+                      placeholder="Type here"
+                      name="title"
+                    />
+                  </div>
+                  <div className="profile-edit custom-file-button">
+                    <label htmlFor="name">
+                      Upload Thumbnail Image (Recommended Size: 350*184px)
+                    </label>
+                    <input
+                      id="banner"
+                      type="file"
+                      onChange={(e) => {
+                        dataChange("thumb", e?.target?.files[0]);
+                      }}
+                    />
+                    {/* <a class="btn btn-file" type="file">Choose File</a> */}
+                  </div>
+                  <div className="profile-edit input-group custom-file-button">
+                    <label
+                      className="input-group-text"
+                      htmlFor="inputGroupFile"
+                    >
+                      Upload Banner Image (Recommended Size: 568*295px)
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      defaultValue={data.banner}
+                      onChange={(e) => {
+                        dataChange("banner", e?.target?.files[0]);
+                      }}
+                    />
+                    {/* <a class="btn btn-file" type="file">Choose File</a> */}
+                  </div>
+
+                  <div className="profile-edit">
+                    <label htmlFor="name">Short Description</label>
+                    <textarea
+                      value={data?.shortdesc}
+                      onChange={(e) => {
+                        dataChange("short", e?.target?.value);
+                      }}
+                      name="bio"
+                      id=""
+                      cols="3"
+                      rows="6"
+                      maxLength={200}
+                      placeholder="Text here..."
+                    ></textarea>
+                    <p
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                      }}
+                    >{`${
+                      data?.shortdesc ? data?.shortdesc.length : "0"
+                    } of 200 Characters`}</p>
+                  </div>
+
+                  <div className="profile-edit">
+                    <label htmlFor="name">Description</label>
+                    <textarea
+                      value={data?.descriptions}
+                      onChange={(e) => {
+                        dataChange("desc", e?.target?.value);
+                      }}
+                      name="bio"
+                      id=""
+                      cols="6"
+                      rows="12"
+                      placeholder="Text here... "
+                    ></textarea>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (
+                          data?.title != "" &&
+                          data?.descriptions != "" &&
+                          data?.shortdesc != "" &&
+                          data?.banner != null &&
+                          data?.thumbnail != null &&
+                          data?.interests != ""
+                        ) {
+                          navigateToNextPage();
+                        } else {
+                          toast.error("Please Fill all required fields!", {
+                            position: toast.POSITION.TOP_CENTER,
+                            autoClose: 1000,
+                          });
+                        }
+                      }}
+                      style={{ padding: "20px !important", maxWidth: "200px" }}
+                    >
+                      Preview
+                    </button>
+                    <button
+                      // onClick={(e) => {
+                      //   e.preventDefault();
+                      //   if (
+                      //     data?.title != "" &&
+                      //     data?.descriptions != "" &&
+                      //     data?.shortdesc != "" &&
+                      //     data?.banner != null &&
+                      //     data?.thumbnail != null &&
+                      //     data?.interests != ""
+                      //   ) {
+                      //     sendPost();
+                      //   } else {
+                      //     toast.error("Please Fill all required fields!", {
+                      //       position: toast.POSITION.TOP_CENTER,
+                      //       autoClose: 1000,
+                      //     });
+                      //   }
+                      // }}
+                      // type="submit"
+                      onClick={() => {
+                        localStorage.removeItem("Data");
+                        localStorage.removeItem("banner");
+                        localStorage.removeItem("Interests");
+                      }}
+                      style={{ padding: "20px !important", maxWidth: "200px" }}
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </div>
+
                 <div className="Toastify"></div>
               </form>
             </div>
@@ -402,20 +626,20 @@ const Index5 = () => {
         </div>
       </section>
       {/* Mobile Code Starts Here */}
-      <div class="mobilePost">
-        <div class="postHead flex">
-          <div class="col_left flex">
-            <div class="backBtns">
+      <div className="mobilePost">
+        <div className="postHead flex">
+          <div className="col_left flex">
+            <div className="backBtns">
               <Link to={BASE_PATH}>
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                <i className="fa fa-angle-left" aria-hidden="true"></i>
               </Link>{" "}
             </div>
             <p>Write a post</p>
           </div>
-          <div class="col_right">
+          <div className="col_right">
             <button
               type="button"
-              class="loginBtn"
+              className="loginBtn"
               onClick={() => {
                 navigate("/index6");
               }}
@@ -599,10 +823,10 @@ const Index5 = () => {
                   </div>
                 </div>
                 {loadingStatus && (
-                  <div class="typing">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                  <div className="typing">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
                   </div>
                 )}
                 <div className="profile-edit">
@@ -708,7 +932,7 @@ const Index5 = () => {
           </div>
         </div> */}
       </div>
-      {displaySeePost && (
+      {/* {displaySeePost && (
         <section className="loginPopup postPopup">
           <div className="wrapper">
             <figure>
@@ -731,10 +955,9 @@ const Index5 = () => {
             >
               Sent to Admin for Approval
             </h6>
-            {/* <Link to={"/"}>See your post</Link> */}
           </div>
         </section>
-      )}
+      )} */}
     </div>
   );
 };

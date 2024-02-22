@@ -169,14 +169,14 @@ const Index2 = ({ isLoggedIn }) => {
                           onChange={(e) => setChatInputText(e.target.value)}
                         />
                       </div>
-                      <div className="form_group micBtns">
+                      {/* <div className="form_group micBtns">
                         <button type="button">
                           <img
                             src="app/images/micIcon.png"
                             alt="Genaiguru micIcon"
                           />
                         </button>
-                      </div>
+                      </div> */}
                       <div className="form_group">
                         <button
                           onClick={(e) => {
@@ -433,14 +433,14 @@ const Index2 = ({ isLoggedIn }) => {
                         onChange={(e) => setChatInputText(e.target.value)}
                       />
                     </div>
-                    <div className="form_group micBtns">
+                    {/* <div className="form_group micBtns">
                       <button type="button">
                         <img
                           src="app/images/micIcon.png"
                           alt="Genaiguru micIcon"
                         />
                       </button>
-                    </div>
+                    </div> */}
                     <div className="form_group">
                       <button
                         onClick={(e) => {

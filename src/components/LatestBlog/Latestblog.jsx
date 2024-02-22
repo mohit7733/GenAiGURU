@@ -59,8 +59,13 @@ const Latestblog = () => {
     ],
   };
 
-  const onBlogClick = (BlogId) => {
-    navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  
+  const onBlogClick = ( BlogID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
   return (
     <>
@@ -82,7 +87,7 @@ const Latestblog = () => {
                   <div
                     className="wrap"
                     key={index}
-                    onClick={() => onBlogClick(blog.id)}
+                    onClick={() => onBlogClick(blog.id,blog.title)}
                   >
                     <figure>
                       <img src={blog.photo} alt="Genaiguru blog image" />

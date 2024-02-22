@@ -67,9 +67,14 @@ const Popularvideos = () => {
       },
     ],
   };
-  const onVideoClick = (VideoId) => {
-    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
-    console.log(VideoId);
+  const onVideoClick = (VideoId,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
+    console.log(VideoId,titles,"test");
+
   };
   return (
     <>
@@ -224,7 +229,7 @@ const Popularvideos = () => {
                 <div
                   className="wrap"
                   key={index}
-                  onClick={() => onVideoClick(video.id)}
+                  onClick={() => onVideoClick(video.id,video.title)}
                 >
                   <a
                     onClick={() => {

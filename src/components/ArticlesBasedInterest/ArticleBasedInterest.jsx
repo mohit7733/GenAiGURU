@@ -49,8 +49,12 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
         });
     }
   };
-  const onArticleClick = (AricleID) => {
-    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  const onArticleClick = (AricleID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
   // Slide code
   var settings2 = {
@@ -118,7 +122,7 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
                       </div>
                       <p
                         onClick={() => {
-                          onArticleClick(aricles.id);
+                          onArticleClick(aricles.id,aricles.title);
                         }}
                         style={{ cursor: "  pointer" }}
                       >
