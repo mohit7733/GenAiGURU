@@ -274,8 +274,12 @@ const FeaturedContent = (props) => {
     ],
   };
 
-  const onVideoClick = (VideoId) => {
-    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
+  const onVideoClick = (VideoId,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
     console.log(VideoId);
   };
 
@@ -496,7 +500,7 @@ const FeaturedContent = (props) => {
                                 </ul>
                               </WithAuth>
                             </div>
-                            <h5 onClick={() => onVideoClick(video.id)}>
+                            <h5 onClick={() => onVideoClick(video.id,video.title)}>
                               {video.title}
                             </h5>
                           </div>
@@ -590,7 +594,7 @@ const FeaturedContent = (props) => {
                                 </ul>
                               </div>
                               <h5
-                                onClick={() => onVideoClick(interest.id)}
+                                onClick={() => onVideoClick(interest.id,interest.title)}
                                 style={{ cursor: "pointer" }}
                               >
                                 {interest.title}
@@ -735,7 +739,7 @@ const FeaturedContent = (props) => {
                                     <p> {video.creation_date}</p>
                                   </div>
                                 </div>
-                                <p onClick={() => onVideoClick(video.id)}>
+                                <p onClick={() => onVideoClick(video.id,video.title)}>
                                   {video.title}
                                 </p>
                                 <ul className="flex">
@@ -870,7 +874,7 @@ const FeaturedContent = (props) => {
                                   </ul>
                                 </div>
                                 <p
-                                  onClick={() => onVideoClick(interest.id)}
+                                  onClick={() => onVideoClick(interest.id,interest.title)}
                                   style={{ cursor: "pointer" }}
                                 >
                                   {interest.title}

@@ -7,7 +7,7 @@ import { getBaseURL } from "../../api/config";
 import userimageIcon from "../../assets/images/person.png";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
+import { BASE_PATH, PATH_FEATURED_CONTENT,} from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import SilverPopup from "../Phase5Pages/SilverPopup";
 import Sharebtn from "./sharebtn";
@@ -154,8 +154,12 @@ const BlogDetails = ({ likes, dislikes }) => {
         console.log(err.message);
       });
   }, []);
-
-  const onBlogClick = (blogId) => {
+  const onBlogClick = (blogId,titles) => {
+    // const trimmedTitle = titles.trim(); 
+    // console.log("Trimmed title:", trimmedTitle);
+    // const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    // console.log("Replaced title:", replacedTitle);
+    // navigate(`${PATH_BLOG_DETAILS}?id=${blogId}?title=${replacedTitle}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1000);
@@ -966,7 +970,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 </div>
                                 <p>
                                   <Link
-                                    onClick={() => onBlogClick(blogdata.id)}
+                                    onClick={() => onBlogClick(blogdata.id,blogdata.title)}
                                   >
                                     {blogdata.title}
                                   </Link>
@@ -1575,7 +1579,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 </div>
                                 <p>
                                   <Link
-                                    onClick={() => onBlogClick(blogdata.id)}
+                                    onClick={() => onBlogClick(blogdata.id,blogdata.title)}
                                   >
                                     {blogdata.title}
                                   </Link>

@@ -184,8 +184,12 @@ const FeaturedContent = (props) => {
     setActiveTab(tabNumber);
   };
 
-  const onBlogClick = (BlogId) => {
-    navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  const onBlogClick = ( BlogID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
 
   // API for Blogs on Clinking Interest in Slider
@@ -482,7 +486,7 @@ const FeaturedContent = (props) => {
                               </div>
 
                               <h5
-                                onClick={() => onBlogClick(blog.id)}
+                                onClick={() => onBlogClick(blog.id,blog.title)}
                                 style={{ cursor: "pointer" }}
                               >
                                 {blog.title}
@@ -575,7 +579,7 @@ const FeaturedContent = (props) => {
                                 </ul>
                               </div>
                               <h5
-                                onClick={() => onBlogClick(interest.id)}
+                                onClick={() => onBlogClick(interest.id,interest.title)}
                                 style={{ cursor: "pointer" }}
                               >
                                 {interest.title}
@@ -888,7 +892,7 @@ const FeaturedContent = (props) => {
                                   </div>
                                 </div>
                                 <p
-                                  onClick={() => onBlogClick(blog.id)}
+                                  onClick={() => onBlogClick(blog.id,blog.title)}
                                   style={{ cursor: "pointer" }}
                                 >
                                   {blog.title}
@@ -1070,7 +1074,7 @@ const FeaturedContent = (props) => {
                                   </ul>
                                 </div>
                                 <p
-                                  onClick={() => onBlogClick(interest.id)}
+                                  onClick={() => onBlogClick(interest.id,interest.title)}
                                   style={{ cursor: "pointer" }}
                                 >
                                   {interest.title}

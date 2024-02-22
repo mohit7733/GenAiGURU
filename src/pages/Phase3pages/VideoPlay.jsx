@@ -351,8 +351,12 @@ const VideoPlay = () => {
       return updatedStatus;
     });
   };
-  const onVideoClick = (id) => {
-    navigate(`${PATH_VIDEO_PLAY}?id=${id}`);
+  const onVideoClick = (id,titles) => {
+      const trimmedTitle = titles.trim(); 
+      console.log("Trimmed title:", trimmedTitle);
+      const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+      console.log("Replaced title:", replacedTitle);
+      navigate(`${PATH_VIDEO_PLAY}?id=${id}?title=${replacedTitle}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1000);
@@ -899,11 +903,11 @@ const VideoPlay = () => {
                       {relatedVideo?.map((data) => {
                         return (
                           <div
-                            onClick={() => onVideoClick(data.id)}
+                            onClick={() => onVideoClick(data.id,data.title)}
                             className="wrap flex"
                           >
                             <figure>
-                              <Link onClick={() => onVideoClick(data.id)}>
+                              <Link onClick={() => onVideoClick(data.id,data.title)}>
                                 <a>
                                   <video
                                     style={{
@@ -944,7 +948,7 @@ const VideoPlay = () => {
                               </div>
                               <p>
                                 <a>
-                                  <Link onClick={() => onVideoClick(data.id)}>
+                                  <Link onClick={() => onVideoClick(data.id,data.title)}>
                                     {data.title}
                                   </Link>
                                 </a>
@@ -1494,7 +1498,7 @@ const VideoPlay = () => {
                   {relatedVideo.map((data) => {
                     return (
                       <div
-                        onClick={() => onVideoClick(data.id)}
+                        onClick={() => onVideoClick(data.id,data.title)}
                         className="wrap flex"
                       >
                         <figure>

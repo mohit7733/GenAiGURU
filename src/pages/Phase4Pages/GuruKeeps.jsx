@@ -96,14 +96,23 @@ const GuruKeeps = () => {
       });
   };
 
-  const onBlogClick = (BlogId) => {
-    navigate(`${PATH_BLOG_DETAILS}?id=${BlogId}`);
+  const onBlogClick = ( BlogID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
   const onArticleClick = (AricleID) => {
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
   };
-  const onVideoClick = (VideoId) => {
-    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}`);
+  const onVideoClick = (VideoId,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
+    console.log(VideoId);
   };
   //Pagination code Starts here
   const keepsPerPage = 10;
@@ -211,11 +220,11 @@ const GuruKeeps = () => {
                           <a
                             onClick={() => {
                               if (data.type === "blog") {
-                                onBlogClick(data.id);
+                                onBlogClick(data.id,data.title);
                               } else if (data.type === "article") {
                                 onArticleClick(data.id);
                               } else if (data.type === "video") {
-                                onVideoClick(data.id);
+                                onVideoClick(data.id,data.title);
                               }
                             }}
                           >
@@ -286,11 +295,11 @@ const GuruKeeps = () => {
                     <p
                       onClick={() => {
                         if (data.type === "blog") {
-                          onBlogClick(data.id);
+                          onBlogClick(data.id,data.title);
                         } else if (data.type === "article") {
                           onArticleClick(data.id);
                         } else if (data.type === "video") {
-                          onVideoClick(data.id);
+                          onVideoClick(data.id,data.title);
                         }
                       }}
                     >
