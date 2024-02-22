@@ -66,7 +66,7 @@ const MobileSideBar = (props) => {
             <li>
               <WithAuth
                 callBack={(e) => {
-                  navigate("/write-with-ai");
+                  navigate("/");
                 }}
               >
                 <a target="_blank">
@@ -203,7 +203,7 @@ const MobileSideBar = (props) => {
                     src="app/images/mobileMenuIcon10.png"
                     alt="Genaiguru Log out menu icon"
                   />
-                 {userLoggedIn ? "Logout" : "SignUp / Login"}
+                  {userLoggedIn ? "Logout" : "SignUp / Login"}
                 </a>
               </Link>
             </li>

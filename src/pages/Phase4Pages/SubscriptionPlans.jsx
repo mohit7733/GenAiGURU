@@ -109,6 +109,11 @@ const SubscriptionPlans = () => {
                                 },
                               });
                             }}
+                            style={
+                              sub?.price == 0
+                                ? { display: "none" }
+                                : { display: "block" }
+                            }
                           >
                             Select
                           </button>
