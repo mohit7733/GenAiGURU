@@ -65,9 +65,11 @@ const MobileSideBar = (props) => {
             </li>
             <li>
               <WithAuth
+
                 callBack={(e) => {
                   navigate("/");
                 }}
+
               >
                 <a target="_blank">
                   <img

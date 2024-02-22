@@ -195,7 +195,7 @@ const Payment = () => {
                     >
                       <option value="">Country</option>
                       {
-                        country?.data?.map((data, index) => <option value={data?.country}>{data?.country}</option>)
+                        country?.data?.map((data, index) => <option value={data?.code}>{data?.country}</option>)
                       }
                       {/* Add more options as needed */}
                     </select>
