@@ -15,6 +15,7 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import { getBaseURL } from "../../api/config";
+import { country } from "../Country";
 
 const Payment = () => {
   const Location = useLocation();
@@ -40,8 +41,15 @@ const Payment = () => {
   }
 
   const handleSubmit2 = async (event) => {
-    setLoadingStatus(true)
+    // setLoadingStatus(true)
     event.preventDefault();
+    document.querySelectorAll(".form-control.payformd").forEach(function (i) {
+      if (i.classList.contains("StripeElement--empty")) {
+        i.classList.add("error-active");
+        console.log(i);
+      }
+    });
+
     if (formData?.finalAmount > 0) {
       const cardNumberElement = elements.getElement(CardNumberElement);
       const cardExpiryElement = elements.getElement(CardExpiryElement);
@@ -64,53 +72,54 @@ const Payment = () => {
           phone: formData?.phone_number,
         },
       });
+      if (!error) {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
 
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(
+            {
+              "amount": JSON.stringify(formData?.finalAmount * 100),
+              "currency": "USD",
+              "description": "Payment Done By " + formData?.name,
+              "payment_method": paymentMethod?.id,
+              "name": formData?.name,
+              "line1": formData?.address,
+              "line2": formData?.address,
+              "city": formData?.city,
+              "state": formData?.city,
+              "country": formData?.countryCode,
+              "postal_code": formData?.postalCode
+            }
+          ),
+          redirect: "follow"
+        };
 
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(
-          {
-            "amount": JSON.stringify(formData?.finalAmount * 100),
-            "currency": "USD",
-            "description": "Payment Done By " + formData?.name,
-            "payment_method": paymentMethod?.id,
-            "name": formData?.name,
-            "line1": formData?.address,
-            "line2": formData?.address,
-            "city": formData?.city,
-            "state": formData?.city,
-            "country": formData?.countryCode,
-            "postal_code": formData?.postalCode
-          }
-        ),
-        redirect: "follow"
-      };
+        const { client_secret } = await fetch(`${getBaseURL()}/auth/create-payment-intent`, requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            return result?.intent
+          })
 
-      const { client_secret } = await fetch(`${getBaseURL()}/auth/create-payment-intent`, requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          return result?.intent
+        console.log(client_secret);
+
+        const paymentid = await stripe.confirmCardPayment(
+          client_secret, {
+          payment_method: paymentMethod?.id
         })
+        console.log(paymentid);
+        if (!paymentid?.error) {
 
-      console.log(client_secret);
-
-      const paymentid = await stripe.confirmCardPayment(
-        client_secret, {
-        payment_method: paymentMethod?.id
-      })
-      console.log(paymentid);
-      if (!paymentid?.error) {
-
-        toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
-        setTimeout(() => {
-          Navigate("/subscriptions")
-        }, 1000);
-      } else {
-        toast.error("Payment Failed", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+          toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+          setTimeout(() => {
+            Navigate("/subscriptions")
+          }, 1000);
+        } else {
+          toast.error("Payment Failed", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+        }
       }
     } else {
       toast.error("Minimum 20 Amount ", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
@@ -185,9 +194,9 @@ const Payment = () => {
                       required
                     >
                       <option value="">Country</option>
-                      <option value="US">United States</option>
-                      <option value="CA">Canada (+1)</option>
-                      <option value="GB">United Kingdom (+44)</option>
+                      {
+                        country?.data?.map((data, index) => <option value={data?.country}>{data?.country}</option>)
+                      }
                       {/* Add more options as needed */}
                     </select>
                   </div>
@@ -230,16 +239,55 @@ const Payment = () => {
                 </div>
                 <div className="profile-edit">
                   <label htmlFor="cardNumber">Card Number</label>
-                  <CardNumberElement className="form-control payformd" name="cardNumber" required />
+                  <CardNumberElement className="form-control payformd" name="cardNumber" required
+
+                    onChange={() => {
+                      setTimeout(() => {
+                        document
+                          .querySelectorAll(".form-control.payformd")
+                          .forEach(function (i) {
+                            if (
+                              i.classList.contains("StripeElement--complete")
+                            ) {
+                              i.classList.remove("error-active");
+                            }
+                          });
+                      }, 500);
+                    }}
+                  />
                 </div>
                 <div className="profile-edit flex space-between">
                   <div className="profile-edit">
                     <label htmlFor="expiry">Expiry</label>
-                    <CardExpiryElement className="form-control payformd" required />
+                    <CardExpiryElement className="form-control payformd" required onChange={() => {
+                      setTimeout(() => {
+                        document
+                          .querySelectorAll(".form-control.payformd")
+                          .forEach(function (i) {
+                            if (
+                              i.classList.contains("StripeElement--complete")
+                            ) {
+                              i.classList.remove("error-active");
+                            }
+                          });
+                      }, 500);
+                    }} />
                   </div>
                   <div className="profile-edit">
                     <label htmlFor="cvv">CVV</label>
-                    <CardCvcElement className="form-control payformd" required />
+                    <CardCvcElement className="form-control payformd" required onChange={() => {
+                      setTimeout(() => {
+                        document
+                          .querySelectorAll(".form-control.payformd")
+                          .forEach(function (i) {
+                            if (
+                              i.classList.contains("StripeElement--complete")
+                            ) {
+                              i.classList.remove("error-active");
+                            }
+                          });
+                      }, 500);
+                    }} />
                   </div>
                 </div>
                 {/* Remaining input fields */}
