@@ -7,7 +7,10 @@ import axios from "axios";
 import { getBaseURL } from "../../api/config";
 
 const SubscriptionPlans = () => {
+
+
   const [subscription, setSubscription] = useState([]);
+
   const token = JSON.parse(localStorage.getItem("token"));
   const [details, setDetails] = useState({
     username: "",
@@ -42,6 +45,7 @@ const SubscriptionPlans = () => {
       .then((res) => {
         setSubscription(res?.data?.data);
         console.log(res?.data?.data, "dertyuj");
+
       })
       .catch((err) => console.log(err, "error"));
   };
@@ -79,6 +83,7 @@ const SubscriptionPlans = () => {
               <div class="change-plan">
                 <h6>CHANGE YOUR PLAN</h6>
                 <div class="plans-wrapper  flex">
+
                   {subscription &&
                     subscription?.map((sub) => {
                       return (
@@ -166,6 +171,7 @@ const SubscriptionPlans = () => {
                         </div>
                       );
                     })}
+
                 </div>
               </div>
 
@@ -207,6 +213,7 @@ const SubscriptionPlans = () => {
               <div class="change-plan">
                 <h6>CHANGE YOUR PLAN</h6>
                 <div class="plans-wrapper  flex">
+
                   {subscription &&
                     subscription?.map((sub) => {
                       return (
@@ -289,6 +296,7 @@ const SubscriptionPlans = () => {
                         </div>
                       );
                     })}
+
                 </div>
               </div>
 
