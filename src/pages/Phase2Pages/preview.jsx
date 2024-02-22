@@ -22,7 +22,6 @@ const Preview = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
   // useLocation to get id from url
   let location = useLocation();
-  console.log(location.state);
   // Useeffect for API of blogOpened Points
 
   // get user details api..........
@@ -89,9 +88,12 @@ const Preview = () => {
                   <div className="blog-box">
                     <div className="innerBreadcrumb">
                       <p>
-                        <Link to={BASE_PATH}>Home</Link>{" "}
-                        <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                        Blog details
+                        {/* <Link to={BASE_PATH}>Home</Link>{" "} */}
+                        <i
+                          className="fa fa-angle-right"
+                          aria-hidden="true"
+                        ></i>{" "}
+                        Preview Page
                       </p>
                     </div>
                   </div>

@@ -8,12 +8,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getBaseURL } from "../../api/config";
 import { Location } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const Location = useLocation();
-
+  const ref = useRef();
   // Login with Google Function
   const onGoogleLogin = useGoogleLogin({
     onSuccess: async (credentialResponse) => {
@@ -135,6 +135,8 @@ const Login = () => {
   useEffect(() => {
     if (Location?.state?.type == "google") {
       onGoogleLogin();
+    } else if (Location?.state?.type == "fb") {
+      ref.current.click();
     }
   }, []);
   return (
@@ -171,7 +173,7 @@ const Login = () => {
               </Link>
             </li>
             <li>
-              <div>
+              <div ref={ref}>
                 <FacebookLogin
                   appId="979240030290574"
                   autoLoad={Location?.state?.type == "fb" ? true : false}
