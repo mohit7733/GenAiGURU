@@ -65,9 +65,9 @@ const MobileSideBar = (props) => {
             </li>
             <li>
               <WithAuth
-                callBack={(e) => {
-                  navigate("/write-with-ai");
-                }}
+              // callBack={(e) => {
+              //   navigate("/write-with-ai");
+              // }}
               >
                 <a target="_blank">
                   <img

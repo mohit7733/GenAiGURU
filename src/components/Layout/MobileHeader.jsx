@@ -126,7 +126,9 @@ const MobileHeader = ({ isLogged }) => {
             </WithAuth>
           </li>
           <li className="secondaryBtn">
-            <Link to="/write-with-ai">
+            <Link 
+            // to="/write-with-ai"
+            >
               <img src="app/images/padIcon.png" alt="Genaiguru padIcon" /> Write
               with AI
             </Link>
