@@ -8,6 +8,8 @@ import { BASE_PATH } from "../../routes";
 import { toast, ToastContainer } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const token = JSON.parse(localStorage.getItem("token"));
 
 const Index5 = () => {
@@ -24,6 +26,7 @@ const Index5 = () => {
     thumbnail: null,
     banner: null,
   });
+  const [value, setValue] = useState(data?.descriptions || "");
   // console.log(data, "Data");
   const [checked, setChecked] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
@@ -129,7 +132,7 @@ const Index5 = () => {
       .post(
         `${getBaseURL()}/auth/send-chat-message`,
         {
-          message: search,
+          message: search + "return in HTML format",
         },
         {
           headers: {
@@ -143,6 +146,7 @@ const Index5 = () => {
           ...data,
           descriptions: response?.data?.[0]?.choices?.[0]?.message?.content,
         });
+        setValue(response?.data?.[0]?.choices?.[0]?.message?.content);
         setLoadingStatus(false);
       })
       .catch((error) => {
@@ -260,7 +264,7 @@ const Index5 = () => {
       localStorage.setItem("Interests", JSON.stringify(selectOptions));
     }
   }
-
+  console.log(data.descriptions, value, "Desc");
   return (
     <div>
       <MobileHeader />
@@ -287,6 +291,12 @@ const Index5 = () => {
                       : { display: "none" }
                   }
                 >
+                  <p style={{ marginTop: "30px", color: "white" }}>
+                    How to: Choose a topic, pick a blog style, and give a
+                    creative prompt, Genaiguru will generate a title, blog
+                    article, banner image and thumbnail ready for publication to
+                    your page on the site
+                  </p>
                   <p
                     style={{
                       display: "flex",
@@ -435,47 +445,31 @@ const Index5 = () => {
                     }}
                     // className="form_group buttonGroup"
                   >
-                    <button
-                      // style={{
-                      //   padding: "0",
-                      //   margin: "0",
-                      //   background: "none",
-                      //   cursor: "pointer",
-                      // }}
-                      className="loginBtn"
-                    >
-                      {/* <img
-                        style={{
-                          height: "20px",
-                          width: "40px",
-                        }}
-                        src="app/images/sendButtonIcon.png"
-                        alt="Genaiguru sendButtonIcon"
-                      /> */}
-                      Send
+                    <button disabled={loadingStatus} className="loginBtn">
+                      {loadingStatus ? "" : "Send"}
+                      {loadingStatus && (
+                        <div
+                          className="typing"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                        </div>
+                      )}
                     </button>
                   </div>
-                  <p style={{ marginTop: "30px", color: "white" }}>
-                    How to: Choose a topic, pick a blog style, and give a
-                    creative prompt, Genaiguru will generate a title, blog
-                    article, banner image and thumbnail ready for publication to
-                    your page on the site
-                  </p>
-                  {loadingStatus && (
-                    <div className="typing">
-                      <div className="dot"></div>
-                      <div className="dot"></div>
-                      <div className="dot"></div>
-                    </div>
-                  )}
                 </div>
-                <div
-                  style={
-                    displaySeePost == true
-                      ? { display: "block" }
-                      : { display: "none" }
-                  }
-                >
+              </form>
+
+              <div
+                style={
+                  displaySeePost == true
+                    ? { display: "block" }
+                    : { display: "none" }
+                }
+              >
+                <form>
                   <div className="profile-edit ">
                     <label htmlFor="name">Blog Title</label>
                     <input
@@ -542,7 +536,7 @@ const Index5 = () => {
                       data?.shortdesc ? data?.shortdesc.length : "0"
                     } of 200 Characters`}</p>
                   </div>
-
+                  {/* 
                   <div className="profile-edit">
                     <label htmlFor="name">Description</label>
                     <textarea
@@ -556,7 +550,16 @@ const Index5 = () => {
                       rows="12"
                       placeholder="Text here... "
                     ></textarea>
-                  </div>
+                  </div> */}
+                </form>
+
+                <ReactQuill
+                  theme="snow"
+                  value={value}
+                  onChange={setValue}
+                  className="editor-input"
+                />
+                <form>
                   <div
                     style={{
                       display: "flex",
@@ -617,10 +620,8 @@ const Index5 = () => {
                       Try Again
                     </button>
                   </div>
-                </div>
-
-                <div className="Toastify"></div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>

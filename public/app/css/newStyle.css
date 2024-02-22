@@ -2401,7 +2401,7 @@ input:checked + .slider:before {
 }
 
 .slider.round:before {
-  border-radius: 50%;
+  border-radius: 50%;}
 
 @media (max-width: 767px){
   .loginOption li a {
@@ -2452,6 +2452,17 @@ input:checked + .slider:before {
 }
 .rightSection .keeps-container .gurukeeps-wrapper p {
  width: calc(100% - 50px);
+}
+.editor-input{
+  display:flex;
+  position: relative;
+  height: 50%;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  color: white !important;
+  margin-top: 0 !important;
+
 }
 
 }

@@ -132,7 +132,7 @@ const Header = () => {
           <li className="secondaryBtn">
             <WithAuth
               callBack={(e) => {
-                navigate("/write-with-ai");
+                navigate("/");
               }}
             >
               <Link>
@@ -142,7 +142,7 @@ const Header = () => {
             </WithAuth>
           </li>
           <li className="secondaryBtn mobile">
-            <Link to="/write-with-ai">
+            <Link to="/">
               <img
                 src="app/images/padIcon.png"
                 alt="Genaiguru mobile padIcon"
