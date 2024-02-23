@@ -5,7 +5,11 @@ import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_ARTICLES,PATH_ARTICLE_DETAILS } from "../../routes";
+import {
+  BASE_PATH,
+  PATH_FEATURED_ARTICLES,
+  PATH_ARTICLE_DETAILS,
+} from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 import SilverPopup from "../Phase5Pages/SilverPopup";
@@ -149,12 +153,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
     setReplyCommentModels(updatedModels);
   };
 
-
-  const onArticleClick = (articleId,titles) => {
-    console.log (articleId,titles,"fghgj")
-    const trimmedTitle = titles.trim(); 
+  const onArticleClick = (articleId, titles) => {
+    console.log(articleId, titles, "fghgj");
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_ARTICLE_DETAILS}?id=${articleId}&title=${replacedTitle}`);
     setTimeout(() => {
@@ -411,8 +414,15 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <div className="innerBreadcrumb">
                       <p>
                         <Link to={BASE_PATH}>Home</Link>{" "}
+                        <Link to={PATH_FEATURED_ARTICLES}>
+                          <i
+                            className="fa fa-angle-right"
+                            aria-hidden="true"
+                          ></i>{" "}
+                          Article
+                        </Link>
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                        Article details
+                        {articleDetail.title}
                       </p>
                     </div>
                     {/* <h1>Blog details</h1> */}
@@ -994,11 +1004,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  <Link
-                                    onClick={() => onArticleClick(article.id,article.title)}
+                                  <a
+                                    onClick={() =>
+                                      onArticleClick(article.id, article.title)
+                                    }
                                   >
                                     {article.title}
-                                  </Link>
+                                  </a>
                                 </p>
                                 <WithAuth
                                   callBack={(e) => {
@@ -1644,11 +1656,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  <Link
-                                    onClick={() => onArticleClick(article.id,article.title)}
+                                  <a
+                                    onClick={() =>
+                                      onArticleClick(article.id, article.title)
+                                    }
                                   >
                                     {article.title}
-                                  </Link>
+                                  </a>
                                 </p>
                                 <WithAuth
                                   callBack={(e) => {

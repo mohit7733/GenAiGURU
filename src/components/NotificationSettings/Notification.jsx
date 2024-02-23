@@ -21,12 +21,12 @@ const NotificationSettings = () => {
               <input type="checkbox" />
             </label>
           </div>
-          <div className="notification flex space-between">
+          {/* <div className="notification flex space-between">
             <label for="">Push notifications</label>
             <label className="onoffbtn">
               <input type="checkbox" />
             </label>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>
