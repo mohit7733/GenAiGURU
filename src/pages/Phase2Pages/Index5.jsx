@@ -638,6 +638,7 @@ const Index5 = () => {
                         localStorage.removeItem("Data");
                         localStorage.removeItem("banner");
                         localStorage.removeItem("Interests");
+                        localStorage.removeItem("value");
                       }}
                       style={{ padding: "20px !important", maxWidth: "200px" }}
                     >

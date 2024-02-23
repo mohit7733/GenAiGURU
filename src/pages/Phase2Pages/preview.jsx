@@ -100,6 +100,10 @@ const Preview = () => {
         })
         .then((res) => {
           if (res?.data?.success == true) {
+            localStorage.removeItem("Data");
+            localStorage.removeItem("banner");
+            localStorage.removeItem("Interests");
+            localStorage.removeItem("value");
             // alert("blog created success");
             setDisplaySeePost(true);
           } else {
