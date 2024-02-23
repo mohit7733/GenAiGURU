@@ -180,7 +180,7 @@ const Index5 = () => {
         const titleMatch = resdata.match(titleRegex)[1];
         setData({
           ...data,
-          title: titleMatch.replace(`${""}`, ""),
+          title: titleMatch.replace(/"/g, ""),
           shortdesc: shortMatch,
         });
         setValue(descMatch.slice(shortMatch.length + 14));
@@ -957,32 +957,6 @@ const Index5 = () => {
           </div>
         </div> */}
       </div>
-      {/* {displaySeePost && (
-        <section className="loginPopup postPopup">
-          <div className="wrapper">
-            <figure>
-              <img src="app/images/tickIcon.png" alt="" />
-            </figure>
-            <h2
-              style={{
-                marginBottom: "22px",
-              }}
-            >
-              Post successful
-            </h2>
-            <h6
-              style={{
-                width: "320px",
-                display: "flex",
-                textAlign: "center",
-                marginBottom: "22px",
-              }}
-            >
-              Sent to Admin for Approval
-            </h6>
-          </div>
-        </section>
-      )} */}
     </div>
   );
 };
