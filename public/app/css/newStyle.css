@@ -2402,7 +2402,15 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;}
-
+  .postWrapper_inner .searchFormLong input, .postWrapper_inner .searchFormLong .form_group:first-of-type {
+    width: 100% !important;
+  }
+  .editor-input{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    color: white !important;
+  }
 @media (max-width: 767px){
   .loginOption li a {
     justify-content: center;
@@ -2453,16 +2461,8 @@ input:checked + .slider:before {
 .rightSection .keeps-container .gurukeeps-wrapper p {
  width: calc(100% - 50px);
 }
-.editor-input{
-  display:flex;
-  position: relative;
-  height: 50%;
-  width: 50%;
-  align-items: center;
-  justify-content: center;
-  color: white !important;
-  margin-top: 0 !important;
 
-}
+
+
 
 }

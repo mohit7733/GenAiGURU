@@ -49,10 +49,10 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
         });
     }
   };
-  const onArticleClick = (AricleID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onArticleClick = (AricleID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
@@ -105,7 +105,7 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
                 <div key={index}>
                   <div className="wrap flex">
                     <figure>
-                      <img src={aricles.banner_image} alt="interestSliderImg" />
+                      <img src={aricles.photo} alt="interestSliderImg" />
                     </figure>
                     <div className="content">
                       <div className="wrapper flex">
@@ -122,7 +122,7 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
                       </div>
                       <p
                         onClick={() => {
-                          onArticleClick(aricles.id,aricles.title);
+                          onArticleClick(aricles.id, aricles.title);
                         }}
                         style={{ cursor: "  pointer" }}
                       >

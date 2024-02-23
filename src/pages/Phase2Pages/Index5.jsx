@@ -16,19 +16,28 @@ const Index5 = () => {
   const navigate = useNavigate();
   const [displaySeePost, setDisplaySeePost] = useState(
     JSON.parse(localStorage.getItem("Data")) != null ? true : false
+    // true
   );
   const [search, toSearch] = useState("");
   const [data, setData] = useState({
-    title: "",
-    descriptions: "",
-    shortdesc: "",
-    interests: [],
+    title: localStorage.getItem("Data")
+      ? JSON.parse(localStorage.getItem("Data")).title
+      : "",
+    // descriptions: "",
+    shortdesc: localStorage.getItem("Data")
+      ? JSON.parse(localStorage.getItem("Data")).shortdesc
+      : "",
+    interests: localStorage.getItem("Data")
+      ? JSON.parse(localStorage.getItem("Data")).interests
+      : [],
     thumbnail: null,
     banner: null,
   });
-  const [value, setValue] = useState(data?.descriptions || "");
-  // console.log(data, "Data");
-  const [checked, setChecked] = useState(false);
+  const [value, setValue] = useState(
+    localStorage.getItem("Data")
+      ? JSON.parse(localStorage.getItem("value"))
+      : ""
+  );
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [interestData, setInterestData] = useState([]);
   const [selectOptions, setSelectOptions] = useState(
@@ -36,8 +45,8 @@ const Index5 = () => {
   );
   const [selectTopic, setSelectTopic] = useState([
     {
-      value: "blogstyle",
-      label: "blogstyle",
+      value: "Blogstyle",
+      label: "Blogstyle",
       id: "1",
     },
   ]);
@@ -65,14 +74,29 @@ const Index5 = () => {
     });
   });
 
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6] }],
+      [{ font: [] }][{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link"],
+    ],
+  };
+
   const dataChange = (key, value) => {
     switch (key) {
       case "title":
         setData({ ...data, title: value });
         break;
-      case "desc":
-        setData({ ...data, descriptions: value });
-        break;
+      // case "desc":
+      //   setData({ ...data, descriptions: value });
+      //   break;
       case "short":
         setData({ ...data, shortdesc: value });
         break;
@@ -128,11 +152,16 @@ const Index5 = () => {
   const chatGPTApi = () => {
     toSearch("");
     setLoadingStatus(true);
+    let message = `Give me a Title, Short Description and Description based on 
+    Interests:${string.slice(0, 3).join(", ")}
+    Style:Blog Style,
+    ${search}. 
+    I want Description in HTML format and dont mention html or Description in HTML format`;
     axios
       .post(
         `${getBaseURL()}/auth/send-chat-message`,
         {
-          message: search + "return in HTML format",
+          message: message,
         },
         {
           headers: {
@@ -142,58 +171,31 @@ const Index5 = () => {
       )
       .then((response) => {
         setDisplaySeePost(true);
+        const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
+        const titleRegex = /Title:\s*(.*)/i;
+        const shortDescRegex = /Short Description:\s*(.*)/i;
+        const descRegex = /Description:\s*([\s\S]*)/i;
+        const descMatch = resdata.match(descRegex)[1];
+        const shortMatch = resdata.match(shortDescRegex)[1];
+        const titleMatch = resdata.match(titleRegex)[1];
         setData({
           ...data,
-          descriptions: response?.data?.[0]?.choices?.[0]?.message?.content,
+          title: titleMatch.replace(`${""}`, ""),
+          shortdesc: shortMatch,
         });
-        setValue(response?.data?.[0]?.choices?.[0]?.message?.content);
+        setValue(descMatch.slice(shortMatch.length + 14));
+        console.log(titleMatch, "title");
         setLoadingStatus(false);
       })
       .catch((error) => {
-        // if (!search) {
-        //   // alert("Please Type Antything...");
-        //   toast.error("Please Type Antything...", {
-        //     position: toast.POSITION.TOP_CENTER,
-        //   });
-        // }
+        if (!search) {
+          toast.error("Please Type Antything...", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
         console.error("Error chatGPTApi:", error.message);
       });
   };
-  const sendPost = () => {
-    if (token != "") {
-      let fd = new FormData();
-      fd.append("title", data?.title);
-      fd.append("description", data?.descriptions);
-      fd.append("short_description", data?.shortdesc);
-      data?.interests.forEach((interestId) => {
-        fd.append("interest_ids[]", interestId);
-      });
-      // fd.append("interest_ids", [data?.interests]);
-      fd.append("banner_image", data?.banner);
-      fd.append("thumbnail_image", data?.thumbnail);
-      axios
-        .post(`${getBaseURL()}/auth/blog-create`, fd, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          if (res?.data?.success == true) {
-          } else {
-            console.log(res.data.error, "error");
-          }
-        })
-        .catch((err) => console.log(err, "Err"));
-    }
-  };
-  // useEffect(() => {
-  //   if (displaySeePost == true) {
-  //     setTimeout(() => {
-  //       setDisplaySeePost(false);
-  //       navigate("/");
-  //     }, 3000);
-  //   }
-  // }, [displaySeePost]);
 
   // useEffect(() => {
   //   if (checked === true) {
@@ -228,7 +230,7 @@ const Index5 = () => {
   //         const shortDescRegex = /Short Description:\s*(.*)/i;
   //         const descRegex = /Description:\s*([\s\S]*)/i;
   //         const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
-  //         const titleMatch = resdata.match(titleRegex)[1];
+  // const titleMatch = resdata.match(titleRegex)[1];
   //         const shortMatch = resdata.match(shortDescRegex)[1];
   //         const descMatch = resdata.match(descRegex)[1];
   //         setData({
@@ -253,7 +255,7 @@ const Index5 = () => {
         navigate("/preview", {
           state: {
             data: data,
-            desc: `<div>${data.descriptions}</div>`,
+            desc: value,
             imageData: imageData,
           },
         });
@@ -262,9 +264,9 @@ const Index5 = () => {
       reader.readAsDataURL(input.files[0]);
       localStorage.setItem("Data", JSON.stringify(data));
       localStorage.setItem("Interests", JSON.stringify(selectOptions));
+      localStorage.setItem("value", JSON.stringify(value));
     }
   }
-  console.log(data.descriptions, value, "Desc");
   return (
     <div>
       <MobileHeader />
@@ -291,11 +293,17 @@ const Index5 = () => {
                       : { display: "none" }
                   }
                 >
-                  <p style={{ marginTop: "30px", color: "white" }}>
+                  <p
+                    style={{
+                      marginTop: "20px",
+                      marginBottom: "60px",
+                      color: "white",
+                    }}
+                  >
                     How to: Choose a topic, pick a blog style, and give a
                     creative prompt, Genaiguru will generate a title, blog
                     article, banner image and thumbnail ready for publication to
-                    your page on the site
+                    your page on the site.
                   </p>
                   <p
                     style={{
@@ -367,7 +375,7 @@ const Index5 = () => {
                         fontSize: "18px",
                       }}
                     >
-                      Chose a Blog Article Content Style
+                      Choose a Blog Article Content Style
                     </p>
                     <Select
                       isObject={false}
@@ -441,12 +449,19 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      chatGPTApi();
+                      if (data.interests != "") {
+                        chatGPTApi();
+                      } else {
+                        toast.error("Please Fill all required fields!", {
+                          position: toast.POSITION.TOP_CENTER,
+                          autoClose: 1000,
+                        });
+                      }
                     }}
                     // className="form_group buttonGroup"
                   >
                     <button disabled={loadingStatus} className="loginBtn">
-                      {loadingStatus ? "" : "Send"}
+                      {loadingStatus ? "" : "Generate"}
                       {loadingStatus && (
                         <div
                           className="typing"
@@ -552,13 +567,41 @@ const Index5 = () => {
                     ></textarea>
                   </div> */}
                 </form>
+                {/* <form>
+                  <div className="profile-edit ">
+                    <label htmlFor="name">New Des</label>
+                    <textarea
+                      rows="6"
+                      // value={data?.title}
+                      // onChange={(e) => {
+                      //   dataChange("title", e.target.value);
+                      // }}
+                      type="text"
+                      placeholder="Type here"
+                      name="title"
+                    />
+                  </div>
+                </form> */}
+                <div style={{ marginTop: "50px" }}>
+                  {" "}
+                  <div
+                    style={{
+                      marginBottom: "20px",
+                      color: "white",
+                      fontSize: "19px",
+                    }}
+                  >
+                    <label htmlFor="name">Description</label>{" "}
+                  </div>
+                  <ReactQuill
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                    className="editor-input"
+                    modules={modules}
+                  />
+                </div>
 
-                <ReactQuill
-                  theme="snow"
-                  value={value}
-                  onChange={setValue}
-                  className="editor-input"
-                />
                 <form>
                   <div
                     style={{
@@ -572,11 +615,11 @@ const Index5 = () => {
                         e.preventDefault();
                         if (
                           data?.title != "" &&
-                          data?.descriptions != "" &&
                           data?.shortdesc != "" &&
                           data?.banner != null &&
                           data?.thumbnail != null &&
-                          data?.interests != ""
+                          data?.interests != "" &&
+                          value != ""
                         ) {
                           navigateToNextPage();
                         } else {
@@ -591,25 +634,6 @@ const Index5 = () => {
                       Preview
                     </button>
                     <button
-                      // onClick={(e) => {
-                      //   e.preventDefault();
-                      //   if (
-                      //     data?.title != "" &&
-                      //     data?.descriptions != "" &&
-                      //     data?.shortdesc != "" &&
-                      //     data?.banner != null &&
-                      //     data?.thumbnail != null &&
-                      //     data?.interests != ""
-                      //   ) {
-                      //     sendPost();
-                      //   } else {
-                      //     toast.error("Please Fill all required fields!", {
-                      //       position: toast.POSITION.TOP_CENTER,
-                      //       autoClose: 1000,
-                      //     });
-                      //   }
-                      // }}
-                      // type="submit"
                       onClick={() => {
                         localStorage.removeItem("Data");
                         localStorage.removeItem("banner");
