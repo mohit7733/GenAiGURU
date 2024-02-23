@@ -33,7 +33,6 @@ const Preview = () => {
     },
   ];
   // Useeffect for API of blogOpened Points
-
   // get user details api..........
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -87,10 +86,10 @@ const Preview = () => {
   const sendPost = () => {
     if (token != "") {
       let fd = new FormData();
-      fd.append("title", data?.title);
-      fd.append("description", data?.descriptions);
-      fd.append("short_description", data?.shortdesc);
-      fd.append("interest_ids[]", data.interests);
+      fd.append("title", data[0]?.title);
+      fd.append("description", data[0]?.descriptions);
+      fd.append("short_description", data[0]?.shortdesc);
+      fd.append("interest_ids[]", data[0]?.interests);
       // fd.append("banner_image", data?.banner);
       // fd.append("thumbnail_image", data?.thumbnail);
       axios
@@ -101,7 +100,8 @@ const Preview = () => {
         })
         .then((res) => {
           if (res?.data?.success == true) {
-            alert("blog created success");
+            // alert("blog created success");
+            setDisplaySeePost(true);
           } else {
             console.log(res.data.error, "error");
           }
@@ -268,6 +268,32 @@ const Preview = () => {
           </div>
         </div>
       </div>
+      {displaySeePost && (
+        <section className="loginPopup postPopup">
+          <div className="wrapper">
+            <figure>
+              <img src="app/images/tickIcon.png" alt="" />
+            </figure>
+            <h2
+              style={{
+                marginBottom: "22px",
+              }}
+            >
+              Post successful
+            </h2>
+            <h6
+              style={{
+                width: "320px",
+                display: "flex",
+                textAlign: "center",
+                marginBottom: "22px",
+              }}
+            >
+              Sent to Admin for Approval
+            </h6>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
