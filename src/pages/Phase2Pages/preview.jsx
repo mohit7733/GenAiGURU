@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
@@ -17,11 +17,21 @@ const Preview = () => {
 
   const [showPopUp, setShowPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
+  const [displaySeePost, setDisplaySeePost] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
   // useLocation to get id from url
   let location = useLocation();
+  let navigate = useNavigate();
+  const data = [
+    {
+      title: location.state.data.title,
+      shortdesc: location.state.data.shortdesc,
+      interests: location.state.data.interests,
+      descriptions: location.state.desc,
+    },
+  ];
   // Useeffect for API of blogOpened Points
 
   // get user details api..........
@@ -65,7 +75,40 @@ const Preview = () => {
     };
     fetchBadges();
   }, []);
+  useEffect(() => {
+    if (displaySeePost == true) {
+      setTimeout(() => {
+        setDisplaySeePost(false);
+        navigate("/");
+      }, 3000);
+    }
+  }, [displaySeePost]);
 
+  const sendPost = () => {
+    if (token != "") {
+      let fd = new FormData();
+      fd.append("title", data?.title);
+      fd.append("description", data?.descriptions);
+      fd.append("short_description", data?.shortdesc);
+      fd.append("interest_ids[]", data.interests);
+      // fd.append("banner_image", data?.banner);
+      // fd.append("thumbnail_image", data?.thumbnail);
+      axios
+        .post(`${getBaseURL()}/auth/blog-create`, fd, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res?.data?.success == true) {
+            alert("blog created success");
+          } else {
+            console.log(res.data.error, "error");
+          }
+        })
+        .catch((err) => console.log(err, "Err"));
+    }
+  };
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -136,34 +179,13 @@ const Preview = () => {
                         .split("\n")
                         .join(" ")} */}
                     </div>
-                    <div className="comment-box">
-                      <ul className="flex">
-                        <li>
-                          <a style={{ cursor: "pointer" }}>
-                            <figure>
-                              <img
-                                src="./app/images/comment-01.png"
-                                alt="Genaiguru comment-01"
-                              />
-                            </figure>
-                            <span>Comment</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <figure>
-                              <img
-                                src="./app/images/help-circle.png"
-                                alt="Genaiguru help-circle"
-                              />
-                            </figure>{" "}
-                            <Link to="/contact">
-                              <span>Ask question</span>
-                            </Link>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+                    <button
+                      className="loginBtn"
+                      style={{ marginTop: "20px", width: "200px" }}
+                      onClick={() => sendPost()}
+                    >
+                      Post
+                    </button>
                   </div>
                 </div>
               </div>
