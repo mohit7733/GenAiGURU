@@ -1,16 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import userimageIcon from "../../assets/images/person.png";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_CONTENT,} from "../../routes";
+import { BASE_PATH, PATH_FEATURED_CONTENT,PATH_BLOG_DETAILS} from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import SilverPopup from "../Phase5Pages/SilverPopup";
 import Sharebtn from "./sharebtn";
+
 
 const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
@@ -23,6 +24,7 @@ const BlogDetails = ({ likes, dislikes }) => {
     blog_id: "",
     blogSaved: "",
   });
+  
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [getBlogComments, setGetBlogComments] = useState([]);
   const [getReplyBlogComments, setGetReplyBlogComments] = useState([null]);
@@ -35,7 +37,7 @@ const BlogDetails = ({ likes, dislikes }) => {
     likes,
     dislikes,
   });
-
+  const navigate= useNavigate();
   const [replyCommentModels, setReplyCommentModels] = useState([]);
 
   const [relatedBlogId, setRelatedBlogId] = useState();
@@ -155,11 +157,11 @@ const BlogDetails = ({ likes, dislikes }) => {
       });
   }, []);
   const onBlogClick = (blogId,titles) => {
-    // const trimmedTitle = titles.trim(); 
-    // console.log("Trimmed title:", trimmedTitle);
-    // const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
-    // console.log("Replaced title:", replacedTitle);
-    // navigate(`${PATH_BLOG_DETAILS}?id=${blogId}?title=${replacedTitle}`);
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_BLOG_DETAILS}?id=${blogId}?title=${replacedTitle}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1000);
@@ -414,8 +416,12 @@ const BlogDetails = ({ likes, dislikes }) => {
                     <div className="innerBreadcrumb">
                       <p>
                         <Link to={BASE_PATH}>Home</Link>{" "}
+                        <Link to={PATH_FEATURED_CONTENT}>
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                        Blog details
+                        Blog
+                        </Link>
+                        <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
+                        {blogDetail.title}
                       </p>
                     </div>
                   </div>
@@ -969,11 +975,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  <Link
+                                  <a
                                     onClick={() => onBlogClick(blogdata.id,blogdata.title)}
                                   >
                                     {blogdata.title}
-                                  </Link>
+                                  </a>
                                 </p>
                                 <WithAuth
                                   callBack={(e) => {
@@ -1578,11 +1584,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  <Link
+                                  <a
                                     onClick={() => onBlogClick(blogdata.id,blogdata.title)}
                                   >
                                     {blogdata.title}
-                                  </Link>
+                                  </a>
                                 </p>
                                 <WithAuth
                                   callBack={(e) => {

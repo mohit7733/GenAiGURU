@@ -103,8 +103,12 @@ const GuruKeeps = () => {
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
-  const onArticleClick = (AricleID) => {
-    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  const onArticleClick = (AricleID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}&title=${replacedTitle}`);
   };
   const onVideoClick = (VideoId,titles) => {
     const trimmedTitle = titles.trim(); 
@@ -222,7 +226,7 @@ const GuruKeeps = () => {
                               if (data.type === "blog") {
                                 onBlogClick(data.id,data.title);
                               } else if (data.type === "article") {
-                                onArticleClick(data.id);
+                                onArticleClick(data.id,data.title);
                               } else if (data.type === "video") {
                                 onVideoClick(data.id,data.title);
                               }
@@ -297,7 +301,7 @@ const GuruKeeps = () => {
                         if (data.type === "blog") {
                           onBlogClick(data.id,data.title);
                         } else if (data.type === "article") {
-                          onArticleClick(data.id);
+                          onArticleClick(data.id,data.title);
                         } else if (data.type === "video") {
                           onVideoClick(data.id,data.title);
                         }

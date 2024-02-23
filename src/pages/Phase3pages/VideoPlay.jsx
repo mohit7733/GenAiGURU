@@ -351,12 +351,12 @@ const VideoPlay = () => {
       return updatedStatus;
     });
   };
-  const onVideoClick = (id,titles) => {
-      const trimmedTitle = titles.trim(); 
-      console.log("Trimmed title:", trimmedTitle);
-      const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
-      console.log("Replaced title:", replacedTitle);
-      navigate(`${PATH_VIDEO_PLAY}?id=${id}?title=${replacedTitle}`);
+  const onVideoClick = (id, titles) => {
+    const trimmedTitle = titles.trim();
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_VIDEO_PLAY}?id=${id}?title=${replacedTitle}`);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 1000);
@@ -376,14 +376,18 @@ const VideoPlay = () => {
                 <div className="innerBreadcrumb">
                   <p>
                     <Link to={BASE_PATH}>Home</Link>{" "}
+                    <Link to={PATH_FEATURED_VIDEO}>
+                      <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
+                      Video
+                    </Link>
                     <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                    Video
+                    {videoPlay.title}
                   </p>
                 </div>
 
                 <ReactPlayer
                   url={videoPlay.youtube_link}
-                  playing={false}
+                  playing={true}
                   controls={true}
                   width="100%"
                   height="440px"
@@ -903,11 +907,15 @@ const VideoPlay = () => {
                       {relatedVideo?.map((data) => {
                         return (
                           <div
-                            onClick={() => onVideoClick(data.id,data.title)}
+                            onClick={() => onVideoClick(data.id, data.title)}
                             className="wrap flex"
                           >
                             <figure>
-                              <Link onClick={() => onVideoClick(data.id,data.title)}>
+                              <Link
+                                onClick={() =>
+                                  onVideoClick(data.id, data.title)
+                                }
+                              >
                                 <a>
                                   <video
                                     style={{
@@ -948,7 +956,11 @@ const VideoPlay = () => {
                               </div>
                               <p>
                                 <a>
-                                  <Link onClick={() => onVideoClick(data.id,data.title)}>
+                                  <Link
+                                    onClick={() =>
+                                      onVideoClick(data.id, data.title)
+                                    }
+                                  >
                                     {data.title}
                                   </Link>
                                 </a>
@@ -1498,7 +1510,7 @@ const VideoPlay = () => {
                   {relatedVideo.map((data) => {
                     return (
                       <div
-                        onClick={() => onVideoClick(data.id,data.title)}
+                        onClick={() => onVideoClick(data.id, data.title)}
                         className="wrap flex"
                       >
                         <figure>
@@ -1540,7 +1552,12 @@ const VideoPlay = () => {
                             </div>
                           </div>
                           <p>
-                            <a href={data.youtube_link}>{data.title}</a>
+                            {/* <Link href={data.youtube_link}>{data.title}</Link> */}
+                            <Link
+                              onClick={() => onVideoClick(data.id, data.title)}
+                            >
+                              {data.title}
+                            </Link>
                           </p>
                           <ul className="flex">
                             <li>

@@ -92,7 +92,7 @@ const FeaturedArticles = (props) => {
   //Pagination ends
 
   const Featuredpopup = (popularity, sortby, currentDate) => {
-    console.log(popularity, sortby, currentDate, currentTime, "dfvfbgf");
+    console.log(popularity, sortby, currentDate, currentTime, "test");
 
     axios
       .get(
@@ -106,7 +106,7 @@ const FeaturedArticles = (props) => {
       )
       .then((response) => {
         setArticles(response?.data?.articles);
-        console.log(response?.data, "shjgfd");
+        console.log(response?.data, "test1");
         setFilter(false);
       })
       .catch(
