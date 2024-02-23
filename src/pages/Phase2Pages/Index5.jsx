@@ -180,7 +180,7 @@ const Index5 = () => {
         const titleMatch = resdata.match(titleRegex)[1];
         setData({
           ...data,
-          title: titleMatch.replace(`${""}`, ""),
+          title: titleMatch.replace(/"/g, ""),
           shortdesc: shortMatch,
         });
         setValue(descMatch.slice(shortMatch.length + 14));
