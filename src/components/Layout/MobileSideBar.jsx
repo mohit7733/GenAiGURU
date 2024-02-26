@@ -131,7 +131,10 @@ const MobileSideBar = (props) => {
                   />
                   Notifications{" "}
                   {notificationCount > 0 && (
-                    <span className="count">{`( ${notificationCount} )`}</span>
+                    <span
+                      style={{ marginLeft: "4px" }}
+                      className="count"
+                    >{`( ${notificationCount} )`}</span>
                   )}{" "}
                 </a>
               </WithAuth>
