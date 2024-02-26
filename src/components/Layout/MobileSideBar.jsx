@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   PATH_GURUGOLD,
@@ -8,8 +8,12 @@ import {
   PATH_NOTIFICATION,
 } from "../../routes";
 import WithAuth from "../../pages/Authentication/WithAuth";
+import axios from "axios";
+import { getBaseURL } from "../../api/config";
 
 const MobileSideBar = (props) => {
+  const [notificationCount, setNotificationCount] = useState("");
+
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
   const navigate = useNavigate();
 
@@ -20,38 +24,59 @@ const MobileSideBar = (props) => {
       localStorage.removeItem("UserId");
     }
   };
+  const token = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token"))
+    : "";
+
+  const getNotificationFunction = () => {
+    axios
+      .get(`${getBaseURL()}/auth/get-user-notifications`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setNotificationCount(response?.data?.newNotificationsCount);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  useEffect(() => {
+    getNotificationFunction();
+  }, []);
   return (
     <div>
-      <section class="mobileMenus">
-        <div class="menuWrapper">
-          <div class="close" onClick={props.toggleMobileSidebar}>
+      <section className="mobileMenus">
+        <div className="menuWrapper">
+          <div className="close" onClick={props.toggleMobileSidebar}>
             <img
               src="app/images/menuCloseIcon.png"
               alt="Genaiguru menu close icon"
             />
           </div>
-          <div class="topSearch">
+          <div className="topSearch">
             <WithAuth
               callBack={(e) => {
                 navigate("/index2");
               }}
             >
-              <div class="searchbar flex">
-                <fig ure class="icon">
+              <div className="searchbar flex">
+                <figure className="icon">
                   <img
                     src="app/images/searchIconHeader.png"
                     alt="Genaiguru small logo"
                   />
-                </fig>
+                </figure>
                 <form action="">
-                  <div class="form_group">
+                  <div className="form_group">
                     <input type="search" placeholder="Search AI" />
                   </div>
                 </form>
               </div>
             </WithAuth>
           </div>
-          <ul class="menuLists">
+          <ul className="menuLists">
             <li>
               <Link onClick={props.toggleMobileSidebar} to="/">
                 <a target="_blank">
@@ -65,11 +90,9 @@ const MobileSideBar = (props) => {
             </li>
             <li>
               <WithAuth
-
                 callBack={(e) => {
                   navigate("/");
                 }}
-
               >
                 <a target="_blank">
                   <img
@@ -106,7 +129,10 @@ const MobileSideBar = (props) => {
                     src="app/images/mobileMenuIcon3.png"
                     alt="Genaiguru Notifications menu icon"
                   />
-                  Notifications
+                  Notifications{" "}
+                  {notificationCount > 0 && (
+                    <span className="count">{`( ${notificationCount} )`}</span>
+                  )}{" "}
                 </a>
               </WithAuth>
             </li>
@@ -125,22 +151,6 @@ const MobileSideBar = (props) => {
                 </a>
               </WithAuth>
             </li>
-            {/* <li>
-                <WithAuth
-                  callBack={(e) => {
-                    navigate(PATH_FEATURED_CONTENT);
-                  }}
-                >
-                  <a target="_blank">
-                    <img
-                      src="app/images/mobileMenuIcon5.png"
-                      alt="Genaiguru blog page menu icon"
-                     
-                    />
-                    Blog page
-                  </a>
-                </WithAuth>
-              </li> */}
             <li>
               <WithAuth
                 callBack={(e) => {
@@ -210,7 +220,7 @@ const MobileSideBar = (props) => {
               </Link>
             </li>
           </ul>
-          <ul class="mobileSocials flex">
+          <ul className="mobileSocials flex">
             <li>
               <a href="#" target="_blank">
                 <img

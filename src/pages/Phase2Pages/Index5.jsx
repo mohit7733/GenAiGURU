@@ -40,16 +40,11 @@ const Index5 = () => {
   );
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [interestData, setInterestData] = useState([]);
+  const [topic, setTopic] = useState();
   const [selectOptions, setSelectOptions] = useState(
     JSON.parse(localStorage.getItem("Interests")) || []
   );
-  const [selectTopic, setSelectTopic] = useState([
-    {
-      value: "Blogstyle",
-      label: "Blogstyle",
-      id: "1",
-    },
-  ]);
+  const [selectTopic, setSelectTopic] = useState([]);
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/interests`, {
@@ -63,6 +58,12 @@ const Index5 = () => {
       .catch((err) => {
         console.log(err.message);
       });
+    axios
+      .get(`${getBaseURL()}/blog-styles`)
+      .then((res) => {
+        setTopic(res.data.data);
+      })
+      .catch((err) => console.log(err.message));
   }, []);
 
   let interested = [];
@@ -73,11 +74,19 @@ const Index5 = () => {
       id: item.id,
     });
   });
+  let topics = [];
+  topic?.map((data) => {
+    topics.push({
+      value: data?.name,
+      label: data?.name,
+      id: data?.id,
+    });
+  });
 
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6] }],
-      [{ font: [] }][{ size: [] }],
+      [{ size: [] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [
         { list: "ordered" },
@@ -86,6 +95,10 @@ const Index5 = () => {
         { indent: "+1" },
       ],
       ["link"],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ["clean"],
     ],
   };
 
@@ -152,9 +165,9 @@ const Index5 = () => {
   const chatGPTApi = () => {
     toSearch("");
     setLoadingStatus(true);
-    let message = `Give me a Title, Short Description and Description based on 
+    let message = `Give me a Title, Short Description and Description( min 500 words) based on 
     Interests:${string.slice(0, 3).join(", ")}
-    Style:Blog Style,
+    Style:${selectTopic},
     ${search}. 
     I want Description in HTML format and dont mention html or Description in HTML format`;
     axios
@@ -184,7 +197,6 @@ const Index5 = () => {
           shortdesc: shortMatch,
         });
         setValue(descMatch.slice(shortMatch.length + 14));
-        console.log(titleMatch, "title");
         setLoadingStatus(false);
       })
       .catch((error) => {
@@ -248,6 +260,8 @@ const Index5 = () => {
 
   function navigateToNextPage() {
     const input = document.getElementById("banner");
+    const input2 = document.getElementById("banner2");
+
     if (input.files && input.files[0]) {
       const reader = new FileReader();
       reader.onload = function (event) {
@@ -262,6 +276,23 @@ const Index5 = () => {
         localStorage.setItem("banner", imageData);
       };
       reader.readAsDataURL(input.files[0]);
+      localStorage.setItem("Data", JSON.stringify(data));
+      localStorage.setItem("Interests", JSON.stringify(selectOptions));
+      localStorage.setItem("value", JSON.stringify(value));
+    } else if (input2.files && input2.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageData = event.target.result;
+        navigate("/preview", {
+          state: {
+            data: data,
+            desc: value,
+            imageData: imageData,
+          },
+        });
+        localStorage.setItem("banner", imageData);
+      };
+      reader.readAsDataURL(input2.files[0]);
       localStorage.setItem("Data", JSON.stringify(data));
       localStorage.setItem("Interests", JSON.stringify(selectOptions));
       localStorage.setItem("value", JSON.stringify(value));
@@ -282,9 +313,6 @@ const Index5 = () => {
               </p>
             </div>
             <div className="profile-img-box postWrapper_inner">
-              {/* <p>
-                <a href="#">Write with AI</a>
-              </p> */}
               <form className="help-section">
                 <div
                   style={
@@ -313,7 +341,7 @@ const Index5 = () => {
                       fontSize: "18px",
                     }}
                   >
-                    Choose a topic for your post
+                    Choose a topic for your post *
                   </p>
 
                   {selectOptions.length == 3 && (
@@ -375,24 +403,20 @@ const Index5 = () => {
                         fontSize: "18px",
                       }}
                     >
-                      Choose a Blog Article Content Style
+                      Choose a Blog Article Content Style *
                     </p>
                     <Select
                       isObject={false}
                       isMulti
-                      // isOptionDisabled={() => selectOptions?.length >= 3}
-                      options={selectTopic}
-                      // value={selectOptions}
+                      isOptionDisabled={() => selectTopic?.length >= 1}
+                      options={topics}
+                      value={selectTopic}
                       placeholder="Blog Styles"
-                      // onChange={(Option) => {
-                      //   if (selectOptions.length <= 3) {
-                      //     setSelectOptions(Option);
-                      //     dataChange(
-                      //       "interests",
-                      //       Option.map((option) => option.id)
-                      //     );
-                      //   }
-                      // }}
+                      onChange={(Option) => {
+                        if (selectTopic.length <= 1) {
+                          setSelectTopic(Option);
+                        }
+                      }}
                       styles={{
                         control: (baseStyles, state) => ({
                           ...baseStyles,
@@ -449,7 +473,7 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      if (data.interests != "") {
+                      if (data.interests != "" && selectTopic.length > 0) {
                         chatGPTApi();
                       } else {
                         toast.error("Please Fill all required fields!", {
@@ -458,7 +482,6 @@ const Index5 = () => {
                         });
                       }
                     }}
-                    // className="form_group buttonGroup"
                   >
                     <button disabled={loadingStatus} className="loginBtn">
                       {loadingStatus ? "" : "Generate"}
@@ -508,7 +531,6 @@ const Index5 = () => {
                         dataChange("thumb", e?.target?.files[0]);
                       }}
                     />
-                    {/* <a class="btn btn-file" type="file">Choose File</a> */}
                   </div>
                   <div className="profile-edit input-group custom-file-button">
                     <label
@@ -525,7 +547,6 @@ const Index5 = () => {
                         dataChange("banner", e?.target?.files[0]);
                       }}
                     />
-                    {/* <a class="btn btn-file" type="file">Choose File</a> */}
                   </div>
 
                   <div className="profile-edit">
@@ -551,37 +572,7 @@ const Index5 = () => {
                       data?.shortdesc ? data?.shortdesc.length : "0"
                     } of 200 Characters`}</p>
                   </div>
-                  {/* 
-                  <div className="profile-edit">
-                    <label htmlFor="name">Description</label>
-                    <textarea
-                      value={data?.descriptions}
-                      onChange={(e) => {
-                        dataChange("desc", e?.target?.value);
-                      }}
-                      name="bio"
-                      id=""
-                      cols="6"
-                      rows="12"
-                      placeholder="Text here... "
-                    ></textarea>
-                  </div> */}
                 </form>
-                {/* <form>
-                  <div className="profile-edit ">
-                    <label htmlFor="name">New Des</label>
-                    <textarea
-                      rows="6"
-                      // value={data?.title}
-                      // onChange={(e) => {
-                      //   dataChange("title", e.target.value);
-                      // }}
-                      type="text"
-                      placeholder="Type here"
-                      name="title"
-                    />
-                  </div>
-                </form> */}
                 <div style={{ marginTop: "50px" }}>
                   {" "}
                   <div
@@ -655,308 +646,345 @@ const Index5 = () => {
       <div className="mobilePost">
         <div className="postHead flex">
           <div className="col_left flex">
-            <div className="backBtns">
-              <Link to={BASE_PATH}>
+            <Link to={BASE_PATH}>
+              <div className="backBtns">
                 <i className="fa fa-angle-left" aria-hidden="true"></i>
-              </Link>{" "}
-            </div>
-            <p>Write a post</p>
-          </div>
-          <div className="col_right">
-            <button
-              type="button"
-              className="loginBtn"
-              onClick={() => {
-                navigate("/index6");
-              }}
-            >
-              Post
-            </button>
+              </div>
+            </Link>{" "}
+            <p>Write with AI</p>
           </div>
         </div>
         <div className="rightSection PostWrapper">
           <div className="full-width">
-            {/* <div className="profile-edit socialLinkEdit flex">
-              <p>
-                <a href="#">Home</a>{" "}
-                <i className="fa fa-angle-right" aria-hidden="true"></i>Write
-                with AI{" "}
-              </p>
-            </div> */}
             <div className="profile-img-box postWrapper_inner">
-              {/* <p>
-                <a href="#">Write with AI</a>
-              </p> */}
               <form className="help-section">
-                <div className="profile-edit">
-                  <label htmlFor="name">Blog Title</label>
-                  <input
-                    value={data?.title}
-                    onChange={(e) => {
-                      dataChange("title", e.target.value);
-                    }}
-                    type="text"
-                    placeholder="Type here"
-                    name="name"
-                  />
-                </div>
-                <div className="profile-edit">
-                  <label htmlFor="name">Upload Thumbnail Image</label>
-                  <input
-                    type="file"
-                    onChange={(e) => {
-                      dataChange("thumb", e?.target?.files[0]);
-                    }}
-                  />
-                </div>
-                <div className="profile-edit input-group custom-file-button">
-                  <label className="input-group-text" htmlFor="inputGroupFile">
-                    Upload Banner Image
-                  </label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    onChange={(e) => {
-                      dataChange("banner", e?.target?.files[0]);
-                    }}
-                  />
-                </div>
-                <p
-                  style={{
-                    color: "#fff",
-                    margin: "12px 0 8px",
-                    fontSize: "18px",
-                  }}
+                <div
+                  style={
+                    displaySeePost == false
+                      ? { display: "block", marginLeft: "20px" }
+                      : { display: "none" }
+                  }
                 >
-                  Select Interest
-                </p>
-                {selectOptions.length == 3 && (
                   <p
                     style={{
+                      marginTop: "20px",
+                      marginBottom: "60px",
+                      color: "white",
+                    }}
+                  >
+                    How to: Choose a topic, pick a blog style, and give a
+                    creative prompt, Genaiguru will generate a title, blog
+                    article, banner image and thumbnail ready for publication to
+                    your page on the site.
+                  </p>
+                  <p
+                    style={{
+                      display: "flex",
                       color: "#fff",
                       margin: "12px 0 8px",
                       fontSize: "18px",
                     }}
                   >
-                    Maximun 3 Interests only
+                    Choose a topic for your post *
                   </p>
-                )}
-                <Select
-                  isObject={false}
-                  isMulti
-                  isOptionDisabled={() => selectOptions?.length >= 3}
-                  options={interested}
-                  value={selectOptions}
-                  placeholder="Interests"
-                  onChange={(Option) => {
-                    if (selectOptions.length <= 3) {
-                      setSelectOptions(Option);
-                      dataChange(
-                        "interests",
-                        Option.map((option) => option.id)
-                      );
-                    }
-                  }}
-                  styles={{
-                    control: (baseStyles, state) => ({
-                      ...baseStyles,
-                      background: "transparent",
-                      border: "none",
-                      boxShadow: state.isFocused
-                        ? "transparent"
-                        : "transparent",
-                      width: "100%",
-                    }),
 
-                    option: (baseStyles, state) => ({
-                      ...baseStyles,
-                      background: state.isFocused ? "purple" : "none",
-                      border: "none",
-                      color: "black",
-                      boxShadow: state.isFocused
-                        ? "transparent"
-                        : "transparent",
-                    }),
-                  }}
-                  className="genaiguruSelect flex"
-                />
-                <div className="profile-edit">
-                  <label htmlFor="name">Short Description</label>
-                  <textarea
-                    value={data?.shortdesc}
-                    onChange={(e) => {
-                      dataChange("short", e?.target?.value);
+                  {selectOptions.length == 3 && (
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Maximun 3 Interests only
+                    </p>
+                  )}
+
+                  <Select
+                    isObject={false}
+                    isMulti
+                    isOptionDisabled={() => selectOptions?.length >= 3}
+                    options={interested}
+                    value={selectOptions}
+                    placeholder="Interests"
+                    onChange={(Option) => {
+                      if (selectOptions.length <= 3) {
+                        setSelectOptions(Option);
+                        dataChange(
+                          "interests",
+                          Option.map((option) => option.id)
+                        );
+                      }
                     }}
-                    name="bio"
-                    id=""
-                    cols="3"
-                    rows="6"
-                    maxLength={200}
-                    placeholder="Maximum 200 letters... "
-                  ></textarea>
-                  <p
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
+                    styles={{
+                      control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        background: "transparent",
+                        border: "none",
+                        boxShadow: state.isFocused
+                          ? "transparent"
+                          : "transparent",
+                        width: "100%",
+                      }),
+
+                      option: (baseStyles, state) => ({
+                        ...baseStyles,
+                        background: state.isFocused ? "purple" : "none",
+                        border: "none",
+                        color: "black",
+                        boxShadow: state.isFocused
+                          ? "transparent"
+                          : "transparent",
+                      }),
                     }}
-                  >{`${
-                    data?.shortdesc ? data?.shortdesc.length : "0"
-                  } of 200 Charachters`}</p>
-                </div>
-                <div className="wrapperSearchs" style={{ marginTop: "30px" }}>
-                  <div className="innerSearchForm flex">
-                    <figure className="logoIcon">
-                      <img
-                        src="app/images/searchIconLogoInner.png"
-                        alt="Genaiguru search icon image"
-                      />
-                    </figure>
-                    <div className="flex searchFormLong">
-                      <div className="form_group">
-                        <input
-                          type="text"
-                          placeholder="Search here"
-                          value={search}
-                          onChange={(e) => toSearch(e?.target?.value)}
+                    className="genaiguruSelect flex"
+                  />
+                  <div style={{ marginTop: "30px" }}>
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Choose a Blog Article Content Style *
+                    </p>
+                    <Select
+                      isObject={false}
+                      isMulti
+                      isOptionDisabled={() => selectTopic?.length >= 1}
+                      options={topics}
+                      value={selectTopic}
+                      placeholder="Blog Styles"
+                      onChange={(Option) => {
+                        if (selectTopic.length <= 1) {
+                          setSelectTopic(Option);
+                        }
+                      }}
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles,
+                          background: "transparent",
+                          border: "none",
+                          boxShadow: state.isFocused
+                            ? "transparent"
+                            : "transparent",
+                          width: "100%",
+                        }),
+
+                        option: (baseStyles, state) => ({
+                          ...baseStyles,
+                          background: state.isFocused ? "purple" : "none",
+                          border: "none",
+                          color: "black",
+                          boxShadow: state.isFocused
+                            ? "transparent"
+                            : "transparent",
+                        }),
+                      }}
+                      className="genaiguruSelect flex"
+                    />
+                  </div>
+                  <div style={{ marginTop: "30px" }}>
+                    <p
+                      style={{
+                        color: "#fff",
+                        margin: "12px 0 8px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      Give GenaiGuru a creative prompt to write about the topic
+                    </p>
+                    <div className="innerSearchForm flex">
+                      <figure className="logoIcon">
+                        <img
+                          src="app/images/searchIconLogoInner.png"
+                          alt="Genaiguru search icon image"
                         />
-                      </div>
-                      <div
-                        onClick={(e) => {
-                          e.preventDefault();
-                          chatGPTApi(search);
-                        }}
-                        className="form_group buttonGroup"
-                      >
-                        <button
-                          style={{
-                            width: "75%",
-                            margin: "0",
-                            background: "none",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <img
-                            style={{
-                              height: "20px",
-                              width: "40px",
-                            }}
-                            src="app/images/sendButtonIcon.png"
-                            alt="Genaiguru sendButtonIcon"
+                      </figure>
+                      <div className="flex searchFormLong">
+                        <div className="form_group">
+                          <input
+                            type="text"
+                            placeholder="Type here"
+                            value={search}
+                            onChange={(e) => toSearch(e?.target?.value)}
                           />
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {loadingStatus && (
-                  <div className="typing">
-                    <div className="dot"></div>
-                    <div className="dot"></div>
-                    <div className="dot"></div>
-                  </div>
-                )}
-                <div className="profile-edit">
-                  <label htmlFor="name">Description</label>
-                  <textarea
-                    value={data?.descriptions}
-                    onChange={(e) => {
-                      dataChange("desc", e?.target?.value);
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (data.interests != "" && selectTopic.length > 0) {
+                        chatGPTApi();
+                      } else {
+                        toast.error("Please Fill all required fields!", {
+                          position: toast.POSITION.TOP_CENTER,
+                          autoClose: 1000,
+                        });
+                      }
                     }}
-                    name="bio"
-                    id=""
-                    cols="6"
-                    rows="12"
-                    placeholder="Text here... "
-                  ></textarea>
+                  >
+                    <button disabled={loadingStatus} className="loginBtn">
+                      {loadingStatus ? "" : "Generate"}
+                      {loadingStatus && (
+                        <div
+                          className="typing"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                        </div>
+                      )}
+                    </button>
+                  </div>
                 </div>
-                {/* <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      data?.title != "" &&
-                      data?.descriptions != "" &&
-                      data?.shortdesc != "" &&
-                      data?.banner != "" &&
-                      data?.thumbnail != "" &&
-                      data?.interests != ""
-                    ) {
-                      sendPost();
-                    } else {
-                      toast.error("Please Fill all required fields!", {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: 1000,
-                      });
-                    }
-                  }}
-                  type="submit"
-                  style={{ padding: "20px !important" }}
-                >
-                  Post
-                </button> */}
               </form>
+              <div
+                style={
+                  displaySeePost == true
+                    ? { display: "block", marginLeft: "20px" }
+                    : { display: "none" }
+                }
+              >
+                <form>
+                  <div className="profile-edit ">
+                    <label htmlFor="name">Blog Title</label>
+                    <input
+                      value={data?.title}
+                      onChange={(e) => {
+                        dataChange("title", e.target.value);
+                      }}
+                      type="text"
+                      placeholder="Type here"
+                      name="title"
+                    />
+                  </div>
+                  <div className="profile-edit custom-file-button">
+                    <label htmlFor="name">
+                      Upload Thumbnail Image (Recommended Size: 350*184px)
+                    </label>
+                    <input
+                      id="banner2"
+                      type="file"
+                      onChange={(e) => {
+                        dataChange("thumb", e?.target?.files[0]);
+                      }}
+                    />
+                  </div>
+                  <div className="profile-edit input-group custom-file-button">
+                    <label
+                      className="input-group-text"
+                      htmlFor="inputGroupFile"
+                    >
+                      Upload Banner Image (Recommended Size: 568*295px)
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      defaultValue={data.banner}
+                      onChange={(e) => {
+                        dataChange("banner", e?.target?.files[0]);
+                      }}
+                    />
+                  </div>
+
+                  <div className="profile-edit">
+                    <label htmlFor="name">Short Description</label>
+                    <textarea
+                      value={data?.shortdesc}
+                      onChange={(e) => {
+                        dataChange("short", e?.target?.value);
+                      }}
+                      name="bio"
+                      id=""
+                      cols="3"
+                      rows="6"
+                      maxLength={200}
+                      placeholder="Text here..."
+                    ></textarea>
+                    <p
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                      }}
+                    >{`${
+                      data?.shortdesc ? data?.shortdesc.length : "0"
+                    } of 200 Characters`}</p>
+                  </div>
+                </form>
+                <div style={{ marginTop: "50px" }}>
+                  {" "}
+                  <div
+                    style={{
+                      marginBottom: "20px",
+                      color: "white",
+                      fontSize: "19px",
+                    }}
+                  >
+                    <label htmlFor="name">Description</label>{" "}
+                  </div>
+                  <ReactQuill
+                    theme="snow"
+                    value={value}
+                    onChange={setValue}
+                    className="editor-input"
+                    modules={modules}
+                  />
+                </div>
+
+                <form>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (
+                          data?.title != "" &&
+                          data?.shortdesc != "" &&
+                          data?.banner != null &&
+                          data?.thumbnail != null &&
+                          data?.interests != "" &&
+                          value != ""
+                        ) {
+                          navigateToNextPage();
+                        } else {
+                          toast.error("Please Fill all required fields!", {
+                            position: toast.POSITION.TOP_CENTER,
+                            autoClose: 1000,
+                          });
+                          console.log("click2");
+                        }
+                      }}
+                      style={{ padding: "15px !important", maxWidth: "150px" }}
+                    >
+                      Preview
+                    </button>
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("Data");
+                        localStorage.removeItem("banner");
+                        localStorage.removeItem("Interests");
+                        localStorage.removeItem("value");
+                      }}
+                      style={{ padding: "15px !important", maxWidth: "150px" }}
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-        {/* <div class="help-section writePost flex">
-          <div class="wrap">
-            <h1>What would you like to write a blog article about</h1>
-            <div class="createPostForm">
-              <div class="searchResults">
-                <div class="headings flex">
-                  <h5>
-                    It’s a catch-22 for young startups: how do you attract
-                    investors?
-                  </h5>
-                </div>
-                <div class="form_group">
-                  <span
-                    class="textarea"
-                    id="postContent"
-                    role="textbox"
-                    contenteditable
-                  ></span>
-                </div>
-                <div class="form_group videoShow">
-                  <figure>
-                    <img src="app/images/postCreateImg.jpg" alt="" />
-                    <div class="timing flex">
-                      <img src="app/images/videoIcon.png" alt="" />
-                      3:38
-                    </div>
-                  </figure>
-                </div>
-                <div class="form_group imageIcons">
-                  <figure>
-                    <img src="app/images/imageIcon.png" alt="" />
-                  </figure>
-                </div>
-              </div>
-              <p class="tags">#finance #crypto #economy</p>
-            </div>
-            <div class="wrapperSearchs">
-              <div class="innerSearchForm flex">
-                <figure class="logoIcon">
-                  <img src="app/images/searchIconLogoInner.png" alt="" />
-                </figure>
-                <div class="flex searchFormLong">
-                  <div class="form_group">
-                    <input type="text" placeholder="Ask me anything..." />
-                  </div>
-                  <div class="form_group micBtns">
-                    <button type="button">
-                      <img src="app/images/micIcon.png" />
-                    </button>
-                  </div>
-                  <div class="form_group">
-                    <button type="submit">
-                      <img src="app/images/sendButtonIcon.png" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

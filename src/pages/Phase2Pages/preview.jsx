@@ -21,19 +21,16 @@ const Preview = () => {
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
-  // useLocation to get id from url
   let location = useLocation();
   let navigate = useNavigate();
   const data = [
     {
-      title: location.state.data.title,
-      shortdesc: location.state.data.shortdesc,
-      interests: location.state.data.interests,
-      descriptions: location.state.desc,
+      title: location?.state?.data?.title,
+      shortdesc: location?.state?.data?.shortdesc,
+      interests: location?.state?.data?.interests,
+      descriptions: location?.state?.desc,
     },
   ];
-  // Useeffect for API of blogOpened Points
-  // get user details api..........
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
@@ -51,6 +48,10 @@ const Preview = () => {
       .catch((err) => {
         console.log(err.message);
       });
+    if (location.state == null || undefined || "") {
+      alert("Please Generate content from Write with AI");
+      navigate("/write-with-ai");
+    }
   }, []);
 
   // fetchBadges API
@@ -166,7 +167,7 @@ const Preview = () => {
                   <div className="blog-img">
                     <figure>
                       <img
-                        src={location.state.imageData}
+                        src={location?.state?.imageData}
                         alt="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
@@ -176,13 +177,9 @@ const Preview = () => {
                       className="blog-txt"
                       style={{ color: "white" }}
                       dangerouslySetInnerHTML={{
-                        __html: location?.state?.desc.replace(/\n/g, "<br>"),
+                        __html: location?.state?.desc?.replace(/\n/g, "<br>"),
                       }}
-                    >
-                      {/* {location?.state?.data?.descriptions
-                        .split("\n")
-                        .join(" ")} */}
-                    </div>
+                    ></div>
                     <button
                       className="loginBtn"
                       style={{ marginTop: "20px", width: "200px" }}
@@ -200,33 +197,38 @@ const Preview = () => {
       {/* <!-- mobile section start here --> */}
       <div className="mob_profile commanMobHead hideDes">
         <div className="mobileHead flex">
-          <Link to={PATH_FEATURED_CONTENT} className="hamburger">
-            <i className="fa fa-angle-left" aria-hidden="true"></i>
-          </Link>
-          <h2>Blog Details</h2>
+          <Link to="/write-with-ai">
+            <div className="backBtns">
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </div>
+          </Link>{" "}
+          <h2>Preview</h2>
         </div>
         <div className="innerCommanContent">
           <div className="rightSection">
             <div className="keeps-container blogDetails">
               {/* <!-- blog-start --> */}
               <div className="blog-details">
-                <h2>title</h2>
+                <h2>{location?.state?.data?.title}</h2>
                 <div className="blogger flex">
                   <div className="blogger-profile">
                     <figure>
-                      <img src="profile" alt="Genaiguru blog-img" />
+                      <img
+                        src={profileImage.profile_image}
+                        alt="Genaiguru blog-img"
+                      />
                     </figure>
                   </div>
                   <div className="content-box">
                     <p>
-                      By <a href="#">name</a>
+                      By <a>{profileImage?.name}</a>
                     </p>
-                    <p>date</p>
+                    <p>{Date().slice(3, 16)}</p>
                   </div>
                   <div className="blog-img">
                     <figure>
                       <img
-                        src="thhumbimage"
+                        src={location?.state?.imageData}
                         alt="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
@@ -234,37 +236,18 @@ const Preview = () => {
                   <div className="blog-txt">
                     <div
                       className="blog-txt"
-                      //   dangerouslySetInnerHTML={{ __html: blogDetail?.content }}
-                    />
-
-                    <div className="comment-box">
-                      <ul className="flex">
-                        <li>
-                          <a style={{ cursor: "pointer" }}>
-                            <figure>
-                              <img
-                                src="./app/images/comment-01.png"
-                                alt="Genaiguru comment-01"
-                              />
-                            </figure>
-                            <span>Comment</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            <figure>
-                              <img
-                                src="./app/images/help-circle.png"
-                                alt="Genaiguru help-circle"
-                              />
-                            </figure>{" "}
-                            <Link to="/contact">
-                              <span>Ask question</span>
-                            </Link>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+                      style={{ color: "white" }}
+                      dangerouslySetInnerHTML={{
+                        __html: location?.state?.desc?.replace(/\n/g, "<br>"),
+                      }}
+                    ></div>
+                    <button
+                      className="loginBtn"
+                      style={{ marginTop: "20px", width: "200px" }}
+                      onClick={() => sendPost()}
+                    >
+                      Post
+                    </button>
                   </div>
                 </div>
               </div>
