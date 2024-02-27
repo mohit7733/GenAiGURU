@@ -369,7 +369,7 @@ const GuruGold = () => {
                       </figure>
                       <img className="profileImageTag" src={rankImage} />
                     </li>
-                    <Link to="/silver">
+                    <Link >
                       <li>
                         <h3>
                           {/* {levelDetails} */}

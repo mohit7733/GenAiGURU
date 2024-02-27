@@ -6,6 +6,7 @@ import Sidebar from "../../components/Layout/Sidebar";
 import Index3 from "./index3";
 import { Navigate, useNavigate } from "react-router-dom";
 import userimageIcon from "../../assets/images/person.png";
+import { toast } from "react-toastify";
 
 const Index2 = ({ isLoggedIn }) => {
   const [chatInputText, setChatInputText] = useState("");
@@ -84,11 +85,17 @@ const Index2 = ({ isLoggedIn }) => {
 
   //   return response.json();
   // }
-
   const chatGPTApi = async (chatInputText) => {
     setChatText(chatInputText);
-    setChatInputText("");
+    if (!chatInputText.trim()) {
+      toast.error("Please Type Anything...", {
+        position: "top-center",
+      });
+      return;
+    }
+
     setLoadingStatus(true);
+
     try {
       const response = await axios.post(
         `${getBaseURL()}/auth/send-chat-message`,
@@ -102,17 +109,15 @@ const Index2 = ({ isLoggedIn }) => {
         }
       );
       setLoadingStatus(false);
-      // console.log(response?.data?.[0]?.choices?.[0]?.message?.content);
       setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
       setDisplayRespone(true);
     } catch (error) {
-      if (!chatInputText) {
-        alert("Please Type Antything...");
-        setDisplayRespone(false);
-      }
       console.error("Error chatGPTApi:", error.message);
+    } finally {
+      setChatInputText("");
     }
   };
+
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/auth/user`, {
@@ -326,7 +331,9 @@ const Index2 = ({ isLoggedIn }) => {
                       </div>
                       <div className="boxes">
                         <a href="#">
-                          <div style={{maxHeight:'135px', overflowY:'auto'}}>
+                          <div
+                            style={{ maxHeight: "135px", overflowY: "auto" }}
+                          >
                             <p>{chatResponseText}</p>
                           </div>
                         </a>
