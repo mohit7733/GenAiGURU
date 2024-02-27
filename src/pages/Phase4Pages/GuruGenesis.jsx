@@ -195,7 +195,16 @@ const GuruGenesis = () => {
                             }
                           >
                             <h4>{faqdata.question}</h4>
-                            <div class="leftArrow">
+                            <div
+                              class="leftArrow"
+                              style={{
+                                transform:
+                                  isVisible === index
+                                    ? "rotate(90deg)"
+                                    : "rotate(0deg)",
+                                transition: "transform 0.3s ease",
+                              }}
+                            >
                               <img
                                 src="app/images/arrow-left.png"
                                 alt="Genaiguru arrow-left"
@@ -388,7 +397,16 @@ const GuruGenesis = () => {
                             }
                           >
                             <h4>{faqdata.question}</h4>
-                            <div class="leftArrow">
+                            <div
+                              class="leftArrow"
+                              style={{
+                                transform:
+                                  isVisible === index
+                                    ? "rotate(90deg)"
+                                    : "rotate(0deg)",
+                                transition: "transform 0.3s ease",
+                              }}
+                            >
                               <img
                                 src="app/images/arrow-left.png"
                                 alt="Genaiguru arrow-left"

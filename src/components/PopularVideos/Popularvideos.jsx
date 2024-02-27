@@ -98,7 +98,7 @@ const Popularvideos = () => {
                   <div
                     className="wrap"
                     key={index}
-                    onClick={() => onVideoClick(video.id)}
+                    onClick={() => onVideoClick(video.id,video.title)}
                   >
                     <a
                       onClick={() => {
@@ -169,7 +169,7 @@ const Popularvideos = () => {
                 <div
                   className="videoBoxes flex"
                   key={index}
-                  onClick={() => onVideoClick(video.id)}
+                  onClick={() => onVideoClick(video.id,video.title)}
                 >
                   <figure>
                     <a

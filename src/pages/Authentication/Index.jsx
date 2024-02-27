@@ -99,8 +99,17 @@ const Index = () => {
       });
   }, [userId]);
 
-  const onArticleClick = (AricleID) => {
-    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+  // const onArticleClick = (AricleID,titles) => {
+  //   console.log(AricleID,titles,"sertyjkjhgfdsa")
+  //   navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
+
+  // };
+  const onArticleClick = (AricleID,titles) => {
+    const trimmedTitle = titles.trim(); 
+    console.log("Trimmed title:", trimmedTitle);
+    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    console.log("Replaced title:", replacedTitle);
+    navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
 
   // fetchBadges API
@@ -163,7 +172,7 @@ const Index = () => {
                         className="wrap"
                         key={index}
                         onClick={() => {
-                          onArticleClick(article.id);
+                          onArticleClick(article.id,article.title);
                         }}
                       >
                         <figure>
@@ -224,7 +233,7 @@ const Index = () => {
                           title="Genaiguru featured article image"
                         />
                       </figure>
-                      <h5 onClick={() => onArticleClick(Article.id)}>
+                      <h5 onClick={() => onArticleClick(Article.id,Article.title)}>
                         {Article.title}
                       </h5>
                       <ul>
