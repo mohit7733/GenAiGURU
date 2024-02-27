@@ -152,9 +152,8 @@ const EditProfile = ({ settingsPage }) => {
             ) : (
               <div className="profile-edit socialLinkEdit flex">
                 <p>
-                  <a href="#">Profile</a>{" "}
-                  <i className="fa fa-angle-right" aria-hidden="true"></i> Edit
-                  <Link to={PATH_PROFILE}>Profile</Link>{" "}
+                <Link to={PATH_PROFILE}>Profile</Link>{" "}
+                  <i className="fa fa-angle-right" aria-hidden="true"></i>Edit Profile
                 </p>
                 <h1>Edit profile</h1>
               </div>
