@@ -208,7 +208,17 @@ const Preview = () => {
                       style={{ marginTop: "20px", width: "200px" }}
                       onClick={() => sendPost()}
                     >
-                      Post
+                      {loadingStatus ? "" : "Post"}
+                      {loadingStatus && (
+                        <div
+                          className="typing"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                        </div>
+                      )}
                     </button>
                   </div>
                 </div>
@@ -270,7 +280,17 @@ const Preview = () => {
                       style={{ marginTop: "20px", width: "200px" }}
                       onClick={() => sendPost()}
                     >
-                      Post
+                      {loadingStatus ? "" : "Post"}
+                      {loadingStatus && (
+                        <div
+                          className="typing"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                          <div className="dot"></div>
+                        </div>
+                      )}
                     </button>
                   </div>
                 </div>
