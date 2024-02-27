@@ -67,14 +67,13 @@ const Popularvideos = () => {
       },
     ],
   };
-  const onVideoClick = (VideoId,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onVideoClick = (VideoId, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
-    console.log(VideoId,titles,"test");
-
+    console.log(VideoId, titles, "test");
   };
   return (
     <>
@@ -98,7 +97,7 @@ const Popularvideos = () => {
                   <div
                     className="wrap"
                     key={index}
-                    onClick={() => onVideoClick(video.id,video.title)}
+                    onClick={() => onVideoClick(video.id, video.title)}
                   >
                     <a
                       onClick={() => {
@@ -169,7 +168,7 @@ const Popularvideos = () => {
                 <div
                   className="videoBoxes flex"
                   key={index}
-                  onClick={() => onVideoClick(video.id,video.title)}
+                  onClick={() => onVideoClick(video.id, video.title)}
                 >
                   <figure>
                     <a
@@ -206,8 +205,13 @@ const Popularvideos = () => {
                     </p>
                     <ul>
                       <li>{video.author}</li>
-                      <li>{video.creation_date}</li>
+                      {/* <li>{video.creation_date}</li> */}
                     </ul>
+                    {/* <span className="tags">
+                      {video?.tags?.map((tag, index) => {
+                        return <a key={index}> #{tag}</a>;
+                      })}
+                    </span> */}
                   </div>
                 </div>
               );
@@ -229,7 +233,7 @@ const Popularvideos = () => {
                 <div
                   className="wrap"
                   key={index}
-                  onClick={() => onVideoClick(video.id,video.title)}
+                  onClick={() => onVideoClick(video.id, video.title)}
                 >
                   <a
                     onClick={() => {

@@ -9,9 +9,10 @@ import Pagination from "../Phase6Pages/Pagination";
 
 const LeaderBoard = () => {
   const [allUsers, setAllUsers] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("All");
   const [totalUsers, setTotalUsers] = useState("");
   const [drop, setDrop] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("All");
 
   // const token = JSON.parse(localStorage.getItem("token"));
   // const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -32,6 +33,7 @@ const LeaderBoard = () => {
       setAllUsers(response?.data?.data);
       setSelectedOption(capitalizeFirstLetter(dropDownValue));
       setDrop(dropDownValue);
+      setIsOpen(false);
       window.scrollTo({
         top: 0,
         left: 0,
@@ -42,6 +44,9 @@ const LeaderBoard = () => {
     } catch (error) {
       console.error("Error fetching user points:", error.message);
     }
+  };
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
 
   const usersPerPage = 10;
@@ -183,16 +188,17 @@ const LeaderBoard = () => {
                     className="dropdown"
                     style={{ marginBottom: "5px", marginTop: "8px" }}
                   >
-                    <button className="dropbtn">
+                    <button className="dropbtn"  onClick={toggleDropdown}>
                       {selectedOption ? selectedOption : "All"}
                       <p>
                         <img
                           src="app/images/arrow-left.png"
                           alt="Genaiguru arrow-left"
-                          style={{ transform: "rotate(90deg)" }}
+                          style={{ transform: isOpen ? "rotate(90deg)" : "rotate(270deg)" }}
                         />
                       </p>
                     </button>
+                    {isOpen && (
                     <div className="dropdown-content">
                       <a
                         onClick={() => {
@@ -216,6 +222,7 @@ const LeaderBoard = () => {
                         Daily
                       </a>
                     </div>
+                    )}
                   </div>
                 </li>
 

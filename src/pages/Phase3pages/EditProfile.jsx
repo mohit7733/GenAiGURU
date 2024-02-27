@@ -29,12 +29,17 @@ const EditProfile = ({ settingsPage }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data,"test");
+        if (response.data.bio ==="null") {
+          setBio("");
+        } else {
+          setBio(response.data.bio);
+        }
         setProfilePicture(response?.data?.profile_image);
         setCoverPicture(response?.data?.cover_image);
         setName(response?.data?.name);
         setTitle(response?.data?.title);
-        setBio(response?.data?.bio);
+        // setBio(response?.data?.bio);
       })
       .catch((err) => {
         console.log(err.message);
@@ -50,11 +55,10 @@ const EditProfile = ({ settingsPage }) => {
       } else {
         // alert("Please select a valid profile image file (JPEG, PNG, GIF).");
         toast.warn("Please select JPEG, PNG, GIF.", {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_CENTER,
         });
-        <ToastContainer autoClose={1000}/>
+        <ToastContainer autoClose={1000} />;
       }
-      
     }
   };
 
@@ -67,9 +71,8 @@ const EditProfile = ({ settingsPage }) => {
       } else {
         // alert("Please select a valid cover image file (JPEG, PNG, GIF).");
         toast.warn("Please select JPEG, PNG, GIF.", {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_CENTER,
         });
-        
       }
     }
   };
@@ -135,6 +138,9 @@ const EditProfile = ({ settingsPage }) => {
     }
     return error;
   };
+  const handleBioChange = (e) => {
+    setBio(e.target.value);
+  };
 
   return (
     <div>
@@ -152,8 +158,9 @@ const EditProfile = ({ settingsPage }) => {
             ) : (
               <div className="profile-edit socialLinkEdit flex">
                 <p>
-                <Link to={PATH_PROFILE}>Profile</Link>{" "}
-                  <i className="fa fa-angle-right" aria-hidden="true"></i>Edit Profile
+                  <Link to={PATH_PROFILE}>Profile</Link>{" "}
+                  <i className="fa fa-angle-right" aria-hidden="true"></i>Edit
+                  Profile
                 </p>
                 <h1>Edit profile</h1>
               </div>
@@ -243,10 +250,8 @@ const EditProfile = ({ settingsPage }) => {
                   <label htmlFor="name">Bio</label>
                   <textarea
                     name="bio"
-                    value={bio}
-                    onChange={(e) => {
-                      setBio(e.target.value);
-                    }}
+                    value={bio || ""}
+                    onChange={handleBioChange}
                     id=""
                     cols="5"
                     rows="10"
@@ -292,7 +297,7 @@ const EditProfile = ({ settingsPage }) => {
                       />
                     )}
                   </figure>
-                  <input type="file"  onChange={handleCoverImageChange}/>
+                  <input type="file" onChange={handleCoverImageChange} />
                 </div>
               </div>
             </div>
@@ -316,7 +321,7 @@ const EditProfile = ({ settingsPage }) => {
                       title="Genaiguru camera-icon"
                     />
                   </figure>
-                  <input type="file"  onChange={handleProfileImageChange}/>
+                  <input type="file" onChange={handleProfileImageChange} />
                 </div>
               </figure>
             </div>
@@ -354,9 +359,7 @@ const EditProfile = ({ settingsPage }) => {
                 <textarea
                   name="bio"
                   value={bio}
-                  onChange={(e) => {
-                    setBio(e.target.value);
-                  }}
+                  onChange={handleBioChange}
                   id=""
                   cols="5"
                   rows="10"
