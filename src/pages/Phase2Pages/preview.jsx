@@ -18,6 +18,7 @@ const Preview = () => {
   const [showPopUp, setShowPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
   const [displaySeePost, setDisplaySeePost] = useState(false);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
@@ -85,6 +86,7 @@ const Preview = () => {
   }, [displaySeePost]);
 
   const sendPost = () => {
+    setLoadingStatus(true);
     if (token != "") {
       let fd = new FormData();
       fd.append("title", data[0]?.title);
@@ -100,6 +102,7 @@ const Preview = () => {
           },
         })
         .then((res) => {
+          setLoadingStatus(false);
           if (res?.data?.success == true) {
             localStorage.removeItem("Data");
             localStorage.removeItem("banner");
@@ -108,10 +111,14 @@ const Preview = () => {
             // alert("blog created success");
             setDisplaySeePost(true);
           } else {
+            setLoadingStatus(false);
             console.log(res.data.error, "error");
           }
         })
-        .catch((err) => console.log(err, "Err"));
+        .catch((err) => {
+          console.log(err, "Err");
+          setLoadingStatus(false);
+        });
     }
   };
   return (
@@ -136,11 +143,26 @@ const Preview = () => {
                   <div className="blog-box">
                     <div className="innerBreadcrumb">
                       <p>
+                        <Link to="/write-with-ai">
+                          <div
+                            style={{
+                              backgroundColor: "white",
+                              borderRadius: "15px",
+                              marginRight: "4px",
+                            }}
+                            className="backBtns"
+                          >
+                            <i
+                              className="fa fa-angle-left"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </Link>
                         {/* <Link to={BASE_PATH}>Home</Link>{" "} */}
-                        <i
+                        {/* <i
                           className="fa fa-angle-right"
                           aria-hidden="true"
-                        ></i>{" "}
+                        ></i>{" "} */}
                         Preview Page
                       </p>
                     </div>
@@ -181,6 +203,7 @@ const Preview = () => {
                       }}
                     ></div>
                     <button
+                      disabled={loadingStatus}
                       className="loginBtn"
                       style={{ marginTop: "20px", width: "200px" }}
                       onClick={() => sendPost()}
@@ -242,6 +265,7 @@ const Preview = () => {
                       }}
                     ></div>
                     <button
+                      disabled={loadingStatus}
                       className="loginBtn"
                       style={{ marginTop: "20px", width: "200px" }}
                       onClick={() => sendPost()}

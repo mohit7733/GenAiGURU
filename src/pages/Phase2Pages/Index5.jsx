@@ -165,7 +165,7 @@ const Index5 = () => {
   const chatGPTApi = () => {
     toSearch("");
     setLoadingStatus(true);
-    let message = `Give me a Title, Short Description and Description( min 500 words) based on 
+    let message = `Give me a Title, Short Description(max 200 letters) and Description( min 500 words) based on 
     Interests:${string.slice(0, 3).join(", ")}
     Style:${selectTopic},
     ${search}. 
