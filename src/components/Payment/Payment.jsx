@@ -32,7 +32,8 @@ const Payment = () => {
     city: "",
     postalCode: "",
     phone_number: "",
-    address: ""
+    address: "",
+    subscription_id: Location.state.id
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -41,7 +42,7 @@ const Payment = () => {
   }
 
   const handleSubmit2 = async (event) => {
-    // setLoadingStatus(true)
+    setLoadingStatus(true)
     event.preventDefault();
     document.querySelectorAll(".form-control.payformd").forEach(function (i) {
       if (i.classList.contains("StripeElement--empty")) {
@@ -92,7 +93,8 @@ const Payment = () => {
               "city": formData?.city,
               "state": formData?.city,
               "country": formData?.countryCode,
-              "postal_code": formData?.postalCode
+              "postal_code": formData?.postalCode,
+              "subscription_id": formData?.subscription_id
             }
           ),
           redirect: "follow"
@@ -104,20 +106,41 @@ const Payment = () => {
             return result?.intent
           })
 
-        console.log(client_secret);
-
         const paymentid = await stripe.confirmCardPayment(
           client_secret, {
           payment_method: paymentMethod?.id
         })
-        console.log(paymentid);
-        if (!paymentid?.error) {
 
-          toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
-          setTimeout(() => {
-            Navigate("/subscriptions")
-          }, 1000);
+
+        const requestOptions2 = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify({
+            "subscription_id": formData?.subscription_id,
+            "amount": JSON.stringify(formData?.finalAmount * 100),
+            "data": paymentid,
+            "payment_intent_id": paymentid.paymentIntent.id,
+          }),
+          redirect: "follow"
+        };
+
+
+        if (!paymentid?.error) {
+          const savedata = await fetch(`${getBaseURL()}/auth/payment-success`, requestOptions2)
+            .then((response) => response.json())
+            .then((result) => {
+              return result
+            })
+          console.log(savedata);
+          if (savedata?.success) {
+            setLoadingStatus(false)
+            toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+            setTimeout(() => {
+              // Navigate("/subscriptions")
+            }, 1000);
+          }
         } else {
+          setLoadingStatus(false)
           toast.error("Payment Failed", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
         }
       }

@@ -109,6 +109,7 @@ const SubscriptionPlans = () => {
                                     name: details.username,
                                     email: details.email,
                                     price: sub.price,
+                                    id: sub.id,
                                   },
                                 });
                               }}
@@ -244,6 +245,7 @@ const SubscriptionPlans = () => {
                                   name: details.username,
                                   email: details.email,
                                   price: sub.price,
+                                  id: sub.id,
                                 },
                               });
                             }}
