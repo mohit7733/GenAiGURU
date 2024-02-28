@@ -69,11 +69,8 @@ const Popularvideos = () => {
   };
   const onVideoClick = (VideoId, titles) => {
     const trimmedTitle = titles.trim();
-    console.log("Trimmed title:", trimmedTitle);
     const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
-    console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
-    console.log(VideoId, titles, "test");
   };
   return (
     <>
@@ -207,11 +204,20 @@ const Popularvideos = () => {
                       <li>{video.author}</li>
                       {/* <li>{video.creation_date}</li> */}
                     </ul>
-                    {/* <span className="tags">
-                      {video?.tags?.map((tag, index) => {
-                        return <a key={index}> #{tag}</a>;
-                      })}
-                    </span> */}
+                    <ul className="flex">
+                      <li>
+                        <a>
+                          {video.tags.map((tag, index) => {
+                            return (
+                              <React.Fragment key={index}>
+                                <span style={{ color: "#325fff" }}>#{tag}</span>
+                                {index !== video.tags.length - 1 && " "}
+                              </React.Fragment>
+                            );
+                          })}
+                        </a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               );
