@@ -534,6 +534,7 @@ section.loginPopup.filterPopup .headingContent {
   border-radius: 30px;
   padding: 17px 22px;
   border: none;
+  font-size: 15px;
 }
 section.loginPopup.filterPopup .headingContent h5 {
   width: 100%;
@@ -2488,8 +2489,10 @@ input:checked + .slider:before {
 }
 
 .interestSection .buttonText p {
-    font-size: 17px;
-    text-align: center;
+  font-size: 17px;
+  text-align: center;
+  margin-bottom: 5px;
+  padding-top: 10px;
 }
 
 .blog-wrap h1 {
