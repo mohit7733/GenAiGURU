@@ -51,8 +51,25 @@ const Preview = () => {
     xhr.responseType = "blob";
     xhr.send();
   }
+  const fetchBadges = async () => {
+    try {
+      const response = await axios.get(`${getBaseURL()}/game-badges`, {
+        params: {
+          user_id: userId,
+          claimed: "no",
+        },
+      });
+      setClaimedBadges(response?.data?.data);
+      if (response?.data?.data.length > 0) {
+        setShowPopUp(true);
+      }
+    } catch (error) {
+      console.error("Error fetching user points:", error.message);
+    }
+  };
 
   useEffect(() => {
+    fetchBadges();
     window.scrollTo(0, 0);
     axios
       .get(`${getBaseURL()}/auth/user`, {
@@ -73,44 +90,22 @@ const Preview = () => {
       alert("Please Generate content from Write with AI");
       navigate("/write-with-ai");
     }
-  }, []);
-
-  useEffect(() => {
     toDataUrl(
       "https://cors-anywhere.herokuapp.com/" + data[0].thumbnail,
       function (myBase64) {
         setBase64((prev) => ({ ...prev, thumbnail: myBase64 }));
-        // console.log(myBase64, "thumb"); // myBase64 is the base64 string
       }
     );
     toDataUrl(
       "https://cors-anywhere.herokuapp.com/" + data[0].banner,
       function (myBase64) {
         setBase64((prev) => ({ ...prev, banner: myBase64 }));
-        // console.log(myBase64, "banner"); // m yBase64 is the base64 string
       }
     );
   }, []);
+
   // fetchBadges API
-  useEffect(() => {
-    const fetchBadges = async () => {
-      try {
-        const response = await axios.get(`${getBaseURL()}/game-badges`, {
-          params: {
-            user_id: userId,
-            claimed: "no",
-          },
-        });
-        setClaimedBadges(response?.data?.data);
-        if (response?.data?.data.length > 0) {
-          setShowPopUp(true);
-        }
-      } catch (error) {
-        console.error("Error fetching user points:", error.message);
-      }
-    };
-    fetchBadges();
-  }, []);
+
   useEffect(() => {
     if (displaySeePost == true) {
       setTimeout(() => {
