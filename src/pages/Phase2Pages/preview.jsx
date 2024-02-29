@@ -6,8 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_CONTENT } from "../../routes";
 import SilverPopup from "../Phase5Pages/SilverPopup";
+// import imageToBase64 from "image-to-base64";
 
 const Preview = () => {
   const [profileImage, setProfileImage] = useState({
@@ -19,7 +19,10 @@ const Preview = () => {
   const [claimedBadges, setClaimedBadges] = useState([]);
   const [displaySeePost, setDisplaySeePost] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
-
+  const [base64, setBase64] = useState({
+    thumbnail: "",
+    banner: "",
+  });
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
   let location = useLocation();
@@ -30,8 +33,25 @@ const Preview = () => {
       shortdesc: location?.state?.data?.shortdesc,
       interests: location?.state?.data?.interests,
       descriptions: location?.state?.desc,
+      banner: location?.state?.data?.banner,
+      thumbnail: location?.state?.data?.thumbnail,
     },
   ];
+
+  function toDataUrl(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.send();
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
@@ -55,6 +75,22 @@ const Preview = () => {
     }
   }, []);
 
+  useEffect(() => {
+    toDataUrl(
+      "https://cors-anywhere.herokuapp.com/" + data[0].thumbnail,
+      function (myBase64) {
+        setBase64((prev) => ({ ...prev, thumbnail: myBase64 }));
+        // console.log(myBase64, "thumb"); // myBase64 is the base64 string
+      }
+    );
+    toDataUrl(
+      "https://cors-anywhere.herokuapp.com/" + data[0].banner,
+      function (myBase64) {
+        setBase64((prev) => ({ ...prev, banner: myBase64 }));
+        // console.log(myBase64, "banner"); // m yBase64 is the base64 string
+      }
+    );
+  }, []);
   // fetchBadges API
   useEffect(() => {
     const fetchBadges = async () => {
@@ -65,7 +101,6 @@ const Preview = () => {
             claimed: "no",
           },
         });
-        // console.log(response?.data?.data);
         setClaimedBadges(response?.data?.data);
         if (response?.data?.data.length > 0) {
           setShowPopUp(true);
@@ -84,7 +119,6 @@ const Preview = () => {
       }, 3000);
     }
   }, [displaySeePost]);
-
   const sendPost = () => {
     setLoadingStatus(true);
     if (token != "") {
@@ -93,8 +127,8 @@ const Preview = () => {
       fd.append("description", data[0]?.descriptions);
       fd.append("short_description", data[0]?.shortdesc);
       fd.append("interest_ids[]", data[0]?.interests);
-      // fd.append("banner_image", data?.banner);
-      // fd.append("thumbnail_image", data?.thumbnail);
+      fd.append("banner_image", base64.banner);
+      fd.append("thumbnail_image", base64.thumbnail);
       axios
         .post(`${getBaseURL()}/auth/blog-create`, fd, {
           headers: {
@@ -105,10 +139,8 @@ const Preview = () => {
           setLoadingStatus(false);
           if (res?.data?.success == true) {
             localStorage.removeItem("Data");
-            localStorage.removeItem("banner");
             localStorage.removeItem("Interests");
             localStorage.removeItem("value");
-            // alert("blog created success");
             setDisplaySeePost(true);
           } else {
             setLoadingStatus(false);
@@ -189,7 +221,13 @@ const Preview = () => {
                   <div className="blog-img">
                     <figure>
                       <img
-                        src={location?.state?.imageData}
+                        style={{
+                          objectFit: "cover",
+                          height: "250px",
+                          width: "500px",
+                          borderRadius: "15px",
+                        }}
+                        src={location?.state?.data?.banner}
                         alt="Genaiguru web-deigner-learn-book"
                       />
                     </figure>
