@@ -387,7 +387,7 @@ const VideoPlay = () => {
 
                 <ReactPlayer
                   url={videoPlay.youtube_link}
-                  playing={true}
+                  playing={false}
                   controls={true}
                   width="100%"
                   height="440px"
@@ -1114,7 +1114,7 @@ const VideoPlay = () => {
               {/* <!-- view details here --> */}
               <div className="view-details">
                 <a href="#">{videoPlay.views} Views |</a>
-                <a href="#">{videoPlay.time_difference}|</a>
+                <a href="#">{videoPlay.time_difference}</a>
                 {/* <a href="#">Details</a> */}
               </div>
               {/* <!-- view details end here --> */}

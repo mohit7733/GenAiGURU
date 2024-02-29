@@ -606,6 +606,7 @@ footer .newsletter {
 
 .searchFormLong input {
   background: 0 0;
+  width: 170%;
   border: none;
   padding: 5px 10px;
   color: #fff;
@@ -2051,7 +2052,7 @@ section.interestSection.second.mainBg figure.headerLogo {
 
 @media (max-width: 576px) {
   .interestSection p {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .interestSection ul {
@@ -2869,7 +2870,7 @@ section.interestSection.second.mainBg figure.headerLogo {
   color: #fff;
   font-weight: 600;
   font-family: PlusJakartaSansSemiBold;
-  margin: 22px 0 12px;
+  margin: 50px 0 12px;
 }
 
 @media (max-width: 1390px) {
@@ -3471,7 +3472,7 @@ section.interestSection.second.mainBg figure.headerLogo {
   background: 0 0;
   cursor: pointer;
   margin-top: -3px;
-  width: 75%;
+  width: 74%;
 }
 
 .help-section .genaiguruSelect select option {
@@ -5191,7 +5192,7 @@ section.interestSection.second.mainBg figure.headerLogo {
 
 .rightSection .profile-edit.socialLinkEdit p {
   width: 100%;
-  color: #a0aab1;
+  /* color: #a0aab1; */
 }
 
 .rightSection .profile-edit.socialLinkEdit p a {
