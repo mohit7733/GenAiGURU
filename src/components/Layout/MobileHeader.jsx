@@ -79,13 +79,13 @@ const MobileHeader = ({ isLogged }) => {
             />
           </figure>
           <form action="">
-            <Link to={"/index2"}>
+            <Link to={"/search-with-ai"}>
               <div className="form_group">
                 <input
                   type="search"
                   placeholder="Search genaiguru"
                   onClick={() => {
-                    navigate("/index2");
+                    navigate("/search-with-ai");
                   }}
                 />
               </div>
