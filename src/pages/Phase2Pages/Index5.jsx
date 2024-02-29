@@ -14,29 +14,23 @@ const token = JSON.parse(localStorage.getItem("token"));
 
 const Index5 = () => {
   const navigate = useNavigate();
+  const [local, setLocal] = useState(JSON.parse(localStorage.getItem("Data")));
   const [displaySeePost, setDisplaySeePost] = useState(
-    JSON.parse(localStorage.getItem("Data")) != null ? true : false
+    local != null ? true : false
     // true
   );
   const [search, toSearch] = useState("");
+  const [titlehasset, setTitlehasset] = useState(false);
   const [data, setData] = useState({
-    title: localStorage.getItem("Data")
-      ? JSON.parse(localStorage.getItem("Data")).title
-      : "",
+    title: local ? local.title : "",
     // descriptions: "",
-    shortdesc: localStorage.getItem("Data")
-      ? JSON.parse(localStorage.getItem("Data")).shortdesc
-      : "",
-    interests: localStorage.getItem("Data")
-      ? JSON.parse(localStorage.getItem("Data")).interests
-      : [],
-    thumbnail: null,
+    shortdesc: local ? local.shortdesc : "",
+    interests: local ? local.interests : [],
+    thumbnail: local ? local.thumbnail : null,
     banner: null,
   });
   const [value, setValue] = useState(
-    localStorage.getItem("Data")
-      ? JSON.parse(localStorage.getItem("value"))
-      : ""
+    local ? JSON.parse(localStorage.getItem("value")) : ""
   );
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [interestData, setInterestData] = useState([]);
@@ -46,6 +40,7 @@ const Index5 = () => {
   );
   const [selectTopic, setSelectTopic] = useState([]);
   useEffect(() => {
+    setData({ ...data, banner: local?.banner || null });
     axios
       .get(`${getBaseURL()}/interests`, {
         headers: {
@@ -82,7 +77,6 @@ const Index5 = () => {
       id: data?.id,
     });
   });
-
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6] }],
@@ -167,7 +161,7 @@ const Index5 = () => {
     setLoadingStatus(true);
     let message = `Give me a Title, Short Description(max 200 letters) and Description( min 500 words) based on 
     Interests:${string.slice(0, 3).join(", ")}
-    Style:${selectTopic},
+    Style:${selectTopic[0].value},
     ${search}. 
     I want Description in HTML format and dont mention html or Description in HTML format`;
     axios
@@ -183,21 +177,27 @@ const Index5 = () => {
         }
       )
       .then((response) => {
-        setDisplaySeePost(true);
-        const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
-        const titleRegex = /Title:\s*(.*)/i;
-        const shortDescRegex = /Short Description:\s*(.*)/i;
-        const descRegex = /Description:\s*([\s\S]*)/i;
-        const descMatch = resdata.match(descRegex)[1];
-        const shortMatch = resdata.match(shortDescRegex)[1];
-        const titleMatch = resdata.match(titleRegex)[1];
-        setData({
-          ...data,
-          title: titleMatch.replace(/"/g, ""),
-          shortdesc: shortMatch,
-        });
-        setValue(descMatch.slice(shortMatch.length + 14));
-        setLoadingStatus(false);
+        if (response.data.success == false) {
+          toast.error("Subscription Expired", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else {
+          const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
+          const titleRegex = /Title:\s*(.*)/i;
+          const shortDescRegex = /Short Description:\s*(.*)/i;
+          const descRegex = /Description:\s*([\s\S]*)/i;
+          const descMatch = resdata.match(descRegex)[1];
+          const shortMatch = resdata.match(shortDescRegex)[1];
+          const titleMatch = resdata.match(titleRegex)[1];
+          // generateAIimage(titleMatch.replace(/"/g, ""));
+          setData({
+            ...data,
+            title: titleMatch.replace(/"/g, ""),
+            shortdesc: shortMatch,
+          });
+          setValue(descMatch.slice(shortMatch.length));
+          setLoadingStatus(false);
+        }
       })
       .catch((error) => {
         if (!search) {
@@ -208,6 +208,56 @@ const Index5 = () => {
         console.error("Error chatGPTApi:", error.message);
       });
   };
+
+  const generateAIimage = async () => {
+    try {
+      const thumbnailPromise = axios.post(
+        `${getBaseURL()}/auth/generate-image`,
+        {
+          message: data.title,
+          type: "thumbnail",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const bannerPromise = axios.post(
+        `${getBaseURL()}/auth/generate-image`,
+        {
+          message: data.title,
+          type: "banner",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const [thumbnailRes, bannerRes] = await Promise.all([
+        thumbnailPromise,
+        bannerPromise,
+      ]);
+
+      setData({
+        ...data,
+        thumbnail: thumbnailRes.data[0].data[0].url,
+        banner: bannerRes.data[0].data[0].url,
+      });
+      setDisplaySeePost(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    if (data.title && !titlehasset && !local) {
+      setTitlehasset(true);
+      generateAIimage();
+    }
+  }, [data.title, titlehasset]);
 
   // useEffect(() => {
   //   if (checked === true) {
@@ -259,45 +309,30 @@ const Index5 = () => {
   // };
 
   function navigateToNextPage() {
-    const input = document.getElementById("banner");
-    const input2 = document.getElementById("banner2");
+    navigate("/preview", {
+      state: {
+        data: data,
+        desc: value,
+        // imageData: imageData,
+      },
+    });
+    // const input = document.getElementById("banner");
+    // if (input.files && input.files[0]) {
+    //   const reader = new FileReader();
+    //   reader.onload = function (event) {
+    //     const imageData = event.target.result;
 
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        const imageData = event.target.result;
-        navigate("/preview", {
-          state: {
-            data: data,
-            desc: value,
-            imageData: imageData,
-          },
-        });
-        localStorage.setItem("banner", imageData);
-      };
-      reader.readAsDataURL(input.files[0]);
-      localStorage.setItem("Data", JSON.stringify(data));
-      localStorage.setItem("Interests", JSON.stringify(selectOptions));
-      localStorage.setItem("value", JSON.stringify(value));
-    } else if (input2.files && input2.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        const imageData = event.target.result;
-        navigate("/preview", {
-          state: {
-            data: data,
-            desc: value,
-            imageData: imageData,
-          },
-        });
-        localStorage.setItem("banner", imageData);
-      };
-      reader.readAsDataURL(input2.files[0]);
-      localStorage.setItem("Data", JSON.stringify(data));
-      localStorage.setItem("Interests", JSON.stringify(selectOptions));
-      localStorage.setItem("value", JSON.stringify(value));
-    }
+    //     localStorage.setItem("banner", imageData);
+    //   };
+    //   reader.readAsDataURL(input.files[0]);
+    // }
+    localStorage.setItem("Data", JSON.stringify(data));
+    localStorage.setItem("Interests", JSON.stringify(selectOptions));
+    localStorage.setItem("value", JSON.stringify(value));
   }
+
+  // console.log(selectTopic[0].value);
+
   return (
     <div>
       <MobileHeader />
@@ -521,31 +556,50 @@ const Index5 = () => {
                     />
                   </div>
                   <div className="profile-edit custom-file-button">
-                    <label htmlFor="name">
-                      Upload Thumbnail Image (Recommended Size: 350*184px)
-                    </label>
-                    <input
+                    <label htmlFor="name">AI generated Thumbnail Image</label>
+                    <img
+                      style={{
+                        objectFit: "cover",
+                        height: "100px",
+                        width: "100px",
+                        borderRadius: "15px",
+                      }}
+                      src={data?.thumbnail}
+                      alt="thumb"
+                    />
+
+                    {/* <input
                       id="banner"
                       type="file"
                       onChange={(e) => {
                         dataChange("thumb", e?.target?.files[0]);
                       }}
-                    />
+                    /> */}
                   </div>
                   <div className="profile-edit input-group custom-file-button">
-                    <label
-                      className="input-group-text"
-                      htmlFor="inputGroupFile"
-                    >
-                      Upload Banner Image (Recommended Size: 568*295px)
-                    </label>
-                    <input
+                    {/* <input
                       type="file"
                       className="form-control"
                       defaultValue={data.banner}
                       onChange={(e) => {
                         dataChange("banner", e?.target?.files[0]);
                       }}
+                    /> */}
+                    <label
+                      className="input-group-text"
+                      htmlFor="inputGroupFile"
+                    >
+                      AI generated Banner Image
+                    </label>
+                    <img
+                      style={{
+                        objectFit: "cover",
+                        height: "calc(200px - 40px)",
+                        width: "300px",
+                        borderRadius: "25px",
+                      }}
+                      src={data?.banner}
+                      alt="banner"
                     />
                   </div>
 
@@ -573,6 +627,7 @@ const Index5 = () => {
                     } of 200 Characters`}</p>
                   </div>
                 </form>
+
                 <div style={{ marginTop: "50px" }}>
                   {" "}
                   <div
