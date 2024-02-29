@@ -7,6 +7,7 @@ import {
   PATH_EDIT_PROFILE,
   PATH_NOTIFICATION_SETTINGS,
   PATH_PRIVACY_POLICY,
+  PATH_PROFILE,
   PATH_SEND_FEEDBACK,
 } from "../../routes";
 
@@ -69,7 +70,7 @@ const MobileSettings = () => {
             <li className="">
               <div className="d-flex">
                 <Link
-                  to={PATH_CUSTOMIZE_INTEREST}
+                  to={PATH_PROFILE}
                   className=""
                   data-toggle-target=".tab-content-3"
                 >

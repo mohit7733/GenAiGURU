@@ -209,9 +209,9 @@ const NotificationComponent = () => {
             <div className="full-width">
               <div className="keeps-container">
                 <div className="gurukeeps-wrapper flex space-between">
-                  <h5
+                  <h5 
                     onClick={cleaALlNotications}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", paddingLeft:"270px",marginBottom:"10px"}}
                   >
                     Clear All
                   </h5>

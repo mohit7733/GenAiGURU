@@ -136,7 +136,7 @@
   padding-bottom: 10px;
 }
 .dropdown-content a:hover:last-child {
-  background: linear-gradient(to bottom, #b03fcc, #683fe4);
+  /* background: linear-gradient(to bottom, #b03fcc, #683fe4); */
   color: rgb(7, 7, 7);
   font-size: 16px;
   cursor: pointer;
@@ -1512,6 +1512,9 @@ section.mainWrapper.flex.hideMob {
   height: 100%;
   min-height: 100vh;
   max-height: 100%;
+  padding-left: 7px;
+  padding-right: 7px;
+  
 }
 .mob_profile {
   height: 100%;
@@ -1707,7 +1710,7 @@ section.mainWrapper.flex.hideMob {
 }
 
 .video-slider .layer h5 {
-  padding-top: 0px;
+  padding-top: 30px;
 }
 .profile-banner figure {
   width: 100%;
@@ -1936,9 +1939,9 @@ section.mainWrapper
   line-height: 1.4em;
   font-family: PlusJakartaSansSemiBold;
   font-weight: 600;
-  background: linear-gradient(91.54deg, #6591ff 0.79%, #ff2dcd 116.36%);
   border-radius: 38px;
   padding: 10px;
+  background: #873DD0;
 }
 
 .rightSection .tab-content .about-content h2 {
@@ -2481,11 +2484,11 @@ input:checked + .slider:before {
 }
 
 .rightSection .profile-img-box {
-    height: 100vh;
+    height: 115vh;
 } 
 
 .interestSection button.loginBtn {
-    top: 120px;
+  top: 35px;
 }
 
 .interestSection .buttonText p {
@@ -2499,5 +2502,34 @@ input:checked + .slider:before {
     font-size: 24px;
     margin-bottom: 0;
 } 
+.rightSection .keeps-container .tab-content.active h1{
+  font-size: 25px;
+  padding-left: 20px;
+ 
+}
+.rightSection .keeps-container .interest-guru .wrapper {
+  align-items: center;
+  padding-right: 16px;
+}
+.rightSection .keeps-container .interest-guru ul {
+  align-items: center;
+  margin-left: 280px;
+  margin-top: -123px;
+}
+.rightSection .keeps-container .interest-guru .content {
+  padding: 0px 0 0 0;
+}
+.rightSection .keeps-container .interest-guru .wrap {
+  position: relative;
+  box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.13);
+  border-radius: 12px;
+  background: rgba(198, 208, 225, 0.1);
+  padding: 5px 15px 0px 14px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.searchFormLong input {
+ width: 100%;
+}
 
 }
