@@ -90,7 +90,7 @@ const SubscriptionPlans = () => {
                               <h6>{sub?.name}</h6>
                               <p>
                                 {sub.price > 0 &&
-                                  "$" + sub.price + " " + "USD/month"}
+                                  "$" + (sub.price / 100) + " " + "USD/month"}
                               </p>
                             </div>
 
@@ -226,7 +226,7 @@ const SubscriptionPlans = () => {
                             <h6>{sub?.name}</h6>
                             <p>
                               {sub.price > 0 &&
-                                "$" + sub.price + " " + "USD/month"}
+                                "$" + (sub.price / 100) + " " + "USD/month"}
                             </p>
                           </div>
 

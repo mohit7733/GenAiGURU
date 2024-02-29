@@ -83,7 +83,7 @@ const Payment = () => {
           headers: myHeaders,
           body: JSON.stringify(
             {
-              "amount": JSON.stringify(formData?.finalAmount * 100),
+              "amount": JSON.stringify(formData?.finalAmount),
               "currency": "USD",
               "description": "Payment Done By " + formData?.name,
               "payment_method": paymentMethod?.id,
@@ -117,7 +117,7 @@ const Payment = () => {
           headers: myHeaders,
           body: JSON.stringify({
             "subscription_id": formData?.subscription_id,
-            "amount": JSON.stringify(formData?.finalAmount * 100),
+            "amount": JSON.stringify(formData?.finalAmount),
             "data": paymentid,
             "payment_intent_id": paymentid.paymentIntent.id,
           }),
@@ -136,7 +136,7 @@ const Payment = () => {
             setLoadingStatus(false)
             toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
             setTimeout(() => {
-              // Navigate("/subscriptions")
+              Navigate("/subscriptions")
             }, 1000);
           }
         } else {
@@ -322,7 +322,7 @@ const Payment = () => {
                     disabled
                     placeholder="Type here"
                     name="finalAmount"
-                    value={"$" + formData.finalAmount}
+                    value={"$" + (formData.finalAmount / 100)}
                     required
                     onChange={handleInputChange}
                   />
