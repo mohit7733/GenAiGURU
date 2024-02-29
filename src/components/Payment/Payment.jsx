@@ -117,7 +117,7 @@ const Payment = () => {
           headers: myHeaders,
           body: JSON.stringify({
             "subscription_id": formData?.subscription_id,
-            "amount": JSON.stringify(formData?.finalAmount / 100),
+            "amount": paymentid.paymentIntent.amount,
             "data": paymentid,
             "payment_intent_id": paymentid.paymentIntent.id,
           }),
