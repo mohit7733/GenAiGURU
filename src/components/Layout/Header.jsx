@@ -77,7 +77,7 @@ const Header = () => {
         </figure>
         <WithAuth
           callBack={(e) => {
-            navigate("/index2");
+            navigate("/search-with-ai");
           }}
         >
           <div className="searchbar flex">
