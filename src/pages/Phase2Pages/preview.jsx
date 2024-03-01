@@ -91,13 +91,15 @@ const Preview = () => {
       navigate("/write-with-ai");
     }
     toDataUrl(
-      "https://cors-anywhere.herokuapp.com/" + data[0].thumbnail,
+      // "https://cors-anywhere.herokuapp.com/" +
+      data[0].thumbnail,
       function (myBase64) {
         setBase64((prev) => ({ ...prev, thumbnail: myBase64 }));
       }
     );
     toDataUrl(
-      "https://cors-anywhere.herokuapp.com/" + data[0].banner,
+      // "https://cors-anywhere.herokuapp.com/" +
+      data[0].banner,
       function (myBase64) {
         setBase64((prev) => ({ ...prev, banner: myBase64 }));
       }

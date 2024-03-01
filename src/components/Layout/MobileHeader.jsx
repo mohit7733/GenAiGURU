@@ -94,6 +94,7 @@ const MobileHeader = ({ isLogged }) => {
         </div>
         <ul className="leftSide flex">
           <WithAuth
+            Auth
             callBack={(e) => {
               navigate(PATH_NOTIFICATION);
             }}
