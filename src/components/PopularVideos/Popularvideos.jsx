@@ -16,9 +16,6 @@ const Popularvideos = () => {
 
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
-
-  const MAX_DISPLAY_ARTICLES = 2;
-  const MAX_DISPLAY_VIDEOS = 2;
   const MAX_DISPLAY = 1;
   const navigate = useNavigate();
 
@@ -160,7 +157,7 @@ const Popularvideos = () => {
             {/* </Slider> */}
           </div>
           {popularVideos.map((video, index) => {
-            if (index < MAX_DISPLAY_VIDEOS) {
+            if (index === 1 || index === 2) {
               return (
                 <div
                   className="videoBoxes flex"
@@ -187,10 +184,10 @@ const Popularvideos = () => {
                             alt={""}
                           />
                           {/* <ReactPlayer
-                        url={video.youtube_link}
-                        width="100%"
-                        height="100%"
-                      /> */}
+                  url={video.youtube_link}
+                  width="100%"
+                  height="100%"
+                /> */}
                         </figure>
                         <img src="app/images/youtube.png" alt={""} />
                       </div>
@@ -223,6 +220,7 @@ const Popularvideos = () => {
               );
             }
           })}
+
           <Link to={PATH_FEATURED_VIDEO} className="viewAll">
             View all
           </Link>

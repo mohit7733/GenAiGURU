@@ -5749,6 +5749,8 @@ section.interestSection.second.mainBg figure.headerLogo {
 
 .video-wrapper .video-box .profile-video li a img {
   width: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .video-wrapper .video-box .profile-video li a small {

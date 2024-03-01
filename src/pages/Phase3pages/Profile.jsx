@@ -1098,17 +1098,23 @@ const Profile = () => {
                       );
                     })}
                   </div>
-                  <button
+                  {/* <button
                     type="submit"
                     className="loginBtn"
                     onClick={onChangeInterest}
                   >
                     Save Changes
-                  </button>
-                  <p className="errorMessage">{errorMessage}</p>
+                  </button> */}
+  
                 </form>
               </div>
             </div>
+            <div class="pop-btn wrapper">
+                    <button type="submit" class="loginBtn" onClick={onChangeInterest}>
+                      Save Changes
+                    </button>
+                    <p className="errorMessage">{errorMessage}</p>
+                  </div>
           </div>
           {/* <!-- mobile popup starts here -- */}
           <div className="mob_popup hideDes">

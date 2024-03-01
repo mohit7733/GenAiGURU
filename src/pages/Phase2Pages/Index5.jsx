@@ -305,17 +305,18 @@ const Index5 = () => {
                       : { display: "none" }
                   }
                 >
+                  <span>How to:</span>
                   <p
                     style={{
-                      marginTop: "20px",
+                      marginTop: "0px",
                       marginBottom: "60px",
                       color: "white",
                     }}
                   >
-                    How to: Choose a topic, pick a blog style, and give a
-                    creative prompt, Genaiguru will generate a title, blog
-                    article, banner image and thumbnail ready for publication to
-                    your page on the site.
+                    Choose a topic, pick a blog style, and give a creative
+                    prompt, Genaiguru will generate a title, blog article,
+                    banner image and thumbnail ready for publication to your
+                    page on the site.
                   </p>
                   <p
                     style={{
@@ -342,18 +343,21 @@ const Index5 = () => {
 
                   <Select
                     isObject={false}
-                    isMulti
-                    isOptionDisabled={() => selectOptions?.length >= 1}
+                    // isMulti
+                    // isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
                     placeholder="Interests"
                     onChange={(Option) => {
-                      if (selectOptions.length <= 1) {
+                      if (Array.isArray(Option)) {
                         setSelectOptions(Option);
-                        dataChange(
-                          "interests",
-                          Option.map((option) => option.id)
-                        );
+                        const selectedIds = Option.map((option) => option.id);
+                        dataChange("interests", selectedIds);
+                      } else if (Option && typeof Option === "object") {
+                        setSelectOptions([Option]);
+                        dataChange("interests", Option.id);
+                      } else {
+                        console.error("Invalid Option:", Option);
                       }
                     }}
                     styles={{
@@ -366,15 +370,19 @@ const Index5 = () => {
                           : "transparent",
                         width: "100%",
                       }),
+                      singleValue: (baseStyles) => ({
+                        ...baseStyles,
+                        color: "white",
+                      }),
 
                       option: (baseStyles, state) => ({
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
                         color: "black",
-                        boxShadow: state.isFocused
-                          ? "transparent"
-                          : "transparent",
+                        // boxShadow: state.isFocused
+                        //   ? "transparent"
+                        //   : "transparent",
                       }),
                     }}
                     className="genaiguruSelect flex"
@@ -391,15 +399,14 @@ const Index5 = () => {
                     </p>
                     <Select
                       isObject={false}
-                      isMulti
-                      isOptionDisabled={() => selectTopic?.length >= 1}
+                      // isMulti
+                      // isOptionDisabled={() => selectTopic?.length >= 1}
                       options={topics}
                       value={selectTopic}
                       placeholder="Blog Styles"
                       onChange={(Option) => {
-                        if (selectTopic.length <= 1) {
                           setSelectTopic(Option);
-                        }
+                        
                       }}
                       styles={{
                         control: (baseStyles, state) => ({
@@ -411,6 +418,10 @@ const Index5 = () => {
                             : "transparent",
                           width: "100%",
                         }),
+                        singleValue: (baseStyles) => ({
+                        ...baseStyles,
+                        color: "white",
+                      }),
 
                         option: (baseStyles, state) => ({
                           ...baseStyles,
@@ -667,6 +678,7 @@ const Index5 = () => {
           <div className="full-width">
             <div className="profile-img-box postWrapper_inner">
               <form className="help-section">
+                <span>How to:</span>
                 <div
                   style={
                     displaySeePost == false
@@ -676,15 +688,15 @@ const Index5 = () => {
                 >
                   <p
                     style={{
-                      marginTop: "20px",
+                      marginTop: "0px",
                       marginBottom: "60px",
                       color: "white",
                     }}
                   >
-                    How to: Choose a topic, pick a blog style, and give a
-                    creative prompt, Genaiguru will generate a title, blog
-                    article, banner image and thumbnail ready for publication to
-                    your page on the site.
+                    Choose a topic, pick a blog style, and give a creative
+                    prompt, Genaiguru will generate a title, blog article,
+                    banner image and thumbnail ready for publication to your
+                    page on the site.
                   </p>
                   <p
                     style={{
@@ -711,18 +723,21 @@ const Index5 = () => {
 
                   <Select
                     isObject={false}
-                    isMulti
-                    isOptionDisabled={() => selectOptions?.length >= 1}
+                    // isMulti
+                    // isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
                     placeholder="Interests"
                     onChange={(Option) => {
-                      if (selectOptions.length <= 1) {
+                      if (Array.isArray(Option)) {
                         setSelectOptions(Option);
-                        dataChange(
-                          "interests",
-                          Option.map((option) => option.id)
-                        );
+                        const selectedIds = Option.map((option) => option.id);
+                        dataChange("interests", selectedIds);
+                      } else if (Option && typeof Option === "object") {
+                        setSelectOptions([Option]);
+                        dataChange("interests", Option.id);
+                      } else {
+                        console.error("Invalid Option:", Option);
                       }
                     }}
                     styles={{
@@ -734,6 +749,10 @@ const Index5 = () => {
                           ? "transparent"
                           : "transparent",
                         width: "100%",
+                      }),
+                      singleValue: (baseStyles) => ({
+                        ...baseStyles,
+                        color: "white", 
                       }),
 
                       option: (baseStyles, state) => ({
@@ -760,15 +779,15 @@ const Index5 = () => {
                     </p>
                     <Select
                       isObject={false}
-                      isMulti
-                      isOptionDisabled={() => selectTopic?.length >= 1}
+                      // isMulti
+                      // isOptionDisabled={() => selectTopic?.length >= 1}
                       options={topics}
                       value={selectTopic}
                       placeholder="Blog Styles"
                       onChange={(Option) => {
-                        if (selectTopic.length <= 1) {
+                       
                           setSelectTopic(Option);
-                        }
+                      
                       }}
                       styles={{
                         control: (baseStyles, state) => ({
@@ -780,6 +799,10 @@ const Index5 = () => {
                             : "transparent",
                           width: "100%",
                         }),
+                        singleValue: (baseStyles) => ({
+                        ...baseStyles,
+                        color: "white",
+                      }),
 
                         option: (baseStyles, state) => ({
                           ...baseStyles,
