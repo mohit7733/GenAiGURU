@@ -74,59 +74,90 @@ const Payment = () => {
         },
       });
       if (!error) {
+
+
+        const myHeaders2 = new Headers();
+        myHeaders2.append("Content-Type", "application/json");
+        myHeaders2.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
+
+        const raw = JSON.stringify({
+          "subscription_id": 1,
+          "payment_method": paymentMethod?.id,
+          "name": formData?.name,
+          "email": formData?.email,
+          "phone": formData?.phone_number,
+          "line1": formData?.address,
+          "line2": formData?.address,
+          "city": formData?.city,
+          "state": formData?.city,
+          "country": formData?.countryCode,
+          "postal_code": formData?.postalCode,
+          "product_id": "prod_PeMUuDdM6Wocst"
+        });
+
+        const requestOptions2 = {
+          method: "POST",
+          headers: myHeaders2,
+          body: raw,
+          redirect: "follow"
+        };
+
+        const paymentdata = await fetch(`${getBaseURL()}/auth/recurring-payment`, requestOptions2)
+          .then((response) => response.json())
+          .then((result) => {
+            return result
+          })
+
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
 
-        const requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: JSON.stringify(
-            {
-              "amount": JSON.stringify(formData?.finalAmount),
-              "currency": "USD",
-              "description": "Payment Done By " + formData?.name,
-              "payment_method": paymentMethod?.id,
-              "name": formData?.name,
-              "line1": formData?.address,
-              "line2": formData?.address,
-              "city": formData?.city,
-              "state": formData?.city,
-              "country": formData?.countryCode,
-              "postal_code": formData?.postalCode,
-              "subscription_id": formData?.subscription_id
-            }
-          ),
-          redirect: "follow"
-        };
-
-        const { client_secret } = await fetch(`${getBaseURL()}/auth/create-payment-intent`, requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-            return result?.intent
+        // const requestOptions = {
+        //   method: "POST",
+        //   headers: myHeaders,
+        //   body: JSON.stringify(
+        //     {
+        //       "amount": JSON.stringify(formData?.finalAmount),
+        //       "currency": "USD",
+        //       "description": "Payment Done By " + formData?.name,
+        //       "payment_method": paymentMethod?.id,
+        //       "name": formData?.name,
+        //       "line1": formData?.address,
+        //       "line2": formData?.address,
+        //       "city": formData?.city,
+        //       "state": formData?.city,
+        //       "country": formData?.countryCode,
+        //       "postal_code": formData?.postalCode,
+        //       "subscription_id": formData?.subscription_id
+        //     }
+        //   ),
+        //   redirect: "follow"
+        // };
+        // const { client_secret } = await fetch(`${getBaseURL()}/auth/create-payment-intent`, requestOptions)
+        //   .then((response) => response.json())
+        //   .then((result) => {
+        //     return result?.intent
+        //   })
+        let paymentid = {}
+        if (paymentdata?.subscription?.status != "active") {
+          paymentid = await stripe.confirmCardPayment(
+            paymentdata?.subscription?.latest_invoice?.payment_intent?.client_secret, {
+            payment_method: paymentdata?.customer?.invoice_settings?.default_payment_method
           })
+          console.log(paymentid);
+        }
 
-        const paymentid = await stripe.confirmCardPayment(
-          client_secret, {
-          payment_method: paymentMethod?.id
-        })
-
-
-        const requestOptions2 = {
+        const requestOptions3 = {
           method: "POST",
           headers: myHeaders,
           body: JSON.stringify({
-            "subscription_id": formData?.subscription_id,
-            "amount": paymentid.paymentIntent.amount,
-            "data": paymentid,
-            "payment_intent_id": paymentid.paymentIntent.id,
+            "stripe_subscription_id": paymentdata?.subscription?.id
           }),
           redirect: "follow"
         };
 
-
         if (!paymentid?.error) {
-          const savedata = await fetch(`${getBaseURL()}/auth/payment-success`, requestOptions2)
+          const savedata = await fetch(`${getBaseURL()}/auth/recurring-success`, requestOptions3)
             .then((response) => response.json())
             .then((result) => {
               return result
