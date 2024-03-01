@@ -98,7 +98,7 @@ export function RouterElement() {
     },
 
     {
-      path: "index2",
+      path: "search-with-ai",
       name: "index2",
       element: logged != "true" ? <Login /> : <Index2 />,
       exact: true,

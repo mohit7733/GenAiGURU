@@ -259,55 +259,6 @@ const Index5 = () => {
     }
   }, [data.title, titlehasset]);
 
-  // useEffect(() => {
-  //   if (checked === true) {
-  //     chatGPTApi2();
-  //   } else {
-  //     return;
-  //   }
-  // }, [string.length, checked]);
-  // const chatGPTApi2 = () => {
-  //   if (string.length == 0) {
-  //     setData({ ...data, title: "", shortdesc: "", descriptions: "" });
-  //     return;
-  //   } else {
-  //     setData({ ...data, title: "", shortdesc: "", descriptions: "" });
-  //     let searching = `Give me a Title, Short Description, Description(800 words) based on  ${string
-  //       .slice(0, 3)
-  //       .join(", ")} without double quote in array`;
-  //     axios
-  //       .post(
-  //         `${getBaseURL()}/auth/send-chat-message`,
-  //         {
-  //           message: searching,
-  //         },
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       )
-  //       .then((response) => {
-  //         const titleRegex = /Title:\s*(.*)/i;
-  //         const shortDescRegex = /Short Description:\s*(.*)/i;
-  //         const descRegex = /Description:\s*([\s\S]*)/i;
-  //         const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
-  // const titleMatch = resdata.match(titleRegex)[1];
-  //         const shortMatch = resdata.match(shortDescRegex)[1];
-  //         const descMatch = resdata.match(descRegex)[1];
-  //         setData({
-  //           ...data,
-  //           title: titleMatch,
-  //           shortdesc: shortMatch,
-  //           descriptions: descMatch,
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error chatGPTApi:", error.message);
-  //       });
-  //   }
-  // };
-
   function navigateToNextPage() {
     navigate("/preview", {
       state: {
@@ -330,8 +281,6 @@ const Index5 = () => {
     localStorage.setItem("Interests", JSON.stringify(selectOptions));
     localStorage.setItem("value", JSON.stringify(value));
   }
-
-  // console.log(selectTopic[0].value);
 
   return (
     <div>
@@ -394,12 +343,12 @@ const Index5 = () => {
                   <Select
                     isObject={false}
                     isMulti
-                    isOptionDisabled={() => selectOptions?.length >= 3}
+                    isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
                     placeholder="Interests"
                     onChange={(Option) => {
-                      if (selectOptions.length <= 3) {
+                      if (selectOptions.length <= 1) {
                         setSelectOptions(Option);
                         dataChange(
                           "interests",
@@ -485,6 +434,7 @@ const Index5 = () => {
                       }}
                     >
                       Give GenaiGuru a creative prompt to write about the topic
+                      *
                     </p>
                     <div className="innerSearchForm flex">
                       <figure className="logoIcon">
@@ -508,7 +458,11 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      if (data.interests != "" && selectTopic.length > 0) {
+                      if (
+                        data.interests != "" &&
+                        selectTopic.length > 0 &&
+                        search.length > 0
+                      ) {
                         chatGPTApi();
                       } else {
                         toast.error("Please Fill all required fields!", {
@@ -758,12 +712,12 @@ const Index5 = () => {
                   <Select
                     isObject={false}
                     isMulti
-                    isOptionDisabled={() => selectOptions?.length >= 3}
+                    isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
                     placeholder="Interests"
                     onChange={(Option) => {
-                      if (selectOptions.length <= 3) {
+                      if (selectOptions.length <= 1) {
                         setSelectOptions(Option);
                         dataChange(
                           "interests",
@@ -849,6 +803,7 @@ const Index5 = () => {
                       }}
                     >
                       Give GenaiGuru a creative prompt to write about the topic
+                      *
                     </p>
                     <div className="innerSearchForm flex">
                       <figure className="logoIcon">
@@ -872,7 +827,11 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      if (data.interests != "" && selectTopic.length > 0) {
+                      if (
+                        data.interests != "" &&
+                        selectTopic.length > 0 &&
+                        search.length > 0
+                      ) {
                         chatGPTApi();
                       } else {
                         toast.error("Please Fill all required fields!", {

@@ -58,7 +58,7 @@ const MobileSideBar = (props) => {
           <div className="topSearch">
             <WithAuth
               callBack={(e) => {
-                navigate("/index2");
+                navigate("/search-with-ai");
               }}
             >
               <div className="searchbar flex">
@@ -70,7 +70,15 @@ const MobileSideBar = (props) => {
                 </figure>
                 <form action="">
                   <div className="form_group">
-                    <input type="search" placeholder="Search AI" />
+                    <input
+                      disabled={
+                        window.location.pathname.includes("search-with-ai")
+                          ? true
+                          : false
+                      }
+                      type="search"
+                      placeholder="Search AI"
+                    />
                   </div>
                 </form>
               </div>

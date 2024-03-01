@@ -77,7 +77,7 @@ const Header = () => {
         </figure>
         <WithAuth
           callBack={(e) => {
-            navigate("/index2");
+            navigate("/search-with-ai");
           }}
         >
           <div className="searchbar flex">
@@ -90,7 +90,18 @@ const Header = () => {
 
             <div action="">
               <div className="form_group">
-                <input type="search" placeholder="Search genaiguru" />
+                <input
+                  disabled={
+                    window.location.pathname.includes("search-with-ai")
+                      ? true
+                      : false
+                  }
+                  onChange={() => {
+                    navigate("/search-with-ai");
+                  }}
+                  type="search"
+                  placeholder="Search genaiguru"
+                />
               </div>
             </div>
           </div>
