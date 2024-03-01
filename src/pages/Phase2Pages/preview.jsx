@@ -10,11 +10,14 @@ import SilverPopup from "../Phase5Pages/SilverPopup";
 // import imageToBase64 from "image-to-base64";
 
 const Preview = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("UserId"));
+  let location = useLocation();
+  let navigate = useNavigate();
   const [profileImage, setProfileImage] = useState({
     profile_image: "",
     name: "",
   });
-
   const [showPopUp, setShowPopUp] = useState(false);
   const [claimedBadges, setClaimedBadges] = useState([]);
   const [displaySeePost, setDisplaySeePost] = useState(false);
@@ -23,10 +26,6 @@ const Preview = () => {
     thumbnail: "",
     banner: "",
   });
-  const token = JSON.parse(localStorage.getItem("token"));
-  const userId = JSON.parse(localStorage.getItem("UserId"));
-  let location = useLocation();
-  let navigate = useNavigate();
   const data = [
     {
       title: location?.state?.data?.title,
@@ -68,54 +67,6 @@ const Preview = () => {
     }
   };
 
-  useEffect(() => {
-    fetchBadges();
-    window.scrollTo(0, 0);
-    axios
-      .get(`${getBaseURL()}/auth/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setProfileImage({
-          profile_image: response.data.profile_image,
-          name: response.data.name,
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    if (location.state == null || undefined || "") {
-      alert("Please Generate content from Write with AI");
-      navigate("/write-with-ai");
-    }
-    toDataUrl(
-      // "https://cors-anywhere.herokuapp.com/" +
-      data[0].thumbnail,
-      function (myBase64) {
-        setBase64((prev) => ({ ...prev, thumbnail: myBase64 }));
-      }
-    );
-    toDataUrl(
-      // "https://cors-anywhere.herokuapp.com/" +
-      data[0].banner,
-      function (myBase64) {
-        setBase64((prev) => ({ ...prev, banner: myBase64 }));
-      }
-    );
-  }, []);
-
-  // fetchBadges API
-
-  useEffect(() => {
-    if (displaySeePost == true) {
-      setTimeout(() => {
-        setDisplaySeePost(false);
-        navigate("/");
-      }, 3000);
-    }
-  }, [displaySeePost]);
   const sendPost = () => {
     setLoadingStatus(true);
     if (token != "") {
@@ -150,6 +101,51 @@ const Preview = () => {
         });
     }
   };
+  useEffect(() => {
+    fetchBadges();
+    window.scrollTo(0, 0);
+    axios
+      .get(`${getBaseURL()}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setProfileImage({
+          profile_image: response.data.profile_image,
+          name: response.data.name,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    if (location.state == null || undefined || "") {
+      alert("Please Generate content from Write with AI");
+      navigate("/write-with-ai");
+    }
+    toDataUrl(
+      "https://cors-anywhere.herokuapp.com/" + data[0].thumbnail,
+      function (myBase64) {
+        setBase64((prev) => ({ ...prev, thumbnail: myBase64 }));
+      }
+    );
+    toDataUrl(
+      "https://cors-anywhere.herokuapp.com/" + data[0].banner,
+      function (myBase64) {
+        setBase64((prev) => ({ ...prev, banner: myBase64 }));
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (displaySeePost == true) {
+      setTimeout(() => {
+        setDisplaySeePost(false);
+        navigate("/");
+      }, 3000);
+    }
+  }, [displaySeePost]);
+  console.log(base64, "bse");
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
