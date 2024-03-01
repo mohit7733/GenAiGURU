@@ -420,6 +420,7 @@ a.btn.btn-file {
   width: calc(100% - 109px);
   padding-left: 14px;
   padding-top: 0;
+  margin-top: -65px;
 }
 .mob_tab_list .rightSection .keeps-container .interest-guru .wrapper {
   margin-bottom: 3px;
@@ -709,6 +710,7 @@ li.comment-btn img.fillImage {
   background: transparent;
   border-top: none;
   border-right: none;
+  border-left: none;
 }
 .m-l {
   margin-left: 0 !important;
@@ -2531,5 +2533,51 @@ input:checked + .slider:before {
 .searchFormLong input {
  width: 100%;
 }
+.review div img {
+  margin-left: 20px;
+}
+.pop-btn.wrapper button.loginBtn {
+  bottom: 100px !important;
+}
+.pop-btn.wrapper .errorMessage {
+  position: absolute;
+  bottom: 70px !important;
+}
+.help-section span {
+  margin-left: 20px;
+}
 
+}
+
+.video-wrapper .video-box .link {
+  align-items: center;
+}
+.pop-btn.wrapper {
+  display: flex;
+  justify-content: center;
+}
+.pop-btn.wrapper button.loginBtn {
+  position: absolute;
+  max-width: 330px;
+  bottom: 330px;
+}
+.pop-btn.wrapper .errorMessage{
+  position: absolute;
+  bottom: 300px;
+}
+
+
+.css-19bb58m, .css-wsp0cs-MultiValueGeneric, .css-1jqq78o-placeholder {
+  color: #fff !important;
+}
+.css-1p3m7a8-multiValue {
+  background-color: rgb(37 49 63) !important;
+}
+.css-1xc3v61-indicatorContainer:nth-child(1){
+  display: none !important;
+}
+.help-section span {
+  font-size: 22px;
+  display: block;
+  color: white;
 }
