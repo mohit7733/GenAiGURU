@@ -120,6 +120,8 @@ const Popularvideos = () => {
                         <img src="app/images/youtube.png" alt={""} />
                       </div>
                       <div className="layer">
+                      {token && <span>
+                      {video.watched == "no" && (
                         <div className="price flex">
                           <img
                             src="app/images/orangeStrike.png"
@@ -127,6 +129,8 @@ const Popularvideos = () => {
                           />
                           {videoPoints}
                         </div>
+                      )}
+                    </span>}
                         <h5>{video.title}</h5>
                         <div className="author-tag flex">
                           <div className="col_left">
@@ -266,6 +270,7 @@ const Popularvideos = () => {
                       <img src="app/images/youtube.png" alt={""} />
                     </div>
                     <div className="layer">
+                    {token && <span>
                       {video.watched == "no" && (
                         <div className="price flex">
                           <img
@@ -275,6 +280,8 @@ const Popularvideos = () => {
                           {videoPoints}
                         </div>
                       )}
+                    </span>}
+                     
                       <h5>{video.title}</h5>
                       <div className="author-tag flex">
                         <div className="col_left">

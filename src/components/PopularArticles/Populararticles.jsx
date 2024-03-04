@@ -36,10 +36,10 @@ const Populararticles = () => {
       });
   }, [userId]);
 
-  const onArticleClick = (AricleID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onArticleClick = (AricleID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
@@ -95,21 +95,25 @@ const Populararticles = () => {
                     className="wrap"
                     key={index}
                     onClick={() => {
-                      onArticleClick(article.id,article.title);
+                      onArticleClick(article.id, article.title);
                     }}
                   >
                     <figure>
                       <img src={article.photo} alt="Genaiguru video image" />
                     </figure>
                     <div className="layer">
-                      {article.read == "no" && (
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                          />
-                          {articlePoints}
-                        </div>
+                      {token && (
+                        <span>
+                          {article.read == "no" && (
+                            <div className="price flex">
+                              <img
+                                src="app/images/orangeStrike.png"
+                                alt="Genaiguru orangeStrike"
+                              />
+                              {articlePoints}
+                            </div>
+                          )}
+                        </span>
                       )}
                       <h5>{article.title}</h5>
                       <div className="author-tag flex">

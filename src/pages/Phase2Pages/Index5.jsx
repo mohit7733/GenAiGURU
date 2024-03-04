@@ -21,6 +21,7 @@ const Index5 = () => {
   );
   const [search, toSearch] = useState("");
   const [titlehasset, setTitlehasset] = useState(false);
+  const ClearIndicator = () => null;
   const [data, setData] = useState({
     title: local ? local.title : "",
     // descriptions: "",
@@ -178,9 +179,10 @@ const Index5 = () => {
       )
       .then((response) => {
         if (response.data.success == false) {
-          toast.error("Subscription Expired", {
+          toast.error("Free Subscription has Ended.", {
             position: toast.POSITION.TOP_CENTER,
           });
+           setLoadingStatus(false);
         } else {
           const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
           const titleRegex = /Title:\s*(.*)/i;
@@ -343,21 +345,18 @@ const Index5 = () => {
 
                   <Select
                     isObject={false}
-                    // isMulti
-                    // isOptionDisabled={() => selectOptions?.length >= 1}
+                    isMulti
+                    isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
                     placeholder="Interests"
                     onChange={(Option) => {
-                      if (Array.isArray(Option)) {
+                      if (selectOptions.length <= 1) {
                         setSelectOptions(Option);
-                        const selectedIds = Option.map((option) => option.id);
-                        dataChange("interests", selectedIds);
-                      } else if (Option && typeof Option === "object") {
-                        setSelectOptions([Option]);
-                        dataChange("interests", Option.id);
-                      } else {
-                        console.error("Invalid Option:", Option);
+                        dataChange(
+                          "interests",
+                          Option.map((option) => option.id)
+                        );
                       }
                     }}
                     styles={{
@@ -375,6 +374,12 @@ const Index5 = () => {
                         color: "white",
                       }),
 
+                      input: (baseStyles) => ({
+                        ...baseStyles,
+                        color: "white", // Change text color to white
+                      }),
+                      
+
                       option: (baseStyles, state) => ({
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
@@ -384,6 +389,9 @@ const Index5 = () => {
                         //   ? "transparent"
                         //   : "transparent",
                       }),
+                    }}
+                    components={{
+                      ClearIndicator: ClearIndicator,
                     }}
                     className="genaiguruSelect flex"
                   />
@@ -399,14 +407,13 @@ const Index5 = () => {
                     </p>
                     <Select
                       isObject={false}
-                      // isMulti
-                      // isOptionDisabled={() => selectTopic?.length >= 1}
+                      isMulti
+                      isOptionDisabled={() => selectTopic?.length >= 1}
                       options={topics}
                       value={selectTopic}
                       placeholder="Blog Styles"
                       onChange={(Option) => {
-                          setSelectTopic(Option);
-                        
+                        setSelectTopic(Option);
                       }}
                       styles={{
                         control: (baseStyles, state) => ({
@@ -419,10 +426,14 @@ const Index5 = () => {
                           width: "100%",
                         }),
                         singleValue: (baseStyles) => ({
-                        ...baseStyles,
-                        color: "white",
-                      }),
+                          ...baseStyles,
+                          color: "white",
+                        }),
 
+                        input: (baseStyles) => ({
+                          ...baseStyles,
+                          color: "white", // Change text color to white
+                        }),
                         option: (baseStyles, state) => ({
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
@@ -432,6 +443,9 @@ const Index5 = () => {
                             ? "transparent"
                             : "transparent",
                         }),
+                      }}
+                      components={{
+                        ClearIndicator: ClearIndicator,
                       }}
                       className="genaiguruSelect flex"
                     />
@@ -469,6 +483,7 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
+                      console.log(data.interests, selectTopic, search, "test1");
                       if (
                         data.interests != "" &&
                         selectTopic.length > 0 &&
@@ -723,21 +738,18 @@ const Index5 = () => {
 
                   <Select
                     isObject={false}
-                    // isMulti
-                    // isOptionDisabled={() => selectOptions?.length >= 1}
+                    isMulti
+                    isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
                     placeholder="Interests"
                     onChange={(Option) => {
-                      if (Array.isArray(Option)) {
+                      if (selectOptions.length <= 1) {
                         setSelectOptions(Option);
-                        const selectedIds = Option.map((option) => option.id);
-                        dataChange("interests", selectedIds);
-                      } else if (Option && typeof Option === "object") {
-                        setSelectOptions([Option]);
-                        dataChange("interests", Option.id);
-                      } else {
-                        console.error("Invalid Option:", Option);
+                        dataChange(
+                          "interests",
+                          Option.map((option) => option.id)
+                        );
                       }
                     }}
                     styles={{
@@ -752,7 +764,7 @@ const Index5 = () => {
                       }),
                       singleValue: (baseStyles) => ({
                         ...baseStyles,
-                        color: "white", 
+                        color: "white",
                       }),
 
                       option: (baseStyles, state) => ({
@@ -765,6 +777,9 @@ const Index5 = () => {
                           : "transparent",
                       }),
                     }}
+                    components={{
+                        ClearIndicator: ClearIndicator,
+                      }}
                     className="genaiguruSelect flex"
                   />
                   <div style={{ marginTop: "30px" }}>
@@ -779,15 +794,13 @@ const Index5 = () => {
                     </p>
                     <Select
                       isObject={false}
-                      // isMulti
-                      // isOptionDisabled={() => selectTopic?.length >= 1}
+                      isMulti
+                      isOptionDisabled={() => selectTopic?.length >= 1}
                       options={topics}
                       value={selectTopic}
                       placeholder="Blog Styles"
                       onChange={(Option) => {
-                       
-                          setSelectTopic(Option);
-                      
+                        setSelectTopic(Option);
                       }}
                       styles={{
                         control: (baseStyles, state) => ({
@@ -800,9 +813,9 @@ const Index5 = () => {
                           width: "100%",
                         }),
                         singleValue: (baseStyles) => ({
-                        ...baseStyles,
-                        color: "white",
-                      }),
+                          ...baseStyles,
+                          color: "white",
+                        }),
 
                         option: (baseStyles, state) => ({
                           ...baseStyles,
@@ -813,6 +826,9 @@ const Index5 = () => {
                             ? "transparent"
                             : "transparent",
                         }),
+                      }}
+                      components={{
+                        ClearIndicator: ClearIndicator,
                       }}
                       className="genaiguruSelect flex"
                     />
@@ -850,6 +866,7 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
+                      console.log(data.interests, selectTopic, search, "test");
                       if (
                         data.interests != "" &&
                         selectTopic.length > 0 &&
@@ -864,7 +881,7 @@ const Index5 = () => {
                       }
                     }}
                   >
-                    <button disabled={loadingStatus} className="loginBtn">
+                    <button disabled={loadingStatus} className="loginBtn" >
                       {loadingStatus ? "" : "Generate"}
                       {loadingStatus && (
                         <div
@@ -877,6 +894,7 @@ const Index5 = () => {
                         </div>
                       )}
                     </button>
+                    <ToastContainer autoClose = {1000} closeButton = {false} />
                   </div>
                 </div>
               </form>

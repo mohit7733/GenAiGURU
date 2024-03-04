@@ -12,11 +12,10 @@ import {
   PATH_WELCOME,
 } from "../../routes";
 
-
-
 const Login8 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loadingStatus, setLoadingStatus] = useState(false);
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -41,6 +40,7 @@ const Login8 = () => {
   };
 
   const onLogin = async () => {
+    setLoadingStatus(true);
     let payload = {
       email: email,
       password: password,
@@ -49,6 +49,7 @@ const Login8 = () => {
       toast.error("Enter Email and Password !", {
         position: toast.POSITION.TOP_CENTER,
       });
+      setLoadingStatus(false);
     } else if (email.length === 0 || password.length === 0) {
       toast.error(
         email.length === 0 ? "Please Enter Email !" : "Please Enter Password !",
@@ -56,6 +57,7 @@ const Login8 = () => {
           position: toast.POSITION.TOP_CENTER,
         }
       );
+      setLoadingStatus(false);
     } else {
       return login(payload)
         .then((res) => {
@@ -92,6 +94,7 @@ const Login8 = () => {
                   }, [2000]);
                 }
               }
+              setLoadingStatus(false);
             })
             .catch((err) => {
               console.log(err.message);
@@ -110,10 +113,7 @@ const Login8 = () => {
       <section className="createAccount mainBg">
         <figure className="headerLogo">
           <Link to={BASE_PATH}>
-            <img
-              src="app/images/headerLogo.png"
-              alt="Genaiguru header logo"
-            />
+            <img src="app/images/headerLogo.png" alt="Genaiguru header logo" />
           </Link>
         </figure>
         <div className="wrapper400">
@@ -160,9 +160,19 @@ const Login8 = () => {
                   Forgot Password?
                 </p>
               </Link>
-
-              <button className="loginBtn" onClick={handleSubmit}>
-                Login
+              <button
+                disabled={loadingStatus}
+                className="loginBtn"
+                onClick={handleSubmit}
+              >
+                {loadingStatus ? "" : "Login"}
+                {loadingStatus && (
+                  <div className="typing" style={{ justifyContent: "center" }}>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                  </div>
+                )}
               </button>
               <ToastContainer autoClose={1000} />
             </div>
