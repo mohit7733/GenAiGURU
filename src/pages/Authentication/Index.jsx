@@ -183,6 +183,7 @@ const Index = () => {
                           />
                         </figure>
                         <div className="layer">
+                        {token && <span>
                           {article.read == "no" && (
                             <div className="price flex">
                               <img
@@ -192,6 +193,7 @@ const Index = () => {
                               {articlePoints}
                             </div>
                           )}
+                        </span>}
                           <h5>{article.title}</h5>
                           <div className="author-tag flex">
                             <div className="col_left">

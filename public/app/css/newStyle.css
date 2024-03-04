@@ -2486,7 +2486,7 @@ input:checked + .slider:before {
 }
 
 .rightSection .profile-img-box {
-    height: 115vh;
+    height: 100%;
 } 
 
 .interestSection button.loginBtn {
@@ -2581,3 +2581,11 @@ input:checked + .slider:before {
   display: block;
   color: white;
 }
+.css-12a83d4-MultiValueRemove {
+  color: white;
+}
+.css-12a83d4-MultiValueRemove:hover {
+  background: linear-gradient(87.97deg, #b03fcc 2.88%, #683fe4 25.56%, rgba(216, 63, 190, 0.94) 114.56%), linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21)) !important; 
+  color:white !important;
+}
+
