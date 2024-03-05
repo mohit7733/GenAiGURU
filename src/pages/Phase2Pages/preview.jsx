@@ -290,9 +290,21 @@ const Preview = () => {
                     <p>{Date().slice(3, 16)}</p>
                   </div>
                   <div className="blog-img">
-                    <figure>
+                    {/* <figure>
                       <img
                         src={location?.state?.imageData}
+                        alt="Genaiguru web-deigner-learn-book"
+                      />
+                    </figure> */}
+                    <figure>
+                      <img
+                        style={{
+                          objectFit: "cover",
+                          height: "200px",
+                          width: "500px",
+                          borderRadius: "15px",
+                        }}
+                        src={location?.state?.data?.banner}
                         alt="Genaiguru web-deigner-learn-book"
                       />
                     </figure>

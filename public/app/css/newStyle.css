@@ -536,6 +536,7 @@ section.loginPopup.filterPopup .headingContent {
   padding: 17px 22px;
   border: none;
   font-size: 15px;
+  cursor: pointer;
 }
 section.loginPopup.filterPopup .headingContent h5 {
   width: 100%;
@@ -761,6 +762,7 @@ li.comment-btn img.fillImage {
   color: #fff;
   margin: 0px 3px;
   background: rgba(198, 208, 225, 0.1);
+  cursor: pointer;
 }
 
 .pagination button:last-child {
@@ -789,12 +791,12 @@ li.comment-btn img.fillImage {
   color: white;
   border-color: #b03fcc;
   background: linear-gradient(
-      87.97deg,
-      #b03fcc 2.88%,
-      #683fe4 25.56%,
-      rgba(216, 63, 190, 0.94) 114.56%
-    ),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
+    87.97deg,
+    #b03fcc 2.88%,
+    #683fe4 25.56%,
+    rgba(216, 63, 190, 0.94) 114.56%
+  ),
+  linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
 }
 .pagination input {
   width: 8%;
@@ -1374,6 +1376,7 @@ header .userIcon img {
 }
 .video-slider .layer {
   display: flex;
+  cursor: pointer;
   flex-direction: column;
 }
 .author-tag.flex {
@@ -1461,6 +1464,7 @@ header .userIcon img {
   min-height: 140px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .blog-slider .wrap .layer button {
   margin-top: auto;
@@ -2487,6 +2491,7 @@ input:checked + .slider:before {
 
 .rightSection .profile-img-box {
     height: 100%;
+    min-height: 115vh
 } 
 
 .interestSection button.loginBtn {

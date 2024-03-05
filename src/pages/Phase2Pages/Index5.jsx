@@ -919,31 +919,50 @@ const Index5 = () => {
                     />
                   </div>
                   <div className="profile-edit custom-file-button">
-                    <label htmlFor="name">
-                      Upload Thumbnail Image (Recommended Size: 350*184px)
-                    </label>
-                    <input
-                      id="banner2"
+                    <label htmlFor="name">AI generated Thumbnail Image</label>
+                    <img
+                      style={{
+                        objectFit: "cover",
+                        height: "100px",
+                        width: "100px",
+                        borderRadius: "15px",
+                      }}
+                      src={data?.thumbnail}
+                      alt="thumb"
+                    />
+
+                    {/* <input
+                      id="banner"
                       type="file"
                       onChange={(e) => {
                         dataChange("thumb", e?.target?.files[0]);
                       }}
-                    />
+                    /> */}
                   </div>
                   <div className="profile-edit input-group custom-file-button">
-                    <label
-                      className="input-group-text"
-                      htmlFor="inputGroupFile"
-                    >
-                      Upload Banner Image (Recommended Size: 568*295px)
-                    </label>
-                    <input
+                    {/* <input
                       type="file"
                       className="form-control"
                       defaultValue={data.banner}
                       onChange={(e) => {
                         dataChange("banner", e?.target?.files[0]);
                       }}
+                    /> */}
+                    <label
+                      className="input-group-text"
+                      htmlFor="inputGroupFile"
+                    >
+                      AI generated Banner Image
+                    </label>
+                    <img
+                      style={{
+                        objectFit: "cover",
+                        height: "calc(200px - 40px)",
+                        width: "300px",
+                        borderRadius: "25px",
+                      }}
+                      src={data?.banner}
+                      alt="banner"
                     />
                   </div>
 
