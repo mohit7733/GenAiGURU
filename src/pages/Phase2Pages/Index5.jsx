@@ -10,14 +10,15 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-const token = JSON.parse(localStorage.getItem("token"));
+const token = JSON.parse(localStorage.getItem("token"))
+  ? JSON.parse(localStorage.getItem("token"))
+  : "";
 
 const Index5 = () => {
   const navigate = useNavigate();
   const [local, setLocal] = useState(JSON.parse(localStorage.getItem("Data")));
   const [displaySeePost, setDisplaySeePost] = useState(
     local != null ? true : false
-    // true
   );
   const [search, toSearch] = useState("");
   const [titlehasset, setTitlehasset] = useState(false);
@@ -383,7 +384,7 @@ const Index5 = () => {
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
-                        color: "black",
+                        color: "white",
                         // boxShadow: state.isFocused
                         //   ? "transparent"
                         //   : "transparent",
@@ -437,7 +438,7 @@ const Index5 = () => {
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
                           border: "none",
-                          color: "black",
+                          color: "white",
                           boxShadow: state.isFocused
                             ? "transparent"
                             : "transparent",
@@ -770,7 +771,7 @@ const Index5 = () => {
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
-                        color: "black",
+                        color: "white",
                         boxShadow: state.isFocused
                           ? "transparent"
                           : "transparent",
@@ -820,7 +821,7 @@ const Index5 = () => {
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
                           border: "none",
-                          color: "black",
+                          color: "white",
                           boxShadow: state.isFocused
                             ? "transparent"
                             : "transparent",
