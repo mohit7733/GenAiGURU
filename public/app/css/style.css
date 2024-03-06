@@ -7544,7 +7544,7 @@ h3 {
   font-size: 14px;
   font-weight: 600;
   line-height: 1.25em;
-  font-family: PlusJakartaSansSemiBold;
+  /* font-family: PlusJakartaSansSemiBold; */
   color: #fff;
 }
 
