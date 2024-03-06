@@ -80,7 +80,7 @@ const Payment = () => {
         myHeaders2.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
 
         const raw = JSON.stringify({
-          "subscription_id": 1,
+          "subscription_id": formData?.subscription_id,
           "payment_method": paymentMethod?.id,
           "name": formData?.name,
           "email": formData?.email,

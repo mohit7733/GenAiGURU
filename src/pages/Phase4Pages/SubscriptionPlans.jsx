@@ -117,16 +117,16 @@ const SubscriptionPlans = () => {
                 <p>My current plan</p>
                 <div class="current-plan-container">
                   <div class="current-plan-inner">
-                    {subscriptioncurrent?.subscription_type ?
+                    {subscriptioncurrent?.subscription_name ?
                       <>
                         <p>plan Details</p>
-                        <h3 style={{ textTransform: "capitalize" }}>{subscriptioncurrent?.subscription_type}</h3>
+                        <h3 style={{ textTransform: "capitalize" }}>{subscriptioncurrent?.subscription_name}</h3>
                         {subscriptioncurrent?.next_subscription == "active" ?
-                          <span>*Your next billing date is {subscriptioncurrent?.next_billing}</span> : <span>Your Current Membership Canceled</span>}
+                          <span>*Your next billing date is {subscriptioncurrent?.next_billing}</span> : <span>Your Current Membership Plan is Canceled</span>}
                         <div class="cancel-membership">
                           {subscriptioncurrent?.next_subscription == "active" ?
                             <button type="submit" onClick={cancel_subscription}>Cancel membership</button> :
-                            <button type="submit" disabled>Already Canceled</button>}
+                            <button type="submit" disabled={true}>Plan Canceled</button>}
                         </div>
                       </> : <p>You Have No Active Membership </p>}
                   </div>
