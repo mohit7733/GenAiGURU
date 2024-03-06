@@ -183,11 +183,6 @@ const Preview = () => {
                             ></i>
                           </div>
                         </Link>
-                        {/* <Link to={BASE_PATH}>Home</Link>{" "} */}
-                        {/* <i
-                          className="fa fa-angle-right"
-                          aria-hidden="true"
-                        ></i>{" "} */}
                         Preview Page
                       </p>
                     </div>
