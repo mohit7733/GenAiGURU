@@ -384,7 +384,7 @@ const Index5 = () => {
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
-                        color: "white",
+                        color: "black",
                         // boxShadow: state.isFocused
                         //   ? "transparent"
                         //   : "transparent",
@@ -438,7 +438,7 @@ const Index5 = () => {
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
                           border: "none",
-                          color: "white",
+                          color: "black",
                           boxShadow: state.isFocused
                             ? "transparent"
                             : "transparent",
@@ -771,7 +771,7 @@ const Index5 = () => {
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
-                        color: "white",
+                        color: "black",
                         boxShadow: state.isFocused
                           ? "transparent"
                           : "transparent",
@@ -821,7 +821,7 @@ const Index5 = () => {
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
                           border: "none",
-                          color: "white",
+                          color: "black",
                           boxShadow: state.isFocused
                             ? "transparent"
                             : "transparent",
