@@ -112,19 +112,23 @@ const SubscriptionPlans = () => {
             <div class="subscriptionPlan">
               {/* <!-- subscription plans start here --> */}
               <h1>Subscription Plans</h1>
+
               <div class="current-plan">
                 <p>My current plan</p>
                 <div class="current-plan-container">
                   <div class="current-plan-inner">
-                    <p>plan Details</p>
-                    <h3 style={{textTransform:"capitalize"}}>{subscriptioncurrent?.subscription_type}</h3>
-                    {subscriptioncurrent?.next_subscription == "active" ?
-                      <span>*Your next billing date is {subscriptioncurrent?.next_billing}</span> : <span>Your Current Membership Canceled</span>}
-                    <div class="cancel-membership">
-                      {subscriptioncurrent?.next_subscription == "active" ?
-                        <button type="submit" onClick={cancel_subscription}>Cancel membership</button> :
-                        <button type="submit" disabled>Already Canceled</button>}
-                    </div>
+                    {subscriptioncurrent?.subscription_type ?
+                      <>
+                        <p>plan Details</p>
+                        <h3 style={{ textTransform: "capitalize" }}>{subscriptioncurrent?.subscription_type}</h3>
+                        {subscriptioncurrent?.next_subscription == "active" ?
+                          <span>*Your next billing date is {subscriptioncurrent?.next_billing}</span> : <span>Your Current Membership Canceled</span>}
+                        <div class="cancel-membership">
+                          {subscriptioncurrent?.next_subscription == "active" ?
+                            <button type="submit" onClick={cancel_subscription}>Cancel membership</button> :
+                            <button type="submit" disabled>Already Canceled</button>}
+                        </div>
+                      </> : <p>You Have No Active Membership </p>}
                   </div>
                 </div>
               </div>
