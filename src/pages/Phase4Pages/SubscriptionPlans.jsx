@@ -8,6 +8,7 @@ import { getBaseURL } from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 
 const SubscriptionPlans = () => {
+  const [subscriptioncurrent, setSubscriptioncurrent] = useState({});
   const [subscription, setSubscription] = useState([]);
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -46,9 +47,25 @@ const SubscriptionPlans = () => {
         },
       })
       .then((res) => {
-        toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+        toast.success("Successful Membership Cancel!", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+        };
+
+        fetch(`${getBaseURL()}/auth/next-subscription-billing`, requestOptions)
+          .then((response) => response.json())
+          .then((result) => setSubscriptioncurrent(result.data))
+          .catch((error) => console.error(error));
       })
       .catch((err) => console.log(err, "error"));
+
+
+
   };
 
   const getsubscription = () => {
@@ -61,10 +78,27 @@ const SubscriptionPlans = () => {
       .catch((err) => console.log(err, "error"));
   };
 
+
+
+
   useEffect(() => {
     getsubscription();
-  }, []);
 
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch(`${getBaseURL()}/auth/next-subscription-billing`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => setSubscriptioncurrent(result.data))
+      .catch((error) => console.error(error));
+  }, []);
+  console.log(subscriptioncurrent);
   return (
     <div>
       <ToastContainer autoClose={1000} />
@@ -83,10 +117,13 @@ const SubscriptionPlans = () => {
                 <div class="current-plan-container">
                   <div class="current-plan-inner">
                     <p>plan Details</p>
-                    <h3>Monthly plan</h3>
-                    <span>*Your next billing date is 16 April, 2023</span>
+                    <h3 style={{textTransform:"capitalize"}}>{subscriptioncurrent?.subscription_type}</h3>
+                    {subscriptioncurrent?.next_subscription == "active" ?
+                      <span>*Your next billing date is {subscriptioncurrent?.next_billing}</span> : <span>Your Current Membership Canceled</span>}
                     <div class="cancel-membership">
-                      <button type="submit" onClick={cancel_subscription}>Cancel membership</button>
+                      {subscriptioncurrent?.next_subscription == "active" ?
+                        <button type="submit" onClick={cancel_subscription}>Cancel membership</button> :
+                        <button type="submit" disabled>Already Canceled</button>}
                     </div>
                   </div>
                 </div>
