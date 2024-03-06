@@ -182,7 +182,7 @@ const Index5 = () => {
           toast.error("Free Subscription has Ended.", {
             position: toast.POSITION.TOP_CENTER,
           });
-           setLoadingStatus(false);
+          setLoadingStatus(false);
         } else {
           const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
           const titleRegex = /Title:\s*(.*)/i;
@@ -378,7 +378,6 @@ const Index5 = () => {
                         ...baseStyles,
                         color: "white", // Change text color to white
                       }),
-                      
 
                       option: (baseStyles, state) => ({
                         ...baseStyles,
@@ -465,7 +464,7 @@ const Index5 = () => {
                       <figure className="logoIcon">
                         <img
                           src="app/images/searchIconLogoInner.png"
-                          alt="Genaiguru search icon image"
+                          alt="Genaiguru search icon"
                         />
                       </figure>
                       <div className="flex searchFormLong">
@@ -778,8 +777,8 @@ const Index5 = () => {
                       }),
                     }}
                     components={{
-                        ClearIndicator: ClearIndicator,
-                      }}
+                      ClearIndicator: ClearIndicator,
+                    }}
                     className="genaiguruSelect flex"
                   />
                   <div style={{ marginTop: "30px" }}>
@@ -881,7 +880,7 @@ const Index5 = () => {
                       }
                     }}
                   >
-                    <button disabled={loadingStatus} className="loginBtn" >
+                    <button disabled={loadingStatus} className="loginBtn">
                       {loadingStatus ? "" : "Generate"}
                       {loadingStatus && (
                         <div
@@ -894,7 +893,7 @@ const Index5 = () => {
                         </div>
                       )}
                     </button>
-                    <ToastContainer autoClose = {1000} closeButton = {false} />
+                    <ToastContainer autoClose={1000} closeButton={false} />
                   </div>
                 </div>
               </form>
