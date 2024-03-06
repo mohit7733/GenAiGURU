@@ -347,6 +347,7 @@ const Index5 = () => {
                   <Select
                     isObject={false}
                     isMulti
+                    classNamePrefix="react-select"
                     isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
@@ -384,7 +385,7 @@ const Index5 = () => {
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
-                        color: "black",
+                        color: state.isFocused ? "white" : "black",
                         // boxShadow: state.isFocused
                         //   ? "transparent"
                         //   : "transparent",
@@ -408,6 +409,7 @@ const Index5 = () => {
                     <Select
                       isObject={false}
                       isMulti
+                      classNamePrefix="react-select"
                       isOptionDisabled={() => selectTopic?.length >= 1}
                       options={topics}
                       value={selectTopic}
@@ -438,7 +440,7 @@ const Index5 = () => {
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
                           border: "none",
-                          color: "black",
+                          color: state.isFocused ? "white" : "black",
                           boxShadow: state.isFocused
                             ? "transparent"
                             : "transparent",
@@ -771,7 +773,7 @@ const Index5 = () => {
                         ...baseStyles,
                         background: state.isFocused ? "purple" : "none",
                         border: "none",
-                        color: "black",
+                        color: state.isFocused ? "white" : "black",
                         boxShadow: state.isFocused
                           ? "transparent"
                           : "transparent",
@@ -821,7 +823,7 @@ const Index5 = () => {
                           ...baseStyles,
                           background: state.isFocused ? "purple" : "none",
                           border: "none",
-                          color: "black",
+                          color: state.isFocused ? "white" : "black",
                           boxShadow: state.isFocused
                             ? "transparent"
                             : "transparent",

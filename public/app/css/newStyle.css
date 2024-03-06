@@ -2572,12 +2572,15 @@ input:checked + .slider:before {
 }
 
 
-.css-19bb58m, .css-wsp0cs-MultiValueGeneric, .css-1jqq78o-placeholder {
+.css-19bb58m, .css-wsp0cs-MultiValueGeneric, .css-1jqq78o-placeholder, .css-9jq23d, .css-8mmkcg {
   color: #fff !important;
 }
 .css-1p3m7a8-multiValue {
   background-color: rgb(37 49 63) !important;
 }
+/* .react-select__multi-value__label{
+  color:blue !important;
+} */
 .css-1xc3v61-indicatorContainer:nth-child(1){
   display: none !important;
 }
