@@ -27,7 +27,6 @@ const SubscriptionPlans = () => {
         },
       })
       .then((response) => {
-        // console.log(response, "test");
         setDetails({
           ...details,
           username: response.data.name,
@@ -47,14 +46,17 @@ const SubscriptionPlans = () => {
         },
       })
       .then((res) => {
-        toast.success("Successful Membership Cancel!", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+        toast.success("Successful Membership Cancel!", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 1000,
+        });
         const myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + token);
 
         const requestOptions = {
           method: "GET",
           headers: myHeaders,
-          redirect: "follow"
+          redirect: "follow",
         };
 
         fetch(`${getBaseURL()}/auth/next-subscription-billing`, requestOptions)
@@ -63,9 +65,6 @@ const SubscriptionPlans = () => {
           .catch((error) => console.error(error));
       })
       .catch((err) => console.log(err, "error"));
-
-
-
   };
 
   const getsubscription = () => {
@@ -73,13 +72,9 @@ const SubscriptionPlans = () => {
       .get(`${getBaseURL()}/get-subscription-plans`)
       .then((res) => {
         setSubscription(res?.data?.data);
-        console.log(res?.data?.data, "dertyuj");
       })
       .catch((err) => console.log(err, "error"));
   };
-
-
-
 
   useEffect(() => {
     getsubscription();
@@ -90,7 +85,7 @@ const SubscriptionPlans = () => {
     const requestOptions = {
       method: "GET",
       headers: myHeaders,
-      redirect: "follow"
+      redirect: "follow",
     };
 
     fetch(`${getBaseURL()}/auth/next-subscription-billing`, requestOptions)
@@ -98,56 +93,73 @@ const SubscriptionPlans = () => {
       .then((result) => setSubscriptioncurrent(result.data))
       .catch((error) => console.error(error));
   }, []);
-  console.log(subscriptioncurrent);
   return (
     <div>
       <ToastContainer autoClose={1000} />
       <MobileHeader />
       {/* <!-- main section start here --> */}
-      <section class="mainWrapper flex hideMob">
+      <section className="mainWrapper flex hideMob">
         <Sidebar />
         <div className="rightSection">
           {" "}
-          <div class=" full-width">
-            <div class="subscriptionPlan">
+          <div className=" full-width">
+            <div className="subscriptionPlan">
               {/* <!-- subscription plans start here --> */}
               <h1>Subscription Plans</h1>
 
-              <div class="current-plan">
+              <div className="current-plan">
                 <p>My current plan</p>
-                <div class="current-plan-container">
-                  <div class="current-plan-inner">
-                    {subscriptioncurrent?.subscription_name ?
+                <div className="current-plan-container">
+                  <div className="current-plan-inner">
+                    {subscriptioncurrent?.subscription_type ? (
                       <>
                         <p>plan Details</p>
-                        <h3 style={{ textTransform: "capitalize" }}>{subscriptioncurrent?.subscription_name}</h3>
-                        {subscriptioncurrent?.next_subscription == "active" ?
-                          <span>*Your next billing date is {subscriptioncurrent?.next_billing}</span> : <span>Your Current Membership Plan is Canceled</span>}
-                        <div class="cancel-membership">
-                          {subscriptioncurrent?.next_subscription == "active" ?
-                            <button type="submit" onClick={cancel_subscription}>Cancel membership</button> :
-                            <button type="submit" disabled={true}>Plan Canceled</button>}
+                        <h3 style={{ textTransform: "capitalize" }}>
+                          {subscriptioncurrent?.subscription_type}
+                        </h3>
+                        {subscriptioncurrent?.next_subscription == "active" ? (
+                          <span>
+                            *Your next billing date is{" "}
+                            {subscriptioncurrent?.next_billing}
+                          </span>
+                        ) : (
+                          <span>Your Current Membership Canceled</span>
+                        )}
+                        <div className="cancel-membership">
+                          {subscriptioncurrent?.next_subscription ==
+                          "active" ? (
+                            <button type="submit" onClick={cancel_subscription}>
+                              Cancel membership
+                            </button>
+                          ) : (
+                            <button type="submit" disabled>
+                              Already Canceled
+                            </button>
+                          )}
                         </div>
-                      </> : <p>You Have No Active Membership </p>}
+                      </>
+                    ) : (
+                      <p>You Have No Active Membership </p>
+                    )}
                   </div>
                 </div>
               </div>
               {/* <!-- subscription plans end here -->
          <!-- change plans start --> */}
-              <div class="change-plan">
+              <div className="change-plan">
                 <h6>CHANGE YOUR PLAN</h6>
-                <div class="plans-wrapper  flex">
+                <div className="plans-wrapper  flex">
                   {subscription &&
                     subscription
                       ?.sort((a, b) => b.id - a.id)
                       .map((sub) => {
                         return (
-                          <div class="monthly-plans">
-                            <div class="sceam">
+                          <div className="monthly-plans">
+                            <div className="sceam">
                               <h6>{sub?.name}</h6>
                               <p>
                                 {sub.price > 0 &&
-                                  "$" + (sub.price / 100) + " " + "USD/month"}
+                                  "$" + sub.price / 100 + " " + "USD/month"}
                               </p>
                             </div>
 
@@ -159,16 +171,33 @@ const SubscriptionPlans = () => {
 
                             <button
                               type="submit"
-                              class="planSelectBtn"
+                              // disabled={
+                              //   subscriptioncurrent &&
+                              //   subscriptioncurrent?.next_subscription ==
+                              //     "active"
+                              //     ? true
+                              //     : false
+                              // }
+                              className="planSelectBtn"
                               onClick={() => {
-                                Navigate(PATH_PAYMENT, {
-                                  state: {
-                                    name: details.username,
-                                    email: details.email,
-                                    price: sub.price,
-                                    id: sub.id,
-                                  },
-                                });
+                                subscriptioncurrent &&
+                                subscriptioncurrent?.next_subscription ==
+                                  "active"
+                                  ? toast.error(
+                                      "You already have an active Subscription!",
+                                      {
+                                        position: toast.POSITION.TOP_CENTER,
+                                        autoClose: 2000,
+                                      }
+                                    )
+                                  : Navigate(PATH_PAYMENT, {
+                                      state: {
+                                        name: details.username,
+                                        email: details.email,
+                                        price: sub.price,
+                                        id: sub.id,
+                                      },
+                                    });
                               }}
                               style={
                                 sub?.price == 0
@@ -185,10 +214,10 @@ const SubscriptionPlans = () => {
                                   ? { display: "none" }
                                   : { display: "block" }
                               }
-                              class="payment-mode"
+                              className="payment-mode"
                             >
                               <p>Available payment method</p>
-                              <ul class="flex space-center payemtList">
+                              <ul className="flex space-center payemtList">
                                 <li>
                                   <a href="">
                                     <figure>
@@ -244,46 +273,48 @@ const SubscriptionPlans = () => {
       </section>
       {/* <!-- main section end here --> */}
       {/* <!-- mobile section start here --> */}
-      <div class="mob_profile commanMobHead hideDes">
-        <div class="mobileHead flex">
-          <div class="hamburger">
+      <div className="mob_profile commanMobHead hideDes">
+        <div className="mobileHead flex">
+          <div className="hamburger">
             <Link to={BASE_PATH}>
-              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
             </Link>
           </div>
           <h2>Subscription Plans</h2>
         </div>
-        <div class="innerCommanContent contactFaq">
-          <div class="rightSection">
-            <div class="subscriptionPlan">
+        <div className="innerCommanContent contactFaq">
+          <div className="rightSection">
+            <div className="subscriptionPlan">
               {/* <!-- subscription plans start here --> */}
-              <div class="current-plan">
+              <div className="current-plan">
                 <p>My current plan</p>
-                <div class="current-plan-container">
-                  <div class="current-plan-inner">
+                <div className="current-plan-container">
+                  <div className="current-plan-inner">
                     <p>plan Details</p>
                     <h3>Monthly plan</h3>
                     <span>*Your next billing date is 16 April, 2023</span>
-                    <div class="cancel-membership">
-                      <button onClick={cancel_subscription}>Cancel membership</button>
+                    <div className="cancel-membership">
+                      <button onClick={cancel_subscription}>
+                        Cancel membership
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
               {/* <!-- subscription plans end here -->
            <!-- change plans start --> */}
-              <div class="change-plan">
+              <div className="change-plan">
                 <h6>CHANGE YOUR PLAN</h6>
-                <div class="plans-wrapper  flex">
+                <div className="plans-wrapper  flex">
                   {subscription &&
                     subscription?.map((sub) => {
                       return (
-                        <div class="monthly-plans">
-                          <div class="sceam">
+                        <div className="monthly-plans">
+                          <div className="sceam">
                             <h6>{sub?.name}</h6>
                             <p>
                               {sub.price > 0 &&
-                                "$" + (sub.price / 100) + " " + "USD/month"}
+                                "$" + sub.price / 100 + " " + "USD/month"}
                             </p>
                           </div>
 
@@ -295,24 +326,44 @@ const SubscriptionPlans = () => {
 
                           <button
                             type="submit"
-                            class="planSelectBtn"
+                            // disabled={
+                            //   subscriptioncurrent &&
+                            //   subscriptioncurrent?.next_subscription == "active"
+                            //     ? true
+                            //     : false
+                            // }
+                            className="planSelectBtn"
                             onClick={() => {
-                              Navigate(PATH_PAYMENT, {
-                                state: {
-                                  name: details.username,
-                                  email: details.email,
-                                  price: sub.price,
-                                  id: sub.id,
-                                },
-                              });
+                              subscriptioncurrent &&
+                              subscriptioncurrent?.next_subscription == "active"
+                                ? toast.error(
+                                    "You already have an active Subscription!",
+                                    {
+                                      position: toast.POSITION.TOP_CENTER,
+                                      autoClose: 2000,
+                                    }
+                                  )
+                                : Navigate(PATH_PAYMENT, {
+                                    state: {
+                                      name: details.username,
+                                      email: details.email,
+                                      price: sub.price,
+                                      id: sub.id,
+                                    },
+                                  });
                             }}
+                            style={
+                              sub?.price == 0
+                                ? { display: "none" }
+                                : { display: "block" }
+                            }
                           >
                             Select
                           </button>
 
-                          <div class="payment-mode">
+                          <div className="payment-mode">
                             <p>Available payment method</p>
-                            <ul class="flex space-center payemtList">
+                            <ul className="flex space-center payemtList">
                               <li>
                                 <a href="">
                                   <figure>
