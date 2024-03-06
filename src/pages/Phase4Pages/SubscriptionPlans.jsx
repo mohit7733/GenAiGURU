@@ -5,6 +5,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { BASE_PATH, PATH_PAYMENT } from "../../routes";
 import axios from "axios";
 import { getBaseURL } from "../../api/config";
+import { ToastContainer, toast } from "react-toastify";
 
 const SubscriptionPlans = () => {
   const [subscription, setSubscription] = useState([]);
@@ -37,6 +38,19 @@ const SubscriptionPlans = () => {
       });
   }, []);
 
+  const cancel_subscription = () => {
+    axios
+      .get(`${getBaseURL()}/auth/cancel-subscription`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+      })
+      .catch((err) => console.log(err, "error"));
+  };
+
   const getsubscription = () => {
     axios
       .get(`${getBaseURL()}/get-subscription-plans`)
@@ -46,12 +60,14 @@ const SubscriptionPlans = () => {
       })
       .catch((err) => console.log(err, "error"));
   };
+
   useEffect(() => {
     getsubscription();
   }, []);
 
   return (
     <div>
+      <ToastContainer autoClose={1000} />
       <MobileHeader />
       {/* <!-- main section start here --> */}
       <section class="mainWrapper flex hideMob">
@@ -70,7 +86,7 @@ const SubscriptionPlans = () => {
                     <h3>Monthly plan</h3>
                     <span>*Your next billing date is 16 April, 2023</span>
                     <div class="cancel-membership">
-                      <button type="submit">Cancel membership</button>
+                      <button type="submit" onClick={cancel_subscription}>Cancel membership</button>
                     </div>
                   </div>
                 </div>
@@ -208,7 +224,7 @@ const SubscriptionPlans = () => {
                     <h3>Monthly plan</h3>
                     <span>*Your next billing date is 16 April, 2023</span>
                     <div class="cancel-membership">
-                      <button type="submit">Cancel membership</button>
+                      <button onClick={cancel_subscription}>Cancel membership</button>
                     </div>
                   </div>
                 </div>

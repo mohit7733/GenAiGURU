@@ -75,7 +75,6 @@ const Payment = () => {
       });
       if (!error) {
 
-
         const myHeaders2 = new Headers();
         myHeaders2.append("Content-Type", "application/json");
         myHeaders2.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
@@ -138,11 +137,12 @@ const Payment = () => {
         //   .then((result) => {
         //     return result?.intent
         //   })
+
         let paymentid = {}
-        if (paymentdata?.subscription?.status != "active") {
+        if (paymentdata?.subscription_status != "active") {
           paymentid = await stripe.confirmCardPayment(
-            paymentdata?.subscription?.latest_invoice?.payment_intent?.client_secret, {
-            payment_method: paymentdata?.customer?.invoice_settings?.default_payment_method
+            paymentdata?.payment_intent?.client_secret, {
+            payment_method: paymentdata?.payment_intent?.payment_method
           })
           console.log(paymentid);
         }
@@ -151,7 +151,8 @@ const Payment = () => {
           method: "POST",
           headers: myHeaders,
           body: JSON.stringify({
-            "stripe_subscription_id": paymentdata?.subscription?.id
+            "stripe_subscription_id": paymentdata?.subscription,
+            "subscription_id": paymentdata?.subscription
           }),
           redirect: "follow"
         };
