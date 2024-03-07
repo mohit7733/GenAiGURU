@@ -607,7 +607,7 @@ const LeaderBoard = () => {
                       const originalIndex = index + 2;
                       return (
                         <div className="list-container" key={originalIndex}>
-                          <div className="row flex space-between">
+                          <div className="row space-between">
                             <div className="profile">
                               <ul>
                                 <li>

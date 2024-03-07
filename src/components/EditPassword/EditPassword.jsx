@@ -107,14 +107,17 @@ const EditPassword = () => {
     return error;
   };
   return (
-    <div>
+    <div className="mob-wrapper">
+    <div className="settings-box">
       <div className="mob_editpassword hideDes">
         <div className="mobileHead flex">
           <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
           </Link>
+          <h2>Settings</h2>
         </div>
       </div>
+      
       <h5>Change password</h5>
       <form action="">
         <div className="password-box">
@@ -167,6 +170,7 @@ const EditPassword = () => {
         </div>
         <ToastContainer autoClose={1000} />
       </form>
+      </div>
     </div>
   );
 };

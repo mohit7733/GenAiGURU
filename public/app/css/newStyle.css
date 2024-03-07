@@ -1336,6 +1336,154 @@ header .userIcon img {
   .connect-link.flex.align-center > div {
     width: 100% !important;
   }
+.mob-wrapper {
+    width: 100%;
+    padding: 19px 0 20px 16px;
+    height: 100%;
+    background: #131f2c;
+    min-height: 100vh;
+}
+.mob-wrapper .loginBtn {
+  max-width: 320px;
+  width: 100%;
+  margin-top: 25px;
+}
+
+    .mob-wrapper label {
+      display: block;
+      color: #cfd6db;
+      font-size: 16px;
+      font-family: PlusJakartaSansMedium;
+    }
+    .mob-wrapper input {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid rgba(229, 241, 249, 0.3607843137);
+      font-size: 16px;
+      margin-top: 12px;
+      box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.1294117647);
+      padding: 15px 16px;
+      background-color: rgba(198, 208, 225, 0.1);
+      color: #cfd6db;
+      font-weight: 500;
+      font-family: PlusJakartaSansMedium;
+      transition: all 0.25s ease;
+      outline: 0;
+  }
+    .mob-wrapper  form {
+      margin-top: 25px;
+  }
+  .mob-wrapper h1 {
+    color: #f8fcff;
+   font-weight: 600;
+   font-family: PlusJakartaSansSemiBold;
+   font-size: 28px;
+   line-height: 1.27em;
+   width: 100%;
+   margin-bottom: 35px;
+}
+.mob-wrapper .password-box {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.mob-wrapper .settings-box {
+  width: 100%;
+padding: 0 25px 30px 0;
+}
+.mob-wrapper  .backBtns {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(124, 141, 184, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 17px;
+}
+.mob-wrapper .backBtns i {
+  font-size: 26px;
+  color: #fff;
+  
+}
+.mob-wrapper .mobileHead.flex {
+  align-items: center;
+  margin-bottom: 25px;
+} 
+.mob-wrapper h2 {
+  color: #fff;
+  font-size: 20px;
+}
+.mob-wrapper .onoffbtn {
+  width: 39px;
+  height: 24px;
+  border-radius: 15px;
+  background: 0 0;
+  border: 1px solid #fff;
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.mob-wrapper .onoffbtn:after {
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+  top: 0;
+  left: 1px;
+  content: "off";
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  line-height: 29px;
+  color: #fff;
+  font-size: 12px;
+}
+.notification {
+  padding: 0 10px 0px 5px;
+}
+.mob-wrapper .privacy-vats p {
+  color: #cfd6db;
+  line-height: 27px;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+}
+.mob-wrapper .privacy-banner {
+  width: 100%;
+  height: 103px;
+  margin: 35px 0;
+}
+.mob-wrapper.policy-wrapper {
+  height: 100%;
+}
+.mob-wrapper .service-terms ul li a {
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  color: #2d8dff;
+}
+.mob-wrapper .service-terms{
+  padding-left: 20px;
+}
+.mob-wrapper .service-terms ul li {
+  list-style-type: disc;
+  color: #878c95;
+  margin-bottom: 8px;
+}
+.mob-wrapper.feedback-wrapper{
+  color: #fff;
+}
+.mob-wrapper form textarea {
+  min-height: 80px;
+  max-width: 345px;
+}
+.mob-wrapper .add-idea {
+  padding-top: 15px;
+}
 }
 .article-slider .wrap a,
 .video-slider .wrap a {
@@ -2286,10 +2434,15 @@ body {
   border-radius: 5px;
 }
 
-.button {
+/* .button {
   margin-top: 30px;
   text-align: center;
   margin-right: 25px;
+} */
+.button {
+  margin-top: 5px;
+  text-align: center;
+  padding-left: 175px;
 }
 
 .btn {
@@ -2600,3 +2753,4 @@ input:checked + .slider:before {
 .ql-toolbar.ql-snow {
   background: white !important;
 }
+
