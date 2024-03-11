@@ -149,7 +149,7 @@ const MobileHeader = ({ isLogged }) => {
                 <img src={profileImage} alt="Profile image" />
               </Link>
             ) : (
-              <Link to={PATH_LOGIN}>
+              <Link>
                 <img src={userimageIcon} alt="Genaiguru user image" />
               </Link>
             )}
