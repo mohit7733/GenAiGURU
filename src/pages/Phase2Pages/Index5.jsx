@@ -158,15 +158,15 @@ const Index5 = () => {
   };
   let string = selectOptions.map((data) => data.value);
 
-  const chatGPTApi = () => {
-    toSearch("");
+  const chatGPTApi = async () => {
+    // toSearch("");
     setLoadingStatus(true);
     let message = `Give me a Title, Short Description(max 200 letters) and Description( min 500 words) based on 
     Interests:${string.slice(0, 3).join(", ")}
     Style:${selectTopic[0].value},
     ${search}. 
     I want Description in HTML format and dont mention html or Description in HTML format`;
-    axios
+    await axios
       .post(
         `${getBaseURL()}/auth/send-chat-message`,
         {
@@ -199,7 +199,6 @@ const Index5 = () => {
             shortdesc: shortMatch,
           });
           setValue(descMatch.slice(shortMatch.length));
-          setLoadingStatus(false);
         }
       })
       .catch((error) => {
@@ -244,12 +243,12 @@ const Index5 = () => {
         thumbnailPromise,
         bannerPromise,
       ]);
-
       setData({
         ...data,
-        thumbnail: thumbnailRes.data[0].data[0].url,
-        banner: bannerRes.data[0].data[0].url,
+        thumbnail: thumbnailRes.data.data,
+        banner: bannerRes.data.data,
       });
+      setLoadingStatus(false);
       setDisplaySeePost(true);
     } catch (err) {
       console.log(err);
@@ -370,9 +369,8 @@ const Index5 = () => {
                           ? "transparent"
                           : "transparent",
                         width: "100%",
-                        cursor:"pointer",
-                        color:"white",
-                        
+                        cursor: "pointer",
+                        color: "white",
                       }),
                       singleValue: (baseStyles) => ({
                         ...baseStyles,
@@ -430,7 +428,7 @@ const Index5 = () => {
                             ? "transparent"
                             : "transparent",
                           width: "100%",
-                          cursor:"pointer",
+                          cursor: "pointer",
                         }),
                         singleValue: (baseStyles) => ({
                           ...baseStyles,
@@ -492,7 +490,6 @@ const Index5 = () => {
                   <div
                     onClick={(e) => {
                       e.preventDefault();
-                      console.log(data.interests, selectTopic, search, "test1");
                       if (
                         data.interests != "" &&
                         selectTopic.length > 0 &&

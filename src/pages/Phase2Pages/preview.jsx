@@ -7,7 +7,6 @@ import { getBaseURL } from "../../api/config";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
 import SilverPopup from "../Phase5Pages/SilverPopup";
-// import imageToBase64 from "image-to-base64";
 
 const Preview = () => {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -75,8 +74,8 @@ const Preview = () => {
       fd.append("description", data[0]?.descriptions);
       fd.append("short_description", data[0]?.shortdesc);
       fd.append("interest_ids[]", data[0]?.interests);
-      fd.append("banner_image", base64.banner);
-      fd.append("thumbnail_image", base64.thumbnail);
+      fd.append("banner_image", data[0].banner);
+      fd.append("thumbnail_image", data[0].thumbnail);
       axios
         .post(`${getBaseURL()}/auth/blog-create`, fd, {
           headers: {
@@ -96,7 +95,13 @@ const Preview = () => {
           }
         })
         .catch((err) => {
-          console.log(err, "Err");
+          if (err.response.data.success == true) {
+            localStorage.removeItem("Data");
+            localStorage.removeItem("Interests");
+            localStorage.removeItem("value");
+            setDisplaySeePost(true);
+          }
+          console.log(err, "Error");
           setLoadingStatus(false);
         });
     }
@@ -145,7 +150,6 @@ const Preview = () => {
       }, 3000);
     }
   }, [displaySeePost]);
-  console.log(base64, "bse");
   return (
     <div>
       <ToastContainer autoClose={1000} pauseOnHover={false} />
@@ -285,12 +289,6 @@ const Preview = () => {
                     <p>{Date().slice(3, 16)}</p>
                   </div>
                   <div className="blog-img">
-                    {/* <figure>
-                      <img
-                        src={location?.state?.imageData}
-                        alt="Genaiguru web-deigner-learn-book"
-                      />
-                    </figure> */}
                     <figure>
                       <img
                         style={{
