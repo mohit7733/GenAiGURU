@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NotificationSettings = () => {
   return (
-    <div>
+    <div className="mob-wrapper">
       <div className="mob_notification hideDes">
         <div className="mobileHead flex">
           <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">

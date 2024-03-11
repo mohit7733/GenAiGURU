@@ -114,15 +114,15 @@ const SendFeedback = () => {
   };
 
   return (
-    <>
+    <div className="mob-wrapper feedback-wrapper" >
       <div className="mobileHead flex">
         <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">
           <i className="fa fa-angle-left" aria-hidden="true"></i>
         </Link>
+        <h2>Tell us the problem</h2>
       </div>
       <div className="sendfeedback">
         <div className="feedbackSection">
-          <h5>Tell us the problem</h5>
           <div className="problem-container">
             <h3>Send us some feedback!</h3>
             <p>
@@ -171,7 +171,7 @@ const SendFeedback = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default SendFeedback;

@@ -26,15 +26,16 @@ const PrivacyPolicy = () => {
       });
   }, []);
   return (
-    <div>
+    <div className="mob-wrapper policy-wrapper">
       <div className="mob_privacy hideDes">
         <div className="mobileHead flex">
           <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">
             <i className="fa fa-angle-left" aria-hidden="true"></i>
           </Link>
+          <h2>Privacy & Policy</h2>
         </div>
       </div>
-      <div>
+      <div className="settings-box">
         <h5>Privacy & Policy</h5>
         <div className="privacy-banner">
           <img

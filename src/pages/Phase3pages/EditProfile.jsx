@@ -280,28 +280,7 @@ const EditProfile = ({ settingsPage }) => {
         </div>
         <div className="innerProfileEdits rightSection">
           <div className="profile-img-box">
-            <p>
-              <a href="#">Cover image</a>
-            </p>
-            <div className="cover-img-banner">
-              <div className="banner-txt">
-                <div className="img-box cameraBgImg">
-                  <figure>
-                    {coverPicture && (
-                      <img
-                        src={
-                          typeof coverPicture == "object"
-                            ? URL.createObjectURL(coverPicture || "")
-                            : coverPicture
-                        }
-                      />
-                    )}
-                  </figure>
-                  <input type="file" onChange={handleCoverImageChange} />
-                </div>
-              </div>
-            </div>
-            <div className="profileImgChange">
+          <div className="profileImgChange">
               <p>Profile image</p>
               <figure>
                 {profilePicture && (
@@ -324,6 +303,27 @@ const EditProfile = ({ settingsPage }) => {
                   <input type="file" onChange={handleProfileImageChange} />
                 </div>
               </figure>
+            </div>
+            <p>
+              <a href="#">Cover image</a>
+            </p>
+            <div className="cover-img-banner">
+              <div className="banner-txt">
+                <div className="img-box cameraBgImg">
+                  <figure>
+                    {coverPicture && (
+                      <img
+                        src={
+                          typeof coverPicture == "object"
+                            ? URL.createObjectURL(coverPicture || "")
+                            : coverPicture
+                        }
+                      />
+                    )}
+                  </figure>
+                  <input type="file" onChange={handleCoverImageChange} />
+                </div>
+              </div>
             </div>
             <form action="">
               <div className="profile-edit">
