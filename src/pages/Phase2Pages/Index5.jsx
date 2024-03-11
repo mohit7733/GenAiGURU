@@ -85,7 +85,7 @@ const Index5 = () => {
       [{ size: [] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [
-        { list: "ordered" },
+        { list: "ordered", color: "white" },
         { list: "bullet" },
         { indent: "-1" },
         { indent: "+1" },
@@ -384,9 +384,9 @@ const Index5 = () => {
 
                       option: (baseStyles, state) => ({
                         ...baseStyles,
-                        background: state.isFocused ? "purple" : "none",
+                        background: state.isFocused ? "#be41c0" : "none",
                         border: "none",
-                        cursor:"pointer",
+                        cursor: "pointer",
 
                         color: state.isFocused ? "white" : "black",
                         // boxShadow: state.isFocused
@@ -398,7 +398,7 @@ const Index5 = () => {
                       ClearIndicator: ClearIndicator,
                     }}
                     className="genaiguruSelect flex"
-                    isSearchable={false} 
+                    isSearchable={false}
                   />
                   <div style={{ marginTop: "30px" }}>
                     <p
@@ -443,9 +443,9 @@ const Index5 = () => {
                         }),
                         option: (baseStyles, state) => ({
                           ...baseStyles,
-                          background: state.isFocused ? "purple" : "none",
+                          background: state.isFocused ? "#be41c0" : "none",
                           border: "none",
-                          cursor:"pointer",
+                          cursor: "pointer",
 
                           color: state.isFocused ? "white" : "black",
 
@@ -458,7 +458,7 @@ const Index5 = () => {
                         ClearIndicator: ClearIndicator,
                       }}
                       className="genaiguruSelect flex"
-                      isSearchable={false} 
+                      isSearchable={false}
                     />
                   </div>
                   <div style={{ marginTop: "30px" }}>
@@ -749,6 +749,7 @@ const Index5 = () => {
                   <Select
                     isObject={false}
                     isMulti
+                    classNamePrefix="react-select"
                     isOptionDisabled={() => selectOptions?.length >= 1}
                     options={interested}
                     value={selectOptions}
@@ -779,7 +780,7 @@ const Index5 = () => {
 
                       option: (baseStyles, state) => ({
                         ...baseStyles,
-                        background: state.isFocused ? "purple" : "none",
+                        background: state.isFocused ? "#be41c0" : "none",
                         border: "none",
                         color: state.isFocused ? "white" : "black",
                         boxShadow: state.isFocused
@@ -791,7 +792,7 @@ const Index5 = () => {
                       ClearIndicator: ClearIndicator,
                     }}
                     className="genaiguruSelect flex"
-                    isSearchable={false} 
+                    isSearchable={false}
                   />
                   <div style={{ marginTop: "30px" }}>
                     <p
@@ -806,6 +807,7 @@ const Index5 = () => {
                     <Select
                       isObject={false}
                       isMulti
+                      classNamePrefix="react-select"
                       isOptionDisabled={() => selectTopic?.length >= 1}
                       options={topics}
                       value={selectTopic}
@@ -830,7 +832,7 @@ const Index5 = () => {
 
                         option: (baseStyles, state) => ({
                           ...baseStyles,
-                          background: state.isFocused ? "purple" : "none",
+                          background: state.isFocused ? "#be41c0" : "none",
                           border: "none",
                           color: state.isFocused ? "white" : "black",
                           boxShadow: state.isFocused
@@ -842,7 +844,7 @@ const Index5 = () => {
                         ClearIndicator: ClearIndicator,
                       }}
                       className="genaiguruSelect flex"
-                      isSearchable={false} 
+                      isSearchable={false}
                     />
                   </div>
                   <div style={{ marginTop: "30px" }}>

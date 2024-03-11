@@ -2735,6 +2735,13 @@ input:checked + .slider:before {
 /* .react-select__multi-value__label{
   color:blue !important;
 } */
+/* #be41c0 */
+.react-select__menu{
+  margin-left: -7px !important;
+}
+/* .react-select-option{
+  background-color:#be41c0 !important ;
+} */
 .css-1xc3v61-indicatorContainer:nth-child(1){
   display: none !important;
 }
@@ -2753,4 +2760,6 @@ input:checked + .slider:before {
 .ql-toolbar.ql-snow {
   background: white !important;
 }
-
+.ql-editor ol li,.ql-editor ul li {
+  color: white !important;
+}
