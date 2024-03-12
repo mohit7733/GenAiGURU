@@ -374,9 +374,9 @@ const VideoPlay = () => {
             <div className="video-wrapper flex">
               <div className="video-box">
                 <div className="innerBreadcrumb">
-                  <p>
-                    <Link to={BASE_PATH}>Home</Link>{" "}
-                    <Link to={PATH_FEATURED_VIDEO}>
+                  <p style={{color:'white',paddingTop:'25px',marginBottom:'30px',marginLeft:'0px'}}>
+                    <Link style={{color:'#a0aab1'}} to={BASE_PATH}>Home</Link>{" "}
+                    <Link style={{color:'#a0aab1'}} to={PATH_FEATURED_VIDEO}>
                       <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                       Video
                     </Link>
