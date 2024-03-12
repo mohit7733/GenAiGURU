@@ -1832,8 +1832,11 @@ footer .footerMenu a {
   }
 
   .welcomeSection .wrapper400 .starsImg {
-    right: 100px;
+    right: 25px;
   }
+  .wrapper400 .starsImg {
+    top: 35%;
+}
 
   .welcomeSection h1 {
     font-size: 34px;
