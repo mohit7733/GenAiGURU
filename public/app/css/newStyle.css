@@ -535,7 +535,7 @@ section.loginPopup.filterPopup .headingContent {
   border-radius: 30px;
   padding: 17px 22px;
   border: none;
-  font-size: 15px;
+  font-size: 20px;
   cursor: pointer;
 }
 section.loginPopup.filterPopup .headingContent h5 {
@@ -1356,11 +1356,11 @@ header .userIcon img {
       font-family: PlusJakartaSansMedium;
     }
     .mob-wrapper input {
-      width: 100%;
+      width: 92%;
       border-radius: 12px;
       border: 2px solid rgba(229, 241, 249, 0.3607843137);
       font-size: 16px;
-      margin-top: 12px;
+      margin-top: 6px;
       box-shadow: 0 4px 14px 0 rgba(60, 71, 101, 0.1294117647);
       padding: 15px 16px;
       background-color: rgba(198, 208, 225, 0.1);

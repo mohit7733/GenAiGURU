@@ -194,7 +194,7 @@ const LeaderBoard = () => {
                         <img
                           src="app/images/arrow-left.png"
                           alt="Genaiguru arrow-left"
-                          style={{ transform: isOpen ? "rotate(90deg)" : "rotate(270deg)" }}
+                          style={{ transform: isOpen ? "rotate(270deg)" : "rotate(90deg)" }}
                         />
                       </p>
                     </button>

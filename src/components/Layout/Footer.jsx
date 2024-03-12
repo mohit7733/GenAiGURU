@@ -41,7 +41,7 @@ const Footer = () => {
         })
         .catch((errors) => {
           console.log(errors);
-          seterromessage("Please Enter Email");
+          seterromessage(errors.response.data.message);
           setTimeout(() => {
             seterromessage("");
           }, 5000);
