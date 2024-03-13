@@ -2055,7 +2055,7 @@ section.interestSection.second.mainBg figure.headerLogo {
 
 @media (max-width: 576px) {
   .interestSection p {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .interestSection ul {
@@ -4716,6 +4716,7 @@ section.interestSection.second.mainBg figure.headerLogo {
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  background: linear-gradient(87.97deg,      #b03fcc 2.88%,      #683fe4 25.56%,      rgba(216, 63, 190, 0.94) 114.56%),    linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
 }
 
 .tab-content .interest-box .wrapper figure img {
@@ -5752,9 +5753,10 @@ section.interestSection.second.mainBg figure.headerLogo {
 }
 
 .video-wrapper .video-box .profile-video li a img {
-  width: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: linear-gradient(87.97deg,      #b03fcc 2.88%,      #683fe4 25.56%,      rgba(216, 63, 190, 0.94) 114.56%),    linear-gradient(0deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.21));
 }
 
 .video-wrapper .video-box .profile-video li a small {

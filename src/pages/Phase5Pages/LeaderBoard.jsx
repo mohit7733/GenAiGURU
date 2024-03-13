@@ -72,7 +72,16 @@ const LeaderBoard = () => {
   useEffect(() => {
     fetchUserPoints(drop);
   }, [currentPage]);
-
+  const maxLength = 20;
+  const TruncatedName = ({ name, maxLength }) => {
+    if (name.length <= maxLength) {
+      return <span>{name}</span>;
+    } else {
+      const halfLength = Math.ceil(maxLength / 2);
+      const firstName = name.substring(0, halfLength);
+      return <span>{firstName}...</span>;
+    }
+  };
   return (
     <>
       <MobileHeader />
@@ -114,7 +123,7 @@ const LeaderBoard = () => {
                               {allUsers[1]?.points}
                               <span>coins</span>
                             </p>
-                            <h6>{allUsers[1]?.name}</h6>
+                            <h6>{allUsers[1]?.name && <TruncatedName name={allUsers[1]?.name} maxLength={maxLength} />}</h6>
                           </div>
                         </li>
                         <li>
@@ -136,7 +145,7 @@ const LeaderBoard = () => {
                               {allUsers[0]?.points}
                               <span>coins</span>
                             </p>
-                            <h6>{allUsers[0]?.name}</h6>
+                            <h6>{allUsers[0]?.name && <TruncatedName name={allUsers[0]?.name} maxLength={maxLength} />}</h6>
                           </div>
                         </li>
                         <li>
@@ -157,7 +166,8 @@ const LeaderBoard = () => {
                               />
                               {allUsers[2]?.points} <span>coins</span>
                             </p>
-                            <h6>{allUsers[2]?.name}</h6>
+                            {/* <h6>{allUsers[2]?.name}</h6> */}
+                            <h6>{allUsers[2]?.name && <TruncatedName name={allUsers[2]?.name} maxLength={maxLength} />}</h6>
                           </div>
                         </li>
                       </ul>
@@ -514,7 +524,7 @@ const LeaderBoard = () => {
                               />
                               {allUsers[1]?.points} <span>coins</span>
                             </p>
-                            <h6>{allUsers[1]?.name}</h6>
+                            <h6>{allUsers[1]?.name && <TruncatedName name={allUsers[1]?.name} maxLength={maxLength} />}</h6>
                           </div>
                         </li>
                         <li>
@@ -536,7 +546,7 @@ const LeaderBoard = () => {
                               {allUsers[0]?.points}
                               <span>coins</span>
                             </p>
-                            <h6>{allUsers[0]?.name}</h6>
+                            <h6>{allUsers[0]?.name && <TruncatedName name={allUsers[0]?.name} maxLength={maxLength} />}</h6>
                           </div>
                         </li>
                         <li>
@@ -557,7 +567,7 @@ const LeaderBoard = () => {
                               />
                               {allUsers[2]?.points} <span>coins</span>
                             </p>
-                            <h6>{allUsers[2]?.name}</h6>
+                            <h6>{allUsers[2]?.name && <TruncatedName name={allUsers[2]?.name} maxLength={maxLength} />}</h6>
                           </div>
                         </li>
                       </ul>

@@ -157,7 +157,6 @@ const Index5 = () => {
     }
   };
   let string = selectOptions.map((data) => data.value);
-
   const chatGPTApi = async () => {
     // toSearch("");
     setLoadingStatus(true);
@@ -180,9 +179,10 @@ const Index5 = () => {
       )
       .then((response) => {
         if (response.data.success == false) {
-          toast.error("Free Subscription has Ended.", {
-            position: toast.POSITION.TOP_CENTER,
-          });
+         navigate("/subscriptions");
+          // toast.error("Free Subscription has Ended.", {
+          //   position: toast.POSITION.TOP_CENTER,
+          // });
           setLoadingStatus(false);
         } else {
           const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;

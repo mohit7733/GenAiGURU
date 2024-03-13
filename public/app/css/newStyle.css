@@ -1523,7 +1523,7 @@ padding: 0 25px 30px 0;
   padding-top: 10px;
 }
 .video-slider .layer {
-  display: flex;
+  /* display: flex; */
   cursor: pointer;
   flex-direction: column;
 }
@@ -1724,6 +1724,10 @@ section.mainWrapper.flex.hideMob {
   .loginOption ul li span button.kep-login-facebook.metro {
     width: 100%;
     justify-content: center;
+}
+a.fa.fa-angle-left {
+  color: white;
+  font-size: 26px;
 }
 }
 

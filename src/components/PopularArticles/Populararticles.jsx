@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import { PATH_ARTICLE_DETAILS, PATH_FEATURED_ARTICLES } from "../../routes";
-
+import userimageIcon from "../../assets/images/person.png";
 const Populararticles = () => {
   const [articles, setArticles] = useState([]);
   const sliderRef = useRef();
@@ -115,13 +115,13 @@ const Populararticles = () => {
                           )}
                         </span>
                       )}
-                      <h5>{article.title}</h5>
+                      <h5 style={{paddingTop: !token ? "30px":"0px"}}>{article.title}</h5>
                       <div className="author-tag flex">
                         <div className="col_left">
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={article.author_profile_image}
+                                src={article.author_profile_image || userimageIcon}
                                 alt="authorImg"
                               />
                             </figure>
