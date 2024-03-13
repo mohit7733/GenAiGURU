@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { getBaseURL } from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import userimageIcon from "../../assets/images/person.png";
 
 const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
   const sliderRef = useRef();
@@ -111,7 +112,7 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
                       <div className="wrapper flex">
                         <figure>
                           <img
-                            src={aricles.author_profile_image}
+                            src={aricles.author_profile_image ||userimageIcon }
                             alt="author"
                           />
                         </figure>

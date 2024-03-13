@@ -13,6 +13,7 @@ import { BASE_PATH, PATH_VIDEO_PLAY } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import FeaturedContentPopup from "./FeaturedContentPopup";
 import Pagination from "./Pagination";
+import userimageIcon from "../../assets/images/person.png";
 
 const FeaturedContent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -446,7 +447,7 @@ const FeaturedContent = (props) => {
                               <div className="wrapper flex">
                                 <figure>
                                   <img
-                                    src={video.author_profile_image}
+                                    src={video.author_profile_image || userimageIcon}
                                     alt="Genaiguru user-icon"
                                   />
                                 </figure>
@@ -545,7 +546,7 @@ const FeaturedContent = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={interest.author_profile_image}
+                                      src={interest.author_profile_image ||userimageIcon}
                                       alt="Genaiguru userIcon"
                                     />
                                   </figure>
@@ -730,7 +731,7 @@ const FeaturedContent = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={video.author_profile_image}
+                                      src={video.author_profile_image || userimageIcon}
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>
@@ -825,7 +826,7 @@ const FeaturedContent = (props) => {
                                   <div className="wrapper flex">
                                     <figure>
                                       <img
-                                        src={interest.author_profile_image}
+                                        src={interest.author_profile_image || userimageIcon}
                                         alt="Genaiguru userIcon"
                                       />
                                     </figure>

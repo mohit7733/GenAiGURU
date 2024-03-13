@@ -13,6 +13,7 @@ import {
 import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 import SilverPopup from "../Phase5Pages/SilverPopup";
+import userimageIcon from "../../assets/images/person.png";
 
 const ArticlesDetails = ({ likes, dislikes }) => {
   const [articleDetail, setArticleDetail] = useState({
@@ -492,7 +493,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src={articleDetail.author_profile_image}
+                        src={articleDetail.author_profile_image ||userimageIcon}
                         alt="Genaiguru blog-img"
                       />
                     </figure>
@@ -994,7 +995,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image}
+                                      src={article.author_profile_image ||userimageIcon}
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>
@@ -1646,7 +1647,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image}
+                                      src={article.author_profile_image ||userimageIcon}
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>

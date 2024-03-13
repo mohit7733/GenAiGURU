@@ -12,6 +12,7 @@ import { BASE_PATH, PATH_ARTICLE_DETAILS } from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import FeaturedContentPopup from "./FeaturedContentPopup";
 import Pagination from "./Pagination";
+import userimageIcon from "../../assets/images/person.png";
 
 const FeaturedArticles = (props) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -440,7 +441,7 @@ const FeaturedArticles = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image}
+                                      src={article.author_profile_image || userimageIcon}
                                       alt="userIcon"
                                     />
                                   </figure>
@@ -542,7 +543,7 @@ const FeaturedArticles = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={interest.author_profile_image}
+                                      src={interest.author_profile_image ||userimageIcon}
                                       alt="Genaiguru userIcon"
                                     />
                                   </figure>
@@ -814,7 +815,7 @@ const FeaturedArticles = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image}
+                                      src={article.author_profile_image ||userimageIcon}
                                       alt="user_icon"
                                     />
                                   </figure>
@@ -908,7 +909,7 @@ const FeaturedArticles = (props) => {
                                   <div className="wrapper flex">
                                     <figure>
                                       <img
-                                        src={interest.author_profile_image}
+                                        src={interest.author_profile_image ||userimageIcon}
                                         alt="Genaiguru userIcon"
                                       />
                                     </figure>

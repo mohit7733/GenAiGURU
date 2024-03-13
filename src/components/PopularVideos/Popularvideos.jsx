@@ -8,7 +8,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { PATH_FEATURED_VIDEO, PATH_VIDEO_PLAY } from "../../routes";
-
+import userimageIcon from "../../assets/images/person.png";
 const Popularvideos = () => {
   const sliderRef = useRef();
   const [popularVideos, setPopularVideos] = useState([]);
@@ -137,7 +137,7 @@ const Popularvideos = () => {
                             <div className="wrapper flex">
                               <figure>
                                 <img
-                                  src={video.author_profile_image}
+                                  src={video.author_profile_image ||userimageIcon}
                                   alt="Genaiguru authorImg"
                                 />
                               </figure>
@@ -282,13 +282,13 @@ const Popularvideos = () => {
                       )}
                     </span>}
                      
-                      <h5>{video.title}</h5>
+                      <h5 style={{paddingTop: !token ? "60px":"30px"}}>{video.title}</h5>
                       <div className="author-tag flex">
                         <div className="col_left">
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={video.author_profile_image}
+                                src={video.author_profile_image ||userimageIcon}
                                 alt="Genaiguru authorImg"
                               />
                             </figure>

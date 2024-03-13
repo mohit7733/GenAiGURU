@@ -495,7 +495,7 @@ const VideoPlay = () => {
                   <li>
                     <a href="">
                       <img
-                        src={videoPlay.author_profile_image}
+                        src={videoPlay.author_profile_image ||userimageIcon}
                         alt="Genaiguru userIcon"
                       />
                     </a>
@@ -943,7 +943,7 @@ const VideoPlay = () => {
                               <div className="wrapper flex">
                                 <figure>
                                   <img
-                                    src={data?.author_profile_image}
+                                    src={data?.author_profile_image ||userimageIcon}
                                     // alt={userimageIcon}
                                   />
                                 </figure>
@@ -1123,7 +1123,7 @@ const VideoPlay = () => {
                 <li>
                   <a href="">
                     <img
-                      src={videoPlay.author_profile_image}
+                      src={videoPlay.author_profile_image ||userimageIcon}
                       alt="Genaiguru userIcon"
                     />
                   </a>
@@ -1540,7 +1540,7 @@ const VideoPlay = () => {
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={data?.author_profile_image}
+                                src={data?.author_profile_image ||userimageIcon}
                                 // alt={userimageIcon}
                               />
                             </figure>
