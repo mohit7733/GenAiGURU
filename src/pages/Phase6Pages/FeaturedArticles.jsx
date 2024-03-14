@@ -97,7 +97,7 @@ const FeaturedArticles = (props) => {
 
     axios
       .get(
-        `${getBaseURL()}/articles?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
+        `${getBaseURL()}/articles?from_date=${currentDate}&to_date=${currentTime}&filter_by=` +
           popularity,
         {
           headers: {

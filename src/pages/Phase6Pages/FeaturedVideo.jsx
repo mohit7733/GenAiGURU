@@ -69,7 +69,7 @@ const FeaturedContent = (props) => {
 
     axios
       .get(
-        `${getBaseURL()}/popular-latest-videos?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
+        `${getBaseURL()}/popular-latest-videos?from_date=${currentDate}&to_date=${currentTime}&filter_by=` +
           popularity,
         {
           headers: {
