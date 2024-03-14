@@ -60,7 +60,7 @@ const FeaturedContent = (props) => {
   const Featuredpopup = (popularity, sortby, currentDate) => {
     axios
       .get(
-        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by:=` +
+        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by=` +
           popularity,
         {
           headers: {

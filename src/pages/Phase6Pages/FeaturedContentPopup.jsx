@@ -12,6 +12,7 @@ const FeaturedContentPopup = (props) => {
     {
       id: 1,
       type: "Today",
+      
     },
     {
       id: 2,
@@ -26,21 +27,32 @@ const FeaturedContentPopup = (props) => {
     {
       id: 1,
       type: "Popular",
+      key:"popular",
     },
     {
       id: 2,
       type: "Featured",
+      key:"featured",
     },
     {
       id: 3,
       type: "Most read",
+      key:"most_viewed"
     },
   ];
-  // const selectSortType = (item) => {
-  //   const { type } = item;
-  //   // console.log( "selectSortType", type);
-  //   setPopularity(type);
-  // };
+  const selectSortType = (item) => {
+    const { key } = item;
+    // console.log( "selectSortType", type);
+    setPopularity(key);
+
+  };
+  // console.log(popularity,"tteee")
+
+
+
+
+
+
   const Sortby = (item) => {
     const { type } = item;
     // console.log("Sortby ", type);
@@ -66,7 +78,7 @@ const FeaturedContentPopup = (props) => {
       setCurrentDate(lastWeek);
     }
   };
-  console.log(currentDate, sortby, "gghgt");
+  // console.log(currentDate, sortby, "gghgt");
   const clearInputs = (e) => {
     e.preventDefault();
     setPopularity("");
@@ -75,7 +87,7 @@ const FeaturedContentPopup = (props) => {
     setYesterdayDate("");
   };
   const doneButton = () => {
-    props.Featuredpopup(popularity, sortby, currentDate);
+    props.Featuredpopup(popularity, sortby, currentDate);  
   };
   return (
     <div>
@@ -92,8 +104,8 @@ const FeaturedContentPopup = (props) => {
               return (
                 <div className="sortType">
                   <button
-                    className={popularity == item.type ? "activebtn" : ""}
-                    onClick={() => setPopularity(item.type)}
+                    className={popularity == item.key ? "activebtn" : ""}
+                    onClick={() => setPopularity(item.key)}
                   >
                     {item.type}
                   </button>
