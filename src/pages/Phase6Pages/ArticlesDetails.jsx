@@ -62,7 +62,8 @@ const ArticlesDetails = ({ likes, dislikes }) => {
   let location = useLocation();
   const my_element = location.hash.slice(1);
   const queryParam = new URLSearchParams(location.search);
-  const articleId = queryParam.get("id");
+  const articleId = queryParam.get("id").split("?")[0];
+  console.log(articleId,"ertytr")
 
   // Useeffect for API of ArticleOpened Points
 

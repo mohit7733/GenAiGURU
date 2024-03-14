@@ -6371,7 +6371,7 @@ h3 {
 }
 
 .subscriptionPlan .change-plan .plans-wrapper {
-  min-width: 600px;
+  /* min-width: 600px; */
   width: 100%;
   margin: 0 auto;
   justify-content: space-evenly;
