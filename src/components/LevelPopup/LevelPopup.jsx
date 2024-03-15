@@ -8,11 +8,15 @@ const LevelPopup = ({ claimedLevels, onClose }) => {
 
   const fetchBadges = async () => {
     try {
-      axios.post(`${getBaseURL()}/claim-user-level?user_id=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      axios.post(
+        `${getBaseURL()}/claim-user-level?user_id=${userId}`,
+        { user_id: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // if (claimedBadges.length <= 0) {
       onClose();
       // }
