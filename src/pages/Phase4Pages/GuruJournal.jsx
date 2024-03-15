@@ -21,6 +21,7 @@ const GuruJournal = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const token = JSON.parse(localStorage.getItem("token"));
 
   // Get API
   const getData = () => {
@@ -38,10 +39,18 @@ const GuruJournal = () => {
 
   const onBlogSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/save-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/save-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Blog Saved", {
@@ -55,10 +64,18 @@ const GuruJournal = () => {
 
   const onBlogUnSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/unsave-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Blog Unsaved", {

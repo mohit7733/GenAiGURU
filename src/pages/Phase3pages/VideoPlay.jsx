@@ -188,11 +188,19 @@ const VideoPlay = () => {
       return;
     }
     axios
-      .post(`${getBaseURL()}/video-comment`, {
-        user_id: userId,
-        video_id: videoPlay.video_id,
-        content: comment,
-      })
+      .post(
+        `${getBaseURL()}/video-comment`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          video_id: videoPlay.video_id,
+          content: comment,
+        }
+      )
       .then((res) => {
         setComment("");
         setLoadingStatus(false);
@@ -212,11 +220,19 @@ const VideoPlay = () => {
       return;
     }
     axios
-      .post(`${getBaseURL()}/video-comment-reply`, {
-        user_id: userId,
-        comment_id: commentId,
-        content: replyCommentt,
-      })
+      .post(
+        `${getBaseURL()}/video-comment-reply`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          comment_id: commentId,
+          content: replyCommentt,
+        }
+      )
       .then((res) => {
         setLoadingStatus(false);
         getReplyComments(commentId);
@@ -231,11 +247,19 @@ const VideoPlay = () => {
 
   const postVideoCommentLike = (type, commentId) => {
     axios
-      .post(`${getBaseURL()}/video-like-comment`, {
-        user_id: userId,
-        type: type,
-        comment_id: commentId,
-      })
+      .post(
+        `${getBaseURL()}/video-like-comment`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          type: type,
+          comment_id: commentId,
+        }
+      )
       .then((res) => {
         // setVideoCommentLike(res.data);
         // setButtonClicked(!buttonClicked);
@@ -248,11 +272,19 @@ const VideoPlay = () => {
 
   const postVideoReplyLike = (type, commentId, com) => {
     axios
-      .post(`${getBaseURL()}/video-like-reply`, {
-        user_id: userId,
-        type: type,
-        reply_id: commentId,
-      })
+      .post(
+        `${getBaseURL()}/video-like-reply`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          type: type,
+          reply_id: commentId,
+        }
+      )
       .then((res) => {
         getReplyComments(com);
         // setVideoCommentLikeReply(res?.data);
@@ -266,11 +298,19 @@ const VideoPlay = () => {
   const postVideoupdo = (type, e) => {
     e?.preventDefault();
     axios
-      .post(`${getBaseURL()}/video-upvote`, {
-        video_id: videoId,
-        user_id: userId,
-        type: type,
-      })
+      .post(
+        `${getBaseURL()}/video-upvote`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          video_id: videoId,
+          user_id: userId,
+          type: type,
+        }
+      )
       .then((res) => {
         // setVideoCommentLike(res.data);
         setButtonClicked(!buttonClicked);
@@ -374,9 +414,18 @@ const VideoPlay = () => {
             <div className="video-wrapper flex">
               <div className="video-box">
                 <div className="innerBreadcrumb">
-                  <p style={{color:'white',paddingTop:'25px',marginBottom:'30px',marginLeft:'0px'}}>
-                    <Link style={{color:'#a0aab1'}} to={BASE_PATH}>Home</Link>{" "}
-                    <Link style={{color:'#a0aab1'}} to={PATH_FEATURED_VIDEO}>
+                  <p
+                    style={{
+                      color: "white",
+                      paddingTop: "25px",
+                      marginBottom: "30px",
+                      marginLeft: "0px",
+                    }}
+                  >
+                    <Link style={{ color: "#a0aab1" }} to={BASE_PATH}>
+                      Home
+                    </Link>{" "}
+                    <Link style={{ color: "#a0aab1" }} to={PATH_FEATURED_VIDEO}>
                       <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                       Video
                     </Link>
@@ -495,7 +544,7 @@ const VideoPlay = () => {
                   <li>
                     <a href="">
                       <img
-                        src={videoPlay.author_profile_image ||userimageIcon}
+                        src={videoPlay.author_profile_image || userimageIcon}
                         alt="Genaiguru userIcon"
                       />
                     </a>
@@ -943,7 +992,10 @@ const VideoPlay = () => {
                               <div className="wrapper flex">
                                 <figure>
                                   <img
-                                    src={data?.author_profile_image ||userimageIcon}
+                                    src={
+                                      data?.author_profile_image ||
+                                      userimageIcon
+                                    }
                                     // alt={userimageIcon}
                                   />
                                 </figure>
@@ -1123,7 +1175,7 @@ const VideoPlay = () => {
                 <li>
                   <a href="">
                     <img
-                      src={videoPlay.author_profile_image ||userimageIcon}
+                      src={videoPlay.author_profile_image || userimageIcon}
                       alt="Genaiguru userIcon"
                     />
                   </a>
@@ -1540,7 +1592,9 @@ const VideoPlay = () => {
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={data?.author_profile_image ||userimageIcon}
+                                src={
+                                  data?.author_profile_image || userimageIcon
+                                }
                                 // alt={userimageIcon}
                               />
                             </figure>

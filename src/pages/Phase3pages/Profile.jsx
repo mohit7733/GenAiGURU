@@ -143,7 +143,12 @@ const Profile = () => {
       .get(
         `${getBaseURL()}/get-user-follow?user_id=${localStorage.getItem(
           "UserId"
-        )}`
+        )}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((response) => {
         setFollowing(response.data.following);
@@ -207,6 +212,7 @@ const Profile = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         user_id: userId,
@@ -1105,16 +1111,15 @@ const Profile = () => {
                   >
                     Save Changes
                   </button> */}
-  
                 </form>
               </div>
             </div>
             <div class="pop-btn wrapper">
-                    <button type="submit" class="loginBtn" onClick={onChangeInterest}>
-                      Save Changes
-                    </button>
-                    <p className="errorMessage">{errorMessage}</p>
-                  </div>
+              <button type="submit" class="loginBtn" onClick={onChangeInterest}>
+                Save Changes
+              </button>
+              <p className="errorMessage">{errorMessage}</p>
+            </div>
           </div>
           {/* <!-- mobile popup starts here -- */}
           <div className="mob_popup hideDes">

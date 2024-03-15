@@ -29,8 +29,8 @@ const EditProfile = ({ settingsPage }) => {
         },
       })
       .then((response) => {
-        console.log(response.data,"test");
-        if (response.data.bio ==="null") {
+        console.log(response.data, "test");
+        if (response.data.bio === "null") {
           setBio("");
         } else {
           setBio(response.data.bio);
@@ -90,7 +90,11 @@ const EditProfile = ({ settingsPage }) => {
       fd.append("cover_image", coverPicture);
       fd.append("profile_image", profilePicture);
       axios
-        .post(`${getBaseURL()}/update-user-profile`, fd)
+        .post(`${getBaseURL()}/update-user-profile`, fd, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           if (response.status === 201) {
             toast.success("Saved !", {
@@ -280,7 +284,7 @@ const EditProfile = ({ settingsPage }) => {
         </div>
         <div className="innerProfileEdits rightSection">
           <div className="profile-img-box">
-          <div className="profileImgChange">
+            <div className="profileImgChange">
               <p>Profile image</p>
               <figure>
                 {profilePicture && (

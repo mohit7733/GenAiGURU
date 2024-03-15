@@ -11,6 +11,7 @@ const EditPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const token = JSON.parse(localStorage.getItem("token"));
 
   //  validation code for old password and new password
   const handleSubmit = (event) => {
@@ -29,7 +30,11 @@ const EditPassword = () => {
       fd.append("new_password", newPassword);
 
       axios
-        .post(`${getBaseURL()}/change-password`, fd)
+        .post(`${getBaseURL()}/change-password`, fd, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           if (response.status === 200) {
             toast.success("Password Changed ", {
@@ -108,68 +113,70 @@ const EditPassword = () => {
   };
   return (
     <div className="mob-wrapper">
-    <div className="settings-box">
-      <div className="mob_editpassword hideDes">
-        <div className="mobileHead flex">
-          <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">
-            <i className="fa fa-angle-left" aria-hidden="true"></i>
-          </Link>
-          <h2>Settings</h2>
+      <div className="settings-box">
+        <div className="mob_editpassword hideDes">
+          <div className="mobileHead flex">
+            <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </Link>
+            <h2>Settings</h2>
+          </div>
         </div>
-      </div>
-      
-      <h5>Change password</h5>
-      <form action="">
-        <div className="password-box">
-          <label for="">Old password*</label>
-          <input
-            type="password"
-            name=""
-            value={password}
-            id=""
-            placeholder="****"
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyUp={onchangeCheck}
-          />
-          {errors["password"] && <div className="error">{errors.password}</div>}
-        </div>
-        <div className="password-box">
-          <label for="">New password*</label>
-          <input
-            type="password"
-            name=""
-            value={newPassword}
-            id=""
-            placeholder="****"
-            onChange={(e) => setNewPassword(e.target.value)}
-            onKeyUp={onchangeCheck}
-          />
-          {errors["newPassword"] && (
-            <div className="error">{errors.newPassword}</div>
-          )}
-        </div>
-        <div className="password-box">
-          <label for="">Confirm password*</label>
-          <input
-            type="password"
-            name=""
-            id=""
-            value={confirmPassword}
-            placeholder="****"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            onKeyUp={onchangeCheck}
-          />
-          {errors["confirmPassword"] && (
-            <div className="error">{errors.confirmPassword}</div>
-          )}
-        </div>
-        <div className="form_group">
-          <button type="submit" className="loginBtn" onClick={handleSubmit}>
-            Save to Change
-          </button>
-        </div>
-        <ToastContainer autoClose={1000} />
-      </form>
+
+        <h5>Change password</h5>
+        <form action="">
+          <div className="password-box">
+            <label for="">Old password*</label>
+            <input
+              type="password"
+              name=""
+              value={password}
+              id=""
+              placeholder="****"
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyUp={onchangeCheck}
+            />
+            {errors["password"] && (
+              <div className="error">{errors.password}</div>
+            )}
+          </div>
+          <div className="password-box">
+            <label for="">New password*</label>
+            <input
+              type="password"
+              name=""
+              value={newPassword}
+              id=""
+              placeholder="****"
+              onChange={(e) => setNewPassword(e.target.value)}
+              onKeyUp={onchangeCheck}
+            />
+            {errors["newPassword"] && (
+              <div className="error">{errors.newPassword}</div>
+            )}
+          </div>
+          <div className="password-box">
+            <label for="">Confirm password*</label>
+            <input
+              type="password"
+              name=""
+              id=""
+              value={confirmPassword}
+              placeholder="****"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              onKeyUp={onchangeCheck}
+            />
+            {errors["confirmPassword"] && (
+              <div className="error">{errors.confirmPassword}</div>
+            )}
+          </div>
+          <div className="form_group">
+            <button type="submit" className="loginBtn" onClick={handleSubmit}>
+              Save to Change
+            </button>
+          </div>
+          <ToastContainer autoClose={1000} />
+        </form>
       </div>
     </div>
   );

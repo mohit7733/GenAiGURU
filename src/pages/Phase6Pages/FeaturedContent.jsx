@@ -60,8 +60,7 @@ const FeaturedContent = (props) => {
   const Featuredpopup = (popularity, sortby, currentDate) => {
     axios
       .get(
-        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by=` +
-          popularity,
+        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by=${popularity}&page_number={${currentPage}}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,6 +70,12 @@ const FeaturedContent = (props) => {
       .then((response) => {
         setLatestBlog(response?.data?.blogs);
         setFilter(false);
+        window.scrollTo(0, 0);
+        setTotalBlogs(response.data.total_count);
+        setButtonClicked(false);
+        if (interestid != "") {
+          onInterestClick(interestid);
+        }
       })
       .catch(
         (err) => {
@@ -100,9 +105,9 @@ const FeaturedContent = (props) => {
         }
       )
       .then((response) => {
+        setLatestBlog(response?.data?.blogs);
         window.scrollTo(0, 0);
         setTotalBlogs(response.data.total_count);
-        setLatestBlog(response?.data?.blogs);
         setButtonClicked(false);
         if (interestid != "") {
           onInterestClick(interestid);
@@ -184,10 +189,10 @@ const FeaturedContent = (props) => {
     setActiveTab(tabNumber);
   };
 
-  const onBlogClick = ( BlogID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onBlogClick = (BlogID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
@@ -276,10 +281,18 @@ const FeaturedContent = (props) => {
 
   const onBlogSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/save-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/save-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Blog Saved", {
@@ -293,10 +306,18 @@ const FeaturedContent = (props) => {
 
   const onBlogUnSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/unsave-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Blog Unsaved", {
@@ -486,7 +507,7 @@ const FeaturedContent = (props) => {
                               </div>
 
                               <h5
-                                onClick={() => onBlogClick(blog.id,blog.title)}
+                                onClick={() => onBlogClick(blog.id, blog.title)}
                                 style={{ cursor: "pointer" }}
                               >
                                 {blog.title}
@@ -579,7 +600,9 @@ const FeaturedContent = (props) => {
                                 </ul>
                               </div>
                               <h5
-                                onClick={() => onBlogClick(interest.id,interest.title)}
+                                onClick={() =>
+                                  onBlogClick(interest.id, interest.title)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
                                 {interest.title}
@@ -892,7 +915,9 @@ const FeaturedContent = (props) => {
                                   </div>
                                 </div>
                                 <p
-                                  onClick={() => onBlogClick(blog.id,blog.title)}
+                                  onClick={() =>
+                                    onBlogClick(blog.id, blog.title)
+                                  }
                                   style={{ cursor: "pointer" }}
                                 >
                                   {blog.title}
@@ -1074,7 +1099,9 @@ const FeaturedContent = (props) => {
                                   </ul>
                                 </div>
                                 <p
-                                  onClick={() => onBlogClick(interest.id,interest.title)}
+                                  onClick={() =>
+                                    onBlogClick(interest.id, interest.title)
+                                  }
                                   style={{ cursor: "pointer" }}
                                 >
                                   {interest.title}

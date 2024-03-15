@@ -185,7 +185,11 @@ const SocialProfileEdit = () => {
     fd.append("linkedin", linksObj.linkedin);
     fd.append("instagram", linksObj.instagram);
     axios
-      .post(`${getBaseURL()}/update-user-socialprofile`, fd)
+      .post(`${getBaseURL()}/update-user-socialprofile`, fd, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         if (response.status === 201) {
           // alert("Saved");
