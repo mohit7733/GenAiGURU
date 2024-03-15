@@ -189,13 +189,13 @@ const BlogDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/save-blog`,
         {
+          user_id: userId,
+          blog_id: blogID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          blog_id: blogID,
         }
       )
       .then((res) => {
@@ -215,13 +215,13 @@ const BlogDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/unsave-blog`,
         {
+          user_id: userId,
+          blog_id: blogID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          blog_id: blogID,
         }
       )
       .then((res) => {
@@ -292,16 +292,18 @@ const BlogDetails = ({ likes, dislikes }) => {
     }
     axios
       .post(
-        `${getBaseURL()}/blog-comment`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        `${getBaseURL()}/blog-comment?user_id=${userId}&blog_id=${
+          blogDetail.blog_id
+        }&content=${comment}`,
         {
           user_id: userId,
           blog_id: blogDetail.blog_id,
           content: comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -327,14 +329,14 @@ const BlogDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/blog-comment-reply`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           comment_id: commentId,
           content: replyCommentt,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -357,14 +359,14 @@ const BlogDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/blog-like-comment`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           type: type,
           comment_id: commentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -384,14 +386,14 @@ const BlogDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/blog-like-reply`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           type: type,
           reply_id: commentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {

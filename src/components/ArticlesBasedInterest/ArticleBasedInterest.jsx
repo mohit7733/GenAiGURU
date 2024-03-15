@@ -24,13 +24,13 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
         .post(
           `${getBaseURL()}/unsave-article`,
           {
+            user_id: userId,
+            article_id: articleID,
+          },
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          },
-          {
-            user_id: userId,
-            article_id: articleID,
           }
         )
         .then((res) => {
@@ -47,13 +47,13 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
         .post(
           `${getBaseURL()}/save-article`,
           {
+            user_id: userId,
+            article_id: articleID,
+          },
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          },
-          {
-            user_id: userId,
-            article_id: articleID,
           }
         )
         .then((res) => {

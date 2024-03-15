@@ -273,13 +273,13 @@ const FeaturedArticles = (props) => {
       .post(
         `${getBaseURL()}/save-article`,
         {
+          user_id: userId,
+          article_id: articleID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          article_id: articleID,
         }
       )
       .then((res) => {
@@ -298,13 +298,13 @@ const FeaturedArticles = (props) => {
       .post(
         `${getBaseURL()}/unsave-article`,
         {
+          user_id: userId,
+          article_id: articleID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          article_id: articleID,
         }
       )
       .then((res) => {

@@ -191,14 +191,14 @@ const VideoPlay = () => {
       .post(
         `${getBaseURL()}/video-comment`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           video_id: videoPlay.video_id,
           content: comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -223,14 +223,14 @@ const VideoPlay = () => {
       .post(
         `${getBaseURL()}/video-comment-reply`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           comment_id: commentId,
           content: replyCommentt,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -250,14 +250,14 @@ const VideoPlay = () => {
       .post(
         `${getBaseURL()}/video-like-comment`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           type: type,
           comment_id: commentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -275,14 +275,14 @@ const VideoPlay = () => {
       .post(
         `${getBaseURL()}/video-like-reply`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           type: type,
           reply_id: commentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -301,14 +301,14 @@ const VideoPlay = () => {
       .post(
         `${getBaseURL()}/video-upvote`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           video_id: videoId,
           user_id: userId,
           type: type,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {

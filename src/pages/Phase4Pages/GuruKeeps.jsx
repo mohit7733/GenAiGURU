@@ -46,13 +46,13 @@ const GuruKeeps = () => {
       .post(
         `${getBaseURL()}/unsave-blog`,
         {
+          user_id: userId,
+          blog_id: blogID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          blog_id: blogID,
         }
       )
       .then((res) => {
@@ -75,13 +75,13 @@ const GuruKeeps = () => {
       .post(
         `${getBaseURL()}/unsave-article`,
         {
+          user_id: userId,
+          article_id: articleID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          article_id: articleID,
         }
       )
       .then((res) => {
@@ -100,13 +100,13 @@ const GuruKeeps = () => {
       .post(
         `${getBaseURL()}/unsave-video`,
         {
+          user_id: userId,
+          video_id: videoID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          video_id: videoID,
         }
       )
       .then((res) => {
