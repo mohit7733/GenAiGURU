@@ -26,7 +26,8 @@ const FeaturedContent = (props) => {
   const [latestBlog, setLatestBlog] = useState([]);
   const [interestBlog, setInterestBlogs] = useState([]);
   const [interestid, setInterestid] = useState("");
-
+  const [popularity, setPopularity] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
   const navigate = useNavigate();
   const sliderRef = useRef();
   const date = new Date();
@@ -36,11 +37,17 @@ const FeaturedContent = (props) => {
   //Pagination code Starts here
   const blogsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage2, setCurrentPage2] = useState(1);
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = latestBlog;
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    if (currentDate != "" || popularity != "") {
+      Featuredpopup(popularity, "sortby", currentDate);
+      setCurrentPage2(page);
+    } else {
+      setCurrentPage(page);
+    }
   };
   //Optional used only when mobile have different UI
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
@@ -60,7 +67,8 @@ const FeaturedContent = (props) => {
   const Featuredpopup = (popularity, sortby, currentDate) => {
     axios
       .get(
-        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&to_date=${currentTime}&filter_by=${popularity}&page_number={${currentPage}}`,
+        `${getBaseURL()}/latest-blogs?from_date=${currentDate}&page_number=${currentPage2}&to_date=${currentTime}&filter_by=` +
+          popularity,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,19 +77,19 @@ const FeaturedContent = (props) => {
       )
       .then((response) => {
         setLatestBlog(response?.data?.blogs);
+        setTotalBlogs(response.data.total_count);
         setFilter(false);
+        setPopularity(popularity);
+        setCurrentDate(currentDate);
       })
-      .catch(
-        (err) => {
-          console.log(err.message, " blog api error");
-          toast.error("No data found.", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-          <ToastContainer autoClose={1000} />;
-          setFilter(false);
-        },
-        [currentDate]
-      );
+      .catch((err) => {
+        console.log(err.message, " blog api error");
+        toast.error("No data found.", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        <ToastContainer autoClose={1000} />;
+        setFilter(false);
+      });
   };
 
   const token = JSON.parse(localStorage.getItem("token"));
