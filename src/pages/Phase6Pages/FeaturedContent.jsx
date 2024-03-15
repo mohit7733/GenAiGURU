@@ -70,12 +70,6 @@ const FeaturedContent = (props) => {
       .then((response) => {
         setLatestBlog(response?.data?.blogs);
         setFilter(false);
-        window.scrollTo(0, 0);
-        setTotalBlogs(response.data.total_count);
-        setButtonClicked(false);
-        if (interestid != "") {
-          onInterestClick(interestid);
-        }
       })
       .catch(
         (err) => {
