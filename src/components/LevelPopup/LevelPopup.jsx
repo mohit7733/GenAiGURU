@@ -3,11 +3,16 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 
 const LevelPopup = ({ claimedLevels, onClose }) => {
+  const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   const fetchBadges = async () => {
     try {
-      axios.post(`${getBaseURL()}/claim-user-level?user_id=${userId}`);
+      axios.post(`${getBaseURL()}/claim-user-level?user_id=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       // if (claimedBadges.length <= 0) {
       onClose();
       // }

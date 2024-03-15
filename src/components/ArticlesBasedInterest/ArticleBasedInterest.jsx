@@ -15,15 +15,24 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
   const sliderRef = useRef();
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const onArticleSaveUnSave = (e, type, articleID) => {
     e.preventDefault();
     if (type == "unsave") {
       axios
-        .post(`${getBaseURL()}/unsave-article`, {
-          user_id: userId,
-          article_id: articleID,
-        })
+        .post(
+          `${getBaseURL()}/unsave-article`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+          {
+            user_id: userId,
+            article_id: articleID,
+          }
+        )
         .then((res) => {
           reloadParent(true);
           toast.success("Article Unsaved", {
@@ -35,10 +44,18 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
         });
     } else if (type == "save") {
       axios
-        .post(`${getBaseURL()}/save-article`, {
-          user_id: userId,
-          article_id: articleID,
-        })
+        .post(
+          `${getBaseURL()}/save-article`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+          {
+            user_id: userId,
+            article_id: articleID,
+          }
+        )
         .then((res) => {
           reloadParent(true);
           toast.success("Article Saved", {
@@ -112,7 +129,7 @@ const ArticleBasedInterest = ({ reloadParent, articlesOnInterest }) => {
                       <div className="wrapper flex">
                         <figure>
                           <img
-                            src={aricles.author_profile_image ||userimageIcon }
+                            src={aricles.author_profile_image || userimageIcon}
                             alt="author"
                           />
                         </figure>

@@ -26,7 +26,11 @@ const Follow = () => {
     if (token != "") {
     }
     axios
-      .get(`${getBaseURL()}/get-user-follow?user_id=${userId}&follow=${type}`)
+      .get(`${getBaseURL()}/get-user-follow?user_id=${userId}&follow=${type}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res, "Res");
         setFollowing(res?.data);

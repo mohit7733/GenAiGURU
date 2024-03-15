@@ -196,10 +196,10 @@ const FeaturedArticles = (props) => {
     setActiveTab(tabNumber);
   };
 
-  const onArticleClick = (AricleID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onArticleClick = (AricleID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
@@ -270,10 +270,18 @@ const FeaturedArticles = (props) => {
 
   const onArticleSave = (articleID) => {
     axios
-      .post(`${getBaseURL()}/save-article`, {
-        user_id: userId,
-        article_id: articleID,
-      })
+      .post(
+        `${getBaseURL()}/save-article`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          article_id: articleID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Article Saved", {
@@ -287,10 +295,18 @@ const FeaturedArticles = (props) => {
 
   const onArticleUnSave = (articleID) => {
     axios
-      .post(`${getBaseURL()}/unsave-article`, {
-        user_id: userId,
-        article_id: articleID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-article`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          article_id: articleID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Article Unaved", {
@@ -441,7 +457,10 @@ const FeaturedArticles = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image || userimageIcon}
+                                      src={
+                                        article.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="userIcon"
                                     />
                                   </figure>
@@ -496,7 +515,9 @@ const FeaturedArticles = (props) => {
                                 </WithAuth>
                               </div>
                               <h5
-                                onClick={() => onArticleClick(article.id,article.title)}
+                                onClick={() =>
+                                  onArticleClick(article.id, article.title)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
                                 {article.title}
@@ -543,7 +564,10 @@ const FeaturedArticles = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={interest.author_profile_image ||userimageIcon}
+                                      src={
+                                        interest.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="Genaiguru userIcon"
                                     />
                                   </figure>
@@ -592,7 +616,9 @@ const FeaturedArticles = (props) => {
                                 </ul>
                               </div>
                               <h5
-                                onClick={() => onArticleClick(interest.id,interest.title)}
+                                onClick={() =>
+                                  onArticleClick(interest.id, interest.title)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
                                 {interest.title}
@@ -815,7 +841,10 @@ const FeaturedArticles = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image ||userimageIcon}
+                                      src={
+                                        article.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="user_icon"
                                     />
                                   </figure>
@@ -824,7 +853,11 @@ const FeaturedArticles = (props) => {
                                     <p>{article.creation_date}</p>
                                   </div>
                                 </div>
-                                <p onClick={() => onArticleClick(article.id,article.title)}>
+                                <p
+                                  onClick={() =>
+                                    onArticleClick(article.id, article.title)
+                                  }
+                                >
                                   {article.title}
                                 </p>
                                 <ul className="flex">
@@ -909,7 +942,10 @@ const FeaturedArticles = (props) => {
                                   <div className="wrapper flex">
                                     <figure>
                                       <img
-                                        src={interest.author_profile_image ||userimageIcon}
+                                        src={
+                                          interest.author_profile_image ||
+                                          userimageIcon
+                                        }
                                         alt="Genaiguru userIcon"
                                       />
                                     </figure>
@@ -958,7 +994,9 @@ const FeaturedArticles = (props) => {
                                   </ul>
                                 </div>
                                 <p
-                                  onClick={() => onArticleClick(interest.id,articles.title)}
+                                  onClick={() =>
+                                    onArticleClick(interest.id, articles.title)
+                                  }
                                   style={{ cursor: "pointer" }}
                                 >
                                   {interest.title}

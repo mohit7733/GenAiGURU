@@ -4,11 +4,17 @@ import axios from "axios";
 
 const SilverPopup = ({ claimedBadges, onClose }) => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const fetchBadges = async (badge_id) => {
     try {
       axios.post(
-        `${getBaseURL()}/claim-user-badge?user_id=${userId}&badge_id=${badge_id}`
+        `${getBaseURL()}/claim-user-badge?user_id=${userId}&badge_id=${badge_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       // if (claimedBadges.length <= 0) {
       onClose();

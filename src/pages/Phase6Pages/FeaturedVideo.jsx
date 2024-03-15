@@ -275,10 +275,10 @@ const FeaturedContent = (props) => {
     ],
   };
 
-  const onVideoClick = (VideoId,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onVideoClick = (VideoId, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
     console.log(VideoId);
@@ -303,10 +303,18 @@ const FeaturedContent = (props) => {
 
   const onVideoUnSave = (videoID) => {
     axios
-      .post(`${getBaseURL()}/unsave-video`, {
-        user_id: userId,
-        video_id: videoID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-video`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          video_id: videoID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Video Unsaved", {
@@ -447,7 +455,10 @@ const FeaturedContent = (props) => {
                               <div className="wrapper flex">
                                 <figure>
                                   <img
-                                    src={video.author_profile_image || userimageIcon}
+                                    src={
+                                      video.author_profile_image ||
+                                      userimageIcon
+                                    }
                                     alt="Genaiguru user-icon"
                                   />
                                 </figure>
@@ -501,7 +512,11 @@ const FeaturedContent = (props) => {
                                 </ul>
                               </WithAuth>
                             </div>
-                            <h5 onClick={() => onVideoClick(video.id,video.title)}>
+                            <h5
+                              onClick={() =>
+                                onVideoClick(video.id, video.title)
+                              }
+                            >
                               {video.title}
                             </h5>
                           </div>
@@ -546,7 +561,10 @@ const FeaturedContent = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={interest.author_profile_image ||userimageIcon}
+                                      src={
+                                        interest.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="Genaiguru userIcon"
                                     />
                                   </figure>
@@ -595,7 +613,9 @@ const FeaturedContent = (props) => {
                                 </ul>
                               </div>
                               <h5
-                                onClick={() => onVideoClick(interest.id,interest.title)}
+                                onClick={() =>
+                                  onVideoClick(interest.id, interest.title)
+                                }
                                 style={{ cursor: "pointer" }}
                               >
                                 {interest.title}
@@ -731,7 +751,10 @@ const FeaturedContent = (props) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={video.author_profile_image || userimageIcon}
+                                      src={
+                                        video.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>
@@ -740,7 +763,11 @@ const FeaturedContent = (props) => {
                                     <p> {video.creation_date}</p>
                                   </div>
                                 </div>
-                                <p onClick={() => onVideoClick(video.id,video.title)}>
+                                <p
+                                  onClick={() =>
+                                    onVideoClick(video.id, video.title)
+                                  }
+                                >
                                   {video.title}
                                 </p>
                                 <ul className="flex">
@@ -826,7 +853,10 @@ const FeaturedContent = (props) => {
                                   <div className="wrapper flex">
                                     <figure>
                                       <img
-                                        src={interest.author_profile_image || userimageIcon}
+                                        src={
+                                          interest.author_profile_image ||
+                                          userimageIcon
+                                        }
                                         alt="Genaiguru userIcon"
                                       />
                                     </figure>
@@ -875,7 +905,9 @@ const FeaturedContent = (props) => {
                                   </ul>
                                 </div>
                                 <p
-                                  onClick={() => onVideoClick(interest.id,interest.title)}
+                                  onClick={() =>
+                                    onVideoClick(interest.id, interest.title)
+                                  }
                                   style={{ cursor: "pointer" }}
                                 >
                                   {interest.title}

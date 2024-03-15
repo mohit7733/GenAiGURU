@@ -1,17 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getBaseURL } from "../../api/config";
 import userimageIcon from "../../assets/images/person.png";
 import MobileHeader from "../../components/Layout/MobileHeader";
 import Sidebar from "../../components/Layout/Sidebar";
-import { BASE_PATH, PATH_FEATURED_CONTENT,PATH_BLOG_DETAILS} from "../../routes";
+import {
+  BASE_PATH,
+  PATH_FEATURED_CONTENT,
+  PATH_BLOG_DETAILS,
+} from "../../routes";
 import WithAuth from "../Authentication/WithAuth";
 import SilverPopup from "../Phase5Pages/SilverPopup";
 import Sharebtn from "./sharebtn";
-
 
 const BlogDetails = ({ likes, dislikes }) => {
   const [blogDetail, setBlogDetail] = useState({
@@ -24,7 +27,7 @@ const BlogDetails = ({ likes, dislikes }) => {
     blog_id: "",
     blogSaved: "",
   });
-  
+
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [getBlogComments, setGetBlogComments] = useState([]);
   const [getReplyBlogComments, setGetReplyBlogComments] = useState([null]);
@@ -37,7 +40,7 @@ const BlogDetails = ({ likes, dislikes }) => {
     likes,
     dislikes,
   });
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [replyCommentModels, setReplyCommentModels] = useState([]);
 
   const [relatedBlogId, setRelatedBlogId] = useState();
@@ -64,17 +67,15 @@ const BlogDetails = ({ likes, dislikes }) => {
   // const blogId = queryParam.get("id");
   // Get the current URL
 
-// Remove the "title" parameter from the URL
+  // Remove the "title" parameter from the URL
 
-// Update the URL without the "title" parameter
+  // Update the URL without the "title" parameter
 
-// Now you can extract the "id" parameter as usual
-const queryParam = new URLSearchParams(window.location.search);
-const blogId = queryParam.get("id").split("?")[0];
+  // Now you can extract the "id" parameter as usual
+  const queryParam = new URLSearchParams(window.location.search);
+  const blogId = queryParam.get("id").split("?")[0];
 
-console.log(blogId.split("?")[0])
-
-
+  console.log(blogId.split("?")[0]);
 
   // Useeffect for API of blogOpened Points
   useEffect(() => {
@@ -170,10 +171,10 @@ console.log(blogId.split("?")[0])
         console.log(err.message);
       });
   }, []);
-  const onBlogClick = (blogId,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onBlogClick = (blogId, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_BLOG_DETAILS}?id=${blogId}?title=${replacedTitle}`);
     setTimeout(() => {
@@ -185,10 +186,18 @@ console.log(blogId.split("?")[0])
   // Save And Unsave API's
   const onBlogSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/save-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/save-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
 
@@ -203,10 +212,18 @@ console.log(blogId.split("?")[0])
   };
   const onBlogUnSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/unsave-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         setBlogDetail({ ...blogDetail, blogSaved: res?.data?.Saved });
         toast.success("Blog Unsaved", {
@@ -274,11 +291,19 @@ console.log(blogId.split("?")[0])
       return;
     }
     axios
-      .post(`${getBaseURL()}/blog-comment`, {
-        user_id: userId,
-        blog_id: blogDetail.blog_id,
-        content: comment,
-      })
+      .post(
+        `${getBaseURL()}/blog-comment`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogDetail.blog_id,
+          content: comment,
+        }
+      )
       .then((res) => {
         setLoadingStatus(false);
         console.log(res.data);
@@ -299,11 +324,19 @@ console.log(blogId.split("?")[0])
       return;
     }
     axios
-      .post(`${getBaseURL()}/blog-comment-reply`, {
-        user_id: userId,
-        comment_id: commentId,
-        content: replyCommentt,
-      })
+      .post(
+        `${getBaseURL()}/blog-comment-reply`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          comment_id: commentId,
+          content: replyCommentt,
+        }
+      )
       .then((res) => {
         setLoadingStatus(false);
         console.log(res.data);
@@ -321,11 +354,19 @@ console.log(blogId.split("?")[0])
 
   const postBlogLike = (type, commentId) => {
     axios
-      .post(`${getBaseURL()}/blog-like-comment`, {
-        user_id: userId,
-        type: type,
-        comment_id: commentId,
-      })
+      .post(
+        `${getBaseURL()}/blog-like-comment`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          type: type,
+          comment_id: commentId,
+        }
+      )
       .then((res) => {
         setBlogCommentLike(res.data);
         getComments();
@@ -340,11 +381,19 @@ console.log(blogId.split("?")[0])
 
   const postBlogReplyLike = (type, commentId, com) => {
     axios
-      .post(`${getBaseURL()}/blog-like-reply`, {
-        user_id: userId,
-        type: type,
-        reply_id: commentId,
-      })
+      .post(
+        `${getBaseURL()}/blog-like-reply`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          type: type,
+          reply_id: commentId,
+        }
+      )
       .then((res) => {
         getReplyComments(com);
         setBlogCommentLikeReply(res?.data);
@@ -431,8 +480,11 @@ console.log(blogId.split("?")[0])
                       <p>
                         <Link to={BASE_PATH}>Home</Link>{" "}
                         <Link to={PATH_FEATURED_CONTENT}>
-                        <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
-                        Blog
+                          <i
+                            className="fa fa-angle-right"
+                            aria-hidden="true"
+                          ></i>{" "}
+                          Blog
                         </Link>
                         <i className="fa fa-angle-right" aria-hidden="true"></i>{" "}
                         {blogDetail.title}
@@ -990,7 +1042,9 @@ console.log(blogId.split("?")[0])
                                 </div>
                                 <p>
                                   <a
-                                    onClick={() => onBlogClick(blogdata.id,blogdata.title)}
+                                    onClick={() =>
+                                      onBlogClick(blogdata.id, blogdata.title)
+                                    }
                                   >
                                     {blogdata.title}
                                   </a>
@@ -1599,7 +1653,9 @@ console.log(blogId.split("?")[0])
                                 </div>
                                 <p>
                                   <a
-                                    onClick={() => onBlogClick(blogdata.id,blogdata.title)}
+                                    onClick={() =>
+                                      onBlogClick(blogdata.id, blogdata.title)
+                                    }
                                   >
                                     {blogdata.title}
                                   </a>

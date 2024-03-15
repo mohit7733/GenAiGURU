@@ -63,7 +63,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
   const my_element = location.hash.slice(1);
   const queryParam = new URLSearchParams(location.search);
   const articleId = queryParam.get("id").split("?")[0];
-  console.log(articleId,"ertytr")
+  console.log(articleId, "ertytr");
 
   // Useeffect for API of ArticleOpened Points
 
@@ -170,10 +170,18 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   const onArticleSave = (articleID) => {
     axios
-      .post(`${getBaseURL()}/save-article`, {
-        user_id: userId,
-        article_id: articleID,
-      })
+      .post(
+        `${getBaseURL()}/save-article`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          article_id: articleID,
+        }
+      )
       .then((res) => {
         setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
         toast.success("Article Saved", {
@@ -187,10 +195,18 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   const onArticleUnSave = (articleID) => {
     axios
-      .post(`${getBaseURL()}/unsave-article`, {
-        user_id: userId,
-        article_id: articleID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-article`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          article_id: articleID,
+        }
+      )
       .then((res) => {
         setArticleDetail({ ...articleDetail, articleSaved: res?.data?.Saved });
         toast.success("Article Unsaved", {
@@ -277,11 +293,19 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       return;
     }
     axios
-      .post(`${getBaseURL()}/article-comment`, {
-        user_id: userId,
-        article_id: articleDetail.article_id,
-        content: comment,
-      })
+      .post(
+        `${getBaseURL()}/article-comment`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          article_id: articleDetail.article_id,
+          content: comment,
+        }
+      )
       .then((res) => {
         console.log(res.data);
         setComment("");
@@ -301,11 +325,19 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       return;
     }
     axios
-      .post(`${getBaseURL()}/article-comment-reply`, {
-        user_id: userId,
-        comment_id: commentId,
-        content: replyCommentt,
-      })
+      .post(
+        `${getBaseURL()}/article-comment-reply`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          comment_id: commentId,
+          content: replyCommentt,
+        }
+      )
       .then((res) => {
         setLoadingStatus(false);
         // console.log(res.data);
@@ -323,11 +355,19 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   const postArticleLike = (type, commentId) => {
     axios
-      .post(`${getBaseURL()}/article-like-comment`, {
-        user_id: userId,
-        type: type,
-        comment_id: commentId,
-      })
+      .post(
+        `${getBaseURL()}/article-like-comment`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          type: type,
+          comment_id: commentId,
+        }
+      )
       .then((res) => {
         console.log(res.data, "fdggh");
         setArticleCommentLike(res.data);
@@ -343,11 +383,19 @@ const ArticlesDetails = ({ likes, dislikes }) => {
 
   const postArticleReplyLike = (type, commentId, com) => {
     axios
-      .post(`${getBaseURL()}/article-like-reply`, {
-        user_id: userId,
-        type: type,
-        reply_id: commentId,
-      })
+      .post(
+        `${getBaseURL()}/article-like-reply`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          type: type,
+          reply_id: commentId,
+        }
+      )
       .then((res) => {
         getReplyComments(com);
         setArticleCommentLikeReply(res.data);
@@ -494,7 +542,9 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src={articleDetail.author_profile_image ||userimageIcon}
+                        src={
+                          articleDetail.author_profile_image || userimageIcon
+                        }
                         alt="Genaiguru blog-img"
                       />
                     </figure>
@@ -996,7 +1046,10 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image ||userimageIcon}
+                                      src={
+                                        article.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>
@@ -1648,7 +1701,10 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={article.author_profile_image ||userimageIcon}
+                                      src={
+                                        article.author_profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>

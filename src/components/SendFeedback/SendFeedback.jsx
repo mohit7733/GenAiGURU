@@ -11,6 +11,8 @@ const SendFeedback = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const userId = JSON.parse(localStorage.getItem("UserId"));
+  const token = JSON.parse(localStorage.getItem("token"));
+
   // validation for feedback
   const onSubmit = (event) => {
     event.preventDefault();
@@ -21,7 +23,11 @@ const SendFeedback = () => {
     fd.append("comment", idea);
     selectedFiles?.map((e) => fd.append("media[]", e));
     axios
-      .post(`${getBaseURL()}/send-feedback`, fd)
+      .post(`${getBaseURL()}/send-feedback`, fd, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           toast.success("Feedback Sent Successfully", {
@@ -114,7 +120,7 @@ const SendFeedback = () => {
   };
 
   return (
-    <div className="mob-wrapper feedback-wrapper" >
+    <div className="mob-wrapper feedback-wrapper">
       <div className="mobileHead flex">
         <Link to={PATH_MOBLIE_SETTINGS} className="backBtns">
           <i className="fa fa-angle-left" aria-hidden="true"></i>

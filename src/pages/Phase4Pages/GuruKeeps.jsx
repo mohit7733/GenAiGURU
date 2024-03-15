@@ -43,10 +43,18 @@ const GuruKeeps = () => {
 
   const onBlogUnSave = (blogID) => {
     axios
-      .post(`${getBaseURL()}/unsave-blog`, {
-        user_id: userId,
-        blog_id: blogID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-blog`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          blog_id: blogID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Blog Unsaved", {
@@ -64,10 +72,18 @@ const GuruKeeps = () => {
 
   const onArticleUnSave = (articleID) => {
     axios
-      .post(`${getBaseURL()}/unsave-article`, {
-        user_id: userId,
-        article_id: articleID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-article`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          article_id: articleID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Article Unsaved", {
@@ -81,10 +97,18 @@ const GuruKeeps = () => {
 
   const onVideoUnSave = (videoID) => {
     axios
-      .post(`${getBaseURL()}/unsave-video`, {
-        user_id: userId,
-        video_id: videoID,
-      })
+      .post(
+        `${getBaseURL()}/unsave-video`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          user_id: userId,
+          video_id: videoID,
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Video Unsaved", {
@@ -96,24 +120,24 @@ const GuruKeeps = () => {
       });
   };
 
-  const onBlogClick = ( BlogID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onBlogClick = (BlogID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
-  const onArticleClick = (AricleID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onArticleClick = (AricleID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}&title=${replacedTitle}`);
   };
-  const onVideoClick = (VideoId,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onVideoClick = (VideoId, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_VIDEO_PLAY}?id=${VideoId}?title=${replacedTitle}`);
     console.log(VideoId);
@@ -224,11 +248,11 @@ const GuruKeeps = () => {
                           <a
                             onClick={() => {
                               if (data.type === "blog") {
-                                onBlogClick(data.id,data.title);
+                                onBlogClick(data.id, data.title);
                               } else if (data.type === "article") {
-                                onArticleClick(data.id,data.title);
+                                onArticleClick(data.id, data.title);
                               } else if (data.type === "video") {
-                                onVideoClick(data.id,data.title);
+                                onVideoClick(data.id, data.title);
                               }
                             }}
                           >
@@ -299,11 +323,11 @@ const GuruKeeps = () => {
                     <p
                       onClick={() => {
                         if (data.type === "blog") {
-                          onBlogClick(data.id,data.title);
+                          onBlogClick(data.id, data.title);
                         } else if (data.type === "article") {
-                          onArticleClick(data.id,data.title);
+                          onArticleClick(data.id, data.title);
                         } else if (data.type === "video") {
-                          onVideoClick(data.id,data.title);
+                          onVideoClick(data.id, data.title);
                         }
                       }}
                     >
