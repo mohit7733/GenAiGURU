@@ -286,10 +286,18 @@ const FeaturedContent = (props) => {
 
   const onVideoSave = (videoID) => {
     axios
-      .post(`${getBaseURL()}/save-video`, {
-        user_id: userId,
-        video_id: videoID,
-      })
+      .post(
+        `${getBaseURL()}/save-video`,
+        {
+          user_id: userId,
+          video_id: videoID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res?.data);
         toast.success("Video Saved", {
@@ -306,13 +314,13 @@ const FeaturedContent = (props) => {
       .post(
         `${getBaseURL()}/unsave-video`,
         {
+          user_id: userId,
+          video_id: videoID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          video_id: videoID,
         }
       )
       .then((res) => {

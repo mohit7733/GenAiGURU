@@ -173,13 +173,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/save-article`,
         {
+          user_id: userId,
+          article_id: articleID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          article_id: articleID,
         }
       )
       .then((res) => {
@@ -198,13 +198,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/unsave-article`,
         {
+          user_id: userId,
+          article_id: articleID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          article_id: articleID,
         }
       )
       .then((res) => {
@@ -296,14 +296,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/article-comment`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           article_id: articleDetail.article_id,
           content: comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -328,14 +328,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/article-comment-reply`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           comment_id: commentId,
           content: replyCommentt,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -358,14 +358,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/article-like-comment`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           type: type,
           comment_id: commentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {
@@ -386,14 +386,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
       .post(
         `${getBaseURL()}/article-like-reply`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-        {
           user_id: userId,
           type: type,
           reply_id: commentId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
       .then((res) => {

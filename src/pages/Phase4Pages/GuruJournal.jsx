@@ -42,13 +42,13 @@ const GuruJournal = () => {
       .post(
         `${getBaseURL()}/save-blog`,
         {
+          user_id: userId,
+          blog_id: blogID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          blog_id: blogID,
         }
       )
       .then((res) => {
@@ -67,13 +67,13 @@ const GuruJournal = () => {
       .post(
         `${getBaseURL()}/unsave-blog`,
         {
+          user_id: userId,
+          blog_id: blogID,
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-        {
-          user_id: userId,
-          blog_id: blogID,
         }
       )
       .then((res) => {
