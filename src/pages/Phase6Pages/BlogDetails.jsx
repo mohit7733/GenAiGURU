@@ -73,7 +73,7 @@ const BlogDetails = ({ likes, dislikes }) => {
 
   // Now you can extract the "id" parameter as usual
   const queryParam = new URLSearchParams(window.location.search);
-  const blogId = queryParam.get("id").split("?")[0];
+  const blogId = queryParam.get("id")?.split("?")[0];
 
   console.log(blogId.split("?")[0]);
 

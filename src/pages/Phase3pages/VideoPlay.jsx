@@ -50,7 +50,7 @@ const VideoPlay = () => {
   let location = useLocation();
   const my_element = location.hash.slice(1);
   const queryParam = new URLSearchParams(location.search);
-  const videoId = queryParam.get("id").split("?")[0];
+  const videoId = queryParam.get("id")?.split("?")[0];
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn"));
 

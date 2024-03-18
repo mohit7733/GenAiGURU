@@ -10,6 +10,7 @@ const SilverPopup = ({ claimedBadges, onClose }) => {
     try {
       axios.post(
         `${getBaseURL()}/claim-user-badge?user_id=${userId}&badge_id=${badge_id}`,
+        { badge_id: badge_id, user_id: userId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
