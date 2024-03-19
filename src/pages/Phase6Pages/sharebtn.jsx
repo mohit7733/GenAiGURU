@@ -15,7 +15,7 @@ export default function Sharebtn(props) {
     }));
   };
   return (
-    <Link
+    <a
       onClick={() => handleShareToggle(props.id)}
       className="btn-icon"
       style={{ display: "flex", flexDirection: "column" }}
@@ -50,6 +50,6 @@ export default function Sharebtn(props) {
           </TwitterShareButton>
         </li>
       </ul>
-    </Link>
+    </a>
   );
 }

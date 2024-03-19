@@ -371,7 +371,9 @@ const Payment = () => {
 
                   </button>
                   <button className="loginBtnCancel">
-                    Cancel
+                  <Link to={"/subscriptions"} style={{color:"white"}}>
+                  Cancel
+                  </Link>
                   </button>
                 </div>
               </form>

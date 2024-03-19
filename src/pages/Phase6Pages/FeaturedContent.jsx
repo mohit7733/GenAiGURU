@@ -249,7 +249,7 @@ const FeaturedContent = (props) => {
 
   var sliderSettings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -540,7 +540,7 @@ const FeaturedContent = (props) => {
                   }
                 >
                   {interestBlog.length < 1 ? (
-                    <h1>Data Not Found</h1>
+                    <h3>Data Not Found</h3>
                   ) : (
                     <div className="interest-guru ">
                       {interestBlog.map((interest, index) => {
