@@ -49,7 +49,7 @@ const Index3 = ({ responseMessage, userSearchedText }) => {
                   title="Genaiguru search logo icon"
                 />
               </figure>
-              <h5>Below we suggest you best articles</h5>
+              <h5>Below we suggest you best article</h5>
             </div>
             <div className="boxes">
               <a href="#">

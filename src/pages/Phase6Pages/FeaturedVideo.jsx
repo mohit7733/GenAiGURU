@@ -550,7 +550,7 @@ const FeaturedContent = (props) => {
                   }
                 >
                   {interestVideos.length < 1 ? (
-                    <h1>Data Not Found</h1>
+                    <h3>Data Not Found</h3>
                   ) : (
                     <div className="interest-guru ">
                       {interestVideos.map((interest, index) => {

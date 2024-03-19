@@ -66,7 +66,7 @@ const BlogDetails = ({ likes, dislikes }) => {
   const blogId = queryParam.get("id")?.split("?")[0];
 
   // console.log(blogId.split("?")[0]);
-
+  console.log(blogId, "blog id");
   // Useeffect for API of blogOpened Points
   useEffect(() => {
     axios
@@ -530,7 +530,6 @@ const BlogDetails = ({ likes, dislikes }) => {
                               "/blogdetails?id=" +
                               blogDetail.blog_id
                             }
-                            
                           />
                           {/* )} */}
                         </WithAuth>

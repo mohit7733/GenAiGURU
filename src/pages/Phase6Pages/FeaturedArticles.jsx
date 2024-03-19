@@ -547,7 +547,7 @@ const FeaturedArticles = (props) => {
                   }
                 >
                   {interestArticles.length < 1 ? (
-                    <h1>Data Not Found</h1>
+                    <h3>Data Not Found</h3>
                   ) : (
                     <div className="interest-guru ">
                       {interestArticles.map((interest, index) => {
