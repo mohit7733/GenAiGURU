@@ -65,10 +65,12 @@ const FeaturedContent = (props) => {
   }, []);
   //Pagination ends
   const Featuredpopup = (popularity, sortby, currentDate) => {
+    // setPopularity(popularity);
+    // setCurrentDate(currentDate);
     axios
       .get(
         `${getBaseURL()}/latest-blogs?from_date=${currentDate}&page_number=${currentPage2}&to_date=${currentTime}&filter_by=` +
-          popularity,
+        popularity,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -79,8 +81,7 @@ const FeaturedContent = (props) => {
         setLatestBlog(response?.data?.blogs);
         setTotalBlogs(response.data.total_count);
         setFilter(false);
-        setPopularity(popularity);
-        setCurrentDate(currentDate);
+
       })
       .catch((err) => {
         console.log(err.message, " blog api error");
@@ -488,11 +489,11 @@ const FeaturedContent = (props) => {
                                               ? "coloredbookmarkIcon"
                                               : "bookmarkIcon"
                                           }
-                                          // title={
-                                          //   blog.saved === "yes"
-                                          //     ? "coloredbookmarkIcon"
-                                          //     : "bookmarkIcon"
-                                          // }
+                                        // title={
+                                        //   blog.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                         />
                                       </a>
                                     </li>
@@ -583,11 +584,11 @@ const FeaturedContent = (props) => {
                                             ? "coloredbookmarkIcon"
                                             : "bookmarkIcon"
                                         }
-                                        // title={
-                                        //   interest.saved === "yes"
-                                        //     ? "coloredbookmarkIcon"
-                                        //     : "bookmarkIcon"
-                                        // }
+                                      // title={
+                                      //   interest.saved === "yes"
+                                      //     ? "coloredbookmarkIcon"
+                                      //     : "bookmarkIcon"
+                                      // }
                                       />
                                     </a>
                                   </li>
@@ -945,11 +946,11 @@ const FeaturedContent = (props) => {
                                             ? "coloredbookmarkIcon"
                                             : "bookmarkIcon"
                                         }
-                                        // title={
-                                        //   blog.saved === "yes"
-                                        //     ? "coloredbookmarkIcon"
-                                        //     : "bookmarkIcon"
-                                        // }
+                                      // title={
+                                      //   blog.saved === "yes"
+                                      //     ? "coloredbookmarkIcon"
+                                      //     : "bookmarkIcon"
+                                      // }
                                       />
                                     </a>
                                   </li>
@@ -1082,11 +1083,11 @@ const FeaturedContent = (props) => {
                                               ? "coloredbookmarkIcon"
                                               : "bookmarkIcon"
                                           }
-                                          // title={
-                                          //   interest.saved === "yes"
-                                          //     ? "coloredbookmarkIcon"
-                                          //     : "bookmarkIcon"
-                                          // }
+                                        // title={
+                                        //   interest.saved === "yes"
+                                        //     ? "coloredbookmarkIcon"
+                                        //     : "bookmarkIcon"
+                                        // }
                                         />
                                       </a>
                                     </li>

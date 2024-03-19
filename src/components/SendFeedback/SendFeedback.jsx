@@ -162,8 +162,34 @@ const SendFeedback = () => {
                   <FileInput onFilesChange={handleFilesChange} />
                 </div>
                 {selectedFiles.length > 0 && (
-                  <div>
-                    <FeedbackGallery files={selectedFiles} />
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    {selectedFiles.map((file, index) => (
+                      <div key={index} className="file-preview">
+                        {file.type.startsWith("image/") ? (
+                          <img
+                            width="100"
+                            height="100"
+                            src={URL.createObjectURL(file)}
+                            alt={`Image Preview ${index}`}
+                          />
+                        ) : file.type.startsWith("video/") ? (
+                          <div>
+                            <video
+                              width="100"
+                              height="100"
+                              src={URL.createObjectURL(file)}
+                              alt={`Video Preview ${index}`}
+                            />
+                          </div>
+                        ) : (
+                          <p>Unsupported file type</p>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
