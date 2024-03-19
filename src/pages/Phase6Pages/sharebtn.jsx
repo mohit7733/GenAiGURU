@@ -4,6 +4,7 @@ import { FacebookShareButton } from "react-share";
 import { TwitterShareButton } from "react-share";
 import { FacebookIcon } from "react-share";
 import { XIcon } from "react-share";
+import { FacebookCount, TwitterCount } from "react-social";
 
 export default function Sharebtn(props) {
   const [share, setShare] = useState({});
@@ -41,9 +42,11 @@ export default function Sharebtn(props) {
               logofillcolor="white"
               round="true"
             ></FacebookIcon>
+            <FacebookCount/>
           </FacebookShareButton>
           <TwitterShareButton title={props.title} url={props.url}>
             <XIcon size="40px" logofillcolor="white" round="true"></XIcon>
+            <TwitterCount/>
           </TwitterShareButton>
         </li>
       </ul>

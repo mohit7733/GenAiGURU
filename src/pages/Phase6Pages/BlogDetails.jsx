@@ -62,20 +62,10 @@ const BlogDetails = ({ likes, dislikes }) => {
   // useLocation to get id from url
   let location = useLocation();
   const my_element = location.hash.slice(1);
-
-  // const queryParam = new URLSearchParams(location.search);
-  // const blogId = queryParam.get("id");
-  // Get the current URL
-
-  // Remove the "title" parameter from the URL
-
-  // Update the URL without the "title" parameter
-
-  // Now you can extract the "id" parameter as usual
-  const queryParam = new URLSearchParams(window.location.search);
+  const queryParam = new URLSearchParams(location.search);
   const blogId = queryParam.get("id")?.split("?")[0];
 
-  console.log(blogId.split("?")[0]);
+  // console.log(blogId.split("?")[0]);
 
   // Useeffect for API of blogOpened Points
   useEffect(() => {
@@ -540,6 +530,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                               "/blogdetails?id=" +
                               blogDetail.blog_id
                             }
+                            
                           />
                           {/* )} */}
                         </WithAuth>
