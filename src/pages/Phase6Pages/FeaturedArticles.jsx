@@ -107,6 +107,7 @@ const FeaturedArticles = (props) => {
       )
       .then((response) => {
         setArticles(response?.data?.articles);
+        setTotalArticles(response.data.total_count);
         console.log(response?.data, "test1");
         setFilter(false);
       })

@@ -329,7 +329,7 @@ const Payment = () => {
                     }} />
                   </div>
                   <div className="profile-edit">
-                    <label htmlFor="cvv">CVV</label>
+                    <label htmlFor="cvv">CVC</label>
                     <CardCvcElement className="form-control payformd" required onChange={() => {
                       setTimeout(() => {
                         document
