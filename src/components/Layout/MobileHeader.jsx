@@ -111,21 +111,21 @@ const MobileHeader = ({ isLogged }) => {
               </a>
             </li>
           </WithAuth>
-          <li className="headerIcon">
-            <WithAuth
-              callBack={(e) => {
-                navigate("/subscriptions");
-              }}
-            >
-              <Link>
+          <WithAuth
+            callBack={(e) => {
+              navigate("/subscriptions");
+            }}
+          >
+            <li className="headerIcon">
+              <a style={{ cursor: "pointer" }}>
                 <img
                   src="app/images/elementsIcon.png"
                   alt="Genaiguru elementsIcon"
                 />{" "}
                 {/* <span className="count">22</span> */}
-              </Link>
-            </WithAuth>
-          </li>
+              </a>
+            </li>
+          </WithAuth>
           <li className="secondaryBtn">
             <Link to="/write-with-ai">
               <img src="app/images/padIcon.png" alt="Genaiguru padIcon" /> Write

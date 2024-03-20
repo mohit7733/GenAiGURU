@@ -79,6 +79,7 @@ const FeaturedContent = (props) => {
       )
       .then((response) => {
         setPopularVideos(response?.data?.videos);
+        setTotalVideos(response.data.total_count);
         console.log(response?.data, "shjgfd");
         setFilter(false);
       })

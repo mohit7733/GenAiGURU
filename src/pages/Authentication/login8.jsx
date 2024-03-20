@@ -101,6 +101,7 @@ const Login8 = () => {
             });
         })
         .catch((err) => {
+          setLoadingStatus(false);
           toast.error("Incorrect Email or Password !", {
             position: toast.POSITION.TOP_CENTER,
           });

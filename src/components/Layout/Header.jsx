@@ -125,21 +125,21 @@ const Header = () => {
               </a>
             </li>
           </WithAuth>
-          <li className="headerIcon">
-            <WithAuth
+          <WithAuth
               callBack={(e) => {
                 navigate("/subscriptions");
               }}
             >
-              <Link>
+          <li className="headerIcon">
+              <a style={{cursor:"pointer"}}>
                 <img
                   src="app/images/elementsIcon.png"
                   alt="Genaiguru elementsIcon"
                 />{" "}
                 {/* <span className="count">22</span> */}
-              </Link>
-            </WithAuth>
+              </a>
           </li>
+          </WithAuth>
           <li className="secondaryBtn">
             <WithAuth
               callBack={(e) => {
