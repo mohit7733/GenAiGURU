@@ -7,7 +7,7 @@ const Cookie = () => {
         enableDeclineButton
         location="bottom"
         cookieName="myAwesomeCookieName2"
-        style={{ background: "#232D3C", opacity: "0.9", borderRadius: "30px",alignItems:"center"}}
+        style={{ background: "#232D3C", opacity: "0.9", borderRadius:"30px", alignItems:"center", width:"99%",marginBottom:"10px", marginLeft:"7px"}}
         buttonStyle={{
           color: "white",
           fontSize: "13px",
@@ -17,7 +17,6 @@ const Cookie = () => {
           margin: "10px 140px",
           marginLeft: "10px",
           borderRadius: "10px",
-          
         }}
         declineButtonStyle={{
           fontSize: "13px",
@@ -25,6 +24,7 @@ const Cookie = () => {
             "linear-gradient(87.97deg, #B03FCC 2.88%, #683FE4 25.56%, rgba(216, 63, 190, 0.94) 114.56%)",
           fontSize: "20px",
           borderRadius: "10px",
+          width: "135px"
         }}
         expires={365}
       >
