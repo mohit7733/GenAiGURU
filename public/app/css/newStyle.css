@@ -1036,6 +1036,9 @@ li.comment-btn img.fillImage {
     font-size: 14px;
     line-height: 1.5em;
   }
+  .Cookie-img {
+    width: 100%;
+  }
 }
 /* new css @D */
 .mainBg figure.headerLogo {
@@ -2766,4 +2769,12 @@ input:checked + .slider:before {
 }
 .ql-editor ol li,.ql-editor ul li {
   color: white !important;
+}
+.cookies-flex {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+.Cookie-text {
+  padding-left: 20px;
 }
