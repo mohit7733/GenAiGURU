@@ -33,6 +33,7 @@ import CreacteNewPassword from "./pages/Authentication/CreacteNewPassword";
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import Otpscreen from "./pages/Authentication/Otpscreen";
 import LoginPopup from "./pages/Authentication/LoginPopup";
+import Cookie from "./components/LevelPopup/Cookie/Cookie";
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           </Routes>
         </Suspense>
       </Router>
+      <Cookie/>
     </div>
   );
 }
