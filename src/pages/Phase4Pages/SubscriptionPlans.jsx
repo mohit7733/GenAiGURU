@@ -217,7 +217,7 @@ const SubscriptionPlans = () => {
                               className="payment-mode"
                             >
                               <p>Available payment method</p>
-                              <ul className="flex space-center payemtList" style={{cursor:"default"}}>
+                              <ul className="flex space-center payemtList">
                                 <li>
                                   <a href="">
                                     <figure>
