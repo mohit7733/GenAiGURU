@@ -767,7 +767,7 @@ const Profile = () => {
                     Posts
                   </Link>
                 </li>
-                <li className={activeTab === 3 ? "active" : ""}>
+                {/* <li className={activeTab === 3 ? "active" : ""}>
                   <Link
                     onClick={() => handleTabClick(3)}
                     className={activeTab === 3 ? "tab" : ""}
@@ -775,7 +775,7 @@ const Profile = () => {
                   >
                     Videos
                   </Link>
-                </li>
+                </li> */}
                 <li className={activeTab === 4 ? "active" : ""}>
                   <Link
                     onClick={() => handleTabClick(4)}
@@ -930,60 +930,48 @@ const Profile = () => {
                   <div className="home-interest">
                     <div className="heading-link flex"></div>
                     <div className="interest-box flex space-between">
-                      <div className="wrap flex">
-                        <figure>
-                          <a href="#">
-                            <img
-                              src="app/images/interestSliderImg.png"
-                              alt="Genaiguru intrest"
-                            />
-                          </a>
-                        </figure>
-                        <div className="content">
-                          <div className="wrapper flex">
-                            <figure>
-                              <img
-                                src="app/images/authorImg.png"
-                                alt="Genaiguru authorImg"
-                              />
-                            </figure>
-                            <div className="innerContent">
-                              <h6>Alex Smih</h6>
-                              <p>24 M view . 3 month ago</p>
-                            </div>
-                          </div>
-                          <p>
-                            <a href="#">
-                              Navigating the World of ChatGPT and Its
-                              Open-source Adversaries
-                            </a>
-                          </p>
-                          <ul className="flex">
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/bookmarkIcon.png"
-                                  alt="Genaiguru bookmarkIcon"
-                                />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <img
-                                  src="app/images/dotsIcons.png"
-                                  alt="Genaiguru dots-icon"
-                                />
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                      {savedData?.blogs?.map((data) => {
+                          return (
+                            <>
+                              <div className="wrap flex">
+                                <figure>
+                                  <a href="#">
+                                    <img
+                                      style={{ height: "115px" }}
+                                      src={data?.photo}
+                                      alt="Genaiguru intrest"
+                                    />
+                                  </a>
+                                </figure>
+                                <div className="content">
+                                  <div className="wrapper flex">
+                                    <figure>
+                                      <img
+                                        src={savedData?.user.profile_image}
+                                        alt="Genaiguru authorImg"
+                                      />
+                                    </figure>
+                                    <div className="innerContent">
+                                      <h6>{savedData?.user.name}</h6>
+                                      <p>{data.creation_date}</p>
+                                    </div>
+                                  </div>
+                                  <p>
+                                    <a href={`/blogdetails?id=${data?.id}`}>
+                                      {data.short_description}
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
               )}
               {/* <!-- video here --> */}
-              {activeTab === 3 && (
+              {/* {activeTab === 3 && (
                 <div className="tab-content tab-content-3 active">
                   <div className="home-interest">
                     <div className="heading-link flex"></div>
@@ -1046,12 +1034,13 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
               {/* <!-- video end here -->
                 <!-- badges here --> */}
               {activeTab === 4 && (
                 <div className="tab-content tab-content-4 active">
-                  <ProfileBadges />
+                  {/* <ProfileBadges /> */}
+                  <ProfileBadges claimedBadges={claimedBadges} />
                 </div>
               )}
               {/* <!-- badges end here --> */}
