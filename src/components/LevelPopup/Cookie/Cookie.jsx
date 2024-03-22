@@ -6,7 +6,7 @@ const Cookie = () => {
       <CookieConsent
         enableDeclineButton
         location="bottom"
-        cookieName="myAwesomeCookieName2"
+        // cookieName="myAwesomeCookieName2"
         style={{ background: "#232D3C", opacity: "0.9", borderRadius:"30px", alignItems:"center", width:"99%",marginBottom:"10px", marginLeft:"7px"}}
         buttonStyle={{
           color: "white",
