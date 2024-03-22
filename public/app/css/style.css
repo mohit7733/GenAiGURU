@@ -4911,6 +4911,8 @@ section.interestSection.second.mainBg figure.headerLogo {
   color: #fff;
   font-size: 16px;
   transition: all 0.25s ease;
+  padding-left: 10px;
+  padding-top: 5px;
 }
 
 .mob_profile {
