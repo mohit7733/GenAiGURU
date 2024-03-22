@@ -2778,3 +2778,9 @@ input:checked + .slider:before {
 .Cookie-text {
   padding-left: 20px;
 }
+.badges-box ul li a:hover span {
+  color:white;
+}
+.subscriptionPlan .change-plan .plans-wrapper .monthly-plans .payment-mode ul li a{
+ cursor: default;
+}
