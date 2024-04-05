@@ -28,7 +28,7 @@ const Login = () => {
       // console.log(userInfo);
 
       axios
-        .post("http://stag.genaiguru.io/admin/api/auth/google-login", {
+        .post("https://genaiadmindev.sdsstaging.co.uk/api/auth/google-login", {
           google_response: JSON.stringify(userInfo),
         })
         .then((response) => {
