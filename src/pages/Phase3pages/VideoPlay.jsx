@@ -439,7 +439,7 @@ const VideoPlay = () => {
                   playing={false}
                   controls={true}
                   width="100%"
-                  height="440px"
+                  height="100%"
                 />
                 <ul className="flex space-between link">
                   <li>

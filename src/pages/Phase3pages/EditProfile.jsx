@@ -172,7 +172,7 @@ const EditProfile = ({ settingsPage }) => {
             {/* <!-- profile start here --> */}
             <div className="profile-img-box">
               <div className="profileImgChange">
-                <p>Profile image*</p>
+                <p>Profile image</p>
                 <figure>
                   {profilePicture && (
                     <img

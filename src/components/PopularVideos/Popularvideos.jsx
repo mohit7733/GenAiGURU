@@ -18,7 +18,6 @@ const Popularvideos = () => {
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const MAX_DISPLAY = 1;
   const navigate = useNavigate();
-
   // Get API for Popular Videos
   useEffect(() => {
     axios
@@ -35,11 +34,16 @@ const Popularvideos = () => {
         console.log(err.message);
       });
   }, [userId]);
-
+  let numvid = 0;
+  if (popularVideos.length < 3) {
+    numvid = popularVideos.length;
+  } else {
+    numvid = 3;
+  }
   var settings2 = {
     dots: false,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: numvid,
     arrows: false,
     slidesToScroll: 1,
     autoplay: false,
@@ -49,7 +53,7 @@ const Popularvideos = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1,
           initialSlide: 1,
         },
@@ -78,87 +82,86 @@ const Popularvideos = () => {
         </div>
         <div className="mobileVideoSection">
           <div className="wrap">
-            {/* <Slider */}
-            {/* <Slider
+            <Slider
               ref={sliderRef}
-              // {...settings2}
-              id="Slider-4"
+              {...settings2}
+              id="Slider-3"
               className="slider_test"
-            > */}
-            {popularVideos.map((video, index) => {
-              if (index < MAX_DISPLAY) {
-                return (
-                  <div
-                    className="wrap"
-                    key={index}
-                    onClick={() => onVideoClick(video.id, video.title)}
-                  >
-                    <a
-                      onClick={() => {
-                        navigate(`${PATH_VIDEO_PLAY}`);
-                      }}
-                      target="_blank"
+            >
+              {popularVideos.map((video, index) => {
+                if (index < MAX_DISPLAY) {
+                  return (
+                    <div
+                      className="wrap"
+                      key={index}
+                      onClick={() => onVideoClick(video.id, video.title)}
                     >
-                      <div className="youtube-icon">
-                        <figure
-                          src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
-                            -11
-                          )}/sddefault.jpg`}
-                        >
-                          <img
+                      <a
+                        onClick={() => {
+                          navigate(`${PATH_VIDEO_PLAY}`);
+                        }}
+                        target="_blank"
+                      >
+                        <div className="youtube-icon">
+                          <figure
                             src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
                               -11
                             )}/sddefault.jpg`}
-                            alt={""}
-                          />
-                          {/* <ReactPlayer
-                        url={video.youtube_link}
-                        width="100%"
-                        height="100%"
-                      /> */}
-                        </figure>
-                        <img src="app/images/youtube.png" alt={""} />
-                      </div>
-                      <div className="layer">
-                      {token && <span>
-                      {video.watched == "no" && (
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                          />
-                          {videoPoints}
+                          >
+                            <img
+                              src={`https://img.youtube.com/vi/${video?.youtube_link.slice(
+                                -11
+                              )}/sddefault.jpg`}
+                              alt={""}
+                            />
+                          </figure>
+                          <img src="app/images/youtube.png" alt={""} />
                         </div>
-                      )}
-                    </span>}
-                        <h5>{video.title}</h5>
-                        <div className="author-tag flex">
-                          <div className="col_left">
-                            <div className="wrapper flex">
-                              <figure>
-                                <img
-                                  src={video.author_profile_image ||userimageIcon}
-                                  alt="Genaiguru authorImg"
-                                />
-                              </figure>
-                              <div className="content">
-                                <h6>{video.author}</h6>
+                        <div className="layer">
+                          {token && (
+                            <span>
+                              {video.watched == "no" && (
+                                <div className="price flex">
+                                  <img
+                                    src="app/images/orangeStrike.png"
+                                    alt="Genaiguru orangeStrike"
+                                  />
+                                  {videoPoints}
+                                </div>
+                              )}
+                            </span>
+                          )}
+                          <h5>{video.title}</h5>
+                          <div className="author-tag flex">
+                            <div className="col_left">
+                              <div className="wrapper flex">
+                                <figure>
+                                  <img
+                                    src={
+                                      video.author_profile_image ||
+                                      userimageIcon
+                                    }
+                                    alt="Genaiguru authorImg"
+                                  />
+                                </figure>
+                                <div className="content">
+                                  <h6>{video.author}</h6>
+                                </div>
                               </div>
+                              <ul className="flex">
+                                {video?.tags?.map((tag, index) => {
+                                  return <li key={index}>#{tag}</li>;
+                                })}
+                              </ul>
                             </div>
-                            <ul className="flex">
-                              {video?.tags?.map((tag, index) => {
-                                return <li key={index}>#{tag}</li>;
-                              })}
-                            </ul>
                           </div>
                         </div>
-                      </div>
-                    </a>
-                  </div>
-                );
-              }
-            })}
-            {/* </Slider> */}
+                      </a>
+                    </div>
+                  );
+                }
+              })}
+            </Slider>
           </div>
           {popularVideos.map((video, index) => {
             if (index === 1 || index === 2) {
@@ -187,11 +190,6 @@ const Popularvideos = () => {
                             )}/sddefault.jpg`}
                             alt={""}
                           />
-                          {/* <ReactPlayer
-                  url={video.youtube_link}
-                  width="100%"
-                  height="100%"
-                /> */}
                         </figure>
                         <img src="app/images/youtube.png" alt={""} />
                       </div>
@@ -203,7 +201,6 @@ const Popularvideos = () => {
                     </p>
                     <ul>
                       <li>{video.author}</li>
-                      {/* <li>{video.creation_date}</li> */}
                     </ul>
                     <ul className="flex">
                       <li>
@@ -239,7 +236,7 @@ const Popularvideos = () => {
             {popularVideos.map((video, index) => {
               return (
                 <div
-                  className="wrap"
+                  className={numvid < 3 ? "popularvid wrap" : "wrap"}
                   key={index}
                   onClick={() => onVideoClick(video.id, video.title)}
                 >
@@ -261,34 +258,35 @@ const Popularvideos = () => {
                           )}/sddefault.jpg`}
                           alt={""}
                         />
-                        {/* <ReactPlayer
-                        url={video.youtube_link}
-                        width="100%"
-                        height="100%"
-                      /> */}
                       </figure>
                       <img src="app/images/youtube.png" alt={""} />
                     </div>
                     <div className="layer">
-                    {token && <span>
-                      {video.watched == "no" && (
-                        <div className="price flex">
-                          <img
-                            src="app/images/orangeStrike.png"
-                            alt="Genaiguru orangeStrike"
-                          />
-                          {videoPoints}
-                        </div>
+                      {token && (
+                        <span>
+                          {video.watched == "no" && (
+                            <div className="price flex">
+                              <img
+                                src="app/images/orangeStrike.png"
+                                alt="Genaiguru orangeStrike"
+                              />
+                              {videoPoints}
+                            </div>
+                          )}
+                        </span>
                       )}
-                    </span>}
-                     
-                      <h5 style={{paddingTop: !token ? "60px":"30px"}}>{video.title}</h5>
+
+                      <h5 style={{ paddingTop: !token ? "60px" : "30px" }}>
+                        {video.title}
+                      </h5>
                       <div className="author-tag flex">
                         <div className="col_left">
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={video.author_profile_image ||userimageIcon}
+                                src={
+                                  video.author_profile_image || userimageIcon
+                                }
                                 alt="Genaiguru authorImg"
                               />
                             </figure>
@@ -308,6 +306,27 @@ const Popularvideos = () => {
                 </div>
               );
             })}
+            {/* {popularVideos.length > 3 ? (
+              ""
+            ) : (
+              <>
+                <div
+                  className="wrap"
+                  // key={index}
+                  // onClick={() => onVideoClick(video.id, video.title)}
+                ></div>
+                <div
+                  className="wrap"
+                  // key={index}
+                  // onClick={() => onVideoClick(video.id, video.title)}
+                ></div>
+                <div
+                  className="wrap"
+                  // key={index}
+                  // onClick={() => onVideoClick(video.id, video.title)}
+                ></div>
+              </>
+            )} */}
           </Slider>
         </div>
       </div>

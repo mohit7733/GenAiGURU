@@ -28,12 +28,17 @@ const Latestblog = () => {
         console.log(err.message);
       });
   }, []);
-
+  let numvid = 0;
+  if (latestBlog.length < 3) {
+    numvid = latestBlog.length;
+  } else {
+    numvid = 3;
+  }
   // Slide code
   var settings2 = {
     dots: false,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: numvid,
     arrows: true,
     slidesToScroll: 1,
     autoplay: true,
@@ -43,7 +48,7 @@ const Latestblog = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: numvid,
           slidesToScroll: 1,
           initialSlide: 1,
         },
@@ -59,11 +64,10 @@ const Latestblog = () => {
     ],
   };
 
-  
-  const onBlogClick = ( BlogID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onBlogClick = (BlogID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_BLOG_DETAILS}?id=${BlogID}?title=${replacedTitle}`);
   };
@@ -78,16 +82,16 @@ const Latestblog = () => {
           <Slider
             ref={sliderRef}
             {...settings2}
-            id="Slider-4"
+            id="Slider-2"
             className="slider_test"
           >
             {latestBlog.map(
               (blog, index) =>
                 blog.featured === "yes" && (
                   <div
-                    className="wrap"
+                    className={numvid < 3 ? "popularvid wrap" : "wrap"}
                     key={index}
-                    onClick={() => onBlogClick(blog.id,blog.title)}
+                    onClick={() => onBlogClick(blog.id, blog.title)}
                   >
                     <figure>
                       <img src={blog.photo} alt="Genaiguru blog image" />

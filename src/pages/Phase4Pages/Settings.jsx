@@ -18,6 +18,7 @@ const Settings = () => {
   const [isVisible, setIsVisible] = useState();
   const userId = JSON.parse(localStorage.getItem("UserId"));
   const navigate = useNavigate();
+  let type = JSON.parse(localStorage.getItem("LoginType"));
 
   // get API for FAQ.......
 
@@ -39,7 +40,6 @@ const Settings = () => {
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-
   return (
     <div>
       <MobileHeader />
@@ -65,7 +65,10 @@ const Settings = () => {
               <h1>Settings</h1>
               <div className="setting-container">
                 <ul className="connect-link">
-                  <li className={activeTab === 1 ? " active" : ""}>
+                  <li
+                    style={type == "others" ? { display: "none" } : {}}
+                    className={activeTab === 1 ? " active" : ""}
+                  >
                     <WithAuth
                       callBack={(e) => {
                         handleTabClick(1);
@@ -129,7 +132,7 @@ const Settings = () => {
                             alt="Genaiguru Customize"
                           />
                         </figure>
-                        <Link to = {PATH_PROFILE}>
+                        <Link to={PATH_PROFILE}>
                           <span>Customize your interest</span>
                         </Link>
                       </Link>
