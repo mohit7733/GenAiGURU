@@ -28,7 +28,7 @@ const Login = () => {
       // console.log(userInfo);
 
       axios
-        .post("http://stag.genaiguru.io/admin/api/auth/google-login", {
+        .post(`${getBaseURL()}/auth/google-login`, {
           google_response: JSON.stringify(userInfo),
         })
         .then((response) => {
@@ -92,7 +92,7 @@ const Login = () => {
   const responseFacebook = async (response) => {
     const res = await response;
     axios
-      .post("https://genaiadmindev.sdsstaging.co.uk/api/auth/facebook-login", {
+      .post(`${getBaseURL()}/auth/facebook-login`, {
         fb_response: JSON.stringify(res),
       })
       .then((res) => {
