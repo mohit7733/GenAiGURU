@@ -217,42 +217,10 @@ const GuruGenesis = () => {
                               isVisible == index ? { display: "block" } : {}
                             }
                           >
-                            <p>
-                              {/* Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. */}
-                              {faqdata.answer}
-                            </p>
+                            <p>{faqdata.answer}</p>
                           </div>
                         </div>
                       ))}
-
-                      <div class="faq-box">
-                        {/* <div class="accordion"> */}
-                        {/* <h4>What impact have commons users had so far </h4> */}
-                        {/* <div class="leftArrow">
-                            <img
-                              src="app/images/arrow-left.png"
-                              alt="Genaiguru arrow-left"
-                            
-                            />
-                          </div> */}
-                        {/* </div> */}
-                        <div class="panel">
-                          {/* <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p> */}
-                        </div>
-                      </div>
-                      <div class="faq-box">
-                        <div class="panel"></div>
-                      </div>
                     </div>
                     <div class="contact-container">
                       <h4>Contact us</h4>
@@ -324,21 +292,6 @@ const GuruGenesis = () => {
                         }}
                       />
                     </p>
-                  </div>
-                  <div class="about-content">
-                    {/* <h4>Terms of service </h4>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up fast. Looking to upgrade your salary in the uk?
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up fast.{" "}
-                    </p> */}
                   </div>
                 </div>
               )}
@@ -477,32 +430,12 @@ const GuruGenesis = () => {
                   <div class="about-content">
                     <h4>{aboutus.title}</h4>
                     <p>
-                      {/* Looking To Upgrade Your Salary In The UK? Get The Salary
-                      You’re Worth By Learning To Code. 98% Employed Within 12
-                      Months Of Qualifying. 28% Of Students Are Hired While On
-                      The Course. Change Career. Career Changing Skills. Spaces
-                      Filling Up Fast. Looking To Upgrade Your Salary In The UK?{" "} */}
                       <p
                         dangerouslySetInnerHTML={{
                           __html: aboutus.description,
                         }}
                       />
                     </p>
-                  </div>
-                  <div class="about-content">
-                    {/* <h4>Terms of service </h4>
-                    <p>
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up fast. Looking to upgrade your salary in the uk?
-                      Looking to upgrade your salary in the uk? Get the salary
-                      you’re worth by learning to code. 98% employed within 12
-                      months of qualifying. 28% of students are hired while on
-                      the course. Change career. Career changing skills. Spaces
-                      filling up fast.{" "}
-                    </p> */}
                   </div>
                 </div>
               )}

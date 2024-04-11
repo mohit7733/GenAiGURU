@@ -28,7 +28,7 @@ const Login = () => {
       // console.log(userInfo);
 
       axios
-        .post("https://genaiadmindev.sdsstaging.co.uk/api/auth/google-login", {
+        .post("http://stag.genaiguru.io/admin/api/auth/google-login", {
           google_response: JSON.stringify(userInfo),
         })
         .then((response) => {
@@ -56,8 +56,10 @@ const Login = () => {
                   res?.data?.email_verified == "yes" &&
                   res?.data?.post_follwed == "yes"
                 ) {
+                  localStorage.setItem("LoginType", JSON.stringify("others"));
                   navigate("/");
                 } else {
+                  localStorage.setItem("LoginType", JSON.stringify("others"));
                   navigate(`${PATH_WELCOME}`);
                 }
               }, [2000]);
@@ -111,8 +113,10 @@ const Login = () => {
                 res?.data?.email_verified == "yes" &&
                 res?.data?.post_follwed == "yes"
               ) {
+                localStorage.setItem("LoginType", JSON.stringify("others"));
                 navigate("/");
               } else {
+                localStorage.setItem("LoginType", JSON.stringify("others"));
                 navigate(`${PATH_WELCOME}`);
               }
             }, [2000]);

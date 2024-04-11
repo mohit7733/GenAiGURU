@@ -115,13 +115,17 @@ const Populararticles = () => {
                           )}
                         </span>
                       )}
-                      <h5 style={{paddingTop: !token ? "30px":"0px"}}>{article.title}</h5>
+                      <h5 style={{ paddingTop: !token ? "30px" : "0px" }}>
+                        {article.title}
+                      </h5>
                       <div className="author-tag flex">
                         <div className="col_left">
                           <div className="wrapper flex">
                             <figure>
                               <img
-                                src={article.author_profile_image || userimageIcon}
+                                src={
+                                  article.author_profile_image || userimageIcon
+                                }
                                 alt="authorImg"
                               />
                             </figure>

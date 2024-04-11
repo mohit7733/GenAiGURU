@@ -2801,7 +2801,11 @@ section.interestSection.second.mainBg figure.headerLogo {
   border-radius: 12px;
   border: 2px solid transparent;
 }
-
+.popularvid.wrap{
+ margin: auto;
+ display: block !important;
+  width:33% !important
+} 
 .article-slider .wrap:hover,
 .video-slider .wrap:hover {
   border: 2px solid #be41c0;
