@@ -178,14 +178,15 @@ const Index5 = () => {
         }
       )
       .then((response) => {
+        // console.log(response.data.choices);
         if (response.data.success == false) {
-         navigate("/subscriptions");
+          navigate("/subscriptions");
           // toast.error("Free Subscription has Ended.", {
           //   position: toast.POSITION.TOP_CENTER,
           // });
           setLoadingStatus(false);
         } else {
-          const resdata = response?.data?.[0]?.choices?.[0]?.message?.content;
+          const resdata = response?.data?.choices?.[0]?.message?.content;
           const titleRegex = /Title:\s*(.*)/i;
           const shortDescRegex = /Short Description:\s*(.*)/i;
           const descRegex = /Description:\s*([\s\S]*)/i;
@@ -210,7 +211,7 @@ const Index5 = () => {
         console.error("Error chatGPTApi:", error.message);
       });
   };
-
+  console.log(token);
   const generateAIimage = async () => {
     try {
       const thumbnailPromise = axios.post(
