@@ -632,7 +632,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                   <figure>
                                     <img
                                       src={profileImage.profile_image}
-                                      alt="Genaiguru review"
+                                      alt={userimageIcon}
                                     />
                                   </figure>
                                   <span>
@@ -685,7 +685,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           src={
                                             comment?.user_details?.profile_image
                                           }
-                                          alt="Genaiguru review"
+                                          alt={userimageIcon}
                                         />
                                       </figure>
                                       <span>
@@ -974,7 +974,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           <figure>
                                             <img
                                               src={profileImage.profile_image}
-                                              alt="Genaiguru review"
+                                              alt={userimageIcon}
                                             />
                                           </figure>
                                           <span>
@@ -1295,7 +1295,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                   <figure>
                                     <img
                                       src={profileImage.profile_image}
-                                      alt="Genaiguru review"
+                                      alt={userimageIcon}
                                     />
                                   </figure>
                                   <span>
@@ -1348,7 +1348,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           src={
                                             comment?.user_details?.profile_image
                                           }
-                                          alt="Genaiguru review"
+                                          alt={userimageIcon}
                                         />
                                       </figure>
                                       <span>
@@ -1629,7 +1629,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                           <figure>
                                             <img
                                               src={profileImage.profile_image}
-                                              alt="Genaiguru review"
+                                              alt={userimageIcon}
                                             />
                                           </figure>
                                           <span>
