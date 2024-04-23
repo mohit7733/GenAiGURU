@@ -39,6 +39,9 @@ const Sidebar = () => {
 
     setIsValidEmail(isValid);
     setShowErrorMessage(!isValid);
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 5000);
     if (isValid) {
       axios
         .post(`${getBaseURL()}/subscribe?user_id=${userId}`, {

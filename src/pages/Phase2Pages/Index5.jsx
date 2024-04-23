@@ -13,7 +13,9 @@ import "react-quill/dist/quill.snow.css";
 const token = JSON.parse(localStorage.getItem("token"))
   ? JSON.parse(localStorage.getItem("token"))
   : "";
-
+if (token == "" || null || undefined) {
+  window.reload();
+}
 const Index5 = () => {
   const navigate = useNavigate();
   const [local, setLocal] = useState(JSON.parse(localStorage.getItem("Data")));
@@ -178,7 +180,6 @@ const Index5 = () => {
         }
       )
       .then((response) => {
-        // console.log(response.data.choices);
         if (response.data.success == false) {
           navigate("/subscriptions");
           // toast.error("Free Subscription has Ended.", {
@@ -203,6 +204,8 @@ const Index5 = () => {
         }
       })
       .catch((error) => {
+        console.log(error);
+        setLoadingStatus(false);
         if (!search) {
           toast.error("Please Type Antything...", {
             position: toast.POSITION.TOP_CENTER,

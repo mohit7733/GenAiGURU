@@ -110,11 +110,17 @@ const NotificationComponent = () => {
 
   const navigatepost = (type, id, comment_id) => {
     if (type == "video") {
-      navigate(`/videoplay?id=${id}#${comment_id}`);
+      comment_id != null
+        ? navigate(`/videoplay?id=${id}#${comment_id}`)
+        : navigate(`/videoplay?id=${id}`);
     } else if (type == "blog") {
-      navigate(`/blogdetails?id=${id}#${comment_id}`);
+      comment_id != null
+        ? navigate(`/blogdetails?id=${id}#${comment_id}`)
+        : navigate(`/blogdetails?id=${id}`);
     } else if (type == "article") {
-      navigate(`/articledetails?id=${id}#${comment_id}`);
+      comment_id != null
+        ? navigate(`/articledetails?id=${id}#${comment_id}`)
+        : navigate(`/articledetails?id=${id}`);
     }
   };
 
@@ -209,9 +215,13 @@ const NotificationComponent = () => {
             <div className="full-width">
               <div className="keeps-container">
                 <div className="gurukeeps-wrapper flex space-between">
-                  <h5 
+                  <h5
                     onClick={cleaALlNotications}
-                    style={{ cursor: "pointer", paddingLeft:"270px",marginBottom:"10px"}}
+                    style={{
+                      cursor: "pointer",
+                      paddingLeft: "270px",
+                      marginBottom: "10px",
+                    }}
                   >
                     Clear All
                   </h5>
