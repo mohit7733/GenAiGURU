@@ -43,18 +43,16 @@ const Login6 = () => {
       });
   }, []);
   const sendExpertsIDOnContinue = () => {
-    console.log(expertData);
     if (selectedExpertsIndex == 0 && expertData?.length > 0 && token) {
       toast.warn("Follow Atleast One Experts", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
-    if (expertData.length == 0 && token) {
-      // console.log("newprod");
-      navigate(`${PATH_REGISTER_COMPLETE}`);
-      localStorage.setItem("userLoggedIn", JSON.stringify("true"));
-      return;
-    }
+    // if (expertData.length == 0 && token) {
+    //   navigate(`${PATH_REGISTER_COMPLETE}`);
+    //   localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+    //   return;
+    // }
     fetch(`${getBaseURL()}/auth/follow-author`, {
       method: "POST",
       headers: {
@@ -216,7 +214,11 @@ const Login6 = () => {
           </div>
 
           <div className="buttonText">
-            <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
+            <Link
+              to={expertData.length == 0 && token ? PATH_REGISTER_COMPLETE : ""}
+              className="loginBtn"
+              onClick={sendExpertsIDOnContinue}
+            >
               Continue
             </Link>
             <ToastContainer autoClose={1000} />
@@ -272,7 +274,13 @@ const Login6 = () => {
             </div>
 
             <div className="buttonText">
-              <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
+              <Link
+                to={
+                  expertData.length == 0 && token ? PATH_REGISTER_COMPLETE : ""
+                }
+                className="loginBtn"
+                onClick={sendExpertsIDOnContinue}
+              >
                 Continue
               </Link>
               <ToastContainer autoClose={1000} />
