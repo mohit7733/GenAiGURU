@@ -597,7 +597,8 @@ const BlogDetails = ({ likes, dislikes }) => {
                         <li>
                           <WithAuth
                             callBack={(e) => {
-                              setDisplayCommentModel(!displayCommentModel);
+                              token != "" &&
+                                setDisplayCommentModel(!displayCommentModel);
                             }}
                           >
                             <a style={{ cursor: "pointer" }}>
@@ -633,13 +634,16 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 <a>
                                   <figure>
                                     <img
-                                      src={profileImage.profile_image}
+                                      src={
+                                        profileImage?.profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="profile_image"
                                     />
                                   </figure>
                                   <span>
                                     <span className="m-l">
-                                      {profileImage.name}{" "}
+                                      {profileImage?.name}{" "}
                                     </span>
                                     <br />
                                     <small>
@@ -948,8 +952,11 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         <a>
                                           <figure>
                                             <img
-                                              src={profileImage.profile_image}
-                                              alt={userimageIcon}
+                                              src={
+                                                profileImage?.profile_image ||
+                                                userimageIcon
+                                              }
+                                              alt="img"
                                             />
                                           </figure>
                                           <span>
@@ -1211,20 +1218,27 @@ const BlogDetails = ({ likes, dislikes }) => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a
-                            onClick={() =>
-                              setDisplayCommentModel(!displayCommentModel)
-                            }
-                            style={{ cursor: "pointer" }}
+                          <WithAuth
+                            callBack={(e) => {
+                              token != "" &&
+                                setDisplayCommentModel(!displayCommentModel);
+                            }}
                           >
-                            <figure>
-                              <img
-                                src="./app/images/comment-01.png"
-                                alt="Genaiguru comment-01"
-                              />
-                            </figure>
-                            <span>Comment</span>
-                          </a>
+                            <a
+                              // onClick={() =>
+                              //   setDisplayCommentModel(!displayCommentModel)
+                              // }
+                              style={{ cursor: "pointer" }}
+                            >
+                              <figure>
+                                <img
+                                  src="./app/images/comment-01.png"
+                                  alt="Genaiguru comment-01"
+                                />
+                              </figure>
+                              <span>Comment</span>
+                            </a>
+                          </WithAuth>
                         </li>
                         <li>
                           <a>
@@ -1248,7 +1262,10 @@ const BlogDetails = ({ likes, dislikes }) => {
                                 <a>
                                   <figure>
                                     <img
-                                      src={profileImage.profile_image}
+                                      src={
+                                        profileImage?.profile_image ||
+                                        userimageIcon
+                                      }
                                       alt="profile_image"
                                     />
                                   </figure>
@@ -1561,13 +1578,16 @@ const BlogDetails = ({ likes, dislikes }) => {
                                         <a>
                                           <figure>
                                             <img
-                                              src={profileImage.profile_image}
-                                              alt={userimageIcon}
+                                              src={
+                                                profileImage?.profile_image ||
+                                                userimageIcon
+                                              }
+                                              alt="img"
                                             />
                                           </figure>
                                           <span>
                                             <span className="m-l">
-                                              {profileImage.name}
+                                              {profileImage?.name}
                                             </span>
                                             <br />
                                             <small>

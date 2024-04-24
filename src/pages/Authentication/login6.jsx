@@ -42,12 +42,18 @@ const Login6 = () => {
         console.log(err.message);
       });
   }, []);
-
   const sendExpertsIDOnContinue = () => {
-    if (selectedExpertsIndex == 0 && expertData.length > 0) {
+    console.log(expertData);
+    if (selectedExpertsIndex == 0 && expertData?.length > 0 && token) {
       toast.warn("Follow Atleast One Experts", {
         position: toast.POSITION.TOP_CENTER,
       });
+    }
+    if (expertData.length == 0 && token) {
+      // console.log("newprod");
+      navigate(`${PATH_REGISTER_COMPLETE}`);
+      localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+      return;
     }
     fetch(`${getBaseURL()}/auth/follow-author`, {
       method: "POST",
