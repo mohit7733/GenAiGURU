@@ -44,7 +44,7 @@ const Login6 = () => {
   }, []);
 
   const sendExpertsIDOnContinue = () => {
-    if (selectedExpertsIndex == 0) {
+    if (selectedExpertsIndex == 0 && expertData.length > 0) {
       toast.warn("Follow Atleast One Experts", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -160,7 +160,6 @@ const Login6 = () => {
       },
     ],
   };
-
   return (
     <div>
       <section className="interestSection second mainBg hideMob">

@@ -900,7 +900,7 @@ const VideoPlay = () => {
                                     <figure>
                                       <img
                                         src={profileImage.profile_image}
-                                        alt="Genaiguru review"
+                                        alt={userimageIcon}
                                       />
                                     </figure>
                                     <span className="reply">
@@ -1506,7 +1506,7 @@ const VideoPlay = () => {
                                   <figure>
                                     <img
                                       src={profileImage.profile_image}
-                                      alt="Genaiguru review"
+                                      alt={userimageIcon}
                                     />
                                   </figure>
                                   <span>

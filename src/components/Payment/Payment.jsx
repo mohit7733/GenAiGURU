@@ -33,16 +33,16 @@ const Payment = () => {
     postalCode: "",
     phone_number: "",
     address: "",
-    subscription_id: Location.state.id
+    subscription_id: Location.state.id,
   });
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    console.log(name, value, formData);
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    // console.log(name, value, formData);
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit2 = async (event) => {
-    setLoadingStatus(true)
+    setLoadingStatus(true);
     event.preventDefault();
     document.querySelectorAll(".form-control.payformd").forEach(function (i) {
       if (i.classList.contains("StripeElement--empty")) {
@@ -74,42 +74,50 @@ const Payment = () => {
         },
       });
       if (!error) {
-
         const myHeaders2 = new Headers();
         myHeaders2.append("Content-Type", "application/json");
-        myHeaders2.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
+        myHeaders2.append(
+          "Authorization",
+          "Bearer " + JSON.parse(localStorage.getItem("token"))
+        );
 
         const raw = JSON.stringify({
-          "subscription_id": formData?.subscription_id,
-          "payment_method": paymentMethod?.id,
-          "name": formData?.name,
-          "email": formData?.email,
-          "phone": formData?.phone_number,
-          "line1": formData?.address,
-          "line2": formData?.address,
-          "city": formData?.city,
-          "state": formData?.city,
-          "country": formData?.countryCode,
-          "postal_code": formData?.postalCode,
-          "product_id": "prod_PeMUuDdM6Wocst"
+          subscription_id: formData?.subscription_id,
+          payment_method: paymentMethod?.id,
+          name: formData?.name,
+          email: formData?.email,
+          phone: formData?.phone_number,
+          line1: formData?.address,
+          line2: formData?.address,
+          city: formData?.city,
+          state: formData?.city,
+          country: formData?.countryCode,
+          postal_code: formData?.postalCode,
+          product_id: "prod_PeMUuDdM6Wocst",
         });
 
         const requestOptions2 = {
           method: "POST",
           headers: myHeaders2,
           body: raw,
-          redirect: "follow"
+          redirect: "follow",
         };
 
-        const paymentdata = await fetch(`${getBaseURL()}/auth/recurring-payment`, requestOptions2)
+        const paymentdata = await fetch(
+          `${getBaseURL()}/auth/recurring-payment`,
+          requestOptions2
+        )
           .then((response) => response.json())
           .then((result) => {
-            return result
-          })
+            return result;
+          });
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer " + JSON.parse(localStorage.getItem("token")));
+        myHeaders.append(
+          "Authorization",
+          "Bearer " + JSON.parse(localStorage.getItem("token"))
+        );
 
         // const requestOptions = {
         //   method: "POST",
@@ -138,12 +146,14 @@ const Payment = () => {
         //     return result?.intent
         //   })
 
-        let paymentid = {}
+        let paymentid = {};
         if (paymentdata?.subscription_status != "active") {
           paymentid = await stripe.confirmCardPayment(
-            paymentdata?.payment_intent?.client_secret, {
-            payment_method: paymentdata?.payment_intent?.payment_method
-          })
+            paymentdata?.payment_intent?.client_secret,
+            {
+              payment_method: paymentdata?.payment_intent?.payment_method,
+            }
+          );
           console.log(paymentid);
         }
 
@@ -151,37 +161,48 @@ const Payment = () => {
           method: "POST",
           headers: myHeaders,
           body: JSON.stringify({
-            "stripe_subscription_id": paymentdata?.subscription,
-            "subscription_id": paymentdata?.subscription
+            stripe_subscription_id: paymentdata?.subscription,
+            subscription_id: paymentdata?.subscription,
           }),
-          redirect: "follow"
+          redirect: "follow",
         };
 
         if (!paymentid?.error) {
-          const savedata = await fetch(`${getBaseURL()}/auth/recurring-success`, requestOptions3)
+          const savedata = await fetch(
+            `${getBaseURL()}/auth/recurring-success`,
+            requestOptions3
+          )
             .then((response) => response.json())
             .then((result) => {
-              return result
-            })
+              return result;
+            });
           console.log(savedata);
           if (savedata?.success) {
-            setLoadingStatus(false)
-            toast.success("Payment Successful", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+            setLoadingStatus(false);
+            toast.success("Payment Successful", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 1000,
+            });
             setTimeout(() => {
-              Navigate("/subscriptions")
+              Navigate("/subscriptions");
             }, 1000);
           }
         } else {
-          setLoadingStatus(false)
-          toast.error("Payment Failed", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+          setLoadingStatus(false);
+          toast.error("Payment Failed", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 1000,
+          });
         }
       }
     } else {
-      toast.error("Minimum 20 Amount ", { position: toast.POSITION.TOP_CENTER, autoClose: 1000 });
+      toast.error("Minimum 20 Amount ", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
     }
-    setLoadingStatus(false)
-  }
-
+    setLoadingStatus(false);
+  };
 
   return (
     <>
@@ -203,7 +224,11 @@ const Payment = () => {
               </p>
             </div>
             <div className="profile-img-box postWrapper_inner">
-              <form className="help-section payment-wrapper" id="payment-form" onSubmit={handleSubmit2}>
+              <form
+                className="help-section payment-wrapper"
+                id="payment-form"
+                onSubmit={handleSubmit2}
+              >
                 <h2 style={{ marginBottom: "20px" }}>Payment Form</h2>
                 <div className="profile-edit">
                   <label htmlFor="name">Name</label>
@@ -249,9 +274,9 @@ const Payment = () => {
                       required
                     >
                       <option value="">Country</option>
-                      {
-                        country?.data?.map((data, index) => <option value={data?.code}>{data?.country}</option>)
-                      }
+                      {country?.data?.map((data, index) => (
+                        <option value={data?.code}>{data?.country}</option>
+                      ))}
                       {/* Add more options as needed */}
                     </select>
                   </div>
@@ -294,8 +319,10 @@ const Payment = () => {
                 </div>
                 <div className="profile-edit">
                   <label htmlFor="cardNumber">Card Number</label>
-                  <CardNumberElement className="form-control payformd" name="cardNumber" required
-
+                  <CardNumberElement
+                    className="form-control payformd"
+                    name="cardNumber"
+                    required
                     onChange={() => {
                       setTimeout(() => {
                         document
@@ -314,35 +341,43 @@ const Payment = () => {
                 <div className="profile-edit flex space-between">
                   <div className="profile-edit">
                     <label htmlFor="expiry">Expiry</label>
-                    <CardExpiryElement className="form-control payformd" required onChange={() => {
-                      setTimeout(() => {
-                        document
-                          .querySelectorAll(".form-control.payformd")
-                          .forEach(function (i) {
-                            if (
-                              i.classList.contains("StripeElement--complete")
-                            ) {
-                              i.classList.remove("error-active");
-                            }
-                          });
-                      }, 500);
-                    }} />
+                    <CardExpiryElement
+                      className="form-control payformd"
+                      required
+                      onChange={() => {
+                        setTimeout(() => {
+                          document
+                            .querySelectorAll(".form-control.payformd")
+                            .forEach(function (i) {
+                              if (
+                                i.classList.contains("StripeElement--complete")
+                              ) {
+                                i.classList.remove("error-active");
+                              }
+                            });
+                        }, 500);
+                      }}
+                    />
                   </div>
                   <div className="profile-edit">
                     <label htmlFor="cvv">CVC</label>
-                    <CardCvcElement className="form-control payformd" required onChange={() => {
-                      setTimeout(() => {
-                        document
-                          .querySelectorAll(".form-control.payformd")
-                          .forEach(function (i) {
-                            if (
-                              i.classList.contains("StripeElement--complete")
-                            ) {
-                              i.classList.remove("error-active");
-                            }
-                          });
-                      }, 500);
-                    }} />
+                    <CardCvcElement
+                      className="form-control payformd"
+                      required
+                      onChange={() => {
+                        setTimeout(() => {
+                          document
+                            .querySelectorAll(".form-control.payformd")
+                            .forEach(function (i) {
+                              if (
+                                i.classList.contains("StripeElement--complete")
+                              ) {
+                                i.classList.remove("error-active");
+                              }
+                            });
+                        }, 500);
+                      }}
+                    />
                   </div>
                 </div>
                 {/* Remaining input fields */}
@@ -354,26 +389,33 @@ const Payment = () => {
                     disabled
                     placeholder="Type here"
                     name="finalAmount"
-                    value={"$" + (formData.finalAmount / 100)}
+                    value={"$" + formData.finalAmount / 100}
                     required
                     onChange={handleInputChange}
                   />
                 </div>
                 <div className="button-wrapper flex space-between">
-                  <button className="loginBtnPay" disabled={loadingStatus ? true : false}>
-                    {loadingStatus ?
-                      <div class="typing" style={{ width: "fit-content", margin: "0 auto" }}>
+                  <button
+                    className="loginBtnPay"
+                    disabled={loadingStatus ? true : false}
+                  >
+                    {loadingStatus ? (
+                      <div
+                        class="typing"
+                        style={{ width: "fit-content", margin: "0 auto" }}
+                      >
                         <div class="dot"></div>
                         <div class="dot"></div>
                         <div class="dot"></div>
                       </div>
-                      : "Pay"}
-
+                    ) : (
+                      "Pay"
+                    )}
                   </button>
                   <button className="loginBtnCancel">
-                  <Link to={"/subscriptions"} style={{color:"white"}}>
-                  Cancel
-                  </Link>
+                    <Link to={"/subscriptions"} style={{ color: "white" }}>
+                      Cancel
+                    </Link>
                   </button>
                 </div>
               </form>

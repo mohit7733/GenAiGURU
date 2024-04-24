@@ -949,7 +949,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           <figure>
                                             <img
                                               src={profileImage.profile_image}
-                                              alt="Genaiguru review"
+                                              alt={userimageIcon}
                                             />
                                           </figure>
                                           <span>
@@ -1562,7 +1562,7 @@ const BlogDetails = ({ likes, dislikes }) => {
                                           <figure>
                                             <img
                                               src={profileImage.profile_image}
-                                              alt="Genaiguru review"
+                                              alt={userimageIcon}
                                             />
                                           </figure>
                                           <span>
