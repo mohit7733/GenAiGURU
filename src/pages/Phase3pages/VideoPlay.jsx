@@ -584,7 +584,9 @@ const VideoPlay = () => {
                             <a>
                               <figure>
                                 <img
-                                  src={profileImage.profile_image}
+                                  src={
+                                    profileImage.profile_image || userimageIcon
+                                  }
                                   alt="profile_image"
                                 />
                               </figure>
@@ -630,9 +632,9 @@ const VideoPlay = () => {
                                     src={
                                       comment?.user_details?.profile_image
                                         ? comment?.user_details?.profile_image
-                                        : ""
+                                        : userimageIcon
                                     }
-                                    // alt={userimageIcon}
+                                    alt="Genai imag"
                                   />
                                 </figure>
                                 <span>
@@ -899,8 +901,11 @@ const VideoPlay = () => {
                                   <a>
                                     <figure>
                                       <img
-                                        src={profileImage.profile_image}
-                                        alt={userimageIcon}
+                                        src={
+                                          profileImage.profile_image ||
+                                          userimageIcon
+                                        }
+                                        alt="Genai Imag"
                                       />
                                     </figure>
                                     <span className="reply">
@@ -996,7 +1001,7 @@ const VideoPlay = () => {
                                       data?.author_profile_image ||
                                       userimageIcon
                                     }
-                                    // alt={userimageIcon}
+                                    alt="Genai imag"
                                   />
                                 </figure>
                                 <div className="innerContent">
@@ -1216,7 +1221,7 @@ const VideoPlay = () => {
                         <a>
                           <figure>
                             <img
-                              src={profileImage.profile_image}
+                              src={profileImage.profile_image || userimageIcon}
                               alt="profile_image"
                             />
                           </figure>
@@ -1261,9 +1266,9 @@ const VideoPlay = () => {
                                   src={
                                     comment?.user_details?.profile_image
                                       ? comment?.user_details?.profile_image
-                                      : ""
+                                      : userimageIcon
                                   }
-                                  // alt={userimageIcon}
+                                  alt="Genai img"
                                 />
                               </figure>
                               <span>
@@ -1505,8 +1510,11 @@ const VideoPlay = () => {
                                 <a>
                                   <figure>
                                     <img
-                                      src={profileImage.profile_image}
-                                      alt={userimageIcon}
+                                      src={
+                                        profileImage.profile_image ||
+                                        userimageIcon
+                                      }
+                                      alt="Genai imag"
                                     />
                                   </figure>
                                   <span>
@@ -1595,7 +1603,7 @@ const VideoPlay = () => {
                                 src={
                                   data?.author_profile_image || userimageIcon
                                 }
-                                // alt={userimageIcon}
+                                alt="Genai imag"
                               />
                             </figure>
                             <div className="innerContent">

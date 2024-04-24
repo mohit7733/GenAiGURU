@@ -14,7 +14,6 @@ import WithAuth from "../Authentication/WithAuth";
 import Sharebtn from "./sharebtn";
 import SilverPopup from "../Phase5Pages/SilverPopup";
 import userimageIcon from "../../assets/images/person.png";
-
 const ArticlesDetails = ({ likes, dislikes }) => {
   const [articleDetail, setArticleDetail] = useState({
     author: "",
@@ -494,7 +493,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                               <figure>
                                 <img
                                   src="app/images/color-bookmarks.png"
-                                  alt=""
+                                  alt="img"
                                 />
                               </figure>
                             </a>
@@ -509,7 +508,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                               <figure>
                                 <img
                                   src="./app/images/bookmarkIcon.png"
-                                  alt=""
+                                  alt="img"
                                 />
                               </figure>
                             </a>
@@ -527,7 +526,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                           />
                           {/* <a>
                             <figure>
-                              <img src="./app/images/share-icon.png" alt="" />
+                              <img src="./app/images/share-icon.png" alt="img" />
                             </figure>
                           </a> */}
                         </li>
@@ -542,9 +541,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src={
-                          articleDetail.author_profile_image || userimageIcon
-                        }
+                        src={articleDetail.author_profile_image || ""}
                         alt="Genaiguru blog-img"
                       />
                     </figure>
@@ -594,20 +591,27 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a
-                            onClick={() =>
-                              setDisplayCommentModel(!displayCommentModel)
-                            }
-                            style={{ cursor: "pointer" }}
+                          <WithAuth
+                            callBack={(e) => {
+                              token != "" &&
+                                setDisplayCommentModel(!displayCommentModel);
+                            }}
                           >
-                            <figure>
-                              <img
-                                src="./app/images/comment-01.png"
-                                alt="Genaiguru comment-01"
-                              />
-                            </figure>
-                            <span>Comment</span>
-                          </a>
+                            <a
+                              // onClick={() =>
+                              //   setDisplayCommentModel(!displayCommentModel)
+                              // }
+                              style={{ cursor: "pointer" }}
+                            >
+                              <figure>
+                                <img
+                                  src="./app/images/comment-01.png"
+                                  alt="Genaiguru comment-01"
+                                />
+                              </figure>
+                              <span>Comment</span>
+                            </a>
+                          </WithAuth>
                         </li>
                         <li>
                           <a href="#">
@@ -631,8 +635,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <a>
                                   <figure>
                                     <img
-                                      src={profileImage.profile_image}
-                                      alt={userimageIcon}
+                                      src={
+                                        profileImage?.profile_image ||
+                                        userimageIcon
+                                      }
+                                      alt="img"
                                     />
                                   </figure>
                                   <span>
@@ -683,9 +690,10 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                       <figure>
                                         <img
                                           src={
-                                            comment?.user_details?.profile_image
+                                            comment?.user_details
+                                              ?.profile_image || userimageIcon
                                           }
-                                          alt={userimageIcon}
+                                          alt="Genai imag"
                                         />
                                       </figure>
                                       <span>
@@ -724,13 +732,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   : "/app/images/thumbs-up.png"
                                               }
                                               style={{ float: "left" }}
-                                              alt=""
+                                              alt="img"
                                             />
                                             <img
                                               className="fillImage"
                                               src="/app/images/Group_1.png"
                                               style={{ float: "left" }}
-                                              alt=""
+                                              alt="img"
                                             />
                                             <span
                                               style={{
@@ -763,14 +771,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   ? "/app/images/Group_2.png"
                                                   : "/app/images/thumbs-down.png"
                                               }
-                                              alt=""
+                                              alt="img"
                                               style={{ float: "left" }}
                                             />
                                             <img
                                               className="fillImage"
                                               src="/app/images/Group_2.png"
                                               style={{ float: "left" }}
-                                              alt=""
+                                              alt="img"
                                             />
                                             <span
                                               style={{
@@ -887,7 +895,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                             ? "/app/images/Group_1.png"
                                                             : "/app/images/thumbs-up.png"
                                                         }
-                                                        alt=""
+                                                        alt="img"
                                                         style={{
                                                           float: "left",
                                                         }}
@@ -898,7 +906,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                         style={{
                                                           float: "left",
                                                         }}
-                                                        alt=""
+                                                        alt="img"
                                                       />
                                                       <span
                                                         style={{
@@ -932,7 +940,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                             ? "/app/images/Group_2.png"
                                                             : "/app/images/thumbs-down.png"
                                                         }
-                                                        alt=""
+                                                        alt="img"
                                                         style={{
                                                           float: "left",
                                                         }}
@@ -943,7 +951,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                         style={{
                                                           float: "left",
                                                         }}
-                                                        alt=""
+                                                        alt="img"
                                                       />
                                                       <span
                                                         style={{
@@ -973,8 +981,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                         <a>
                                           <figure>
                                             <img
-                                              src={profileImage.profile_image}
-                                              alt={userimageIcon}
+                                              src={
+                                                profileImage.profile_image ||
+                                                userimageIcon
+                                              }
+                                              alt="img"
                                             />
                                           </figure>
                                           <span>
@@ -1046,10 +1057,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={
-                                        article.author_profile_image ||
-                                        userimageIcon
-                                      }
+                                      src={article.author_profile_image || ""}
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>
@@ -1139,14 +1147,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
               {/* <li>
                 <a href="#">
                   <figure>
-                    <img src="./app/images/sorting-icon.png" alt="" />
+                    <img src="./app/images/sorting-icon.png" alt="img" />
                   </figure>
                 </a>
               </li>
               <li> */}
               {/* <a href="#">
                   <figure>
-                    <img src="./app/images/filter-icon.png" alt="" />
+                    <img src="./app/images/filter-icon.png" alt="img" />
                   </figure>
                 </a>
               </li> */}
@@ -1162,7 +1170,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     >
                       <a>
                         <figure>
-                          <img src="app/images/color-bookmarks.png" alt="" />
+                          <img src="app/images/color-bookmarks.png" alt="img" />
                         </figure>
                       </a>
                     </li>
@@ -1170,7 +1178,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <li onClick={() => onArticleSave(articleDetail.article_id)}>
                       <a>
                         <figure>
-                          <img src="./app/images/bookmarkIcon.png" alt="" />
+                          <img src="./app/images/bookmarkIcon.png" alt="img" />
                         </figure>
                       </a>
                     </li>
@@ -1187,7 +1195,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     />
                     {/* <a>
                             <figure>
-                              <img src="./app/images/share-icon.png" alt="" />
+                              <img src="./app/images/share-icon.png" alt="img" />
                             </figure>
                           </a> */}
                   </li>
@@ -1206,7 +1214,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                   <div className="blogger-profile">
                     <figure>
                       <img
-                        src={articleDetail.profilePhoto}
+                        src={articleDetail.author_profile_image}
                         alt="Genaiguru blog-img"
                       />
                     </figure>
@@ -1257,20 +1265,27 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                     <div className="comment-box">
                       <ul className="flex">
                         <li>
-                          <a
-                            onClick={() =>
-                              setDisplayCommentModel(!displayCommentModel)
-                            }
-                            style={{ cursor: "pointer" }}
+                          <WithAuth
+                            callBack={(e) => {
+                              token != "" &&
+                                setDisplayCommentModel(!displayCommentModel);
+                            }}
                           >
-                            <figure>
-                              <img
-                                src="./app/images/comment-01.png"
-                                alt="Genaiguru comment-01"
-                              />
-                            </figure>
-                            <span>Comment</span>
-                          </a>
+                            <a
+                              // onClick={() =>
+                              //   setDisplayCommentModel(!displayCommentModel)
+                              // }
+                              style={{ cursor: "pointer" }}
+                            >
+                              <figure>
+                                <img
+                                  src="./app/images/comment-01.png"
+                                  alt="Genaiguru comment-01"
+                                />
+                              </figure>
+                              <span>Comment</span>
+                            </a>
+                          </WithAuth>
                         </li>
                         <li>
                           <a href="#">
@@ -1294,8 +1309,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <a>
                                   <figure>
                                     <img
-                                      src={profileImage.profile_image}
-                                      alt={userimageIcon}
+                                      src={
+                                        profileImage.profile_image ||
+                                        userimageIcon
+                                      }
+                                      alt="img"
                                     />
                                   </figure>
                                   <span>
@@ -1346,9 +1364,10 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                       <figure>
                                         <img
                                           src={
-                                            comment?.user_details?.profile_image
+                                            comment?.user_details
+                                              ?.profile_image || userimageIcon
                                           }
-                                          alt={userimageIcon}
+                                          alt="img"
                                         />
                                       </figure>
                                       <span>
@@ -1387,13 +1406,13 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   : "/app/images/thumbs-up.png"
                                               }
                                               style={{ float: "left" }}
-                                              alt=""
+                                              alt="img"
                                             />
                                             <img
                                               className="fillImage"
                                               src="/app/images/Group_1.png"
                                               style={{ float: "left" }}
-                                              alt=""
+                                              alt="img"
                                             />
                                             <span
                                               style={{
@@ -1426,14 +1445,14 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                   ? "/app/images/Group_2.png"
                                                   : "/app/images/thumbs-down.png"
                                               }
-                                              alt=""
+                                              alt="img"
                                               style={{ float: "left" }}
                                             />
                                             <img
                                               className="fillImage"
                                               src="/app/images/Group_2.png"
                                               style={{ float: "left" }}
-                                              alt=""
+                                              alt="img"
                                             />
                                             <span
                                               style={{
@@ -1542,7 +1561,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                             ? "/app/images/Group_1.png"
                                                             : "/app/images/thumbs-up.png"
                                                         }
-                                                        alt=""
+                                                        alt="img"
                                                         style={{
                                                           float: "left",
                                                         }}
@@ -1553,7 +1572,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                         style={{
                                                           float: "left",
                                                         }}
-                                                        alt=""
+                                                        alt="img"
                                                       />
                                                       <span
                                                         style={{
@@ -1587,7 +1606,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                             ? "/app/images/Group_2.png"
                                                             : "/app/images/thumbs-down.png"
                                                         }
-                                                        alt=""
+                                                        alt="img"
                                                         style={{
                                                           float: "left",
                                                         }}
@@ -1598,7 +1617,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                                         style={{
                                                           float: "left",
                                                         }}
-                                                        alt=""
+                                                        alt="img"
                                                       />
                                                       <span
                                                         style={{
@@ -1628,8 +1647,11 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                         <a>
                                           <figure>
                                             <img
-                                              src={profileImage.profile_image}
-                                              alt={userimageIcon}
+                                              src={
+                                                profileImage.profile_image ||
+                                                userimageIcon
+                                              }
+                                              alt="img"
                                             />
                                           </figure>
                                           <span>
@@ -1701,10 +1723,7 @@ const ArticlesDetails = ({ likes, dislikes }) => {
                                 <div className="wrapper flex">
                                   <figure>
                                     <img
-                                      src={
-                                        article.author_profile_image ||
-                                        userimageIcon
-                                      }
+                                      src={article.author_profile_image || ""}
                                       alt="Genaiguru authorImg"
                                     />
                                   </figure>

@@ -13,9 +13,7 @@ import "react-quill/dist/quill.snow.css";
 const token = JSON.parse(localStorage.getItem("token"))
   ? JSON.parse(localStorage.getItem("token"))
   : "";
-if (token == "" || null || undefined) {
-  window.reload();
-}
+
 const Index5 = () => {
   const navigate = useNavigate();
   const [local, setLocal] = useState(JSON.parse(localStorage.getItem("Data")));
@@ -161,6 +159,10 @@ const Index5 = () => {
   let string = selectOptions.map((data) => data.value);
   const chatGPTApi = async () => {
     // toSearch("");
+    if (token == "") {
+      window.location.reload();
+      return;
+    }
     setLoadingStatus(true);
     let message = `Give me a Title, Short Description(max 200 letters) and Description( min 500 words) based on 
     Interests:${string.slice(0, 3).join(", ")}
