@@ -16,13 +16,14 @@ const Login6 = () => {
   const navigate = useNavigate();
   // State to store data from the API
   const [expertData, setExpertData] = useState([]);
+  const [Loading, setLoading] = useState(false);
   const [selectedExpertsIndex, setSelectedExpertsIndex] = useState([]);
-
   const token = JSON.parse(localStorage.getItem("token"));
   const userId = JSON.parse(localStorage.getItem("UserId"));
 
   /* UseEffect for Get Expert Writer's API */
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${getBaseURL()}/authors`, {
         headers: {
@@ -37,24 +38,28 @@ const Login6 = () => {
           })
         );
         setExpertData(expertsWithInitialFollowState);
+        if (expertsWithInitialFollowState.length > 0) {
+          setLoading(false);
+        } else if (expertsWithInitialFollowState.length == 0) {
+          setLoading(false);
+        }
       })
       .catch((err) => {
         console.log(err.message);
+        setLoading(false);
       });
   }, []);
   const sendExpertsIDOnContinue = () => {
-    console.log(expertData);
     if (selectedExpertsIndex == 0 && expertData?.length > 0 && token) {
       toast.warn("Follow Atleast One Experts", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
-    if (expertData.length == 0 && token) {
-      // console.log("newprod");
-      navigate(`${PATH_REGISTER_COMPLETE}`);
-      localStorage.setItem("userLoggedIn", JSON.stringify("true"));
-      return;
-    }
+    // if (expertData.length == 0 && token) {
+    //   navigate(`${PATH_REGISTER_COMPLETE}`);
+    //   localStorage.setItem("userLoggedIn", JSON.stringify("true"));
+    //   return;
+    // }
     fetch(`${getBaseURL()}/auth/follow-author`, {
       method: "POST",
       headers: {
@@ -213,10 +218,22 @@ const Login6 = () => {
                 );
               })}
             </Slider>
+            {Loading && <p>Please wait while while we load authors</p>}
+            {!Loading && expertData?.length == 0 && (
+              <p>No experts authors as of now , you can Continue</p>
+            )}
           </div>
 
           <div className="buttonText">
-            <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
+            <Link
+              to={
+                !Loading && expertData?.length == 0 && token
+                  ? PATH_REGISTER_COMPLETE
+                  : ""
+              }
+              className="loginBtn"
+              onClick={sendExpertsIDOnContinue}
+            >
               Continue
             </Link>
             <ToastContainer autoClose={1000} />
@@ -268,11 +285,23 @@ const Login6 = () => {
                     </li>
                   );
                 })}
-              </Slider>
+              </Slider>{" "}
+              {Loading && <p>Please wait while while we load authors</p>}
+              {!Loading && expertData?.length == 0 && (
+                <p>No experts authors as of now , you can Continue</p>
+              )}
             </div>
 
             <div className="buttonText">
-              <Link className="loginBtn" onClick={sendExpertsIDOnContinue}>
+              <Link
+                to={
+                  !Loading && expertData.length == 0 && token
+                    ? PATH_REGISTER_COMPLETE
+                    : ""
+                }
+                className="loginBtn"
+                onClick={sendExpertsIDOnContinue}
+              >
                 Continue
               </Link>
               <ToastContainer autoClose={1000} />
