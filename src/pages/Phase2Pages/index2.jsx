@@ -108,8 +108,9 @@ const Index2 = ({ isLoggedIn }) => {
           },
         }
       );
+      console.log(response);
       setLoadingStatus(false);
-      setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
+      setChatResponseText(response?.data?.choices[0]?.message?.content);
       setDisplayRespone(true);
     } catch (error) {
       console.error("Error chatGPTApi:", error.message);
