@@ -93,9 +93,7 @@ const Index2 = ({ isLoggedIn }) => {
       });
       return;
     }
-
     setLoadingStatus(true);
-
     try {
       const response = await axios.post(
         `${getBaseURL()}/auth/send-chat-message`,
@@ -108,8 +106,9 @@ const Index2 = ({ isLoggedIn }) => {
           },
         }
       );
+      console.log(response);
       setLoadingStatus(false);
-      setChatResponseText(response?.data?.[0]?.choices?.[0]?.message?.content);
+      setChatResponseText(response?.data?.choices[0]?.message?.content);
       setDisplayRespone(true);
     } catch (error) {
       console.error("Error chatGPTApi:", error.message);
@@ -203,11 +202,11 @@ const Index2 = ({ isLoggedIn }) => {
                 </p> */}
 
                 {loadingStatus && (
-                  <div class="chat-bubble" style={{ marginBottom: "8px" }}>
-                    <div class="typing">
-                      <div class="dot"></div>
-                      <div class="dot"></div>
-                      <div class="dot"></div>
+                  <div className="chat-bubble" style={{ marginBottom: "8px" }}>
+                    <div className="typing">
+                      <div className="dot"></div>
+                      <div className="dot"></div>
+                      <div className="dot"></div>
                     </div>
                   </div>
                 )}
@@ -299,11 +298,11 @@ const Index2 = ({ isLoggedIn }) => {
             <div className="wrap">
               <h1>Hi there! how can I help you</h1>
               {loadingStatus && (
-                <div class="chat-bubble" style={{ marginBottom: "8px" }}>
-                  <div class="typing">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                <div className="chat-bubble" style={{ marginBottom: "8px" }}>
+                  <div className="typing">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
                   </div>
                 </div>
               )}
