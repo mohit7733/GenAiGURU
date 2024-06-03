@@ -37,9 +37,9 @@ const Latestblog = () => {
   // Slide code
   var settings2 = {
     dots: false,
-    infinite: true,
-    slidesToShow: numvid,
-    arrows: true,
+    infinite: false,
+    slidesToShow: 3,
+    arrows: false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -48,7 +48,7 @@ const Latestblog = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: numvid,
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 1,
         },

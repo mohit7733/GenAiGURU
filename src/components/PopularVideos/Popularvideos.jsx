@@ -42,18 +42,18 @@ const Popularvideos = () => {
   }
   var settings2 = {
     dots: false,
-    infinite: true,
-    slidesToShow: numvid,
+    infinite: false,
+    slidesToShow: 3,
     arrows: false,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 2000,
+    autoplay: true,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: numvid,
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 1,
         },
@@ -236,7 +236,7 @@ const Popularvideos = () => {
             {popularVideos.map((video, index) => {
               return (
                 <div
-                  className={numvid < 3 ? "popularvid wrap" : "wrap"}
+                  className={numvid < 3 ? "wrap" : "wrap"}
                   key={index}
                   onClick={() => onVideoClick(video.id, video.title)}
                 >
@@ -306,27 +306,6 @@ const Popularvideos = () => {
                 </div>
               );
             })}
-            {/* {popularVideos.length > 3 ? (
-              ""
-            ) : (
-              <>
-                <div
-                  className="wrap"
-                  // key={index}
-                  // onClick={() => onVideoClick(video.id, video.title)}
-                ></div>
-                <div
-                  className="wrap"
-                  // key={index}
-                  // onClick={() => onVideoClick(video.id, video.title)}
-                ></div>
-                <div
-                  className="wrap"
-                  // key={index}
-                  // onClick={() => onVideoClick(video.id, video.title)}
-                ></div>
-              </>
-            )} */}
           </Slider>
         </div>
       </div>
