@@ -37,7 +37,6 @@ const SubscriptionPlans = () => {
         console.log(err.message);
       });
   }, []);
-  console.log(token);
   const cancel_subscription = () => {
     axios
       .get(`${getBaseURL()}/auth/cancel-subscription`, {
