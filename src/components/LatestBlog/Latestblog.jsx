@@ -89,7 +89,7 @@ const Latestblog = () => {
               (blog, index) =>
                 blog.featured === "yes" && (
                   <div
-                    className={numvid < 3 ? "popularvid wrap" : "wrap"}
+                    className={numvid < 3 ? "wrap" : "wrap"}
                     key={index}
                     onClick={() => onBlogClick(blog.id, blog.title)}
                   >
