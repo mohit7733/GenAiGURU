@@ -298,7 +298,7 @@ const Payment = () => {
                       id="postalCode"
                       name="postalCode"
                       placeholder="Type here"
-                      pattern="[0-9]{6}"
+                      // pattern="[0-9]{5}"
                       title="Five digit postal code"
                       required
                       onChange={handleInputChange}
