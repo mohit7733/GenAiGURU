@@ -19,7 +19,6 @@ import { country } from "../Country";
 
 const Payment = () => {
   const Location = useLocation();
-  // console.log(Location, "test2");
   const Navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
