@@ -138,7 +138,7 @@ const Settings = () => {
                       </Link>
                     </WithAuth>
                   </li>
-                  <li className={activeTab === 4 ? " active" : ""}>
+                  {/* <li className={activeTab === 4 ? " active" : ""}>
                     <WithAuth
                       callBack={(e) => {
                         handleTabClick(4);
@@ -158,7 +158,7 @@ const Settings = () => {
                         <span>Notification settings</span>
                       </Link>
                     </WithAuth>
-                  </li>
+                  </li> */}
                   <li className={activeTab === 5 ? " active" : ""}>
                     <Link
                       onClick={() => handleTabClick(5)}

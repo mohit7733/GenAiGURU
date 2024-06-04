@@ -12,7 +12,6 @@ const FeaturedContentPopup = (props) => {
     {
       id: 1,
       type: "Today",
-      
     },
     {
       id: 2,
@@ -27,31 +26,25 @@ const FeaturedContentPopup = (props) => {
     {
       id: 1,
       type: "Popular",
-      key:"popular",
+      key: "popular",
     },
     {
       id: 2,
       type: "Featured",
-      key:"featured",
+      key: "featured",
     },
     {
       id: 3,
       type: "Most read",
-      key:"most_viewed"
+      key: "most_viewed",
     },
   ];
   const selectSortType = (item) => {
     const { key } = item;
     // console.log( "selectSortType", type);
     setPopularity(key);
-
   };
   // console.log(popularity,"tteee")
-
-
-
-
-
 
   const Sortby = (item) => {
     const { type } = item;
@@ -78,7 +71,6 @@ const FeaturedContentPopup = (props) => {
       setCurrentDate(lastWeek);
     }
   };
-  // console.log(currentDate, sortby, "gghgt");
   const clearInputs = (e) => {
     e.preventDefault();
     setPopularity("");
@@ -87,7 +79,7 @@ const FeaturedContentPopup = (props) => {
     setYesterdayDate("");
   };
   const doneButton = () => {
-    props.Featuredpopup(popularity, sortby, currentDate);  
+    props.Featuredpopup(popularity, sortby, currentDate);
   };
   return (
     <div>

@@ -82,7 +82,7 @@ const Index = () => {
     }
   }, []);
 
-  // Get API for Popular articles 
+  // Get API for Popular articles
   useEffect(() => {
     axios
       .get(`${getBaseURL()}/featured-post?type=article&user_id=${userId}`, {
@@ -104,10 +104,10 @@ const Index = () => {
   //   navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}`);
 
   // };
-  const onArticleClick = (AricleID,titles) => {
-    const trimmedTitle = titles.trim(); 
+  const onArticleClick = (AricleID, titles) => {
+    const trimmedTitle = titles.trim();
     console.log("Trimmed title:", trimmedTitle);
-    const replacedTitle = trimmedTitle.replace(/\s+/g, '-');
+    const replacedTitle = trimmedTitle.replace(/\s+/g, "-");
     console.log("Replaced title:", replacedTitle);
     navigate(`${PATH_ARTICLE_DETAILS}?id=${AricleID}?title=${replacedTitle}`);
   };
@@ -172,7 +172,7 @@ const Index = () => {
                         className="wrap"
                         key={index}
                         onClick={() => {
-                          onArticleClick(article.id,article.title);
+                          onArticleClick(article.id, article.title);
                         }}
                       >
                         <figure>
@@ -183,17 +183,19 @@ const Index = () => {
                           />
                         </figure>
                         <div className="layer">
-                        {token && <span>
-                          {article.read == "no" && (
-                            <div className="price flex">
-                              <img
-                                src="app/images/orangeStrike.png"
-                                alt="Genaiguru orangeStrike"
-                              />
-                              {articlePoints}
-                            </div>
+                          {token && (
+                            <span>
+                              {article.read == "no" && (
+                                <div className="price flex">
+                                  <img
+                                    src="app/images/orangeStrike.png"
+                                    alt="Genaiguru orangeStrike"
+                                  />
+                                  {articlePoints}
+                                </div>
+                              )}
+                            </span>
                           )}
-                        </span>}
                           <h5>{article.title}</h5>
                           <div className="author-tag flex">
                             <div className="col_left">
@@ -235,7 +237,11 @@ const Index = () => {
                           title="Genaiguru featured article image"
                         />
                       </figure>
-                      <h5 onClick={() => onArticleClick(Article.id,Article.title)}>
+                      <h5
+                        onClick={() =>
+                          onArticleClick(Article.id, Article.title)
+                        }
+                      >
                         {Article.title}
                       </h5>
                       <ul>
