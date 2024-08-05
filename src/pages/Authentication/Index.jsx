@@ -134,7 +134,7 @@ const Index = () => {
       fetchBadges();
     }
   }, [userId]);
-
+  console.log(allArticles);
   return (
     <>
       {showPopUp && (
