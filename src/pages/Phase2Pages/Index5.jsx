@@ -10,9 +10,7 @@ import { getBaseURL } from "../../api/config";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-const token = JSON.parse(localStorage.getItem("token"))
-  ? JSON.parse(localStorage.getItem("token"))
-  : "";
+const token = JSON.parse(localStorage.getItem("token"));
 
 const Index5 = () => {
   const navigate = useNavigate();
@@ -159,10 +157,6 @@ const Index5 = () => {
   let string = selectOptions.map((data) => data.value);
   const chatGPTApi = async () => {
     // toSearch("");
-    if (token == "") {
-      window.location.reload();
-      return;
-    }
     setLoadingStatus(true);
     let message = `Give me a Title, Short Description(max 200 letters) and Description( min 500 words) based on 
     Interests:${string.slice(0, 3).join(", ")}
@@ -216,7 +210,6 @@ const Index5 = () => {
         console.error("Error chatGPTApi:", error.message);
       });
   };
-  console.log(token);
   const generateAIimage = async () => {
     try {
       const thumbnailPromise = axios.post(

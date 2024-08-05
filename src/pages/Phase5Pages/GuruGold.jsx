@@ -153,7 +153,7 @@ const GuruGold = () => {
                       <img className="profileImageTag" src={rankImage} />
                     </li>
                     {/* <Link to="/silver"> */}
-                    <Link  style={{cursor:"default"}}>
+                    <Link style={{ cursor: "default" }}>
                       <li>
                         <h3>
                           {/* {levelDetails} */}
@@ -260,14 +260,14 @@ const GuruGold = () => {
                         <p style={{ textAlign: "center", color: "white" }}>
                           {level.name}
                         </p>
-                        {completedIds.filter((a) => a == level.level)?.length ==
-                          0 && (
+                        {completedIds?.filter((a) => a == level.level)
+                          ?.length == 0 && (
                           <div className="blurImgIcons">
                             <img src={LockImage} />
                           </div>
                         )}
                         {currentID !== level.level &&
-                          completedIds.filter((a) => a == level.level)
+                          completedIds?.filter((a) => a == level.level)
                             ?.length == 0 && <div className="blursImgs"></div>}
                       </li>
                     );
@@ -369,7 +369,7 @@ const GuruGold = () => {
                       </figure>
                       <img className="profileImageTag" src={rankImage} />
                     </li>
-                    <Link >
+                    <Link>
                       <li>
                         <h3>
                           {/* {levelDetails} */}
@@ -476,14 +476,14 @@ const GuruGold = () => {
                         <p style={{ textAlign: "center", color: "white" }}>
                           {level.name}
                         </p>
-                        {completedIds.filter((a) => a == level.level)?.length ==
-                          0 && (
+                        {completedIds?.filter((a) => a == level.level)
+                          ?.length == 0 && (
                           <div className="blurImgIcons">
                             <img src={LockImage} />
                           </div>
                         )}
                         {currentID !== level.level &&
-                          completedIds.filter((a) => a == level.level)
+                          completedIds?.filter((a) => a == level.level)
                             ?.length == 0 && <div className="blursImgs"></div>}
                       </li>
                     );
